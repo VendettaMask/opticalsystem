@@ -1,0 +1,9 @@
+Unhandled exception. Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: -0.5
+Actual:   -0.20000000000000001
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.AfocalAxialAberrationTests.AfocalZonalPowerMatchesTheIndependentThinLensSlopeLaw(Double power, Boolean aiming, Double expectedScale) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AfocalAxialAberrationTests.cs:line 30
+   at Program.<>c__DisplayClass0_2.<<Main>$>b__3() in D:\Projects\opticalsystem\.tmp\afocal-axial-probe\Program.cs:line 12
+   at Program.<>c__DisplayClass0_0.<<Main>$>g__Check|0(String name, Action check) in D:\Projects\opticalsystem\.tmp\afocal-axial-probe\Program.cs:line 9
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\.tmp\afocal-axial-probe\Program.cs:line 12

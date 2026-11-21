@@ -1,0 +1,66 @@
+{
+  "Name": "Diffraction Encircled Energy",
+  "Values": {
+    "Status": "The declared pupil-sampling budget did not establish result convergence.",
+    "FourierSamplingValidation": {
+      "Protocol": "FourierPhysicalDomainConvergence/v1",
+      "Mode": 2,
+      "RequestedPupilSampling": 64,
+      "ReturnedPupilSampling": 0,
+      "MaximumPupilSampling": 512,
+      "RelativeRmsAccuracy": 0.001,
+      "AbsoluteAccuracy": 1E-07,
+      "Validated": false,
+      "Steps": [
+        {
+          "PupilSampling": 64,
+          "PhaseResolved": false,
+          "RelativeRmsChange": null,
+          "MaximumAbsoluteChange": null,
+          "UsesDensePhysicalPupil": false,
+          "MaximumPupilPhaseStepWaves": 1.935964797613777
+        },
+        {
+          "PupilSampling": 128,
+          "PhaseResolved": false,
+          "RelativeRmsChange": 0.030910064132416402,
+          "MaximumAbsoluteChange": 0.10641812551208779,
+          "UsesDensePhysicalPupil": false,
+          "MaximumPupilPhaseStepWaves": 1.596278591178618
+        },
+        {
+          "PupilSampling": 256,
+          "PhaseResolved": false,
+          "RelativeRmsChange": 0.011368895444496567,
+          "MaximumAbsoluteChange": 0.03925872225440197,
+          "UsesDensePhysicalPupil": false,
+          "MaximumPupilPhaseStepWaves": 1.0944700235121756
+        },
+        {
+          "PupilSampling": 512,
+          "PhaseResolved": false,
+          "RelativeRmsChange": 0.004453988512580442,
+          "MaximumAbsoluteChange": 0.013833625244649372,
+          "UsesDensePhysicalPupil": false,
+          "MaximumPupilPhaseStepWaves": 0.8855201430651878
+        }
+      ],
+      "Reason": "The declared pupil-sampling budget did not establish result convergence.",
+      "EvaluatedNominalPupilCells": 4177920,
+      "MaximumNominalPupilCells": 100000000,
+      "RequestedRelativeRmsDeviation": null,
+      "RequestedMaximumAbsoluteDeviation": null
+    }
+  },
+  "Series": null,
+  "SeriesList": null,
+  "PlotOptions": null,
+  "PlotPanes": null,
+  "PlotPaneColumns": 3,
+  "Table": null,
+  "ReportText": null,
+  "Outcome": 1,
+  "OutcomeReason": "The declared pupil-sampling budget did not establish result convergence.",
+  "ReportSections": null,
+  "PlotSeries": []
+}

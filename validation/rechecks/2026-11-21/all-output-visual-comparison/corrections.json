@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-21",
+  "entries": [
+    {
+      "id": "extended-source-area",
+      "sourceRelativePath": "Objectives/Double Gauss 28 degree field.zmx",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "analysis": "Extended Source Encircled Energy",
+      "image": "../extended-source-area/matched-source.png",
+      "evidence": "../extended-source-area/README.md",
+      "relatedImages": [
+        {"label": "查看修复后的默认方形源", "path": "../extended-source-area/default-source.png"}
+      ],
+      "statusLabel": "专项修复界面 · 已对齐光源",
+      "note": "本页左侧已更新为面积采样修复后的实际离屏界面，并按右侧原生 CFG 对齐 LETTERF.IMA 光源、完整源宽 19.79898987322333°、质心参照及最大距离 50000 µm；请求 100000 条光线，实际追迹 99750 条。历史左图使用 1.4° 均匀方形源，原图保留供查阅。该专项画面不再属于原默认设置对照；原生截图未重采，本页不声明完整光学精度验收。"
+    },
+    {
+      "id": "afocal-axial-aberration",
+      "sourceRelativePath": "Afocal/Afocal Riflescope.ZMX",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "analysis": "Axial Aberration",
+      "image": "../afocal-axial-aberration/riflescope-axial-fixed.png",
+      "evidence": "../afocal-axial-aberration/README.md",
+      "statusLabel": "专项修复界面 · 无焦屈光度",
+      "note": "左侧已更新为无焦轴向像差修复后的实际界面：按光线出射斜率与像面高度计算屈光度，横轴为 D，自动范围 ±0.5 D。此前把近准直光束换算成有限焦距，产生百万毫米范围和曲线极点；原图保留。三波长曲线形态、符号和量程已对照右侧历史原生图，并通过独立解析控制与 12 组定向断言。未进行新的原生逐点捕获或完整 95 镜头精度验收。"
+    },
+    {
+      "id": "afocal-lateral-color",
+      "sourceRelativePath": "Afocal/Afocal Riflescope.ZMX",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "analysis": "Lateral Color",
+      "image": "../afocal-lateral-color/lateral-color-native-range.png",
+      "evidence": "../afocal-lateral-color/README.md",
+      "relatedImages": [
+        {"label": "查看自动量程界面", "path": "../afocal-lateral-color/lateral-color-default.png"}
+      ],
+      "statusLabel": "专项修复界面 · 无焦角度色差",
+      "note": "左侧已改用末面局部出射方向角差及无焦艾里角参考，原先错误的像面截高 µm 图保留。产品横轴使用 mrad，右侧历史原生图使用角分；本页左图手动设为 ±0.2908882087 mrad，等效右图的 ±1 角分。色差最低点 −0.2806359652 mrad = −0.9647553830 角分，艾里参考 ±0.1778497287 mrad ≈ ±0.6114 角分。自动量程界面另附链接。该专项核对不包括新的原生逐点捕获或完整 95 镜头精度验收。"
+    }
+  ]
+}

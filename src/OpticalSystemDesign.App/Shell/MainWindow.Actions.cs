@@ -23,6 +23,7 @@ public sealed partial class MainWindow
     {
         _actions.Register("new", "新建空白系统", "文件", () => SwitchDocumentAsync(_application.Documents.NewBlank));
         RegisterSequentialExamples();
+        RegisterNonSequentialExamples();
         _actions.Register("open", "打开光学系统", "文件", OpenAsync);
         _actions.Register("import-zemax", "导入 Zemax ZMX", "文件", ImportZemaxAsync);
         _actions.Register("save-as", "保存项目", "文件", SaveProjectAsync);
@@ -50,6 +51,7 @@ public sealed partial class MainWindow
             () => SwitchWorkbenchModeAsync(OpticalWorkbenchMode.NonSequential));
         _actions.Register("show-system", "显示系统属性", "面板", () => _panels.Show(WorkspacePanelId.SystemProperties));
         _actions.Register("display-settings", "显示格式设置", "设置", ShowDisplaySettingsAsync);
+        _actions.Register("scale-lens", "镜头缩放", "设置", ShowLensScaleAsync);
         _actions.Register("performance-test", "性能检验", "诊断", ShowPerformanceTestAsync);
         _actions.Register("show-viewer", "显示系统视图", "面板", () => _panels.Show(WorkspacePanelId.Viewer));
         _actions.Register("show-viewer-2d", "显示二维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.TwoDimensional));

@@ -124,7 +124,9 @@ try
                 Path.GetFileName(item.Path));
             var projectPath = Path.Combine(projectsDirectory, $"{id}.staropt");
             await StarOptProjectStore.SaveAsync(
-                new StarOptProjectDocument(result.Configurations, result.ActiveConfigurationIndex),
+                new StarOptProjectDocument(result.Configurations, result.ActiveConfigurationIndex,
+                    BrokenLinks: result.BrokenLinks,
+                    OperandRows: result.OperandRows, OperandVariables: result.OperandVariables, OperandPickups: result.OperandPickups),
                 projectPath);
             entries.Add(LensLibraryCatalogEntryFactory.Create(
                 id,

@@ -272,7 +272,8 @@ internal static class DampedLeastSquaresSearch
         var variable = problem.Variables[column];
         var values = problem.VariableVectorFromScaled(origin);
         var current = values[column];
-        var span = Math.Max(1e-12, variable.UpperBound - variable.LowerBound);
+        var span = variable.UpperBound - variable.LowerBound;
+        if (span == 0) return 0;
         var physicalStep = Math.Clamp(
             Math.Max(
                 Math.Sqrt(2.2204460492503131e-16) * (1 + Math.Abs(current)),

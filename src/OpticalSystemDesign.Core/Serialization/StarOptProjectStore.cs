@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 22;
+    public const int ProjectFormatVersion = 28;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,14 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            RequiresNonSequentialPhysics(document.NonSequentialDocument) ? 22
+            RequiresNonSequentialSampling(document.NonSequentialDocument) ? 28
+                : RequiresAdditionalSurfaceVariables(document.Configurations) ? 27
+                : RequiresNonSequentialColor(document.NonSequentialDocument) ? 26
+                : document.Configurations.Any(optic => optic.LensLengthUnit != Domain.LensLengthUnit.Millimeter) ? 25
+                : RequiresExtendedVariables(document) ? 24
+                : document.Configurations.Any(optic => optic.SurfaceGroup.Items.Any(surface => surface.ShapeVariables.Count > 0))
+                || document.BrokenLinks?.Any(link => Services.SurfaceShapeParameters.IsShapeProperty(link.Property)) == true ? 23
+                : RequiresNonSequentialPhysics(document.NonSequentialDocument) ? 22
                 : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}) == true ? 21
                 : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}) == true ? 20
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol) == true ? 19
@@ -252,6 +259,16 @@ public static class StarOptProjectStore
         var configurations = project.Configurations
             .Select(Optic.FromSnapshot)
             .ToArray();
+        if (project.FormatVersion < 27 && RequiresAdditionalSurfaceVariables(configurations, includeBoundaryFlags: false))
+            throw new InvalidDataException("Additional surface variables and coordinate dependencies require STAROPT project version 27.");
+        if (project.FormatVersion < 25 && configurations.Any(optic => optic.LensLengthUnit != Domain.LensLengthUnit.Millimeter))
+            throw new InvalidDataException("Prescription units require STAROPT project version 25.");
+        if (project.FormatVersion < 24 && RequiresExtendedVariables(new(configurations, project.ActiveConfigurationIndex,
+            project.BrokenLinks, OperandRows: project.OperandRows)))
+            throw new InvalidDataException("Extended variable bindings and import diagnostics require STAROPT project version 24.");
+        if (project.FormatVersion < 23 && (configurations.Any(optic => optic.SurfaceGroup.Items.Any(surface => surface.ShapeVariables.Count > 0))
+            || project.BrokenLinks?.Any(link => Services.SurfaceShapeParameters.IsShapeProperty(link.Property)) == true))
+            throw new InvalidDataException("Surface shape variables require STAROPT project version 23.");
         ValidateBrokenLinks(project.BrokenLinks, configurations);
         if (project.FormatVersion < 5 && project.OperandRows is { Count: > 0 })
             throw new InvalidDataException("Multi-configuration operand rows require STAROPT project version 5.");
@@ -264,6 +281,10 @@ public static class StarOptProjectStore
         ValidateOperandPickups(project.OperandPickups, project.OperandVariables, project.OperandRows, configurations, project.BrokenLinks);
         var nonSequentialDocument = project.NonSequentialDocument
             ?? CreateDefaultNonSequentialDocument(configurations[project.ActiveConfigurationIndex]);
+        if (project.FormatVersion < 28 && RequiresNonSequentialSampling(nonSequentialDocument))
+            throw new InvalidDataException("Waveplate reflection selection and Sobol source sampling require STAROPT project version 28.");
+        if (project.FormatVersion < 26 && RequiresNonSequentialColor(nonSequentialDocument))
+            throw new InvalidDataException("NSC waveplates, explicit source spectra, null objects and color analyzers require STAROPT project version 26.");
         if (project.FormatVersion < 8 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf is not null))
             throw new InvalidDataException("Surface BSDF models require STAROPT project version 8.");
         if (project.FormatVersion < 9 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.Kind == NonSequentialBsdfKind.Measured))
@@ -309,6 +330,23 @@ public static class StarOptProjectStore
             project.BrokenLinks,
             nonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
     }
+
+    private static bool RequiresAdditionalSurfaceVariables(IReadOnlyList<Optic> configurations, bool includeBoundaryFlags = true) => configurations.Any(optic =>
+        optic.SurfaceGroup.Items.Any(surface => surface.Placement is not null || surface.ShapeVariables.Any(Services.SurfaceShapeParameters.IsAdditionalVariableName)
+            || includeBoundaryFlags && (surface.Number == 0 && surface.ThicknessVariable || surface.Number == optic.SurfaceGroup.Items.Count - 1 && surface.RadiusVariable)));
+
+    private static bool RequiresExtendedVariables(StarOptProjectDocument document) =>
+        document.Configurations.Any(optic => optic.ImportVariableWarnings.Count > 0 || optic.SurfaceGroup.Items.Any(surface => surface.BlockedVariableProperties.Count > 0))
+        || document.OperandRows?.Any(row => row.Kind is MultiConfigurationOperandKind.ShapeCoefficient or MultiConfigurationOperandKind.GradientIndexCoefficient) == true
+        || document.BrokenLinks?.Any(link => Services.GradientIndexParameters.IsGradientProperty(link.Property)) == true;
+
+    private static bool RequiresNonSequentialSampling(NonSequentialDocument? document) => document?.Objects.Any(o =>
+        o.Parameters.Waveplate is { TraceReflections: false } || o.Parameters is SourceParameters { Physics.UseSobolSampling: true }) == true;
+
+    private static bool RequiresNonSequentialColor(NonSequentialDocument? document) => document?.Objects.Any(o =>
+        o.Parameters.Waveplate is not null || o.Parameters is NullObjectParameters
+            or SourceParameters { Physics.Spectrum: not null } or DetectorRectangleParameters { RecordColor: true }
+            or DetectorRectangleParameters { PolarizationComponent: not 0 }) == true;
 
     private static bool RequiresNonSequentialPhysics(NonSequentialDocument? document) => document is not null &&
         (document.TraceSettings.UsePolarization || document.TraceSettings.CoherentDetection
@@ -508,7 +546,8 @@ public static class StarOptProjectStore
         {
             if (link.ConfigurationIndex <= 0 || link.ConfigurationIndex >= configurations.Count
                 || string.IsNullOrWhiteSpace(link.Property)
-                || link.Property.Trim().ToLowerInvariant() is not ("radius" or "thickness" or "conic" or "material" or "semidiameter")
+                || (link.Property.Trim().ToLowerInvariant() is not ("radius" or "thickness" or "conic" or "material" or "semidiameter")
+                    && !Services.SurfaceShapeParameters.IsShapeProperty(link.Property) && !Services.GradientIndexParameters.IsGradientProperty(link.Property))
                 || configurations[0].SurfaceGroup.Items.All(
                     surface => surface.Number != link.SurfaceNumber)
                 || configurations[link.ConfigurationIndex].SurfaceGroup.Items.All(

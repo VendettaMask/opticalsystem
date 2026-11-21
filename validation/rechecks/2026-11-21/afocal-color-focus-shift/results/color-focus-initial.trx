@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="09bdcac3-718f-487e-b75a-b6434e971a97" name="allen@DESKTOP-SET3SNR 2026-11-21 18:56:33" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-21T18:56:33.8429973+08:00" queuing="2026-11-21T18:56:33.8429981+08:00" start="2026-11-21T18:56:29.1305181+08:00" finish="2026-11-21T18:56:35.2798959+08:00" />
+  <TestSettings name="default" id="8fc27063-4ac9-403f-8820-22722f5458d4">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-21_18_56_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7e697b85-7f06-46ca-ad0a-1a58aacab069" testId="4667839e-d6ef-7ffc-c1c4-e92e964edaf2" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.FocusedCookeRetainsItsExistingMicrometerCurveAndSummary(zone: 0.5, first: -87.977088835145693, middle: -74.693203372175134, last: -20.984604121591673, maximumChange: 71.832335389812428)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0273160" startTime="2026-11-21T18:56:33.7502947+08:00" endTime="2026-11-21T18:56:33.7775701+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e697b85-7f06-46ca-ad0a-1a58aacab069" />
+    <UnitTestResult executionId="ac6e5ea9-3c64-4a1c-bf0e-d2c6103610d1" testId="3a7cacd5-0168-78ed-41d2-87cce2fd18a0" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalFullyBlockedZoneIsUnavailableInsteadOfReportingZeroChange" computerName="DESKTOP-SET3SNR" duration="00:00:00.1769422" startTime="2026-11-21T18:56:33.5463334+08:00" endTime="2026-11-21T18:56:33.7154640+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac6e5ea9-3c64-4a1c-bf0e-d2c6103610d1" />
+    <UnitTestResult executionId="d39f412e-cb16-41b1-849a-d0658aa529f6" testId="3265211d-e8c6-2f5c-05ef-bf8a87814f19" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.GeneratesContinuousWavelengthVersusFocusShiftCurve" computerName="DESKTOP-SET3SNR" duration="00:00:00.0092055" startTime="2026-11-21T18:56:33.7379880+08:00" endTime="2026-11-21T18:56:33.7471642+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d39f412e-cb16-41b1-849a-d0658aa529f6" />
+    <UnitTestResult executionId="11ba3fb0-9c7c-44f9-877d-3a9b4aca3975" testId="fa594deb-cb60-3967-bb77-147da38f768a" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalRiflescopeUsesRelativeVergenceAndStaysContinuousThroughCollimation" computerName="DESKTOP-SET3SNR" duration="00:00:00.0105486" startTime="2026-11-21T18:56:33.7777475+08:00" endTime="2026-11-21T18:56:33.7882504+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11ba3fb0-9c7c-44f9-877d-3a9b4aca3975" />
+    <UnitTestResult executionId="33e64c0e-eebd-4c12-a24d-d34b39d63ba1" testId="5c0ee1c7-5d08-07b2-a145-1834a9f04540" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.HonorsMaximumShiftAndPupilZoneSettings" computerName="DESKTOP-SET3SNR" duration="00:00:00.0243838" startTime="2026-11-21T18:56:33.7884788+08:00" endTime="2026-11-21T18:56:33.8129531+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33e64c0e-eebd-4c12-a24d-d34b39d63ba1" />
+    <UnitTestResult executionId="25f03e76-03be-425b-9acf-36331bac4d9a" testId="eb7f68e9-cfbf-36fb-2bef-70eacce609fa" testName="OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(afocal: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2362599" startTime="2026-11-21T18:56:34.8903055+08:00" endTime="2026-11-21T18:56:35.1199886+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25f03e76-03be-425b-9acf-36331bac4d9a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.Caption(AnalysisViewDto view) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs:line 64&#xD;
+   at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.&lt;&gt;c__DisplayClass0_0.&lt;RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs:line 48&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(Boolean afocal) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c80a042c-d18f-43b4-b37f-534ce94fbee1" testId="93f1f7d2-3112-a245-2b0e-9fbf4024b05d" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalNonzeroZoneUsesRealRayVergenceWithTheParaxialPrimaryReference" computerName="DESKTOP-SET3SNR" duration="00:00:01.0157228" startTime="2026-11-21T18:56:32.5441340+08:00" endTime="2026-11-21T18:56:33.5381580+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c80a042c-d18f-43b4-b37f-534ce94fbee1" />
+    <UnitTestResult executionId="c58ece8a-7406-4383-a3a5-71d4c1d1bd6a" testId="b2a0a846-9b68-3beb-a495-67ca8a6dce6d" testName="OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(afocal: False)" computerName="DESKTOP-SET3SNR" duration="00:00:01.0532447" startTime="2026-11-21T18:56:33.8249519+08:00" endTime="2026-11-21T18:56:34.8822997+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c58ece8a-7406-4383-a3a5-71d4c1d1bd6a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.Caption(AnalysisViewDto view) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs:line 64&#xD;
+   at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.&lt;&gt;c__DisplayClass0_0.&lt;RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs:line 48&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(Boolean afocal) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c108edf4-698b-43ef-83f3-94ee7269ba96" testId="e5955411-4572-17ec-9f66-efd668f9db4a" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalExactlyParallelOutputIsValidZeroVergence" computerName="DESKTOP-SET3SNR" duration="00:00:00.0073755" startTime="2026-11-21T18:56:33.7170170+08:00" endTime="2026-11-21T18:56:33.7229987+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c108edf4-698b-43ef-83f3-94ee7269ba96" />
+    <UnitTestResult executionId="00f1d369-e68e-4c81-96f4-37550b77f6b6" testId="e4e1dcb1-3814-bdc7-3950-1fa83a2375f3" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.FocusedCookeRetainsItsExistingMicrometerCurveAndSummary(zone: 0, first: -13.12940411083531, middle: 8.0589217779632918, last: 66.156299173856212, maximumChange: 81.704483770666826)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0028018" startTime="2026-11-21T18:56:33.7474680+08:00" endTime="2026-11-21T18:56:33.7501220+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00f1d369-e68e-4c81-96f4-37550b77f6b6" />
+    <UnitTestResult executionId="f9b2714a-a7be-4c2b-abec-290b77964356" testId="fa5d21dd-e0b7-67e8-1469-560f05180e88" testName="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalPrimaryParaxialWavelengthIsZeroAndManualScaleUsesDiopters" computerName="DESKTOP-SET3SNR" duration="00:00:00.0145114" startTime="2026-11-21T18:56:33.7232531+08:00" endTime="2026-11-21T18:56:33.7377004+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9b2714a-a7be-4c2b-abec-290b77964356" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.HonorsMaximumShiftAndPupilZoneSettings" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5c0ee1c7-5d08-07b2-a145-1834a9f04540">
+      <Execution id="33e64c0e-eebd-4c12-a24d-d34b39d63ba1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="HonorsMaximumShiftAndPupilZoneSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalFullyBlockedZoneIsUnavailableInsteadOfReportingZeroChange" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3a7cacd5-0168-78ed-41d2-87cce2fd18a0">
+      <Execution id="ac6e5ea9-3c64-4a1c-bf0e-d2c6103610d1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="AfocalFullyBlockedZoneIsUnavailableInsteadOfReportingZeroChange" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.GeneratesContinuousWavelengthVersusFocusShiftCurve" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3265211d-e8c6-2f5c-05ef-bf8a87814f19">
+      <Execution id="d39f412e-cb16-41b1-849a-d0658aa529f6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="GeneratesContinuousWavelengthVersusFocusShiftCurve" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalRiflescopeUsesRelativeVergenceAndStaysContinuousThroughCollimation" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fa594deb-cb60-3967-bb77-147da38f768a">
+      <Execution id="11ba3fb0-9c7c-44f9-877d-3a9b4aca3975" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="AfocalRiflescopeUsesRelativeVergenceAndStaysContinuousThroughCollimation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalNonzeroZoneUsesRealRayVergenceWithTheParaxialPrimaryReference" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="93f1f7d2-3112-a245-2b0e-9fbf4024b05d">
+      <Execution id="c80a042c-d18f-43b4-b37f-534ce94fbee1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="AfocalNonzeroZoneUsesRealRayVergenceWithTheParaxialPrimaryReference" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.FocusedCookeRetainsItsExistingMicrometerCurveAndSummary(zone: 0, first: -13.12940411083531, middle: 8.0589217779632918, last: 66.156299173856212, maximumChange: 81.704483770666826)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e4e1dcb1-3814-bdc7-3950-1fa83a2375f3">
+      <Execution id="00f1d369-e68e-4c81-96f4-37550b77f6b6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="FocusedCookeRetainsItsExistingMicrometerCurveAndSummary" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(afocal: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="eb7f68e9-cfbf-36fb-2bef-70eacce609fa">
+      <Execution id="25f03e76-03be-425b-9acf-36331bac4d9a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests" name="RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.FocusedCookeRetainsItsExistingMicrometerCurveAndSummary(zone: 0.5, first: -87.977088835145693, middle: -74.693203372175134, last: -20.984604121591673, maximumChange: 71.832335389812428)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4667839e-d6ef-7ffc-c1c4-e92e964edaf2">
+      <Execution id="7e697b85-7f06-46ca-ad0a-1a58aacab069" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="FocusedCookeRetainsItsExistingMicrometerCurveAndSummary" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalPrimaryParaxialWavelengthIsZeroAndManualScaleUsesDiopters" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fa5d21dd-e0b7-67e8-1469-560f05180e88">
+      <Execution id="f9b2714a-a7be-4c2b-abec-290b77964356" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="AfocalPrimaryParaxialWavelengthIsZeroAndManualScaleUsesDiopters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(afocal: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b2a0a846-9b68-3beb-a495-67ca8a6dce6d">
+      <Execution id="c58ece8a-7406-4383-a3a5-71d4c1d1bd6a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests" name="RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests.AfocalExactlyParallelOutputIsValidZeroVergence" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e5955411-4572-17ec-9f66-efd668f9db4a">
+      <Execution id="c108edf4-698b-43ef-83f3-94ee7269ba96" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ColorFocusShiftAnalysisTests" name="AfocalExactlyParallelOutputIsValidZeroVergence" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4667839e-d6ef-7ffc-c1c4-e92e964edaf2" executionId="7e697b85-7f06-46ca-ad0a-1a58aacab069" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a7cacd5-0168-78ed-41d2-87cce2fd18a0" executionId="ac6e5ea9-3c64-4a1c-bf0e-d2c6103610d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3265211d-e8c6-2f5c-05ef-bf8a87814f19" executionId="d39f412e-cb16-41b1-849a-d0658aa529f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa594deb-cb60-3967-bb77-147da38f768a" executionId="11ba3fb0-9c7c-44f9-877d-3a9b4aca3975" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5c0ee1c7-5d08-07b2-a145-1834a9f04540" executionId="33e64c0e-eebd-4c12-a24d-d34b39d63ba1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb7f68e9-cfbf-36fb-2bef-70eacce609fa" executionId="25f03e76-03be-425b-9acf-36331bac4d9a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93f1f7d2-3112-a245-2b0e-9fbf4024b05d" executionId="c80a042c-d18f-43b4-b37f-534ce94fbee1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2a0a846-9b68-3beb-a495-67ca8a6dce6d" executionId="c58ece8a-7406-4383-a3a5-71d4c1d1bd6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5955411-4572-17ec-9f66-efd668f9db4a" executionId="c108edf4-698b-43ef-83f3-94ee7269ba96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4e1dcb1-3814-bdc7-3950-1fa83a2375f3" executionId="00f1d369-e68e-4c81-96f4-37550b77f6b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa5d21dd-e0b7-67e8-1469-560f05180e88" executionId="f9b2714a-a7be-4c2b-abec-290b77964356" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="11" executed="11" passed="9" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.41]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.97]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.00]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:05.40]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:05.40]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.40]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:05.40]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:05.40]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs(64,0): at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.Caption(AnalysisViewDto view)&#xD;
+[xUnit.net 00:00:05.40]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs(48,0): at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.&lt;&gt;c__DisplayClass0_0.&lt;RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults&gt;b__0()&#xD;
+[xUnit.net 00:00:05.40]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.40]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.40]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.40]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.40]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs(26,0): at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(Boolean afocal)&#xD;
+[xUnit.net 00:00:05.40]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.63]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:05.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.63]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:05.63]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:05.63]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs(64,0): at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.Caption(AnalysisViewDto view)&#xD;
+[xUnit.net 00:00:05.63]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs(48,0): at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.&lt;&gt;c__DisplayClass0_0.&lt;RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults&gt;b__0()&#xD;
+[xUnit.net 00:00:05.63]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.63]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ColorFocusShiftPresentationTests.cs(26,0): at OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(Boolean afocal)&#xD;
+[xUnit.net 00:00:05.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.64]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T18:56:34.8862038+08:00">
+        <Text>[xUnit.net 00:00:05.39]     OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(afocal: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T18:56:35.1206688+08:00">
+        <Text>[xUnit.net 00:00:05.63]     OpticalSystemDesign.Tests.ColorFocusShiftPresentationTests.RuntimePreservesPhysicalUnitsAndFooterUsesUnroundedTypedResults(afocal: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

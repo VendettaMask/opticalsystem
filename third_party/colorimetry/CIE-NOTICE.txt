@@ -1,0 +1,25 @@
+CIE 2019, Colour-matching functions of CIE 1931 standard colorimetric observer,
+International Commission on Illumination (CIE), Vienna, AT.
+DOI: https://doi.org/10.25039/CIE.DS.xvudnb9b
+Source: https://cie.co.at/datatable/cie-1931-colour-matching-functions-2-degree-observer
+CSV: https://files.cie.co.at/Publications-datasets/CIE_xyz_1931_2deg.csv
+Metadata: https://files.cie.co.at/Publications-datasets/CIE_xyz_1931_2deg.csv_metadata.json
+
+The original data are distributed unchanged under Creative Commons
+Attribution-ShareAlike 4.0 International, as specified in the accompanying
+official metadata. License: https://creativecommons.org/licenses/by-sa/4.0/
+The complete license is included in CIE-LICENSE.html. No endorsement is implied.
+
+Original CSV checksum, verified 2026-11-21:
+MD5: 17cca777db64b17170f06f67ce9d3ab7
+SHA-256: fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1
+The bytes were obtained from the unchanged reference copy at
+https://raw.githubusercontent.com/mikaelsundell/colortool/master/resources/CIE_xyz_1931_2deg.csv
+and verified against BOTH checksums in the CIE's official metadata.
+
+Runtime interpolation follows the official metadata: linear interpolation,
+zero outside 360-830 nm. This does not modify the distributed source table.
+XYZ-to-display sRGB uses the matrix and transfer function published by ICC:
+https://registry.color.org/rgb-registry/files/sRGB.pdf
+Display exposure uses the shared peak of all linear RGB channels; negative/out-of-gamut channels
+are clipped. Detector watts and numerical exports are not exposure-scaled.

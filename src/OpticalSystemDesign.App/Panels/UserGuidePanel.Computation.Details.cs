@@ -27,7 +27,11 @@ public sealed partial class UserGuidePanel
             S("瞄准与失败样本", "Aiming and failed samples", "照準と失敗サンプル",
                 "光线瞄准求解使光线到达指定的实际光阑坐标，不能把入口瞳坐标直接当作所有系统的光阑交点。主光线、边界及积分光线有不同用途；失败、无交点、全反射和裁剪应保留原因。CPU/GPU 比较需保持相同节点、双精度、瞄准策略和失效判定。",
                 "Aiming solves for the actual requested stop coordinate; entrance-pupil coordinates are not universal stop intersections. Chief, boundary and integration rays serve different roles. Preserve miss, TIR, clipping and aiming-failure reasons. CPU/GPU comparisons require identical nodes, precision, aiming policy and validity checks.",
-                "照準は実絞りの指定座標へ到達する光線を解きます。入射瞳座標を常に絞り交点とみなすことはできません。主光線・境界・積分光線の役割を区別し、交差失敗、全反射、遮光、照準失敗の理由を保持します。CPU/GPU 比較は節点と判定条件を統一します。"));
+                "照準は実絞りの指定座標へ到達する光線を解きます。入射瞳座標を常に絞り交点とみなすことはできません。主光線・境界・積分光線の役割を区別し、交差失敗、全反射、遮光、照準失敗の理由を保持します。CPU/GPU 比較は節点と判定条件を統一します。"),
+            S("分析中的瞄准策略", "Aiming policies in analyses", "解析の照準方針",
+                "工程的瞄准状态应贯穿常规光瞳采样、主光线参考和派生计算，不能在离焦扫描、实像高转换、几何 MTF 或辐射度计算中隐式关闭。离焦扫描保持输入光瞳节点与权重，在各扫描位置重新求交并判定有效性；真实渐晕继续生效。显示约定不改变瞄准状态。显式单光线选项、专用光阑积分及几何参考探针遵循各自定义。比较结果时既要核对采样与瞄准，也要核对统计参考、归一化和透过权重。",
+                "The project's aiming state must propagate through ordinary pupil sampling, chief-ray references and derived calculations rather than silently switching off in defocus scans, real-image-height conversion, geometric MTF or radiometry. Defocus scans retain input pupil nodes and weights, intersect rays and evaluate validity at each scan position, and preserve real vignetting. Presentation conventions do not change aiming. Explicit single-ray options, specialized stop integrals and geometric reference probes follow their own definitions. Comparisons must match sampling and aiming as well as statistical reference, normalization and transmission weights.",
+                "工程の照準状態は通常の瞳サンプリング、主光線基準、派生計算へ継承し、デフォーカス走査、実像高変換、幾何 MTF、放射量計算で暗黙に無効化しません。走査では入力瞳の節点と重みを保持し、各走査位置で交差と有効性を評価し、実際のケラレを保持します。表示規約は照準状態を変えません。単一光線の明示設定、専用絞り積分、幾何基準プローブは各定義に従います。比較ではサンプリングと照準に加え、統計基準、正規化、透過重みを確認します。"));
 
         yield return Calculation("seidel-field", "Seidel、场曲、畸变与色差", "Seidel, field curvature, distortion and color", "Seidel・像面湾曲・歪曲・色収差",
             "区分三阶展开系数、实光线焦点与像高误差。", "Distinguish third-order coefficients, real-ray focus and image-height errors.", "三次展開係数、実光線焦点、像高誤差を区別します。",
@@ -40,7 +44,11 @@ public sealed partial class UserGuidePanel
                 "场曲根据子午/弧矢方向焦点相对参考像面的偏移评价；畸变比较实际主光线像高与所选参考像高，参考为零时使用专门的轴上处理，不直接除零。色焦移扫描波长，垂轴色差比较波长间像高，轴向像差随光瞳位置比较轴向交会。网格畸变把同一映射扩展到二维；这些量不能互称 RMS 或 MTF。",
                 "Field curvature compares tangential/sagittal focus with the reference image plane. Distortion compares actual chief-ray height with the selected reference, using a defined on-axis treatment instead of division by zero. Color focus scans wavelength, lateral color compares image heights, and axial aberration scans pupil intersections. Grid distortion extends the mapping to 2D.",
                 "像面湾曲は子午・サジタル焦点の基準面からの偏差です。歪曲は主光線像高と選択基準を比較し、基準ゼロには軸上処理を使います。色焦移は波長走査、倍率色収差は像高差、軸収差は瞳位置別の軸交点です。格子歪曲は同じ写像を二次元に拡張します。") with
-            { Formula = "distortion" });
+            { Formula = "distortion" },
+            S("无焦系统的色焦移", "Chromatic focal shift in afocal systems", "アフォーカル系の色焦点移動",
+                "有焦像方用 µm 表示相对主波长近轴焦点的距离差。无焦像方先由每个波长的出射斜率与光线高度求有符号屈光度，再减去主波长近轴屈光度，横轴和最大漂移使用 D；不能先计算焦距差再取倒数。接近平行出射时屈光度平滑经过零，不应出现焦距极点。光瞳区域为零时使用近轴光线；非零时先分别转换正、负区域的有效真实光线再平均，参考仍为主波长近轴值。无有效区域光线时报告不可用。当前沿用轴上 Y 截线定义，未提供一般非轴对称系统的完整二维光焦度求解。",
+                "Focused image space reports distance from the primary paraxial focus in µm. Afocal image space first converts each wavelength's output slope and ray height to signed vergence, then subtracts the primary paraxial vergence. The axis and Maximum Shift use D; do not invert a focal-distance difference. Collimated output passes smoothly through zero vergence. A zero pupil zone uses paraxial rays; nonzero zones convert valid positive and negative real rays separately before averaging, retaining the primary paraxial reference. No valid zonal rays means unavailable. The existing on-axis Y-section definition is retained; this is not a general 2D power calculation for non-axisymmetric systems.",
+                "有焦点の像側では主波長の近軸焦点からの距離差を µm で表示します。アフォーカル像側では各波長の出射傾きと光線高を符号付きバージェンスへ変換してから、主波長の近軸値を引きます。横軸と最大移動量の単位は D です。焦点距離差の逆数は使用しません。平行出射はゼロを滑らかに通過します。瞳ゾーンゼロでは近軸光線、非ゼロでは有効な正負の実光線を各々変換して平均し、主波長の近軸値を基準とします。有効光線がなければ利用不可とします。既存の軸上 Y 断面定義を保持し、一般的な非軸対称系の二次元光学パワー計算は行いません。"));
 
         yield return Calculation("zernike", "Zernike 系数怎样拟合", "How Zernike coefficients are fitted", "Zernike 係数のフィッティング",
             "拟合基底和采样域决定系数含义，编号不能跨定义混用。", "Basis and sampling domain define coefficients; numbering is not interchangeable.", "基底と領域で係数の意味が決まり、番号を異なる定義で混用できません。",

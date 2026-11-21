@@ -552,7 +552,8 @@ internal static class PsfProfilePresentation
             item => item.Key,
             item => item.Value);
         values["Spread"] = spread;
-        values["GraphScaleMicrometers"] = graphScaleMicrometers;
+        values["GraphScaleMicrometers"] = heatmap.XUnit == AnalysisAxisUnit.Milliradian ? 0 : graphScaleMicrometers;
+        values["GraphScaleMilliradians"] = heatmap.XUnit == AnalysisAxisUnit.Milliradian ? graphScaleMicrometers : 0;
         values["ProfileType"] = profileType;
         values["UseCoherentPsf"] = useCoherentPsf;
         double? xMinimum = graphScaleMicrometers > 0 ? -graphScaleMicrometers : null;

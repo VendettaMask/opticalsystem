@@ -19,6 +19,8 @@ public sealed partial class OpticalSurface : NotifyObject
     private double _thickness = 1.0;
     private string _material = "Air";
     private string _coating = "None";
+    private string? _surfaceColor;
+    private SurfaceDrawingOptions _drawing = SurfaceDrawingOptions.Default;
     private double _semiDiameter = 10.0;
     private double _chipZone;
     private double? _mechanicalSemiDiameter;
@@ -31,6 +33,8 @@ public sealed partial class OpticalSurface : NotifyObject
     private bool _isStop;
     private bool _radiusVariable;
     private bool _thicknessVariable;
+    private IReadOnlyList<string> _shapeVariables = Array.Empty<string>();
+    private IReadOnlyList<string> _blockedVariableProperties = Array.Empty<string>();
     private bool _synchronizingGeometry;
     private IGeometry _geometry = new PlaneGeometry();
     private IMaterial _materialBefore = new AirMaterial();
@@ -40,6 +44,13 @@ public sealed partial class OpticalSurface : NotifyObject
     private IPhysicalAperture? _physicalAperture;
     private IScatteringModel? _scatteringModel;
     private CoordinateSystem _coordinateSystem = CoordinateSystem.Global;
+    private SequentialSurfacePlacement? _placement;
+
+    public SequentialSurfacePlacement? Placement
+    {
+        get => _placement;
+        set => SetProperty(ref _placement, value);
+    }
 
     public int Number
     {
@@ -95,6 +106,19 @@ public sealed partial class OpticalSurface : NotifyObject
                 ? new NoneCoatingModel()
                 : new ApproximateTransmissionRippleCoating(new[] { new ThinFilmLayer(normalized, 120) });
         }
+    }
+
+    /// <summary>Optional #RRGGBB display color; does not affect optical properties.</summary>
+    public string? SurfaceColor
+    {
+        get => _surfaceColor;
+        set => SetProperty(ref _surfaceColor, SurfaceDisplayColor.Normalize(value));
+    }
+
+    public SurfaceDrawingOptions Drawing
+    {
+        get => _drawing;
+        set => SetProperty(ref _drawing, (value ?? SurfaceDrawingOptions.Default).Validated());
     }
 
     public double SemiDiameter
@@ -236,6 +260,26 @@ public sealed partial class OpticalSurface : NotifyObject
         set => SetProperty(ref _thicknessVariable, value);
     }
 
+    public IReadOnlyList<string> ShapeVariables
+    {
+        get => _shapeVariables;
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            var names = value.ToArray();
+            if (names.Length > 4096 || names.Distinct(StringComparer.Ordinal).Count() != names.Length
+                || names.Any(name => !Services.SurfaceShapeParameters.IsVariableName(name)))
+                throw new ArgumentException("Invalid or duplicate surface shape variable identity.", nameof(value));
+            SetProperty(ref _shapeVariables, Array.AsReadOnly(names));
+        }
+    }
+
+    public IReadOnlyList<string> BlockedVariableProperties
+    {
+        get => _blockedVariableProperties;
+        set { ArgumentNullException.ThrowIfNull(value); SetProperty(ref _blockedVariableProperties, Array.AsReadOnly(value.Distinct(StringComparer.Ordinal).ToArray())); }
+    }
+
     public bool IsPlane => Math.Abs(Radius) < 1e-9;
 
     public IGeometry Geometry
@@ -247,6 +291,12 @@ public sealed partial class OpticalSurface : NotifyObject
             if (SetGeometry(value))
             {
                 SynchronizeLegacyParametersFromGeometry(value);
+                if (_shapeVariables.Count > 0)
+                {
+                    var coefficients = Services.SurfaceShapeParameters.CoefficientNames(this);
+                    var retained = _shapeVariables.Where(name => name == "conic" || coefficients.Contains(name)).ToArray();
+                    if (retained.Length != _shapeVariables.Count) ShapeVariables = retained;
+                }
             }
         }
     }
@@ -430,6 +480,10 @@ public sealed partial class OpticalSurface : NotifyObject
                     grating.GratingPeriodMicrometers,
                     grating.GrooveOrientationAngleRadians),
                 EvenAsphereGeometry even => new EvenAsphereGeometry(Radius, Conic, even.Coefficients),
+                FringeSagGeometry fringe => new FringeSagGeometry(Radius, Conic, fringe.Base.Coefficients,
+                    fringe.NormalizationRadius, fringe.FringeCoefficients, fringe.DecenterX, fringe.DecenterY, fringe.Extrapolate),
+                ChebyshevSagGeometry chebyshev => new ChebyshevSagGeometry(Radius, chebyshev.MaximumXOrder, chebyshev.MaximumYOrder,
+                    chebyshev.NormalizationX, chebyshev.NormalizationY, chebyshev.NormalizedCoefficients),
                 ConcentricZoneGeometry zones => new ConcentricZoneGeometry(Radius, Conic, zones.Inner.Coefficients,
                     zones.Outer.Base.Radius, zones.Outer.Base.Conic, zones.Outer.Coefficients, zones.BoundaryRadius, zones.BreakSag),
                 IrregularGeometry irregular => new IrregularGeometry(Radius, Conic, irregular.NormalizationRadius,
@@ -519,6 +573,8 @@ public sealed partial class OpticalSurface : NotifyObject
                 StandardGratingGeometry grating => (grating.Base.Radius, grating.Base.Conic),
                 PlaneGeometry or PlaneGratingGeometry => (0.0, 0.0),
                 EvenAsphereGeometry even => (even.Base.Radius, even.Base.Conic),
+                FringeSagGeometry fringe => (fringe.Base.Base.Radius, fringe.Base.Base.Conic),
+                ChebyshevSagGeometry chebyshev => (chebyshev.Base.Radius, 0.0),
                 ConcentricZoneGeometry zones => (zones.Inner.Base.Radius, zones.Inner.Base.Conic),
                 IrregularGeometry irregular => (irregular.Base.Radius, irregular.Base.Conic),
                 GridSagGeometry grid => (grid.Base.Base.Radius, grid.Base.Base.Conic),
@@ -595,6 +651,9 @@ public sealed partial class OpticalSurface : NotifyObject
             RadiusVariable = RadiusVariable,
             ThicknessVariable = ThicknessVariable,
             Geometry = Geometry.Clone(),
+            ShapeVariables = ShapeVariables,
+            BlockedVariableProperties = BlockedVariableProperties,
+            Placement = Placement,
             MaterialBefore = MaterialBefore.Clone(),
             MaterialAfter = MaterialAfter.Clone(),
             CoatingModel = CoatingModel.Clone(),

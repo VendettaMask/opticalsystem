@@ -35,6 +35,10 @@ public sealed class MaterialAnalysisPanel : UserControl
         VerticalAlignment = VerticalAlignment.Stretch
     };
     private readonly StackPanel _details = new() { Spacing = 8 };
+    private readonly CheckBox _showAllAthermal = new()
+    {
+        Name = "AthermalShowAllRange", Content = "显示全部范围", MinHeight = 34
+    };
     private readonly TextBlock _status = new()
     {
         TextWrapping = TextWrapping.Wrap,
@@ -91,6 +95,13 @@ public sealed class MaterialAnalysisPanel : UserControl
                 ? "参考玻璃"
                 : "玻璃",
             _glass));
+        if (_kind == MaterialAnalysisKind.AthermalGlassMap)
+        {
+            ToolTip.SetTip(_showAllAthermal, "默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。" );
+            Avalonia.Automation.AutomationProperties.SetName(_showAllAthermal, "显示全部范围");
+            _showAllAthermal.IsCheckedChanged += (_, _) => RefreshAnalysis();
+            toolbar.Children.Add(new Border { Margin = new Thickness(8, 18, 8, 0), Child = _showAllAthermal });
+        }
         if (_kind == MaterialAnalysisKind.InternalTransmission)
         {
             toolbar.Children.Add(Field("厚度 (mm)", _thickness));
@@ -141,7 +152,8 @@ public sealed class MaterialAnalysisPanel : UserControl
         Content = MaterialLibraryPanel.DatabasePage(
             Title(kind),
             Summary(kind),
-            content);
+            content,
+            showHeader: kind != MaterialAnalysisKind.DispersionDiagram);
         RefreshAnalysis();
     }
 
@@ -188,6 +200,9 @@ public sealed class MaterialAnalysisPanel : UserControl
                 selected.QualifiedName,
                 (double)(_thickness.Value ?? 10m)));
             _plot.PlotOptions = result.PlotOptions;
+            if (_kind == MaterialAnalysisKind.AthermalGlassMap && _showAllAthermal.IsChecked == true)
+                _plot.PlotOptions = result.PlotOptions with
+                { XMinimum = null, XMaximum = null, YMinimum = null, YMaximum = null };
             _plot.Series = result.Series;
             UpdateDetails(result);
             _status.Text = result.Series.SelectMany(series => series.Points).Any()

@@ -83,15 +83,18 @@ public sealed class OpticalTestingPropagationTests
     public async Task NonzeroCoordinateBreakPropagationRetainsNativeFirstOrderPower()
     {
         var imported = await Import("Mach Zender Interferometer");
-        foreach (var model in imported.Configurations)
+        foreach (var (model, configuration) in imported.Configurations.Select((model, configuration) => (model, configuration)))
             foreach (var optic in new[] { model, Optic.FromSnapshot(model.ToSnapshot()) })
             {
-                Assert.Equal(17, optic.SurfaceGroup.Items.Count);
+                // Live coordinate variables retain the original coordinate rows instead of folding them away.
+                Assert.Equal(21, optic.SurfaceGroup.Items.Count);
                 Assert.Equal(-1.7380276116030424, optic.Paraxial.EstimateEffectiveFocalLength(), 11);
                 Assert.Equal(.3476055223206085, optic.Paraxial.EstimateFNumber(), 11);
                 var table = (double[][])new SingleRayTraceAnalysis(optic, useRayAiming: false).GenerateData().Values["RealRayData"];
-                Assert.InRange(Math.Abs(table[7][10] - 45), 0, 1e-6);
-                Assert.InRange(Math.Abs(table[12][10]), 0, 1e-5);
+                var firstReference = imported.SourceSurfaceNumbers[configuration].ToList().IndexOf(10);
+                var secondReference = imported.SourceSurfaceNumbers[configuration].ToList().IndexOf(16);
+                Assert.InRange(Math.Abs(table.Single(row => row[0] == firstReference)[10] - 45), 0, 1e-6);
+                Assert.InRange(Math.Abs(table.Single(row => row[0] == secondReference)[10]), 0, 1e-5);
             }
     }
 

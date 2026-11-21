@@ -1,0 +1,605 @@
+{
+  "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Afocal\\Afocal Riflescope.ZMX",
+  "afocal": true,
+  "requested": 5,
+  "completed": 5,
+  "results": [
+    {
+      "analysis": "Image Simulation",
+      "outcome": "Success",
+      "OutcomeReason": null,
+      "seconds": 0.6874643,
+      "settings": {
+        "SourceImage": "\u5F69\u8272\u6D4B\u8BD5\u5361",
+        "SourceMode": "\u5185\u7F6E\u56FE\u50CF",
+        "SourceFile": "",
+        "ImageWidth": "16",
+        "ImageHeight": "16",
+        "FieldHeight": "2.5",
+        "Oversampling": "1",
+        "SourceFlip": "\u65E0",
+        "GuardBand": "0",
+        "SourceRotation": "\u65E0",
+        "WavelengthNumber": "1",
+        "FieldNumber": "1",
+        "NumRays": "16",
+        "PsfSize": "8",
+        "PsfGridColumns": "3",
+        "PsfGridRows": "3",
+        "UsePolarization": "false",
+        "AberrationMode": "\u51E0\u4F55\u7684",
+        "ApplyFixedApertures": "true",
+        "RelativeIllumination": "false",
+        "DisplayAs": "\u4EFF\u771F\u56FE",
+        "Reference": "\u4E3B\u5149\u7EBF",
+        "ImageFlip": "\u65E0",
+        "PixelSize": "0",
+        "DetectorXPixels": "0",
+        "DetectorYPixels": "0",
+        "CompressFrame": "false",
+        "OutputFile": "",
+        "EigenPsfComponents": "3",
+        "DistortionGridSize": "9",
+        "DistortionPolynomialDegree": "5",
+        "UseRelativeIllumination": "false",
+        "PsfGridSize": "2",
+        "ImageSize": "16",
+        "PixelWidth": "16",
+        "PixelHeight": "16"
+      },
+      "parameters": [
+        {
+          "Key": "SourceImage",
+          "DisplayName": "\u8F93\u5165\u56FE\u50CF",
+          "DefaultValue": "\u5F69\u8272\u6D4B\u8BD5\u5361"
+        },
+        {
+          "Key": "SourceMode",
+          "DisplayName": "\u6E90\u7C7B\u578B",
+          "DefaultValue": "\u5185\u7F6E\u56FE\u50CF"
+        },
+        {
+          "Key": "SourceFile",
+          "DisplayName": "\u5BFC\u5165\u6587\u4EF6",
+          "DefaultValue": ""
+        },
+        {
+          "Key": "ImageWidth",
+          "DisplayName": "\u56FE\u50CF\u5BBD\u5EA6",
+          "DefaultValue": "64"
+        },
+        {
+          "Key": "ImageHeight",
+          "DisplayName": "\u56FE\u50CF\u9AD8\u5EA6",
+          "DefaultValue": "48"
+        },
+        {
+          "Key": "FieldHeight",
+          "DisplayName": "\u89C6\u573A\u9AD8\u5EA6",
+          "DefaultValue": "2.5"
+        },
+        {
+          "Key": "Oversampling",
+          "DisplayName": "\u8FC7\u91C7\u6837",
+          "DefaultValue": "\u65E0"
+        },
+        {
+          "Key": "SourceFlip",
+          "DisplayName": "\u7FFB\u8F6C\u4F4D\u56FE",
+          "DefaultValue": "\u65E0"
+        },
+        {
+          "Key": "GuardBand",
+          "DisplayName": "\u5B89\u5168\u5BBD\u5EA6",
+          "DefaultValue": "\u65E0"
+        },
+        {
+          "Key": "SourceRotation",
+          "DisplayName": "\u65CB\u8F6C\u4F4D\u56FE",
+          "DefaultValue": "\u65E0"
+        },
+        {
+          "Key": "WavelengthNumber",
+          "DisplayName": "\u6CE2\u957F",
+          "DefaultValue": "RGB"
+        },
+        {
+          "Key": "FieldNumber",
+          "DisplayName": "\u89C6\u573A",
+          "DefaultValue": "1 - On axis"
+        },
+        {
+          "Key": "NumRays",
+          "DisplayName": "\u5149\u77B3\u91C7\u6837",
+          "DefaultValue": "32 x 32"
+        },
+        {
+          "Key": "PsfSize",
+          "DisplayName": "\u50CF\u9762\u91C7\u6837",
+          "DefaultValue": "32 x 32"
+        },
+        {
+          "Key": "PsfGridColumns",
+          "DisplayName": "PSF-X\u70B9\u6570",
+          "DefaultValue": "3"
+        },
+        {
+          "Key": "PsfGridRows",
+          "DisplayName": "PSF-Y\u70B9\u6570",
+          "DefaultValue": "3"
+        },
+        {
+          "Key": "UsePolarization",
+          "DisplayName": "\u4F7F\u7528\u504F\u632F",
+          "DefaultValue": "false"
+        },
+        {
+          "Key": "AberrationMode",
+          "DisplayName": "\u50CF\u5DEE",
+          "DefaultValue": "\u51E0\u4F55\u7684"
+        },
+        {
+          "Key": "ApplyFixedApertures",
+          "DisplayName": "\u5E94\u7528\u56FA\u5B9A\u5B54\u5F84",
+          "DefaultValue": "true"
+        },
+        {
+          "Key": "RelativeIllumination",
+          "DisplayName": "\u4F7F\u7528\u76F8\u5BF9\u7167\u5EA6",
+          "DefaultValue": "true"
+        },
+        {
+          "Key": "DisplayAs",
+          "DisplayName": "\u663E\u793A\u4E3A",
+          "DefaultValue": "\u4EFF\u771F\u56FE"
+        },
+        {
+          "Key": "Reference",
+          "DisplayName": "\u53C2\u8003",
+          "DefaultValue": "\u4E3B\u5149\u7EBF"
+        },
+        {
+          "Key": "ImageFlip",
+          "DisplayName": "\u7FFB\u8F6C\u56FE\u50CF",
+          "DefaultValue": "\u65E0"
+        },
+        {
+          "Key": "PixelSize",
+          "DisplayName": "\u50CF\u7D20\u5927\u5C0F",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "DetectorXPixels",
+          "DisplayName": "X \u50CF\u7D20",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "DetectorYPixels",
+          "DisplayName": "Y \u50CF\u7D20",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "CompressFrame",
+          "DisplayName": "\u538B\u7F29\u6846\u67B6",
+          "DefaultValue": "false"
+        },
+        {
+          "Key": "OutputFile",
+          "DisplayName": "\u8F93\u51FA\u6587\u4EF6",
+          "DefaultValue": ""
+        },
+        {
+          "Key": "EigenPsfComponents",
+          "DisplayName": "EigenPSF \u5206\u91CF\u6570",
+          "DefaultValue": "3"
+        },
+        {
+          "Key": "DistortionGridSize",
+          "DisplayName": "\u7578\u53D8\u91C7\u6837\u7F51\u683C",
+          "DefaultValue": "9"
+        },
+        {
+          "Key": "DistortionPolynomialDegree",
+          "DisplayName": "\u7578\u53D8\u62DF\u5408\u9636\u6570",
+          "DefaultValue": "5"
+        }
+      ],
+      "scalars": {
+        "Pipeline": "EigenPSF spatially variable convolution (Geometric) \u002B geometric distortion \u002B lateral color",
+        "ZemaxImageSimulationSettings": "Source bitmap, orientation, field, wavelength, grid convolution, detector, display, and output settings",
+        "SourceMode": "Built-in",
+        "SourcePattern": "ColorChart",
+        "SourceFile": "",
+        "FieldHeight": 2.5,
+        "Oversampling": 1,
+        "GuardBand": 0,
+        "SourceFlip": "\u65E0",
+        "SourceRotationDegrees": 0,
+        "ImageFlip": "\u65E0",
+        "RelativeIllumination": false,
+        "AberrationMode": "Geometric",
+        "RequestedAberrationMode": "Geometric",
+        "Reference": "chief",
+        "DisplayAs": "\u4EFF\u771F\u56FE",
+        "FieldCenter": "(0, 0)",
+        "PixelSizeMillimeters": 0,
+        "DetectorXPixels": 0,
+        "DetectorYPixels": 0,
+        "UsePolarization": false,
+        "ApplyFixedApertures": true,
+        "CompressFrame": false,
+        "OutputFile": "",
+        "OutputShape": "(1, 1, 16, 16)",
+        "EffectiveAberrationMode": "Geometric",
+        "GeometricFallbackCount": 0,
+        "PsfIntensityCorrectionCount": 86,
+        "MaximumPsfNegativeMass": 0.05333324083308396,
+        "WavelengthsMicrometers": "0.49",
+        "PsfGridShape": "(3, 3)",
+        "PsfSize": 8,
+        "NumRays": 16,
+        "EigenPsfComponents": 3,
+        "DistortionGridSize": 9,
+        "DistortionPolynomialDegree": 5,
+        "MeanAbsoluteChange": 0.4066612622760564,
+        "MaximumOutputValue": 0.9032595311642662
+      },
+      "series": [
+        {
+          "Name": "",
+          "XAxisLabel": "",
+          "YAxisLabel": "",
+          "xQuantity": "Unspecified",
+          "xUnit": "Unspecified",
+          "yQuantity": "Unspecified",
+          "yUnit": "Unspecified",
+          "count": 256,
+          "nonfinite": 0,
+          "minimumX": 0,
+          "maximumX": 15,
+          "minimumY": 0,
+          "maximumY": 15
+        },
+        {
+          "Name": "",
+          "XAxisLabel": "",
+          "YAxisLabel": "",
+          "xQuantity": "Unspecified",
+          "xUnit": "Unspecified",
+          "yQuantity": "Unspecified",
+          "yUnit": "Unspecified",
+          "count": 256,
+          "nonfinite": 0,
+          "minimumX": 0,
+          "maximumX": 15,
+          "minimumY": 0,
+          "maximumY": 15
+        }
+      ]
+    },
+    {
+      "analysis": "Geometric Image Analysis",
+      "outcome": "Unavailable",
+      "OutcomeReason": "Image Simulation PSF: no positive PSF power was sampled; enlarge the PSF window or increase pupil sampling (normalized field X=-1, Y=1; wavelength=0.65000000000000002 \u00B5m)",
+      "seconds": 0.0649406,
+      "settings": {
+        "SourceImage": "\u5206\u8FA8\u7387\u9776\u6807",
+        "ImageSize": "16",
+        "NumRays": "16",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "0",
+        "RelativeIllumination": "false",
+        "AberrationMode": "Geometric",
+        "UseRelativeIllumination": "false",
+        "PsfGridSize": "2",
+        "PsfSize": "8",
+        "PixelWidth": "16",
+        "PixelHeight": "16"
+      },
+      "parameters": [
+        {
+          "Key": "SourceImage",
+          "DisplayName": "\u8F93\u5165\u56FE\u50CF",
+          "DefaultValue": "\u5206\u8FA8\u7387\u9776\u6807"
+        },
+        {
+          "Key": "ImageSize",
+          "DisplayName": "\u56FE\u50CF\u5C3A\u5BF8",
+          "DefaultValue": "64"
+        },
+        {
+          "Key": "NumRays",
+          "DisplayName": "\u6BCF\u70B9\u5149\u7EBF\u6570",
+          "DefaultValue": "8"
+        },
+        {
+          "Key": "FieldHeight",
+          "DisplayName": "\u89C6\u573A\u9AD8\u5EA6",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "Oversampling",
+          "DisplayName": "\u8FC7\u91C7\u6837",
+          "DefaultValue": "1"
+        },
+        {
+          "Key": "GuardBand",
+          "DisplayName": "\u4FDD\u62A4\u5E26",
+          "DefaultValue": "4"
+        },
+        {
+          "Key": "RelativeIllumination",
+          "DisplayName": "\u76F8\u5BF9\u7167\u5EA6",
+          "DefaultValue": "true"
+        },
+        {
+          "Key": "AberrationMode",
+          "DisplayName": "\u50CF\u5DEE\u6A21\u5F0F",
+          "DefaultValue": "Geometric"
+        }
+      ],
+      "scalars": {
+        "Status": "Image Simulation PSF: no positive PSF power was sampled; enlarge the PSF window or increase pupil sampling (normalized field X=-1, Y=1; wavelength=0.65000000000000002 \u00B5m)"
+      },
+      "series": []
+    },
+    {
+      "analysis": "Geometric Bitmap Image Analysis",
+      "outcome": "Unavailable",
+      "OutcomeReason": "Image Simulation PSF: no positive PSF power was sampled; enlarge the PSF window or increase pupil sampling (normalized field X=-1, Y=1; wavelength=0.65000000000000002 \u00B5m)",
+      "seconds": 0.0361895,
+      "settings": {
+        "ImageSize": "16",
+        "RaysPerPixel": "8",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "0",
+        "RelativeIllumination": "false",
+        "AberrationMode": "Geometric",
+        "UseRelativeIllumination": "false",
+        "PsfGridSize": "2",
+        "PsfSize": "8",
+        "PixelWidth": "16",
+        "PixelHeight": "16"
+      },
+      "parameters": [
+        {
+          "Key": "ImageSize",
+          "DisplayName": "\u56FE\u50CF\u5C3A\u5BF8",
+          "DefaultValue": "64"
+        },
+        {
+          "Key": "RaysPerPixel",
+          "DisplayName": "\u6BCF\u50CF\u7D20\u5149\u7EBF\u6570",
+          "DefaultValue": "8"
+        },
+        {
+          "Key": "FieldHeight",
+          "DisplayName": "\u89C6\u573A\u9AD8\u5EA6",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "Oversampling",
+          "DisplayName": "\u8FC7\u91C7\u6837",
+          "DefaultValue": "1"
+        },
+        {
+          "Key": "GuardBand",
+          "DisplayName": "\u4FDD\u62A4\u5E26",
+          "DefaultValue": "4"
+        },
+        {
+          "Key": "RelativeIllumination",
+          "DisplayName": "\u76F8\u5BF9\u7167\u5EA6",
+          "DefaultValue": "true"
+        },
+        {
+          "Key": "AberrationMode",
+          "DisplayName": "\u50CF\u5DEE\u6A21\u5F0F",
+          "DefaultValue": "Geometric"
+        }
+      ],
+      "scalars": {
+        "Status": "Image Simulation PSF: no positive PSF power was sampled; enlarge the PSF window or increase pupil sampling (normalized field X=-1, Y=1; wavelength=0.65000000000000002 \u00B5m)"
+      },
+      "series": []
+    },
+    {
+      "analysis": "Partially Coherent Image Analysis",
+      "outcome": "Unavailable",
+      "OutcomeReason": "Partially Coherent Image: finite image-space scalar imaging is required; afocal complex imaging is not implemented",
+      "seconds": 0.0057223,
+      "settings": {
+        "WavelengthNumber": "1",
+        "ImageSize": "16",
+        "PupilSampling": "16",
+        "CoherenceFunction": "Uniform",
+        "CoherenceMethod": "ExactSourcePairs",
+        "CoherenceFraction": "0.98",
+        "PsfEnergyFraction": "0",
+        "CoherenceSampling": "64 x 64",
+        "Coherence": "0.5",
+        "Alpha": "0.001",
+        "FileSize": "0",
+        "NormalizeImagePeak": "false",
+        "PsfSize": "8",
+        "PixelSize": "0",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "0",
+        "RelativeIllumination": "false",
+        "UseRelativeIllumination": "false",
+        "PsfGridSize": "2",
+        "PixelWidth": "16",
+        "PixelHeight": "16"
+      },
+      "parameters": [
+        {
+          "Key": "WavelengthNumber",
+          "DisplayName": "\u6CE2\u957F",
+          "DefaultValue": "2"
+        },
+        {
+          "Key": "ImageSize",
+          "DisplayName": "\u56FE\u50CF\u5C3A\u5BF8",
+          "DefaultValue": "64"
+        },
+        {
+          "Key": "PupilSampling",
+          "DisplayName": "\u77B3\u9762\u91C7\u6837",
+          "DefaultValue": "16 x 16"
+        },
+        {
+          "Key": "CoherenceFunction",
+          "DisplayName": "\u7A7A\u95F4\u76F8\u5E72\u51FD\u6570",
+          "DefaultValue": "Uniform"
+        },
+        {
+          "Key": "CoherenceMethod",
+          "DisplayName": "\u7A7A\u95F4\u76F8\u5E72\u6C42\u89E3\u65B9\u5F0F",
+          "DefaultValue": "ExactSourcePairs"
+        },
+        {
+          "Key": "CoherenceFraction",
+          "DisplayName": "\u5085\u91CC\u53F6\u6A21\u6001\u4FDD\u7559\u6BD4\u4F8B",
+          "DefaultValue": "0.98"
+        },
+        {
+          "Key": "PsfEnergyFraction",
+          "DisplayName": "PSF \u80FD\u91CF\u6BD4\u4F8B\uFF080 \u624B\u52A8\u5C3A\u5BF8\uFF09",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "CoherenceSampling",
+          "DisplayName": "\u76F8\u5E72\u51FD\u6570\u91C7\u6837",
+          "DefaultValue": "64 x 64"
+        },
+        {
+          "Key": "Coherence",
+          "DisplayName": "\u5E38\u6570\u6A21\u578B\u4E92\u76F8\u5E72\u5EA6 \u03B3",
+          "DefaultValue": "0.5"
+        },
+        {
+          "Key": "Alpha",
+          "DisplayName": "Gaussian/Sinc \u5C3A\u5EA6 \u03B1 (mm)",
+          "DefaultValue": "0.001"
+        },
+        {
+          "Key": "FileSize",
+          "DisplayName": "\u50CF\u9762\u6E90\u56FE\u5168\u5BBD mm\uFF080 \u81EA\u52A8\uFF09",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "NormalizeImagePeak",
+          "DisplayName": "\u56FE\u50CF\u5CF0\u503C\u5F52\u4E00\u5316",
+          "DefaultValue": "false"
+        },
+        {
+          "Key": "PsfSize",
+          "DisplayName": "\u590D\u54CD\u5E94\u6838\u5C3A\u5BF8",
+          "DefaultValue": "32"
+        },
+        {
+          "Key": "PixelSize",
+          "DisplayName": "\u50CF\u7D20\u95F4\u8DDD mm\uFF080 \u81EA\u52A8\uFF09",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "FieldHeight",
+          "DisplayName": "\u89C6\u573A\u9AD8\u5EA6",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "Oversampling",
+          "DisplayName": "\u8FC7\u91C7\u6837",
+          "DefaultValue": "1"
+        },
+        {
+          "Key": "GuardBand",
+          "DisplayName": "\u4FDD\u62A4\u5E26",
+          "DefaultValue": "16"
+        },
+        {
+          "Key": "RelativeIllumination",
+          "DisplayName": "\u76F8\u5BF9\u7167\u5EA6",
+          "DefaultValue": "true"
+        }
+      ],
+      "scalars": {
+        "Status": "Partially Coherent Image: finite image-space scalar imaging is required; afocal complex imaging is not implemented"
+      },
+      "series": []
+    },
+    {
+      "analysis": "Extended Diffraction Image Analysis",
+      "outcome": "Exception",
+      "seconds": 0.0860638,
+      "errorType": "InvalidOperationException",
+      "reason": "Working-F-number ray did not reach the image surface.",
+      "settings": {
+        "SourceImage": "\u5206\u8FA8\u7387\u9776\u6807",
+        "ImageSize": "16",
+        "PupilSampling": "16",
+        "FieldGrid": "2",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "0",
+        "RelativeIllumination": "false",
+        "AberrationMode": "Diffraction",
+        "UseRelativeIllumination": "false",
+        "PsfGridSize": "2",
+        "PsfSize": "8",
+        "PixelWidth": "16",
+        "PixelHeight": "16"
+      },
+      "parameters": [
+        {
+          "Key": "SourceImage",
+          "DisplayName": "\u8F93\u5165\u56FE\u50CF",
+          "DefaultValue": "\u5206\u8FA8\u7387\u9776\u6807"
+        },
+        {
+          "Key": "ImageSize",
+          "DisplayName": "\u56FE\u50CF\u5C3A\u5BF8",
+          "DefaultValue": "64"
+        },
+        {
+          "Key": "PupilSampling",
+          "DisplayName": "\u77B3\u9762\u91C7\u6837",
+          "DefaultValue": "16 x 16"
+        },
+        {
+          "Key": "FieldGrid",
+          "DisplayName": "\u89C6\u573A PSF \u7F51\u683C",
+          "DefaultValue": "5"
+        },
+        {
+          "Key": "FieldHeight",
+          "DisplayName": "\u89C6\u573A\u9AD8\u5EA6",
+          "DefaultValue": "0"
+        },
+        {
+          "Key": "Oversampling",
+          "DisplayName": "\u8FC7\u91C7\u6837",
+          "DefaultValue": "1"
+        },
+        {
+          "Key": "GuardBand",
+          "DisplayName": "\u4FDD\u62A4\u5E26",
+          "DefaultValue": "16"
+        },
+        {
+          "Key": "RelativeIllumination",
+          "DisplayName": "\u76F8\u5BF9\u7167\u5EA6",
+          "DefaultValue": "true"
+        },
+        {
+          "Key": "AberrationMode",
+          "DisplayName": "\u50CF\u5DEE\u6A21\u5F0F",
+          "DefaultValue": "Diffraction"
+        }
+      ]
+    }
+  ]
+}

@@ -23,7 +23,8 @@ public enum NonSequentialObjectKind
     SourceVolumeRectangle,
     SourceVolumeEllipse,
     SourceVolumeCylinder,
-    OpticalAssembly
+    OpticalAssembly,
+    Null
 }
 
 public enum NonSequentialSourceApertureShape
@@ -86,7 +87,18 @@ public sealed record NonSequentialTraceSettings(
 [JsonDerivedType(typeof(MeshObjectParameters), "mesh")]
 [JsonDerivedType(typeof(DetectorRectangleParameters), "detector-rectangle")]
 [JsonDerivedType(typeof(OpticalAssemblyParameters), "optical-assembly")]
-public abstract record NonSequentialObjectParameters;
+[JsonDerivedType(typeof(NullObjectParameters), "null")]
+public abstract record NonSequentialObjectParameters
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public NonSequentialWaveplate? Waveplate { get; init; }
+}
+
+public sealed record NullObjectParameters : NonSequentialObjectParameters;
+public sealed record NonSequentialWaveplate(string ExtraordinaryMaterial, Vector3D LocalAxis)
+{
+    public bool TraceReflections { get; init; } = true;
+}
 
 public abstract record SourceParameters(
     double PowerWatts,
@@ -282,7 +294,11 @@ public sealed record DetectorRectangleParameters(
     bool FrontOnly = true,
     bool Absorb = true,
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] NonSequentialOpticalInterface? IncidentSurface = null,
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool NormalizeCoherentPower = false) : NonSequentialObjectParameters;
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool NormalizeCoherentPower = false) : NonSequentialObjectParameters
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] public bool RecordColor { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] public int PolarizationComponent { get; init; }
+}
 
 public sealed record NonSequentialObjectDefinition(
     Guid Id,
@@ -330,6 +346,7 @@ public sealed record NonSequentialObjectDefinition(
         NonSequentialObjectKind.Sphere => new SphereParameters(),
         NonSequentialObjectKind.Cylinder => new CylinderParameters(),
         NonSequentialObjectKind.Box => new BoxParameters(),
+        NonSequentialObjectKind.Null => new NullObjectParameters(),
         NonSequentialObjectKind.StandardLens => new StandardLensParameters(),
         NonSequentialObjectKind.Mesh => throw new InvalidOperationException("网格对象必须通过 STL 导入创建，不能使用空资产。"),
         NonSequentialObjectKind.DetectorRectangle => new DetectorRectangleParameters(),
@@ -356,6 +373,7 @@ public sealed record NonSequentialObjectDefinition(
         NonSequentialObjectKind.OpticalAssembly => "复合光学组件",
         NonSequentialObjectKind.Mesh => "STL 网格",
         NonSequentialObjectKind.DetectorRectangle => "矩形探测器",
+        NonSequentialObjectKind.Null => "空物体",
         _ => kind.ToString()
     };
 }
@@ -426,6 +444,11 @@ public sealed class NonSequentialDocument
 
     public bool TryFindObject(Guid id, out NonSequentialObjectDefinition item) =>
         ObjectLookup.TryGetValue(id, out item!);
+
+    public NonSequentialObjectDefinition FindObject(Guid id) =>
+        ObjectLookup.TryGetValue(id, out var item)
+            ? item
+            : throw new KeyNotFoundException($"Non-sequential object '{id}' was not found.");
 
     public Guid AddMeshAsset(NonSequentialMeshAsset asset)
     {
@@ -747,6 +770,7 @@ public sealed class NonSequentialDocument
             (NonSequentialObjectKind.OpticalAssembly, OpticalAssemblyParameters) => true,
             (NonSequentialObjectKind.Mesh, MeshObjectParameters) => true,
             (NonSequentialObjectKind.DetectorRectangle, DetectorRectangleParameters) => true,
+            (NonSequentialObjectKind.Null, NullObjectParameters) => true,
             _ => false
         };
 
@@ -755,8 +779,14 @@ public sealed class NonSequentialDocument
         NonSequentialObjectParameters parameters,
         IReadOnlyDictionary<Guid, NonSequentialMeshAsset> meshAssetsById)
     {
+        if (parameters.Waveplate is { } plate && (string.IsNullOrWhiteSpace(plate.ExtraordinaryMaterial)
+            || !double.IsFinite(plate.LocalAxis.Length) || plate.LocalAxis.Length <= 0
+            || parameters is not (MeshObjectParameters or BoxParameters or SphereParameters or CylinderParameters or StandardLensParameters)))
+            throw new InvalidDataException("波片必须定义闭合折射实体、非寻常材料与有效晶轴。");
         switch (parameters)
         {
+            case NullObjectParameters:
+                break;
             case SourceRayParameters ray:
                 ValidateSource(name, ray);
                 RequireFinite(ray.Origin.X, ray.Origin.Y, ray.Origin.Z, ray.Direction.X, ray.Direction.Y, ray.Direction.Z);
@@ -875,6 +905,7 @@ public sealed class NonSequentialDocument
                 break;
             case DetectorRectangleParameters detector:
                 RequirePositive(detector.WidthMillimeters, detector.HeightMillimeters);
+                if (detector.PolarizationComponent is < 0 or > 9) throw new InvalidDataException("探测器偏振分量必须在0到9之间。");
                 if(detector.IncidentSurface is { } port && (port.Frame is not null || port.SurfaceGeometry is not null || port.RadiusMillimeters!=0 || port.Film is not Coatings.NoneCoatingModel
                     || NonSequentialOpticalInterface.Identity(port.MaterialBefore)!=NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
                     throw new InvalidDataException("入射像面探测端口只接受无独立光学作用的平面；镀膜或介质界面须显式建模。");
@@ -940,6 +971,11 @@ public sealed class NonSequentialDocument
 
     private void ValidateSource(string name, SourceParameters source)
     {
+        if (source.Physics?.Spectrum is { } spectrum && (spectrum.Count is < 1 or > 4096
+            || spectrum.Any(s => !double.IsFinite(s.Nanometers) || s.Nanometers < 200 || s.Nanometers > 20_000
+                || !double.IsFinite(s.RelativePower) || s.RelativePower < 0)
+            || !spectrum.Any(s => s.RelativePower > 0) || spectrum.Any(s => !_wavelengths.Any(w => Math.Abs(w.Nanometers - s.Nanometers) < 1e-9))))
+            throw new InvalidDataException("光源的离散光谱必须有非负功率，并由场景波长表覆盖。");
         if (!double.IsFinite(source.PowerWatts) || source.PowerWatts <= 0
             || source.WavelengthNumber < 0 || source.WavelengthNumber > _wavelengths.Count
             || source.WavelengthNumber == 0 && !_wavelengths.Any(w => w.Weight > 0)

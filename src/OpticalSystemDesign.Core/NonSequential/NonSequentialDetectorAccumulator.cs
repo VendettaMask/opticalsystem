@@ -29,6 +29,33 @@ internal sealed partial class NonSequentialDetectorAccumulator
         NonSequentialIncidentField? field = null, NonSequentialDocument? document = null, Vector3D? worldDirection = null,
         double wavelengthNanometers = 0, bool coherent = false)
     {
+        if (_parameters.PolarizationComponent != 0)
+        {
+            if (coherent && _parameters.PolarizationComponent >= 4)
+                throw new NotSupportedException("忽略相位的探测器分量筛选尚不支持相干复场累积。");
+            if (field is null || document is null) throw new InvalidOperationException("探测器的偏振分量筛选需要启用偏振追迹。");
+            var component = _parameters.PolarizationComponent;
+            var selected = component switch { 1 or 7 => 1, 2 or 8 => 2, 3 or 9 => 4, 4 => 3, 5 => 5, 6 => 6, _ => throw new InvalidDataException("Invalid detector polarization component.") };
+            NonSequentialComplexVector Project(NonSequentialComplexVector e)
+            {
+                Vector3D Mask(Vector3D v)
+                {
+                    v = document.ToLocalDirection(_item.Id, v);
+                    return document.ToWorldDirection(_item.Id, new((selected & 1) != 0 ? v.X : 0, (selected & 2) != 0 ? v.Y : 0, (selected & 4) != 0 ? v.Z : 0));
+                }
+                return new(Mask(e.Real), Mask(e.Imaginary));
+            }
+            var state = field.State with { First = Project(field.State.First), Second = Project(field.State.Second) };
+            var fraction = Math.Clamp(state.Power / field.State.Power, 0, 1);
+            power *= fraction;
+            if (fraction > 0)
+            {
+                var norm = 1 / Math.Sqrt(state.Power);
+                state = state with { First = NonSequentialComplexVector.From(state.First.Field * norm), Second = NonSequentialComplexVector.From(state.Second.Field * norm) };
+                field = new(state, field.PowerWatts * fraction, field.RefractiveIndex);
+            }
+            else field = null;
+        }
         if (!NonSequentialDetectorPixels.TryIndex(point.X, _parameters.WidthMillimeters, _parameters.PixelsX, out var x)
             || !NonSequentialDetectorPixels.TryIndex(point.Y, _parameters.HeightMillimeters, _parameters.PixelsY, out var y)) return;
         if (!_pixels.TryGetValue(wavelength, out var values))

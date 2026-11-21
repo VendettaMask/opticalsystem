@@ -26,7 +26,7 @@ using ContractAnalysisSeriesKind = OpticalSystemDesign.Application.Contracts.Ana
 
 namespace OpticalSystemDesign.Application.Services;
 
-internal static class WorkbenchMapper
+internal static partial class WorkbenchMapper
 {
     internal static T? ElementAtOrDefault<T>(IList<T> items, int index) where T : class
     {
@@ -74,7 +74,11 @@ internal static class WorkbenchMapper
             GeometryDefinition: new SurfaceGeometryDefinitionDto(geometry.Kind, geometry.Numbers),
             DrawingAperture: new SurfaceDrawingApertureDto(surface.PhysicalAperture?.Kind ?? "none",
                 (surface.PhysicalAperture as CircularAperture)?.Radius),
-            IsCoordinateReference: surface.InteractionModel is CoordinateReferenceInteractionModel);
+            IsCoordinateReference: surface.InteractionModel is CoordinateReferenceInteractionModel,
+            IsReflective: surface.IsReflective,
+            SurfaceColor: surface.SurfaceColor,
+            Drawing: ToDrawingDto(surface.Drawing),
+            ShapeVariables: surface.ShapeVariables.ToArray());
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch
@@ -192,7 +196,14 @@ internal static class WorkbenchMapper
             },
             OutcomeReason: view.OutcomeReason,
             ReportSections: view.ReportSections?.Select(section => new AnalysisReportSectionDto(section.Title, section.Label, section.Unit,
-                new AnalysisTableDto(section.Table.Columns, section.Table.Rows, section.Table.RowGroups))).ToArray());
+                new AnalysisTableDto(section.Table.Columns, section.Table.Rows, section.Table.RowGroups))).ToArray())
+        {
+            FullFieldSpotSummary = view.FullFieldSpotSummary,
+            ColorFocusShiftSummary = view.ColorFocusShiftSummary,
+            FoucaultSummary = view.FoucaultSummary,
+            PsfImageSummary = view.PsfImageSummary,
+            DiffractionEnergySummary = view.DiffractionEnergySummary
+        };
     }
 
     internal static AnalysisSeriesDto ToSeriesDto(AnalysisSeries series)
@@ -276,17 +287,22 @@ internal static class WorkbenchMapper
                 surface.IsStop,
                 surface.IsReferencePlane,
                 surface.Points.Select(Point).ToArray(),
-                surface.IsStandaloneStop)).ToArray(),
+                surface.IsStandaloneStop,
+                SurfaceColor: surface.SurfaceColor, Opacity: surface.Opacity, HideEdges: surface.HideEdges,
+                HideSurface: surface.HideSurface,
+                LocalFrame: surface.LocalFrame is not { } frame ? null : new SceneLocalFrame2Dto(
+                    new(frame.Origin.Z, frame.Origin.Y), new(frame.XAxisEnd.Z, frame.XAxisEnd.Y),
+                    new(frame.YAxisEnd.Z, frame.YAxisEnd.Y), new(frame.ZAxisEnd.Z, frame.ZAxisEnd.Y), frame.DrawAxes, frame.DrawOrigin))).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement2Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,
                 element.Material,
-                element.Boundary.Select(Point).ToArray())).ToArray(),
+                element.Boundary.Select(Point).ToArray(), Opacity: element.Opacity)).ToArray(),
             scene.LensEdges.Select(edge => new SceneLensEdge2Dto(
                 edge.FrontSurfaceNumber,
                 edge.BackSurfaceNumber,
                 Point(edge.Start),
-                Point(edge.End))).ToArray(),
+                Point(edge.End), Opacity: edge.Opacity)).ToArray(),
             scene.Rays.Select(ray => new SceneRay2Dto(
                 ray.RayNumber,
                 ray.FieldIndex,
@@ -325,7 +341,11 @@ internal static class WorkbenchMapper
                  surface.Faces.Select(face => new SceneSurfaceFace3Dto(
                      face.Points.Select(Point).ToArray())).ToArray(),
                  surface.IsStandaloneStop,
-                 IsImageSurface: surface.IsImageSurface)).ToArray(),
+                 IsImageSurface: surface.IsImageSurface,
+                 SurfaceColor: surface.SurfaceColor, Opacity: surface.Opacity, HideEdges: surface.HideEdges,
+                 HideSurface: surface.HideSurface,
+                 LocalFrame: surface.LocalFrame is not { } frame ? null : new SceneLocalFrame3Dto(
+                     Point(frame.Origin), Point(frame.XAxisEnd), Point(frame.YAxisEnd), Point(frame.ZAxisEnd), frame.DrawAxes, frame.DrawOrigin))).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement3Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,
@@ -337,7 +357,7 @@ internal static class WorkbenchMapper
                     face.Points.Select(Point).ToArray())).ToArray(),
                 element.BackFaces.Select(face => new SceneSurfaceFace3Dto(
                     face.Points.Select(Point).ToArray())).ToArray(),
-                element.MeridianBoundary.Select(Point).ToArray())).ToArray(),
+                element.MeridianBoundary.Select(Point).ToArray(), Opacity: element.Opacity)).ToArray(),
             scene.Rays.Select(ray => new SceneRay3Dto(
                 ray.RayNumber,
                 ray.FieldIndex,

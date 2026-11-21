@@ -55,6 +55,9 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
 
     public override string Name => "Diffraction Encircled Energy";
 
+    internal long NominalPupilSourceCount => Math.Max(1, AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber).Length)
+        * (Math.Max(1, _fieldNumber > 0 ? 1 : SpotAnalysisEngine.DefinedFields(Optic).Count) + (IsRadialEncircledEnergy(_type) ? 1L : 0));
+
     internal bool SupportsStreamedPhysicalPupil => UseFftCumulativeGrid && !Optic.ImageSpaceAfocal && !Optic.RayAimingEnabled
         && _fieldNumber > 0 && (_wavelengthNumber > 0 || Optic.Wavelengths.Count == 1)
         && _maximumDistanceMicrometers > 0 && double.IsFinite(_maximumDistanceMicrometers) && _numPoints >= 3
@@ -94,6 +97,18 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     }
 
     public override AnalysisData GenerateData() => GenerateEnergyData(CreatePixelGrid);
+
+    // Refinement must measure the same radii, even when the initial request used
+    // an automatic maximum. Re-running automatic range selection can shrink the
+    // domain and make a partial interval look like a converged result.
+    internal AnalysisData GenerateOnFixedDomain(AnalysisData domain)
+    {
+        var key = Optic.ImageSpaceAfocal ? "MaximumDistanceMilliradians" : "MaximumDistanceMicrometers";
+        if (domain.Values.GetValueOrDefault(key) is not double maximum || !double.IsFinite(maximum) || maximum <= 0)
+            throw new InvalidOperationException("The original diffraction energy interval is unavailable.");
+        return new DiffractionEncircledEnergyAnalysis(Optic, _pupilSampling, _imageSampling, _numPoints,
+            _wavelengthNumber, _fieldNumber, _type, _reference, maximum, _integrationConvention).GenerateData();
+    }
 
     private AnalysisData GenerateEnergyData(Func<int, bool, IEnergyImageGrid?> createGrid, int? physicalSampling = null)
     {
@@ -193,11 +208,11 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 ["PupilSampling"] = physicalSampling ?? _pupilSampling,
                 ["ImageSampling"] = _imageSampling,
                 ["EffectiveImageSampling"] = physicalSampling.HasValue
-                    ? curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().First().WindowSize
+                    ? curves.Select(c => c.PixelGrid).OfType<IBoundedFftEnergyImageGrid>().First().WindowSize
                     : UseFftCumulativeGrid ? 2 * _pupilSampling : _imageSampling,
-                ["BoundedFourierSampling"] = curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().Select(g => g.FourierSampling).ToArray(),
-                ["BoundedImagePitch"] = curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().Select(g => g.ImagePitch).ToArray(),
-                ["DistanceBinWidth"] = curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().Select(g => g.BinWidth).ToArray(),
+                ["BoundedFourierSampling"] = curves.Select(c => c.PixelGrid).OfType<IBoundedFftEnergyImageGrid>().Select(g => g.FourierSampling).ToArray(),
+                ["BoundedImagePitch"] = curves.Select(c => c.PixelGrid).OfType<IBoundedFftEnergyImageGrid>().Select(g => g.ImagePitch).ToArray(),
+                ["DistanceBinWidth"] = curves.Select(c => c.PixelGrid).OfType<IBoundedFftEnergyImageGrid>().Select(g => g.BinWidth).ToArray(),
                 ["CumulativeKnotCount"] = UseFftCumulativeGrid && !physicalSampling.HasValue ? _pupilSampling : _numPoints,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["FieldNumber"] = _fieldNumber,
@@ -312,8 +327,9 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var field = SpotAnalysisEngine.DefinedFields(Optic)[fieldIndex];
         if (_pupilSampling > AnalysisResourceLimits.MaximumFftGridSize / 2)
         {
-            if (wavelengths.Count != 1)
-                throw new AnalysisDataUnavailableException(Name, "large cumulative energy readouts currently require one selected wavelength");
+            if (wavelengths.Count != 1 || Optic.ImageSpaceAfocal)
+                return DiffractionEngine.ComputeBoundedSpectralCumulativeEnergy(Optic, field, wavelengths, _pupilSampling,
+                    _reference, _type, _maximumDistanceMicrometers, ignoreOpd);
             return DiffractionEngine.ComputeBoundedCumulativeEnergyKnots(Optic, field, wavelengths[0], _pupilSampling,
                 _reference, _type, _maximumDistanceMicrometers, ignoreOpd);
         }
@@ -344,7 +360,10 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 waveNumber, field.Hx, field.Hy, [new PupilSample(0, 0, 1)],
                 requireUnvignetted: true, includeSurfaceTransmission: false,
                 aimAtStop: results[Math.Max(0, index)].Result.UseRayAiming)[0];
-            center = (-chief.Position.X * 1000, -chief.Position.Y * 1000);
+            var coordinate = Optic.ImageSpaceAfocal
+                ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(Optic.SurfaceGroup.Items[^1], chief.Direction)
+                : (X: chief.Position.X * 1000, Y: chief.Position.Y * 1000);
+            center = (-coordinate.X, -coordinate.Y);
         }
         return new FftCumulativeEnergyGrid(samples, center, _type);
     }
@@ -787,11 +806,14 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
             _pupilSampling,
             "uniform-intervals",
             reference: "chief", aimAtStop: Optic.RayAimingEnabled, includeSurfaceTransmission: false);
+        var angular = Optic.ImageSpaceAfocal;
+        var coordinateScale = angular ? 1 : 1000;
+        var coordinateUnit = angular ? "mrad" : "µm";
         var useXLine = _orientation.StartsWith("X", StringComparison.OrdinalIgnoreCase);
         var samples = result.Fields
             .SelectMany(item => item.Wavelengths)
             .SelectMany(wavelength => wavelength.Rays.Select(ray => (
-                Coordinate: 1000 * (useXLine ? ray.Y : ray.X),
+                Coordinate: coordinateScale * (useXLine ? ray.Y : ray.X),
                 Weight: ray.Intensity * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength))))
             .Where(sample => double.IsFinite(sample.Coordinate) && sample.Weight > 0)
             .ToArray();
@@ -834,13 +856,13 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
         if (!_display.Equals("edge", StringComparison.OrdinalIgnoreCase))
         {
             series.Add(new AnalysisSeries(
-                useXLine ? "Y Position (\u00B5m)" : "X Position (\u00B5m)",
+                $"{(useXLine ? "Y" : "X")} Position ({coordinateUnit})",
                 "Relative Intensity",
                 linePoints,
                 Name: "Line Spread",
                 ColorIndex: 0,
-                XQuantity: AnalysisAxisQuantity.ImageHeight,
-                XUnit: AnalysisAxisUnit.Micrometer,
+                XQuantity: angular ? AnalysisAxisQuantity.Angle : AnalysisAxisQuantity.ImageHeight,
+                XUnit: angular ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
                 YQuantity: AnalysisAxisQuantity.Irradiance,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -848,14 +870,14 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
         if (!_display.Equals("line", StringComparison.OrdinalIgnoreCase))
         {
             series.Add(new AnalysisSeries(
-                useXLine ? "Y Position (\u00B5m)" : "X Position (\u00B5m)",
+                $"{(useXLine ? "Y" : "X")} Position ({coordinateUnit})",
                 "Relative Response",
                 edgePoints,
                 Name: "Edge Spread",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: 1,
-                XQuantity: AnalysisAxisQuantity.ImageHeight,
-                XUnit: AnalysisAxisUnit.Micrometer,
+                XQuantity: angular ? AnalysisAxisQuantity.Angle : AnalysisAxisQuantity.ImageHeight,
+                XUnit: angular ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
                 YQuantity: AnalysisAxisQuantity.Irradiance,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -870,9 +892,11 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
                 ["FieldNumber"] = _fieldNumber,
                 ["Orientation"] = _orientation,
                 ["Display"] = _display,
-                ["MaximumRadiusMicrometers"] = radius,
-                ["HistogramBinWidthMicrometers"] = binWidth,
-                ["DisplayCoordinateStepMicrometers"] = step,
+                [angular ? "MaximumRadiusMilliradians" : "MaximumRadiusMicrometers"] = radius,
+                [angular ? "HistogramBinWidthMilliradians" : "HistogramBinWidthMicrometers"] = binWidth,
+                [angular ? "DisplayCoordinateStepMilliradians" : "DisplayCoordinateStepMicrometers"] = step,
+                ["ImageSpaceAfocal"] = angular,
+                ["CoordinateUnit"] = coordinateUnit,
                 ["PupilGridConvention"] = "N intervals, N+1 axis nodes, inclusive disk boundary",
                 ["EdgeIntegration"] = "Cumulative histogram through the center of each bin",
                 ["RayCount"] = result.RayCount,
@@ -892,7 +916,7 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
     }
 }
 
-public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
+public sealed partial class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
 {
     public bool ZemaxCompatibleOutput { get; init; }
     private readonly double _fieldSize;
@@ -945,35 +969,16 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
         }
 
         var centerField = EnergyCurveSupport.SelectedField(Optic, _fieldNumber);
-        var maximumField = Math.Max(1e-9, FieldCoordinates.MaximumRadius(Optic.Fields));
-        var fieldSize = _fieldSize > 0 ? _fieldSize : maximumField * 0.1;
-        var normalizedWidth = fieldSize / maximumField;
-        var sourceFields = CreateSourceFields(centerField, normalizedWidth);
-        if (sourceFields.Length == 0)
+        var maximumField = FieldCoordinates.MaximumRadius(Optic.Fields);
+        var fieldSize = _fieldSize > 0 ? _fieldSize : Math.Max(1e-9, maximumField) * 0.1;
+        var sourceCells = CreateSourceCells(fieldSize);
+        if (sourceCells.Length == 0)
         {
             return EnergyCurveSupport.Empty(Name);
         }
-        var raysPerSource = Math.Max(
-            8,
-            _numRays / Math.Max(1, sourceFields.Length * wavelengths.Count));
-        var result = SpotAnalysisEngine.Generate(
-            Optic,
-            sourceFields.Select(source => (source.Hx, source.Hy)).ToArray(),
-            wavelengths,
-            raysPerSource,
-            "sobol",
-            reference: "absolute", aimAtStop: Optic.RayAimingEnabled,
-            includeSurfaceTransmission: false);
-        var samples = result.Fields
-            .SelectMany((field, sourceIndex) => field.Wavelengths
-                .SelectMany(wavelength => wavelength.Rays.Select(ray => new EnergySample(
-                    ray.X * 1000,
-                    ray.Y * 1000,
-                    ray.Intensity
-                    * sourceFields[sourceIndex].Weight
-                    * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength)))))
-            .Where(sample => sample.Weight > 0)
-            .ToArray();
+        var result = TraceSourceCells(sourceCells, wavelengths);
+        var samples = result.Samples;
+        var angular = Optic.ImageSpaceAfocal;
         var center = EnergyCurveSupport.ReferencePoint(
             Optic,
             centerField,
@@ -995,69 +1000,65 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
                 ["Source"] = _sourceName,
                 ["FieldSize"] = fieldSize,
                 ["SourceSampling"] = _sourceSampling,
-                ["ActiveSourcePointCount"] = sourceFields.Length,
+                ["ActiveSourcePointCount"] = result.SourcePointCount,
+                ["ActiveSourceCellCount"] = sourceCells.Length,
                 ["ActiveSourcePixelCount"] = _sourceImage?.Values.Count(value =>
-                    double.IsFinite(value) && value > 0) ?? sourceFields.Length,
+                    double.IsFinite(value) && value > 0) ?? 1,
+                ["SourceIntegration"] = "Stratified emitting-area and independent pupil samples",
+                ["FieldSizeUnit"] = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "deg" : "mm",
+                ["ImageSpaceAfocal"] = angular,
+                ["DistanceUnit"] = angular ? "mrad" : "µm",
+                ["UseRayAiming"] = Optic.RayAimingEnabled,
                 ["RequestedRayCount"] = _numRays,
                 ["RayCount"] = result.RayCount,
                 ["VignettedRayCount"] = result.VignettedRayCount,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["FieldNumber"] = _fieldNumber,
                 ["Reference"] = _reference,
-                ["ReferenceXMicrometers"] = center.X,
-                ["ReferenceYMicrometers"] = center.Y
-            }, zemaxExtendedPlot: ZemaxCompatibleOutput);
+                [angular ? "ReferenceXMilliradians" : "ReferenceXMicrometers"] = center.X,
+                [angular ? "ReferenceYMilliradians" : "ReferenceYMicrometers"] = center.Y
+            }, zemaxExtendedPlot: ZemaxCompatibleOutput, angularCoordinates: angular);
     }
 
-    private (double Hx, double Hy, double Weight)[] CreateSourceFields(
-        (double Hx, double Hy) centerField,
-        double normalizedWidth)
+    private SourceCell[] CreateSourceCells(double fieldSize)
     {
-        if (_sourceImage is null)
+        var imageWidth = _sourceImage?.Width ?? 1;
+        var imageHeight = _sourceImage?.Height ?? 1;
+        var activePixels = _sourceImage?.Values.Count(value => value > 0) ?? 1;
+        var cellCount = (long)activePixels * _sourceSampling * _sourceSampling;
+        if (cellCount > AnalysisResourceLimits.MaximumAggregateGridCells)
+            throw new AnalysisDataUnavailableException(Name, "extended-source area subdivision exceeds the analysis cell limit");
+        var cells = new List<SourceCell>((int)cellCount);
+        for (var row = 0; row < imageHeight; row++)
         {
-            var sourceAxis = Enumerable.Range(0, _sourceSampling)
-                .Select(index => _sourceSampling == 1
-                    ? 0
-                    : -0.5 + (index / (_sourceSampling - 1.0)))
-                .ToArray();
-            return sourceAxis.SelectMany(y => sourceAxis.Select(x => (
-                Hx: centerField.Hx + (x * normalizedWidth),
-                Hy: centerField.Hy + (y * normalizedWidth),
-                Weight: 1.0))).ToArray();
-        }
-
-        var fields = new List<(double Hx, double Hy, double Weight)>();
-        for (var row = 0; row < _sourceImage.Height; row++)
-        {
-            for (var column = 0; column < _sourceImage.Width; column++)
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var column = 0; column < imageWidth; column++)
             {
-                var weight = _sourceImage.Value(row, column);
+                var weight = _sourceImage?.Value(row, column) ?? 1;
                 if (!double.IsFinite(weight) || weight <= 0)
                 {
                     continue;
                 }
 
-                // An IMA pixel is an emitting area, not a point at its center.
-                // Deterministic sub-pixel centers reproduce Zemax's uniform ray
-                // distribution over every active source pixel.
+                // Each stratum retains its emitting area. Rays vary continuously
+                // inside it instead of repeatedly tracing its center or corners.
                 for (var subRow = 0; subRow < _sourceSampling; subRow++)
                 {
                     for (var subColumn = 0; subColumn < _sourceSampling; subColumn++)
                     {
                         var pixelX = column + ((subColumn + 0.5) / _sourceSampling);
                         var pixelY = row + ((subRow + 0.5) / _sourceSampling);
-                        var x = (pixelX / _sourceImage.Width) - 0.5;
-                        var y = 0.5 - (pixelY / _sourceImage.Height);
-                        fields.Add((
-                            centerField.Hx + (x * normalizedWidth),
-                            centerField.Hy + (y * normalizedWidth),
-                            weight / (_sourceSampling * _sourceSampling)));
+                        var x = (pixelX / imageWidth) - 0.5;
+                        var y = 0.5 - (pixelY / imageHeight);
+                        cells.Add(new SourceCell(x * fieldSize, y * fieldSize,
+                            fieldSize / (imageWidth * _sourceSampling),
+                            fieldSize / (imageHeight * _sourceSampling), weight));
                     }
                 }
             }
         }
 
-        return fields.ToArray();
+        return cells.ToArray();
     }
 }
 
@@ -1147,7 +1148,8 @@ internal static class EnergyCurveSupport
         double requestedMaximumDistance,
         int numPoints,
         IReadOnlyDictionary<string, object> values,
-        bool zemaxExtendedPlot = false)
+        bool zemaxExtendedPlot = false,
+        bool angularCoordinates = false)
     {
         if (samples.Count == 0)
         {
@@ -1198,21 +1200,21 @@ internal static class EnergyCurveSupport
         if (zemaxExtendedPlot) points = EnergyPlotSampling.Geometric(points);
         var resultValues = values.ToDictionary(item => item.Key, item => item.Value);
         resultValues["Type"] = type;
-        resultValues["MaximumDistanceMicrometers"] = maximumDistance;
+        resultValues[angularCoordinates ? "MaximumDistanceMilliradians" : "MaximumDistanceMicrometers"] = maximumDistance;
         resultValues["TotalWeight"] = total;
         resultValues["SampleCount"] = weightedDistances.Length;
         resultValues["ZemaxCompatibleOutput"] = zemaxExtendedPlot;
         resultValues["CumulativeKnotCount"] = knotCount;
         resultValues["PlotPointCount"] = points.Count;
-        resultValues["CumulativeKnotEvaluationOffsetMicrometers"] = zemaxExtendedPlot ? -maximumDistance / (knotCount - 1) : 0;
+        resultValues[angularCoordinates ? "CumulativeKnotEvaluationOffsetMilliradians" : "CumulativeKnotEvaluationOffsetMicrometers"] = zemaxExtendedPlot ? -maximumDistance / (knotCount - 1) : 0;
         var series = new AnalysisSeries(
-            "Distance (\u00B5m)",
+            angularCoordinates ? "Distance (mrad)" : "Distance (\u00B5m)",
             "Fraction of Energy",
             points,
             Name: type,
             ColorIndex: 0,
-            XQuantity: AnalysisAxisQuantity.Radius,
-            XUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: angularCoordinates ? AnalysisAxisQuantity.Angle : AnalysisAxisQuantity.Radius,
+            XUnit: angularCoordinates ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
             YQuantity: AnalysisAxisQuantity.EnergyFraction,
             YUnit: AnalysisAxisUnit.Dimensionless);
         return new AnalysisData(

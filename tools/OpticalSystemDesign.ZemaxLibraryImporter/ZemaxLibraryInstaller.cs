@@ -127,7 +127,11 @@ public sealed class ZemaxLibraryInstaller
             await StarOptProjectStore.SaveAsync(
                     new StarOptProjectDocument(
                         imported.Configurations,
-                        imported.ActiveConfigurationIndex),
+                        imported.ActiveConfigurationIndex,
+                        BrokenLinks: imported.BrokenLinks,
+                        OperandRows: imported.OperandRows,
+                        OperandVariables: imported.OperandVariables,
+                        OperandPickups: imported.OperandPickups),
                     stagedProjectPath,
                     cancellationToken)
                 .ConfigureAwait(false);

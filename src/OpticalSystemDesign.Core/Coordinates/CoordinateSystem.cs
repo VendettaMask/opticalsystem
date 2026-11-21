@@ -46,7 +46,7 @@ public sealed record CoordinateSystem(
         return new CoordinateSystem(origin, roll * 180 / Math.PI, pitch * 180 / Math.PI, yaw * 180 / Math.PI);
     }
 
-    private Matrix3x3 RotationMatrix()
+    internal Matrix3x3 RotationMatrix()
     {
         var rx = DegreesToRadians(RotationXDegrees);
         var ry = DegreesToRadians(RotationYDegrees);
@@ -64,6 +64,15 @@ public sealed record CoordinateSystem(
         var z = new Matrix3x3(cz, -sz, 0, sz, cz, 0, 0, 0, 1);
 
         return z * y * x;
+    }
+
+    internal static CoordinateSystem FromRotation(Vector3D origin, Matrix3x3 rotation)
+    {
+        var horizontal = Math.Sqrt(rotation.M11 * rotation.M11 + rotation.M21 * rotation.M21);
+        var pitch = Math.Atan2(-rotation.M31, horizontal);
+        var roll = horizontal > 1e-12 ? Math.Atan2(rotation.M32, rotation.M33) : 0;
+        var yaw = horizontal > 1e-12 ? Math.Atan2(rotation.M21, rotation.M11) : Math.Atan2(-rotation.M12, rotation.M22);
+        return new CoordinateSystem(origin, roll * 180 / Math.PI, pitch * 180 / Math.PI, yaw * 180 / Math.PI);
     }
 
     private static double DegreesToRadians(double degrees)

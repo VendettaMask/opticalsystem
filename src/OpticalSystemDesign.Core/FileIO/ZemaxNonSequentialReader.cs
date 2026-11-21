@@ -22,7 +22,7 @@ public sealed record ZemaxNscImportResult(string FileName, string SourceSha256, 
 
 /// <summary>Lossless NSC intake and strict, transactional native mappings. Unknown semantics remain
 /// inspectable records and block scene publication; they are never substituted with placeholder solids.</summary>
-public static class ZemaxNonSequentialReader
+public static partial class ZemaxNonSequentialReader
 {
     public const int MaximumInputBytes = 16 * 1024 * 1024;
     public static ZemaxNscImportResult Read(string path, CancellationToken cancellationToken = default)
@@ -52,8 +52,8 @@ public static class ZemaxNonSequentialReader
             if (records.Count > 200_000) throw new InvalidDataException("ZMX 记录数超过读取限额。");
             if (r.Keyword is "SURF" or "NSOH") Finish();
             if (r.Keyword == "SURF") surface = Integer(r.Values[0]);
-            if (r.Keyword == "NSOH") { objectSurface = surface; current.Add(r); }
-            else if (current.Count > 0 && (r.Keyword.StartsWith("NSO", StringComparison.Ordinal) || r.Keyword == "NSCS")) current.Add(r);
+            if (r.Keyword == "NSOH") { objectSurface = surface; current.Add(r); continue; }
+            else if (current.Count > 0 && (r.Keyword.StartsWith("NSO", StringComparison.Ordinal) || r.Keyword is "NSCS" or "NOID" or "NSBR")) { current.Add(r); continue; }
             else if (current.Count > 0) Finish();
             if (r.Keyword == "MODE") mode = r.Values[0].ToUpperInvariant();
             if (r.Keyword == "UNIT") unit = r.Values[0].ToUpperInvariant();
@@ -63,24 +63,31 @@ public static class ZemaxNonSequentialReader
             if (r.Keyword == "PWAV") primary = Integer(r.Values[0]);
             if (r.Keyword == "WAVM") waves[Integer(r.Values[0])] = (Number(r.Values[1]) * 1000, Number(r.Values[2]));
             // Global execution/physics records must be mapped before a file is treated as executable.
-            if (r.Keyword is "NSCD" or "POLS") issues.Add(new(r.Line, null, "UnmappedGlobalPhysics", $"{r.Keyword} 的原始追迹/偏振设置已保留，尚未完整映射。"));
-            if (r.Keyword is "TOL" or "MNUM" or "MOFF" or "MCON")
+            if (r.Keyword == "NSCD" && (r.Values.Count != 15 || r.Values[8] != "0"))
+                issues.Add(new(r.Line, null, "UnmappedGlobalPhysics", "非序列追迹设置包含尚未支持的散射或扩展定义。"));
+            if (r.Keyword == "TOL" && r.Values.FirstOrDefault() != "TOFF" || r.Keyword == "MCON"
+                || r.Keyword == "MNUM" && r.Values.FirstOrDefault() != "1")
                 issues.Add(new(r.Line, null, "ExternalDesignDefinition", $"原文件的 {r.Keyword} 设计定义已保留，不能自动等价迁移。"));
             if (current.Count == 0 && r.Keyword is not ("VERS" or "MODE" or "NAME" or "NOTE" or "UNIT" or "WAVM" or "PWAV"
                 or "NSCD" or "POLS" or "TOL" or "MNUM" or "MOFF" or "MCON" or "SURF" or "TYPE" or "CURV" or "HIDE"
                 or "MIRR" or "SLAB" or "DISZ" or "DIAM" or "POPS" or "STOP" or "PARM" or "BLNK"
-                or "GCAT" or "COFN"))
+                or "GCAT" or "COFN") && !NativeGlobalMetadata.Contains(r.Keyword))
                 issues.Add(new(r.Line, null, "UnmappedGlobalRecord", $"全局记录 {r.Keyword} 已保留，尚未核验其完整语义。"));
             if (r.Keyword == "PARM" && r.Values.Count > 1 && Number(r.Values[1]) != 0)
                 issues.Add(new(r.Line, null, "GroupTransform", "NSC 组变换/端口参数尚未完整映射。"));
+            if (r.Keyword == "ENVD" && (r.Values.Count != 3 || Number(r.Values[0]) != 20 || Number(r.Values[1]) != 1 || Number(r.Values[2]) != 0))
+                issues.Add(new(r.Line, null, "Environment", "非标准温度、气压或环境补偿尚未映射，未以默认环境替代。"));
         }
         Finish();
+        var meshAssets = new List<NonSequentialMeshAsset>();
+        MapNativeObjects(objects, records, issues, meshAssets);
         if (objects.Count == 0) issues.Add(new(0, null, "NoNscObjects", "文件未包含 NSOH 对象记录。"));
         if (mode != "NSC") issues.Add(new(0, null, "MixedModePorts", "混合模式的顺序入射/出射端口、变换与传播尚未完整映射；保持原场景。"));
         if (unit != "MM") issues.Add(new(0, null, "Units", $"当前直接映射只接受 MM；原单位 {unit} 已保留，未猜测转换。"));
         if (waves.Count == 0 || waves.Keys.Where((n, i) => n != i + 1).Any() || primary < 1 || primary > waves.Count)
             issues.Add(new(0, null, "Wavelengths", "波长表缺失、编号不连续或主波长无效。"));
-        var refs = records.SelectMany(r => r.Values).Where(IsAsset).Distinct(StringComparer.OrdinalIgnoreCase)
+        var refs = objects.SelectMany(o => o.Records).Where(r => r.Keyword == "NSOA")
+            .SelectMany(r => r.Values).Where(IsAsset).Distinct(StringComparer.OrdinalIgnoreCase)
             .Select(p => new ZemaxNscAsset(p, assetDirectory is not null && File.Exists(Path.Combine(assetDirectory, p)))).ToArray();
         foreach (var asset in refs.Where(a => !a.Exists)) issues.Add(new(0, null, "MissingAsset", $"缺少外部资产：{asset.Reference}"));
         NonSequentialDocument? document = null;
@@ -91,7 +98,14 @@ public static class ZemaxNonSequentialReader
                 var ids = objects.ToDictionary(o => o.Number, o => o.MappedObject!.Id);
                 var mapped = objects.Select(o => o.MappedObject! with
                 { ReferenceObjectId = o.ReferenceObject == 0 ? null : ids[o.ReferenceObject], ContainingObjectId = o.InsideObject == 0 ? null : ids[o.InsideObject] }).ToArray();
-                document = new(name, waves.Select(p => new NonSequentialWavelength($"λ{p.Key}", p.Value.Wave, p.Value.Weight, p.Key == primary)).ToArray(), mapped);
+                var table = waves.Select(p => new NonSequentialWavelength($"λ{p.Key}", p.Value.Wave, p.Value.Weight, p.Key == primary)).ToList();
+                foreach (var band in mapped.Select(o => o.Parameters).OfType<SourceParameters>().SelectMany(s => s.Physics?.Spectrum ?? []))
+                    if (!table.Any(w => Math.Abs(w.Nanometers - band.Nanometers) < 1e-9)) table.Add(new($"λ{table.Count + 1}", band.Nanometers, band.RelativePower, false));
+                var execution = records.FirstOrDefault(r => r.Keyword == "NSCD");
+                var settings = execution is null ? new NonSequentialTraceSettings() : new NonSequentialTraceSettings(
+                    MaximumSegmentsPerRay: Integer(execution.Values[1]), MinimumRelativeIntensity: Number(execution.Values[3]),
+                    SplitFresnelRays: execution.Values[6] == "1", UsePolarization: execution.Values[7] == "1");
+                document = new(name, table, mapped, traceSettings: settings, meshAssets: meshAssets);
             }
             catch (Exception e) when (e is ArgumentException or InvalidDataException or InvalidOperationException or KeyNotFoundException)
             { issues.Add(new(0, null, "SceneValidation", e.Message)); }
@@ -109,7 +123,6 @@ public static class ZemaxNonSequentialReader
                 reference = Integer(h.Values[1]); inside = Integer(h.Values[2]);
                 if (h.Values.Skip(3).Any(v => v.Length != 0)) issues.Add(new(h.Line, number, "ObjectHeader", "附加对象头字段已保留，尚未映射。"));
                 if (reference != 0 || inside != 0) issues.Add(new(h.Line, number, "ObjectReferences", "非零参考/包含对象记录已保留，尚待原生定义核验。"));
-                mapped = Map(number, type, rows, issues);
             }
             catch (Exception e) when (e is ArgumentException or FormatException or OverflowException or IndexOutOfRangeException or InvalidDataException)
             { issues.Add(new(h.Line, number, "ObjectDefinition", e.Message)); }

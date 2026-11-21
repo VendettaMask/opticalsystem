@@ -116,6 +116,9 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
         CancellationTokenSource linked;
         lock (Gate)
         {
+            // Freeze UI-owned settings together with the document. The worker
+            // must not observe edits made after this request was submitted.
+            request = request with { Settings = new Dictionary<string, string>(request.Settings, StringComparer.Ordinal) };
             sourceRevision = Workspace.Revision;
             sourceDocument = Workspace.GetDocumentSnapshot();
             snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());

@@ -198,7 +198,7 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
         {
             ["FocusStep"] = deltaFocus,
             ["FocusStepDiopters"] = imageSpace.IsAfocalAngle ? deltaFocus : 0,
-            ["DefocusStepMicrometers"] = _settings.DefocusStepMicrometers,
+            ["DefocusStepMicrometers"] = imageSpace.IsAfocalAngle ? 0 : _settings.DefocusStepMicrometers,
             ["DefocusStepDiopters"] = imageSpace.IsAfocalAngle ? deltaFocus : 0,
             ["DefocusUnit"] = ImageSpaceAnalysisSupport.DefocusUnitLabel(analysisOptic),
             ["FocusPlaneCount"] = _settings.FocusPlaneCount,
@@ -212,12 +212,13 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             ["ColorRaysBy"] = _settings.ColorRaysBy,
             ["Reference"] = _settings.Reference,
             ["UsePolarization"] = _settings.UsePolarization,
+            ["UseRayAiming"] = analysisOptic.RayAimingEnabled,
             ["ShowAiryDisk"] = _settings.ShowAiryDisk,
             ["AiryRadius"] = airyRadius,
             ["ImageSpaceAfocal"] = imageSpace.IsAfocalAngle,
             ["ImageCoordinateUnit"] = imageSpace.AxisUnitLabel,
             ["DisplayScale"] = _settings.DisplayScale,
-            ["PlotScaleMicrometers"] = _settings.PlotScaleMicrometers,
+            ["PlotScaleMicrometers"] = imageSpace.IsAfocalAngle ? 0 : _settings.PlotScaleMicrometers,
             ["PlotScaleMilliradians"] = imageSpace.IsAfocalAngle ? _settings.PlotScaleMicrometers : 0,
             ["ScaleBarMicrometers"] = imageSpace.IsAfocalAngle ? 0 : axisLimit * 2 * 1000,
             ["ScaleBarMilliradians"] = imageSpace.IsAfocalAngle ? axisLimit * 2 : 0,
@@ -407,6 +408,7 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
         };
         return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: $"Through-Focus MTF at {_spatialFrequency:0.###} {frequencyUnitLabel}, \u03BB={wavelength.Micrometers:0.000} \u00B5m",
+            ShowVerticalZeroLine: true,
             XMinimum: defocus[0],
             XMaximum: defocus[^1],
             YMinimum: 0,

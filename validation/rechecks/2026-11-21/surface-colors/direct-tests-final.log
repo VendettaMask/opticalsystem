@@ -1,0 +1,161 @@
+START SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays()
+FAIL SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays() System.ArgumentException: .NET number values such as positive and negative infinity cannot be written as valid JSON. To make it work when using 'JsonSerializer', consider specifying 'JsonNumberHandling.AllowNamedFloatingPointLiterals' (see https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonnumberhandling).
+   at System.Text.Json.ThrowHelper.ThrowArgumentException_ValueNotSupported()
+   at System.Text.Json.Utf8JsonWriter.WriteNumberValue(Double value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Serialize(Utf8JsonWriter writer, T& rootValue, Object rootValueBoxed)
+   at System.Text.Json.JsonSerializer.WriteString[TValue](TValue& value, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Serialize[TValue](TValue value, JsonSerializerOptions options)
+   at OpticalSystemDesign.Tests.SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceColorTests.cs:line 64
+   at Program.Run(String resultPath) in D:\Projects\opticalsystem\validation\rechecks\2026-11-21\surface-colors\probe\Program.cs:line 54
+START SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(red)
+PASS SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(red)
+START SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#123)
+PASS SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#123)
+START SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#FF112233)
+PASS SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#FF112233)
+START SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#12GG56)
+PASS SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#12GG56)
+START SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Light,1200,1)
+PASS SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Light,1200,1)
+START SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Dark,1200,1.5)
+PASS SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Dark,1200,1.5)
+START SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Lumen,1200,1)
+PASS SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Lumen,1200,1)
+START SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Isekai,1200,2)
+PASS SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Isekai,1200,2)
+START SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Pixel,600,1)
+PASS SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Pixel,600,1)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(False,False,Wireframe,False)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(False,False,Wireframe,False)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Wireframe,False)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Wireframe,False)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Solid,False)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Solid,False)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,False)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,False)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Transparent,False)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Transparent,False)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Wireframe,False)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Wireframe,False)
+START SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,True)
+PASS SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,True)
+START SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(0)
+PASS SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(0)
+START SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(∞)
+PASS SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(∞)
+START SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(25.5)
+PASS SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(25.5)
+START SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip()
+PASS SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip()
+START SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory()
+PASS SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory()
+START SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(False)
+PASS SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(False)
+START SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(True)
+PASS SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(True)
+START SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted()
+PASS SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted()
+START SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents()
+PASS SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents()
+START SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter()
+PASS SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter()
+START SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor()
+PASS SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor()
+START SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros()
+PASS SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros()
+START SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()
+FAIL SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload() Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   22.013590000000001
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.<>c.<<StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload>b__2_0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 100
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 39
+   at Program.Run(String resultPath) in D:\Projects\opticalsystem\validation\rechecks\2026-11-21\surface-colors\probe\Program.cs:line 54
+START SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()
+PASS SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()
+START SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(600)
+PASS SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(600)
+START SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(1000)
+PASS SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(1000)
+START SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation()
+PASS SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation()
+START SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(1000)
+PASS SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(1000)
+START SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(600)
+PASS SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(600)
+START SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts()
+PASS SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts()
+START SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(600)
+PASS SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(600)
+START SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(1000)
+PASS SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(1000)
+START FullFieldHeatmapTests.HeatmapKeepsSignedWaveValuesSamplingAndPhysicalBoundsIdenticalToIcons()
+PASS FullFieldHeatmapTests.HeatmapKeepsSignedWaveValuesSamplingAndPhysicalBoundsIdenticalToIcons()
+START FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Light,1400,950,1)
+FAIL FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Light,1400,950,1) System.ArgumentException: Analysis parameter 'PupilSampling' has invalid value '8 x 8'. (Parameter 'PupilSampling')
+   at OpticalSystemDesign.Application.Services.AnalysisService.<NormalizeAnalysisSettings>g__NormalizeChoice|19_1(AnalysisParameterDescriptor descriptor, String value) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 300
+   at OpticalSystemDesign.Application.Services.AnalysisService.NormalizeAnalysisSettings(WorkbenchRuntime worker, String canonicalAnalysisKey, IReadOnlyDictionary`2 settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 285
+   at OpticalSystemDesign.Application.Services.AnalysisService.<>c__DisplayClass18_0.<RunAnalysisWorkerAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 183
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.AnalysisService.RunAnalysisWorkerAsync(Optic snapshot, NonSequentialDocument nonSequentialSnapshot, LoadedOpticalDocument configurationSnapshot, OpticalDocumentSnapshot sourceDocument, Int64 sourceRevision, AnalysisRequestDto request, CancellationTokenSource linked, NonSequentialAnalysisSession analysisSession) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 167
+   at OpticalSystemDesign.Tests.FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(String theme, Int32 width, Int32 height, Double scale) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\FullFieldHeatmapTests.cs:line 59
+   at Program.Run(String resultPath) in D:\Projects\opticalsystem\validation\rechecks\2026-11-21\surface-colors\probe\Program.cs:line 54
+START FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Dark,1100,900,1.5)
+FAIL FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Dark,1100,900,1.5) System.ArgumentException: Analysis parameter 'PupilSampling' has invalid value '8 x 8'. (Parameter 'PupilSampling')
+   at OpticalSystemDesign.Application.Services.AnalysisService.<NormalizeAnalysisSettings>g__NormalizeChoice|19_1(AnalysisParameterDescriptor descriptor, String value) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 300
+   at OpticalSystemDesign.Application.Services.AnalysisService.NormalizeAnalysisSettings(WorkbenchRuntime worker, String canonicalAnalysisKey, IReadOnlyDictionary`2 settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 285
+   at OpticalSystemDesign.Application.Services.AnalysisService.<>c__DisplayClass18_0.<RunAnalysisWorkerAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 183
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.AnalysisService.RunAnalysisWorkerAsync(Optic snapshot, NonSequentialDocument nonSequentialSnapshot, LoadedOpticalDocument configurationSnapshot, OpticalDocumentSnapshot sourceDocument, Int64 sourceRevision, AnalysisRequestDto request, CancellationTokenSource linked, NonSequentialAnalysisSession analysisSession) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 167
+   at OpticalSystemDesign.Tests.FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(String theme, Int32 width, Int32 height, Double scale) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\FullFieldHeatmapTests.cs:line 59
+   at Program.Run(String resultPath) in D:\Projects\opticalsystem\validation\rechecks\2026-11-21\surface-colors\probe\Program.cs:line 54
+START FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Isekai,900,850,2)
+FAIL FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Isekai,900,850,2) System.ArgumentException: Analysis parameter 'PupilSampling' has invalid value '8 x 8'. (Parameter 'PupilSampling')
+   at OpticalSystemDesign.Application.Services.AnalysisService.<NormalizeAnalysisSettings>g__NormalizeChoice|19_1(AnalysisParameterDescriptor descriptor, String value) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 300
+   at OpticalSystemDesign.Application.Services.AnalysisService.NormalizeAnalysisSettings(WorkbenchRuntime worker, String canonicalAnalysisKey, IReadOnlyDictionary`2 settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 285
+   at OpticalSystemDesign.Application.Services.AnalysisService.<>c__DisplayClass18_0.<RunAnalysisWorkerAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 183
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.AnalysisService.RunAnalysisWorkerAsync(Optic snapshot, NonSequentialDocument nonSequentialSnapshot, LoadedOpticalDocument configurationSnapshot, OpticalDocumentSnapshot sourceDocument, Int64 sourceRevision, AnalysisRequestDto request, CancellationTokenSource linked, NonSequentialAnalysisSession analysisSession) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\AnalysisService.cs:line 167
+   at OpticalSystemDesign.Tests.FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(String theme, Int32 width, Int32 height, Double scale) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\FullFieldHeatmapTests.cs:line 59
+   at Program.Run(String resultPath) in D:\Projects\opticalsystem\validation\rechecks\2026-11-21\surface-colors\probe\Program.cs:line 54
+START FullFieldAberrationAnalysisTests.OnAxisOnlyFieldUsesOneFiniteCenterSample()
+PASS FullFieldAberrationAnalysisTests.OnAxisOnlyFieldUsesOneFiniteCenterSample()
+START FullFieldAberrationAnalysisTests.ApplicationDefaultCompletesForOnAxisOnlyField()
+PASS FullFieldAberrationAnalysisTests.ApplicationDefaultCompletesForOnAxisOnlyField()
+START FullFieldAberrationAnalysisTests.SamplesOutsideRadialFieldNormalizationAreOmitted()
+PASS FullFieldAberrationAnalysisTests.SamplesOutsideRadialFieldNormalizationAreOmitted()
+START FullFieldAberrationAnalysisTests.GeneratesEllipseOfValueScaledFieldIcons()
+PASS FullFieldAberrationAnalysisTests.GeneratesEllipseOfValueScaledFieldIcons()
+START FullFieldAberrationAnalysisTests.RectangleAndSignedDisplayRetainTheCompleteGrid()
+PASS FullFieldAberrationAnalysisTests.RectangleAndSignedDisplayRetainTheCompleteGrid()
+Completed 48 direct test cases; failed=True

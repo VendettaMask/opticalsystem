@@ -1109,6 +1109,17 @@ internal static partial class UiLocalization
         Add("轴向像差", "Axial Aberration", "軸上収差");
         Add("垂轴色差", "Lateral Color", "倍率色収差");
         Add("色焦移", "Chromatic Focal Shift", "色焦点移動");
+        Add("焦移 (D)", "Focal shift (D)", "焦点移動 (D)");
+        Add("焦移 (µm)", "Focal shift (µm)", "焦点移動 (µm)");
+        Add("最大漂移 (D)", "Maximum shift (D)", "最大焦点移動 (D)");
+        Add("最大漂移 (µm)", "Maximum shift (µm)", "最大焦点移動 (µm)");
+        Add("最大焦移变化", "Maximum focal shift variation", "最大焦点移動量");
+        Add("最大焦移变化（D）", "Maximum focal shift variation (D)", "最大焦点移動量 (D)");
+        Add("主波长近轴屈光度（D）", "Primary paraxial vergence (D)", "主波長の近軸バージェンス (D)");
+        Add("最大漂移（D）", "Maximum shift (D)", "最大焦点移動 (D)");
+        Add("焦移单位", "Focal shift unit", "焦点移動の単位");
+        Add("衍射极限变化", "Diffraction-limit variation", "回折限界の変化");
+        Add("光瞳区域", "Pupil zone", "瞳ゾーン");
         Add("赛德尔系数", "Seidel Coefficients", "ザイデル係数");
         Add("赛德尔图", "Seidel Diagram", "ザイデル図");
         Add("衍射", "Diffraction", "回折");
@@ -1508,12 +1519,17 @@ internal static partial class UiLocalization
             "The clipboard is temporarily unavailable. Nothing was pasted. Retry or type the text.",
             "クリップボードを利用できないため貼り付けませんでした。再試行するか、直接入力してください。");
 
+        Add("生成膜系", "Generate Stack", "膜構成を生成");
         AddAutonomousTopologyTexts(Add);
         AddCameraPixelSamplingTexts(Add);
         AddCameraExperimentTexts(Add);
         AddCameraNonSequentialTexts(Add);
         AddManufacturabilityTexts(Add);
         AddMaterialLibraryTexts(Add);
+        AddSurfaceDrawingTexts(Add);
+        AddLensScalingTexts(Add);
+        Add("采样收敛", "Sampling convergence", "サンプリング収束");
+        Add("最大距离", "Maximum distance", "最大距離");
         AddOptimizationWizardTexts(Add);
         return values;
     }

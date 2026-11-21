@@ -1,0 +1,247 @@
+[
+  {
+    "name": "SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays()",
+    "passed": false,
+    "seconds": 1.0710276,
+    "error": "System.ArgumentException: .NET number values such as positive and negative infinity cannot be written as valid JSON. To make it work when using \u0027JsonSerializer\u0027, consider specifying \u0027JsonNumberHandling.AllowNamedFloatingPointLiterals\u0027 (see https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonnumberhandling).\r\n   at System.Text.Json.ThrowHelper.ThrowArgumentException_ValueNotSupported()\r\n   at System.Text.Json.Utf8JsonWriter.WriteNumberValue(Double value)\r\n   at System.Text.Json.Serialization.JsonConverter\u00601.TryWrite(Utf8JsonWriter writer, T\u0026 value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo\u00601.GetMemberAndWriteJson(Object obj, WriteStack\u0026 state, Utf8JsonWriter writer)\r\n   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter\u00601.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.JsonConverter\u00601.TryWrite(Utf8JsonWriter writer, T\u0026 value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.Converters.ListOfTConverter\u00602.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.JsonCollectionConverter\u00602.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.JsonConverter\u00601.TryWrite(Utf8JsonWriter writer, T\u0026 value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo\u00601.GetMemberAndWriteJson(Object obj, WriteStack\u0026 state, Utf8JsonWriter writer)\r\n   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter\u00601.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.JsonConverter\u00601.TryWrite(Utf8JsonWriter writer, T\u0026 value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.JsonConverter\u00601.WriteCore(Utf8JsonWriter writer, T\u0026 value, JsonSerializerOptions options, WriteStack\u0026 state)\r\n   at System.Text.Json.Serialization.Metadata.JsonTypeInfo\u00601.Serialize(Utf8JsonWriter writer, T\u0026 rootValue, Object rootValueBoxed)\r\n   at System.Text.Json.JsonSerializer.WriteString[TValue](TValue\u0026 value, JsonTypeInfo\u00601 jsonTypeInfo)\r\n   at System.Text.Json.JsonSerializer.Serialize[TValue](TValue value, JsonSerializerOptions options)\r\n   at OpticalSystemDesign.Tests.SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfaceColorTests.cs:line 64\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 54"
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(red)",
+    "passed": true,
+    "seconds": 0.0304956
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#123)",
+    "passed": true,
+    "seconds": 0.0291094
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#FF112233)",
+    "passed": true,
+    "seconds": 0.0183176
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#12GG56)",
+    "passed": true,
+    "seconds": 0.0174437
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Light,1200,1)",
+    "passed": true,
+    "seconds": 9.3031161
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Dark,1200,1.5)",
+    "passed": true,
+    "seconds": 6.5674003
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Lumen,1200,1)",
+    "passed": true,
+    "seconds": 4.9318681
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Isekai,1200,2)",
+    "passed": true,
+    "seconds": 4.9564035
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Pixel,600,1)",
+    "passed": true,
+    "seconds": 2.2958245
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(False,False,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.179202
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.2062993
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Solid,False)",
+    "passed": true,
+    "seconds": 0.7644988
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,False)",
+    "passed": true,
+    "seconds": 0.6824296
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Transparent,False)",
+    "passed": true,
+    "seconds": 0.7386613
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.2265326
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,True)",
+    "passed": true,
+    "seconds": 0.5309152
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(0)",
+    "passed": true,
+    "seconds": 0.0039768
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(\u221E)",
+    "passed": true,
+    "seconds": 0.0011632
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(25.5)",
+    "passed": true,
+    "seconds": 0.0007787
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip()",
+    "passed": true,
+    "seconds": 0.0493193
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory()",
+    "passed": true,
+    "seconds": 0.0046912
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(False)",
+    "passed": true,
+    "seconds": 0.0010555
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(True)",
+    "passed": true,
+    "seconds": 0.0009867
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted()",
+    "passed": true,
+    "seconds": 0.001306
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents()",
+    "passed": true,
+    "seconds": 0.0019383
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter()",
+    "passed": true,
+    "seconds": 0.0010547
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor()",
+    "passed": true,
+    "seconds": 0.0013285
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros()",
+    "passed": true,
+    "seconds": 0.0003764
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()",
+    "passed": false,
+    "seconds": 3.4884238,
+    "error": "Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ\r\nExpected: 0\r\nActual:   22.013590000000001\r\n   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer\u00601 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154\r\n   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89\r\n   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.\u003C\u003Ec.\u003C\u003CStandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload\u003Eb__2_0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfacePropertiesPanelTests.cs:line 100\r\n--- End of stack trace from previous location ---\r\n   at Avalonia.Headless.HeadlessUnitTestSession.\u003C\u003Ec__DisplayClass12_0\u00601.\u003CDispatchCore\u003Eb__0()\r\n--- End of stack trace from previous location ---\r\n   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfacePropertiesPanelTests.cs:line 39\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 54"
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()",
+    "passed": true,
+    "seconds": 3.4763997
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(600)",
+    "passed": true,
+    "seconds": 2.5770667
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(1000)",
+    "passed": true,
+    "seconds": 2.4712343
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation()",
+    "passed": true,
+    "seconds": 2.0637941
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(1000)",
+    "passed": true,
+    "seconds": 7.2107286
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(600)",
+    "passed": true,
+    "seconds": 6.8452519
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts()",
+    "passed": true,
+    "seconds": 2.8803981
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(600)",
+    "passed": true,
+    "seconds": 7.823742
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(1000)",
+    "passed": true,
+    "seconds": 10.4078555
+  },
+  {
+    "name": "FullFieldHeatmapTests.HeatmapKeepsSignedWaveValuesSamplingAndPhysicalBoundsIdenticalToIcons()",
+    "passed": true,
+    "seconds": 0.069326
+  },
+  {
+    "name": "FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Light,1400,950,1)",
+    "passed": false,
+    "seconds": 0.0264948,
+    "error": "System.ArgumentException: Analysis parameter \u0027PupilSampling\u0027 has invalid value \u00278 x 8\u0027. (Parameter \u0027PupilSampling\u0027)\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.\u003CNormalizeAnalysisSettings\u003Eg__NormalizeChoice|19_1(AnalysisParameterDescriptor descriptor, String value) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 300\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.NormalizeAnalysisSettings(WorkbenchRuntime worker, String canonicalAnalysisKey, IReadOnlyDictionary\u00602 settings) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 285\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.\u003C\u003Ec__DisplayClass18_0.\u003CRunAnalysisWorkerAsync\u003Eb__0() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 183\r\n   at System.Threading.Tasks.Task\u00601.InnerInvoke()\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n--- End of stack trace from previous location ---\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task\u0026 currentTaskSlot, Thread threadPoolThread)\r\n--- End of stack trace from previous location ---\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.RunAnalysisWorkerAsync(Optic snapshot, NonSequentialDocument nonSequentialSnapshot, LoadedOpticalDocument configurationSnapshot, OpticalDocumentSnapshot sourceDocument, Int64 sourceRevision, AnalysisRequestDto request, CancellationTokenSource linked, NonSequentialAnalysisSession analysisSession) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 167\r\n   at OpticalSystemDesign.Tests.FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(String theme, Int32 width, Int32 height, Double scale) in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\FullFieldHeatmapTests.cs:line 59\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 54"
+  },
+  {
+    "name": "FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Dark,1100,900,1.5)",
+    "passed": false,
+    "seconds": 0.0062705,
+    "error": "System.ArgumentException: Analysis parameter \u0027PupilSampling\u0027 has invalid value \u00278 x 8\u0027. (Parameter \u0027PupilSampling\u0027)\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.\u003CNormalizeAnalysisSettings\u003Eg__NormalizeChoice|19_1(AnalysisParameterDescriptor descriptor, String value) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 300\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.NormalizeAnalysisSettings(WorkbenchRuntime worker, String canonicalAnalysisKey, IReadOnlyDictionary\u00602 settings) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 285\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.\u003C\u003Ec__DisplayClass18_0.\u003CRunAnalysisWorkerAsync\u003Eb__0() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 183\r\n   at System.Threading.Tasks.Task\u00601.InnerInvoke()\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n--- End of stack trace from previous location ---\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task\u0026 currentTaskSlot, Thread threadPoolThread)\r\n--- End of stack trace from previous location ---\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.RunAnalysisWorkerAsync(Optic snapshot, NonSequentialDocument nonSequentialSnapshot, LoadedOpticalDocument configurationSnapshot, OpticalDocumentSnapshot sourceDocument, Int64 sourceRevision, AnalysisRequestDto request, CancellationTokenSource linked, NonSequentialAnalysisSession analysisSession) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 167\r\n   at OpticalSystemDesign.Tests.FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(String theme, Int32 width, Int32 height, Double scale) in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\FullFieldHeatmapTests.cs:line 59\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 54"
+  },
+  {
+    "name": "FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(Isekai,900,850,2)",
+    "passed": false,
+    "seconds": 0.00133,
+    "error": "System.ArgumentException: Analysis parameter \u0027PupilSampling\u0027 has invalid value \u00278 x 8\u0027. (Parameter \u0027PupilSampling\u0027)\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.\u003CNormalizeAnalysisSettings\u003Eg__NormalizeChoice|19_1(AnalysisParameterDescriptor descriptor, String value) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 300\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.NormalizeAnalysisSettings(WorkbenchRuntime worker, String canonicalAnalysisKey, IReadOnlyDictionary\u00602 settings) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 285\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.\u003C\u003Ec__DisplayClass18_0.\u003CRunAnalysisWorkerAsync\u003Eb__0() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 183\r\n   at System.Threading.Tasks.Task\u00601.InnerInvoke()\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n--- End of stack trace from previous location ---\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task\u0026 currentTaskSlot, Thread threadPoolThread)\r\n--- End of stack trace from previous location ---\r\n   at OpticalSystemDesign.Application.Services.AnalysisService.RunAnalysisWorkerAsync(Optic snapshot, NonSequentialDocument nonSequentialSnapshot, LoadedOpticalDocument configurationSnapshot, OpticalDocumentSnapshot sourceDocument, Int64 sourceRevision, AnalysisRequestDto request, CancellationTokenSource linked, NonSequentialAnalysisSession analysisSession) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\AnalysisService.cs:line 167\r\n   at OpticalSystemDesign.Tests.FullFieldHeatmapTests.DefaultUsesSharedSampledHeatmapAndColormapRepaintsWithoutChangingResult(String theme, Int32 width, Int32 height, Double scale) in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\FullFieldHeatmapTests.cs:line 59\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 54"
+  },
+  {
+    "name": "FullFieldAberrationAnalysisTests.OnAxisOnlyFieldUsesOneFiniteCenterSample()",
+    "passed": true,
+    "seconds": 0.004471
+  },
+  {
+    "name": "FullFieldAberrationAnalysisTests.ApplicationDefaultCompletesForOnAxisOnlyField()",
+    "passed": true,
+    "seconds": 0.0151864
+  },
+  {
+    "name": "FullFieldAberrationAnalysisTests.SamplesOutsideRadialFieldNormalizationAreOmitted()",
+    "passed": true,
+    "seconds": 0.0070948
+  },
+  {
+    "name": "FullFieldAberrationAnalysisTests.GeneratesEllipseOfValueScaledFieldIcons()",
+    "passed": true,
+    "seconds": 0.027878
+  },
+  {
+    "name": "FullFieldAberrationAnalysisTests.RectangleAndSignedDisplayRetainTheCompleteGrid()",
+    "passed": true,
+    "seconds": 0.0114853
+  }
+]

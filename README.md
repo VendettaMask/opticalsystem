@@ -52,6 +52,12 @@ The interface supports Simplified Chinese, English, and Japanese. Choose from Li
 
 Open **File → Samples** to browse 95 sequential lenses in 14 categories. These 95 lenses form the numerical validation baseline. [Sample lenses](docs/USER_GUIDE.md#镜头示例) · [Lens-by-lens validation](validation/rechecks/2026-11-08/menu-all95-current-replay/README.md) · [Current status](docs/CURRENT_STATUS.md)
 
+Non-sequential mode also offers **File → Samples**, with 106 ZMX examples in 16 categories. Each opens the import inspection; unresolved semantics or missing external assets block scene application. [Sample scope](src/OpticalSystemDesign.App/Assets/NonSequentialExamples/README.md)
+
+Color Fringes now supports ZMX import, waveplate-mode tracing and true-color detector display. [Workflow and spectral-fit scope](docs/NSC_COLOR_FRINGES.md)
+
+Use **Settings → Lens Tools → Scale Lens** to scale a supported surface range across configurations or change lens-table length units. Surface drawing controls include color, opacity, visibility and row colors. FFT PSF, MTF and diffraction encircled energy offer automatic refinement within the original physical range, retaining sampling and convergence diagnostics. [Current workflows](docs/USER_GUIDE.md) · [Calculation definitions](docs/COMPUTATION_GUIDE.md)
+
 ## Features
 
 <table>

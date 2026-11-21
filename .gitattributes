@@ -11,6 +11,7 @@ src/OpticalSystemDesign.App/Assets/Fonts/Typography/*-OFL.txt -text -whitespace
 validation/** -text whitespace=cr-at-eol
 # Bundled original prescriptions must retain the catalog's exact-byte hashes.
 src/OpticalSystemDesign.App/Assets/SequentialExamples/**/*.[zZ][mM][xX] -text -whitespace
+src/OpticalSystemDesign.App/Assets/NonSequentialExamples/**/*.[zZ][mM][xX] -text -whitespace
 # Captured logs and reports keep their original bytes, including trailing spaces.
 artifacts/** -text -whitespace
 # Captured engineering reports and their inputs share exact-byte validation receipts.
@@ -219,5 +220,6 @@ validation/rechecks/2026-11-03/medium-reference/evidence.zip filter=lfs diff=lfs
 validation/rechecks/2026-11-03/residual-closure/evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/rechecks/2026-11-03/definition-reference/evidence.zip filter=lfs diff=lfs merge=lfs -text
 # Active native fixtures are checked against captured byte hashes.
+third_party/colorimetry/CIE_xyz_1931_2deg.csv -text
 tests/OpticalSystemDesign.Tests/Fixtures/field-curvature-coupled-native-v1.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/toroidal-native-v1.json -text whitespace=cr-at-eol

@@ -1,0 +1,48 @@
+{
+  "scope": "Supported sequential ZMX variable metadata and native project reopening; not an optical precision certification",
+  "testResult": {
+    "total": 347,
+    "executed": 347,
+    "passed": 347,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "testArtifact": "audit-complete.trx",
+  "files": 95,
+  "filesPassed": 95,
+  "markers": 220,
+  "states": {
+    "Synchronized": 198,
+    "UnsupportedRecorded": 22
+  },
+  "finalLocalLinksChecked": 1213,
+  "missingLinks": [],
+  "sourceTrailingWhitespace": [],
+  "validationArtifacts": {
+    "audit-complete.trx": "54c857ec25bc31ad14bde6ffde876454f55379e3be85fc2a5d5b28b2ed720140",
+    "audit-final-corpus.json": "52febe3bcf1039e96acc8956e8b74adab66cbde0e0d3309c760d40773c09770b",
+    "audit-app-build.log": "2ab94b433fd6c9dd7d59dffe0f3ecf567948c62f485f33ded686b03e9eebf7b5",
+    "audit-docs.json": "5d4946120cb1aa100309405881834808fb41482b0948c15e6a6371fbc1eac284"
+  },
+  "selectedSourceHashesCapturedAfterValidation": {
+    "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs": "7f512683d0b303fedfe491792340524cd753ef04afc037d55db8983abf4d04b1",
+    "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.Variables.cs": "65408e20fc634d868d7c1b79c9c9703ea46674d273763ac3bb0b3d7f01e272f6",
+    "src/OpticalSystemDesign.Core/Domain/OpticalSurface.cs": "beb3a5bd95414c48539135c78f46de41a0092489310e0e1914da26dbd0ff1179",
+    "src/OpticalSystemDesign.Core/Services/SurfaceShapeParameters.cs": "8c5217384b4b7ef6acb01f24c8803b692a1e90a163dd5a4f2d6a40dd09103b05",
+    "src/OpticalSystemDesign.Core/Services/GradientIndexParameters.cs": "baa0a62eca5bad6d407c8fc54caad26cc680296319eebe872b028be0db593820",
+    "src/OpticalSystemDesign.Core/Multiconfig/MultiConfigurationOperand.cs": "4c507bc8266ba3eac4e0351467780828d4ce2c5f503a278e64743232d4d1a69d",
+    "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.PickupGraph.cs": "e2f4f3d92c38794d8201920d28ccbcee2d2f08395102808ce5fa3dba3d024637",
+    "tests/OpticalSystemDesign.Tests/ZemaxVariableAuditTests.cs": "702eff2f57f99e4d75c1a1ab7c78a19cd615dd055e9de1a1252d0f755b8e5ef3"
+  }
+}

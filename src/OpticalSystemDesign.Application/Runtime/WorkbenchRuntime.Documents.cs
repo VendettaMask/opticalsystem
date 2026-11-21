@@ -149,7 +149,11 @@ public partial class WorkbenchRuntime
             return new LoadedOpticalDocument(
                 imported.ActiveOptic,
                 imported.Configurations,
-                imported.ActiveConfigurationIndex);
+                imported.ActiveConfigurationIndex,
+                BrokenLinks: imported.BrokenLinks,
+                OperandRows: imported.OperandRows,
+                OperandVariables: imported.OperandVariables,
+                OperandPickups: imported.OperandPickups);
         }
 
         var text = await BoundedFile.ReadAllTextAsync(
@@ -188,7 +192,9 @@ public partial class WorkbenchRuntime
         var configurationSummary = _multiConfiguration.Configurations.Count > 1
             ? $"，{_multiConfiguration.Configurations.Count} 个配置"
             : string.Empty;
-        SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}{configurationSummary}）。");
+        var variableWarnings = _multiConfiguration.Configurations.SelectMany(optic => optic.ImportVariableWarnings).Distinct(StringComparer.Ordinal).ToArray();
+        SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}{configurationSummary}）。"
+            + (variableWarnings.Length == 0 ? "" : $" 有 {variableWarnings.Length} 条变量导入诊断，未映射项不会参与优化。{variableWarnings[0]}"));
         OpticLoaded?.Invoke(this, EventArgs.Empty);
     }
 

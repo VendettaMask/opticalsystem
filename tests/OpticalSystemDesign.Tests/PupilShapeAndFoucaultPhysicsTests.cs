@@ -189,10 +189,11 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
     }
 
     [Fact]
-    public void AfocalSystemAndUnimplementedDataSourcesAreExplicitlyRejected()
+    public void UnimplementedDataSourcesAndInvalidOptionsAreExplicitlyRejected()
     {
         var optic = Optic.CreateCookeTriplet(); optic.ImageSpaceAfocal = true;
-        Assert.Throws<NotSupportedException>(() => new FoucaultAnalysis(optic, sampling: 8).GenerateData());
+        Assert.Equal(AnalysisAxisUnit.Milliradian,
+            new FoucaultAnalysis(optic, sampling: 8).GenerateData().Values["KnifeCoordinateUnit"]);
         Assert.Throws<NotSupportedException>(() => new FoucaultAnalysis(optic, dataSource: "参考"));
         Assert.Throws<ArgumentException>(() => new FoucaultAnalysis(optic, type: "二次"));
         Assert.Throws<ArgumentException>(() => new FoucaultAnalysis(optic, knifeEdge: "unknown"));

@@ -1,6 +1,6 @@
 # 分析入口与计算章节对应
 
-本表来自当前实际分析目录和定向测试的对应关系，共 76 项。它验证指南覆盖，不验证数值精度。公式见[数学附录](COMPUTATION_FORMULAS.md)，定义见[计算指南](COMPUTATION_GUIDE.md)。
+本表由当前分析目录和应用内章节映射生成，共 80 项；运行时定向检查另行核对全部描述符。它验证指南覆盖，不验证数值精度。公式见[数学附录](COMPUTATION_FORMULAS.md)，定义见[计算指南](COMPUTATION_GUIDE.md)。生成与复核方法见[文档维护](DOCUMENTATION_MAINTENANCE.md)。
 
 | 分析入口 | 计算章节 |
 | --- | --- |
@@ -41,6 +41,10 @@
 | 傅里叶 MTF VS 视场 (Fourier MTF vs Field) | 扫描、参考球与多结构比较 |
 | 惠更斯 MTF VS 视场 (Huygens MTF vs Field) | 扫描、参考球与多结构比较 |
 | 几何 MTF VS 视场 (Geometric MTF vs Field) | 扫描、参考球与多结构比较 |
+| 三维 FFT MTF (FFT Surface MTF) | MTF、分辨率与圈入能量 |
+| 二维视场 FFT MTF (FFT MTF Map) | MTF、分辨率与圈入能量 |
+| 二维惠更斯 MTF (Huygens Surface MTF) | MTF、分辨率与圈入能量 |
+| 二维视场几何 MTF (Geometric MTF Map) | MTF、分辨率与圈入能量 |
 | 入射角 vs. 像高 (Angle vs Image Height) | 扫描、参考球与多结构比较 |
 | 入射角-像高（扫描瞳孔） (Angle vs Image Height - Through Pupil) | 扫描、参考球与多结构比较 |
 | 入射角-像高（扫描视场） (Angle vs Image Height - Through Field) | 扫描、参考球与多结构比较 |
@@ -58,10 +62,6 @@
 | 傅里叶 MTF (MTF) | MTF、分辨率与圈入能量 |
 | 惠更斯 MTF (Huygens MTF) | MTF、分辨率与圈入能量 |
 | 几何 MTF (Geometric MTF) | MTF、分辨率与圈入能量 |
-| 三维 FFT MTF (FFT Surface MTF) | MTF、分辨率与圈入能量 |
-| 二维视场 FFT MTF (FFT MTF Map) | MTF、分辨率与圈入能量 |
-| 二维惠更斯 MTF (Huygens Surface MTF) | MTF、分辨率与圈入能量 |
-| 二维视场几何 MTF (Geometric MTF Map) | MTF、分辨率与圈入能量 |
 | 采样 MTF (Sampled MTF) | MTF、分辨率与圈入能量 |
 | 对比度损失图 (Contrast Loss Map) | MTF、分辨率与圈入能量 |
 | 光程差图 (Optical Path Difference) | 波前、OPD 与 PSF |

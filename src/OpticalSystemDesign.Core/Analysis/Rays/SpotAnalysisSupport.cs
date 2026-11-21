@@ -102,6 +102,30 @@ internal static class SpotAnalysisEngine
         IReadOnlyList<PupilSample>? explicitPupilSamples = null,
         CancellationToken cancellationToken = default,
         bool gaussianPupilIntegral = false,
+        bool importanceSampledPupil = false) => Generate(optic, null, fields, wavelengths,
+            sampleParameter, distribution, imagePlaneOffset, surfaceNumber, directionCosines, reference,
+            usePolarization, ignoreLateralColor, aimAtStop, includeSurfaceTransmission, gaussianAzimuthalSamples,
+            explicitPupilSamples, cancellationToken, gaussianPupilIntegral, importanceSampledPupil);
+
+    public static SpotAnalysisResult Generate(
+        Optic optic,
+        (double Hx, double Hy)? commonReferenceField,
+        IEnumerable<(double Hx, double Hy)> fields,
+        IEnumerable<Wavelength> wavelengths,
+        int sampleParameter,
+        string distribution,
+        double imagePlaneOffset = 0,
+        int surfaceNumber = -1,
+        bool directionCosines = false,
+        string reference = "centroid",
+        bool usePolarization = false,
+        bool ignoreLateralColor = false,
+        bool aimAtStop = false,
+        bool includeSurfaceTransmission = true,
+        int gaussianAzimuthalSamples = 6,
+        IReadOnlyList<PupilSample>? explicitPupilSamples = null,
+        CancellationToken cancellationToken = default,
+        bool gaussianPupilIntegral = false,
         bool importanceSampledPupil = false)
     {
         var fieldArray = fields.ToArray();
@@ -176,6 +200,22 @@ internal static class SpotAnalysisEngine
 
         var referenceIndex = Array.FindIndex(wavelengthArray, wavelength => wavelength.IsPrimary);
         referenceIndex = referenceIndex < 0 ? 0 : referenceIndex;
+        var useChiefRay = string.Equals(reference, "chief", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(reference, "主光线", StringComparison.Ordinal);
+        (double X, double Y)? commonReference = null;
+        if (commonReferenceField.HasValue && !string.Equals(reference, "absolute", StringComparison.OrdinalIgnoreCase))
+        {
+            if (useChiefRay)
+            {
+                var chief = ChiefRayReference(optic, commonReferenceField.Value,
+                    wavelengthArray.ElementAtOrDefault(referenceIndex), surfaceNumber, directionCosines,
+                    usePolarization, imagePlaneOffset, aimAtStop)
+                    ?? throw new AnalysisDataUnavailableException("Full field spot",
+                        "the chief ray for the first defined field did not reach the selected surface");
+                commonReference = (chief.X, chief.Y);
+            }
+            else commonReference = Centroid(rawFields.SelectMany(field => field.WeightedRays));
+        }
         var centeredFields = rawFields.Select(field =>
         {
             if (string.Equals(reference, "absolute", StringComparison.OrdinalIgnoreCase))
@@ -183,9 +223,7 @@ internal static class SpotAnalysisEngine
                 return field;
             }
 
-            var useChiefRay = string.Equals(reference, "chief", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(reference, "主光线", StringComparison.Ordinal);
-            var referencePoint = useChiefRay
+            var referencePoint = useChiefRay && !commonReference.HasValue
                     ? ChiefRayReference(
                         optic,
                         (field.Hx, field.Hy),
@@ -197,8 +235,8 @@ internal static class SpotAnalysisEngine
                         aimAtStop)
                     : null;
             var centroid = Centroid(field.WeightedRays);
-            var centroidX = referencePoint?.X ?? centroid.X;
-            var centroidY = referencePoint?.Y ?? centroid.Y;
+            var centroidX = commonReference?.X ?? referencePoint?.X ?? centroid.X;
+            var centroidY = commonReference?.Y ?? referencePoint?.Y ?? centroid.Y;
             var centeredWavelengths = field.Wavelengths.Select(wavelength =>
             {
                 var wavelengthReference = ignoreLateralColor && useChiefRay

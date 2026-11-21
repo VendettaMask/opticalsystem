@@ -45,6 +45,12 @@ public sealed partial class MultiConfiguration
         var surface = FindSurface(Configurations[pickup.ConfigurationIndex], pickup.Operand.SurfaceNumber);
         if (pickup.Operand.Kind == MultiConfigurationOperandKind.Curvature) surface.RadiusVariable = false;
         if (pickup.Operand.Kind == MultiConfigurationOperandKind.Thickness) surface.ThicknessVariable = false;
+        if (pickup.Operand.Kind == MultiConfigurationOperandKind.Conic) surface.ShapeVariables = surface.ShapeVariables.Where(name => name != "conic").ToArray();
+        if (pickup.Operand.Kind == MultiConfigurationOperandKind.ShapeCoefficient) surface.ShapeVariables = surface.ShapeVariables.Where(name => name != pickup.Operand.Parameter).ToArray();
+        if (pickup.Operand.Kind == MultiConfigurationOperandKind.GradientIndexCoefficient)
+            Services.GradientIndexParameters.SetVariable(Configurations[pickup.ConfigurationIndex], surface, pickup.Operand.Parameter!, false);
+        if (pickup.Operand.Kind == MultiConfigurationOperandKind.ModelGlassCoefficient)
+            Services.ModelGlassParameters.SetVariable(surface, pickup.Operand.Parameter!, false);
         if (pickup.Operand.Kind == MultiConfigurationOperandKind.SemiDiameter)
         {
             surface.SemiDiameterFixed = true;

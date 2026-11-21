@@ -301,6 +301,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
         if (checkedPupils.Count > 0) resultValues["FocusedHuygensSampling"] = checkedPupils.ToArray();
         return new AnalysisData(Name, resultValues, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: $"{MtfMethodEvaluator.MethodName(_method)} Through-Focus MTF at {_spatialFrequency:0.###} {frequencyUnitLabel}, {wavelengthLabel}",
+            ShowVerticalZeroLine: true,
             XMinimum: -_deltaFocus,
             XMaximum: _deltaFocus,
             YMinimum: yMinimum,
@@ -991,7 +992,7 @@ internal static class MtfMethodEvaluator
                 imageSize,
                 resolvedSettings.PixelPitchMillimeters,
                 usePolarization: resolvedSettings.UsePolarization,
-                aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
+                aimAtStop: optic.RayAimingEnabled,
                 defocus: optic.ImageSpaceAfocal ? defocus : 0,
                 useParaxialPupilDefocus: resolvedSettings.UseZemaxHuygensSemantics);
         return SampleHuygensMtf(

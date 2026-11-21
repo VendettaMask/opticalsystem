@@ -2,7 +2,7 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed class AxialAberrationAnalysis : BaseAnalysis
 {
-    private readonly double _graphScaleMillimeters;
+    private readonly double _graphScale;
     private readonly int _wavelengthNumber;
     private readonly bool _useDashes;
     private readonly int _sampleCount;
@@ -14,7 +14,9 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
         bool useDashes = false,
         int sampleCount = 101) : base(optic)
     {
-        _graphScaleMillimeters = Math.Max(0, graphScaleMillimeters);
+        // Retain the public argument name for existing callers. Like the
+        // analysis setting, its unit follows the focal/afocal result mode.
+        _graphScale = Math.Max(0, graphScaleMillimeters);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _useDashes = useDashes;
         _sampleCount = Math.Max(21, sampleCount);
@@ -35,7 +37,7 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
             : new[] { allWavelengths[Math.Clamp(_wavelengthNumber - 1, 0, allWavelengths.Length - 1)] };
         var series = wavelengths
             .Select((wavelength, index) => new AnalysisSeries(
-                "毫米",
+                Optic.ImageSpaceAfocal ? "D" : "毫米",
                 "归一化光瞳坐标",
                 Enumerable.Range(0, _sampleCount)
                     .Select(sampleIndex =>
@@ -60,7 +62,7 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
                 LineWidth: 1.35,
                 LegendKey: $"wavelength:{wavelength.Micrometers:R}",
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: Optic.ImageSpaceAfocal ? AnalysisAxisUnit.Diopter : AnalysisAxisUnit.Millimeter,
                 YQuantity: AnalysisAxisQuantity.PupilCoordinate,
                 YUnit: AnalysisAxisUnit.Dimensionless))
             .ToArray();
@@ -69,9 +71,9 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
             .Select(point => Math.Abs(point.X))
             .DefaultIfEmpty(0)
             .Max();
-        var axisLimit = _graphScaleMillimeters > 0
-            ? _graphScaleMillimeters
-            : NiceAxisLimit(maximumMagnitude);
+        var axisLimit = _graphScale > 0
+            ? _graphScale
+            : NiceAxisLimit(maximumMagnitude, Optic.ImageSpaceAfocal ? 1 : 1.08);
         var pupilRadius = Optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         return new AnalysisData(
             Name,
@@ -81,7 +83,9 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
                 ["ShortestWavelengthMicrometers"] = wavelengths.Min(wavelength => wavelength.Micrometers),
                 ["LongestWavelengthMicrometers"] = wavelengths.Max(wavelength => wavelength.Micrometers),
                 ["WavelengthCount"] = wavelengths.Length,
-                ["GraphScaleMillimeters"] = _graphScaleMillimeters,
+                [Optic.ImageSpaceAfocal ? "GraphScaleDiopters" : "GraphScaleMillimeters"] = _graphScale,
+                ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
+                ["DefocusUnit"] = Optic.ImageSpaceAfocal ? "D" : "mm",
                 ["UseDashes"] = _useDashes
             },
             series.FirstOrDefault(),
@@ -111,17 +115,33 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
 
             var height = paraxial.Heights[^1][0];
             var slope = paraxial.Slopes[^1][0];
+            if (Optic.ImageSpaceAfocal)
+                return Math.Abs(height) <= 1e-15 ? double.NaN : -1000 * slope / height;
             return Math.Abs(slope) <= 1e-15 ? 0 : -height / slope;
         }
 
         try
         {
             var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupil, wavelengthMicrometers, aimAtStop: Optic.RayAimingEnabled);
-            if (sample is null || sample.Intensity <= 0 || Math.Abs(sample.Direction.Y) <= 1e-15)
+            if (sample is null || sample.Intensity <= 0)
             {
                 return double.NaN;
             }
 
+            if (Optic.ImageSpaceAfocal)
+            {
+                var frame = Optic.SurfaceGroup.Items[^1].CoordinateSystem;
+                var position = frame.ToLocalPoint(sample.Position);
+                var direction = frame.ToLocalDirection(sample.Direction);
+                // Compute reciprocal axis-crossing distance directly. An
+                // exactly collimated zonal ray has zero power, not an infinite
+                // plotted focus distance or a missing point.
+                return Math.Abs(position.Y) <= 1e-15 || Math.Abs(direction.Z) <= 1e-15
+                    ? double.NaN
+                    : -1000 * direction.Y / (position.Y * direction.Z);
+            }
+
+            if (Math.Abs(sample.Direction.Y) <= 1e-15) return double.NaN;
             return -sample.Position.Y * sample.Direction.Z / sample.Direction.Y;
         }
         catch (InvalidOperationException)
@@ -130,14 +150,14 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
         }
     }
 
-    private static double NiceAxisLimit(double maximum)
+    private static double NiceAxisLimit(double maximum, double headroom)
     {
         if (!double.IsFinite(maximum) || maximum <= 1e-12)
         {
             return 0.001;
         }
 
-        var target = maximum * 1.08;
+        var target = maximum * headroom;
         var exponent = Math.Floor(Math.Log10(target));
         var scale = Math.Pow(10, exponent);
         var normalized = target / scale;

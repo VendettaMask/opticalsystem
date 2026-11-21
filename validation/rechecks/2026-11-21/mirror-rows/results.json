@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-21",
+  "scope": "Mirror teal row styling; five themes; off-screen only",
+  "outcome": "Completed",
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "tests": {
+    "mirror": 10,
+    "editor_row": 7,
+    "existing_material": 1,
+    "coordinate_reference": 10
+  },
+  "captures": [
+    "mirror-rows-Dark-100.png",
+    "mirror-rows-Isekai-100.png",
+    "mirror-rows-Light-100.png",
+    "mirror-rows-Light-150.png",
+    "mirror-rows-Light-200.png",
+    "mirror-rows-Lumen-100.png",
+    "mirror-rows-Pixel-100.png"
+  ],
+  "limitations": [
+    "Main test project failed compilation on pre-existing camera namespace/type references; focused project links the original four relevant test files.",
+    "NuGet audit data unavailable (NU1900); no product audit setting changed.",
+    "Sandbox test-host attempts interrupted; final 28 tests ran off-screen outside the sandbox.",
+    "No full optical precision matrix, native desktop interaction, or publication."
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/MirrorRowStyles.cs",
+      "sha256": "c79f2ed2499c4e71e856f2bea203160a449aac4602d83c5016239d60156da2d3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "sha256": "b0fa9e4b613f4cfc432d65b28e60ec2fa0d16d86ec3da820ec62463e23e321f8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/ViewModels/EditorRows.cs",
+      "sha256": "75ee98b7c86917396652efdcec8a3eabd396e9c82cfd26d0d0956ed317b5dbda"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "720b9fa108ab1ef7610f5f0178d3bc86515110171914d352d53e2be28eb8056a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "84a94f7ff7454ed67e6b96154c8285980b5100f804a0c1c369595ad4eefd40bd"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/MirrorRowThemeTests.cs",
+      "sha256": "8d2609db2b6e06a718819a9fdf3132538e442c96ed898186e8fe6cc70051244d"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/CoordinateReferenceRowTests.cs",
+      "sha256": "4e42b820eb5fd6432925de682a6547035936059e6e63d4e98cbff79bbb74f019"
+    }
+  ]
+}

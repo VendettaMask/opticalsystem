@@ -1,0 +1,15 @@
+<Project>
+  <Target Name="UsePreTaskEnergySources" BeforeTargets="CoreCompile" Condition="'$(MSBuildProjectName)' == 'OpticalSystemDesign.Core'">
+    <ItemGroup>
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)' == 'FourierResultValidation'" />
+      <Compile Include="$(MSBuildThisFileDirectory)baseline-core/FourierResultValidation.cs" />
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)' == 'EncircledEnergyVariants'" />
+      <Compile Include="$(MSBuildThisFileDirectory)baseline-core/EncircledEnergyVariants.cs" />
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)' == 'FftCumulativeEnergyGrid'" />
+      <Compile Include="$(MSBuildThisFileDirectory)baseline-core/FftCumulativeEnergyGrid.cs" />
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)' == 'FftCumulativeKnotGrid'" />
+      <Compile Include="$(MSBuildThisFileDirectory)baseline-core/FftCumulativeKnotGrid.cs" />
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)' == 'DiffractionEngine.CumulativeEnergy.SpectrumWindow'" />
+    </ItemGroup>
+  </Target>
+</Project>

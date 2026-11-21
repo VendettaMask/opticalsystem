@@ -317,6 +317,7 @@ public static partial class ComponentSnapshotFactory
     {
         return material switch
         {
+            ModelGlassMaterial model => FromModelGlass(model),
             UniaxialMaterial crystal => new ComponentSnapshot("uniaxial", new()
                 { ["axisX"] = crystal.Axis.X, ["axisY"] = crystal.Axis.Y, ["axisZ"] = crystal.Axis.Z,
                     ["extraordinary"] = crystal.TraceExtraordinary ? 1 : 0, ["paraxialIgnore"] = crystal.ParaxialIgnore ? 1 : 0 },
@@ -376,6 +377,7 @@ public static partial class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "air" => new AirMaterial(),
+            "model_glass" => ToModelGlass(snapshot),
             "pressure_air" => new AirMaterial(snapshot.Numbers["pressureAtmospheres"]),
             "uniaxial" => new UniaxialMaterial(ToMaterial(snapshot.Children!["ordinary"], "", registry),
                 ToMaterial(snapshot.Children!["extraordinary"], "", registry),

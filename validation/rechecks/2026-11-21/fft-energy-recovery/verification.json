@@ -1,0 +1,146 @@
+{
+  "verifiedAt": "2026-11-21T19:10:33.6526965+08:00",
+  "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+  "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+  "analysis": "Diffraction Encircled Energy",
+  "focusedTests": {
+    "result": "results/energy-recovery-focused.trx",
+    "skipped": 0,
+    "passed": 42,
+    "failed": 0
+  },
+  "historicalReferenceChecks": {
+    "total": 30,
+    "beforeFailed": 10,
+    "afterFailed": 10,
+    "differentResults": []
+  },
+  "validation": {
+    "Protocol": "FourierPhysicalDomainConvergence/v1",
+    "Mode": 2,
+    "RequestedPupilSampling": 64,
+    "ReturnedPupilSampling": 2048,
+    "MaximumPupilSampling": 2048,
+    "RelativeRmsAccuracy": 0.001,
+    "AbsoluteAccuracy": 1E-07,
+    "Validated": true,
+    "Steps": [
+      {
+        "PupilSampling": 64,
+        "PhaseResolved": false,
+        "RelativeRmsChange": null,
+        "MaximumAbsoluteChange": null,
+        "UsesDensePhysicalPupil": false,
+        "MaximumPupilPhaseStepWaves": 0.7199995631140365
+      },
+      {
+        "PupilSampling": 128,
+        "PhaseResolved": false,
+        "RelativeRmsChange": 0.023176486822086232,
+        "MaximumAbsoluteChange": 0.04577206971387404,
+        "UsesDensePhysicalPupil": false,
+        "MaximumPupilPhaseStepWaves": 0.5352058734664987
+      },
+      {
+        "PupilSampling": 256,
+        "PhaseResolved": true,
+        "RelativeRmsChange": 0.0056147376079431505,
+        "MaximumAbsoluteChange": 0.01129506085140164,
+        "UsesDensePhysicalPupil": false,
+        "MaximumPupilPhaseStepWaves": 0.4414475072627369
+      },
+      {
+        "PupilSampling": 512,
+        "PhaseResolved": true,
+        "RelativeRmsChange": 0.003384731317919611,
+        "MaximumAbsoluteChange": 0.006890638415454786,
+        "UsesDensePhysicalPupil": false,
+        "MaximumPupilPhaseStepWaves": 0.31625184879152946
+      },
+      {
+        "PupilSampling": 1024,
+        "PhaseResolved": true,
+        "RelativeRmsChange": 0.0013150033459339596,
+        "MaximumAbsoluteChange": 0.0018591658573059444,
+        "UsesDensePhysicalPupil": false,
+        "MaximumPupilPhaseStepWaves": 0.2338259465718746
+      },
+      {
+        "PupilSampling": 2048,
+        "PhaseResolved": true,
+        "RelativeRmsChange": 0.0008442001156968727,
+        "MaximumAbsoluteChange": 0.0016891016723401542,
+        "UsesDensePhysicalPupil": false,
+        "MaximumPupilPhaseStepWaves": 0.16616512015026375
+      }
+    ],
+    "Reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+    "EvaluatedNominalPupilCells": 67092480,
+    "MaximumNominalPupilCells": 100000000,
+    "RequestedRelativeRmsDeviation": 0.028927378807247123,
+    "RequestedMaximumAbsoluteDeviation": 0.053541762788846814
+  },
+  "independent4096": [
+    {
+      "curve": "衍射极限",
+      "relativeRms": 6.364427838594657E-05,
+      "maximumAbsolute": 0.00050008444177424
+    },
+    {
+      "curve": "Field 1",
+      "relativeRms": 0.000248820800526219,
+      "maximumAbsolute": 0.0005934055182379439
+    },
+    {
+      "curve": "Field 2",
+      "relativeRms": 0.00042777170539518245,
+      "maximumAbsolute": 0.0008485255273364967
+    },
+    {
+      "curve": "Field 3",
+      "relativeRms": 0.00046950993728341083,
+      "maximumAbsolute": 0.0007259457103357958
+    }
+  ],
+  "galleryUpdates": [
+    {
+      "gallery": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\all-output-visual-comparison",
+      "previousImageSha256": "2cb118c309aa355db346fb8f591059deae8ca7abc3351219fe177dcdbd3e74e1",
+      "newImageSha256": "3565bbcb1251f21451fae7e416b34df8084a9a3f0aaf4dd7feb811b41fbbe462",
+      "nativeSha256Before": "53e7b1680e41ed834b812864a4a0dd823a696ddefe86c1eb0b8ae0d1f26affeb",
+      "nativeSha256After": "53e7b1680e41ed834b812864a4a0dd823a696ddefe86c1eb0b8ae0d1f26affeb",
+      "sourceUnchanged": true,
+      "canonicalImage": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\fft-energy-recovery\\workbench\\diffraction-encircled-energy.png"
+    },
+    {
+      "gallery": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\all-output-visual-comparison\\representative-six",
+      "previousImageSha256": "2cb118c309aa355db346fb8f591059deae8ca7abc3351219fe177dcdbd3e74e1",
+      "newImageSha256": "3565bbcb1251f21451fae7e416b34df8084a9a3f0aaf4dd7feb811b41fbbe462",
+      "nativeSha256Before": "53e7b1680e41ed834b812864a4a0dd823a696ddefe86c1eb0b8ae0d1f26affeb",
+      "nativeSha256After": "53e7b1680e41ed834b812864a4a0dd823a696ddefe86c1eb0b8ae0d1f26affeb",
+      "sourceUnchanged": true,
+      "canonicalImage": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\fft-energy-recovery\\workbench\\diffraction-encircled-energy.png"
+    }
+  ],
+  "galleryChecks": [
+    {
+      "selections": 213,
+      "links": 391
+    },
+    {
+      "selections": 426,
+      "links": 780
+    }
+  ],
+  "build": {
+    "errors": 0,
+    "log": "default-build.log",
+    "nugetAudit": "Disabled for this invocation; advisory service unavailable",
+    "defaultOutput": "src/OpticalSystemDesign.App/bin/Release/net10.0",
+    "configuration": "Release",
+    "warnings": 0
+  },
+  "newNativeCapture": false,
+  "full95LensMatrixRerun": false,
+  "temporaryRuntimesRemoved": true
+}

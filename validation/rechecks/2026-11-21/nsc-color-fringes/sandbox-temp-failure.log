@@ -1,0 +1,176 @@
+RUN NonSequentialColorFringesTests.OriginalColorFringesMapsFullObjectsPickupsCrystalDispersionAndExplicitSpectrum()
+PASS NonSequentialColorFringesTests.OriginalColorFringesMapsFullObjectsPickupsCrystalDispersionAndExplicitSpectrum()
+RUN NonSequentialColorFringesTests.AllOriginalExamplesRemainLosslessAndUnknownActivePhysicsStaysBlocked()
+PASS NonSequentialColorFringesTests.AllOriginalExamplesRemainLosslessAndUnknownActivePhysicsStaysBlocked()
+RUN NonSequentialColorFringesTests.PickupUsesReferencedValueAndRejectsCyclesInsteadOfTrustingTheSavedCache()
+PASS NonSequentialColorFringesTests.PickupUsesReferencedValueAndRejectsCyclesInsteadOfTrustingTheSavedCache()
+RUN NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(0,0)
+PASS NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(0,0)
+RUN NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(0.25,0.5)
+PASS NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(0.25,0.5)
+RUN NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(0.5,1)
+PASS NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(0.5,1)
+RUN NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(1,0)
+PASS NonSequentialColorFringesTests.WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(1,0)
+RUN NonSequentialColorFringesTests.DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(0,0)
+PASS NonSequentialColorFringesTests.DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(0,0)
+RUN NonSequentialColorFringesTests.DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(45,0.5)
+PASS NonSequentialColorFringesTests.DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(45,0.5)
+RUN NonSequentialColorFringesTests.DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(90,1)
+PASS NonSequentialColorFringesTests.DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(90,1)
+RUN NonSequentialColorFringesTests.TouchingWaveplatesHaveNoFictitiousAirInterfaceAndKeepPhaseThroughTheSharedFace()
+PASS NonSequentialColorFringesTests.TouchingWaveplatesHaveNoFictitiousAirInterfaceAndKeepPhaseThroughTheSharedFace()
+RUN NonSequentialColorFringesTests.CieOriginalDataAndSpectrumFitRetainTristimulusChromaticityAndRadiometricPower()
+PASS NonSequentialColorFringesTests.CieOriginalDataAndSpectrumFitRetainTristimulusChromaticityAndRadiometricPower()
+RUN NonSequentialColorFringesTests.ActualFringesHaveSpatialSpectralVariationAndDisappearWhenRetardanceIsRemoved()
+PASS NonSequentialColorFringesTests.ActualFringesHaveSpatialSpectralVariationAndDisappearWhenRetardanceIsRemoved()
+RUN NonSequentialColorFringesTests.RealApplicationAppliesEditsTracesReconstructsAndReopensTheCrystalProject()
+FAIL NonSequentialColorFringesTests.RealApplicationAppliesEditsTracesReconstructsAndReopensTheCrystalProject()
+System.UnauthorizedAccessException: Access to the path is denied.
+   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.PublishFile(String temporaryPath, String targetPath) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 814
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_1.<TraceCoreAsync>b__2() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 396
+   at OpticalSystemDesign.Application.Services.NonSequentialResultSession.TryPublish(NonSequentialTraceSessionDto session, Boolean ownsDatabase, Int64 expectedPublicationGeneration, Action publishFile, Boolean notifyChanged) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisSession.cs:line 44
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 389
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 230
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 140
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 120
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesTests.RealApplicationAppliesEditsTracesReconstructsAndReopensTheCrystalProject() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 192
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\.tmp\nsc-color-tests\Program.cs:line 16
+RUN NonSequentialPolarizationTests.CoherentRaysRetainPhaseAndDeclaredPixelNormalization(0,2)
+PASS NonSequentialPolarizationTests.CoherentRaysRetainPhaseAndDeclaredPixelNormalization(0,2)
+RUN NonSequentialPolarizationTests.CoherentRaysRetainPhaseAndDeclaredPixelNormalization(180,0)
+PASS NonSequentialPolarizationTests.CoherentRaysRetainPhaseAndDeclaredPixelNormalization(180,0)
+RUN NonSequentialPolarizationTests.CoherentRaysRetainPhaseAndDeclaredPixelNormalization(90,1)
+PASS NonSequentialPolarizationTests.CoherentRaysRetainPhaseAndDeclaredPixelNormalization(90,1)
+RUN NonSequentialPolarizationTests.DifferentSourcesAndDifferentWavelengthsDoNotInterfereWithoutAnExplicitSharedGroup()
+PASS NonSequentialPolarizationTests.DifferentSourcesAndDifferentWavelengthsDoNotInterfereWithoutAnExplicitSharedGroup()
+RUN NonSequentialPolarizationTests.StokesRotationCircularStateAndUnpolarizedModesArePhysical()
+PASS NonSequentialPolarizationTests.StokesRotationCircularStateAndUnpolarizedModesArePhysical()
+RUN NonSequentialPolarizationTests.PixelCentrePhaseCancelsDifferentIntersectionsOnOnePlaneWave()
+PASS NonSequentialPolarizationTests.PixelCentrePhaseCancelsDifferentIntersectionsOnOnePlaneWave()
+RUN NonSequentialPolarizationTests.DatabaseV2ReconstructsJonesAndCoherentPixelsWhileLegacyV1RemainsReadable()
+PASS NonSequentialPolarizationTests.DatabaseV2ReconstructsJonesAndCoherentPixelsWhileLegacyV1RemainsReadable()
+RUN NonSequentialPolarizationTests.PhysicsBudgetAndUnsupportedRandomAmplitudePolicyFailExplicitly()
+PASS NonSequentialPolarizationTests.PhysicsBudgetAndUnsupportedRandomAmplitudePolicyFailExplicitly()
+RUN NonSequentialPolarizationTests.BareDielectricAtBrewsterAngleUsesPolarizedFluxAndConservesEnergy(True)
+PASS NonSequentialPolarizationTests.BareDielectricAtBrewsterAngleUsesPolarizedFluxAndConservesEnergy(True)
+RUN NonSequentialPolarizationTests.BareDielectricAtBrewsterAngleUsesPolarizedFluxAndConservesEnergy(False)
+PASS NonSequentialPolarizationTests.BareDielectricAtBrewsterAngleUsesPolarizedFluxAndConservesEnergy(False)
+RUN NonSequentialPolarizationTests.TotalInternalReflectionRetainsDifferentialJonesPhaseAndUnitPower()
+PASS NonSequentialPolarizationTests.TotalInternalReflectionRetainsDifferentialJonesPhaseAndUnitPower()
+RUN NonSequentialPolarizationTests.BulkAbsorptionIsBeerLambertAndUnpolarizedTransverseBasisIsNonsingular()
+PASS NonSequentialPolarizationTests.BulkAbsorptionIsBeerLambertAndUnpolarizedTransverseBasisIsNonsingular()
+RUN NonSequentialPolarizationTests.PolychromaticSourceSamplesDeclaredWeightsWithoutCrossWavelengthInterference()
+PASS NonSequentialPolarizationTests.PolychromaticSourceSamplesDeclaredWeightsWithoutCrossWavelengthInterference()
+RUN NonSequentialPolarizationTests.PolarizedMultilayerAssemblyPreservesReciprocalTransmissionWhenReversingTheFilm(False)
+PASS NonSequentialPolarizationTests.PolarizedMultilayerAssemblyPreservesReciprocalTransmissionWhenReversingTheFilm(False)
+RUN NonSequentialPolarizationTests.PolarizedMultilayerAssemblyPreservesReciprocalTransmissionWhenReversingTheFilm(True)
+PASS NonSequentialPolarizationTests.PolarizedMultilayerAssemblyPreservesReciprocalTransmissionWhenReversingTheFilm(True)
+RUN NonSequentialIntegrationTests.TextNscIntakeRetainsAllBytesAndMapsExplicitNativeSubsetWithoutPartialScenePublication()
+PASS NonSequentialIntegrationTests.TextNscIntakeRetainsAllBytesAndMapsExplicitNativeSubsetWithoutPartialScenePublication()
+RUN NonSequentialIntegrationTests.UnknownParametersMissingAssetsAndInvalidUnitsRemainExplicitBlockingDiagnostics()
+PASS NonSequentialIntegrationTests.UnknownParametersMissingAssetsAndInvalidUnitsRemainExplicitBlockingDiagnostics()
+RUN NonSequentialIntegrationTests.ApplicationPhysicsDtoProjectRoundTripAndUndoPreserveSourceJonesAndDetectorNormalization()
+FAIL NonSequentialIntegrationTests.ApplicationPhysicsDtoProjectRoundTripAndUndoPreserveSourceJonesAndDetectorNormalization()
+System.UnauthorizedAccessException: Access to the path is denied.
+   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.PublishFile(String temporaryPath, String targetPath) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 814
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_1.<TraceCoreAsync>b__2() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 396
+   at OpticalSystemDesign.Application.Services.NonSequentialResultSession.TryPublish(NonSequentialTraceSessionDto session, Boolean ownsDatabase, Int64 expectedPublicationGeneration, Action publishFile, Boolean notifyChanged) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisSession.cs:line 44
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 389
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 230
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 140
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 120
+   at OpticalSystemDesign.Tests.NonSequentialIntegrationTests.ApplicationPhysicsDtoProjectRoundTripAndUndoPreserveSourceJonesAndDetectorNormalization() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialIntegrationTests.cs:line 82
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\.tmp\nsc-color-tests\Program.cs:line 16
+RUN NonSequentialIntegrationTests.ApplicationDesignIsFrozenStaleApplyIsRejectedAndValidApplyCanBeUndone()
+PASS NonSequentialIntegrationTests.ApplicationDesignIsFrozenStaleApplyIsRejectedAndValidApplyCanBeUndone()
+RUN NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(Light,zh-CN,1)
+FAIL NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(Light,zh-CN,1)
+System.UnauthorizedAccessException: Access to the path is denied.
+   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.PublishFile(String temporaryPath, String targetPath) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 814
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_1.<TraceCoreAsync>b__2() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 396
+   at OpticalSystemDesign.Application.Services.NonSequentialResultSession.TryPublish(NonSequentialTraceSessionDto session, Boolean ownsDatabase, Int64 expectedPublicationGeneration, Action publishFile, Boolean notifyChanged) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisSession.cs:line 44
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 389
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 230
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 140
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 120
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesViewerTests.<>c__DisplayClass0_0.<<ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 226
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(String theme, String language, Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 221
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\.tmp\nsc-color-tests\Program.cs:line 16
+RUN NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(Dark,ja-JP,1.5)
+FAIL NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(Dark,ja-JP,1.5)
+System.UnauthorizedAccessException: Access to the path is denied.
+   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.PublishFile(String temporaryPath, String targetPath) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 814
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_1.<TraceCoreAsync>b__2() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 396
+   at OpticalSystemDesign.Application.Services.NonSequentialResultSession.TryPublish(NonSequentialTraceSessionDto session, Boolean ownsDatabase, Int64 expectedPublicationGeneration, Action publishFile, Boolean notifyChanged) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisSession.cs:line 44
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 389
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 230
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 140
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 120
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesViewerTests.<>c__DisplayClass0_0.<<ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 226
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(String theme, String language, Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 221
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\.tmp\nsc-color-tests\Program.cs:line 16
+RUN NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(Isekai,en-US,2)
+FAIL NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(Isekai,en-US,2)
+System.UnauthorizedAccessException: Access to the path is denied.
+   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.PublishFile(String temporaryPath, String targetPath) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 814
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_1.<TraceCoreAsync>b__2() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 396
+   at OpticalSystemDesign.Application.Services.NonSequentialResultSession.TryPublish(NonSequentialTraceSessionDto session, Boolean ownsDatabase, Int64 expectedPublicationGeneration, Action publishFile, Boolean notifyChanged) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisSession.cs:line 44
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 389
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 230
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 140
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 120
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesViewerTests.<>c__DisplayClass0_0.<<ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 226
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.NonSequentialColorFringesViewerTests.ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(String theme, String language, Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialColorFringesTests.cs:line 221
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\.tmp\nsc-color-tests\Program.cs:line 16
+TOTAL 31 passed; 5 failed; direct invocation of original xUnit assertions (sandbox testhost handshake unavailable).

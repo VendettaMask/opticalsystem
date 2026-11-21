@@ -60,7 +60,8 @@ public sealed class CoordinateReferenceRowTests
                         if (row.DataContext is SurfaceEditorRow item)
                         {
                             Assert.Equal(item.IsCoordinateReference, row.Classes.Contains(CoordinateReferenceRowStyles.RowClass));
-                            Assert.Equal(item.HasOpticalMaterial && !item.IsCoordinateReference, row.Classes.Contains("glass-material-row"));
+                            Assert.Equal(item.HasOpticalMaterial && !item.IsCoordinateReference && !item.IsReflective,
+                                row.Classes.Contains("glass-material-row"));
                         }
                 }
 

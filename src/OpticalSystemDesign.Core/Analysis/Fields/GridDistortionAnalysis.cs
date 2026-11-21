@@ -154,8 +154,8 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         }
 
         series.Add(new AnalysisSeries(
-            "Object field X",
-            "Object field Y",
+            PlotCoordinateLabel("X"),
+            PlotCoordinateLabel("Y"),
             _displayMode == "vector"
                 ? GridVectors(idealX, idealY, actualX, actualY)
                 : GridPoints(actualX, actualY),
@@ -165,10 +165,10 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             MarkerStyle: AnalysisMarkerStyle.Cross,
             MarkerSize: 2.8,
             LineWidth: 1,
-            XQuantity: AnalysisAxisQuantity.ObjectHeight,
-            XUnit: AnalysisAxisUnit.Millimeter,
-            YQuantity: AnalysisAxisQuantity.ObjectHeight,
-            YUnit: AnalysisAxisUnit.Millimeter));
+            XQuantity: PlotCoordinateQuantity,
+            XUnit: PlotCoordinateUnit,
+            YQuantity: PlotCoordinateQuantity,
+            YUnit: PlotCoordinateUnit));
 
         var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
         double FieldSpan(double half) => angularField ? 2 * Math.Atan(half) * 180 / Math.PI : 2 * half;
@@ -193,6 +193,8 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             ["GridFieldWidth"] = FieldSpan(halfWidth),
             ["GridFieldHeight"] = FieldSpan(halfHeight),
             ["GridFieldUnit"] = angularField ? "°" : "mm",
+            ["GridPlotCoordinateModel"] = angularField ? "tan(field angle)" : "object height",
+            ["GridPlotCoordinateUnit"] = angularField ? "dimensionless" : "mm",
             ["GridImageWidth"] = 2 * (Math.Abs(mapping.M00) * halfWidth + Math.Abs(mapping.M01) * halfHeight),
             ["GridImageHeight"] = 2 * (Math.Abs(mapping.M10) * halfWidth + Math.Abs(mapping.M11) * halfHeight),
             ["GridImageUnit"] = Optic.ImageSpaceAfocal ? "mrad" : "mm",
@@ -294,18 +296,27 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         }
 
         return new AnalysisSeries(
-            "Object field X",
-            "Object field Y",
+            PlotCoordinateLabel("X"),
+            PlotCoordinateLabel("Y"),
             points,
             Name: name,
             LineStyle: lineStyle,
             ColorIndex: colorIndex,
             LineWidth: lineWidth,
-            XQuantity: AnalysisAxisQuantity.ObjectHeight,
-            XUnit: AnalysisAxisUnit.Millimeter,
-            YQuantity: AnalysisAxisQuantity.ObjectHeight,
-            YUnit: AnalysisAxisUnit.Millimeter);
+            XQuantity: PlotCoordinateQuantity,
+            XUnit: PlotCoordinateUnit,
+            YQuantity: PlotCoordinateQuantity,
+            YUnit: PlotCoordinateUnit);
     }
+
+    // Angular f-tan fields are plotted in object tangent space, before the
+    // image mapping. These coordinates are slopes, not image heights in mm.
+    private string PlotCoordinateLabel(string axis) => Optic.FieldDefinition == FieldDefinitionKind.Angle
+        ? $"tan(field angle {axis})" : $"Object field {axis} (mm)";
+    private AnalysisAxisQuantity PlotCoordinateQuantity => Optic.FieldDefinition == FieldDefinitionKind.Angle
+        ? AnalysisAxisQuantity.Coordinate : AnalysisAxisQuantity.ObjectHeight;
+    private AnalysisAxisUnit PlotCoordinateUnit => Optic.FieldDefinition == FieldDefinitionKind.Angle
+        ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter;
 }
 
 internal readonly record struct DistortionReferenceMapping(

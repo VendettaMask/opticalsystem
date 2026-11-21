@@ -301,6 +301,8 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         {
             _ = Runtime.CurrentOptic.Materials.Resolve(material);
         }
+        foreach (var material in document.Objects.Where(o => o.Parameters.Waveplate is not null).Select(o => o.Parameters.Waveplate!.ExtraordinaryMaterial))
+            _ = Runtime.CurrentOptic.Materials.Resolve(material);
     }
 
     private static IEnumerable<string> MaterialNames(CoreObjectDefinition item) => item.Parameters switch
@@ -348,11 +350,13 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
             or CoreObjectKind.SourceVolumeRectangle or CoreObjectKind.SourceVolumeEllipse
             or CoreObjectKind.SourceVolumeCylinder => "光源",
         CoreObjectKind.DetectorRectangle => "探测器",
+        CoreObjectKind.Null => "坐标参考",
         _ => "几何对象"
     };
 
     private static string Summary(CoreObjectParameters parameters) => parameters switch
     {
+        Core.NonSequential.NullObjectParameters => "空物体",
         CoreSourceParameters source => $"{source.PowerWatts:0.###} W，λ{source.WavelengthNumber}，{source.AnalysisRayCount} 条",
         CorePlaneRectangleParameters plane => $"{plane.WidthMillimeters:0.###} × {plane.HeightMillimeters:0.###} mm，{plane.Behavior}",
         CoreSphereParameters sphere => $"R {sphere.RadiusMillimeters:0.###} mm",
@@ -396,11 +400,13 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
     private static NonSequentialObjectParameters ToDto(CoreObjectParameters value, CoreDocument? document = null)
     {
         var mapped = MapToDto(value, document);
-        return mapped is SourceParameters source && value is CoreSourceParameters original ? source with { Physics = original.Physics } : mapped;
+        mapped = mapped is SourceParameters source && value is CoreSourceParameters original ? source with { Physics = original.Physics } : mapped;
+        return mapped with { Waveplate = value.Waveplate };
     }
 
     private static NonSequentialObjectParameters MapToDto(CoreObjectParameters value, CoreDocument? document) => value switch
     {
+        Core.NonSequential.NullObjectParameters => new NullObjectParameters(),
         CoreSourceRayParameters source => new SourceRayParameters(
             source.PowerWatts, source.WavelengthNumber, ToDto(source.Origin), ToDto(source.Direction)),
         CoreSourcePointParameters source => new SourcePointParameters(
@@ -461,18 +467,21 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         CoreMeshObjectParameters mesh when document is not null => ToMeshDto(document.FindMeshAsset(mesh.MeshAssetId), mesh),
         CoreDetectorRectangleParameters detector => new DetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower),
+            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower)
+                { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter type '{value.GetType().Name}'.")
     };
 
     private static CoreObjectParameters ToCore(NonSequentialObjectParameters value)
     {
         var mapped = MapToCore(value);
-        return mapped is CoreSourceParameters source && value is SourceParameters original ? source with { Physics = original.Physics } : mapped;
+        mapped = mapped is CoreSourceParameters source && value is SourceParameters original ? source with { Physics = original.Physics } : mapped;
+        return mapped with { Waveplate = value.Waveplate };
     }
 
     private static CoreObjectParameters MapToCore(NonSequentialObjectParameters value) => value switch
     {
+        NullObjectParameters => new Core.NonSequential.NullObjectParameters(),
         SourceRayParameters source => new CoreSourceRayParameters(
             source.PowerWatts, source.WavelengthNumber, ToCore(source.Origin), ToCore(source.Direction)),
         SourcePointParameters source => new CoreSourcePointParameters(
@@ -534,7 +543,8 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
             mesh.MeshAssetId, ToCore(mesh.Behavior), mesh.Material, mesh.TwoSided),
         DetectorRectangleParameters detector => new CoreDetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower),
+            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower)
+                { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter DTO '{value.GetType().Name}'.")
     };
 

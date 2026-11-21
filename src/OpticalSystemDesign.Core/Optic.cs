@@ -40,6 +40,22 @@ public sealed class Optic
 
     public NumericBackendProvider Backend => _state.Backend;
 
+    public LensLengthUnit LensLengthUnit
+    {
+        get => _state.LensLengthUnit;
+        set
+        {
+            if (!Enum.IsDefined(value)) throw new ArgumentOutOfRangeException(nameof(value));
+            _state.LensLengthUnit = value;
+        }
+    }
+
+    public IReadOnlyList<string> ImportVariableWarnings
+    {
+        get => _state.ImportVariableWarnings;
+        set { ArgumentNullException.ThrowIfNull(value); _state.ImportVariableWarnings = Array.AsReadOnly(value.ToArray()); }
+    }
+
     public SystemAperture Aperture => _state.Aperture;
 
     public OpticalEnvironment Environment => _state.Environment;
@@ -616,7 +632,11 @@ public sealed class Optic
                     surface.SemiDiameterDefinesPhysicalAperture,
                     surface.ThermalExpansionPpmPerC,
                     surface.ChipZone,
-                    surface.SemiDiameterMaximum))).ToList(),
+                    surface.SemiDiameterMaximum,
+                    surface.SurfaceColor,
+                    surface.Drawing == SurfaceDrawingOptions.Default ? null : surface.Drawing,
+                    surface.ShapeVariables.Count == 0 ? null : surface.ShapeVariables.ToArray(),
+                    surface.BlockedVariableProperties.Count == 0 ? null : surface.BlockedVariableProperties.ToArray(), surface.Placement))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -652,7 +672,9 @@ public sealed class Optic
                 Environment.MatchRefractiveIndexData,
                 Environment.TemperatureCelsius,
                 Environment.PressureAtmospheres),
-            GlassCatalogs: GlassCatalogs.ToList());
+            GlassCatalogs: GlassCatalogs.ToList(),
+            ImportVariableWarnings: ImportVariableWarnings.Count == 0 ? null : ImportVariableWarnings.ToArray(),
+            LensLengthUnit: LensLengthUnit);
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -670,6 +692,7 @@ public sealed class Optic
         InvalidateRayTraceCache();
         staged.Pickups.Rebind(this);
         staged.Solves.Rebind(this);
+        staged.SurfaceGroup.Rebind(this);
         _state = staged._state;
     }
 
@@ -747,6 +770,8 @@ public sealed class Optic
             });
         }
 
+        ImportVariableWarnings = Array.AsReadOnly((snapshot.ImportVariableWarnings ?? Array.Empty<string>()).ToArray());
+        LensLengthUnit = snapshot.LensLengthUnit;
         var surfaceSnapshots = snapshot.Surfaces ?? new List<SurfaceSnapshot>();
         SurfaceGroup.Replace(surfaceSnapshots.Select(surface =>
         {
@@ -770,6 +795,8 @@ public sealed class Optic
                 ThicknessVariable = surface.ThicknessVariable,
                 SemiDiameterFixed = surface.SemiDiameterFixed,
                 SemiDiameterMaximum = surface.SemiDiameterMaximum,
+                SurfaceColor = surface.SurfaceColor,
+                Drawing = surface.Drawing ?? SurfaceDrawingOptions.Default,
                 SemiDiameterDefinesPhysicalAperture = surface.SemiDiameterDefinesPhysicalAperture
             };
 
@@ -796,6 +823,9 @@ public sealed class Optic
                 opticalSurface.ScatteringModel = ComponentSnapshotFactory.ToScattering(surface.Components.Scattering);
             }
 
+            opticalSurface.ShapeVariables = surface.ShapeVariables ?? Array.Empty<string>();
+            opticalSurface.BlockedVariableProperties = surface.BlockedVariableProperties ?? Array.Empty<string>();
+            opticalSurface.Placement = surface.Placement;
             return opticalSurface;
         }));
         for (var index = 0; index < surfaceSnapshots.Count; index++)
@@ -904,11 +934,14 @@ public sealed class Optic
 
     private sealed class OpticState
     {
+        public LensLengthUnit LensLengthUnit { get; set; }
+        public IReadOnlyList<string> ImportVariableWarnings { get; set; } = Array.Empty<string>();
         public OpticState(Optic owner, string name)
         {
             Name = name;
             Pickups = new PickupManager(owner);
             Solves = new SolveManager(owner);
+            SurfaceGroup = new SurfaceGroup(owner);
         }
 
         public string Name { get; set; }
@@ -945,7 +978,7 @@ public sealed class Optic
 
         public ObservableCollection<Wavelength> Wavelengths { get; } = new();
 
-        public SurfaceGroup SurfaceGroup { get; } = new();
+        public SurfaceGroup SurfaceGroup { get; }
 
         public PickupManager Pickups { get; }
 

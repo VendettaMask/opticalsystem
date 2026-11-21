@@ -1,0 +1,200 @@
+[
+  {
+    "name": "SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays()",
+    "passed": false,
+    "seconds": 0.8692385,
+    "error": "System.UnauthorizedAccessException: Access to the path is denied.\r\n   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)\r\n   at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteStreamingAtomicAsync(String path, Int64 maximumBytes, String description, Func\u00603 writeAsync, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\BoundedFile.cs:line 175\r\n   at OpticalSystemDesign.Core.Serialization.StarOptProjectStore.SaveAsync(StarOptProjectDocument document, String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Serialization\\StarOptProjectStore.cs:line 114\r\n   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.SaveDocumentAsync(LoadedOpticalDocument document, String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Runtime\\WorkbenchRuntime.Documents.cs:line 78\r\n   at OpticalSystemDesign.Application.Services.OpticalDocumentService.SaveQueuedAsync(Task predecessor, TaskCompletionSource completion, LoadedOpticalDocument document, Int64 documentGeneration, Int64 sourceRevision, String fullPath, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\OpticalDocumentService.cs:line 192\r\n   at OpticalSystemDesign.Tests.SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfaceColorTests.cs:line 50\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 53"
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(red)",
+    "passed": true,
+    "seconds": 0.0322307
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#123)",
+    "passed": true,
+    "seconds": 0.0284418
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#FF112233)",
+    "passed": true,
+    "seconds": 0.0177408
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#12GG56)",
+    "passed": true,
+    "seconds": 0.0177241
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Light,1200,1)",
+    "passed": true,
+    "seconds": 7.7686289
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Dark,1200,1.5)",
+    "passed": true,
+    "seconds": 7.2988165
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Lumen,1200,1)",
+    "passed": true,
+    "seconds": 5.3488602
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Isekai,1200,2)",
+    "passed": true,
+    "seconds": 4.7442588
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Pixel,600,1)",
+    "passed": true,
+    "seconds": 2.5190785
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(False,False,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.1748763
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.2203326
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Solid,False)",
+    "passed": true,
+    "seconds": 0.9242968
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,False)",
+    "passed": true,
+    "seconds": 0.7354052
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Transparent,False)",
+    "passed": true,
+    "seconds": 0.7219044
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.2254816
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,True)",
+    "passed": true,
+    "seconds": 0.5930661
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(0)",
+    "passed": true,
+    "seconds": 0.0029829
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(\u221E)",
+    "passed": true,
+    "seconds": 0.000975
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(25.5)",
+    "passed": true,
+    "seconds": 0.0006009
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip()",
+    "passed": false,
+    "seconds": 0.0298943,
+    "error": "System.UnauthorizedAccessException: Access to the path is denied.\r\n   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)\r\n   at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteStreamingAtomicAsync(String path, Int64 maximumBytes, String description, Func\u00603 writeAsync, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\BoundedFile.cs:line 175\r\n   at OpticalSystemDesign.Core.Serialization.StarOptProjectStore.SaveAsync(StarOptProjectDocument document, String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Serialization\\StarOptProjectStore.cs:line 114\r\n   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.SaveDocumentAsync(LoadedOpticalDocument document, String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Runtime\\WorkbenchRuntime.Documents.cs:line 78\r\n   at OpticalSystemDesign.Application.Services.OpticalDocumentService.SaveQueuedAsync(Task predecessor, TaskCompletionSource completion, LoadedOpticalDocument document, Int64 documentGeneration, Int64 sourceRevision, String fullPath, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\OpticalDocumentService.cs:line 192\r\n   at OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfacePropertiesServiceTests.cs:line 66\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 53"
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory()",
+    "passed": true,
+    "seconds": 0.0049902
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(False)",
+    "passed": true,
+    "seconds": 0.0010277
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(True)",
+    "passed": true,
+    "seconds": 0.0010624
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted()",
+    "passed": true,
+    "seconds": 0.0011773
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents()",
+    "passed": true,
+    "seconds": 0.0012848
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter()",
+    "passed": true,
+    "seconds": 0.0012354
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor()",
+    "passed": true,
+    "seconds": 0.0012638
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros()",
+    "passed": true,
+    "seconds": 0.0004645
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()",
+    "passed": false,
+    "seconds": 7.6810373,
+    "error": "System.UnauthorizedAccessException: Access to the path is denied.\r\n   at System.IO.FileSystem.MoveFile(String sourceFullPath, String destFullPath, Boolean overwrite)\r\n   at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteStreamingAtomicAsync(String path, Int64 maximumBytes, String description, Func\u00603 writeAsync, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\BoundedFile.cs:line 175\r\n   at OpticalSystemDesign.Core.Serialization.StarOptProjectStore.SaveAsync(StarOptProjectDocument document, String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Serialization\\StarOptProjectStore.cs:line 114\r\n   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.SaveDocumentAsync(LoadedOpticalDocument document, String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Runtime\\WorkbenchRuntime.Documents.cs:line 78\r\n   at OpticalSystemDesign.Application.Services.OpticalDocumentService.SaveQueuedAsync(Task predecessor, TaskCompletionSource completion, LoadedOpticalDocument document, Int64 documentGeneration, Int64 sourceRevision, String fullPath, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Application\\Services\\OpticalDocumentService.cs:line 192\r\n   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.\u003C\u003Ec.\u003C\u003CStandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload\u003Eb__2_0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfacePropertiesPanelTests.cs:line 114\r\n--- End of stack trace from previous location ---\r\n   at Avalonia.Headless.HeadlessUnitTestSession.\u003C\u003Ec__DisplayClass12_0\u00601.\u003CDispatchCore\u003Eb__0()\r\n--- End of stack trace from previous location ---\r\n   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\SurfacePropertiesPanelTests.cs:line 39\r\n   at Program.Run(String resultPath) in D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-21\\surface-colors\\probe\\Program.cs:line 53"
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()",
+    "passed": true,
+    "seconds": 4.4340068
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(600)",
+    "passed": true,
+    "seconds": 3.1401295
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(1000)",
+    "passed": true,
+    "seconds": 3.2937105
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation()",
+    "passed": true,
+    "seconds": 2.659109
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(1000)",
+    "passed": true,
+    "seconds": 10.8360513
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(600)",
+    "passed": true,
+    "seconds": 7.3619206
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts()",
+    "passed": true,
+    "seconds": 2.8255962
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(600)",
+    "passed": true,
+    "seconds": 7.9699682
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(1000)",
+    "passed": true,
+    "seconds": 10.3914164
+  }
+]

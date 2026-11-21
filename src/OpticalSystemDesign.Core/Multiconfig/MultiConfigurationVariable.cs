@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core.Optimization;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Multiconfig;
 
@@ -44,6 +45,9 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
             case MultiConfigurationOperandKind.Thickness: surface.Thickness = value; break;
             case MultiConfigurationOperandKind.Curvature: SurfaceCurvatureParameter.Write(surface, value); break;
             case MultiConfigurationOperandKind.Conic: surface.Conic = value; break;
+            case MultiConfigurationOperandKind.ShapeCoefficient: SurfaceShapeParameters.Write(surface, row.Parameter!, value); break;
+            case MultiConfigurationOperandKind.GradientIndexCoefficient: GradientIndexParameters.Write(optic, surface, row.Parameter!, value); break;
+            case MultiConfigurationOperandKind.ModelGlassCoefficient: ModelGlassParameters.Write(optic, surface, row.Parameter!, value); break;
             case MultiConfigurationOperandKind.SemiDiameter:
                 if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
                 surface.SemiDiameter = value; surface.SemiDiameterFixed = true; surface.SemiDiameterMaximum = false; break;
@@ -54,6 +58,18 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
     public IOptimizationVariable Create(Optic optic, Action changed)
     {
         EnsureEditable(Operand, optic);
+        var surface = optic.SurfaceGroup.Items.Single(surface => surface.Number == Operand.SurfaceNumber);
+        if (Operand.Kind == MultiConfigurationOperandKind.ShapeCoefficient)
+            return SurfaceShapeParameters.CreateVariable(surface, Operand.Parameter!, changed);
+        if (Operand.Kind == MultiConfigurationOperandKind.ModelGlassCoefficient)
+            return ModelGlassParameters.CreateVariable(optic, surface, Operand.Parameter!, changed);
+        if (Operand.Kind == MultiConfigurationOperandKind.GradientIndexCoefficient)
+        {
+            if (GradientIndexParameters.ScalarParaxialVariableDisabledReason(
+                Materials.GradientIndexProfileData.Kind(GradientIndexParameters.Require(surface).Profile), Operand.Parameter!) is { } reason)
+                throw new NotSupportedException(reason);
+            return GradientIndexParameters.CreateVariable(optic, surface, Operand.Parameter!, changed);
+        }
         var initial = Operand.Read(optic);
         // Local search ranges, not Zemax defaults or manufacturing constraints.
         var extent = Operand.Kind switch

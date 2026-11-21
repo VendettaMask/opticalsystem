@@ -1,0 +1,231 @@
+{
+  "Date": "2026-11-21",
+  "Source": "src/OpticalSystemDesign.App/Assets/NonSequentialExamples/Birefringence/Color Fringes.ZMX",
+  "SourceSha256": "ABF16161C24165584C14217A1274232BDA4A87018D1ED8C7F8A6455817F64D03",
+  "UserOriginalSha256": "ABF16161C24165584C14217A1274232BDA4A87018D1ED8C7F8A6455817F64D03",
+  "NativeEnvironment": {
+    "major": 26,
+    "minor": 1,
+    "sp": 0,
+    "mode": "Server",
+    "validLicense": true
+  },
+  "Checks": {
+    "FunctionalAndNativeColor": 42,
+    "ExistingSequentialCrystal": 12,
+    "Mode": "Direct original xUnit assertions and InlineData; no full suite",
+    "ComparisonRendering": 1
+  },
+  "Comparison": {
+    "mask": "radius < 9 mm; stripe bins 3 pixel anti-diagonals",
+    "nativePower": 0.4468056613321181,
+    "before": {
+      "totalPower": 0.44666134666494567,
+      "relativePowerError": -0.0003229920291120125,
+      "pixelPowerCorrelation": 0.26900933233541485,
+      "pixelRgbRmse8Bit": 101.82882901715895,
+      "stripePowerCorrelation": -0.1559621549467725,
+      "stripeRgbRmse8Bit": 99.67455302428102
+    },
+    "after": {
+      "totalPower": 0.4469117622094675,
+      "relativePowerError": 0.000237465382674662,
+      "pixelPowerCorrelation": 0.998508399253791,
+      "pixelRgbRmse8Bit": 9.954900973769803,
+      "stripePowerCorrelation": 0.9999833634271744,
+      "stripeRgbRmse8Bit": 3.4619391942761384
+    },
+    "nativeXyzToRgb": {
+      "maximum8BitError": 0.9999999999999681,
+      "rms8BitError": 0.33949670387618075
+    }
+  },
+  "SourceHashes": [
+    {
+      "Sha256": "1FE3A71F5BD2388626F8B4AE773AD6CAB70F8EB7BE0AE710B4934F5E44F345DC",
+      "Path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs"
+    },
+    {
+      "Sha256": "9C7097626B80084CE539019454706B0231B2565E08E7A31CC945590834BE8224",
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs"
+    },
+    {
+      "Sha256": "A03EEE0FFCA9AC733698DE19F220962532067810562C67561422B60C28E136CC",
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialColorimetry.cs"
+    },
+    {
+      "Sha256": "245A16543AC61B1E33CBB313C7575587F68A75262794072E75648BD23510F210",
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialSobolSource.cs"
+    },
+    {
+      "Sha256": "7AF131FCBB77079372C7471BDBD996E684C5BFB1CD3AE930FB79B508F2A761FD",
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs"
+    },
+    {
+      "Sha256": "150E75E4FB4A66724503D881D0B5A50063B197128E4E5DA619A6F9340925F8DA",
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPolarization.cs"
+    },
+    {
+      "Sha256": "5546726E3679DDC26D31F9DBCECF1D186374E77803B06FD32C6917DF24F1AE08",
+      "Path": "src/OpticalSystemDesign.Core/Materials/UniaxialMaterial.cs"
+    },
+    {
+      "Sha256": "2E3914FD342BEE6B6DEA1EA5ED3F3D7E3715894FFF58C5C812A04C3B9AA4F3D0",
+      "Path": "src/OpticalSystemDesign.Core/Interactions/BirefringentInteractionModel.cs"
+    },
+    {
+      "Sha256": "7669C8AB61D1B4A80AAF438A925ED2C4007D38B704130282D84F76C01D422E46",
+      "Path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs"
+    },
+    {
+      "Sha256": "01B486F1D3A5543E701C72D0FB029F16B9BEDD40A7C20877EB58FBEEB99135C2",
+      "Path": "src/OpticalSystemDesign.App/Controls/AnalysisPlotControl.cs"
+    },
+    {
+      "Sha256": "FD7ADE10FCB83021FE8C75EF8030C97BD434A64993CD2DC3EA5A523420795388",
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialNativeColorParityTests.cs"
+    },
+    {
+      "Sha256": "83C1FE8E61C191D13832C7ACD707DCC332DC1C91F60D7268DA3709F3B753C153",
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialNativeColorViewerTests.cs"
+    },
+    {
+      "Sha256": "F5AD2176E2558C5C14D490D9E41FA852A98B7948C9C1EE6E371C751AA8EE931D",
+      "Path": "tools/diagnostics/NscColorParity20261121/NativeCapture.cs"
+    },
+    {
+      "Sha256": "EF226F6DB0051676F48071F894D5DFAE1F80EC7A78988C4C969A14E3C097B9EA",
+      "Path": "tools/diagnostics/NscColorParity20261121/Comparison.cs"
+    }
+  ],
+  "EvidenceHashes": [
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/after.json",
+      "Sha256": "4457653C710229DE4E986B09AE38CD84C7BAA19FCDFDD402104E88471A80E248"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/assertions.log",
+      "Sha256": "8A321E17BFDEAF6F5D95A1CE0672F76D55DA283596F2DF6FA9D9852BE93286BE"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/build.log",
+      "Sha256": "ACB98B40FD4837D29EC292C6533AEE99F9D006C520C461BBC81D2C1B6DD6E800"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/comparison-render.log",
+      "Sha256": "F0A536F7E0FD9E9F4BA20EABCF9597F1440B2F8EF6E7DFE0212595E9AFB7616E"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/comparison.json",
+      "Sha256": "00E77FC783D6B3BB14B1BFBBCAA641AA63A1E7B209C78DC2AF394433B3C43C6C"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/comparison.png",
+      "Sha256": "049200D88CF10D0A85C821A7D0423ED38FBD1C6B20BCF0E0800CA9F118F03428"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/Dark-million-ray.png",
+      "Sha256": "0DE82334ED56C8B2C7F30DA8CA756C890A52546995BED7C35FEBFB74FEF3B807"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/Dark.png",
+      "Sha256": "C6BE02E983277DC55B1A0DB887929DB1CC0F766EF3320D1A4B0DA3BA25D71C5C"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/final-app-build.log",
+      "Sha256": "FBB5982BBBB9C1DC17BF61F3A99F106765681313C0F5EF4F3D8CD6B27F824012"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/import-audit.json",
+      "Sha256": "C141CFA481AC5EDE48FA5711D754A9929F83CD53BCCC550D3ECBFEACE21BAB7F"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/Isekai-million-ray.png",
+      "Sha256": "B924111C6F6DD1EA5533917CACC1F1E0BA6F4A5E34CD5EB6B3C69C7BF223584F"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/Isekai.png",
+      "Sha256": "75D820DA20A98C6D14A8D3D9992C8F4B0832FBF488F714EEC47BC0B62A0E8CEF"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/Light-million-ray.png",
+      "Sha256": "E8B9248478CCEAEBEE31440704B4C722A2962A0CA4DF40208CD34D22835E7F39"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/Light.png",
+      "Sha256": "229EE6C24210D454DC818CC871521FE3A27940C2187A3D4455588B3C50AAAAA7"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native-capture-build.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/control-trace--3.json",
+      "Sha256": "C7C5B1D03D37D7B93D47BB146F758386B1BFB926E00E7E3728B45B8401D0E827"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/control-trace-0.json",
+      "Sha256": "11103F1132C7571A1ABCF7A36F74A2CE7FD71270608E054E12FB4C9A6CF3C8D0"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/control-trace-3.json",
+      "Sha256": "1102A53CCDBF96B4436A2B241479AA809D33BC873C5088AA1647C7F97D0A0459"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/detector-viewer.txt",
+      "Sha256": "A1271AF0F44559A01FB6EC9AF002233A28B3812227CF04DE91D4A1492E295DBF"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/detector.json",
+      "Sha256": "205B67F5D6D195147B7F37ADF0F30BE66B4B217AF9C3EFAD3896BB58EB8DDDC1"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/environment.json",
+      "Sha256": "967D058A43772FAB13FD159C63D44AE8DF3C91A3BF08B857ABA4467C511D837F"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/prescription.txt",
+      "Sha256": "700E90B3F75D968BEB1542C3993A3379E33D4C43015D9D6245AAE38FBFD36853"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/raw-rgb.png",
+      "Sha256": "94D18D7E113CC04144955FED846A362AA72380CD1C247406F7A5B85B875E150D"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/ray-controls.json",
+      "Sha256": "B5FC24D559068BBEA618A9BDDA671C3C867EB2B26B4D40E8492B25A425A7C44B"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/ray-samples.json",
+      "Sha256": "2394E498F389E16AA44459BA074C9B57223F9CE367AE339269EEEA2536DBB6EE"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/settings.json",
+      "Sha256": "0793D7CA17F35C0F48080D33C3EADED4D76F3FC24AC70D9FF75C995FDD355389"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/source-spectrum.json",
+      "Sha256": "92987914EB7826F46E2E989546AD866E5AEA444E38888DDADC615C34DE833636"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/source.json",
+      "Sha256": "5455A002AC362C55AE3A619FBC143A8D46D57CC78F39D482649DBB837A6B0219"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/trace-status.json",
+      "Sha256": "9E0A45978071F8176875CC40C5EAC8F832DF2E3AC424C6919B3E143F6CE5B992"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/native/viewer-rgb.json",
+      "Sha256": "16D1E909B7C8D83BEB5E07526D5817FAB218AB11DBE382052BDA89DF386F9C0F"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/README.md",
+      "Sha256": "120B07A5703C57B33859B3AFC3A034E00BF23A05601FC9650A3B1DC2B70E2D6E"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-21/nsc-color-parity/shared-crystal-regression.log",
+      "Sha256": "86C32D97E2A99B310FBF64BAD9E44B815D03CFC301AC9EF1C7E7E5A0FB8764F3"
+    }
+  ]
+}

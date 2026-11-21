@@ -742,3 +742,184 @@ X 圆锥系数	X Conic Constant	X円錐定数
 按 A1、A2…顺序输入，以空格或换行分隔。有效项数之后的系数保留。	Enter A1, A2… in order, separated by spaces or new lines. Coefficients after the active term count are retained.	A1、A2…の順に空白または改行で区切って入力します。有効項数より後の係数も保存します。
 Y 半径和 Y 圆锥系数在镜头数据表中编辑。	Edit the Y radius and Y conic constant in the lens data table.	Y半径とY円錐定数はレンズデータ表で編集します。
 已载入归档输入。	Archive inputs loaded.	アーカイブの入力を読み込みました。
+
+图形缩放 (mrad)	Plot scale (mrad)	図のスケール (mrad)
+艾里斑半径 (mrad)	Airy radius (mrad)	エアリー半径 (mrad)
+垂轴色差单位	Lateral color unit	倍率色収差の単位
+
+采样收敛	Sampling convergence	サンプリング収束	采样收敛
+最大距离	Maximum distance	最大距離	最大距离
+真彩色	True color	トゥルーカラー	真彩色
+真彩色使用实际光谱与统一曝光。关闭真彩色可调整标量显示。	True color uses the traced spectrum and one shared exposure. Turn it off to adjust scalar display settings.	トゥルーカラーは追跡したスペクトルと共通露光を使用します。オフにするとスカラー表示を調整できます。	真彩色使用实际光谱与统一曝光。关闭真彩色可调整标量显示。
+空物体	Null object	ヌルオブジェクト	空物体
+坐标参考	Coordinate reference	座標参照	坐标参考
+镜头缩放	Scale Lens	レンズのスケーリング	镜头缩放
+镜头工具	Lens Tools	レンズツール	镜头工具
+因子缩放	Scale by factor	倍率で拡大・縮小	因子缩放
+单位换算	Convert units	単位を換算	单位换算
+当前单位	Current unit	現在の単位	当前单位
+应用于全部配置	Apply to all configurations	すべての構成に適用	应用于全部配置
+厘米	Centimeters	センチメートル	厘米
+米	Meters	メートル	米
+英寸	Inches	インチ	英寸
+按因子改变所选表面的尺寸；选择全部表面时，同时缩放系统孔径与高度视场。波长、材料和评价目标保持原值。	Scale the dimensions of the selected surfaces. Selecting all surfaces also scales the system aperture and height fields. Wavelengths, materials and merit targets keep their values.	選択した面の寸法を拡大・縮小します。全ての面を選ぶとシステム開口と高さ視野も変わります。波長、材料、評価目標は維持されます。	按因子改变所选表面的尺寸；选择全部表面时，同时缩放系统孔径与高度视场。波长、材料和评价目标保持原值。
+单位换算保持实际尺寸不变，镜头数据表使用新单位；分析使用各自标注的单位。	Unit conversion keeps physical dimensions unchanged. The lens data editor uses the new units; each analysis keeps its stated units.	単位換算では実際の寸法は変わりません。レンズデータ表には新しい単位を使い、解析は各表示単位を維持します。	单位换算保持实际尺寸不变，镜头数据表使用新单位；分析使用各自标注的单位。
+缩放因子必须是大于零的有限数值。	Enter a finite scale factor greater than zero.	倍率にはゼロより大きい有限値を入力してください。	缩放因子必须是大于零的有限数值。
+请选择起始面和终止面。	Select the first and last surfaces.	開始面と終了面を選択してください。	请选择起始面和终止面。
+工程已变化，请重新打开镜头缩放。	The project has changed. Reopen Scale Lens.	プロジェクトが変更されました。レンズのスケーリングを開き直してください。	工程已变化，请重新打开镜头缩放。
+起始面和终止面必须存在，且起始面不能晚于终止面。	Choose existing surfaces with the first surface no later than the last.	実在する面を選択し、開始面を終了面より後にしないでください。	起始面和终止面必须存在，且起始面不能晚于终止面。
+缩放后的数值超出有效范围，请调整缩放因子。	The scaled values are out of range. Adjust the scale factor.	スケーリング後の値が有効範囲外です。倍率を調整してください。	缩放后的数值超出有效范围，请调整缩放因子。
+使用光线瞄准	Use Ray Aiming	光線照準を使用	使用光线瞄准
+面：像面    单位是 {0}。    图例对应于波长	Surface: Image    Units: {0}.    Legend items refer to wavelengths	面：像面    単位：{0}。    凡例は波長に対応	面：像面    单位是 {0}。    图例对应于波长
+面：像面    单位是 {0}。    图例对应于视场	Surface: Image    Units: {0}.    Legend items refer to fields	面：像面    単位：{0}。    凡例は視野に対応	面：像面    单位是 {0}。    图例对应于视场
+面：{0}    单位是 {1}。    图例对应于波长	Surface: {0}    Units: {1}.    Legend items refer to wavelengths	面：{0}    単位：{1}。    凡例は波長に対応	面：{0}    单位是 {1}。    图例对应于波长
+面：{0}    单位是 {1}。    图例对应于视场	Surface: {0}    Units: {1}.    Legend items refer to fields	面：{0}    単位：{1}。    凡例は視野に対応	面：{0}    单位是 {1}。    图例对应于视场
+RMS 半径：{0}	RMS radius: {0}	RMS半径：{0}	RMS 半径：{0}
+GEO 半径：{0}	GEO radius: {0}	GEO半径：{0}	GEO 半径：{0}
+缩放标尺：{0}    参考：主光线	Scale bar: {0}    Reference: Chief ray	スケールバー：{0}    基準：主光線	缩放标尺：{0}    参考：主光线
+缩放标尺：{0}    参考：质心	Scale bar: {0}    Reference: Centroid	スケールバー：{0}    基準：重心	缩放标尺：{0}    参考：质心
+暂无摘要数据	Summary unavailable	概要データなし	暂无摘要数据
+双折射	Birefringence	複屈折	双折射
+相干、干涉与衍射	Coherence Interference and Diffraction	コヒーレンス・干渉・回折	相干、干涉与衍射
+色度学	Colorimetry	測色	色度学
+衍射光学	Diffractives	回折光学	衍射光学
+光纤	Fibers	光ファイバー	光纤
+菲涅耳透镜	Fresnel Lenses	フレネルレンズ	菲涅耳透镜
+几何建模	Geometry Creation	形状作成	几何建模
+快速照明追迹	LightningTrace	高速照明追跡	快速照明追迹
+荧光粉与荧光	Phosphors and Fluorescence	蛍光体と蛍光	荧光粉与荧光
+棱镜	Prisms	プリズム	棱镜
+光线分裂	Ray splitting	光線分岐	光线分裂
+反射器	Reflectors	反射器	反射器
+表面颜色	Surface color	面の色	表面颜色
+自定义表面颜色	Custom surface color	カスタム面色	自定义表面颜色
+自定义颜色…	Custom color…	カスタム色…	自定义颜色…
+默认颜色	Default color	既定の色	默认颜色
+蓝色	Blue	青	蓝色
+红色	Red	赤	红色
+绿色	Green	緑	绿色
+青色	Cyan	シアン	青色
+紫色	Purple	紫	紫色
+橙色	Orange	オレンジ	橙色
+黄色	Yellow	黄	黄色
+灰色	Gray	グレー	灰色
+黑色	Black	黒	黑色
+白色	White	白	白色
+选择表面显示颜色，点击应用后生效；默认颜色恢复原有绘图设置。	Choose a surface display color, then click Apply. Default color restores the normal drawing palette.	面の表示色を選択して適用してください。既定の色で元の描画配色に戻ります。	选择表面显示颜色，点击应用后生效；默认颜色恢复原有绘图设置。
+输入 #RRGGBB，例如 #3366CC。	Enter #RRGGBB, for example #3366CC.	#RRGGBB 形式で入力してください（例：#3366CC）。	输入 #RRGGBB，例如 #3366CC。
+表面颜色请输入 #RRGGBB 格式的六位十六进制颜色。	Enter a six-digit surface color in #RRGGBB format.	面の色を #RRGGBB 形式の6桁の16進数で入力してください。	表面颜色请输入 #RRGGBB 格式的六位十六进制颜色。
+表面颜色在“类型”页设置，应用于二维布局、三维布局及实体模型；默认颜色沿用原有绘图设置。	Set the surface color on the Type page for 2D Layout, 3D Layout and Solid Model. Default color keeps the normal drawing palette.	「タイプ」ページで設定した面の色は2D配置、3D配置、ソリッドモデルに適用されます。既定の色は元の描画設定を使用します。	表面颜色在“类型”页设置，应用于二维布局、三维布局及实体模型；默认颜色沿用原有绘图设置。
+显示全部范围	Show full range	全範囲を表示	显示全部范围
+默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。	The default view spans chromatic power 0–60 ×10⁻³ and thermal power −30–30 ×10⁻⁶/K. Select to fit every valid point, including out-of-range data.	既定範囲は色光学パワー0–60 ×10⁻³、熱光学パワー−30–30 ×10⁻⁶/Kです。選択すると範囲外も含む全有効点を表示します。	默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。
+无热化玻璃图按 1 atm 定义；启用环境折射率匹配时，请将系统压强设为 1 atm。	The athermal glass map is defined at 1 atm. Set system pressure to 1 atm when environmental index matching is enabled.	アサーマルガラスマップは1 atmで定義されます。環境屈折率補正が有効な場合はシステム圧力を1 atmに設定してください。	无热化玻璃图按 1 atm 定义；启用环境折射率匹配时，请将系统压强设为 1 atm。
+使用工程最短、主波长和最长波长，在各玻璃目录参考温度、1 atm 下计算相对热光焦。名称按目录状态着色；默认范围外的有效点仍保留，可用“显示全部范围”查看。	Uses the project minimum, primary and maximum wavelengths at each catalog reference temperature and 1 atm. Labels use catalog status colors. Valid points outside the default view are retained; select Show full range to inspect them.	プロジェクトの最短・主・最長波長を使用し、各カタログ基準温度と1 atmで相対熱光学パワーを計算します。名称はカタログ状態別に配色します。既定範囲外の有効点も保持され、全範囲を表示で確認できます。	使用工程最短、主波长和最长波长，在各玻璃目录参考温度、1 atm 下计算相对热光焦。名称按目录状态着色；默认范围外的有效点仍保留，可用“显示全部范围”查看。
+TD 导出的 |dn/dT| ≥ 0.01/K，需核对源目录；未猜测修正或删除：	TD gives |dn/dT| ≥ 0.01/K; check the source catalog. Values have not been rescaled or removed:	TDによる|dn/dT| ≥ 0.01/Kの項目は元カタログを確認してください。推測による補正や削除はしていません：	TD 导出的 |dn/dT| ≥ 0.01/K，需核对源目录；未猜测修正或删除：
+最短 / 主 / 最长波长 (μm)	Minimum / primary / maximum wavelength (μm)	最短 / 主 / 最長波長 (μm)	最短 / 主 / 最长波长 (μm)
+默认范围内	Inside default range	既定範囲内	默认范围内
+默认范围外（保留）	Outside default range (retained)	既定範囲外（保持）	默认范围外（保留）
+缺少有效波长或热数据	Missing valid wavelength or thermal data	有効波長または熱データなし	缺少有效波长或热数据
+色光焦	Chromatic power	色光学パワー	色光焦
+热光焦	Thermal power	熱光学パワー	热光焦
+色光焦 (10⁻³)	Chromatic power (10⁻³)	色光学パワー (10⁻³)	色光焦 (10⁻³)
+热光焦 (10⁻⁶/K)	Thermal power (10⁻⁶/K)	熱光学パワー (10⁻⁶/K)	热光焦 (10⁻⁶/K)
+所有材料库	All material catalogs	全材料カタログ	所有材料库
+比较玻璃的色光焦和热光焦，辅助无热化消色差选材	Compare chromatic and thermal power to select glasses for athermal achromats	色光学パワーと熱光学パワーを比較し、アサーマル色消しの材料を選択	比较玻璃的色光焦和热光焦，辅助无热化消色差选材
+色光焦与热光焦	Chromatic and thermal power	色光学パワーと熱光学パワー	色光焦与热光焦
+所选：{0}	Selected: {0}	選択：{0}	所选：{0}
+表面透明度	Surface Opacity	面の不透明度	表面透明度
+100%（默认）	100% (default)	100%（既定）	100%（默认）
+0%（完全透明）	0% (transparent)	0%（透明）	0%（完全透明）
+显示不透明度比例：100% 保持默认绘制强度，0% 完全透明；不改变材料透过率。	Display opacity: 100% keeps the normal drawing strength; 0% is transparent. Material transmission is unchanged.	表示不透明度。100% は通常の描画強度、0% は透明です。材料の透過率は変わりません。	显示不透明度比例：100% 保持默认绘制强度，0% 完全透明；不改变材料透过率。
+隐藏这个表面的光线	Hide rays to this surface	この面への光線を非表示	隐藏这个表面的光线
+光线忽略这个面	Skip this surface when drawing rays	光線の描画でこの面をスキップ	光线忽略这个面
+不显示此表面	Do not draw this surface	この面を描画しない	不显示此表面
+不显示此表面的边缘	Do not draw edges from this surface	この面からのエッジを描画しない	不显示此表面的边缘
+显示局部坐标轴	Draw local axes	ローカル座標軸を描画	显示局部坐标轴
+绘制局部原点	Draw local origin point	ローカル原点を描画	绘制局部原点
+边缘显示	Draw edges as	エッジの描画方法	边缘显示
+绘图精度	Drawing resolution	描画解像度	绘图精度
+方形到下表面	Squared to next surface	次の面まで直角に	方形到下表面
+锥形到下表面	Tapered to next surface	次の面までテーパー状に	锥形到下表面
+平直到下表面	Flat to next surface	次の面まで平らに	平直到下表面
+不绘制边缘	No edges	エッジなし	不绘制边缘
+中等	Medium	中	中等
+高	High	高	高
+演示	Presentation	プレゼンテーション	演示
+（面型参数只读，可编辑绘图与行颜色）	 (surface parameters are read-only; drawing and row color remain editable)	（面のパラメーターは読み取り専用。描画と行色は編集可能）	（面型参数只读，可编辑绘图与行颜色）
+隐藏到达此表面的绘图光线段，后续光线段继续显示。	Hide incoming drawing segments at this surface; later segments remain visible.	この面への描画光線区間を非表示にし、以降の区間は表示します。	隐藏到达此表面的绘图光线段，后续光线段继续显示。
+绘图时跳过此面节点，直连前后节点；物理追迹仍经过此面。用于无光焦度的辅助面。	Connect the preceding and following drawing nodes directly. Physical tracing still includes this surface. Intended for optically inactive dummy surfaces.	前後の描画点を直接接続します。物理追跡はこの面を通ります。光学的に作用しない補助面に使用します。	绘图时跳过此面节点，直连前后节点；物理追迹仍经过此面。用于无光焦度的辅助面。
+平直到下表面仅用于二维布局；三维布局和实体模型采用方形到下表面。	Flat to next surface applies to 2D Layout; 3D Layout and Solid Model use squared edges.	次の面まで平らには2Dレイアウトに適用します。3Dレイアウトとソリッドモデルでは直角エッジを使用します。	平直到下表面仅用于二维布局；三维布局和实体模型采用方形到下表面。
+提高表面曲线和网格的绘图采样密度，不改变光线追迹精度。	Increase drawing samples for surface curves and meshes without changing ray-trace accuracy.	面の曲線とメッシュの描画サンプル密度を上げます。光線追跡精度は変わりません。	提高表面曲线和网格的绘图采样密度，不改变光线追迹精度。
+行颜色	Row Color	行の色	行颜色
+自定义行颜色	Custom Row Color	カスタム行色	自定义行颜色
+设置当前表面的镜头表行颜色，点击应用后生效；默认颜色恢复材料和表面类型配色。	Set the lens-editor row color for this surface and click Apply. Default restores material and surface-type colors.	この面のレンズ表の行色を設定し、適用を押します。既定色は材料と面の種類の配色に戻します。	设置当前表面的镜头表行颜色，点击应用后生效；默认颜色恢复材料和表面类型配色。
+输入 #RRGGBB，例如 #E8DCF3。	Enter #RRGGBB, for example #E8DCF3.	#RRGGBB を入力してください。例：#E8DCF3。	输入 #RRGGBB，例如 #E8DCF3。
+行颜色请输入 #RRGGBB 格式的六位十六进制颜色。	Enter a six-digit hexadecimal row color in #RRGGBB format.	行の色を #RRGGBB 形式の6桁の16進数で入力してください。	行颜色请输入 #RRGGBB 格式的六位十六进制颜色。
+参与计算的玻璃	Catalog glasses	カタログガラス	参与计算的玻璃
+有效绘图点	Valid plotted glasses	有効描画ガラス	有效绘图点
+参考线	Reference line	基準線	参考线
+首选	Preferred	推奨	首选
+废弃	Obsolete	廃止	废弃
+特殊	Special	特殊	特殊
+熔融	Melt	溶解ロット	熔融
+波前差	Wavefront error	波面誤差	波前差
+X视场	X Field	X視野	X视场
+Y视场	Y Field	Y視野	Y视场
+X视场，单位：度 (°)	X Field (°)	X視野 (°)	X视场，单位：度 (°)
+Y视场，单位：度 (°)	Y Field (°)	Y視野 (°)	Y视场，单位：度 (°)
+分解：{0}    最大项：{1}	Decomposition: {0}    Maximum term: {1}	分解：{0}    最大項：{1}	分解：{0}    最大项：{1}
+平均：{0} 波长	Average: {0} waves	平均：{0} 波	平均：{0} 波长
+显示：颜色图    视场：椭圆	Display: Color Map    Field: Elliptical	表示：カラーマップ    視野：楕円	显示：颜色图    视场：椭圆
+显示：颜色图    视场：矩形	Display: Color Map    Field: Rectangular	表示：カラーマップ    視野：矩形	显示：颜色图    视场：矩形
+显示：图标    视场：椭圆	Display: Icons    Field: Elliptical	表示：アイコン    視野：楕円	显示：图标    视场：椭圆
+显示：图标    视场：矩形	Display: Icons    Field: Rectangular	表示：アイコン    視野：矩形	显示：图标    视场：矩形
+绘图范围：从 {0} 到 {1}	Plot range: {0} to {1}	描画範囲：{0} ～ {1}	绘图范围：从 {0} 到 {1}
+生成膜系	Generate Stack	膜構成を生成	生成膜系
+按材料色散模型在 F、d、C 谱线重算，不覆盖目录参考值。	Recalculate at the F, d and C lines using the material dispersion model, retaining catalog reference values.	材料の分散モデルからF・d・C線で再計算します。カタログ参考値は変更しません。	按材料色散模型在 F、d、C 谱线重算，不覆盖目录参考值。
+请先选择材料。	Select a material first.	先に材料を選択してください。	请先选择材料。
+Nd/Vd：目录参考值	Nd/Vd: catalog reference values	Nd/Vd：カタログ参考値	Nd/Vd：目录参考值
+Nd：目录参考值；Vd：色散模型计算值	Nd: catalog reference; Vd: dispersion-model calculation	Nd：カタログ参考値；Vd：分散モデル計算値	Nd：目录参考值；Vd：色散模型计算值
+Nd：色散模型计算值；Vd：目录参考值	Nd: dispersion-model calculation; Vd: catalog reference	Nd：分散モデル計算値；Vd：カタログ参考値	Nd：色散模型计算值；Vd：目录参考值
+Nd/Vd：色散模型计算值（F/d/C）	Nd/Vd: calculated from the dispersion model (F/d/C)	Nd/Vd：分散モデルから計算（F/d/C）	Nd/Vd：色散模型计算值（F/d/C）
+目录参考 Nd：{0}；Vd：{1}	Catalog reference Nd: {0}; Vd: {1}	カタログ参考 Nd：{0}；Vd：{1}	目录参考 Nd：{0}；Vd：{1}
+Nd/Vd 计算未完成	Nd/Vd calculation incomplete	Nd/Vd計算は未完了です	Nd/Vd 计算未完成
+无法计算：F、d、C 谱线超出材料有效波长或折射率表范围。	Cannot calculate: the F, d or C line is outside the material validity range or refractive-index table.	計算できません：F・d・C線が材料の有効波長範囲または屈折率表の範囲外です。	无法计算：F、d、C 谱线超出材料有效波长或折射率表范围。
+无法计算：当前材料的色散模型不受支持。	Cannot calculate: the material dispersion model is unsupported.	計算できません：材料の分散モデルは未対応です。	无法计算：当前材料的色散模型不受支持。
+Vd 不可用：F、C 折射率相同或差值过小。	Vd is undefined: the F and C indices are equal or too close.	Vdは定義できません：F線とC線の屈折率が等しいか、差が小さすぎます。	Vd 不可用：F、C 折射率相同或差值过小。
+无法计算：材料色散数据缺失或产生无效折射率。	Cannot calculate: dispersion data are missing or produce an invalid refractive index.	計算できません：分散データが不足しているか、屈折率が無効です。	无法计算：材料色散数据缺失或产生无效折射率。
+当前材料没有解析色散系数。	This material has no analytic dispersion coefficients.	この材料には解析的な分散係数がありません。	当前材料没有解析色散系数。
+标记 * 的项为源记录额外系数，未参与当前公式计算。	Items marked * are extra source-record coefficients unused by the current formula.	* は元データの追加係数で、現在の式では使用しません。	标记 * 的项为源记录额外系数，未参与当前公式计算。
+多项式 n²	Polynomial n²	多項式 n²	多项式 n²
+多项式 n	Polynomial n	多項式 n	多项式 n
+最小波长	Minimum wavelength	最小波長	最小波长
+最大波长	Maximum wavelength	最大波長	最大波长
+有效波长	Valid wavelength range	有効波長範囲	有效波长
+Nd/Vd：部分数值不可用，请查看数据检查。	Nd/Vd: some values are unavailable; see the data check.	Nd/Vd：一部の値は利用できません。データ確認を参照してください。	Nd/Vd：部分数值不可用，请查看数据检查。
+数据检查：F-d-C 模型计算可用；目录参考值保持原值。	Data check: F-d-C model calculation is available; catalog references are unchanged.	データ確認：F-d-Cモデル計算が可能です。カタログ参考値は元のままです。	数据检查：F-d-C 模型计算可用；目录参考值保持原值。
+数据检查：F、d、C 谱线超出材料有效波长或折射率表范围；目录参考值不代表该波段的有效计算。	Data check: F, d or C is outside the valid material or index-table range; catalog references do not validate calculation in that range.	データ確認：F・d・C線が材料または屈折率表の有効範囲外です。カタログ参考値は範囲外の計算を保証しません。	数据检查：F、d、C 谱线超出材料有效波长或折射率表范围；目录参考值不代表该波段的有效计算。
+数据检查：当前色散模型不受支持；仅保留已有目录参考值。	Data check: the dispersion model is unsupported; existing catalog references are retained.	データ確認：この分散モデルは未対応です。既存のカタログ参考値を保持します。	数据检查：当前色散模型不受支持；仅保留已有目录参考值。
+数据检查：色散数据缺失或计算无效；仅保留已有目录参考值。	Data check: dispersion data is missing or invalid; existing catalog references are retained.	データ確認：分散データが不足または無効です。既存のカタログ参考値を保持します。	数据检查：色散数据缺失或计算无效；仅保留已有目录参考值。
+数据检查：F、C 折射率差值过小，Vd 无定义。	Data check: the F–C index difference is too small to define Vd.	データ確認：F・C線の屈折率差が小さすぎるためVdを定義できません。	数据检查：F、C 折射率差值过小，Vd 无定义。
+热数据需核对：目录参考温度、d 谱线下 dn/dT={0}/K；已保留原始 TD 数据，未缩放或修正。	Thermal data needs review: dn/dT={0}/K at the catalog reference temperature and d line; original TD data is retained without rescaling or correction.	熱データの確認が必要：カタログ基準温度・d線でdn/dT={0}/Kです。元のTDデータは再スケーリング・修正せず保持しています。	热数据需核对：目录参考温度、d 谱线下 dn/dT={0}/K；已保留原始 TD 数据，未缩放或修正。
+先检查对象语义和外部资产；菜单收录不代表全部支持。	Inspect object semantics and external assets first; listing an example does not imply full support.	まずオブジェクトの意味と外部アセットを確認します。メニューへの収録は完全な対応を意味しません。	先检查对象语义和外部资产；菜单收录不代表全部支持。
+打开导入检查；全部语义和资产通过后才能应用场景。	Open import inspection; apply the scene only after all semantics and assets pass.	インポート確認を開きます。すべての意味とアセットの確認後にシーンを適用できます。	打开导入检查；全部语义和资产通过后才能应用场景。
+非序列示例先进行导入检查；不支持的对象或缺失资产会阻止应用。	Non-sequential examples open import inspection; unsupported objects or missing assets block application.	非シーケンシャル例はインポート確認を開きます。未対応オブジェクトや不足アセットがあれば適用できません。	非序列示例先进行导入检查；不支持的对象或缺失资产会阻止应用。
+检查非序列示例：{0}	Inspect non-sequential example: {0}	非シーケンシャル例を確認：{0}	检查非序列示例：{0}
+焦移 (D)	Focal shift (D)	焦点移動 (D)	焦移 (D)
+焦移 (µm)	Focal shift (µm)	焦点移動 (µm)	焦移 (µm)
+最大漂移 (D)	Maximum shift (D)	最大焦点移動 (D)	最大漂移 (D)
+最大漂移 (µm)	Maximum shift (µm)	最大焦点移動 (µm)	最大漂移 (µm)
+最大焦移变化	Maximum focal shift variation	最大焦点移動量	最大焦移变化
+最大焦移变化（D）	Maximum focal shift variation (D)	最大焦点移動量 (D)	最大焦移变化（D）
+主波长近轴屈光度（D）	Primary paraxial vergence (D)	主波長の近軸バージェンス (D)	主波长近轴屈光度（D）
+最大漂移（D）	Maximum shift (D)	最大焦点移動 (D)	最大漂移（D）
+焦移单位	Focal shift unit	焦点移動の単位	焦移单位
+衍射极限变化	Diffraction-limit variation	回折限界の変化	衍射极限变化
+光瞳区域	Pupil zone	瞳ゾーン	光瞳区域
+Nd	Nd	Nd	Nd
+Vd	Vd	Vd	Vd
+公式	Formula	式	公式
+打开导入检查；全部语义和资产通过后才能应用场景。{0}{1}	Open import inspection; apply the scene only after all semantics and assets pass.{0}{1}	インポート確認を開きます。すべての意味とアセットの確認後にシーンを適用できます。{0}{1}	打开导入检查；全部语义和资产通过后才能应用场景。{0}{1}
+系数 {0}	Coefficient {0}	係数 {0}	系数 {0}
+顶点	Vertex	頂点	顶点
+表面 {0}：{1}\n当前净半径：{2} {3}\n机械半直径：{4} {5}	Surface {0}: {1}\nCurrent clear radius: {2} {3}\nMechanical semi-diameter: {4} {5}	面 {0}：{1}\n現在の有効半径：{2} {3}\n機械半径：{4} {5}	表面 {0}：{1}\n当前净半径：{2} {3}\n机械半直径：{4} {5}

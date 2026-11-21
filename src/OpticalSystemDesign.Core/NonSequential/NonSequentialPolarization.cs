@@ -6,7 +6,16 @@ using OpticalSystemDesign.Core.Rays;
 namespace OpticalSystemDesign.Core.NonSequential;
 
 public sealed record NonSequentialSourcePhysics(SystemPolarization? Polarization = null,
-    string? CoherenceGroup = null, double PhaseDegrees = 0);
+    string? CoherenceGroup = null, double PhaseDegrees = 0)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyList<NonSequentialSpectralSample>? Spectrum { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SpectrumProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool UseSobolSampling { get; init; }
+}
+public sealed record NonSequentialSpectralSample(double Nanometers, double RelativePower);
 
 /// <summary>Explicit real/imaginary storage; does not depend on a framework Complex JSON converter.</summary>
 public sealed record NonSequentialComplexVector(Vector3D Real, Vector3D Imaginary)
@@ -54,6 +63,22 @@ public sealed record NonSequentialFieldState(NonSequentialComplexVector First, N
         // Same negative-time convention as the shared n+ik coating solver: exp(+i k.OPL).
         var phase = Complex.FromPolarCoordinates(1, 2 * Math.PI * Math.IEEERemainder(opticalDistanceMillimeters, wavelength) / wavelength);
         return this with { First = NonSequentialComplexVector.From(First.Field * phase), Second = NonSequentialComplexVector.From(Second.Field * phase) };
+    }
+
+    internal NonSequentialFieldState Retard(Vector3D direction, Vector3D axis, double differentialOpticalPath, double wavelengthNanometers)
+    {
+        direction /= direction.Length; axis /= axis.Length;
+        var p = axis - direction * (axis.X * direction.X + axis.Y * direction.Y + axis.Z * direction.Z);
+        if (p.Length < 1e-14) return this;
+        p /= p.Length;
+        var wavelength = wavelengthNanometers * 1e-6;
+        var phase = Complex.FromPolarCoordinates(1, 2 * Math.PI * Math.IEEERemainder(differentialOpticalPath, wavelength) / wavelength);
+        ComplexElectricField Rotate(ComplexElectricField e)
+        {
+            var along = e.X * p.X + e.Y * p.Y + e.Z * p.Z;
+            return e + ComplexElectricField.FromReal(p) * (along * (phase - Complex.One));
+        }
+        return this with { First = NonSequentialComplexVector.From(Rotate(First.Field)), Second = NonSequentialComplexVector.From(Rotate(Second.Field)) };
     }
 
     internal (NonSequentialFieldState State, double Fraction) Apply(Vector3D incoming, Vector3D outgoing, Vector3D normal, Complex s, Complex p)

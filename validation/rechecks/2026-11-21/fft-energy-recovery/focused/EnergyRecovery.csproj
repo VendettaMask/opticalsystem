@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><IsPackable>false</IsPackable>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName><RepositoryRoot>$(MSBuildThisFileDirectory)..\..\..\..\..\</RepositoryRoot>
+    <CreateHardLinksForCopyLocalIfPossible>true</CreateHardLinksForCopyLocalIfPossible>
+    <CreateHardLinksForCopyFilesToOutputDirectoryIfPossible>true</CreateHardLinksForCopyFilesToOutputDirectoryIfPossible>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Xunit" /><PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" /><PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <ProjectReference Include="$(RepositoryRoot)src\OpticalSystemDesign.Application\OpticalSystemDesign.Application.csproj" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\DiffractionEnergyRecoveryTests.cs" Link="DiffractionEnergyRecoveryTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\FourierResultValidationTests.cs" Link="FourierResultValidationTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\BoundedCumulativeEnergyTests.cs" Link="BoundedCumulativeEnergyTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs" Link="PolychromaticCumulativeEnergyTests.cs" />
+    <None Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\Fixtures\fft-cumulative-polychromatic-zemax-2026-r1.zip" Link="Fixtures\fft-cumulative-polychromatic-zemax-2026-r1.zip" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

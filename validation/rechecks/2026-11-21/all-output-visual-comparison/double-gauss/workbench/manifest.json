@@ -1,0 +1,716 @@
+{
+  "Source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+  "Kind": "actual-current-Avalonia-AnalysisPanel-headless",
+  "Results": [
+    {
+      "Key": "2D Layout",
+      "Name": "2D Layout",
+      "Status": "captured",
+      "Image": "2d-layout.png"
+    },
+    {
+      "Key": "3D Layout",
+      "Name": "3D Layout",
+      "Status": "captured",
+      "Image": "3d-layout.png"
+    },
+    {
+      "Key": "Solid Model",
+      "Name": "Solid Model",
+      "Status": "captured",
+      "Image": "solid-model.png"
+    },
+    {
+      "Key": "Single Ray Trace",
+      "Name": "单光线追迹",
+      "Status": "captured",
+      "Error": null,
+      "Image": "single-ray-trace.png",
+      "Seconds": 7.0492104
+    },
+    {
+      "Key": "First Order",
+      "Name": "系统数据摘要",
+      "Status": "captured",
+      "Error": null,
+      "Image": "first-order.png",
+      "Seconds": 0.5309618
+    },
+    {
+      "Key": "Seidel Coefficients",
+      "Name": "赛德尔系数",
+      "Status": "captured",
+      "Error": null,
+      "Image": "seidel-coefficients.png",
+      "Seconds": 6.9247644
+    },
+    {
+      "Key": "Seidel Diagram",
+      "Name": "赛德尔图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "seidel-diagram.png",
+      "Seconds": 6.2144967
+    },
+    {
+      "Key": "Spot Diagram",
+      "Name": "标准点列图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "spot-diagram.png",
+      "Seconds": 0.4224791
+    },
+    {
+      "Key": "Full Field Spot Diagram",
+      "Name": "全视场点列图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "full-field-spot-diagram.png",
+      "Seconds": 0.3449254
+    },
+    {
+      "Key": "Matrix Spot Diagram",
+      "Name": "矩阵点列图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "matrix-spot-diagram.png",
+      "Seconds": 0.2335664
+    },
+    {
+      "Key": "Configuration Matrix Spot Diagram",
+      "Name": "结构矩阵点列图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "configuration-matrix-spot-diagram.png",
+      "Seconds": 0.4569287
+    },
+    {
+      "Key": "Ray Fan",
+      "Name": "光线像差图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "ray-fan.png",
+      "Seconds": 0.202865
+    },
+    {
+      "Key": "Footprint Diagram",
+      "Name": "光迹图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "footprint-diagram.png",
+      "Seconds": 0.2225761
+    },
+    {
+      "Key": "Grid Distortion",
+      "Name": "网格畸变",
+      "Status": "captured",
+      "Error": null,
+      "Image": "grid-distortion.png",
+      "Seconds": 0.2455538
+    },
+    {
+      "Key": "Field Curvature and Distortion",
+      "Name": "场曲/畸变",
+      "Status": "captured",
+      "Error": null,
+      "Image": "field-curvature-and-distortion.png",
+      "Seconds": 0.4331959
+    },
+    {
+      "Key": "Field Curvature",
+      "Name": "场曲",
+      "Status": "captured",
+      "Error": null,
+      "Image": "field-curvature.png",
+      "Seconds": 0.219813
+    },
+    {
+      "Key": "Color Focus Shift",
+      "Name": "色焦移",
+      "Status": "captured",
+      "Error": null,
+      "Image": "color-focus-shift.png",
+      "Seconds": 0.3104855
+    },
+    {
+      "Key": "Lateral Color",
+      "Name": "垂轴色差",
+      "Status": "captured",
+      "Error": null,
+      "Image": "lateral-color.png",
+      "Seconds": 0.4232726
+    },
+    {
+      "Key": "Axial Aberration",
+      "Name": "轴向像差",
+      "Status": "captured",
+      "Error": null,
+      "Image": "axial-aberration.png",
+      "Seconds": 0.3394631
+    },
+    {
+      "Key": "Full Field Aberration",
+      "Name": "全视场像差",
+      "Status": "captured",
+      "Error": null,
+      "Image": "full-field-aberration.png",
+      "Seconds": 1.3947272
+    },
+    {
+      "Key": "Encircled Energy",
+      "Name": "几何",
+      "Status": "captured",
+      "Error": null,
+      "Image": "encircled-energy.png",
+      "Seconds": 0.5225414
+    },
+    {
+      "Key": "Diffraction Encircled Energy",
+      "Name": "衍射",
+      "Image": "diffraction-encircled-energy.png",
+      "Note": "软件侧已按需从 64×64 加密至 2048×2048，显示全部 3 个视场和衍射极限；波长选择与原 0–20 µm 范围保持。相邻两档最大相对 RMS 变化 0.0844%，另经 4096 档独立复查，最大相对 RMS 差 0.0470%。右侧保留原低采样截图及“取样太低，数据不准确”提示，不作为已收敛的数值参考。",
+      "Outcome": "Success",
+      "Seconds": 28.9828407,
+      "Error": null,
+      "Reason": null,
+      "FourierSamplingValidation": {
+        "Protocol": "FourierPhysicalDomainConvergence/v1",
+        "Mode": 2,
+        "RequestedPupilSampling": 64,
+        "ReturnedPupilSampling": 2048,
+        "MaximumPupilSampling": 2048,
+        "RelativeRmsAccuracy": 0.001,
+        "AbsoluteAccuracy": 1E-07,
+        "Validated": true,
+        "Steps": [
+          {
+            "PupilSampling": 64,
+            "PhaseResolved": false,
+            "RelativeRmsChange": null,
+            "MaximumAbsoluteChange": null,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.7199995631140365
+          },
+          {
+            "PupilSampling": 128,
+            "PhaseResolved": false,
+            "RelativeRmsChange": 0.023176486822086232,
+            "MaximumAbsoluteChange": 0.04577206971387404,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.5352058734664987
+          },
+          {
+            "PupilSampling": 256,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.0056147376079431505,
+            "MaximumAbsoluteChange": 0.01129506085140164,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.4414475072627369
+          },
+          {
+            "PupilSampling": 512,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.003384731317919611,
+            "MaximumAbsoluteChange": 0.006890638415454786,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.31625184879152946
+          },
+          {
+            "PupilSampling": 1024,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.0013150033459339596,
+            "MaximumAbsoluteChange": 0.0018591658573059444,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.2338259465718746
+          },
+          {
+            "PupilSampling": 2048,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.0008442001156968727,
+            "MaximumAbsoluteChange": 0.0016891016723401542,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.16616512015026375
+          }
+        ],
+        "Reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "EvaluatedNominalPupilCells": 67092480,
+        "MaximumNominalPupilCells": 100000000,
+        "RequestedRelativeRmsDeviation": 0.028927378807247123,
+        "RequestedMaximumAbsoluteDeviation": 0.053541762788846814
+      },
+      "Status": "captured"
+    },
+    {
+      "Key": "Geometric Line Edge Spread",
+      "Name": "几何线/边缘扩散",
+      "Status": "captured",
+      "Error": null,
+      "Image": "geometric-line-edge-spread.png",
+      "Seconds": 0.2858041
+    },
+    {
+      "Key": "Extended Source Encircled Energy",
+      "Name": "扩展光源",
+      "Status": "captured",
+      "Error": null,
+      "Image": "extended-source-encircled-energy.png",
+      "Seconds": 0.2446782
+    },
+    {
+      "Key": "Pupil Aberration",
+      "Name": "瞳孔像差",
+      "Status": "captured",
+      "Error": null,
+      "Image": "pupil-aberration.png",
+      "Seconds": 0.4361043
+    },
+    {
+      "Key": "RMS vs Field",
+      "Name": "RMS vs. 视场",
+      "Status": "captured",
+      "Error": null,
+      "Image": "rms-vs-field.png",
+      "Seconds": 0.2772052
+    },
+    {
+      "Key": "RMS vs Wavelength",
+      "Name": "RMS vs. 波长",
+      "Status": "captured",
+      "Error": null,
+      "Image": "rms-vs-wavelength.png",
+      "Seconds": 0.3166176
+    },
+    {
+      "Key": "RMS vs Focus",
+      "Name": "RMS vs. 离焦",
+      "Status": "captured",
+      "Error": null,
+      "Image": "rms-vs-focus.png",
+      "Seconds": 0.192503
+    },
+    {
+      "Key": "RMS Field Map",
+      "Name": "二维视场RMS图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "rms-field-map.png",
+      "Seconds": 0.7094855
+    },
+    {
+      "Key": "RMS Wavefront vs Field",
+      "Name": "RMS 波前-视场",
+      "Status": "captured",
+      "Error": null,
+      "Image": "rms-wavefront-vs-field.png",
+      "Seconds": 0.165604
+    },
+    {
+      "Key": "Zernike vs Field",
+      "Name": "Zernike系数 vs. 视场",
+      "Status": "captured",
+      "Error": null,
+      "Image": "zernike-vs-field.png",
+      "Seconds": 0.3242348
+    },
+    {
+      "Key": "Through Focus",
+      "Name": "离焦点列图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "through-focus.png",
+      "Seconds": 0.1571422
+    },
+    {
+      "Key": "Fourier Through Focus MTF",
+      "Name": "傅里叶离焦 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "fourier-through-focus-mtf.png",
+      "Seconds": 0.9762902
+    },
+    {
+      "Key": "Huygens Through Focus MTF",
+      "Name": "惠更斯离焦 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "huygens-through-focus-mtf.png",
+      "Seconds": 18.0001681
+    },
+    {
+      "Key": "Geometric Through Focus MTF",
+      "Name": "几何离焦 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "geometric-through-focus-mtf.png",
+      "Seconds": 2.3677531
+    },
+    {
+      "Key": "Fourier MTF vs Field",
+      "Name": "傅里叶 MTF VS 视场",
+      "Status": "captured",
+      "Error": null,
+      "Image": "fourier-mtf-vs-field.png",
+      "Seconds": 19.0184359
+    },
+    {
+      "Key": "Huygens MTF vs Field",
+      "Name": "惠更斯 MTF VS 视场",
+      "Status": "captured",
+      "Error": null,
+      "Image": "huygens-mtf-vs-field.png",
+      "Seconds": 47.5549768
+    },
+    {
+      "Key": "Geometric MTF vs Field",
+      "Name": "几何 MTF VS 视场",
+      "Status": "captured",
+      "Error": null,
+      "Image": "geometric-mtf-vs-field.png",
+      "Seconds": 1.2106255
+    },
+    {
+      "Key": "FFT Surface MTF",
+      "Name": "三维 FFT MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "fft-surface-mtf.png",
+      "Seconds": 21.2957184
+    },
+    {
+      "Key": "FFT MTF Map",
+      "Name": "二维视场 FFT MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "fft-mtf-map.png",
+      "Seconds": 23.1592312
+    },
+    {
+      "Key": "Huygens Surface MTF",
+      "Name": "二维惠更斯 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "huygens-surface-mtf.png",
+      "Seconds": 2.3893895
+    },
+    {
+      "Key": "Geometric MTF Map",
+      "Name": "二维视场几何 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "geometric-mtf-map.png",
+      "Seconds": 3.8496517
+    },
+    {
+      "Key": "Angle vs Image Height",
+      "Name": "入射角 vs. 像高",
+      "Status": "captured",
+      "Error": null,
+      "Image": "angle-vs-image-height.png",
+      "Seconds": 2.6225291
+    },
+    {
+      "Key": "Angle vs Image Height - Through Pupil",
+      "Name": "入射角-像高（扫描瞳孔）",
+      "Status": "captured",
+      "Error": null,
+      "Image": "angle-vs-image-height---through-pupil.png",
+      "Seconds": 0.3376861
+    },
+    {
+      "Key": "Angle vs Image Height - Through Field",
+      "Name": "入射角-像高（扫描视场）",
+      "Status": "captured",
+      "Error": null,
+      "Image": "angle-vs-image-height---through-field.png",
+      "Seconds": 0.1670558
+    },
+    {
+      "Key": "Cardinal Points Data",
+      "Name": "基面数据",
+      "Status": "captured",
+      "Error": null,
+      "Image": "cardinal-points-data.png",
+      "Seconds": 1.6618378
+    },
+    {
+      "Key": "Vignetting Diagram",
+      "Name": "渐晕图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "vignetting-diagram.png",
+      "Seconds": 0.4036432
+    },
+    {
+      "Key": "Relative Illumination",
+      "Name": "相对照度",
+      "Status": "captured",
+      "Error": null,
+      "Image": "relative-illumination.png",
+      "Seconds": 0.6105247
+    },
+    {
+      "Key": "Incoherent Irradiance",
+      "Name": "非相干照度",
+      "Status": "captured",
+      "Error": null,
+      "Image": "incoherent-irradiance.png",
+      "Seconds": 2.7898472
+    },
+    {
+      "Key": "Radiant Intensity",
+      "Name": "辐射强度",
+      "Status": "captured",
+      "Error": null,
+      "Image": "radiant-intensity.png",
+      "Seconds": 1.6236864
+    },
+    {
+      "Key": "Y-Ybar",
+      "Name": "Y-Ybar",
+      "Status": "captured",
+      "Error": null,
+      "Image": "y-ybar.png",
+      "Seconds": 0.3320506
+    },
+    {
+      "Key": "PSF",
+      "Name": "FFT PSF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "psf.png",
+      "Seconds": 0.6086841
+    },
+    {
+      "Key": "FFT PSF Cross Section",
+      "Name": "FFT PSF截面图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "fft-psf-cross-section.png",
+      "Seconds": 0.7139374
+    },
+    {
+      "Key": "FFT Line Edge Spread",
+      "Name": "FFT 线/边缘扩散",
+      "Status": "captured",
+      "Error": null,
+      "Image": "fft-line-edge-spread.png",
+      "Seconds": 0.8982598
+    },
+    {
+      "Key": "Huygens PSF",
+      "Name": "惠更斯PSF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "huygens-psf.png",
+      "Seconds": 1.8046524
+    },
+    {
+      "Key": "Huygens PSF Cross Section",
+      "Name": "惠更斯PSF截面图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "huygens-psf-cross-section.png",
+      "Seconds": 0.6799507
+    },
+    {
+      "Key": "MTF",
+      "Name": "傅里叶 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "mtf.png",
+      "Seconds": 0.8406469
+    },
+    {
+      "Key": "Huygens MTF",
+      "Name": "惠更斯 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "huygens-mtf.png",
+      "Seconds": 2.1213989
+    },
+    {
+      "Key": "Geometric MTF",
+      "Name": "几何 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "geometric-mtf.png",
+      "Seconds": 0.2052361
+    },
+    {
+      "Key": "Sampled MTF",
+      "Name": "采样 MTF",
+      "Status": "captured",
+      "Error": null,
+      "Image": "sampled-mtf.png",
+      "Seconds": 1.3799877
+    },
+    {
+      "Key": "Contrast Loss Map",
+      "Name": "对比度损失图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "contrast-loss-map.png",
+      "Seconds": 2.0685897
+    },
+    {
+      "Key": "Optical Path Difference",
+      "Name": "光程差图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "optical-path-difference.png",
+      "Seconds": 0.1605645
+    },
+    {
+      "Key": "Foucault Analysis",
+      "Name": "傅科分析",
+      "Status": "captured",
+      "Error": null,
+      "Image": "foucault-analysis.png",
+      "Seconds": 0.5859046
+    },
+    {
+      "Key": "Wavefront Map",
+      "Name": "波前图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "wavefront-map.png",
+      "Seconds": 0.7433439
+    },
+    {
+      "Key": "Interferogram",
+      "Name": "干涉图",
+      "Status": "captured",
+      "Error": null,
+      "Image": "interferogram.png",
+      "Seconds": 0.6850315
+    },
+    {
+      "Key": "Wavefront",
+      "Name": "波前",
+      "Status": "captured",
+      "Error": null,
+      "Image": "wavefront.png",
+      "Seconds": 0.215609
+    },
+    {
+      "Key": "Centroid Sphere Wavefront",
+      "Name": "质心参考球波前",
+      "Status": "captured",
+      "Error": null,
+      "Image": "centroid-sphere-wavefront.png",
+      "Seconds": 0.3404773
+    },
+    {
+      "Key": "Best Fit Sphere Wavefront",
+      "Name": "最佳拟合球波前",
+      "Status": "captured",
+      "Error": null,
+      "Image": "best-fit-sphere-wavefront.png",
+      "Seconds": 0.279488
+    },
+    {
+      "Key": "Zernike Fringe",
+      "Name": "Zernike Fringe系数",
+      "Status": "captured",
+      "Error": null,
+      "Image": "zernike-fringe.png",
+      "Seconds": 1.8304013
+    },
+    {
+      "Key": "Zernike Standard",
+      "Name": "Zernike Standard系数",
+      "Status": "captured",
+      "Error": null,
+      "Image": "zernike-standard.png",
+      "Seconds": 1.379587
+    },
+    {
+      "Key": "Zernike Annular",
+      "Name": "Zernike Annular系数",
+      "Status": "captured",
+      "Error": null,
+      "Image": "zernike-annular.png",
+      "Seconds": 0.2983712
+    },
+    {
+      "Key": "Image Simulation",
+      "Name": "图像模拟",
+      "Status": "timeout",
+      "Error": null,
+      "Image": "image-simulation.png",
+      "Seconds": 75.1268686
+    },
+    {
+      "Key": "Geometric Image Analysis",
+      "Name": "几何图像分析",
+      "Status": "timeout",
+      "Error": null,
+      "Image": "geometric-image-analysis.png",
+      "Seconds": 75.6356427
+    },
+    {
+      "Key": "Geometric Bitmap Image Analysis",
+      "Name": "几何位图图像分析",
+      "Status": "captured",
+      "Error": null,
+      "Image": "geometric-bitmap-image-analysis.png",
+      "Seconds": 32.5099622
+    },
+    {
+      "Key": "Light Source Analysis",
+      "Name": "光源分析",
+      "Status": "captured",
+      "Error": null,
+      "Image": "light-source-analysis.png",
+      "Seconds": 1.7462231
+    },
+    {
+      "Key": "Partially Coherent Image Analysis",
+      "Name": "部分相干图像分析",
+      "Status": "captured",
+      "Error": null,
+      "Image": "partially-coherent-image-analysis.png",
+      "Seconds": 24.8979496
+    },
+    {
+      "Key": "Extended Diffraction Image Analysis",
+      "Name": "扩展图像分析",
+      "Status": "timeout",
+      "Error": null,
+      "Image": "extended-diffraction-image-analysis.png",
+      "Seconds": 76.6682074
+    },
+    {
+      "Key": "Jones Pupil",
+      "Name": "Jones 瞳",
+      "Status": "captured",
+      "Error": null,
+      "Image": "jones-pupil.png",
+      "Seconds": 4.603544
+    },
+    {
+      "Key": "Prescription Report",
+      "Name": "表面数据报告",
+      "Status": "captured",
+      "Error": null,
+      "Image": "prescription-report.png",
+      "Seconds": 2.1186969
+    },
+    {
+      "Key": "System Data Report",
+      "Name": "系统数据报告",
+      "Status": "captured",
+      "Error": null,
+      "Image": "system-data-report.png",
+      "Seconds": 0.8153779
+    },
+    {
+      "Key": "Classified Data Report",
+      "Name": "分类数据报告",
+      "Status": "captured",
+      "Error": null,
+      "Image": "classified-data-report.png",
+      "Seconds": 0.7679003
+    }
+  ]
+}

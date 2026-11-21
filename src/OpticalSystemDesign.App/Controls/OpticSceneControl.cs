@@ -75,7 +75,7 @@ public sealed record OpticSceneAnnotation2D(
 internal sealed record GlassMaterialLegendEntry(string Material, Color Color);
 internal sealed record OrientationAxisProjection(string Label, Color Color, Vector Direction, double Depth);
 
-public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSource
+public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutomationSource
 {
     // Static drawing resources are shared by controls on different UI dispatchers.
     // Keep them immutable so a later window/session cannot inherit thread-owned media.
@@ -698,13 +698,14 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             new Point(MapZ(zMinimum), MapY(0)),
             new Point(MapZ(zMaximum), MapY(0)));
 
-        DrawLensElements(context, scene.LensElements, MapZ, MapY);
+        DrawLensElements(context, scene.LensElements, scene.Surfaces, MapZ, MapY);
         if (ShowRays)
         {
             DrawRays(context, scene.Rays, MapZ, MapY);
         }
-        DrawLensEdges(context, scene.LensEdges, MapZ, MapY);
+        DrawLensEdges(context, scene.LensEdges, scene.Surfaces, MapZ, MapY);
         DrawSurfaces(context, scene.Surfaces, MapZ, MapY, HighlightedSurfaceNumber);
+        DrawLocalFrames2D(context, scene.Surfaces, MapZ, MapY);
         DrawAnnotations2D(context, Annotations2D, aperture, Bounds, MapZ, MapY);
         if (ShowScaleBar)
         {
@@ -918,12 +919,17 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             // Display the actual image surface as a ghost reference, behind the
             // traced rays and glass. It is neither a lens body nor cutaway geometry.
             foreach (var surface in scene.Surfaces.Where(surface => surface.IsImageSurface
-                         && surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface))
+                         && surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface
+                         && !surface.HideSurface && surface.Opacity > 0))
             {
+                using var surfaceOpacity = context.PushOpacity(DisplayOpacity(surface.Opacity));
                 foreach (var face in SurfaceFacesForRendering(surface, cutawayEnabled: false)
                              .OrderBy(face => face.Average(Depth)))
-                    DrawProjectedPolygon(context, SolidImageSurfaceBrush, face, Project);
-                DrawPolyline3D(context, SolidImageSurfacePen, surface.Rim, Project);
+                    DrawProjectedPolygon(context, SurfaceColorFor(surface.SurfaceColor) is { } imageTint
+                        ? new SolidColorBrush(WithAlpha(imageTint, 30)) : SolidImageSurfaceBrush, face, Project);
+                DrawPolyline3D(context, SurfaceColorFor(surface.SurfaceColor) is { } imageOutline
+                    ? new Pen(new SolidColorBrush(imageOutline), SolidImageSurfacePen.Thickness) : SolidImageSurfacePen,
+                    surface.Rim, Project);
             }
         }
 
@@ -951,6 +957,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Draw3DLensElements(
             context,
             scene.LensElements,
+            scene.Surfaces,
             Project,
             RenderMode == OpticSceneRenderMode.Wireframe,
             CutawayEnabled,
@@ -975,7 +982,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             HighlightedSurfaceNumber);
         Draw3DSurfaces(
             context,
-            surfacesToDraw.Where(surface => surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface).ToArray(),
+            scene.Surfaces.Where(surface => surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface
+                && (surface.SurfaceColor is not null || !elementSurfaceNumbers.Contains((surface.ConfigurationNumber, surface.SurfaceNumber))
+                    || RenderMode == OpticSceneRenderMode.Wireframe)).ToArray(),
             Project,
             showMeridians: !solidModelStyle,
             CutawayEnabled,
@@ -990,6 +999,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             DrawObjectTarget(context, Project(new Layout3DPoint(0, 0, scene.ZMin)));
         }
+        DrawLocalFrames3D(context, scene.Surfaces, Project);
         DrawOrientationGizmo(context);
         if (ShowScaleBar)
         {
@@ -1066,9 +1076,13 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     {
         foreach (var surface in surfaces)
         {
+            if (surface.HideSurface || surface.Opacity <= 0) continue;
+            using var surfaceOpacity = context.PushOpacity(DisplayOpacity(surface.Opacity));
             if (surface.IsStandaloneStop)
             {
-                DrawApertureStop(context, surface, mapZ, mapY, ThemePen(ThemeResourceBindings.SceneApertureStop, ApertureStopPen));
+                DrawApertureStop(context, surface, mapZ, mapY, SurfaceColorFor(surface.SurfaceColor) is { } stopColor
+                    ? new Pen(new SolidColorBrush(stopColor), ApertureStopPen.Thickness)
+                    : ThemePen(ThemeResourceBindings.SceneApertureStop, ApertureStopPen));
                 continue;
             }
 
@@ -1076,8 +1090,10 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             DrawPolyline(context, pen, surface.Points, mapZ, mapY);
         }
 
-        foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber))
+        foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber
+                     && !surface.HideSurface && surface.Opacity > 0))
         {
+            using var surfaceOpacity = context.PushOpacity(DisplayOpacity(highlighted.Opacity));
             if (highlighted.IsStandaloneStop)
             {
                 DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfaceHaloPen);
@@ -1132,28 +1148,42 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private void DrawLensElements(
         DrawingContext context,
         IReadOnlyList<Layout2DLensElement> elements,
+        IReadOnlyList<Layout2DSurfaceCurve> surfaces,
         Func<double, double> mapZ,
         Func<double, double> mapY)
     {
+        var settings = surfaces.ToDictionary(surface => (surface.ConfigurationNumber, surface.SurfaceNumber));
         foreach (var element in elements)
         {
+            if (element.Opacity <= 0) continue;
+            using var elementOpacity = context.PushOpacity(DisplayOpacity(element.Opacity));
+            var front = settings.GetValueOrDefault((element.ConfigurationNumber, element.FrontSurfaceNumber));
+            var back = settings.GetValueOrDefault((element.ConfigurationNumber, element.BackSurfaceNumber));
+            // A filled outline includes both faces and both connecting edges. Let
+            // their independent primitives draw it whenever any part is hidden.
+            var outline = front is { HideSurface: true } or { HideEdges: true }
+                || back is { HideSurface: true } or { HideEdges: true } ? null : TwoDLensOutlinePen;
             var material = element.Material.Trim();
             var isWater = material.Equals("WATER_AK.ZTG", StringComparison.OrdinalIgnoreCase)
                 || material.Equals("WATER", StringComparison.OrdinalIgnoreCase)
                 || material.Equals("H2O", StringComparison.OrdinalIgnoreCase);
             var fill = isWater ? WaterFillBrush : ThemeBrush(ThemeResourceBindings.SceneLensFill, LensFillBrush);
-            DrawFilledPolygon(context, fill, TwoDLensOutlinePen, element.Boundary, mapZ, mapY);
+            DrawFilledPolygon(context, fill, outline, element.Boundary, mapZ, mapY);
         }
     }
 
     private static void DrawLensEdges(
         DrawingContext context,
         IReadOnlyList<Layout2DLensEdge> edges,
+        IReadOnlyList<Layout2DSurfaceCurve> surfaces,
         Func<double, double> mapZ,
         Func<double, double> mapY)
     {
+        var settings = surfaces.ToDictionary(surface => (surface.ConfigurationNumber, surface.SurfaceNumber));
         foreach (var edge in edges)
         {
+            if (edge.Opacity <= 0 || settings.GetValueOrDefault((edge.ConfigurationNumber, edge.FrontSurfaceNumber)) is { HideEdges: true }) continue;
+            using var edgeOpacity = context.PushOpacity(DisplayOpacity(edge.Opacity));
             context.DrawLine(
                 TwoDLensOutlinePen,
                 new Point(mapZ(edge.Start.Z), mapY(edge.Start.Y)),
@@ -1196,48 +1226,43 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private void Draw3DLensElements(
         DrawingContext context,
         IReadOnlyList<Layout3DLensElement> elements,
+        IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
         Func<Layout3DPoint, Point> project,
         bool showConnectors,
         bool cutawayEnabled,
         bool solidModelStyle,
         int? highlightedSurfaceNumber)
     {
+        var settings = surfaces.ToDictionary(surface => (surface.ConfigurationNumber, surface.SurfaceNumber));
         foreach (var element in elements)
         {
+            var front = settings.GetValueOrDefault((element.ConfigurationNumber, element.FrontSurfaceNumber));
+            var back = settings.GetValueOrDefault((element.ConfigurationNumber, element.BackSurfaceNumber));
             var color = GlassColorFor(element.Material);
             var edgePen = color is { } tint ? new Pen(new SolidColorBrush(tint), solidModelStyle ? 1.2 : 1.7)
                 : (IPen)(solidModelStyle ? SolidLensEdgePen : ThreeDLensEdgePen);
-            DrawElementRim(
-                context,
-                element.FrontRim,
-                element.FrontSurfaceNumber,
-                highlightedSurfaceNumber,
-                edgePen,
-                project,
-                cutawayEnabled);
-            DrawElementRim(
-                context,
-                element.BackRim,
-                element.BackSurfaceNumber,
-                highlightedSurfaceNumber,
-                edgePen,
-                project,
-                cutawayEnabled);
-            if (element.FrontSurfaceNumber != highlightedSurfaceNumber)
+            if (front is not { HideSurface: true } && (front?.Opacity ?? 1) > 0)
             {
-                DrawPolyline3D(
-                    context,
-                    color is { } highlight ? new Pen(new SolidColorBrush(WithAlpha(highlight, 180)), 0.9)
-                        : solidModelStyle ? SolidLensHighlightPen : ThreeDLensHighlightPen,
-                    element.FrontRim,
-                    project,
-                    cutawayEnabled);
+                using var frontOpacity = context.PushOpacity(DisplayOpacity(front?.Opacity ?? 1));
+                DrawElementRim(context, element.FrontRim, element.FrontSurfaceNumber,
+                    highlightedSurfaceNumber, edgePen, project, cutawayEnabled);
+                if (element.FrontSurfaceNumber != highlightedSurfaceNumber)
+                    DrawPolyline3D(context,
+                        color is { } highlight ? new Pen(new SolidColorBrush(WithAlpha(highlight, 180)), 0.9)
+                            : solidModelStyle ? SolidLensHighlightPen : ThreeDLensHighlightPen,
+                        element.FrontRim, project, cutawayEnabled);
             }
-
-            if (!showConnectors)
+            if (back is not { HideSurface: true } && (back?.Opacity ?? 1) > 0)
+            {
+                using var backOpacity = context.PushOpacity(DisplayOpacity(back?.Opacity ?? 1));
+                DrawElementRim(context, element.BackRim, element.BackSurfaceNumber,
+                    highlightedSurfaceNumber, edgePen, project, cutawayEnabled);
+            }
+            if (!showConnectors || front is { HideEdges: true } || element.Opacity <= 0)
             {
                 continue;
             }
+            using var edgeOpacity = context.PushOpacity(DisplayOpacity(element.Opacity));
 
             var count = Math.Min(element.FrontRim.Count, element.BackRim.Count);
             if (count <= 1)
@@ -1316,37 +1341,45 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 new GlassRenderParameters(element.RefractiveIndex, 4, null))
                 with
             { Tint = GlassColorFor(element.Material) };
-            if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.FrontSurfaceNumber)))
+            var front = surfacesByNumber.GetValueOrDefault((element.ConfigurationNumber, element.FrontSurfaceNumber));
+            var back = surfacesByNumber.GetValueOrDefault((element.ConfigurationNumber, element.BackSurfaceNumber));
+            if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.FrontSurfaceNumber))
+                && front is not { HideSurface: true } && (front?.Opacity ?? 1) > 0)
             {
                 AddElementSurfaceFaces(
                     faces,
                     element.FrontFaces,
                     element.FrontSurfaceNumber,
                     highlightedSurfaceNumber,
-                    glass,
+                    glass with { Tint = SurfaceColorFor(surfacesByNumber.GetValueOrDefault(
+                        (element.ConfigurationNumber, element.FrontSurfaceNumber))?.SurfaceColor) ?? glass.Tint },
                     viewDirection,
                     cutawayEnabled,
                     transparent,
-                    depth);
+                    depth, front?.Opacity ?? 1);
             }
 
-            if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.BackSurfaceNumber)))
+            if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.BackSurfaceNumber))
+                && back is not { HideSurface: true } && (back?.Opacity ?? 1) > 0)
             {
                 AddElementSurfaceFaces(
                     faces,
                     element.BackFaces,
                     element.BackSurfaceNumber,
                     highlightedSurfaceNumber,
-                    glass,
+                    glass with { Tint = SurfaceColorFor(surfacesByNumber.GetValueOrDefault(
+                        (element.ConfigurationNumber, element.BackSurfaceNumber))?.SurfaceColor) ?? glass.Tint },
                     viewDirection,
                     cutawayEnabled,
                     transparent,
-                    depth);
+                    depth, back?.Opacity ?? 1);
             }
         }
 
         foreach (var element in elements)
         {
+            if (element.Opacity <= 0 || surfacesByNumber.GetValueOrDefault(
+                    (element.ConfigurationNumber, element.FrontSurfaceNumber)) is { HideEdges: true }) continue;
             var glass = glassBySurface.GetValueOrDefault((element.ConfigurationNumber, element.FrontSurfaceNumber),
                 new GlassRenderParameters(element.RefractiveIndex, 4, null))
                 with
@@ -1372,7 +1405,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                         isSideWall: true,
                         transparent,
                         glass.Tint),
-                    depth);
+                    depth, element.Opacity);
             }
         }
 
@@ -1380,16 +1413,19 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             foreach (var element in elements)
             {
+                if (element.Opacity <= 0 || surfacesByNumber.GetValueOrDefault(
+                        (element.ConfigurationNumber, element.FrontSurfaceNumber)) is { HideEdges: true }) continue;
                 foreach (var cap in CutawayCapsForRendering(element))
                     AddProjectedFace(faces, cap,
                         GlassColorFor(element.Material) is { } tint
                             ? new SolidColorBrush(WithAlpha(tint, 170))
-                            : solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, depth);
+                            : solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, depth, element.Opacity);
             }
         }
 
         foreach (var face in faces.OrderBy(face => face.Depth))
         {
+            using var faceOpacity = context.PushOpacity(DisplayOpacity(face.Opacity));
             DrawProjectedPolygon(context, face.Fill, face.Points, project);
         }
     }
@@ -1459,7 +1495,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Layout3DPoint viewDirection,
         bool cutawayEnabled,
         bool transparent,
-        Func<Layout3DPoint, double> depth)
+        Func<Layout3DPoint, double> depth,
+        double opacity = 1)
     {
         foreach (var face in surfaceFaces)
         {
@@ -1477,7 +1514,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                         isSideWall: false,
                         transparent,
                         glass.Tint),
-                depth);
+                depth, opacity);
         }
     }
 
@@ -1632,19 +1669,21 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         bool solidModelStyle,
         int? highlightedSurfaceNumber)
     {
-        if (!solidModelStyle)
+        foreach (var surface in surfaces.Where(surface => surface.SurfaceNumber != highlightedSurfaceNumber
+                     && !surface.HideSurface && surface.Opacity > 0
+                     && (!solidModelStyle || surface.SurfaceColor is not null)))
         {
-            foreach (var surface in surfaces.Where(surface => surface.SurfaceNumber != highlightedSurfaceNumber))
-            {
-                _ = GlassMaterials;
-                var materialPen = !surface.IsReferencePlane && !surface.IsStandaloneStop
-                    && _glassSurfaceColors.TryGetValue((surface.ConfigurationNumber, surface.SurfaceNumber), out var tint)
-                        ? new Pen(new SolidColorBrush(tint), 1.15) : null;
-                Draw3DSurface(context, surface, project, showMeridians, cutawayEnabled, solidModelStyle, materialPen);
-            }
+            _ = GlassMaterials;
+            var materialPen = !surface.IsReferencePlane && !surface.IsStandaloneStop
+                && _glassSurfaceColors.TryGetValue((surface.ConfigurationNumber, surface.SurfaceNumber), out var tint)
+                    ? new Pen(new SolidColorBrush(tint), 1.15) : null;
+            var colorPen = SurfaceColorFor(surface.SurfaceColor) is { } customColor
+                ? new Pen(new SolidColorBrush(customColor), 1.7) : materialPen;
+            Draw3DSurface(context, surface, project, showMeridians, cutawayEnabled, solidModelStyle, colorPen);
         }
 
-        foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber))
+        foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber
+                     && !surface.HideSurface && surface.Opacity > 0))
         {
             Draw3DSurface(context, highlighted, project, showMeridians, cutawayEnabled, solidModelStyle, SelectedSurfaceHaloPen);
             Draw3DSurface(context, highlighted, project, showMeridians, cutawayEnabled, solidModelStyle, SelectedSurfacePen);
@@ -1660,6 +1699,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         bool solidModelStyle,
         IPen? overridePen)
     {
+        if (surface.HideSurface || surface.Opacity <= 0) return;
+        using var surfaceOpacity = context.PushOpacity(DisplayOpacity(surface.Opacity));
         var pen = overridePen ?? (surface.IsStandaloneStop
             ? StopPen
             : surface.IsReferencePlane
@@ -1812,10 +1853,15 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private IPen SurfacePenFor(Layout2DSurfaceCurve surface)
     {
+        if (SurfaceColorFor(surface.SurfaceColor) is { } color)
+            return new Pen(new SolidColorBrush(color), TwoDLensOutlinePen.Thickness);
         return surface.IsReferencePlane
             ? ThemePen(ThemeResourceBindings.SceneReference, ReferencePlanePen)
             : TwoDLensOutlinePen;
     }
+
+    private static Color? SurfaceColorFor(string? value) =>
+        value is not null && Color.TryParse(value, out var color) ? color : null;
 
     private Pen RayPenFor(
         int fieldIndex,
@@ -1915,7 +1961,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private static void DrawFilledPolygon(
         DrawingContext context,
         IBrush fill,
-        IPen outline,
+        IPen? outline,
         IReadOnlyList<Layout2DPoint> points,
         Func<double, double> mapZ,
         Func<double, double> mapY)
@@ -2114,14 +2160,15 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         ICollection<ProjectedFace> faces,
         IReadOnlyList<Layout3DPoint> points,
         IBrush fill,
-        Func<Layout3DPoint, double> depth)
+        Func<Layout3DPoint, double> depth,
+        double opacity = 1)
     {
         if (points.Count < 3)
         {
             return;
         }
 
-        faces.Add(new ProjectedFace(points, points.Average(depth), fill));
+        faces.Add(new ProjectedFace(points, points.Average(depth), fill, opacity));
     }
 
     private static void DrawProjectedPolygon(
@@ -2154,7 +2201,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private sealed record ProjectedFace(
         IReadOnlyList<Layout3DPoint> Points,
         double Depth,
-        IBrush Fill);
+        IBrush Fill,
+        double Opacity = 1);
 
     private sealed record ObjectProjectedFace(
         IReadOnlyList<Layout3DPoint> Points,

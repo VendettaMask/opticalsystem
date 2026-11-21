@@ -1,0 +1,16 @@
+D:\Projects\opticalsystem\validation\rechecks\2026-11-21\mirror-rows\focused\MirrorRows.csproj : warning NU1900: 获取包漏洞数据时出错: 无法加载源 https://api.nuget.org/v3/index.json 的服务索引。
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.CameraImaging.Engine -> D:\Projects\opticalsystem\labs\CameraImaging\src\OpticalSystemDesign.CameraImaging.Engine\bin\Release\net10.0\OpticalSystemDesign.CameraImaging.Engine.dll
+  OpticalSystemDesign.OpticalAssembly.Engine -> D:\Projects\opticalsystem\labs\OpticalAssembly\src\OpticalSystemDesign.OpticalAssembly.Engine\bin\Release\net10.0\OpticalSystemDesign.OpticalAssembly.Engine.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MirrorRowThemeTests.cs(162,13): warning CS0618: “Bitmap.Save(string, int?)”已过时:“Use the overload accepting BitmapEncoderOptions instead.” [D:\Projects\opticalsystem\validation\rechecks\2026-11-21\mirror-rows\focused\MirrorRows.csproj]
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MirrorRowThemeTests.cs(93,17): warning xUnit2017: Do not use Assert.True() to check if a value exists in a collection. Use Assert.Contains instead. (https://xunit.net/xunit.analyzers/rules/xUnit2017) [D:\Projects\opticalsystem\validation\rechecks\2026-11-21\mirror-rows\focused\MirrorRows.csproj]
+  MirrorRows -> D:\Projects\opticalsystem\validation\rechecks\2026-11-21\mirror-rows\focused\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\validation\rechecks\2026-11-21\mirror-rows\focused\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。

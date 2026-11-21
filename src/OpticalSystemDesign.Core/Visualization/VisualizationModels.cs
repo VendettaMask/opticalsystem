@@ -56,19 +56,24 @@ public sealed record Layout3DRaySegment(
 
 public sealed record Layout3DSurfaceFace(IReadOnlyList<Layout3DPoint> Points);
 
+public sealed record LayoutLocalFrame(Layout3DPoint Origin, Layout3DPoint XAxisEnd,
+    Layout3DPoint YAxisEnd, Layout3DPoint ZAxisEnd, bool DrawAxes, bool DrawOrigin);
+
 public sealed record Layout2DSurfaceCurve(
     int SurfaceNumber,
     string Label,
     bool IsStop,
     bool IsStandaloneStop,
     bool IsReferencePlane,
-    IReadOnlyList<Layout2DPoint> Points);
+    IReadOnlyList<Layout2DPoint> Points,
+    string? SurfaceColor = null,
+    double Opacity = 1, bool HideEdges = false, bool HideSurface = false, LayoutLocalFrame? LocalFrame = null);
 
 public sealed record Layout2DLensEdge(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     Layout2DPoint Start,
-    Layout2DPoint End);
+    Layout2DPoint End, double Opacity = 1);
 
 public sealed record LayoutBuildOptions(
     int? FirstSurface = null,
@@ -86,7 +91,7 @@ public sealed record Layout2DLensElement(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     string Material,
-    IReadOnlyList<Layout2DPoint> Boundary);
+    IReadOnlyList<Layout2DPoint> Boundary, double Opacity = 1);
 
 public sealed record Layout2DRayPath(
     int RayNumber,
@@ -119,7 +124,9 @@ public sealed record Layout3DSurfacePrimitive(
     IReadOnlyList<Layout3DPoint> MeridianY,
     IReadOnlyList<Layout3DPoint> MeridianX,
     IReadOnlyList<Layout3DSurfaceFace> Faces,
-    bool IsImageSurface = false);
+    bool IsImageSurface = false,
+    string? SurfaceColor = null,
+    double Opacity = 1, bool HideEdges = false, bool HideSurface = false, LayoutLocalFrame? LocalFrame = null);
 
 public sealed record Layout3DLensElement(
     int FrontSurfaceNumber,
@@ -130,7 +137,7 @@ public sealed record Layout3DLensElement(
     IReadOnlyList<Layout3DPoint> BackRim,
     IReadOnlyList<Layout3DSurfaceFace> FrontFaces,
     IReadOnlyList<Layout3DSurfaceFace> BackFaces,
-    IReadOnlyList<Layout3DPoint> MeridianBoundary);
+    IReadOnlyList<Layout3DPoint> MeridianBoundary, double Opacity = 1);
 
 public sealed record Layout3DRayPath(
     int RayNumber,
@@ -152,7 +159,7 @@ public sealed record Layout3DScene(
     double ZMin,
     double ZMax);
 
-public sealed class Layout2DBuilder
+public sealed partial class Layout2DBuilder
 {
     private const int DefaultSurfaceSamples = 65;
     private const int DefaultRimSamples = 64;
@@ -257,7 +264,9 @@ public sealed class Layout2DBuilder
                 surface.IsStop,
                 IsStandaloneStop(surface),
                 IsReferencePlane(surface, surfaceCount),
-                BuildSurfaceCurvePoints(surface, surfaceSamples, SurfaceExtent(surface))));
+                BuildSurfaceCurvePoints(surface, DrawingSamples(surface, surfaceSamples), SurfaceExtent(surface)),
+                surface.SurfaceColor, surface.Drawing.Opacity, surface.Drawing.HideEdges || surface.Drawing.EdgeMode == SurfaceEdgeMode.None,
+                surface.Drawing.HideSurface, BuildLocalFrame(surface)));
         }
 
         return curves;
@@ -274,8 +283,14 @@ public sealed class Layout2DBuilder
                 var surface = group[index];
                 var next = group[index + 1];
                 var extent = ElementExtent(surface, next);
-                var frontCurve = BuildExtendedSurfaceCurve(surface, surfaceSamples, extent);
-                var backCurve = BuildExtendedSurfaceCurve(next, surfaceSamples, extent);
+                var tapered = surface.Drawing.EdgeMode == SurfaceEdgeMode.DirectToNext || surface.Drawing.HideEdges
+                    || surface.Drawing.EdgeMode == SurfaceEdgeMode.None;
+                var flat = surface.Drawing.EdgeMode == SurfaceEdgeMode.FlatToNext;
+                var frontExtent = tapered || flat ? SurfaceExtent(surface) : extent;
+                var backExtent = tapered ? SurfaceExtent(next) : flat ? SurfaceExtent(surface) : extent;
+                var frontCurve = BuildExtendedSurfaceCurve(surface, DrawingSamples(surface, surfaceSamples), frontExtent);
+                var backCurve = flat ? BuildSurfaceCurvePoints(next, DrawingSamples(next, surfaceSamples), backExtent)
+                    : BuildExtendedSurfaceCurve(next, DrawingSamples(next, surfaceSamples), backExtent);
                 var boundary = new List<Layout2DPoint>(frontCurve.Count + backCurve.Count);
                 boundary.AddRange(frontCurve);
                 for (var pointIndex = backCurve.Count - 1; pointIndex >= 0; pointIndex--)
@@ -287,7 +302,7 @@ public sealed class Layout2DBuilder
                     surface.Number,
                     next.Number,
                     surface.MaterialAfterName,
-                    boundary));
+                    boundary, Math.Min(surface.Drawing.Opacity, next.Drawing.Opacity)));
             }
         }
 
@@ -302,19 +317,28 @@ public sealed class Layout2DBuilder
         {
             for (var index = 0; index < group.Count - 1; index++)
             {
-                var extent = ElementExtent(group[index], group[index + 1]);
-                var frontCurve = BuildExtendedSurfaceCurve(group[index], surfaceSamples, extent);
-                var backCurve = BuildExtendedSurfaceCurve(group[index + 1], surfaceSamples, extent);
+                var frontSurface = group[index];
+                var backSurface = group[index + 1];
+                if (frontSurface.Drawing.HideEdges || frontSurface.Drawing.EdgeMode == SurfaceEdgeMode.None) continue;
+                var extent = ElementExtent(frontSurface, backSurface);
+                var tapered = frontSurface.Drawing.EdgeMode == SurfaceEdgeMode.DirectToNext;
+                var flat = frontSurface.Drawing.EdgeMode == SurfaceEdgeMode.FlatToNext;
+                var frontExtent = tapered || flat ? SurfaceExtent(frontSurface) : extent;
+                var backExtent = tapered ? SurfaceExtent(backSurface) : flat ? SurfaceExtent(frontSurface) : extent;
+                var frontCurve = BuildExtendedSurfaceCurve(frontSurface, DrawingSamples(frontSurface, surfaceSamples), frontExtent);
+                var backCurve = flat ? BuildSurfaceCurvePoints(backSurface, DrawingSamples(backSurface, surfaceSamples), backExtent)
+                    : BuildExtendedSurfaceCurve(backSurface, DrawingSamples(backSurface, surfaceSamples), backExtent);
+                var opacity = Math.Min(frontSurface.Drawing.Opacity, backSurface.Drawing.Opacity);
                 edges.Add(new Layout2DLensEdge(
                     group[index].Number,
                     group[index + 1].Number,
                     frontCurve[0],
-                    backCurve[0]));
+                    backCurve[0], opacity));
                 edges.Add(new Layout2DLensEdge(
                     group[index].Number,
                     group[index + 1].Number,
                     frontCurve[^1],
-                    backCurve[^1]));
+                    backCurve[^1], opacity));
             }
         }
 
@@ -329,12 +353,14 @@ public sealed class Layout2DBuilder
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
             var semiDiameter = SurfaceExtent(surface);
-            var rim = BuildSurfaceRim(surface, semiDiameter, rimSamples);
-            var meridianY = new List<Layout3DPoint>(surfaceSamples);
-            var meridianX = new List<Layout3DPoint>(surfaceSamples);
-            for (var index = 0; index < surfaceSamples; index++)
+            var samples = DrawingSamples(surface, surfaceSamples);
+            var angularSamples = DrawingSamples(surface, rimSamples, odd: false);
+            var rim = BuildSurfaceRim(surface, semiDiameter, angularSamples);
+            var meridianY = new List<Layout3DPoint>(samples);
+            var meridianX = new List<Layout3DPoint>(samples);
+            for (var index = 0; index < samples; index++)
             {
-                var t = index / (double)(surfaceSamples - 1);
+                var t = index / (double)(samples - 1);
                 var value = -semiDiameter + (2.0 * semiDiameter * t);
                 meridianY.Add(ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
                     new Vector3D(0, value, SafeSag(surface, 0, value)))));
@@ -352,8 +378,11 @@ public sealed class Layout2DBuilder
                 rim,
                 meridianY,
                 meridianX,
-                BuildSurfaceFaces(surface, semiDiameter, surfaceSamples, rimSamples),
-                IsImageSurface: surface.Number == surfaceCount - 1));
+                BuildSurfaceFaces(surface, semiDiameter, samples, angularSamples),
+                IsImageSurface: surface.Number == surfaceCount - 1,
+                SurfaceColor: surface.SurfaceColor, Opacity: surface.Drawing.Opacity,
+                HideEdges: surface.Drawing.HideEdges || surface.Drawing.EdgeMode == SurfaceEdgeMode.None,
+                HideSurface: surface.Drawing.HideSurface, LocalFrame: BuildLocalFrame(surface)));
         }
 
         return primitives;
@@ -372,9 +401,14 @@ public sealed class Layout2DBuilder
                 var surface = group[index];
                 var next = group[index + 1];
                 var extent = ElementExtent(surface, next);
-                var angularSegments = Math.Clamp(rimSamples, 32, 96);
-                var front = BuildElementSurface(surface, surfaceSamples, angularSegments, extent);
-                var back = BuildElementSurface(next, surfaceSamples, angularSegments, extent);
+                var angularSegments = Math.Clamp(Math.Max(DrawingSamples(surface, rimSamples, odd: false),
+                    DrawingSamples(next, rimSamples, odd: false)), 32, 192);
+                var tapered = surface.Drawing.EdgeMode == SurfaceEdgeMode.DirectToNext || surface.Drawing.HideEdges
+                    || surface.Drawing.EdgeMode == SurfaceEdgeMode.None;
+                var front = BuildElementSurface(surface, DrawingSamples(surface, surfaceSamples), angularSegments,
+                    tapered ? SurfaceExtent(surface) : extent);
+                var back = BuildElementSurface(next, DrawingSamples(next, surfaceSamples), angularSegments,
+                    tapered ? SurfaceExtent(next) : extent);
                 elements.Add(new Layout3DLensElement(
                     surface.Number,
                     next.Number,
@@ -385,7 +419,7 @@ public sealed class Layout2DBuilder
                     back.Rim,
                     front.Faces,
                     back.Faces,
-                    front.Meridian.Concat(back.Meridian.Reverse()).ToArray()));
+                    front.Meridian.Concat(back.Meridian.Reverse()).ToArray(), Math.Min(surface.Drawing.Opacity, next.Drawing.Opacity)));
             }
         }
 
@@ -453,6 +487,8 @@ public sealed class Layout2DBuilder
                     .Skip(range.FirstPoint)
                     .Take(range.LastPoint - range.FirstPoint)
                     .ToArray();
+                segments = ApplyRayDrawing(segments);
+                if (segments.Count == 0) continue;
                 if (points.Count < 2)
                 {
                     continue;
@@ -826,7 +862,7 @@ public sealed class Layout2DBuilder
                 x, y, SafeSag(surface, x * sagScale, y * sagScale))));
         }
 
-        var radialSegments = Math.Max(1, (surfaceSamples - 1) / 2);
+        var radialSegments = Math.Clamp((surfaceSamples - 1) / 2, 1, 96);
         var radii = Enumerable.Range(1, radialSegments)
             .Select(index => extent * index / radialSegments).ToList();
         // Preserve a flat local shoulder beyond the clear surface instead of
@@ -880,8 +916,8 @@ public sealed class Layout2DBuilder
         int surfaceSamples,
         int rimSamples)
     {
-        var radialSegments = Math.Clamp((surfaceSamples - 1) / 4, 8, 18);
-        var angularSegments = Math.Clamp(rimSamples, 32, 96);
+        var radialSegments = Math.Clamp((surfaceSamples - 1) / 4, 8, 48);
+        var angularSegments = Math.Clamp(rimSamples, 32, 192);
         var center = ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
             new Vector3D(0, 0, SafeSag(surface, 0, 0))));
         var rings = new List<IReadOnlyList<Layout3DPoint>>(radialSegments);
@@ -1080,6 +1116,9 @@ public sealed class Layout2DBuilder
                 zValues.Add(point.Z);
                 yValues.Add(point.Y);
             }
+            if (surface.LocalFrame is { } frame)
+                foreach (var point in new[] { frame.Origin, frame.XAxisEnd, frame.YAxisEnd, frame.ZAxisEnd })
+                { zValues.Add(point.Z); yValues.Add(point.Y); }
         }
 
         foreach (var ray in rays)
@@ -1127,6 +1166,8 @@ public sealed class Layout2DBuilder
 
         foreach (var surface in surfaces)
         {
+            if (surface.LocalFrame is { } frame)
+                foreach (var point in new[] { frame.Origin, frame.XAxisEnd, frame.YAxisEnd, frame.ZAxisEnd }) Add(point);
             foreach (var point in surface.Rim)
             {
                 Add(point);

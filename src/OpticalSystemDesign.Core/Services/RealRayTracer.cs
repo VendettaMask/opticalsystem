@@ -35,7 +35,8 @@ public sealed class RealRayTracer
                     normalizedField.X,
                     normalizedField.Y,
                     wavelength.Micrometers,
-                    raySamples.Select(sample => new PupilSample(0, sample * 0.85, 1)));
+                    raySamples.Select(sample => new PupilSample(0, sample * 0.85, 1)),
+                    aimAtStop: _optic.RayAimingEnabled);
                 var trace = _optic.SequentialRayTracer.Trace(bundle);
                 for (var rayIndex = 0; rayIndex < bundle.Rays.Count; rayIndex++)
                 {

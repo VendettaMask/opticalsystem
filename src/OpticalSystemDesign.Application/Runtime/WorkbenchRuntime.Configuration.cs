@@ -77,6 +77,18 @@ public partial class WorkbenchRuntime
 
     public void ClearMultiConfigurationVariables() => _multiConfiguration.ClearOperandVariables();
 
+    public void ClearSurfaceShapeVariables()
+    {
+        foreach (var optic in _multiConfiguration.Configurations.Append(CurrentOptic).Distinct())
+            foreach (var surface in optic.SurfaceGroup.Items) surface.ShapeVariables = Array.Empty<string>();
+    }
+
+    public void ClearSurfaceRadiusAndThicknessVariables()
+    {
+        foreach (var optic in _multiConfiguration.Configurations.Append(CurrentOptic).Distinct())
+            foreach (var surface in optic.SurfaceGroup.Items) { surface.RadiusVariable = false; surface.ThicknessVariable = false; }
+    }
+
     public void ClearGradientIndexVariables()
     {
         foreach (var optic in _multiConfiguration.Configurations.Append(CurrentOptic).Distinct())
@@ -91,6 +103,16 @@ public partial class WorkbenchRuntime
                 if (index + 1 < surfaces.Count) surfaces[index + 1].MaterialBefore = replacement.Clone();
             }
         }
+    }
+
+    public void ClearModelGlassVariables()
+    {
+        foreach (var optic in _multiConfiguration.Configurations.Append(CurrentOptic).Distinct())
+            foreach (var surface in optic.SurfaceGroup.Items.Where(surface => surface.MaterialAfter is ModelGlassMaterial))
+            {
+                foreach (var key in ModelGlassMaterial.ParameterNames) ModelGlassParameters.SetVariable(surface, key, false);
+                ModelGlassParameters.SynchronizeFollowingMedia(optic, surface.Number);
+            }
     }
 
     private void MutateConfigurationOperands(Action<MultiConfiguration> mutation)

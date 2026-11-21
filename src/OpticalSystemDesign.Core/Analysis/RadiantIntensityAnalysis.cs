@@ -127,7 +127,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                     field.Hx,
                     field.Hy,
                     wavelength.Micrometers,
-                    pupilSamples);
+                    pupilSamples, aimAtStop: Optic.RayAimingEnabled);
                 using var trace = Optic.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(new[] { referenceIndex }));
                 var values = new double[_binsX, _binsY];
                 foreach (var sampleValue in trace.GetSurfaceSamples(referenceIndex))
@@ -275,6 +275,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             ["AngularPowerNormalization"] = _useAbsoluteUnits ? "Exact projected-angle solid angle" : "Unscaled ray power",
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
+            ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["ValidRayCount"] = validRayCount,
             ["PeakRadiantIntensity"] = peaks.DefaultIfEmpty(0).Max(),
             ["FieldCount"] = fields.Count,

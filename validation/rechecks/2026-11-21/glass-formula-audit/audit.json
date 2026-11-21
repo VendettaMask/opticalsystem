@@ -1,0 +1,66 @@
+{
+  "scope": "Current shared C# Core against the published Schott equation; no new native optical-software capture",
+  "material": "APEL:APL5014CL",
+  "Formula": "zemax formula 1",
+  "coefficients": [
+    2.34232979,
+    -0.000705971129,
+    0.0144801133,
+    0.000172130051,
+    -2.42252894E-06,
+    9.97640535E-07
+  ],
+  "sourceReferenceNd": 1.5445,
+  "sourceReferenceVd": 56,
+  "applicationDisplayNd": 1.5445,
+  "applicationDisplayVd": 56,
+  "calculatedNd": 1.544501600284279,
+  "calculatedVd": 55.98699089030721,
+  "samples": [
+    {
+      "wavelengthNanometers": 486.1327,
+      "index": 1.5513392007635896,
+      "independentExpression": 1.5513392007635896
+    },
+    {
+      "wavelengthNanometers": 500,
+      "index": 1.5501381181554597,
+      "independentExpression": 1.5501381181554597
+    },
+    {
+      "wavelengthNanometers": 587.5618,
+      "index": 1.544501600284279,
+      "independentExpression": 1.544501600284279
+    },
+    {
+      "wavelengthNanometers": 656.2725,
+      "index": 1.5416136986134366,
+      "independentExpression": 1.5416136986134366
+    },
+    {
+      "wavelengthNanometers": 1000,
+      "index": 1.535016168427419,
+      "independentExpression": 1.535016168427419
+    }
+  ],
+  "coefficientPerturbationChangesResult": true,
+  "formulaDefinitionsInspected": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "sources": [
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/The_Schott_Formula.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Description_of_Catalog_Data.html"
+  ]
+}

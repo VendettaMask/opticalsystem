@@ -1,0 +1,90 @@
+{
+  "settings": {
+    "PupilSampling": "64",
+    "ImageSampling": "128 x 128",
+    "NumPoints": "401",
+    "WavelengthNumber": "0",
+    "FieldNumber": "0",
+    "Type": "encircled",
+    "Reference": "centroid",
+    "MaximumDistanceMicrometers": "0",
+    "FourierSamplingMode": "Adaptive",
+    "FourierMaximumSampling": "1024",
+    "FourierRelativeAccuracy": "0.001"
+  },
+  "seconds": 20.3718892,
+  "data": {
+    "Name": "Diffraction Encircled Energy",
+    "Values": {
+      "Status": "The declared pupil-sampling budget did not establish result convergence.",
+      "FourierSamplingValidation": {
+        "Protocol": "FourierPhysicalDomainConvergence/v1",
+        "Mode": 2,
+        "RequestedPupilSampling": 64,
+        "ReturnedPupilSampling": 0,
+        "MaximumPupilSampling": 1024,
+        "RelativeRmsAccuracy": 0.001,
+        "AbsoluteAccuracy": 1E-07,
+        "Validated": false,
+        "Steps": [
+          {
+            "PupilSampling": 64,
+            "PhaseResolved": false,
+            "RelativeRmsChange": null,
+            "MaximumAbsoluteChange": null,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.7199995631140365
+          },
+          {
+            "PupilSampling": 128,
+            "PhaseResolved": false,
+            "RelativeRmsChange": 0.023176486822086232,
+            "MaximumAbsoluteChange": 0.04577206971387404,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.5352058734664987
+          },
+          {
+            "PupilSampling": 256,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.0056147376079431505,
+            "MaximumAbsoluteChange": 0.01129506085140164,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.4414475072627369
+          },
+          {
+            "PupilSampling": 512,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.003384731317919611,
+            "MaximumAbsoluteChange": 0.006890638415454786,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.31625184879152946
+          },
+          {
+            "PupilSampling": 1024,
+            "PhaseResolved": true,
+            "RelativeRmsChange": 0.0013150033459339596,
+            "MaximumAbsoluteChange": 0.0018591658573059444,
+            "UsesDensePhysicalPupil": false,
+            "MaximumPupilPhaseStepWaves": 0.2338259465718746
+          }
+        ],
+        "Reason": "The declared pupil-sampling budget did not establish result convergence.",
+        "EvaluatedNominalPupilCells": 25141248,
+        "MaximumNominalPupilCells": 100000000,
+        "RequestedRelativeRmsDeviation": null,
+        "RequestedMaximumAbsoluteDeviation": null
+      }
+    },
+    "Series": null,
+    "SeriesList": null,
+    "PlotOptions": null,
+    "PlotPanes": null,
+    "PlotPaneColumns": 3,
+    "Table": null,
+    "ReportText": null,
+    "Outcome": 1,
+    "OutcomeReason": "The declared pupil-sampling budget did not establish result convergence.",
+    "ReportSections": null,
+    "PlotSeries": []
+  }
+}

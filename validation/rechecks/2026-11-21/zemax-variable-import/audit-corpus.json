@@ -1,0 +1,3211 @@
+{
+  "Scope": "95 bundled sequential files: variable metadata and native project reopening; no numerical precision certification",
+  "Total": 95,
+  "Passed": 95,
+  "Failures": [],
+  "Results": [
+    {
+      "File": "Afocal\\Afocal Riflescope.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Afocal\\Beam Expander.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/Radius/0/=-24.995081378682364",
+        "0/3/Radius/0/=-48.64682163999329",
+        "0/4/Radius/0/=-262.95513895815884",
+        "0/5/Radius/0/=-107.39508218120795"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Afocal\\Binocular_System.ZMX",
+      "Configurations": 2,
+      "Variables": [
+        "0/10/Radius/0/=16.430856037331203",
+        "0/11/Radius/0/=-14.183266316451164",
+        "0/12/Radius/0/=-58.107124033129864",
+        "0/9/Thickness/0/=28.5189490292"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 9,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 12,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Birefringent prisms\\Birefringent cube.zmx",
+      "Configurations": 2,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Birefringent prisms\\Rochon prism.zmx",
+      "Configurations": 2,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 6 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Birefringent prisms\\Senarmont prism.zmx",
+      "Configurations": 2,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 6 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Birefringent prisms\\Wollaston prism.zmx",
+      "Configurations": 2,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 6 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Diffractive components\\Achromatic singlet.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Diffractive components\\Dual Zone CD-DVD lens.ZMX",
+      "Configurations": 2,
+      "Variables": [
+        "0/2/AsphereCoefficient/0/i1=-0.01239194561808",
+        "0/2/AsphereCoefficient/0/o1=-0.0105970662518",
+        "0/2/Radius/0/=3.2136575562305847",
+        "0/3/Conic/0/conic=-3.55318233467",
+        "0/3/Radius/0/=-1.6206173346655606",
+        "1/3/Thickness/0/=1.59779432953"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "VPAR",
+            "Number": 1,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "XDAT",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "XDAT",
+            "Number": 6,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "XDAT",
+            "Number": 7,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "BINARY_3",
+            "Field": "XDAT",
+            "Number": 8,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 2 TYPE BINARY_3 VPAR 1: no supported optimization variable mapping; value retained as fixed",
+        "ZMX SURF 2 TYPE BINARY_3 VPAR 3: no supported optimization variable mapping; value retained as fixed",
+        "ZMX SURF 2 TYPE BINARY_3 XDAT 3: no supported optimization variable mapping; value retained as fixed",
+        "ZMX SURF 2 TYPE BINARY_3 XDAT 7: no supported optimization variable mapping; value retained as fixed"
+      ]
+    },
+    {
+      "File": "Diffractive components\\Grating.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 4 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Diffractive components\\Reflection hologram.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Diffractive components\\Sample Spectrometer.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Diffractive components\\Transmission hologram.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "GRINs\\Grid GRIN.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 0,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 0 TYPE STANDARD SURF 0: marked object/image surface variables are outside the supported physical-surface optimizer scope"
+      ]
+    },
+    {
+      "File": "GRINs\\Selfoc lens.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 0,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 0 TYPE STANDARD SURF 0: marked object/image surface variables are outside the supported physical-surface optimizer scope"
+      ]
+    },
+    {
+      "File": "Image Simulation\\Example 1, A singlet eyepiece.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Thickness/0/=24",
+        "0/2/Radius/0/=12.97486414907608"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Image Simulation\\Example 2, Double Gauss Experimental Arrangement.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/10/Radius/0/=-36.9802207286324",
+        "0/11/Radius/0/=196.41733409650806",
+        "0/12/Radius/0/=-67.14755002373626",
+        "0/12/Thickness/0/=57.30516184223",
+        "0/2/Radius/0/=54.153246165737905",
+        "0/3/Radius/0/=152.52192094011102",
+        "0/4/Radius/0/=35.950624450484796",
+        "0/6/Radius/0/=22.269924618009487",
+        "0/8/Radius/0/=-25.685033030460865"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 12,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 12,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 1 TYPE PARAXIAL PPAR 1: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Image Simulation\\Example 3, A blue notch filter.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Image Simulation\\Example 4, a diffraction limited system.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 4 TYPE STANDARD SURF 4: marked object/image surface variables are outside the supported physical-surface optimizer scope"
+      ]
+    },
+    {
+      "File": "Image Simulation\\Example 5, spatially varying resolution.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/10/Radius/0/=-36.9802207286324",
+        "0/11/Radius/0/=196.41733409650806",
+        "0/12/Radius/0/=-67.14755002373626",
+        "0/12/Thickness/0/=57.30516184223",
+        "0/2/Radius/0/=54.153246165737905",
+        "0/3/Radius/0/=152.52192094011102",
+        "0/4/Radius/0/=35.950624450484796",
+        "0/6/Radius/0/=22.269924618009487",
+        "0/8/Radius/0/=-25.685033030460865"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 12,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 12,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 1 TYPE PARAXIAL PPAR 1: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Image Simulation\\Example 6, tilted image plane.ZMX",
+      "Configurations": 2,
+      "Variables": [
+        "0/1/Radius/0/=28.30630314896142",
+        "0/1/Thickness/0/=4.999621018273",
+        "0/2/Radius/0/=-57.402218223186686",
+        "0/2/Thickness/0/=5.132376703344",
+        "0/3/Radius/0/=-13.49293609257004",
+        "0/3/Thickness/0/=5.000000624481",
+        "0/4/Radius/0/=18.658482990246817",
+        "0/4/Thickness/0/=1.79781969189",
+        "0/5/Thickness/0/=0.4999985721057",
+        "0/6/Radius/0/=43.1075397092109",
+        "0/6/Thickness/0/=3.039320133753",
+        "0/7/Thickness/0/=42.90485094426"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Interconnects\\2 Ball lens interconnect.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Interconnects\\Ball coupling.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/3/Thickness/0/=1.8530645173"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Interconnects\\Conic interconnect.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Interconnects\\GRIN interconnect.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 0,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 0 TYPE STANDARD SURF 0: marked object/image surface variables are outside the supported physical-surface optimizer scope"
+      ]
+    },
+    {
+      "File": "Interconnects\\Optical interconnect.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Manufacturing\\Apochromatic_for_Cost_3_TDE_defaults.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=32.321529270456544",
+        "0/2/Radius/0/=-31.720301911705338",
+        "0/2/Thickness/0/=2.557379946686"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Apochromat_prism.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/10/Thickness/0/=20"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 14,
+            "Type": "COORDBRK",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 2 TYPE COORDBRK VPAR 3: coordinate-frame optimization is not supported; transform retained",
+        "ZMX SURF 5 TYPE COORDBRK VPAR 3: coordinate-frame optimization is not supported; transform retained",
+        "ZMX SURF 11 TYPE COORDBRK VPAR 3: coordinate-frame optimization is not supported; transform retained",
+        "ZMX SURF 4 TYPE COORDBRK PPAR 1: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 4 TYPE COORDBRK PPAR 2: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 4 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 4 TYPE COORDBRK PPAR 4: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 4 TYPE COORDBRK PPAR 5: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 7 TYPE COORDBRK PPAR 1: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 7 TYPE COORDBRK PPAR 2: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 7 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 7 TYPE COORDBRK PPAR 4: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 7 TYPE COORDBRK PPAR 5: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 8 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 10 TYPE COORDBRK PPAR 1: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 10 TYPE COORDBRK PPAR 2: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 10 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 10 TYPE COORDBRK PPAR 4: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 10 TYPE COORDBRK PPAR 5: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 13 TYPE COORDBRK PPAR 1: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 13 TYPE COORDBRK PPAR 2: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 13 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 13 TYPE COORDBRK PPAR 4: parameter pickup has no supported live coefficient mapping",
+        "ZMX SURF 13 TYPE COORDBRK PPAR 5: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Miscellaneous\\Axicon model.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/4/Thickness/0/=450"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Beam splitter.zmx",
+      "Configurations": 2,
+      "Variables": [
+        "0/1/Radius/0/=320.0069984735925",
+        "0/10/Radius/0/=107.14924169771726",
+        "0/2/Radius/0/=-38.55345085862751",
+        "0/7/Curvature/0/=0.0117966338",
+        "0/8/Curvature/0/=-0.00284938988",
+        "0/9/Radius/0/=37.97321286689427",
+        "1/7/Curvature/0/=-0.0230236986",
+        "1/8/Curvature/0/=0.00440325419"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "CRVT",
+            "Number": 0,
+            "Configuration": 0
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "CRVT",
+            "Number": 0,
+            "Configuration": 1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 9,
+            "Type": "STANDARD",
+            "Field": "CRVT",
+            "Number": 0,
+            "Configuration": 0
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 9,
+            "Type": "STANDARD",
+            "Field": "CRVT",
+            "Number": 0,
+            "Configuration": 1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Bi-ocular lens.ZMX",
+      "Configurations": 2,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 3 TYPE COORDBRK PPAR 1: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Miscellaneous\\Cylinder.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/3/Radius/0/=-22.07801242286928"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "TOROIDAL",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Diode source simulation.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Doubly telecentric system.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=143.7244578203613",
+        "0/2/Radius/0/=-81.84649084771874",
+        "0/4/Conic/0/conic=-99.34885047632",
+        "0/4/Radius/0/=224.77272704465508",
+        "0/5/Radius/0/=-69.17523392877915"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Elliptical reflector 320 degree light cone .zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Conic/0/conic=-0.6049382716",
+        "0/1/Radius/0/=-177.77777777777777"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Grid Sag Example.zmx",
+      "Configurations": 2,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Grid sag surface.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Irregular surface.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/Conic/0/conic=-0.43367133876",
+        "0/2/Radius/0/=38.37400549681281",
+        "0/3/Radius/0/=101.12244812657755"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "IRREGULA",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\MEMS DLL Sample.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Mangin mirror.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/Radius/0/=-101.59368530876047",
+        "0/3/Radius/0/=-151.80284205129087"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Optimization demo 1.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Conic/0/conic=0",
+        "0/1/Radius/0/=0"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Optimization demo 2.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=100",
+        "0/1/Thickness/0/=5",
+        "0/2/Radius/0/=-100",
+        "0/2/Thickness/0/=5",
+        "0/3/Radius/0/=-100",
+        "0/3/Thickness/0/=5",
+        "0/4/Radius/0/=100",
+        "0/4/Thickness/0/=5",
+        "0/5/Radius/0/=100",
+        "0/5/Thickness/0/=5",
+        "0/6/Thickness/0/=42.2077801"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Parabolas at 90 degrees.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Telecentric system.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Miscellaneous\\Toroid.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/4/Thickness/0/=160.066305"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "COORDBRK",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 4 TYPE COORDBRK PPAR 5: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Miscellaneous\\vacuum cell.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Apochromat.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/Radius/0/=79.58131167213966",
+        "0/3/Radius/0/=23.554234499232034",
+        "0/4/Radius/0/=23.0068986102516",
+        "0/5/Thickness/0/=97.84779256716"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Apochromat2.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=72.2077355484179",
+        "0/2/Radius/0/=-27.234792946956244",
+        "0/3/Radius/0/=29.499619143663526",
+        "0/4/Thickness/0/=97.79365252465"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Apochromat3.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=960.041157348432",
+        "0/2/Radius/0/=-456.044231474626",
+        "0/3/Radius/0/=241.93537987777626",
+        "0/4/Thickness/0/=1462.42714"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Apochromat4.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=20.34624099960492",
+        "0/2/Radius/0/=-32.53166540396261",
+        "0/2/Thickness/0/=3.5926803519700004",
+        "0/3/Radius/0/=-22.181803192186692",
+        "0/4/Radius/0/=34.31817117687976",
+        "0/5/Radius/0/=67.33544846052938"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Cooke 40 degree field.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=22.013592508427536",
+        "0/1/Thickness/0/=3.25895583",
+        "0/2/Radius/0/=-435.76043616830793",
+        "0/2/Thickness/0/=6.0075511",
+        "0/3/Radius/0/=-22.213277182315093",
+        "0/3/Thickness/0/=0.999974567",
+        "0/4/Radius/0/=20.291924125273336",
+        "0/4/Thickness/0/=4.75040893",
+        "0/5/Radius/0/=79.68360255049363",
+        "0/5/Thickness/0/=2.95207564",
+        "0/6/Thickness/0/=42.2077801"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Double Gauss 28 degree field.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=54.153246165737905",
+        "0/10/Radius/0/=196.41733409650806",
+        "0/11/Radius/0/=-67.14755002373626",
+        "0/11/Thickness/0/=57.314537905",
+        "0/2/Radius/0/=152.52192094011102",
+        "0/3/Radius/0/=35.950624450484796",
+        "0/5/Radius/0/=22.269924618009487",
+        "0/7/Radius/0/=-25.685033030460865",
+        "0/9/Radius/0/=-36.9802207286324"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 9,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Double Gauss 5 degree field.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Doublet using MIL number glasses.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=61.78010187730363",
+        "0/2/Radius/0/=-45.6665846542881",
+        "0/3/Thickness/0/=98.809878025"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Doublet.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=92.84706570002484",
+        "0/2/Radius/0/=-30.716086700001586"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Even Asphere.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Gaussian Quadrature Over Wavelength.ZMX",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=60.8998403550517",
+        "0/1/Thickness/0/=7.52673366742",
+        "0/10/Radius/0/=115.16460342554596",
+        "0/10/Thickness/0/=10.83864746085",
+        "0/11/Thickness/0/=50.44016941693",
+        "0/2/Radius/0/=217.14236029498494",
+        "0/2/Thickness/0/=0.4999975701467",
+        "0/3/Radius/0/=37.75335713586407",
+        "0/3/Thickness/0/=14.99987013346",
+        "0/4/Thickness/0/=3.987237120884",
+        "0/5/Radius/0/=24.85181029528498",
+        "0/5/Thickness/0/=11.85299422978",
+        "0/6/Thickness/0/=23.01089126342",
+        "0/7/Radius/0/=-32.973131588758285",
+        "0/7/Thickness/0/=12.81838625344",
+        "0/8/Thickness/0/=14.9998932817",
+        "0/9/Radius/0/=-50.03206125382053",
+        "0/9/Thickness/0/=17.11727631638"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 9,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 9,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 10,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Gaussian Quadrature over Annular Pupils.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Inverse telephoto lens.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Petzval.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=91.66860362426125",
+        "0/2/Radius/0/=-60.18807811401379",
+        "0/3/Radius/0/=3972.618614963046",
+        "0/4/Radius/0/=35.206739696593594",
+        "0/5/Radius/0/=-58.825151255787866",
+        "0/6/Radius/0/=-166.14088338204223",
+        "0/7/Radius/0/=-27.78333066229023",
+        "0/8/Radius/0/=1111723.0516534068"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Relay lens.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=304.3100918398531",
+        "0/2/Radius/0/=-83.03299757799817",
+        "0/3/Radius/0/=-199.59387890853486"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Tessar lens using vignetting factors.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Wide angle lens 100 degree field.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Wide angle lens 200 degree field.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Objectives\\Wide angle lens 210 degree field.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Optical testing\\Double-pass null test.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Optical testing\\Mach Zender Interferometer.zmx",
+      "Configurations": 2,
+      "Variables": [
+        "0/2/Conic/0/conic=-0.57473253732",
+        "0/2/Radius/0/=-5.867472826284071"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 17,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 2,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 17 TYPE COORDBRK VPAR 2: coordinate-frame optimization is not supported; transform retained",
+        "ZMX SURF 10 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Optical testing\\Offner reflecting compensator.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/5/Thickness/0/=2989.8270700000003"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Optical testing\\Offner refracting compensator.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Radius/0/=141.94837200000794",
+        "0/2/Radius/0/=-735.2027539997382",
+        "0/2/Thickness/0/=334.018748",
+        "0/3/Radius/0/=75.93325029998435",
+        "0/4/Radius/0/=107.47456000000565",
+        "0/4/Thickness/0/=3599.64434"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 0,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 0 TYPE STANDARD SURF 0: marked object/image surface variables are outside the supported physical-surface optimizer scope"
+      ]
+    },
+    {
+      "File": "Optical testing\\Twyman Green Interferometer.zmx",
+      "Configurations": 2,
+      "Variables": [
+        "0/5/AsphereCoefficient/0/c1=-9.08369093E-05",
+        "0/5/AsphereCoefficient/0/c2=1.02223912E-06"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "EVENASPH",
+            "Field": "PRAM",
+            "Number": 2,
+            "Configuration": 0
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "EVENASPH",
+            "Field": "PRAM",
+            "Number": 3,
+            "Configuration": 0
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Polarization\\Etalon.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Polarization\\Fabry-Perot.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Cassegrain-type Ritchey Chretien.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Flat-field Schmidt.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/AsphereCoefficient/0/c1=-3.98872164E-08",
+        "0/2/AsphereCoefficient/0/c2=-1.42644509E-12"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "EVENASPH",
+            "Field": "VPAR",
+            "Number": 2,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "EVENASPH",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Houghton.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/8/Thickness/0/=280.00809885999996"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Hubble.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 4 TYPE STANDARD SURF 4: marked object/image surface variables are outside the supported physical-surface optimizer scope"
+      ]
+    },
+    {
+      "File": "Telescopes\\Maksutov offset secondary.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Maksutov.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Schalcktelescope 10.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Schmidt-Cassegrain spider obscuration.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 6 TYPE COORDBRK PPAR 5: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Telescopes\\Schmidt-Cassegrain.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/AsphereCoefficient/0/c1=-1.70665192E-11",
+        "0/1/AsphereCoefficient/0/c2=-3.6262484100000005E-18",
+        "0/5/Conic/0/conic=-1.53339375"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "EVENASPH",
+            "Field": "VPAR",
+            "Number": 2,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "EVENASPH",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Unobscured Gregorian.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/3/Conic/0/conic=-1.00869694",
+        "0/4/Conic/0/conic=-0.568372493",
+        "0/5/Thickness/0/=189.140889"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Telescopes\\Yolo.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 4,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 11,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 4,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        },
+        {
+          "Marker": {
+            "Surface": 12,
+            "Type": "COORDBRK",
+            "Field": "VPAR",
+            "Number": 3,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 7 TYPE COORDBRK VPAR 4: coordinate-frame optimization is not supported; transform retained",
+        "ZMX SURF 11 TYPE COORDBRK VPAR 4: coordinate-frame optimization is not supported; transform retained",
+        "ZMX SURF 8 TYPE COORDBRK VPAR 3: no supported optimization variable mapping; value retained as fixed",
+        "ZMX SURF 12 TYPE COORDBRK VPAR 3: no supported optimization variable mapping; value retained as fixed"
+      ]
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Beamsplitter cube.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Lens pivoted about a point.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 9 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\OAP using Chebyshev Polynomial surface.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/AsphereCoefficient/0/c1=-0.0002499999999978",
+        "0/2/AsphereCoefficient/0/c5=-0.0002499999999965"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "CHEBYSHV",
+            "Field": "XDAT",
+            "Number": 2,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "CHEBYSHV",
+            "Field": "XDAT",
+            "Number": 6,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Offner relay.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Prism using tilted surface.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Prism using total internal reflection.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/2/Radius/0/=-51.397792399829065",
+        "0/3/Radius/0/=-60.811615801287864",
+        "0/5/Radius/0/=-175.69160900025742"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Prisms using coordinate breaks.ZMX",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Tilted mirror.zmx",
+      "Configurations": 1,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": [
+        "ZMX SURF 4 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Tilted systems \u0026 prisms\\Tilted object.zmx",
+      "Configurations": 1,
+      "Variables": [
+        "0/1/Conic/0/conic=-4.99847096",
+        "0/2/Thickness/0/=46.6223013"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 1,
+            "Type": "STANDARD",
+            "Field": "VCON",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 2,
+            "Type": "STANDARD",
+            "Field": "VDSZ",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "TILTSURF",
+            "Field": "VPAR",
+            "Number": 2,
+            "Configuration": -1
+          },
+          "Status": "UnsupportedRecorded"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 3 TYPE TILTSURF VPAR 2: no supported optimization variable mapping; value retained as fixed"
+      ]
+    },
+    {
+      "File": "Zoom systems\\Mirror zoom.zmx",
+      "Configurations": 5,
+      "Variables": [
+        "0/3/Radius/0/=-657.6275323921018",
+        "0/3/Thickness/0/=-123.38047599999999",
+        "0/4/Radius/0/=-1245.54840687994",
+        "0/5/Radius/0/=-218.1440592696362",
+        "0/6/Radius/0/=-257.0843910106535",
+        "1/3/Thickness/0/=-146.942007",
+        "2/3/Thickness/0/=-175.100953",
+        "3/3/Thickness/0/=-207.86048399999999",
+        "4/3/Thickness/0/=-263.498713",
+        "4/5/Thickness/0/=-86.0089301"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 4,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 6,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 0
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 2
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 3
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 3,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 4
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 5,
+            "Type": "STANDARD",
+            "Field": "THIC",
+            "Number": 0,
+            "Configuration": 4
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": []
+    },
+    {
+      "File": "Zoom systems\\Scanning mirror.zmx",
+      "Configurations": 3,
+      "Variables": [
+        "0/4/Radius/0/=61.20020780163358",
+        "0/5/Radius/0/=41.112970400841164"
+      ],
+      "Coverage": [
+        {
+          "Marker": {
+            "Surface": 7,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        },
+        {
+          "Marker": {
+            "Surface": 8,
+            "Type": "STANDARD",
+            "Field": "CURV",
+            "Number": 0,
+            "Configuration": -1
+          },
+          "Status": "Synchronized"
+        }
+      ],
+      "Diagnostics": [
+        "ZMX SURF 5 TYPE COORDBRK PPAR 3: parameter pickup has no supported live coefficient mapping"
+      ]
+    },
+    {
+      "File": "Zoom systems\\Zoom lens.zmx",
+      "Configurations": 3,
+      "Variables": [],
+      "Coverage": [],
+      "Diagnostics": []
+    }
+  ]
+}

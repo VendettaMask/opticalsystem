@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)..\..\..\..\..\</RepositoryRoot>
+    <ProductRuntime>$(RepositoryRoot)src\OpticalSystemDesign.App\bin\Release\net10.0</ProductRuntime>
+    <NugetRoot>$(UserProfile)\.nuget\packages</NugetRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(ProductRuntime)\*.dll"><Private>false</Private></Reference>
+    <Reference Include="$(NugetRoot)\avalonia.headless\12.1.0\lib\net10.0\Avalonia.Headless.dll"><Private>false</Private></Reference>
+    <Reference Include="$(NugetRoot)\xunit.assert\2.9.3\lib\net6.0\xunit.assert.dll"><Private>false</Private></Reference>
+    <Reference Include="$(NugetRoot)\xunit.extensibility.core\2.9.3\lib\netstandard1.1\xunit.core.dll"><Private>false</Private></Reference>
+    <Reference Include="$(NugetRoot)\xunit.abstractions\2.0.3\lib\netstandard1.0\xunit.abstractions.dll"><Private>false</Private></Reference>
+    <Using Include="Xunit" />
+    <Compile Include="$(RepositoryRoot)tests\Shared\SafeHeadlessUnitTestSession.cs" Link="SafeHeadlessUnitTestSession.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\AthermalGlassMapTests.cs" Link="AthermalGlassMapTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\MaterialAnalysisTests.cs" Link="MaterialAnalysisTests.cs" />
+    <Compile Include="../focused/HeadlessCollection.cs" Link="HeadlessCollection.cs" />
+  </ItemGroup>
+</Project>

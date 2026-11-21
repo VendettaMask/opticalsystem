@@ -48,7 +48,9 @@ internal static class StockLensModelPackBuilder
                         .Select(geometry => geometry.OriginalType).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
                     var projectPath = Path.Combine(temporaryDirectory, $"{entries.Count:D5}.staropt");
                     await StarOptProjectStore.SaveAsync(new StarOptProjectDocument(
-                        imported.Configurations, imported.ActiveConfigurationIndex), projectPath).ConfigureAwait(false);
+                        imported.Configurations, imported.ActiveConfigurationIndex,
+                        BrokenLinks: imported.BrokenLinks,
+                        OperandRows: imported.OperandRows, OperandVariables: imported.OperandVariables, OperandPickups: imported.OperandPickups), projectPath).ConfigureAwait(false);
                     _ = await StarOptProjectStore.LoadAsync(projectPath).ConfigureAwait(false);
                     projects.Add(entry.Id, projectPath);
                     entry = entry with

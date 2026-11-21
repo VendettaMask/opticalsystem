@@ -13,7 +13,8 @@ internal static class RealImageFieldConversion
 
         var converted = Optic.FromSnapshot(optic.ToSnapshot());
         var launchFields = optic.Fields
-            .Select(field => optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(field.X, field.Y))
+            .Select(field => optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(
+                field.X, field.Y, aimAtStop: optic.RayAimingEnabled))
             .ToArray();
         converted.FieldDefinition = ObjectConjugate.IsInfinite(converted.SurfaceGroup.Items.FirstOrDefault())
             ? FieldDefinitionKind.Angle

@@ -1,0 +1,396 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:01.19]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:03.74]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:03.84]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.MaterialDataQualityTests.MissingReferencesNeverExposeOutOfRangeFdcExtrapolation(minimum: 550, maximum: 610, validD: True) [22 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialDataQualityTests.MissingReferencesNeverExposeOutOfRangeFdcExtrapolation(minimum: 900, maximum: 2000, validD: False) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialDataQualityTests.InvalidModelsDoNotBreakCatalogBrowsing(formula: "unsupported") [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialDataQualityTests.InvalidModelsDoNotBreakCatalogBrowsing(formula: "zemax formula 1") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialDataQualityTests.TabulatedCoverageAndUnroundedDDefineFallbackConstants [531 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: True, angular: False) [601 ms]
+[xUnit.net 00:00:04.65]     OpticalSystemDesign.Tests.MaterialDataQualityTests.ThermalReviewFlagsSourceValuesWithoutChangingThemOrTheProject [FAIL]
+[xUnit.net 00:00:04.65]       Assert.True() Failure
+[xUnit.net 00:00:04.65]       Expected: True
+[xUnit.net 00:00:04.65]       Actual:   False
+[xUnit.net 00:00:04.65]       Stack Trace:
+[xUnit.net 00:00:04.65]         /_/tests/OpticalSystemDesign.Tests/MaterialDataQualityTests.cs(61,0): at OpticalSystemDesign.Tests.MaterialDataQualityTests.ThermalReviewFlagsSourceValuesWithoutChangingThemOrTheProject()
+[xUnit.net 00:00:04.65]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:04.65]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.FocusMetricUsesTheSameNominalPupilAsSpotMetric(aiming: False) [602 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: False, angular: False) [45 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: True, angular: True) [115 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisRequestSnapshotTests.SubmittedSettingsAreCopiedOnTheCallerAndCannotDriftWithLaterEdits(analysis: "Spot Diagram") [761 ms]
+  失败 OpticalSystemDesign.Tests.MaterialDataQualityTests.ThermalReviewFlagsSourceValuesWithoutChangingThemOrTheProject [209 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MaterialDataQualityTests.ThermalReviewFlagsSourceValuesWithoutChangingThemOrTheProject() in /_/tests/OpticalSystemDesign.Tests/MaterialDataQualityTests.cs:line 61
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: False, angular: True) [20 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisRequestSnapshotTests.SubmittedSettingsAreCopiedOnTheCallerAndCannotDriftWithLaterEdits(analysis: "Ray Fan") [25 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.HuygensMtfPresentationDoesNotOverrideTheSystemAiming(aiming: True, nativePresentation: True) [108 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.HuygensMtfPresentationDoesNotOverrideTheSystemAiming(aiming: False, nativePresentation: True) [13 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.HuygensMtfPresentationDoesNotOverrideTheSystemAiming(aiming: False, nativePresentation: False) [11 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.HuygensMtfPresentationDoesNotOverrideTheSystemAiming(aiming: True, nativePresentation: False) [58 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(aiming: False) [15 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(aiming: True) [74 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.PublicMeridionalTraceUsesTheSystemAiming(aiming: False) [30 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.PublicMeridionalTraceUsesTheSystemAiming(aiming: True) [4 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.ImageSimulationDistortionRespondsToTheSystemAimingSetting [200 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RealImageConversionPreservesTheActualChiefImageTarget(aiming: False) [14 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RealImageConversionPreservesTheActualChiefImageTarget(aiming: True) [26 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.ImageSimulationDetectorPitchUsesTheSystemChiefRays(aiming: False) [10 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.ImageSimulationDetectorPitchUsesTheSystemChiefRays(aiming: True) [8 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.InternalTransmissionNormalizesCatalogDataToRequestedThickness [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassLookupDoesNotSubstituteAnotherCatalogWhenResolutionFails [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.DispersionVsWavelengthPlotsIndexDerivative [370 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.FocusMetricUsesTheSameNominalPupilAsSpotMetric(aiming: True) [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: GlassMap) [234 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: False, polarized: True) [100 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: AthermalGlassMap) [196 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.DispersionCurveUsesSelectedGlassAndValidCatalogRange [426 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassLookupUsesQualifiedNamesAndCurrentProjectCatalogOrder [64 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassMapUsesConventionalReversedAbbeAxisAndLabels [176 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.MaterialAnalysisPanelTitlesCoverAllSupportedCommands [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: True, polarized: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: False, polarized: False) [67 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: True, polarized: True) [1 s]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.PhysicalObscurationStillRemovesRaysInEveryDefocusPlane [21 ms]
+  已通过 OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonOpensSelectedSampleInspectionWithoutReplacingTheCurrentProject(theme: "Dark", language: "ja-JP", scaling: 1.5) [11 s]
+  已通过 OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonOpensSelectedSampleInspectionWithoutReplacingTheCurrentProject(theme: "Light", language: "zh-CN", scaling: 1) [6 s]
+  已通过 OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonOpensSelectedSampleInspectionWithoutReplacingTheCurrentProject(theme: "Isekai", language: "en-US", scaling: 2) [6 s]
+  已通过 OpticalSystemDesign.Tests.NonSequentialExampleTests.EveryCategoryEntrySelectsItsOwnOriginalFile [380 ms]
+  已通过 OpticalSystemDesign.Tests.NonSequentialExampleTests.EveryBundledFileUsesLosslessNscInspectionAndReportsItsActualImportBoundary [1 s]
+  已通过 OpticalSystemDesign.Tests.NonSequentialExampleTests.PackagedCatalogIncludesAllSourceCategoriesWithOriginalBytesAndUniqueActions [16 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: "valid") [290 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: "nonfinite") [393 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: "missing") [399 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Isekai", language: "en-US", width: 1280, height: 960) [506 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Lumen", language: "ja-JP", width: 1280, height: 960) [2 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Dark", language: "en-US", width: 1280, height: 960) [625 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Light", language: "zh-CN", width: 1280, height: 960) [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Light", language: "zh-CN", width: 720, height: 1100) [1 s]
+CDGM September 2026 materials: 352; unique names: 352; active catalog: CDGM
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CdgmUsesOneCurrentCatalogAndBrowsingDoesNotEditTheExistingProject [2 s]
+[xUnit.net 00:00:47.57]       Assert.True() Failure
+[xUnit.net 00:00:47.57]       Expected: True
+[xUnit.net 00:00:47.57]       Actual:   False
+[xUnit.net 00:00:47.57]       Stack Trace:
+[xUnit.net 00:00:47.57]     OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: "Dark", language: "ja-JP", width: 1100, height: 960, scale: 1.5) [FAIL]
+[xUnit.net 00:00:47.57]         /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs(42,0): at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.<>c__DisplayClass1_0.<DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues>b__0()
+[xUnit.net 00:00:47.57]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:47.57]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:47.57]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:47.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:47.57]         /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs(27,0): at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(String theme, String language, Int32 width, Int32 height, Double scale)
+[xUnit.net 00:00:47.57]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: "Dark", language: "ja-JP", width: 1100, height: 960, scale: 1.5) [2 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.<>c__DisplayClass1_0.<DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues>b__0() in /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs:line 42
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(String theme, String language, Int32 width, Int32 height, Double scale) in /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs:line 27
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:49.43]     OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: "Light", language: "zh-CN", width: 1400, height: 960, scale: 1) [FAIL]
+[xUnit.net 00:00:49.43]       Assert.True() Failure
+[xUnit.net 00:00:49.43]       Expected: True
+[xUnit.net 00:00:49.43]       Actual:   False
+[xUnit.net 00:00:49.43]       Stack Trace:
+[xUnit.net 00:00:49.43]         /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs(42,0): at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.<>c__DisplayClass1_0.<DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues>b__0()
+[xUnit.net 00:00:49.43]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:49.43]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:49.43]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:49.43]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:49.43]         /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs(27,0): at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(String theme, String language, Int32 width, Int32 height, Double scale)
+[xUnit.net 00:00:49.43]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: "Light", language: "zh-CN", width: 1400, height: 960, scale: 1) [1 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.<>c__DisplayClass1_0.<DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues>b__0() in /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs:line 42
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(String theme, String language, Int32 width, Int32 height, Double scale) in /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs:line 27
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:49.99]     OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: "Isekai", language: "en-US", width: 900, height: 1100, scale: 2) [FAIL]
+[xUnit.net 00:00:49.99]       Assert.True() Failure
+[xUnit.net 00:00:49.99]       Expected: True
+[xUnit.net 00:00:49.99]       Actual:   False
+[xUnit.net 00:00:49.99]       Stack Trace:
+[xUnit.net 00:00:49.99]         /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs(42,0): at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.<>c__DisplayClass1_0.<DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues>b__0()
+[xUnit.net 00:00:49.99]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:49.99]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:49.99]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:49.99]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:49.99]         /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs(27,0): at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(String theme, String language, Int32 width, Int32 height, Double scale)
+[xUnit.net 00:00:49.99]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: "Isekai", language: "en-US", width: 900, height: 1100, scale: 2) [558 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.<>c__DisplayClass1_0.<DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues>b__0() in /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs:line 42
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(String theme, String language, Int32 width, Int32 height, Double scale) in /_/tests/OpticalSystemDesign.Tests/MaterialLibraryConsistencyTests.cs:line 27
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.GeneralModelsRetainConstantOffsetsPowersAndNonzeroExtraSourceCoefficients [6 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.TabulatedConstantsUseActualSamplesAndOutOfTableRequestsAreRejected [1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 13, symbols: "A0,A1,A2,A3,A4,A5,A6,A7,A8") [6 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 7, symbols: "A,B,C,D") [3 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 3, symbols: "A,B,C,D,E,F") [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 4, symbols: "A,B1,λ1,B2,λ2") [31 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 10, symbols: "A0,A1,A2,A3,A4,A5,A6,A7") [46 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 6, symbols: "K1,L1,K2,L2,K3,L3,K4,L4") [33 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 11, symbols: "K1,L1,K2,L2,K3,L3,K4,L4,K5,L5") [29 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 8, symbols: "A,B,C,D") [5 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 5, symbols: "n0,A,B") [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 9, symbols: "A,B,C,D,E") [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 2, symbols: "K1,L1,K2,L2,K3,L3") [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 12, symbols: "A0,A1,A2,A3,A4,A5,A6,A7") [2 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 1, symbols: "A0,A1,A2,A3,A4,A5") [3 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.CalculateUsesActualDispersionInsteadOfRoundedReferenceAndDoesNotEditTheProject [8 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.InvalidUnsupportedAndZeroDispersionHaveExplicitStatuses [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ButtonRecalculatesAndSelectionRestoresReferenceWithModelSpecificLabels(theme: "Isekai", language: "en-US", width: 900, height: 1100, scale: 2) [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ButtonRecalculatesAndSelectionRestoresReferenceWithModelSpecificLabels(theme: "Dark", language: "en-US", width: 1100, height: 960, scale: 1.5) [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ButtonRecalculatesAndSelectionRestoresReferenceWithModelSpecificLabels(theme: "Light", language: "zh-CN", width: 1400, height: 960, scale: 1) [2 s]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.CoefficientChangeAffectsCalculatedConstantsWithoutUsingCatalogReferenceValues [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.RelativeDerivativeAgreesWithIndependentFiniteDifference(lambdaTk: -0.17000000000000001, referenceTemperature: 25) [1 ms]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.RelativeDerivativeAgreesWithIndependentFiniteDifference(lambdaTk: 0, referenceTemperature: 35) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.RelativeDerivativeAgreesWithIndependentFiniteDifference(lambdaTk: 0.17000000000000001, referenceTemperature: 20) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.ThermalModelRejectsMissingNonfiniteAndSingularDataWithoutGuessingUnits [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.NativePanelKeepsFiniteOutliersAndAllowsDefaultAllRangeRoundTrip(theme: "Dark", width: 1100, scale: 1.5) [4 s]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.NativePanelKeepsFiniteOutliersAndAllowsDefaultAllRangeRoundTrip(theme: "Isekai", width: 900, scale: 2) [2 s]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.NativePanelKeepsFiniteOutliersAndAllowsDefaultAllRangeRoundTrip(theme: "Light", width: 1500, scale: 1) [2 s]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.MapUsesDefinedWavelengthsTypedScaleAndHonestDefaultRange [253 ms]
+  已通过 OpticalSystemDesign.Tests.AthermalGlassMapTests.NonstandardEnvironmentPressureIsExplicitlyUnavailable [68 ms]
+[xUnit.net 00:01:08.27]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [FAIL]
+[xUnit.net 00:01:08.27]       Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:08.27]       Expected: 1440
+[xUnit.net 00:01:08.27]       Actual:   1919
+[xUnit.net 00:01:08.27]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:08.27]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:08.27]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:08.27]       Expected: 255
+[xUnit.net 00:01:08.27]       Actual:   200
+[xUnit.net 00:01:08.27]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:08.27]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:08.27]          at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+[xUnit.net 00:01:08.27]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+[xUnit.net 00:01:08.27]       --- End of stack trace from previous location ---
+[xUnit.net 00:01:08.27]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+[xUnit.net 00:01:08.27]       Stack Trace:
+[xUnit.net 00:01:08.27]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(110,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext()
+[xUnit.net 00:01:08.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:08.27]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:01:08.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:08.27]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:01:08.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:08.27]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format)
+[xUnit.net 00:01:08.27]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [3 s]
+  错误消息:
+   Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 1440
+Actual:   1919
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 255
+Actual:   200
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:11.35]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf) [FAIL]
+[xUnit.net 00:01:11.35]       Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:11.35]       Expected: 1440
+[xUnit.net 00:01:11.35]       Actual:   1919
+[xUnit.net 00:01:11.35]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:11.35]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:11.35]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:11.35]       Expected: 255
+[xUnit.net 00:01:11.35]       Actual:   200
+[xUnit.net 00:01:11.35]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:11.35]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:11.35]          at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+[xUnit.net 00:01:11.35]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+[xUnit.net 00:01:11.35]       --- End of stack trace from previous location ---
+[xUnit.net 00:01:11.35]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+[xUnit.net 00:01:11.35]       Stack Trace:
+[xUnit.net 00:01:11.35]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(110,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext()
+[xUnit.net 00:01:11.35]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:11.35]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:01:11.35]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:11.35]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:01:11.35]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:11.35]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format)
+[xUnit.net 00:01:11.35]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf) [3 s]
+  错误消息:
+   Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 1440
+Actual:   1919
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 255
+Actual:   200
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:14.41]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown) [FAIL]
+[xUnit.net 00:01:14.41]       Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:14.41]       Expected: 1440
+[xUnit.net 00:01:14.41]       Actual:   1919
+[xUnit.net 00:01:14.41]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:14.41]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:14.41]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:14.41]       Expected: 255
+[xUnit.net 00:01:14.41]       Actual:   200
+[xUnit.net 00:01:14.41]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:14.41]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:14.41]          at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+[xUnit.net 00:01:14.41]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+[xUnit.net 00:01:14.41]       --- End of stack trace from previous location ---
+[xUnit.net 00:01:14.41]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+[xUnit.net 00:01:14.41]       Stack Trace:
+[xUnit.net 00:01:14.41]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(110,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext()
+[xUnit.net 00:01:14.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:14.41]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:01:14.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:14.41]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:01:14.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:14.41]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format)
+[xUnit.net 00:01:14.41]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown) [3 s]
+  错误消息:
+   Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 1440
+Actual:   1919
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 255
+Actual:   200
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:17.73]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html) [FAIL]
+[xUnit.net 00:01:17.73]       Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:17.73]       Expected: 1440
+[xUnit.net 00:01:17.73]       Actual:   1919
+[xUnit.net 00:01:17.73]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:17.73]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:17.73]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+[xUnit.net 00:01:17.73]       Expected: 255
+[xUnit.net 00:01:17.73]       Actual:   200
+[xUnit.net 00:01:17.73]          at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+[xUnit.net 00:01:17.73]          at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+[xUnit.net 00:01:17.73]          at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+[xUnit.net 00:01:17.73]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+[xUnit.net 00:01:17.73]       --- End of stack trace from previous location ---
+[xUnit.net 00:01:17.73]          at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+[xUnit.net 00:01:17.73]       Stack Trace:
+[xUnit.net 00:01:17.73]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(110,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext()
+[xUnit.net 00:01:17.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:17.73]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:01:17.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:17.73]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:01:17.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:17.73]         /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format)
+[xUnit.net 00:01:17.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:17.74]   Finished:    OpticalSystemDesign.Tests
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html) [3 s]
+  错误消息:
+   Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 1440
+Actual:   1919
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 96
+Xunit.Sdk.EqualException: Assert.Equal() Failure: Values differ
+Expected: 255
+Actual:   200
+   at Xunit.Assert.Equal[T](T expected, T actual, IEqualityComparer`1 comparer) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 154
+   at Xunit.Assert.Equal[T](T expected, T actual) in /_/src/xunit.assert/Asserts/EqualityAsserts.cs:line 89
+   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in /_/tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs:line 19
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_2.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__7>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 86
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 72
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in /_/tests/OpticalSystemDesign.Tests/AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-21\remaining-consistency\results\remaining-first.trx
+
+测试运行失败。
+测试总数: 93
+     通过数: 85
+     失败数: 8
+总时间: 1.3063 分钟

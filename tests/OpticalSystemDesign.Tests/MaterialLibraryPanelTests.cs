@@ -202,6 +202,7 @@ public sealed class MaterialLibraryPanelTests
         public IReadOnlyList<string> GetCatalogNames() => glasses.Select(g => g.Manufacturer).ToArray();
         public IReadOnlyList<GlassMaterialDto> GetGlasses() => glasses;
         public GlassMaterialDto? FindGlass(string materialName) => glasses.FirstOrDefault(g => g.Name == materialName);
+        public GlassConstantsDto? CalculateGlassConstants(string materialName, bool useCatalogDefinition = false) => throw new NotSupportedException();
         public AnalysisViewDto Analyze(MaterialAnalysisRequestDto request) => throw new NotSupportedException();
         public Task<MaterialCatalogImportResultDto> ImportZemaxCatalogAsync(string path, CancellationToken cancellationToken = default) => throw new NotSupportedException();
     }

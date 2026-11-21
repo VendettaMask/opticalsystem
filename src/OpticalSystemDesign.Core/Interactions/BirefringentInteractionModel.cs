@@ -35,13 +35,9 @@ public sealed class BirefringentInteractionModel(bool isExit = false, double axi
     }
     private static Vector3D? Solve(OpticalIndexEllipsoid medium, Vector3D tangential, Vector3D normal, double sign)
     {
-        var an = medium.Apply(normal); var at = medium.Apply(tangential);
-        var a = OpticalIndexEllipsoid.Dot(normal, an); var b = OpticalIndexEllipsoid.Dot(normal, at);
-        var c = OpticalIndexEllipsoid.Dot(tangential, at) - 1; var discriminant = b * b - a * c;
-        if (!double.IsFinite(discriminant) || a <= 0) throw new ArithmeticException("Invalid crystal interface dispersion.");
-        if (discriminant < 0) return null;
-        var q = (-b + sign * Math.Sqrt(discriminant)) / a;
-        var direction = medium.Apply(tangential + q * normal); return direction / direction.Length;
+        var momentum = medium.SolveMomentum(tangential, normal, sign);
+        if (momentum is null) return null;
+        var direction = medium.Apply(momentum.Value); return direction / direction.Length;
     }
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context) =>
         new RefractiveReflectiveInteractionModel().Interact(ray, context);

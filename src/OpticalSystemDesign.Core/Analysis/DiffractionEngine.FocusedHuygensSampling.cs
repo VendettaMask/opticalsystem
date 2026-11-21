@@ -46,7 +46,7 @@ public static partial class DiffractionEngine
             || UsesSphericalFocusedHuygens(optic, wavelength, pupilDistance, imageSize, pitch, null))
             throw new AnalysisDataUnavailableException(analysis,
                 "checked focal Huygens integration requires a finite planar propagation window");
-        var frame = CreateHuygensImageFrame(optic, field, wavelength);
+        var frame = CreateHuygensImageFrame(optic, field, wavelength, aimAtStop: false);
         var lambda = wavelength.Micrometers * .001;
         var k = 2 * Math.PI / lambda;
         var radiiSquared = new int[imageSize, imageSize];

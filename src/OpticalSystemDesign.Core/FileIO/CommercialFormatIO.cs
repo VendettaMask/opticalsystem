@@ -4,6 +4,7 @@ using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Multiconfig;
 
 namespace OpticalSystemDesign.Core.FileIO;
 
@@ -273,6 +274,10 @@ public sealed record ZemaxZmxImportResult(
 {
     /// <summary>The source ZMX number for each imported surface, in each configuration's order.</summary>
     public IReadOnlyList<IReadOnlyList<int>> SourceSurfaceNumbers { get; init; } = [];
+    public IReadOnlyList<MultiConfigurationOperand> OperandRows { get; init; } = [];
+    public IReadOnlyList<MultiConfigurationVariable> OperandVariables { get; init; } = [];
+    public IReadOnlyList<MultiConfigurationLinkOverride> BrokenLinks { get; init; } = [];
+    public IReadOnlyList<MultiConfigurationPickup> OperandPickups { get; init; } = [];
 }
 
 public sealed class ZemaxZmxExporter : IOpticalFormatExporter
@@ -283,6 +288,10 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        if (optic.SurfaceGroup.Items.Any(surface => surface.Placement is not null))
+            throw new NotSupportedException("此文本导出尚不能保留坐标变量的完整依赖链；请保存 STAROPT 或原生光学快照。");
+        if (optic.ImportVariableWarnings.Count > 0)
+            throw new NotSupportedException("ZMX 导出无法保留未映射的变量标记；请保存 STAROPT 工程以保留这些诊断。");
         if (optic.Polarization != new OpticalSystemDesign.Core.Rays.SystemPolarization())
             throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
         OpticCapabilityPreflight.EnsureSupported(
@@ -343,6 +352,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         foreach (var surface in SequentialLensDocument.FromOptic(optic, retainExtendedGeometry: true).Surfaces)
         {
             var opticSurface = optic.SurfaceGroup.Items[surface.Number];
+            var surfaceLineStart = lines.Count;
             lines.Add($"SURF {surface.Number}");
             lines.Add($"  TYPE {(opticSurface.InteractionModel is Interactions.ParaxialLensInteractionModel { } ideal ? ideal.PowerX == ideal.PowerY ? "PARAXIAL" : "PARAX_XY"
                 : opticSurface.InteractionModel is Interactions.BirefringentInteractionModel crystalInterface ? crystalInterface.IsExit ? "BIRE_OUT" : "BIRE__IN"
@@ -353,8 +363,9 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 : opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel ? throw new NotSupportedException("此相位模型的 ZMX 参数尚未映射。")
                 : SurfaceType(opticSurface.Geometry))}");
             lines.Add($"  COMM {surface.Label}");
-            lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}");
+            lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}" + (opticSurface.RadiusVariable ? " 1" : ""));
             lines.Add($"  DISZ {FormatDistance(surface.Thickness)}");
+            if (opticSurface.ThicknessVariable) lines.Add("  VDSZ 0 0");
             lines.Add(GlassLine(opticSurface));
             var semiDiameterPickup = optic.Pickups.SemiDiameterPickups
                 .LastOrDefault(pickup => pickup.TargetSurface == opticSurface.Number);
@@ -436,6 +447,16 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 var coefficients = new[] { zones.Inner.Coefficients, dual.Inner.Coefficients, zones.Outer.Coefficients, dual.Outer.Coefficients };
                 for (var i = 0; i < count; i++) for (var j = 0; j < 4; j++)
                     lines.Add($"  XDAT {2 + 4 * i + j} {FormatDouble(i < coefficients[j].Count ? coefficients[j][i] : 0)}");
+            }
+            foreach (var parameter in opticSurface.ShapeVariables)
+            {
+                if (parameter == "conic") { lines.Add("  VCON"); continue; }
+                var field = Services.SurfaceShapeParameters.ZemaxVariableField(opticSurface, parameter);
+                if (!field.ExtraData) { lines.Add($"  VPAR {field.Number}"); continue; }
+                var prefix = $"  XDAT {field.Number} ";
+                var lineIndex = lines.FindLastIndex(line => line.StartsWith(prefix, StringComparison.Ordinal));
+                if (lineIndex < surfaceLineStart) throw new NotSupportedException("Missing XDAT value for a marked coefficient.");
+                lines[lineIndex] += " 1 0 1 0 0 \"\"";
             }
             if (surface.IsStop)
             {
@@ -665,6 +686,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
         return surface.MaterialAfter switch
         {
+            Materials.ModelGlassMaterial model => $"  GLAS {model.Name} 3 0 {FormatDouble(model.Nd)} {FormatDouble(model.Vd)} {FormatDouble(model.DPgF)} {(model.VaryNd ? 1 : 0)} {(model.VaryVd ? 1 : 0)} {(model.VaryDPgF ? 1 : 0)} 0 0",
             Materials.UniaxialMaterial crystal when crystal.Ordinary is Materials.CatalogGlassMaterial ordinary
                 && crystal.Extraordinary is Materials.CatalogGlassMaterial extraordinary
                 && ordinary.Manufacturer.Equals(extraordinary.Manufacturer, StringComparison.OrdinalIgnoreCase)

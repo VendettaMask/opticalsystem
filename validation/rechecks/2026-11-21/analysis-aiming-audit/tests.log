@@ -1,0 +1,105 @@
+  正在确定要还原的项目…
+  已还原 D:\Projects\opticalsystem\validation\rechecks\2026-11-21\analysis-aiming-audit\focused\Aiming.csproj (用时 292 毫秒)。
+  10 个项目(共 11 个)是最新的，无法还原。
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.CameraImaging.Engine -> D:\Projects\opticalsystem\labs\CameraImaging\src\OpticalSystemDesign.CameraImaging.Engine\bin\Release\net10.0\OpticalSystemDesign.CameraImaging.Engine.dll
+  OpticalSystemDesign.OpticalAssembly.Engine -> D:\Projects\opticalsystem\labs\OpticalAssembly\src\OpticalSystemDesign.OpticalAssembly.Engine\bin\Release\net10.0\OpticalSystemDesign.OpticalAssembly.Engine.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  Aiming -> D:\Projects\opticalsystem\validation\rechecks\2026-11-21\analysis-aiming-audit\focused\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\validation\rechecks\2026-11-21\analysis-aiming-audit\focused\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.26]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:00.30]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:00.32]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.ReferenceSphereWavefrontFallsBackToChiefRayPlaneForAfocalImageSpace [730 ms]
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.ObjectMarkerUsesFirstSurfaceRoleInsteadOfPresentationLabel [734 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: False) [736 ms]
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.DirectionCosineTraceProducesPlotsAndPerSurfaceTable [9 ms]
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.ZemaxTraceTypesProduceExpectedColumns(type: "正切角", expectedColumn: "Tan X") [4 ms]
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.ZemaxTraceTypesProduceExpectedColumns(type: "Ym, Um, Yc, Uc", expectedColumn: "Ym") [1 ms]
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.RayAimingTrialIgnoresPreStopApertureButFinalTraceReportsVignetting [6 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.FocusMetricUsesTheSameNominalPupilAsSpotMetric(aiming: False) [772 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: True, angular: False) [798 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: False, angular: False) [16 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.FourierMtfUsesAngularSpatialFrequencyForAfocalImageSpace [101 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.MtfThroughFocusUsesDioptersAndAngularFrequencyForAfocalImageSpace [12 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.RmsVsFocusUsesDioptersAndAngularSpotRadiusForAfocalImageSpace [14 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.HuygensPsfUsesAngularSamplingForAfocalImageSpace [17 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.SpotDiagramUsesAngularCoordinatesForAfocalImageSpace [7 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: True, angular: True) [75 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.WavefrontUsesChiefRayPlaneForAfocalImageSpace [6 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.ThroughFocusSpotUsesDioptersAndAngularSpotRadiusForAfocalImageSpace [8 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RadiometricPowerAndMomentsMatchDirectAimedRays(aiming: False, angular: True) [14 ms]
+[xUnit.net 00:00:01.42]     OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(aiming: False) [FAIL]
+[xUnit.net 00:00:01.43]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:01.43]       Range:  (0 - 2E-12)
+[xUnit.net 00:00:01.43]       Actual: 0.025770559903353835
+[xUnit.net 00:00:01.43]       Stack Trace:
+[xUnit.net 00:00:01.43]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisAimingPropagationTests.cs(30,0): at OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(Boolean aiming)
+[xUnit.net 00:00:01.43]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:01.43]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.FftPsfUsesAngularSamplingForAfocalImageSpace [10 ms]
+  已通过 OpticalSystemDesign.Tests.AfocalImageSpaceAnalysisTests.RayFanUsesAngularAberrationForAfocalImageSpace [8 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: True) [195 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: False) [39 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: True) [95 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: False) [5 ms]
+  失败 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(aiming: False) [8 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2E-12)
+Actual: 0.025770559903353835
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(Boolean aiming) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisAimingPropagationTests.cs:line 30
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.ConnectorExposesZemaxStyleInputsAndDocumentReport [369 ms]
+[xUnit.net 00:00:01.48]     OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(aiming: True) [FAIL]
+[xUnit.net 00:00:01.48]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:01.48]       Range:  (0 - 2E-12)
+[xUnit.net 00:00:01.48]       Actual: 0.72972902535609818
+[xUnit.net 00:00:01.48]       Stack Trace:
+[xUnit.net 00:00:01.48]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisAimingPropagationTests.cs(30,0): at OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(Boolean aiming)
+[xUnit.net 00:00:01.48]            at InvokeStub_AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(Object, Span`1)
+[xUnit.net 00:00:01.48]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  已通过 OpticalSystemDesign.Tests.SingleRayTraceAnalysisTests.ZemaxSquarePupilCoordinatesAreAcceptedAndThenTraced [3 ms]
+  失败 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(aiming: True) [57 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2E-12)
+Actual: 0.72972902535609818
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(Boolean aiming) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisAimingPropagationTests.cs:line 30
+   at InvokeStub_AnalysisAimingPropagationTests.GeometricMtfUsesTheAcceptedSystemPupil(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: True) [103 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: False) [9 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.ImageSimulationDistortionRespondsToTheSystemAimingSetting [105 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RealImageConversionPreservesTheActualChiefImageTarget(aiming: False) [6 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.RealImageConversionPreservesTheActualChiefImageTarget(aiming: True) [8 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.ImageSimulationDetectorPitchUsesTheSystemChiefRays(aiming: False) [2 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisAimingPropagationTests.ImageSimulationDetectorPitchUsesTheSystemChiefRays(aiming: True) [5 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: True) [96 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: True) [24 ms]
+  已通过 OpticalSystemDesign.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: False) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.FocusMetricUsesTheSameNominalPupilAsSpotMetric(aiming: True) [834 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: False, polarized: True) [71 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: True, polarized: False) [905 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: False, polarized: False) [18 ms]
+[xUnit.net 00:00:03.17]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.NominalFocusHasTheSameAcceptedRaysAsStandardSpot(aiming: True, polarized: True) [201 ms]
+  已通过 OpticalSystemDesign.Tests.ThroughFocusAimingTests.PhysicalObscurationStillRemovesRaysInEveryDefocusPlane [18 ms]
+
+测试运行失败。
+测试总数: 45
+     通过数: 43
+     失败数: 2
+总时间: 4.5979 秒
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-21\analysis-aiming-audit\aiming-audit.trx

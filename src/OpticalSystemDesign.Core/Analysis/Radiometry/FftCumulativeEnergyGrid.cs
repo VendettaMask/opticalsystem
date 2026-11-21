@@ -8,6 +8,14 @@ internal interface IEnergyImageGrid
     double RadiusContaining(double target);
 }
 
+internal interface IBoundedFftEnergyImageGrid : IEnergyImageGrid
+{
+    int FourierSampling { get; }
+    int WindowSize { get; }
+    double ImagePitch { get; }
+    double BinWidth { get; }
+}
+
 /// <summary>
 /// FFT enclosed-energy output accumulates linear distance bins. This output
 /// convention is distinct from the physical rectangular-pixel area integrator

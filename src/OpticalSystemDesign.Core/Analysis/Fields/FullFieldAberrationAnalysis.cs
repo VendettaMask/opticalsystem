@@ -145,7 +145,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             FieldXAxisLabel(),
             FieldYAxisLabel(),
             points,
-            AnalysisSeriesKind.Scatter,
+            _displayAs == "颜色图" ? AnalysisSeriesKind.Heatmap : AnalysisSeriesKind.Scatter,
             Name: _aberration,
             ColorIndex: 10,
             ValueLabel: "波前差",

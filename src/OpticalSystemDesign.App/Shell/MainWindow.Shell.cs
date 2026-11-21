@@ -73,6 +73,7 @@ public sealed partial class MainWindow
                         RibbonButton("show-system", "system-settings", "系统选项"),
                         RibbonButton("show-lens-editor", "lens-prescription", "镜头数据"),
                         RibbonButton("show-multiconfig", "configuration-matrix", "多重结构")),
+                    RibbonGroup("镜头工具", RibbonButton("scale-lens", "scaling", "镜头缩放")),
                     RibbonGroup("显示",
                         RibbonButton("display-settings", "format-font", "格式与字体")),
                     RibbonGroup("诊断",
@@ -248,6 +249,10 @@ public sealed partial class MainWindow
                 RibbonMenuButton("export", "file-export", "导出",
                     ("export-cad", "file-export-cad", "CAD（STEP）")),
                 RibbonSequentialExamplesButton()));
+        }
+        else
+        {
+            groups.Add(RibbonGroup("示例", RibbonNonSequentialExamplesButton()));
         }
 
         groups.Add(RibbonGroup("工程归档",

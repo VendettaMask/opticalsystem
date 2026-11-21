@@ -17,6 +17,12 @@ public sealed partial class MultiConfiguration
                 throw new InvalidOperationException("该单元格由多配置拾取控制，请先移除拾取。");
             MultiConfigurationVariable.EnsureEditable(row, Configurations[configurationIndex]);
             if (!_operandVariables.Contains(variable)) _operandVariables.Add(variable);
+            if (row.Kind == MultiConfigurationOperandKind.ShapeCoefficient && !FindSurface(Configurations[configurationIndex], row.SurfaceNumber).ShapeVariables.Contains(row.Parameter!))
+                FindSurface(Configurations[configurationIndex], row.SurfaceNumber).ShapeVariables = [.. FindSurface(Configurations[configurationIndex], row.SurfaceNumber).ShapeVariables, row.Parameter!];
+            if (row.Kind == MultiConfigurationOperandKind.GradientIndexCoefficient)
+                Services.GradientIndexParameters.SetVariable(Configurations[configurationIndex], FindSurface(Configurations[configurationIndex], row.SurfaceNumber), row.Parameter!, true);
+            if (row.Kind == MultiConfigurationOperandKind.ModelGlassCoefficient)
+                Services.ModelGlassParameters.SetVariable(FindSurface(Configurations[configurationIndex], row.SurfaceNumber), row.Parameter!, true);
             DetachPropertyLink(configurationIndex, row.SurfaceNumber, row.Property);
             if (row.Kind == MultiConfigurationOperandKind.SemiDiameter)
             {
@@ -31,6 +37,10 @@ public sealed partial class MultiConfiguration
             var surface = FindSurface(Configurations[configurationIndex], row.SurfaceNumber);
             if (row.Kind == MultiConfigurationOperandKind.Curvature) surface.RadiusVariable = false;
             if (row.Kind == MultiConfigurationOperandKind.Thickness) surface.ThicknessVariable = false;
+            if (row.Kind == MultiConfigurationOperandKind.Conic) surface.ShapeVariables = surface.ShapeVariables.Where(name => name != "conic").ToArray();
+            if (row.Kind == MultiConfigurationOperandKind.ShapeCoefficient) surface.ShapeVariables = surface.ShapeVariables.Where(name => name != row.Parameter).ToArray();
+            if (row.Kind == MultiConfigurationOperandKind.GradientIndexCoefficient) Services.GradientIndexParameters.SetVariable(Configurations[configurationIndex], surface, row.Parameter!, false);
+            if (row.Kind == MultiConfigurationOperandKind.ModelGlassCoefficient) Services.ModelGlassParameters.SetVariable(surface, row.Parameter!, false);
         }
     }
 

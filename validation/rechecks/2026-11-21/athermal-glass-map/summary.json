@@ -1,0 +1,66 @@
+{
+  "Protocol": "catalog-reference-temperature, 1 atm, project min/primary/max wavelengths; x in 1e-3, y in 1e-6/K",
+  "Rows": [
+    {
+      "Metric": "\u6750\u6599\u5E93",
+      "Value": "64"
+    },
+    {
+      "Metric": "\u53C2\u4E0E\u8BA1\u7B97\u7684\u73BB\u7483",
+      "Value": "5142"
+    },
+    {
+      "Metric": "\u6709\u6548\u7ED8\u56FE\u70B9",
+      "Value": "4494"
+    },
+    {
+      "Metric": "\u53C2\u8003\u73BB\u7483",
+      "Value": "SCHOTT:N-BK7"
+    },
+    {
+      "Metric": "\u6700\u77ED / \u4E3B / \u6700\u957F\u6CE2\u957F (\u03BCm)",
+      "Value": "0.48 / 0.55 / 0.65"
+    },
+    {
+      "Metric": "\u9ED8\u8BA4\u8303\u56F4\u5185",
+      "Value": "4306"
+    },
+    {
+      "Metric": "\u9ED8\u8BA4\u8303\u56F4\u5916\uFF08\u4FDD\u7559\uFF09",
+      "Value": "188"
+    },
+    {
+      "Metric": "\u7F3A\u5C11\u6709\u6548\u6CE2\u957F\u6216\u70ED\u6570\u636E",
+      "Value": "648"
+    }
+  ],
+  "ReportText": "\u4F7F\u7528\u5DE5\u7A0B\u6700\u77ED\u3001\u4E3B\u6CE2\u957F\u548C\u6700\u957F\u6CE2\u957F\uFF0C\u5728\u5404\u73BB\u7483\u76EE\u5F55\u53C2\u8003\u6E29\u5EA6\u30011 atm \u4E0B\u8BA1\u7B97\u76F8\u5BF9\u70ED\u5149\u7126\u3002\u540D\u79F0\u6309\u76EE\u5F55\u72B6\u6001\u7740\u8272\uFF1B\u9ED8\u8BA4\u8303\u56F4\u5916\u7684\u6709\u6548\u70B9\u4ECD\u4FDD\u7559\uFF0C\u53EF\u7528\u201C\u663E\u793A\u5168\u90E8\u8303\u56F4\u201D\u67E5\u770B\u3002\nTD \u5BFC\u51FA\u7684 |dn/dT| \u2265 0.01/K\uFF0C\u9700\u6838\u5BF9\u6E90\u76EE\u5F55\uFF1B\u672A\u731C\u6D4B\u4FEE\u6B63\u6216\u5220\u9664\uFF1A\nHIKARI:7054: dn/dT=0.668506/K\nANGSTROMLINK:AL-6265-(OKP-850): dn/dT=-1.20987/K\nOHARA-A:TPH55: dn/dT=1.76524/K",
+  "Selected": [
+    {
+      "X": 16.022998932208267,
+      "Y": -1.5093864767627354,
+      "Label": "N-BK7",
+      "Value": null,
+      "Red": null,
+      "Green": null,
+      "Blue": null
+    }
+  ],
+  "ProductAssemblies": [
+    {
+      "FullName": "OpticalSystemDesign.App, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null",
+      "Path": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.dll",
+      "Sha256": "71711F1F35676482EF368A0C30FC17FD6CEA2044B005F8C3390726F000682215"
+    },
+    {
+      "FullName": "OpticalSystemDesign.Application, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null",
+      "Path": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.dll",
+      "Sha256": "210290B667EE98D361A75316A53F8F7D9929E408D9B82D477DFAEF04587D356C"
+    },
+    {
+      "FullName": "OpticalSystemDesign.Core, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null",
+      "Path": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+      "Sha256": "A95C839B653B5850BEBC0FF227CD967ABFEDCE4F8CC6B5D6596F54559A809C14"
+    }
+  ]
+}

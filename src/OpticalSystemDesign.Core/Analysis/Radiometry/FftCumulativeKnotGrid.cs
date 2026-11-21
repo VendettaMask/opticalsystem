@@ -5,14 +5,14 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 // Exact linear distance-bin sums at the analysis's uniformly spaced knots.
 // Range updates avoid retaining/sorting millions of individual image samples.
-internal sealed class FftCumulativeKnotGrid : IEnergyImageGrid
+internal sealed class FftCumulativeKnotGrid : IBoundedFftEnergyImageGrid
 {
     private readonly double[] _values;
     private readonly double _maximum;
-    internal int FourierSampling { get; }
-    internal int WindowSize { get; }
-    internal double ImagePitch { get; }
-    internal double BinWidth { get; }
+    public int FourierSampling { get; }
+    public int WindowSize { get; }
+    public double ImagePitch { get; }
+    public double BinWidth { get; }
     internal FftCumulativeKnotGrid(Complex[,] image, int firstX, int firstY, double imagePitch,
         (double X, double Y) center, double fullImagePower, double binWidth,
         double maximumDistance, int knotCount, string type, int fourierSampling)

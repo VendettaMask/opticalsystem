@@ -1,0 +1,67 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:03.62]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:10.87]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:11.15]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: GRBG) [120 ms]
+  已通过 OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: RGGB) [6 ms]
+  已通过 OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: BGGR) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: GBRG) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.IndependentApplicationsAndExternalLaunchersAreRetired(module: "InitialStructure") [235 ms]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.IndependentApplicationsAndExternalLaunchersAreRetired(module: "CoatingDesign") [7 ms]
+  已通过 OpticalSystemDesign.Tests.NonSequentialDocumentTests.DocumentCollectionsDoNotExposeMutableBackingLists [2 s]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.AllFourLaboratoriesBelongToTheMainExecutableAssembly [3 s]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.RootSolutionAndMainBuildIncludeEveryModule [37 ms]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.LaboratoryEnginesUseTheSameProductCore [4 ms]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.AutoLensCpuExperimentShipsExactLicenseAndHasNoForeignRuntimeReference [287 ms]
+  已通过 OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.PublishRejectsMissingModulesAndIncludesTheirNotices [97 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.InternalTransmissionNormalizesCatalogDataToRequestedThickness [5 s]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassLookupDoesNotSubstituteAnotherCatalogWhenResolutionFails [4 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.DispersionVsWavelengthPlotsIndexDerivative [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: GlassMap) [877 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: AthermalGlassMap) [901 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.DispersionCurveUsesSelectedGlassAndValidCatalogRange [2 s]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassLookupUsesQualifiedNamesAndCurrentProjectCatalogOrder [581 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassMapUsesConventionalReversedAbbeAxisAndLabels [375 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialAnalysisTests.MaterialAnalysisPanelTitlesCoverAllSupportedCommands [3 ms]
+  已通过 OpticalSystemDesign.Tests.UiLocalizationTests.LanguageChangeUpdatesLoadedDynamicAndLaterControlsWithoutChangingUserInput [7 s]
+  已通过 OpticalSystemDesign.Tests.UiLocalizationTests.SettingsDefaultToChineseAndNormalizeUnsupportedLanguages [5 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: "valid") [7 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: "nonfinite") [4 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: "missing") [4 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Isekai", language: "en-US", width: 1280, height: 960) [1 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Lumen", language: "ja-JP", width: 1280, height: 960) [4 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Dark", language: "en-US", width: 1280, height: 960) [2 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Light", language: "zh-CN", width: 1280, height: 960) [4 s]
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: "Light", language: "zh-CN", width: 720, height: 1100) [7 s]
+CDGM September 2026 materials: 352; unique names: 352; active catalog: CDGM
+  已通过 OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CdgmUsesOneCurrentCatalogAndBrowsingDoesNotEditTheExistingProject [5 s]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.GeneralModelsRetainConstantOffsetsPowersAndNonzeroExtraSourceCoefficients [75 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.TabulatedConstantsUseActualSamplesAndOutOfTableRequestsAreRejected [22 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 13, symbols: "A0,A1,A2,A3,A4,A5,A6,A7,A8") [45 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 7, symbols: "A,B,C,D") [1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 3, symbols: "A,B,C,D,E,F") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 4, symbols: "A,B1,λ1,B2,λ2") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 10, symbols: "A0,A1,A2,A3,A4,A5,A6,A7") [13 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 6, symbols: "K1,L1,K2,L2,K3,L3,K4,L4") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 11, symbols: "K1,L1,K2,L2,K3,L3,K4,L4,K5,L5") [6 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 8, symbols: "A,B,C,D") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 5, symbols: "n0,A,B") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 9, symbols: "A,B,C,D,E") [8 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 2, symbols: "K1,L1,K2,L2,K3,L3") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 12, symbols: "A0,A1,A2,A3,A4,A5,A6,A7") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ImportedModelsUseTheirOwnSymbolsAndPreserveCoefficientOrder(model: 1, symbols: "A0,A1,A2,A3,A4,A5") [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.CalculateUsesActualDispersionInsteadOfRoundedReferenceAndDoesNotEditTheProject [46 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.InvalidUnsupportedAndZeroDispersionHaveExplicitStatuses [1 ms]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ButtonRecalculatesAndSelectionRestoresReferenceWithModelSpecificLabels(theme: "Isekai", language: "en-US", width: 900, height: 1100, scale: 2) [5 s]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ButtonRecalculatesAndSelectionRestoresReferenceWithModelSpecificLabels(theme: "Dark", language: "en-US", width: 1100, height: 960, scale: 1.5) [4 s]
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.ButtonRecalculatesAndSelectionRestoresReferenceWithModelSpecificLabels(theme: "Light", language: "zh-CN", width: 1400, height: 960, scale: 1) [6 s]
+[xUnit.net 00:01:31.73]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.MaterialConstantsTests.CoefficientChangeAffectsCalculatedConstantsWithoutUsingCatalogReferenceValues [< 1 ms]
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-21\material-constants-and-test-entry\results\main-final.trx
+
+测试运行成功。
+测试总数: 53
+     通过数: 53
+总时间: 1.5387 分钟

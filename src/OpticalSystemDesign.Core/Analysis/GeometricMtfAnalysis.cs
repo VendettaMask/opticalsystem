@@ -47,7 +47,8 @@ public sealed partial class GeometricMtfAnalysis : BaseAnalysis
             ? Enumerable.Range(0, allFields.Count).ToArray()
             : new[] { Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, allFields.Count - 1)) };
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
-        var result = SpotAnalysisEngine.Generate(Optic, fields, wavelengths, _numRays, _distribution);
+        var result = SpotAnalysisEngine.Generate(Optic, fields, wavelengths, _numRays, _distribution,
+            aimAtStop: Optic.RayAimingEnabled);
         var fNumber = Math.Abs(Optic.Paraxial.EstimateFNumber());
         var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var afocalImageSpace = Optic.ImageSpaceAfocal;
@@ -155,6 +156,7 @@ public sealed partial class GeometricMtfAnalysis : BaseAnalysis
             ["RayWeighting"] = "Image-plane intensity",
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
+            ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["PlotPointCount"] = _numPoints,
             ["ScaleByDiffractionLimit"] = _scale,
             ["MaximumFrequency"] = maximumFrequency,

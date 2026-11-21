@@ -52,6 +52,12 @@
 
 从 **文件 → 示例** 浏览 [14 类、95 支顺序镜头](docs/USER_GUIDE.md#镜头示例)。这 95 支镜头构成精度验收基准，可查阅[逐镜头数值对照](validation/rechecks/2026-11-08/menu-all95-current-replay/README.md)和[当前状态](docs/CURRENT_STATUS.md)。
 
+非序列模式也提供 **文件 → 示例**，收录 16 类、106 个 ZMX 示例。选择后直接显示导入检查，未支持语义或缺失外部资产会阻断场景应用。[示例范围](src/OpticalSystemDesign.App/Assets/NonSequentialExamples/README.md)
+
+其中 Color Fringes 已支持 ZMX 导入、波片模式追迹和彩色探测器显示。[使用方法与光谱拟合范围](docs/NSC_COLOR_FRINGES.md)
+
+**设置 → 镜头工具 → 镜头缩放** 可对受支持的表面范围及全部配置按倍率缩放，或切换镜头表长度单位。表面绘图支持颜色、透明度、隐藏及行色设置。FFT PSF、MTF 和衍射圈入能量提供在原物理范围内按需加密，保留采样与收敛诊断。[当前操作](docs/USER_GUIDE.md) · [计算定义](docs/COMPUTATION_GUIDE.md)
+
 ## 功能一览
 
 <table>

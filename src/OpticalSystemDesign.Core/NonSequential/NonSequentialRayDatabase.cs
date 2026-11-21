@@ -657,7 +657,8 @@ public static class NonSequentialSceneHasher
             SphereParameters p => new[] { p.Material }, CylinderParameters p => new[] { p.Material },
             BoxParameters p => new[] { p.Material }, StandardLensParameters p => new[] { p.Material },
             MeshObjectParameters p => new[] { p.Material }, _ => Array.Empty<string>()
-        }).Append(document.AmbientMaterial).Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase).ToArray());
+        }).Concat(document.Objects.Where(o => o.Parameters.Waveplate is not null).Select(o => o.Parameters.Waveplate!.ExtraordinaryMaterial))
+        .Append(document.AmbientMaterial).Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase).ToArray());
 
     public static string Compute(NonSequentialDocument document, MaterialRegistry? materials = null)
     {

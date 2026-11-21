@@ -118,15 +118,21 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             };
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
         var wavelengths = AnalysisTrace.SelectWavelengths(Optic, _settings.WavelengthNumber);
-        var absolute = SpotAnalysisEngine.Generate(
+        // Full-field statistics and coordinates share one origin. Chief-ray
+        // reference always means the first declared field, even when a later
+        // field alone is selected; centroid reference pools the selected rays.
+        var common = SpotAnalysisEngine.Generate(
             Optic,
+            allFields.FirstOrDefault(),
             fields,
             wavelengths,
             _settings.RayDensity,
             _settings.Pattern,
             surfaceNumber: _settings.SurfaceNumber,
-            reference: "absolute",
-            usePolarization: _settings.UsePolarization);
+            reference: _settings.Reference,
+            usePolarization: _settings.UsePolarization,
+            aimAtStop: Optic.RayAimingEnabled,
+            includeSurfaceTransmission: _settings.UsePolarization);
         var referenced = SpotAnalysisEngine.Generate(
             Optic,
             fields,
@@ -135,7 +141,9 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             _settings.Pattern,
             surfaceNumber: _settings.SurfaceNumber,
             reference: _settings.Reference,
-            usePolarization: _settings.UsePolarization);
+            usePolarization: _settings.UsePolarization,
+            aimAtStop: Optic.RayAimingEnabled,
+            includeSurfaceTransmission: _settings.UsePolarization);
         var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
             Optic,
             _settings.SurfaceNumber);
@@ -151,12 +159,12 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             : 1;
         AnalysisPoint[] BuildPoints(int fieldIndex, int wavelengthIndex)
         {
-            var absoluteRays = absolute.Fields[fieldIndex].Wavelengths[wavelengthIndex].Rays;
+            var commonRays = common.Fields[fieldIndex].Wavelengths[wavelengthIndex].Rays;
             var referencedRays = referenced.Fields[fieldIndex].Wavelengths[wavelengthIndex].Rays;
-            return absoluteRays.Zip(referencedRays, (absoluteRay, referencedRay) =>
+            return commonRays.Zip(referencedRays, (commonRay, referencedRay) =>
             {
-                var x = absoluteRay.X + ((magnification - 1) * referencedRay.X);
-                var y = absoluteRay.Y + ((magnification - 1) * referencedRay.Y);
+                var x = commonRay.X + ((magnification - 1) * referencedRay.X);
+                var y = commonRay.Y + ((magnification - 1) * referencedRay.Y);
                 return new AnalysisPoint(x * displayScale, y * displayScale);
             }).ToArray();
         }
@@ -206,30 +214,28 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
         var allPoints = series.SelectMany(item => item.Points)
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
             .ToArray();
-        var xMinimum = allPoints.Select(point => point.X).DefaultIfEmpty(-0.5).Min();
-        var xMaximum = allPoints.Select(point => point.X).DefaultIfEmpty(0.5).Max();
-        var yMinimum = allPoints.Select(point => point.Y).DefaultIfEmpty(-0.5).Min();
-        var yMaximum = allPoints.Select(point => point.Y).DefaultIfEmpty(0.5).Max();
-        var span = Math.Max(xMaximum - xMinimum, yMaximum - yMinimum);
-        span = Math.Max(span, _settings.PlotScaleMicrometers);
-        span = Math.Max(1, span * 1.1);
-        var xCenter = (xMinimum + xMaximum) / 2;
-        var yCenter = (yMinimum + yMaximum) / 2;
-        var referencedRays = referenced.Fields
+        var extent = allPoints.Select(point => Math.Max(Math.Abs(point.X), Math.Abs(point.Y)))
+            .DefaultIfEmpty(0.5).Max();
+        var halfWidth = double.IsFinite(_settings.PlotScaleMicrometers) && _settings.PlotScaleMicrometers > 0
+            ? _settings.PlotScaleMicrometers / 2
+            : NiceScale(Math.Max(0.5, extent * 1.1));
+        var commonRays = common.Fields
             .SelectMany(field => field.WeightedRays)
             .ToArray();
-        var rmsRadiusDisplay = SpotAnalysisEngine.RmsRadius(referencedRays) * displayScale;
-        var geometricRadiusDisplay = referencedRays
+        var rmsRadiusDisplay = SpotAnalysisEngine.RmsRadius(commonRays) * displayScale;
+        var geometricRadiusDisplay = commonRays
             .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
             .DefaultIfEmpty(0)
             .Max() * displayScale;
-        var scaleBar = NiceScale(span);
+        // The printed scale is the complete width of the reference-centred
+        // square, not a separately rounded bounding-box size or half-width.
+        var scaleBar = 2 * halfWidth;
         var values = new Dictionary<string, object>
         {
             ["Variant"] = Name,
-            ["RayCount"] = absolute.RayCount,
-            ["VignettedRayCount"] = absolute.VignettedRayCount,
-            ["FieldCount"] = absolute.Fields.Count,
+            ["RayCount"] = common.RayCount,
+            ["VignettedRayCount"] = common.VignettedRayCount,
+            ["FieldCount"] = common.Fields.Count,
             ["WavelengthCount"] = wavelengths.Count(),
             ["RayDensity"] = _settings.RayDensity,
             ["Pattern"] = _settings.Pattern,
@@ -237,12 +243,13 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             ["Reference"] = _settings.Reference,
             ["Magnification"] = magnification,
             ["UsePolarization"] = _settings.UsePolarization,
+            ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["ShowAiryDisk"] = _settings.ShowAiryDisk,
             ["WavelengthNumber"] = _settings.WavelengthNumber,
             ["FieldNumber"] = _settings.FieldNumber,
-            ["SurfaceNumber"] = _settings.SurfaceNumber,
+            ["SurfaceNumber"] = ImageSpaceAnalysisSupport.ResolveSurface(Optic, _settings.SurfaceNumber)!.Number,
             ["DisplayScale"] = _settings.DisplayScale,
-            ["PlotScaleMicrometers"] = _settings.PlotScaleMicrometers,
+            ["PlotScaleMicrometers"] = imageSpace.IsAfocalAngle ? 0 : _settings.PlotScaleMicrometers,
             ["PlotScaleMilliradians"] = imageSpace.IsAfocalAngle ? _settings.PlotScaleMicrometers : 0,
             ["ScaleBarMicrometers"] = imageSpace.IsAfocalAngle ? 0 : scaleBar,
             ["ScaleBarMilliradians"] = imageSpace.IsAfocalAngle ? scaleBar : 0,
@@ -268,10 +275,10 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             new AnalysisPlotOptions(
                 Title: "全视场点列图",
                 EqualAspect: true,
-                XMinimum: xCenter - (span / 2),
-                XMaximum: xCenter + (span / 2),
-                YMinimum: yCenter - (span / 2),
-                YMaximum: yCenter + (span / 2),
+                XMinimum: -halfWidth,
+                XMaximum: halfWidth,
+                YMinimum: -halfWidth,
+                YMaximum: halfWidth,
                 ShowLegend: true,
                 GridOpacity: 0.25,
                 HideTickLabels: true,

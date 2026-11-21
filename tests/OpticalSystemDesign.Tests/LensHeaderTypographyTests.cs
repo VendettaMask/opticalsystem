@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
+using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -71,8 +72,9 @@ public sealed class LensHeaderTypographyTests
                 foreach (var header in headers)
                 {
                     Assert.Equal(FontWeight.Bold, header.FontWeight);
-                    Assert.Equal(HorizontalAlignment.Center, header.HorizontalContentAlignment);
-                    Assert.Equal(VerticalAlignment.Center, header.VerticalContentAlignment);
+                    var selectAll = header.Content is Button { Name: "SelectAllSurfacesHeader" };
+                    Assert.Equal(selectAll ? HorizontalAlignment.Stretch : HorizontalAlignment.Center, header.HorizontalContentAlignment);
+                    Assert.Equal(selectAll ? VerticalAlignment.Stretch : VerticalAlignment.Center, header.VerticalContentAlignment);
                     Assert.Equal(baselineHeader.FontSize, header.FontSize);
                     foreach (var text in header.GetVisualDescendants().OfType<TextBlock>().Where(t => !string.IsNullOrEmpty(t.Text)))
                         Assert.Equal(FontWeight.Bold, text.FontWeight);
@@ -87,6 +89,25 @@ public sealed class LensHeaderTypographyTests
                 Assert.All(grid.GetVisualDescendants().OfType<TextBox>(), input => Assert.Equal(FontWeight.Normal, input.FontWeight));
                 Assert.All(comparison.GetVisualDescendants().OfType<DataGridColumnHeader>(), header => Assert.NotEqual(FontWeight.Bold, header.FontWeight));
                 AssertSurfaceTypeAlignment(grid);
+                var allHeader = Assert.IsType<Button>(grid.Columns[0].Header);
+                Assert.False(grid.Columns[0].CanUserSort);
+                Assert.False(grid.Columns[0].CanUserReorder);
+                var originalOrder = grid.CollectionView.Cast<SurfaceEditorRow>().Select(row => row.Number).ToArray();
+                var sortEvents = 0;
+                grid.Sorting += (_, _) => sortEvents++;
+                window.Height = 260; Tick(window);
+                var clickPoint = allHeader.TranslatePoint(new Point(allHeader.Bounds.Width / 2, allHeader.Bounds.Height / 2), window)!.Value;
+                window.MouseDown(clickPoint, MouseButton.Left);
+                window.MouseUp(clickPoint, MouseButton.Left); Tick(window);
+                Assert.Equal(originalOrder.Length, grid.SelectedItems.Count);
+                Assert.Equal(originalOrder, grid.CollectionView.Cast<SurfaceEditorRow>().Select(row => row.Number));
+                grid.SelectedItems.Clear();
+                allHeader.Focus();
+                window.KeyPress(Key.Enter, RawInputModifiers.None, PhysicalKey.Enter, null);
+                window.KeyRelease(Key.Enter, RawInputModifiers.None, PhysicalKey.Enter, null); Tick(window);
+                Assert.Equal(originalOrder.Length, grid.SelectedItems.Count);
+                Assert.Equal(0, sortEvents);
+                window.Height = 650; Tick(window);
                 Capture(window, $"lens-headers-{theme}-{language}-{fontSize}.png");
                 grid.Columns[1].Width = new DataGridLength(240);
                 Tick(window);

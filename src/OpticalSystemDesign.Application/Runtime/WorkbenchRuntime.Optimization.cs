@@ -15,12 +15,16 @@ public partial class WorkbenchRuntime
 {
     private sealed record OptimizationBinding(int SurfaceNumber, bool IsCurvature = false,
         int Layer = 0, CoatingLayerParameter Parameter = CoatingLayerParameter.Multiplier,
-        int ConfigurationIndex = -1, MultiConfigurationOperand? Operand = null, string? GradientParameter = null)
+        int ConfigurationIndex = -1, MultiConfigurationOperand? Operand = null, string? GradientParameter = null, string? ShapeParameter = null, string? ModelParameter = null)
     {
-        public string Property => GradientParameter is not null ? "material" : Operand?.Property ?? (IsCurvature ? "radius" : "thickness");
+        public string Property => ShapeParameter is { } shape ? SurfaceShapeParameters.Property(shape)
+            : ModelParameter is { } model ? ModelGlassParameters.Property(model)
+            : GradientParameter is { } gradient ? GradientIndexParameters.Property(gradient) : Operand?.Property ?? (IsCurvature ? "radius" : "thickness");
     }
     public OptimizerResult OptimizeSurfaceRadius(OpticalSurface surface, string optimizerName, int maxIterations)
     {
+        if (surface.BlockedVariableProperties.Contains("radius"))
+            throw new NotSupportedException("该半径关联尚未映射的参数拾取，请检查变量导入诊断。");
         if (IsMultiConfigurationPickupTarget(surface.Number, "radius") || CurrentOptic.Pickups.RadiusPickups.Any(pickup => pickup.TargetSurface == surface.Number))
             throw new InvalidOperationException("拾取半径不能独立优化，请优化源表面或先改为变量。");
         OpticCapabilityPreflight.EnsureSupported(CurrentOptic, OpticCapabilityOperation.Optimization, optimizerName);
@@ -60,10 +64,11 @@ public partial class WorkbenchRuntime
             variable.Operand.SurfaceNumber, variable.Operand.Kind == MultiConfigurationOperandKind.Curvature,
             ConfigurationIndex: variable.ConfigurationIndex, Operand: variable.Operand)).ToList();
         var lastSurfaceNumber = Surfaces.Count == 0 ? -1 : Surfaces[^1].Number;
-        foreach (var surface in Surfaces.Where(s => s.Number > 0 && s.Number < lastSurfaceNumber))
+        foreach (var surface in Surfaces)
         {
             foreach (var curvature in new[] { true, false })
             {
+                if (curvature ? surface.Number == 0 : surface.Number == lastSurfaceNumber) continue;
                 if (!(curvature ? surface.RadiusVariable : surface.ThicknessVariable)) continue;
                 if (curvature ? CurrentOptic.Pickups.RadiusPickups.Any(p => p.TargetSurface == surface.Number)
                     : CurrentOptic.Pickups.ThicknessPickups.Any(p => p.TargetSurface == surface.Number)) continue;
@@ -72,6 +77,15 @@ public partial class WorkbenchRuntime
                 if (!bindings.Any(b => b.ConfigurationIndex == _activeConfigurationIndex && b.SurfaceNumber == surface.Number && b.Property == property))
                     bindings.Add(new(surface.Number, curvature, ConfigurationIndex: _activeConfigurationIndex));
             }
+            foreach (var parameter in surface.ShapeVariables)
+            {
+                if (surface.Number == 0) continue;
+                var property = SurfaceShapeParameters.Property(parameter);
+                if (!IsMultiConfigurationPickupTarget(surface.Number, property)
+                    && !bindings.Any(binding => binding.ConfigurationIndex == _activeConfigurationIndex
+                        && binding.SurfaceNumber == surface.Number && binding.Property == property))
+                    bindings.Add(new(surface.Number, ConfigurationIndex: _activeConfigurationIndex, ShapeParameter: parameter));
+            }
         }
         bindings.AddRange(Surfaces.Where(s => s.Number > 0 && s.CoatingModel is CoherentMultilayerCoating)
             .SelectMany(s => ((CoherentMultilayerCoating)s.CoatingModel).Layers.SelectMany((l, index) =>
@@ -79,7 +93,14 @@ public partial class WorkbenchRuntime
                     .Select(kind => new OptimizationBinding(s.Number, Layer: index + 1, Parameter: kind, ConfigurationIndex: _activeConfigurationIndex)))));
         bindings.AddRange(Surfaces.Where(s => s.Number > 0 && s.Number < lastSurfaceNumber && s.MaterialAfter is GradientIndexMaterial)
             .SelectMany(s => ((GradientIndexMaterial)s.MaterialAfter).Variables.Keys.Order(StringComparer.Ordinal)
+                .Where(key => !bindings.Any(binding => binding.ConfigurationIndex == _activeConfigurationIndex && binding.SurfaceNumber == s.Number
+                    && binding.Operand is { Kind: MultiConfigurationOperandKind.GradientIndexCoefficient } row && row.Parameter == key))
                 .Select(key => new OptimizationBinding(s.Number, ConfigurationIndex: _activeConfigurationIndex, GradientParameter: key))));
+        bindings.AddRange(Surfaces.Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber && !surface.IsReflective
+                && surface.InteractionModel is not Core.Interactions.CoordinateReferenceInteractionModel && surface.MaterialAfter is ModelGlassMaterial)
+            .SelectMany(surface => ((ModelGlassMaterial)surface.MaterialAfter).Variables.Where(key => !bindings.Any(binding => binding.ConfigurationIndex == _activeConfigurationIndex
+                    && binding.SurfaceNumber == surface.Number && binding.Operand is { Kind: MultiConfigurationOperandKind.ModelGlassCoefficient } row && row.Parameter == key))
+                .Select(key => new OptimizationBinding(surface.Number, ConfigurationIndex: _activeConfigurationIndex, ModelParameter: key))));
         return bindings;
     }
 
@@ -87,7 +108,8 @@ public partial class WorkbenchRuntime
     {
         var optic = binding.ConfigurationIndex == _activeConfigurationIndex ? CurrentOptic : _multiConfiguration.Configurations[binding.ConfigurationIndex];
         var surface = optic.SurfaceGroup.Items.Single(s => s.Number == binding.SurfaceNumber);
-        var kind = binding.GradientParameter is not null ? OptimizationVariableKind.GradientIndexCoefficient : binding.Layer > 0 ? binding.Parameter switch
+        var kind = binding.ModelParameter is not null ? OptimizationVariableKind.ModelGlassCoefficient : binding.ShapeParameter is { } shape ? ShapeVariableKind(shape)
+            : binding.GradientParameter is not null ? OptimizationVariableKind.GradientIndexCoefficient : binding.Layer > 0 ? binding.Parameter switch
         {
             CoatingLayerParameter.Multiplier => OptimizationVariableKind.CoatingMultiplier,
             CoatingLayerParameter.IndexOffset => OptimizationVariableKind.CoatingIndexOffset,
@@ -97,20 +119,38 @@ public partial class WorkbenchRuntime
             MultiConfigurationOperandKind.Curvature => OptimizationVariableKind.Curvature,
             MultiConfigurationOperandKind.Conic => OptimizationVariableKind.Conic,
             MultiConfigurationOperandKind.SemiDiameter => OptimizationVariableKind.SemiDiameter,
-            _ => binding.IsCurvature ? OptimizationVariableKind.Radius : OptimizationVariableKind.Thickness
+            MultiConfigurationOperandKind.ShapeCoefficient => ShapeVariableKind(binding.Operand.Parameter!),
+            MultiConfigurationOperandKind.GradientIndexCoefficient => OptimizationVariableKind.GradientIndexCoefficient,
+            MultiConfigurationOperandKind.ModelGlassCoefficient => OptimizationVariableKind.ModelGlassCoefficient,
+            _ => binding.IsCurvature ? OptimizationVariableKind.Radius : surface.Number == 0 ? OptimizationVariableKind.ObjectDistance : OptimizationVariableKind.Thickness
         };
-        var value = binding.GradientParameter is { } parameter ? GradientIndexParameters.Read(surface, parameter) : binding.Layer > 0 ? CoatingLayerMetrics.Layer(surface, binding.Layer).Adjustment.Value(binding.Parameter)
+        var value = binding.ModelParameter is { } modelParameter ? ModelGlassParameters.Read(surface, modelParameter)
+            : binding.ShapeParameter is { } shapeParameter ? SurfaceShapeParameters.Read(surface, shapeParameter)
+            : binding.GradientParameter is { } parameter ? GradientIndexParameters.Read(surface, parameter) : binding.Layer > 0 ? CoatingLayerMetrics.Layer(surface, binding.Layer).Adjustment.Value(binding.Parameter)
             : binding.Operand?.Read(optic) ?? (binding.IsCurvature ? surface.Radius : surface.Thickness);
-        var label = binding.GradientParameter is { } key ? $"GRIN {key}" : binding.Layer > 0 ? $"膜层 {binding.Layer} {binding.Parameter}" : binding.Operand is { } row
-            ? MultiConfigurationOperand.Code(row.Kind) : binding.IsCurvature ? "半径" : "厚度";
+        var label = binding.ModelParameter is { } modelKey ? $"Model glass {modelKey}" : binding.ShapeParameter is { } shapeKey ? SurfaceShapeParameters.Label(surface, shapeKey)
+            : binding.GradientParameter is { } key ? $"GRIN {key}" : binding.Layer > 0 ? $"膜层 {binding.Layer} {binding.Parameter}" : binding.Operand is { } row
+            ? MultiConfigurationOperand.Code(row.Kind) : binding.IsCurvature ? "半径" : surface.Number == 0 ? "物距" : "厚度";
         return new OptimizationVariableResultDto(surface.Number, kind, $"配置 {binding.ConfigurationIndex + 1} 表面 {surface.Number} {label}",
-            value, value, binding.ConfigurationIndex, binding.Layer, binding.GradientParameter);
+            value, value, binding.ConfigurationIndex, binding.Layer, binding.ModelParameter ?? binding.ShapeParameter ?? binding.GradientParameter ?? binding.Operand?.Parameter);
     }).ToArray();
+
+    private static OptimizationVariableKind ShapeVariableKind(string parameter) => parameter == "conic" ? OptimizationVariableKind.Conic
+        : parameter[0] is 'p' or 's' ? OptimizationVariableKind.PhaseCoefficient
+        : SurfaceShapeParameters.IsAdditionalVariableName(parameter) ? OptimizationVariableKind.SurfaceParameter : OptimizationVariableKind.AsphereCoefficient;
 
     public OptimizerResult OptimizeMarkedVariables(string optimizerName, int maxIterations)
     {
         var bindings = MarkedOptimizationBindings();
         if (bindings.Count == 0) throw new InvalidOperationException("请先设置至少一个优化变量（表面、GRIN 系数、物理膜层或多配置单元格）。");
+        foreach (var binding in bindings.Where(binding => binding.Layer == 0))
+        {
+            var optic = binding.ConfigurationIndex == _activeConfigurationIndex ? CurrentOptic : _multiConfiguration.Configurations[binding.ConfigurationIndex];
+            if (optic.SurfaceGroup.Items.Single(surface => surface.Number == binding.SurfaceNumber).BlockedVariableProperties.Contains(binding.Property))
+                throw new NotSupportedException("该变量关联尚未映射的参数拾取，不能把固定的导入拾取值用于优化。请检查变量导入诊断。");
+            if (binding.SurfaceNumber == 0 && !double.IsFinite(optic.SurfaceGroup.Items[0].Thickness))
+                throw new NotSupportedException("无限物距不能直接作为有限优化变量；请先设置有限物距。");
+        }
         var initialDocument = CaptureDocument();
         try
         {
@@ -128,6 +168,10 @@ public partial class WorkbenchRuntime
                 var surface = optic.SurfaceGroup.Items.Single(s => s.Number == binding.SurfaceNumber);
                 if (binding.Operand is { } row)
                     problem.AddVariable(new MultiConfigurationVariable(binding.ConfigurationIndex, row).Create(optic, Changed));
+                else if (binding.ModelParameter is { } modelParameter)
+                    problem.AddVariable(ModelGlassParameters.CreateVariable(optic, surface, modelParameter, Changed));
+                else if (binding.ShapeParameter is { } shapeParameter)
+                    problem.AddVariable(SurfaceShapeParameters.CreateVariable(surface, shapeParameter, Changed));
                 else if (binding.Layer > 0)
                     problem.AddVariable(CoatingLayerMetrics.CreateVariable(optic, surface, binding.Layer, binding.Parameter));
                 else if (binding.GradientParameter is { } parameter)
@@ -170,9 +214,6 @@ public partial class WorkbenchRuntime
 
     private static void SynchronizeOptimizationState(MultiConfiguration configurations, IReadOnlyList<OptimizationBinding> bindings, int activeIndex)
     {
-        foreach (var binding in bindings.Where(b => b.GradientParameter is not null
-            && (b.ConfigurationIndex < 0 ? activeIndex : b.ConfigurationIndex) == 0))
-            configurations.PropagateBaseProperty(binding.SurfaceNumber, "material");
         if (configurations.OperandPickups.Count > 0) { configurations.ApplyOperandPickups(); return; }
         foreach (var optic in configurations.Configurations) { optic.Pickups.ApplyAll(); optic.SurfaceGroup.Renumber(); }
         foreach (var binding in bindings.Where(b => b.Layer == 0 && (b.ConfigurationIndex < 0 ? activeIndex : b.ConfigurationIndex) == 0))
@@ -223,6 +264,10 @@ public partial class WorkbenchRuntime
                 var surface = optic.SurfaceGroup.Items.First(item => item.Number == binding.SurfaceNumber);
                 if (binding.Operand is { } row)
                     MultiConfigurationVariable.Write(row, optic, values[index]);
+                else if (binding.ModelParameter is { } modelParameter)
+                    ModelGlassParameters.Write(optic, surface, modelParameter, values[index]);
+                else if (binding.ShapeParameter is { } shapeParameter)
+                    SurfaceShapeParameters.Write(surface, shapeParameter, values[index]);
                 else if (binding.Layer > 0)
                     CoatingLayerMetrics.Write(optic, surface, binding.Layer, binding.Parameter, values[index]);
                 else if (binding.GradientParameter is { } parameter)

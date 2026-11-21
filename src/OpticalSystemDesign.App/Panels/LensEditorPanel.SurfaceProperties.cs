@@ -21,6 +21,17 @@ public sealed partial class LensEditorPanel
     private readonly Button _gradientIndexEditor = new() { Content = "编辑 GRIN 材料…", Name = "EditGradientIndexMaterial" };
     private readonly Button _physicalCoatingEditor = new() { Content = "编辑物理膜层…", Name = "EditPhysicalCoating" };
     private readonly TextBlock _drawingSummary = PropertyNote("");
+    private readonly ComboBox _surfaceColor = new() { Name = "SurfaceColor", HorizontalAlignment = HorizontalAlignment.Stretch };
+    private readonly TextBox _surfaceColorHex = new()
+    {
+        Name = "SurfaceColorHex", PlaceholderText = "#RRGGBB", MaxLength = 7,
+        Classes = { ProductFonts.NumericClass }
+    };
+    private readonly Border _surfaceColorSwatch = new()
+    {
+        Name = "SurfaceColorSwatch", Width = 20, Height = 20, BorderThickness = new Thickness(1),
+        VerticalAlignment = VerticalAlignment.Center
+    };
     private readonly TextBlock _coordinatesSummary = PropertyNote("");
     private readonly TextBlock _scatterSummary = PropertyNote("");
     private readonly TextBlock _coatingModelSummary = PropertyNote("");
@@ -155,6 +166,7 @@ public sealed partial class LensEditorPanel
     {
         var row = _grid.SelectedItem as SurfaceEditorRow;
         _surfacePropertiesTitle.Text = row is null ? "表面属性" : $"表面 {row.Number} 属性";
+        if (row is not null && row.LengthUnitSymbol != "mm") _surfacePropertiesTitle.Text += $" · {row.LengthUnitSymbol}";
         _previousPropertySurface.IsEnabled = row is { Number: > 0 };
         _nextPropertySurface.IsEnabled = row is { IsLastSurface: false };
     }
@@ -199,9 +211,9 @@ public sealed partial class LensEditorPanel
         var typeFields = PropertyStack(
             PropertyRow("表面类型：", _geometryPicker),
             BuildGradientIndexEditorButton(),
-            PropertyRow("表面颜色：", UnavailablePicker("默认颜色")),
-            PropertyRow("表面透明度：", UnavailablePicker("100%")),
-            PropertyRow("行颜色：", UnavailablePicker("默认颜色")),
+            PropertyRow("表面颜色：", BuildSurfaceColorEditor()),
+            PropertyRow("表面透明度：", BuildOpacityPicker()),
+            PropertyRow("行颜色：", BuildRowColorPicker()),
             _gratingProperties,
             _thinLensProperties,
             _biconicProperties,
@@ -226,9 +238,7 @@ public sealed partial class LensEditorPanel
         var pages = new Dictionary<SurfacePropertyPage, Control>
         {
             [SurfacePropertyPage.Type] = typePage,
-            [SurfacePropertyPage.Drawing] = PropertyStack(
-                _drawingSummary,
-                PropertyNote("绘图沿用当前主题与布局设置。独立表面颜色、透明度、隐藏表面及行颜色尚未实现。")),
+            [SurfacePropertyPage.Drawing] = BuildDrawingPage(),
             [SurfacePropertyPage.Aperture] = PropertyStack(
                 PropertyRow("孔径类型：", _aperturePicker),
                 _apertureSummary,
@@ -349,6 +359,10 @@ public sealed partial class LensEditorPanel
 
     private void LoadSurfaceProperties(SurfaceEditorRow row)
     {
+        LoadDrawingOptions(row);
+        _surfaceColor.SelectedItem = _surfaceColor.Items.Cast<ComboBoxItem>()
+            .FirstOrDefault(item => Equals(item.Tag, row.SurfaceColor ?? "")) ?? _surfaceColor.Items[^1];
+        _surfaceColorHex.Text = row.SurfaceColor ?? "#3366CC";
         LoadPolynomialProperties(row);
         _gradientIndexEditor.IsEnabled = row.GeometryComputable && row.Number > 0 && !row.IsLastSurface
             && double.IsFinite(row.Thickness) && row.Thickness > 0 && !row.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
@@ -364,7 +378,7 @@ public sealed partial class LensEditorPanel
         var coatingReason = _physicalCoatingEditor.IsEnabled ? null : "物面或未支持的面型不能编辑物理膜层。";
         ToolTip.SetTip(_physicalCoatingEditor, coatingReason);
         Avalonia.Automation.AutomationProperties.SetHelpText(_physicalCoatingEditor, coatingReason ?? "打开当前表面的物理膜层编辑器。");
-        _drawingSummary.Text = $"表面 {row.Number}：{row.SurfaceRole}\n当前净半径：{row.SemiDiameterDisplay} mm\n机械半直径：{row.MechanicalSemiDiameterDisplay} mm";
+        _drawingSummary.Text = $"表面 {row.Number}：{row.SurfaceRole}\n当前净半径：{row.SemiDiameterDisplay} {row.LengthUnitSymbol}\n机械半直径：{row.MechanicalSemiDiameterDisplay} {row.LengthUnitSymbol}";
         _apertureSummary.Text = $"当前物理孔径：{row.ApertureKind}";
         _coatingModelSummary.Text = $"当前膜层模型：{row.CoatingKind}";
         _interactionSummary.Text = $"当前交互模型：{row.InteractionKind}";
@@ -377,6 +391,7 @@ public sealed partial class LensEditorPanel
                 + $"X 倾斜：{position.TiltXDegrees:0.######}°    Y 倾斜：{position.TiltYDegrees:0.######}°    Z 倾斜：{position.TiltZDegrees:0.######}°"
             : "表面坐标：—";
         UpdateGeometryPropertyVisibility();
+        _loadedPhysicalInputs = PhysicalPropertyInputs();
     }
 
     private void UpdateGeometryPropertyVisibility()
@@ -387,6 +402,51 @@ public sealed partial class LensEditorPanel
         _gratingProperties.IsVisible = _geometryPicker.SelectedItem is "平面光栅" or "标准曲面光栅";
         _thinLensProperties.IsVisible = !_gratingProperties.IsVisible
             && _grid.SelectedItem is SurfaceEditorRow { InteractionKind: "薄透镜" or "反射薄透镜" };
+    }
+
+    private Control BuildSurfaceColorEditor()
+    {
+        var choices = new (string Label, string Value)[]
+        {
+            ("默认颜色", ""), ("蓝色", "#3366CC"), ("红色", "#D62728"),
+            ("绿色", "#2CA02C"), ("青色", "#17BECF"), ("紫色", "#9467BD"),
+            ("橙色", "#FF7F0E"), ("黄色", "#E5B700"), ("灰色", "#808080"),
+            ("黑色", "#000000"), ("白色", "#FFFFFF"), ("自定义颜色…", "custom")
+        };
+        _surfaceColor.ItemsSource = choices.Select(choice => new ComboBoxItem
+        {
+            Content = choice.Label, Tag = choice.Value
+        }).ToArray();
+        _surfaceColorSwatch.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        var picker = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 6 };
+        picker.Children.Add(_surfaceColor);
+        picker.Children.Add(_surfaceColorSwatch);
+        Grid.SetColumn(_surfaceColorSwatch, 1);
+        void UpdatePreview()
+        {
+            var value = (_surfaceColor.SelectedItem as ComboBoxItem)?.Tag as string;
+            _surfaceColorHex.IsVisible = value == "custom";
+            _surfaceColorSwatch.Background = Color.TryParse(value == "custom" ? _surfaceColorHex.Text : value, out var color)
+                ? new SolidColorBrush(color) : Brushes.Transparent;
+        }
+        _surfaceColor.SelectionChanged += (_, _) => UpdatePreview();
+        _surfaceColorHex.TextChanged += (_, _) => UpdatePreview();
+        Avalonia.Automation.AutomationProperties.SetName(_surfaceColor, "表面颜色");
+        Avalonia.Automation.AutomationProperties.SetName(_surfaceColorHex, "自定义表面颜色");
+        ToolTip.SetTip(_surfaceColor, "选择表面显示颜色，点击应用后生效；默认颜色恢复原有绘图设置。");
+        ToolTip.SetTip(_surfaceColorHex, "输入 #RRGGBB，例如 #3366CC。");
+        _surfaceColor.SelectedIndex = 0;
+        return new StackPanel { Spacing = 6, Children = { picker, _surfaceColorHex } };
+    }
+
+    private string SelectedSurfaceColor()
+    {
+        var value = (_surfaceColor.SelectedItem as ComboBoxItem)?.Tag as string ?? "";
+        if (value != "custom") return value;
+        var hex = _surfaceColorHex.Text?.Trim() ?? "";
+        if (hex.Length != 7 || hex[0] != '#' || !hex.Skip(1).All(Uri.IsHexDigit))
+            throw new ArgumentException("表面颜色请输入 #RRGGBB 格式的六位十六进制颜色。");
+        return hex.ToUpperInvariant();
     }
 
     private static ListBoxItem PageItem(SurfacePropertyPage page, string title) => new()

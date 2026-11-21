@@ -74,7 +74,7 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
                 (MultiConfigurationParameterKind)row.Kind, row.SurfaceNumber, context.Configurations.Select(row.Read).ToArray(),
                 context.Configurations.Select((_, configuration) => variables.Contains(new(configuration, row))).ToArray(),
                 context.Configurations.Select((_, configuration) => pickups.TryGetValue((configuration, row), out var pickup)
-                    ? new MultiConfigurationPickupDto(rowNumbers[pickup.SourceOperand], pickup.SourceConfigurationIndex, pickup.Scale, pickup.Offset) : null).ToArray())).ToArray();
+                    ? new MultiConfigurationPickupDto(rowNumbers[pickup.SourceOperand], pickup.SourceConfigurationIndex, pickup.Scale, pickup.Offset) : null).ToArray(), row.Parameter)).ToArray();
         }
     }
 
@@ -83,7 +83,7 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
         {
             if (expectedRevision != Workspace.Revision) throw new InvalidOperationException("工程已变化，请刷新多配置行表后重试。");
             Runtime.ReplaceMultiConfigurationOperands(rows.Select(row => new MultiConfigurationOperand(
-                (MultiConfigurationOperandKind)row.Kind, row.SurfaceNumber)).ToArray());
+                (MultiConfigurationOperandKind)row.Kind, row.SurfaceNumber, row.Parameter)).ToArray());
         });
 
     public void SetOperandValue(int oneBasedRow, int configurationIndex, double value, long expectedRevision) =>

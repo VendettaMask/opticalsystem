@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
+using Avalonia.Media.Imaging;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
@@ -36,7 +37,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         set => SetValue(UseSeriesColorMapProperty, value);
     }
 
-    internal bool PupilHeatmap { get; init; }
+    internal bool SampledHeatmap { get; init; }
 
     internal Color ScalarColor(AnalysisSeries series, double value) =>
         UseSeriesColorMap ? ColorFor(series.ColorMap, value)
@@ -471,7 +472,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, BackgroundBrush), null, Bounds);
+        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, BackgroundBrush), null, new Rect(Bounds.Size));
         var axisSeries = NormalizeSeriesUnits(_sourceSeries)
             .Select(item => (Series: item, Points: item.Points.Where(IsFinite).ToArray()))
             .Where(item => item.Points.Length > 0)
@@ -552,6 +553,12 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             xCaption.MaxTextWidth = Math.Max(1, Bounds.Width - left - right);
             bottom = Math.Max(bottom, DisplayTypography.Scale(XAxisLabelOffset(PlotOptions.HideTickLabels) + 8) + xCaption.Height);
         }
+        if (legendBelow && legendItems.All(item => IsAthermalSeries(item.Series)))
+        {
+            var widths = legendItems.Select(item => ThermalLegendWidth(item.Series)).ToArray();
+            var rows = PackLegendRows(widths, Math.Max(1, Bounds.Width - left - right));
+            bottom += (rows.Count - 1) * DisplayTypography.Scale(24);
+        }
         var plot = new Rect(
             left,
             top,
@@ -577,7 +584,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             xMax = limit;
         }
 
-        var fitHeatmap = UseHeatmapIntervals || PupilHeatmap;
+        var fitHeatmap = UseHeatmapIntervals || SampledHeatmap;
         if (PlotOptions.EqualAspect && !fitHeatmap)
         {
             MakeEqualAspect(plot, ref xMin, ref xMax, ref yMin, ref yMax);
@@ -610,7 +617,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         if (!string.IsNullOrWhiteSpace(PlotOptions.Title))
         {
             var titleY = DisplayTypography.Scale(13);
-            if (PupilHeatmap)
+            if (SampledHeatmap)
                 titleY = Math.Max(titleY, plot.Top - titleText.Height - DisplayTypography.Scale(14));
             context.DrawText(titleText, new Point(plot.Center.X - titleText.Width / 2, titleY));
         }
@@ -638,7 +645,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
 
             if (PlotOptions.ShowPointLabels)
             {
-                DrawPointLabels(context, visibleSeries, plot, MapX, MapY);
+                DrawPointLabels(context, visibleSeries, plot, MapX, MapY, PlotOptions.AvoidOverlappingPointLabels);
             }
         }
 
@@ -677,7 +684,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     {
         if (_hoverPointer is not Point pointer || !plot.Contains(pointer))
         {
-            if (PupilHeatmap || plot.Width < 320 || plot.Height < 180)
+            if (SampledHeatmap || plot.Width < 320 || plot.Height < 180)
             {
                 return;
             }
@@ -795,7 +802,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 gridColor.B)),
             1,
             PlotOptions.DottedGrid ? new DashStyle(new[] { 1.0, 3.0 }, 0) : null);
-        var divisions = UseHeatmapIntervals || PupilHeatmap ? 2 : 5;
+        var divisions = UseHeatmapIntervals || SampledHeatmap ? 2 : 5;
         for (var index = 0; index <= divisions; index++)
         {
             var fraction = index / (double)divisions;
@@ -1000,7 +1007,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
 
         var xStep = xValues.Length > 1 ? xValues.Zip(xValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
         var yStep = yValues.Length > 1 ? yValues.Zip(yValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
-        using var tileEdges = PupilHeatmap
+        using var tileEdges = SampledHeatmap
             ? context.PushRenderOptions(new RenderOptions { EdgeMode = EdgeMode.Aliased })
             : default;
         foreach (var point in valued)
@@ -1035,6 +1042,42 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var yValues = pixels.Select(point => point.Y).Distinct().Order().ToArray();
         var xStep = xValues.Length > 1 ? xValues[1] - xValues[0] : 1;
         var yStep = yValues.Length > 1 ? yValues[1] - yValues[0] : 1;
+        if ((long)xValues.Length * yValues.Length == pixels.Length && pixels.Length <= 4_194_304)
+        {
+            var xIndices = xValues.Select((v, i) => (v, i)).ToDictionary(p => p.v, p => p.i);
+            var yIndices = yValues.Select((v, i) => (v, i)).ToDictionary(p => p.v, p => yValues.Length - 1 - p.i);
+            var rgba = new byte[pixels.Length * 4];
+            var occupied = new bool[pixels.Length];
+            var complete = true;
+            foreach (var pixel in pixels)
+            {
+                var index = yIndices[pixel.Y] * xValues.Length + xIndices[pixel.X];
+                if (occupied[index]) { complete = false; break; }
+                occupied[index] = true;
+                byte Channel(double? value) => (byte)Math.Clamp(Math.Round(Math.Clamp(value!.Value, 0, 1) * 255), 0, 255);
+                rgba[4 * index] = Channel(pixel.Blue); rgba[4 * index + 1] = Channel(pixel.Green);
+                rgba[4 * index + 2] = Channel(pixel.Red); rgba[4 * index + 3] = 255;
+            }
+            if (complete)
+            {
+                // Copy into an immutable native image before recording the draw.
+                // A writable bitmap's deferred upload can outlive this render call.
+                var pin = System.Runtime.InteropServices.GCHandle.Alloc(rgba, System.Runtime.InteropServices.GCHandleType.Pinned);
+                Bitmap bitmap;
+                try { bitmap = new Bitmap(Avalonia.Platform.PixelFormat.Bgra8888, Avalonia.Platform.AlphaFormat.Opaque,
+                    pin.AddrOfPinnedObject(), new PixelSize(xValues.Length, yValues.Length), new Vector(96, 96), xValues.Length * 4); }
+                finally { pin.Free(); }
+                using var imageLifetime = bitmap;
+                using var sampling = context.PushRenderOptions(new RenderOptions { BitmapInterpolationMode = BitmapInterpolationMode.None });
+                var left = mapX(xValues[0] - xStep / 2); var right = mapX(xValues[^1] + xStep / 2);
+                var top = mapY(yValues[^1] + yStep / 2); var bottom = mapY(yValues[0] - yStep / 2);
+                context.DrawImage(bitmap, new Rect(left, top, right - left, bottom - top));
+                return;
+            }
+        }
+        // These are adjacent measured pixels. Antialiasing each tile separately
+        // exposes the page background as a grid between otherwise opaque pixels.
+        using var pixelEdges = context.PushRenderOptions(new RenderOptions { EdgeMode = EdgeMode.Aliased });
         foreach (var pixel in pixels)
         {
             byte Channel(double? value) => (byte)Math.Clamp(Math.Round(Math.Clamp(value!.Value, 0, 1) * 255), 0, 255);
@@ -1191,7 +1234,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var minimum = series.ValueMinimum ?? values.Min();
         var maximum = series.ValueMaximum ?? values.Max();
         const double width = 14;
-        var height = PupilHeatmap ? plot.Height * 0.86 : Math.Min(220, plot.Height * 0.7);
+        var height = SampledHeatmap ? plot.Height * 0.86 : Math.Min(220, plot.Height * 0.7);
         var left = plot.Right + 24;
         var top = plot.Center.Y - (height / 2);
         const int steps = 96;
@@ -1210,7 +1253,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         }
 
         context.DrawRectangle(null, ThemePen(ThemeResourceBindings.PlotAxis, AxisPen), new Rect(left, top, width, height));
-        var intervals = PupilHeatmap ? 4 : 1;
+        var intervals = SampledHeatmap ? 4 : 1;
         for (var index = 0; index <= intervals; index++)
         {
             var fraction = index / (double)intervals;
@@ -1218,8 +1261,11 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
             context.DrawText(tick, new Point(left + width + 6, top + (height * (1 - fraction)) - tick.Height / 2));
         }
-        var label = CreateText(UiLocalization.Text(series.ValueLabel), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
-        if (PupilHeatmap)
+        var label = CreateText(UiLocalization.Text(SampledHeatmap
+                ? AnalysisAxisFormatting.FormatLabel(UiLocalization.Text(series.ValueLabel), series.ValueQuantity, series.ValueUnit)
+                : series.ValueLabel),
+            PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        if (SampledHeatmap)
         {
             context.DrawText(label, new Point(left, top - label.Height - 6));
             return;
@@ -1300,9 +1346,14 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         IReadOnlyList<(AnalysisSeries Series, AnalysisPoint[] Points)> visibleSeries,
         Rect plot,
         Func<double, double> mapX,
-        Func<double, double> mapY)
+        Func<double, double> mapY,
+        bool avoidOverlap)
     {
-        foreach (var item in visibleSeries.Where(item => item.Series.Kind == AnalysisSeriesKind.Scatter))
+        var occupied = new List<Rect>();
+        var scatter = visibleSeries.Where(item => item.Series.Kind == AnalysisSeriesKind.Scatter);
+        // Reserve space for the selected glass (larger marker) before catalog labels.
+        if (avoidOverlap) scatter = scatter.OrderByDescending(item => item.Series.MarkerSize);
+        foreach (var item in scatter)
         {
             var color = SeriesColor(item.Series);
             var brush = new SolidColorBrush(Color.FromArgb(220, color.R, color.G, color.B));
@@ -1319,7 +1370,15 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                     continue;
                 }
 
-                context.DrawText(CreateText(point.Label, PlotTextSize, brush), position);
+                var label = CreateText(point.Label, PlotTextSize, brush);
+                var bounds = new Rect(position, new Size(label.Width, label.Height));
+                if (avoidOverlap)
+                {
+                    if (bounds.Right > plot.Right || bounds.Bottom > plot.Bottom
+                        || occupied.Any(previous => previous.Intersects(bounds))) continue;
+                    occupied.Add(bounds.Inflate(2));
+                }
+                context.DrawText(label, position);
             }
         }
     }
@@ -1441,11 +1500,36 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         IReadOnlyList<(AnalysisSeries Series, AnalysisPoint[] Points)> legendItems,
         Rect plot)
     {
+        var thermal = legendItems.All(item => IsAthermalSeries(item.Series));
         var entries = legendItems.Select(item =>
         {
-            var label = CreateText(item.Series.Name, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
-            return (item.Series, Label: label, Width: 34 + label.Width + 20);
+            var label = CreateText(thermal ? UiLocalization.Text(item.Series.Name) : item.Series.Name,
+                PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+            return (item.Series, Label: label, Width: thermal ? ThermalLegendWidth(item.Series) : 34 + label.Width + 20);
         }).ToArray();
+        if (thermal)
+        {
+            var rows = PackLegendRows(entries.Select(entry => entry.Width).ToArray(), plot.Width);
+            var yThermal = plot.Bottom + DisplayTypography.Scale(58);
+            foreach (var row in rows)
+            {
+                var xThermal = plot.Center.X - row.Sum(index => entries[index].Width) / 2;
+                foreach (var index in row)
+                {
+                    var entry = entries[index];
+                    var brush = new SolidColorBrush(SeriesColor(entry.Series));
+                    var pen = new Pen(brush, CurveStrokeWidth(entry.Series), DashFor(entry.Series.LineStyle));
+                    var markerY = yThermal + DisplayTypography.Scale(8);
+                    context.DrawLine(pen, new Point(xThermal, markerY), new Point(xThermal + DisplayTypography.Scale(26), markerY));
+                    if (entry.Series.Kind == AnalysisSeriesKind.Scatter || entry.Series.ShowMarkers)
+                        DrawMarker(context, brush, new Point(xThermal + DisplayTypography.Scale(13), markerY), entry.Series.MarkerStyle, 3);
+                    context.DrawText(entry.Label, new Point(xThermal + DisplayTypography.Scale(32), yThermal));
+                    xThermal += entry.Width;
+                }
+                yThermal += DisplayTypography.Scale(24);
+            }
+            return;
+        }
         var totalWidth = entries.Sum(entry => entry.Width);
         var x = Math.Max(plot.Left, plot.Center.X - (totalWidth / 2));
         var y = plot.Bottom + 58;
@@ -1463,6 +1547,24 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             context.DrawText(entry.Label, new Point(x + 32, y));
             x += entry.Width;
         }
+    }
+
+    private static bool IsAthermalSeries(AnalysisSeries series) =>
+        series.XQuantity == AnalysisAxisQuantity.ChromaticPower && series.YQuantity == AnalysisAxisQuantity.ThermalOpticalPower;
+
+    private static double ThermalLegendWidth(AnalysisSeries series) =>
+        DisplayTypography.Scale(54) + CreateText(UiLocalization.Text(series.Name), PlotTextSize, Brushes.Black).Width;
+
+    private static List<List<int>> PackLegendRows(IReadOnlyList<double> widths, double availableWidth)
+    {
+        var rows = new List<List<int>> { new() };
+        var used = 0d;
+        for (var index = 0; index < widths.Count; index++)
+        {
+            if (used > 0 && used + widths[index] > availableWidth) { rows.Add(new()); used = 0; }
+            rows[^1].Add(index); used += widths[index];
+        }
+        return rows;
     }
 
     private static IDashStyle? DashFor(AnalysisLineStyle style)

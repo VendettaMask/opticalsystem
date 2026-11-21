@@ -153,7 +153,7 @@ public sealed partial class AnalysisPanel
             {
                 Series = pane.Series,
                 PlotOptions = alignTitleRows ? pane.PlotOptions with { Title = string.Empty } : pane.PlotOptions,
-                PupilHeatmap = pupilHeatmaps && pane.Series.Any(series => series.ValueQuantity == AnalysisAxisQuantity.Modulation),
+                SampledHeatmap = pupilHeatmaps && pane.Series.Any(series => series.ValueQuantity == AnalysisAxisQuantity.Modulation),
                 MinWidth = DisplayTypography.Scale(176),
                 MinHeight = DisplayTypography.Scale(176),
                 Margin = new Thickness(2)

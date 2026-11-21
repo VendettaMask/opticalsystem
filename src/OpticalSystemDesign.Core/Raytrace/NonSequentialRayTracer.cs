@@ -17,7 +17,8 @@ public enum NonSequentialTerminationReason
     InvalidRay,
     Split,
     MaximumSegments,
-    MaximumBranches
+    MaximumBranches,
+    SuppressedBranch
 }
 
 public sealed record NonSequentialTraceOptions(

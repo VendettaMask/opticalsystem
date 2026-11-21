@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Tolerancing;
+using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Application.Contracts;
 
@@ -25,7 +26,8 @@ public enum NonSequentialObjectKind
     SourceVolumeRectangle,
     SourceVolumeEllipse,
     SourceVolumeCylinder,
-    OpticalAssembly
+    OpticalAssembly,
+    Null
 }
 
 public enum NonSequentialSourceApertureShape
@@ -69,7 +71,12 @@ public sealed record NonSequentialTraceSettings(
     bool UsePolarization = false,
     bool CoherentDetection = false);
 
-public abstract record NonSequentialObjectParameters;
+public abstract record NonSequentialObjectParameters
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Core.NonSequential.NonSequentialWaveplate? Waveplate { get; init; }
+}
+public sealed record NullObjectParameters : NonSequentialObjectParameters;
 
 public sealed record OpticalAssemblyParameters(Core.NonSequential.OpticalAssemblyParameters Assembly) : NonSequentialObjectParameters;
 
@@ -252,7 +259,11 @@ public sealed record DetectorRectangleParameters(
     bool Absorb,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     Core.NonSequential.NonSequentialOpticalInterface? IncidentSurface = null,
-    bool NormalizeCoherentPower = false) : NonSequentialObjectParameters;
+    bool NormalizeCoherentPower = false) : NonSequentialObjectParameters
+{
+    public bool RecordColor { get; init; }
+    public int PolarizationComponent { get; init; }
+}
 
 public enum OpticalWorkbenchMode
 {
@@ -564,6 +575,7 @@ public sealed record NonSequentialDetectorViewDto(
     public NonSequentialDetectorSpace Space { get; init; }
     public Core.NonSequential.NonSequentialFieldSelection? FieldSelection { get; init; }
     public IReadOnlyList<bool>? ValidPixels { get; init; }
+    public IReadOnlyList<double>? Rgb { get; init; }
 }
 
 public sealed record NonSequentialRaySegmentDto(
@@ -699,7 +711,18 @@ public sealed record GlassMaterialDto(
     IReadOnlyList<double> MechanicalData,
     IReadOnlyList<double> OtherData,
     int InternalTransmissionCount,
-    int StressDataCount);
+    int StressDataCount,
+    double? CatalogReferenceIndexD = null,
+    double? CatalogReferenceAbbeNumber = null,
+    GlassConstantsCalculationStatus? CalculatedConstantsStatus = null,
+    bool RequiresThermalDataReview = false,
+    double? ReferenceThermalIndexDerivative = null);
+
+public enum GlassConstantsCalculationStatus { Available, WavelengthOutOfRange, UnsupportedModel, InvalidIndex, UndefinedAbbeNumber }
+
+public sealed record GlassConstantsDto(
+    double? RefractiveIndexF, double? RefractiveIndexD, double? RefractiveIndexC,
+    double? AbbeNumber, GlassConstantsCalculationStatus Status);
 
 public enum MaterialAnalysisKind
 {
@@ -848,11 +871,28 @@ public sealed record SurfaceRowDto(
     double? ChipZone = null,
     SurfaceGeometryDefinitionDto? GeometryDefinition = null,
     SurfaceDrawingApertureDto? DrawingAperture = null,
-    bool IsCoordinateReference = false);
+    bool IsCoordinateReference = false,
+    bool IsReflective = false,
+    string? SurfaceColor = null,
+    SurfaceDrawingOptionsDto? Drawing = null,
+    IReadOnlyList<string>? ShapeVariables = null,
+    LensLengthUnit LensLengthUnit = LensLengthUnit.Millimeter);
+
+public sealed record LensScaleSurfaceDto(int Number, string Label);
+public sealed record LensScaleSettingsDto(long Revision, LensLengthUnit Unit, IReadOnlyList<LensScaleSurfaceDto> Surfaces, int ConfigurationCount);
+public sealed record LensScaleRequestDto(double Factor, int FirstSurface, int LastSurface, LensLengthUnit? TargetUnit = null);
 
 /// <summary>Non-localized physical aperture identity; only centered circular dimensions
 /// are projected here. Other shapes must never be inferred from a displayed name.</summary>
 public sealed record SurfaceDrawingApertureDto(string Kind, double? CircularRadius = null);
+
+public enum SurfaceEdgeModeDto { SquareToNext, DirectToNext, None, FlatToNext }
+public enum SurfaceDrawingPrecisionDto { Standard, Medium, High, Presentation }
+public sealed record SurfaceDrawingOptionsDto(
+    double Opacity = 1, bool HideRays = false, bool SkipRayDrawing = false,
+    bool HideSurface = false, bool HideEdges = false, bool DrawLocalAxes = false,
+    bool DrawLocalOrigin = false, SurfaceEdgeModeDto EdgeMode = SurfaceEdgeModeDto.SquareToNext,
+    SurfaceDrawingPrecisionDto Precision = SurfaceDrawingPrecisionDto.Standard, string? RowColor = null);
 
 public enum RadiusSolveKind { Fixed, Variable, Pickup }
 
@@ -919,7 +959,10 @@ public sealed record SurfaceComponentUpdateDto(
     double? SemiDiameter = null,
     NormalizedPolynomialUpdateDto? Polynomial = null,
     double? BiconicRadiusX = null,
-    double? BiconicConicX = null);
+    double? BiconicConicX = null,
+    // Null preserves the current color; empty restores the viewer's default.
+    string? SurfaceColor = null,
+    SurfaceDrawingOptionsDto? Drawing = null);
 
 public sealed record FieldRowDto(
     int Index,
@@ -1092,7 +1135,8 @@ public enum AnalysisAxisUnit
     CyclesPerPixel,
     WattsPerSquareMeter,
     WattsPerSquareMeterPerPixel,
-    SquareRootWatt
+    SquareRootWatt,
+    PartsPerThousand
 }
 
 public sealed record AnalysisPointDto(
@@ -1160,7 +1204,8 @@ public sealed record AnalysisPlotOptionsDto(
     double SpatialDisplayScaleX = 1,
     double SpatialDisplayScaleY = 1,
     bool LogarithmicIntensity = false,
-    IReadOnlyList<AnalysisSpatialPointDto>? SpatialGeometry = null);
+    IReadOnlyList<AnalysisSpatialPointDto>? SpatialGeometry = null,
+    bool AvoidOverlappingPointLabels = false);
 
 public sealed record AnalysisPlotPaneDto(
     string Title,
@@ -1242,6 +1287,43 @@ public sealed record InterferogramSummaryDto(
     string? ShowAs = null,
     IReadOnlyList<double>? ContourLevels = null);
 
+public enum SpotReferenceKind { ChiefRay, Centroid }
+
+public enum SpotColorGrouping { Wavelength, Field }
+
+public sealed record FullFieldSpotSummaryDto(
+    double RmsRadius,
+    double GeometricRadius,
+    double ScaleBar,
+    AnalysisAxisUnit Unit,
+    SpotReferenceKind Reference,
+    SpotColorGrouping ColorGrouping,
+    int SurfaceNumber,
+    bool IsImageSurface,
+    int? ReferenceFieldNumber = null);
+
+public sealed record ColorFocusShiftSummaryDto(
+    double MaximumChange,
+    double? DiffractionLimitChange,
+    double PupilZone,
+    AnalysisAxisUnit Unit);
+
+public sealed record FoucaultSummaryDto(double KnifePosition, AnalysisAxisUnit KnifeUnit);
+
+public sealed record PsfImageSummaryDto(
+    string WavelengthRange,
+    double NormalizedFieldY,
+    double Extent,
+    double Strehl,
+    double CentroidX,
+    double CentroidY,
+    AnalysisAxisUnit CoordinateUnit);
+
+public sealed record DiffractionEnergySummaryDto(int RequestedPupilSampling, int ActualPupilSampling,
+    int FieldCount, int WavelengthCount, double MinimumWavelengthMicrometers, double MaximumWavelengthMicrometers,
+    string Reference, AnalysisAxisUnit DistanceUnit, double MaximumDistance, bool SamplingValidated,
+    double? RelativeRmsChange, double? RelativeRmsTarget);
+
 public enum AnalysisOutcome
 {
     Success,
@@ -1263,7 +1345,14 @@ public sealed record AnalysisViewDto(
     AnalysisOutcome Outcome = AnalysisOutcome.Success,
     string? OutcomeReason = null,
     AnalysisConfigurationScopeDto? ConfigurationScope = null,
-    IReadOnlyList<AnalysisReportSectionDto>? ReportSections = null);
+    IReadOnlyList<AnalysisReportSectionDto>? ReportSections = null)
+{
+    public FullFieldSpotSummaryDto? FullFieldSpotSummary { get; init; }
+    public ColorFocusShiftSummaryDto? ColorFocusShiftSummary { get; init; }
+    public FoucaultSummaryDto? FoucaultSummary { get; init; }
+    public PsfImageSummaryDto? PsfImageSummary { get; init; }
+    public DiffractionEnergySummaryDto? DiffractionEnergySummary { get; init; }
+}
 
 public enum AnalysisConfigurationDisplay
 {
@@ -1387,6 +1476,11 @@ public sealed record SceneRaySegment3Dto(
 
 public sealed record SceneSurfaceFace3Dto(IReadOnlyList<ScenePoint3Dto> Points);
 
+public sealed record SceneLocalFrame2Dto(ScenePoint2Dto Origin, ScenePoint2Dto XAxisEnd,
+    ScenePoint2Dto YAxisEnd, ScenePoint2Dto ZAxisEnd, bool DrawAxes, bool DrawOrigin);
+public sealed record SceneLocalFrame3Dto(ScenePoint3Dto Origin, ScenePoint3Dto XAxisEnd,
+    ScenePoint3Dto YAxisEnd, ScenePoint3Dto ZAxisEnd, bool DrawAxes, bool DrawOrigin);
+
 public enum SceneSurfaceRenderRole
 {
     OpticalSurface,
@@ -1402,21 +1496,24 @@ public sealed record SceneSurface2Dto(
     bool IsReferencePlane,
     IReadOnlyList<ScenePoint2Dto> Points,
     bool IsStandaloneStop = false,
-    int ConfigurationNumber = 1);
+    int ConfigurationNumber = 1,
+    string? SurfaceColor = null,
+    double Opacity = 1, bool HideEdges = false, bool HideSurface = false,
+    SceneLocalFrame2Dto? LocalFrame = null);
 
 public sealed record SceneLensEdge2Dto(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     ScenePoint2Dto Start,
     ScenePoint2Dto End,
-    int ConfigurationNumber = 1);
+    int ConfigurationNumber = 1, double Opacity = 1);
 
 public sealed record SceneLensElement2Dto(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     string Material,
     IReadOnlyList<ScenePoint2Dto> Boundary,
-    int ConfigurationNumber = 1);
+    int ConfigurationNumber = 1, double Opacity = 1);
 
 public sealed record SceneRay2Dto(
     int RayNumber,
@@ -1453,7 +1550,10 @@ public sealed record SceneSurface3Dto(
     SceneSurfaceRenderRole RenderRole = SceneSurfaceRenderRole.OpticalSurface,
     double? DisplayWavelengthNanometers = null,
     bool IsImageSurface = false,
-    int ConfigurationNumber = 1);
+    int ConfigurationNumber = 1,
+    string? SurfaceColor = null,
+    double Opacity = 1, bool HideEdges = false, bool HideSurface = false,
+    SceneLocalFrame3Dto? LocalFrame = null);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,
@@ -1465,7 +1565,7 @@ public sealed record SceneLensElement3Dto(
     IReadOnlyList<SceneSurfaceFace3Dto> FrontFaces,
     IReadOnlyList<SceneSurfaceFace3Dto> BackFaces,
     IReadOnlyList<ScenePoint3Dto> MeridianBoundary,
-    int ConfigurationNumber = 1);
+    int ConfigurationNumber = 1, double Opacity = 1);
 
 public sealed record SceneRay3Dto(
     int RayNumber,
@@ -1670,7 +1770,12 @@ public enum OptimizationVariableKind
     CoatingMultiplier,
     CoatingIndexOffset,
     CoatingExtinctionOffset,
-    GradientIndexCoefficient
+    GradientIndexCoefficient,
+    AsphereCoefficient,
+    PhaseCoefficient,
+    SurfaceParameter,
+    ObjectDistance,
+    ModelGlassCoefficient
 }
 
 public sealed record OptimizationVariableResultDto(
@@ -1963,7 +2068,7 @@ public sealed record MultiConfigurationRowDto(
     public int Number => Index + 1;
 }
 
-public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter }
-public sealed record MultiConfigurationOperandRowDto(int Number, MultiConfigurationParameterKind Kind, int SurfaceNumber, IReadOnlyList<double> Values, IReadOnlyList<bool> Variables, IReadOnlyList<MultiConfigurationPickupDto?> Pickups);
+public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient }
+public sealed record MultiConfigurationOperandRowDto(int Number, MultiConfigurationParameterKind Kind, int SurfaceNumber, IReadOnlyList<double> Values, IReadOnlyList<bool> Variables, IReadOnlyList<MultiConfigurationPickupDto?> Pickups, string? Parameter = null);
 public sealed record MultiConfigurationPickupDto(int SourceRow, int SourceConfigurationIndex, double Scale = 1, double Offset = 0);
-public sealed record MultiConfigurationOperandBindingDto(MultiConfigurationParameterKind Kind, int SurfaceNumber);
+public sealed record MultiConfigurationOperandBindingDto(MultiConfigurationParameterKind Kind, int SurfaceNumber, string? Parameter = null);

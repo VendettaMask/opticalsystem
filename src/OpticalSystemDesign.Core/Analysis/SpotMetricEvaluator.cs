@@ -382,7 +382,8 @@ internal static class FocusSweepEvaluator
             imagePlaneOffset: offset,
             surfaceNumber: surfaceNumber,
             reference: reference,
-            usePolarization: usePolarization)).ToArray();
+            usePolarization: usePolarization,
+            aimAtStop: optic.RayAimingEnabled)).ToArray();
         var points = results.Select((result, index) =>
         {
             var metric = SpotMetricEvaluator.Summarize(result, analysisName);

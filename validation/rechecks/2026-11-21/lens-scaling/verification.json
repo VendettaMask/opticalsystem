@@ -1,0 +1,56 @@
+{
+  "verifiedAt": "2026-11-21T18:34:26.8195085+08:00",
+  "scope": "Sequential lens scaling and prescription units",
+  "tests": {
+    "total": 49,
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "scaling": 35,
+    "existingEditor": 7,
+    "headlessDialog": 7
+  },
+  "build": {
+    "configuration": "Release",
+    "defaultOutput": "src/OpticalSystemDesign.App/bin/Release/net10.0",
+    "warnings": 0,
+    "errors": 0,
+    "log": "default-build.log",
+    "nugetAudit": "disabled for this invocation; unavailable advisory service"
+  },
+  "nativeSnapshotSchema": 9,
+  "nativeProjectFormatForNonMillimeterUnits": 25,
+  "captures": [
+    {
+      "name": "lens-scale-Dark-530.png",
+      "sha256": "291F9F54F8D17EB1503A003DD00809A7D38DC2E5656621CB88B901B419523CAD"
+    },
+    {
+      "name": "lens-scale-Isekai-530.png",
+      "sha256": "AE26AE317E95F6AA9907112F6F9499DBE04440D38A4CC523FEDF43F955AD5FFD"
+    },
+    {
+      "name": "lens-scale-Light-430.png",
+      "sha256": "1069759040B2628E12506CA093DF03CDAE16A31704F9C6B14F4E58AEE61D055B"
+    },
+    {
+      "name": "lens-scale-Light-530.png",
+      "sha256": "174481C692F3B78D3B2D69FE1D8B3832837F2D020670DE6CF3ED5C6E31522E4F"
+    },
+    {
+      "name": "lens-scale-Lumen-530.png",
+      "sha256": "A0BECC5433C508B5CB1AEDCD84924A3BCE7475DC935E34EC380FBC7493E23539"
+    },
+    {
+      "name": "lens-scale-Pixel-530.png",
+      "sha256": "FBD513B94424E44EF8C0A450B909064892A09E9DCA868D5A10281517ECCF8D2C"
+    }
+  ],
+  "limitations": [
+    "No full 95-lens matrix rerun",
+    "No native foreground validation",
+    "GRIN, opaque/polygon-group geometry and phase-profile interactions reject before mutation",
+    "Other parameter editors and analyses retain their explicitly labeled units"
+  ],
+  "testResults": "results/lens-scaling-final.trx"
+}

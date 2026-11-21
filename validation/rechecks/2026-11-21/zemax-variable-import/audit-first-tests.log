@@ -1,0 +1,71 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.CameraImaging.Engine -> D:\Projects\opticalsystem\labs\CameraImaging\src\OpticalSystemDesign.CameraImaging.Engine\bin\Release\net10.0\OpticalSystemDesign.CameraImaging.Engine.dll
+  OpticalSystemDesign.OpticalAssembly.Engine -> D:\Projects\opticalsystem\labs\OpticalAssembly\src\OpticalSystemDesign.OpticalAssembly.Engine\bin\Release\net10.0\OpticalSystemDesign.OpticalAssembly.Engine.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  VariableImport -> D:\Projects\opticalsystem\validation\rechecks\2026-11-21\zemax-variable-import\focused\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\validation\rechecks\2026-11-21\zemax-variable-import\focused\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.05]     OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "CHEBYSHV", body: "PARM 1 1\nPARM 2 1\nPARM 3 2\nPARM 4 2\nXDAT 1 0\n"···, keys: ["c1", "c2"], unit: "IN") [FAIL]
+  失败 OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "CHEBYSHV", body: "PARM 1 1\nPARM 2 1\nPARM 3 2\nPARM 4 2\nXDAT 1 0\n"···, keys: ["c1", "c2"], unit: "IN") [14 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: -9.8818896606493967E-05
+Actual:   -9.8582676134053015E-05
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(String type, String body, String[] keys, String unit) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs:line 54
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:02.26]     OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "FZERNSAG", body: "PARM 1 .0004\nVPAR 1\nXDAT 1 2\nXDAT 2 2\nXDAT 3 ."···, keys: ["a0", "z0", "z1"], unit: "IN") [FAIL]
+[xUnit.net 00:00:02.26]     OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "CHEBYSHV", body: "PARM 1 1\nPARM 2 1\nPARM 3 2\nPARM 4 2\nXDAT 1 0\n"···, keys: ["c1", "c2"], unit: "CM") [FAIL]
+  失败 OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "FZERNSAG", body: "PARM 1 .0004\nVPAR 1\nXDAT 1 2\nXDAT 2 2\nXDAT 3 ."···, keys: ["a0", "z0", "z1"], unit: "IN") [4 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 0.025453228347178603
+Actual:   0.025253228347178604
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(String type, String body, String[] keys, String unit) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs:line 54
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "CHEBYSHV", body: "PARM 1 1\nPARM 2 1\nPARM 3 2\nPARM 4 2\nXDAT 1 0\n"···, keys: ["c1", "c2"], unit: "CM") [2 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: -1.9999983099995599E-05
+Actual:   -1.9399983099995584E-05
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(String type, String body, String[] keys, String unit) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs:line 54
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:02.37]     OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "CHEBYSHV", body: "PARM 1 1\nPARM 2 1\nPARM 3 2\nPARM 4 2\nXDAT 1 0\n"···, keys: ["c1", "c2"], unit: "MM") [FAIL]
+  失败 OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "CHEBYSHV", body: "PARM 1 1\nPARM 2 1\nPARM 3 2\nPARM 4 2\nXDAT 1 0\n"···, keys: ["c1", "c2"], unit: "MM") [4 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 0.0011500169004394145
+Actual:   0.0011560169004394144
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(String type, String body, String[] keys, String unit) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs:line 54
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:02.65]     OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "FZERNSAG", body: "PARM 1 .0004\nVPAR 1\nXDAT 1 2\nXDAT 2 2\nXDAT 3 ."···, keys: ["a0", "z0", "z1"], unit: "CM") [FAIL]
+[xUnit.net 00:00:02.65]     OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "FZERNSAG", body: "PARM 1 .0004\nVPAR 1\nXDAT 1 2\nXDAT 2 2\nXDAT 3 ."···, keys: ["a0", "z0", "z1"], unit: "MM") [FAIL]
+  失败 OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "FZERNSAG", body: "PARM 1 .0004\nVPAR 1\nXDAT 1 2\nXDAT 2 2\nXDAT 3 ."···, keys: ["a0", "z0", "z1"], unit: "CM") [2 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 0.010135200011830003
+Actual:   0.0099352000118300022
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(String type, String body, String[] keys, String unit) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs:line 54
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(type: "FZERNSAG", body: "PARM 1 .0004\nVPAR 1\nXDAT 1 2\nXDAT 2 2\nXDAT 3 ."···, keys: ["a0", "z0", "z1"], unit: "MM") [3 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 0.0023520118302153108
+Actual:   0.0021520118302153107
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxVariableAuditTests.EverySupportedCoefficientFamilyKeepsFlagsValuesAndNativeEncoding(String type, String body, String[] keys, String unit) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs:line 54
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-21\zemax-variable-import\audit-first.trx
+
+失败!  - 失败:     6，通过:   282，已跳过:     0，总计:   288，持续时间: 12 s - OpticalSystemDesign.Tests.dll (net10.0)

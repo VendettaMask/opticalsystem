@@ -30,7 +30,11 @@ public sealed record OpticSnapshot(
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     bool HasImportedSurfaceTiltDecenter = false,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-    bool UseExitPupilFNumber = false);
+    bool UseExitPupilFNumber = false,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    IReadOnlyList<string>? ImportVariableWarnings = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    OpticalSystemDesign.Core.Domain.LensLengthUnit LensLengthUnit = default);
 
 public sealed record PolarizationSnapshot(bool Unpolarized, double Jx, double Jy,
     double XPhaseDegrees, double YPhaseDegrees, string ReferenceAxis);
@@ -158,7 +162,17 @@ public sealed record SurfaceSnapshot(
     double? ThermalExpansionPpmPerC = null,
     double ChipZone = 0,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-    bool SemiDiameterMaximum = false);
+    bool SemiDiameterMaximum = false,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    string? SurfaceColor = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    Domain.SurfaceDrawingOptions? Drawing = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    IReadOnlyList<string>? ShapeVariables = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    IReadOnlyList<string>? BlockedVariableProperties = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    Coordinates.SequentialSurfacePlacement? Placement = null);
 
 public sealed record CoordinateSystemSnapshot(
     double OriginX,

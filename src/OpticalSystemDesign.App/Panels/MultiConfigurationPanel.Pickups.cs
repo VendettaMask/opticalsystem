@@ -60,7 +60,7 @@ public sealed partial class MultiConfigurationPanel
     private (int Row, int Configuration) PickupTarget()
     {
         var selected = SelectedOperand(); var configuration = PositiveInteger(_operandConfiguration.Text, "配置号");
-        if (_editingBinding != new MultiConfigurationOperandBindingDto(selected.Row!.Kind, selected.Row.SurfaceNumber) || configuration != _editingConfiguration)
+        if (_editingBinding != new MultiConfigurationOperandBindingDto(selected.Row!.Kind, selected.Row.SurfaceNumber, selected.Row.Parameter) || configuration != _editingConfiguration)
             throw new InvalidOperationException("输入属于之前的单元格，请还原输入后重新设置拾取。");
         return (selected.Row!.Number, configuration - 1);
     }

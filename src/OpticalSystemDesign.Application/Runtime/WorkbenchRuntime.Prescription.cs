@@ -182,7 +182,9 @@ public partial class WorkbenchRuntime
         double? semiDiameter = null,
         Contracts.NormalizedPolynomialUpdateDto? polynomial = null,
         double? biconicRadiusX = null,
-        double? biconicConicX = null)
+        double? biconicConicX = null,
+        string? surfaceColor = null,
+        SurfaceDrawingOptions? drawing = null)
     {
         if (surface is null)
         {
@@ -206,7 +208,11 @@ public partial class WorkbenchRuntime
             throw new ArgumentOutOfRangeException(nameof(semiDiameter), "净半径必须是至少 0.1 mm 的有限数值。");
         }
 
+        var normalizedColor = SurfaceDisplayColor.Normalize(surfaceColor);
+        var normalizedDrawing = drawing?.Validated();
         CaptureCurrentState();
+        if (surfaceColor is not null) surface.SurfaceColor = normalizedColor;
+        if (normalizedDrawing is not null) surface.Drawing = normalizedDrawing;
         ApplyGeometry(surface, geometryKind);
         if (polynomial is not null)
         {
@@ -254,6 +260,18 @@ public partial class WorkbenchRuntime
         SynchronizeMultiConfigurationProperty(surface, "radius");
         SynchronizeMultiConfigurationProperty(surface, "conic");
         SetStatus($"表面 {surface.Number} 组件已更新。");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ApplySurfaceDrawingSettings(OpticalSurface surface, SurfaceDrawingOptions drawing, string? surfaceColor)
+    {
+        drawing = drawing.Validated();
+        if (surface.Drawing == drawing && (surfaceColor is null || surface.SurfaceColor == SurfaceDisplayColor.Normalize(surfaceColor))) return;
+        CaptureCurrentState();
+        surface.Drawing = drawing;
+        if (surfaceColor is not null) surface.SurfaceColor = surfaceColor;
+        SetStatus($"表面 {surface.Number} 绘图设置已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }

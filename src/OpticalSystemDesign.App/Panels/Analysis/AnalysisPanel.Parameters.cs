@@ -220,7 +220,7 @@ public sealed partial class AnalysisPanel
             }
             if (_parameterControls.GetValueOrDefault("YPositionMicrometers") is Control knifePosition)
             {
-                const string help = "相对于主光线的刀口位置；水平刀口沿像面局部 Y，垂直刀口沿局部 X，单位 µm。";
+                const string help = "相对于主光线的刀口位置；水平刀口沿局部 Y，垂直刀口沿局部 X。有焦 FFT 和物理平面传播使用 µm，无焦 FFT 使用 mrad。";
                 ToolTip.SetTip(knifePosition, help);
                 AutomationProperties.SetHelpText(knifePosition, help);
             }

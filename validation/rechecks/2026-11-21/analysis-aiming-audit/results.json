@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-21",
+  "scope": "Ray-aiming policy propagation across analysis and shared helpers",
+  "audited_sensitive_calls": 270,
+  "audit_scope": [
+    "Analysis",
+    "Services",
+    "Visualization"
+  ],
+  "product_source_files_in_final_scan": 490,
+  "implicit_disabled_aiming_calls_remaining": 0,
+  "behavior_fixes": 9,
+  "clarification_only": "Explicit false in checked axial Huygens integration, already guarded against aiming",
+  "regressions": {
+    "passed": 51,
+    "new_cases": 17,
+    "total": 51,
+    "failed": 0
+  },
+  "input": {
+    "unchanged": true,
+    "path": "C:\\Users\\19851\\Desktop\\[MS-L7](10X大NA大视场).ZMX",
+    "sha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8"
+  },
+  "original_file_recheck": {
+    "valid_ray_counts_after": {
+      "radiant": 1143,
+      "irradiance": 1143
+    },
+    "diagnostic_angle_limits_degrees": [
+      -89,
+      89
+    ],
+    "valid_ray_counts_before": {
+      "radiant": 905,
+      "irradiance": 905
+    },
+    "diagnostic_detector_half_size_mm": 50,
+    "aiming_disabled_data_exactly_unchanged": true,
+    "radiometric_pupil_rings": 6
+  },
+  "default_release_build": {
+    "passed": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/GeometricMtfAnalysis.cs",
+      "sha256": "91c7e18c240a9251e172f9caccd2700a52080fb4f08c543c0fc47b902ebdd277"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "f03136a3c7582cc248231252ebcb2b3b0369392bed356cacf3db5137e48c6e8c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/MtfScanAnalysis.cs",
+      "sha256": "21cfed6cf71f160929e39f8a815f47d83e9fb235794a71c0262c2e5061380946"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/RadiantIntensityAnalysis.cs",
+      "sha256": "f0a4b4b08f215a645733f8992c76b689642baa2897455ab14e648c7739abb238"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/IncoherentIrradianceAnalysis.cs",
+      "sha256": "4e182da5901962d3745edc34e37752b890903309f2416d26b2e9552b59b8c383"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/RealImageFieldConversion.cs",
+      "sha256": "6188fb061e7e3fe3b03eba43221d347ec710dae921ed5124a22dbb48b9cb2382"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/RealRayTracer.cs",
+      "sha256": "a59702c699be6d9e8e3bc96c3a16697ffa89adde9493ceddfa6999708293777a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.FocusedHuygensSampling.cs",
+      "sha256": "ed822d39b2c9ae169d90574571ea5b1fe4d2a3f5a80bee2fadeb64e48a947c2b"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/AnalysisAimingPropagationTests.cs",
+      "sha256": "e115f2af2c844b7e789c14b1a3beb1f396039ccc1a8b6601c78522291340c59f"
+    },
+    {
+      "path": "tools/diagnostics/AnalysisAiming20261121/Program.cs",
+      "sha256": "8c9f2aaed3c9af1648f9d776d1d82b695edf105e65fb194d8ab05f7b68968e16"
+    }
+  ],
+  "limits": [
+    "Policy audit and focused numerical consistency checks; not native certification of all analysis values",
+    "No complete 95-lens matrix, GPU performance acceptance, full report-format rerun or publication",
+    "No user application control or restart"
+  ]
+}

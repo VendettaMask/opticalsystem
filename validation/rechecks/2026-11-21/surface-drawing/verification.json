@@ -1,0 +1,46 @@
+{
+  "Scope": "Surface drawing settings and render regressions; background/headless only",
+  "UniqueCases": 59,
+  "Passed": 59,
+  "Failed": 0,
+  "Skipped": 0,
+  "Counting": "The latest matching UI results replace the initial incorrect width-assertion failures; repeated cases are not counted again.",
+  "Runs": [
+    {
+      "File": "surface-drawing.trx",
+      "Total": 59,
+      "Passed": 53,
+      "Failed": 6
+    },
+    {
+      "File": "surface-drawing-ui-scroll-final.trx",
+      "Total": 6,
+      "Passed": 6,
+      "Failed": 0
+    }
+  ],
+  "DefaultProductBuild": "Core/Application/App Release in original D: output succeeded",
+  "TemporaryTestOutput": "C:\\Users\\19851\\AppData\\Local\\Temp\\OpticalSystemDesign-20261121-surfaces\\drawing\\Release\\net10.0",
+  "NuGetAudit": "Disabled only for these test commands because the advisory source was unreachable; no vulnerability-audit pass is claimed",
+  "AssemblyHashes": [
+    {
+      "Assembly": "OpticalSystemDesign.Core.dll",
+      "Sha256": "A9C30BEE04E1130023D09D7D5F95B989152DBBCA800BCE825EBCB6541C271480"
+    },
+    {
+      "Assembly": "OpticalSystemDesign.Application.dll",
+      "Sha256": "A9CEA6C6D0C5FF8285EEF02E9D31F66D85E669B56C706584E8CCD3388E745A43"
+    },
+    {
+      "Assembly": "OpticalSystemDesign.App.dll",
+      "Sha256": "BFF75E092DCBEB1AC5B96F5CB3C1156F4F6982D61D899D24DFF72A09D780D213"
+    },
+    {
+      "Assembly": "OpticalSystemDesign.Tests.dll",
+      "Sha256": "6E18C6BCB0891AFBD26A546AC2E8A5C8B3530C46303543022B9BEE49D1A68A10"
+    }
+  ],
+  "Captures": 39,
+  "NativeDesktopControl": false,
+  "FullOpticalMatrixRun": false
+}

@@ -1,0 +1,1577 @@
+{
+  "kind": "visual-only",
+  "selections": 213,
+  "imageLinks": 391,
+  "sourcesUnchanged": true,
+  "assemblies": {
+    "OpticalSystemDesign.App.dll": "dab62ddbf6f33bc6572dffd02d4dcf19f5817a8eb7fa8c0b96c18247e1d6b9a5",
+    "OpticalSystemDesign.Application.dll": "4f09c127d62d4fd97c8be24d982d422814ca5126be798dae4043111b133dff66",
+    "OpticalSystemDesign.Core.dll": "bcf98e3eed5edf6d45bd1ffe93999ae9fb3577ff92508a819b1d43ae5eca881a"
+  },
+  "images": [
+    {
+      "file": "cooke/workbench/2d-layout.png",
+      "sha256": "f5b2d46dda8292ed7bbe94f3819af3ae34dc6909e56d41ba6e08a6c550632a92"
+    },
+    {
+      "file": "cooke/workbench/3d-layout.png",
+      "sha256": "84dc697e2943403811b58f369337e2699c6d6a5d9ac7089ac806b532a0f89c2c"
+    },
+    {
+      "file": "cooke/workbench/angle-vs-image-height---through-field.png",
+      "sha256": "7466ce44affc61f9088df7023ad4295140789710b81476ab2896e444ab63afdc"
+    },
+    {
+      "file": "cooke/workbench/angle-vs-image-height---through-pupil.png",
+      "sha256": "cbee90e07d70f7a5ed819e1d2af958409e56cfdf0e83c4a80476a6bcfefa0cf8"
+    },
+    {
+      "file": "cooke/workbench/angle-vs-image-height.png",
+      "sha256": "d54edfe51b21124bea9f5a4f311d32ee39f35192f471da5db7014d283742bd7b"
+    },
+    {
+      "file": "cooke/workbench/axial-aberration.png",
+      "sha256": "652bf2c0746438423368c2f3cfcec712de486cc51ed066ada378d918fe89ce72"
+    },
+    {
+      "file": "cooke/workbench/best-fit-sphere-wavefront.png",
+      "sha256": "5e4db28a8ad55c3b24964c71739307e17fb612b6963a123c67648ba2254d9dab"
+    },
+    {
+      "file": "cooke/workbench/centroid-sphere-wavefront.png",
+      "sha256": "f35471c3b75bd2cc73df40492424cb0c18a7bbee5cd62c6f19b849f78994f3a8"
+    },
+    {
+      "file": "cooke/workbench/color-focus-shift.png",
+      "sha256": "c8ca0cd9e5820924543b2677cefda52ff94b42657d3dee4a32b8c8b397815e7a"
+    },
+    {
+      "file": "cooke/workbench/configuration-matrix-spot-diagram.png",
+      "sha256": "0890b8bfc7c50a41dd35802278af549a708867423a9b3e96a6b42e67bcadbb6d"
+    },
+    {
+      "file": "cooke/workbench/contrast-loss-map.png",
+      "sha256": "1c087a797b22fe99a2462603a07365d96ece41bb1266b75d15adfb58a48f2f60"
+    },
+    {
+      "file": "cooke/workbench/diffraction-encircled-energy.png",
+      "sha256": "e510f34a19bc33e994820a4fb81e472efcf0cb19dfa17858877d917e87e66b72"
+    },
+    {
+      "file": "cooke/workbench/encircled-energy.png",
+      "sha256": "42704a3ffa3c5a937e442cad409c5300b49ce21c79fa77e1887dc48a4a35b8f9"
+    },
+    {
+      "file": "cooke/workbench/extended-diffraction-image-analysis.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "cooke/workbench/extended-source-encircled-energy.png",
+      "sha256": "8bf6efd4b9dce77dfbfdcb40e0fe179e94b5a1b2beb57ed99b287ba79610d16b"
+    },
+    {
+      "file": "cooke/workbench/fft-line-edge-spread.png",
+      "sha256": "26a4332548eb2c98f63c6b92a20336c0a6ac51c37d7cce83e0f29bafb6a5790e"
+    },
+    {
+      "file": "cooke/workbench/fft-mtf-map.png",
+      "sha256": "a4d517a500572a640cd57979e27473be80de6256102dfd2474292dcc15fbce02"
+    },
+    {
+      "file": "cooke/workbench/fft-psf-cross-section.png",
+      "sha256": "0f8e33e78452d423a4e141c731df6ec690377d1e00e8c55cfaf9729d5d3afcdb"
+    },
+    {
+      "file": "cooke/workbench/fft-surface-mtf.png",
+      "sha256": "d0d8f7874ee3e827e5477a7b91160ec2885b43abb814f87d857d35f94f4e8d86"
+    },
+    {
+      "file": "cooke/workbench/field-curvature-and-distortion.png",
+      "sha256": "de523fab3c2497319f346f9e9041d43fe5a02849a9a4e455e6b604609b5f6841"
+    },
+    {
+      "file": "cooke/workbench/field-curvature.png",
+      "sha256": "a8feac5f312cb0618fd7c9d5b94d50a7f515d2a924c5c79e4697925854941180"
+    },
+    {
+      "file": "cooke/workbench/footprint-diagram.png",
+      "sha256": "e6e51052a2d3f06468b8671ab497b3795155733c9954073e19daa4a9278ae10a"
+    },
+    {
+      "file": "cooke/workbench/foucault-analysis.png",
+      "sha256": "8a0e36b58520b90061700b5aea5b8aa0f150bf7a74d80d1de3683afa6fb04b6e"
+    },
+    {
+      "file": "cooke/workbench/fourier-mtf-vs-field.png",
+      "sha256": "8f23322f023a9512ab0ec97c9008a79fd92e2fcf71e32c3da8fde9deff997e71"
+    },
+    {
+      "file": "cooke/workbench/fourier-through-focus-mtf.png",
+      "sha256": "a5a48acba3cfcede8d7a50c90b7643966e3e07464f014405c752004b1b7c49f5"
+    },
+    {
+      "file": "cooke/workbench/full-field-aberration.png",
+      "sha256": "24b60a8abf4edd6894d85c98f09bfd0bcd59c5a6140e4876e33fa4af70bef36a"
+    },
+    {
+      "file": "cooke/workbench/full-field-spot-diagram.png",
+      "sha256": "ba32e54ca67ad8e5697cff550d031d0e1c860fa4a2640bb13e20b567985801e2"
+    },
+    {
+      "file": "cooke/workbench/geometric-bitmap-image-analysis.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "cooke/workbench/geometric-image-analysis.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "cooke/workbench/geometric-line-edge-spread.png",
+      "sha256": "0264546643caf334a358918ecb475fb167eea74ad99f2253c13dccfa55b87cf4"
+    },
+    {
+      "file": "cooke/workbench/geometric-mtf-map.png",
+      "sha256": "c3bf1d33001a89afec5519f1d79ec0960357afd5ee44b8bd0ed38044781153c7"
+    },
+    {
+      "file": "cooke/workbench/geometric-mtf-vs-field.png",
+      "sha256": "03277c6189865f818340120724e749376a22a8f51610531a5ab2802fbafba8c1"
+    },
+    {
+      "file": "cooke/workbench/geometric-mtf.png",
+      "sha256": "00c58b358a994a8186f9f5717f96b9c4323ac1fa048ad2ee7a805718dfc62aee"
+    },
+    {
+      "file": "cooke/workbench/geometric-through-focus-mtf.png",
+      "sha256": "66edfbf551d3f0485c8d4a9ac9f1e3ff675f261dd33b1c4080a8ea5885346430"
+    },
+    {
+      "file": "cooke/workbench/grid-distortion.png",
+      "sha256": "d2b2479e7e2fd1a94e1b7530fa221fb4207370e61afedc966e1827d494df0c33"
+    },
+    {
+      "file": "cooke/workbench/huygens-mtf-vs-field.png",
+      "sha256": "8b44ce279c0afbd854f09af4cb2146453e8e19f87034afd4d138a1c5d8104310"
+    },
+    {
+      "file": "cooke/workbench/huygens-mtf.png",
+      "sha256": "2976c53309db0f8cc41ccef635cb74ef706d242d47a9625772af9dc43dce7d39"
+    },
+    {
+      "file": "cooke/workbench/huygens-psf-cross-section.png",
+      "sha256": "202a77e7d3275b88542d9395c5a8353c3427644dcbe17f958ec7d2b8306d7bba"
+    },
+    {
+      "file": "cooke/workbench/huygens-psf.png",
+      "sha256": "1f282b5e4fee07b57f787651a1baea415d63a54c7f1edc0e4b253ef8aff3aef9"
+    },
+    {
+      "file": "cooke/workbench/huygens-surface-mtf.png",
+      "sha256": "202bb1df09389d709738a5c8fa4c150850407b48b8952f0338ee97f1a2e34b61"
+    },
+    {
+      "file": "cooke/workbench/huygens-through-focus-mtf.png",
+      "sha256": "1bf542cdf8b1ef3ed411dd0cb135f16cc2f28cfb5a78053909f893d6553063eb"
+    },
+    {
+      "file": "cooke/workbench/image-simulation.png",
+      "sha256": "b544fc660600022b8fa52e939bdd6a306689e7a6e3ef58ee16f5b78fcc8a40b3"
+    },
+    {
+      "file": "cooke/workbench/incoherent-irradiance.png",
+      "sha256": "c481377c8412b7c97fe52cd38532b9df18eda3b2713975d9c9525e853d2ef025"
+    },
+    {
+      "file": "cooke/workbench/interferogram.png",
+      "sha256": "8e6aea3f48fa89a5a28cbe431b6780c56b0b8aca980f266986601d1b9c8b04ab"
+    },
+    {
+      "file": "cooke/workbench/jones-pupil.png",
+      "sha256": "353e38ff31b91a70b39d9c3acd1166619ca263e1ab63efd0a4f13e6634ac4473"
+    },
+    {
+      "file": "cooke/workbench/lateral-color.png",
+      "sha256": "a7bfd827a4348d54765924591c0aa48bf15795cb585aa3c2274084857099040c"
+    },
+    {
+      "file": "cooke/workbench/light-source-analysis.png",
+      "sha256": "4091adaaf10d7214ff5f0577e55a8a90c40e652c62560ac01984ad0d962d8f30"
+    },
+    {
+      "file": "cooke/workbench/matrix-spot-diagram.png",
+      "sha256": "b0f76e7dac2cd9ccb6cd6f2b5837ff4549c72cd4f30298f85b89ae0dd0d12b29"
+    },
+    {
+      "file": "cooke/workbench/mtf.png",
+      "sha256": "8aa86e478fa29669ac4156345f734dde8bd751536f6adf8ce702ba809f463962"
+    },
+    {
+      "file": "cooke/workbench/optical-path-difference.png",
+      "sha256": "afa7aee73d2b1912a8380ef13f64d0aa6ba271b51f2480e2cf2a6b78b2049422"
+    },
+    {
+      "file": "cooke/workbench/partially-coherent-image-analysis.png",
+      "sha256": "4ed682694af94adfb217f5fef4d6dceb91e244ae51348ae3357a7f5db79fef61"
+    },
+    {
+      "file": "cooke/workbench/psf.png",
+      "sha256": "f26887ad23f6951398af314c3ba070ab4997ae9d885734dd08db785a3ae9c6b3"
+    },
+    {
+      "file": "cooke/workbench/pupil-aberration.png",
+      "sha256": "6eacb8032fddaf575050452e4722c87b1a04034ea4ffcb95f171a06496ccfa77"
+    },
+    {
+      "file": "cooke/workbench/radiant-intensity.png",
+      "sha256": "06794a32211b5a4088c34d40c9e4f7f7115de267579136793df5ec72bf757f7b"
+    },
+    {
+      "file": "cooke/workbench/ray-fan.png",
+      "sha256": "11e2925ac55cc6d262a2602ab96cf286b3e7a7953c1599616b9defbf7e62eb18"
+    },
+    {
+      "file": "cooke/workbench/relative-illumination.png",
+      "sha256": "3d3e5c870c32d11d0e764e3762eb8f92498651762df91e1d06c9ed42b6948bac"
+    },
+    {
+      "file": "cooke/workbench/rms-field-map.png",
+      "sha256": "e70b3d23ff1c024feb72e6d2609d7c4666fcf0dbd095c23318c90bc623fdeba6"
+    },
+    {
+      "file": "cooke/workbench/rms-vs-field.png",
+      "sha256": "eedf1e3132b9b0e382cea5bae7d0f9de4476373c18d04ec0629acfc901065eb2"
+    },
+    {
+      "file": "cooke/workbench/rms-vs-focus.png",
+      "sha256": "456b6f0c8188c52ab61b5781cd6d3e6003dae9d01f1eef146a007ef9f506cdb6"
+    },
+    {
+      "file": "cooke/workbench/rms-vs-wavelength.png",
+      "sha256": "a90cef6af4f639ee799b9ff90a8084b3144e2e8f8b52c1b0e24adab1c9718ae7"
+    },
+    {
+      "file": "cooke/workbench/rms-wavefront-vs-field.png",
+      "sha256": "17564e4fd6bd54cea634e74d0535dabd8595202fd54a4cfad5f1b363c2079f4d"
+    },
+    {
+      "file": "cooke/workbench/sampled-mtf.png",
+      "sha256": "ddb9e50e0fb0ff07cd61479de4c96c5e6fdc9dcabe54db93946eee3e1082732f"
+    },
+    {
+      "file": "cooke/workbench/seidel-diagram.png",
+      "sha256": "8c4140b199ee885c2c58b3462142ff583ec957c8a456fcd4926ac795f7f27430"
+    },
+    {
+      "file": "cooke/workbench/solid-model.png",
+      "sha256": "cb1368e9c948aa07691bd52e5903349221f5f1dda3d4deebaf5f8bf7c0fd9075"
+    },
+    {
+      "file": "cooke/workbench/spot-diagram.png",
+      "sha256": "28205976f8f87a78c1f51770a4d51eca0cace6e872344bed6c0eedc09b87533f"
+    },
+    {
+      "file": "cooke/workbench/through-focus.png",
+      "sha256": "15d8da7fe05d400bff434ca43767fdfa15793b0c0cc1ac526b7a7d9ad598e0dc"
+    },
+    {
+      "file": "cooke/workbench/vignetting-diagram.png",
+      "sha256": "eb4026fea2b7a2b8cdf7fed15d2a0cbd855531e981a83ccd8c6f0ed22234071c"
+    },
+    {
+      "file": "cooke/workbench/wavefront-map.png",
+      "sha256": "b7eb752a29ee505267ce3d62619dcae8649b32e35cae881e6a1f62c74ab2f7dc"
+    },
+    {
+      "file": "cooke/workbench/wavefront.png",
+      "sha256": "1b20e3b13a9d7ef6da4c58b80fe3c2479df44a4c3c3eb2a5169cb266f10ffe2a"
+    },
+    {
+      "file": "cooke/workbench/y-ybar.png",
+      "sha256": "e7d5f0c4f5c69d8762bf23ba25be1d442107ca9e6f153fb210b4fd1002d7ad91"
+    },
+    {
+      "file": "cooke/workbench/zernike-vs-field.png",
+      "sha256": "ee8e2738079b7ac2ba94152ee7ed1099f8dd5bf7a60abd406da21dfcedf8bc14"
+    },
+    {
+      "file": "cooke/zemax/2d-layout.JPG",
+      "sha256": "93c22e09ed226ca7c1704f3c3bf07544a4584bbaadf40785f24870bd33e29e51"
+    },
+    {
+      "file": "cooke/zemax/3d-layout.JPG",
+      "sha256": "85ff8c14a2e28aa5b70a7562f16a46754e06040cfaebbdc0ac1523ac0d9d46c3"
+    },
+    {
+      "file": "cooke/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "097f3346d73cc162960c81ee36ff745393aeb65481e50e5896703179798fa9fe"
+    },
+    {
+      "file": "cooke/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "097f3346d73cc162960c81ee36ff745393aeb65481e50e5896703179798fa9fe"
+    },
+    {
+      "file": "cooke/zemax/angle-vs-image-height.JPG",
+      "sha256": "097f3346d73cc162960c81ee36ff745393aeb65481e50e5896703179798fa9fe"
+    },
+    {
+      "file": "cooke/zemax/axial-aberration.JPG",
+      "sha256": "d3b659b0083ceaaa2f47721c576939d925e252cee8ecc6a284aa7ad02b947a2e"
+    },
+    {
+      "file": "cooke/zemax/color-focus-shift.JPG",
+      "sha256": "81b62eb52530ac7d3864eace1b2ab557accdc0450d7549ce344b18e2e0f0b08d"
+    },
+    {
+      "file": "cooke/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "f0a15b9696c492daecaee828036360a212ba0cb81252c89a0e40fd2c5a07d02d"
+    },
+    {
+      "file": "cooke/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "4501b779fc2a430668818292cafba6820ab2e208434ff074052d7e065bb6e02c"
+    },
+    {
+      "file": "cooke/zemax/encircled-energy.JPG",
+      "sha256": "8e9fee755593a332d4ea92a5560ac7a4ed9238223fa212b9c10bf2eacdaa96e4"
+    },
+    {
+      "file": "cooke/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "af15980c58b778979e8f5fedbf8c61c1a115c9089cdd4859764a7107e7093a06"
+    },
+    {
+      "file": "cooke/zemax/fft-line-edge-spread.JPG",
+      "sha256": "3a4f59db0c68559ab6507fe384ccd735a0136bd0cefbdff1f128974610a78cdd"
+    },
+    {
+      "file": "cooke/zemax/fft-mtf-map.JPG",
+      "sha256": "4295472293ff165403c4e0fa52d068cb7fff1af03b5ae5f0003b545560324355"
+    },
+    {
+      "file": "cooke/zemax/fft-psf-cross-section.JPG",
+      "sha256": "ebd18a9a632aa10ce5b2ebbcc7e316530ad0552328e4ce38385b3703a8d05f26"
+    },
+    {
+      "file": "cooke/zemax/fft-surface-mtf.JPG",
+      "sha256": "dc8fc44dc116bdc96b48b26d4ada3c040c804accba7157ba114237a1dc3bfc8e"
+    },
+    {
+      "file": "cooke/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "d36cdcec310fad4f248068718a225d408779cd2f5359e3e7fc27d02efdb391df"
+    },
+    {
+      "file": "cooke/zemax/field-curvature.JPG",
+      "sha256": "290bd1f10361ed7d33130e24135659511f4726636d22d8ed22ade85257a25116"
+    },
+    {
+      "file": "cooke/zemax/footprint-diagram.JPG",
+      "sha256": "20cbbf0030d313e75e4601d3f603bb87090a569ad852910e5ee3b4eff9a1dfd9"
+    },
+    {
+      "file": "cooke/zemax/foucault-analysis.JPG",
+      "sha256": "1198df275c4d4abedc585ad1a657a4142deb8a8afb8c1cbeccbc0b9b20e4ddf6"
+    },
+    {
+      "file": "cooke/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "9369eb91e32352df2b94d9579090471520ec6b7a8b755c5663846af8cddf46ec"
+    },
+    {
+      "file": "cooke/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "77556f204847635e5bb9ecdc0d38f5334a6b41dc753d1ad543ba45ca3d56d819"
+    },
+    {
+      "file": "cooke/zemax/full-field-aberration.JPG",
+      "sha256": "07cb9f2706a07370a66426ec0248665ad8382e7cc1cbf77b70500f55fb7ec2d0"
+    },
+    {
+      "file": "cooke/zemax/full-field-spot-diagram.JPG",
+      "sha256": "136b5236ec4b64b8b46f2166793fe669966c96a2f146edabc6bc93dc0eb97414"
+    },
+    {
+      "file": "cooke/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "2e05529245dcffc3a41c4e86835bd4ab5f4f553321844cf1383161188685465b"
+    },
+    {
+      "file": "cooke/zemax/geometric-mtf-map.JPG",
+      "sha256": "7c24c846ec26450a956c181eafd7a4018b9655836d108be782a2770253e8b15d"
+    },
+    {
+      "file": "cooke/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "bb050831f263ea55d459811e177610812a842fefbb5c929ed45822d5e4cc0424"
+    },
+    {
+      "file": "cooke/zemax/geometric-mtf.JPG",
+      "sha256": "1b7b5707419f7dda82fc9e909f0d1b82ab9a06f56b97d0896d7455c29d74c490"
+    },
+    {
+      "file": "cooke/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "42790969bd53d1aab6de3d1ceea7be33d622a6203e3f509ba1f304c2e6a057c9"
+    },
+    {
+      "file": "cooke/zemax/grid-distortion.JPG",
+      "sha256": "97753f76148f048b30b0b5acaa6b3789e03ec4487038736576bead13cff4930d"
+    },
+    {
+      "file": "cooke/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "87c02596fdfe779886c66d74abb6f8d8a6d0ed5724234f8277afa975720b6c8f"
+    },
+    {
+      "file": "cooke/zemax/huygens-mtf.JPG",
+      "sha256": "58bc5c8fe088621f62ea4b564124d8a9ddff5ca511a858272b301ff2d97a1373"
+    },
+    {
+      "file": "cooke/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "614b537dbe6424ba32f4d881318fbc7924b700c9cdcc3b6ceb53b0d23e1fc916"
+    },
+    {
+      "file": "cooke/zemax/huygens-psf.JPG",
+      "sha256": "67695130fa8859bba9ff0ec264179f526f74d4b9fb1a6149457750f3ae0dd0e8"
+    },
+    {
+      "file": "cooke/zemax/huygens-surface-mtf.JPG",
+      "sha256": "f763027e70fef31a5c2a4f1c449d2b1328be239a84050097ccc9fd6572df8685"
+    },
+    {
+      "file": "cooke/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "d0ff97d3dc21fe8e2dca66b6f38f21329c0eeb5c65c5619291a88560eecab1df"
+    },
+    {
+      "file": "cooke/zemax/image-simulation.JPG",
+      "sha256": "97494dbe44784c8e432f8398c7b6f2ed97a01bfb3b2aa714755f75403e65f78f"
+    },
+    {
+      "file": "cooke/zemax/interferogram.JPG",
+      "sha256": "aeb7333e8ac1d473de727a7fd0b94c16bbf4dd1ac71be8011e6b55e797c79d4f"
+    },
+    {
+      "file": "cooke/zemax/jones-pupil.JPG",
+      "sha256": "7a4b732e16b618e92ae7aa0e53a639761143aeab0b3551d59fd12ab5e814fe71"
+    },
+    {
+      "file": "cooke/zemax/lateral-color.JPG",
+      "sha256": "58544532ac77291f5b042470f68b0c9f38a7da639e64942e22fbf6525e72b913"
+    },
+    {
+      "file": "cooke/zemax/matrix-spot-diagram.JPG",
+      "sha256": "2e3c256b419834e8c270bc053a48b10c8b216fdc98a86f2766a10ff679f723a9"
+    },
+    {
+      "file": "cooke/zemax/mtf.JPG",
+      "sha256": "eb622743408fb6615cf2fd929dc62cb207b2b2dbc4409bd2ed1cff7368fb44c8"
+    },
+    {
+      "file": "cooke/zemax/optical-path-difference.JPG",
+      "sha256": "5b3dad92c555d4ff0c3eb20c1ef74193cca80d76d3985f6dbc34bb00e5db9a99"
+    },
+    {
+      "file": "cooke/zemax/psf.JPG",
+      "sha256": "ce679c844fadd975fa253675625d2c307a6aa4a62185d4c68f9862890130d0c7"
+    },
+    {
+      "file": "cooke/zemax/pupil-aberration.JPG",
+      "sha256": "4f764a1b8167a51ef5f4ea2a63765ddffae1b550b9498337f019535a7093a883"
+    },
+    {
+      "file": "cooke/zemax/ray-fan.JPG",
+      "sha256": "eb287864556018ff08f8f26887b895760575c1905e51ade99837f1bffef60c16"
+    },
+    {
+      "file": "cooke/zemax/relative-illumination.JPG",
+      "sha256": "0b4883c2bd9ac1bba7a745a5871e76a0716b674e8d0119388939ff37e71d1038"
+    },
+    {
+      "file": "cooke/zemax/rms-field-map.JPG",
+      "sha256": "0a9e6a417615fe43f9aa6aad701e685d2bb80d0e04a8ecf84fa1054761b01c13"
+    },
+    {
+      "file": "cooke/zemax/rms-vs-field.JPG",
+      "sha256": "fae4c74884663d96b2250b55bba1ba90b043281c0430b370d18701877f98741a"
+    },
+    {
+      "file": "cooke/zemax/rms-vs-focus.JPG",
+      "sha256": "385f0cf88413028fce1e32795a55e79c6486883b352ceda124b340612b5830ed"
+    },
+    {
+      "file": "cooke/zemax/rms-vs-wavelength.JPG",
+      "sha256": "f840140bb36924963104d3736f71333ae48aee438fdd6ddf22f4e33336553e63"
+    },
+    {
+      "file": "cooke/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "fae4c74884663d96b2250b55bba1ba90b043281c0430b370d18701877f98741a"
+    },
+    {
+      "file": "cooke/zemax/seidel-diagram.JPG",
+      "sha256": "63c5578c2e8b6e95b9ee8f4a48ede0525346cc952b6f6d2864b17f705d614a8a"
+    },
+    {
+      "file": "cooke/zemax/solid-model.JPG",
+      "sha256": "f6375cdb6f3cee0757df7b0c6ca6d927a5ffeb6eb3cced04aa9f21d2019339cf"
+    },
+    {
+      "file": "cooke/zemax/spot-diagram.JPG",
+      "sha256": "e1c72c2a9a8a92a31d091896f6564ed10fbab1c9d521c3d04f09733ba96b6905"
+    },
+    {
+      "file": "cooke/zemax/through-focus.JPG",
+      "sha256": "0b7bbc1b0b8470b9e34e0c8d0311f3ae6bea14bdfc042756fa1f68a499cbb7ef"
+    },
+    {
+      "file": "cooke/zemax/vignetting-diagram.JPG",
+      "sha256": "cc3747785e0c07825ce78a608421ec3b150b1106683dacb3a457ac3f2c09573d"
+    },
+    {
+      "file": "cooke/zemax/wavefront-map.JPG",
+      "sha256": "d9e3533fdd0e5c32926ddaec7cb85af37d580a90c1ebaf2e286a9fbcab589ae2"
+    },
+    {
+      "file": "cooke/zemax/wavefront.JPG",
+      "sha256": "d9e3533fdd0e5c32926ddaec7cb85af37d580a90c1ebaf2e286a9fbcab589ae2"
+    },
+    {
+      "file": "cooke/zemax/y-ybar.JPG",
+      "sha256": "3947a43c3009be7fe56c9f2c5deac8da7d931b66aa0744f8d656688a1706f5e9"
+    },
+    {
+      "file": "cooke/zemax/zernike-vs-field.JPG",
+      "sha256": "e6ae378e531f12716eb7b67393b0a379fa86e93e62225c3e6b446b12ef6e3167"
+    },
+    {
+      "file": "double-gauss/workbench/2d-layout.png",
+      "sha256": "a99e3895504a282358d07feb8472846f2dcf33feb14450957f69c8e792631e53"
+    },
+    {
+      "file": "double-gauss/workbench/3d-layout.png",
+      "sha256": "a39075f8b25ebb15ee2a6b65f8c724fe1783fac0a604285f5aa35df6d61a39d9"
+    },
+    {
+      "file": "double-gauss/workbench/angle-vs-image-height---through-field.png",
+      "sha256": "e9e910339c051de98d9c62db13d28100f9b2cff190b93faab178b61facf7fb11"
+    },
+    {
+      "file": "double-gauss/workbench/angle-vs-image-height---through-pupil.png",
+      "sha256": "f9349a108648d03b1eb947e173d7ba30dbcdccf5d394ff61dcf586b74be50cfd"
+    },
+    {
+      "file": "double-gauss/workbench/angle-vs-image-height.png",
+      "sha256": "00cf791e3e2c14bd5a824fe1cf288fd71055c8daae7f05d152bd459a9b9c95f9"
+    },
+    {
+      "file": "double-gauss/workbench/axial-aberration.png",
+      "sha256": "125a6d90e016d56d78e5afde1cd6fe8c8b938c82cf4c6c19e844e3edb8ff0c04"
+    },
+    {
+      "file": "double-gauss/workbench/best-fit-sphere-wavefront.png",
+      "sha256": "8d1b638b173b52dddee561ef3fafbb9165599d6280b2b399515476f58474c724"
+    },
+    {
+      "file": "double-gauss/workbench/centroid-sphere-wavefront.png",
+      "sha256": "03cfbe60e62f8a939d41f8fe674ed53c8800cb85ddcc434fc497e1e4e88e73e6"
+    },
+    {
+      "file": "double-gauss/workbench/color-focus-shift.png",
+      "sha256": "0764b752958006fe139304d3776876d076819a8cde0203c37a47a1c79024ac31"
+    },
+    {
+      "file": "double-gauss/workbench/configuration-matrix-spot-diagram.png",
+      "sha256": "6747e455a9032e878880b567e8ac6178af713c04df8fb809440e45682b419ba5"
+    },
+    {
+      "file": "double-gauss/workbench/contrast-loss-map.png",
+      "sha256": "f68152cab93e1f32558224de24298853964b9f92e9ca6961255eed6424c9f219"
+    },
+    {
+      "file": "double-gauss/workbench/diffraction-encircled-energy.png",
+      "sha256": "2cb118c309aa355db346fb8f591059deae8ca7abc3351219fe177dcdbd3e74e1"
+    },
+    {
+      "file": "double-gauss/workbench/encircled-energy.png",
+      "sha256": "6e28ed8ae3086e2f0f367f84be930b2b1b47da2f102d8098eadbdbf0545d80d6"
+    },
+    {
+      "file": "double-gauss/workbench/extended-diffraction-image-analysis.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "double-gauss/workbench/extended-source-encircled-energy.png",
+      "sha256": "8425684191efa4154bac87eefe7db2de54d375988f19c28453ba15822247a3ac"
+    },
+    {
+      "file": "double-gauss/workbench/fft-line-edge-spread.png",
+      "sha256": "88eb7e753d990368478fcc058e6ec0c401170ae3b2442e2b3a453e5ad13ad219"
+    },
+    {
+      "file": "double-gauss/workbench/fft-mtf-map.png",
+      "sha256": "0f72a92a8dbaf83e4d555423dff1d4deff9e502a98889866f191e49d1e5e1bfa"
+    },
+    {
+      "file": "double-gauss/workbench/fft-psf-cross-section.png",
+      "sha256": "c665fbaacc78138eba09eb11d942f7e266cf8dc64c3a496e3571fe8a8e712d50"
+    },
+    {
+      "file": "double-gauss/workbench/fft-surface-mtf.png",
+      "sha256": "e5c570816c0f6a9ca527ab40e914a6983f566f19a9cf5263120f28a8f6d2c8fc"
+    },
+    {
+      "file": "double-gauss/workbench/field-curvature-and-distortion.png",
+      "sha256": "c342a70f640cafc89946cfc0643f80337cf144f98129d3560656e7da6be602ac"
+    },
+    {
+      "file": "double-gauss/workbench/field-curvature.png",
+      "sha256": "9edf7fdd9143b6437b6edffbd9791a6434bd4e87d0613bddc28b793381146170"
+    },
+    {
+      "file": "double-gauss/workbench/footprint-diagram.png",
+      "sha256": "29ea5493d3dc314757e93201323cf510d983dcc6947fedbca670fb2039f96cbf"
+    },
+    {
+      "file": "double-gauss/workbench/foucault-analysis.png",
+      "sha256": "d764cf63c519d338337c45c0a0460434e0625c92db94ba001b0d68f3a36a6ecf"
+    },
+    {
+      "file": "double-gauss/workbench/fourier-mtf-vs-field.png",
+      "sha256": "83708605e712bc636264dca7b85ce5252725c18cfb36cc293edb32ad4e87b11e"
+    },
+    {
+      "file": "double-gauss/workbench/fourier-through-focus-mtf.png",
+      "sha256": "2843ae4545d3957cc7ec21310024638a2236119e5caa1c235ff6f5a0a142b8c6"
+    },
+    {
+      "file": "double-gauss/workbench/full-field-aberration.png",
+      "sha256": "cbfc5f60ad21ebe80404e2b554c61e60bace9d8501bf6b125ea2cb63149522c7"
+    },
+    {
+      "file": "double-gauss/workbench/full-field-spot-diagram.png",
+      "sha256": "dc4eb5b5b4a0d3f1f6d8e2de52d85c5fa77c8d9bc71a6e239b7acd0ad3682063"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-bitmap-image-analysis.png",
+      "sha256": "07fbe1fdf8581ca6693385ff554ea52d6ea224c76dee1ebb8e312c6130648eaf"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-image-analysis.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-line-edge-spread.png",
+      "sha256": "30c0e8e2d9a085a627f59284ddb151922ee93a0e0f766c33f8176fccfe4ab6da"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-mtf-map.png",
+      "sha256": "7e705c180f26975b8b8cb594ce11c83160419ba022bcc77f6a3a7fb0cbf0e65f"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-mtf-vs-field.png",
+      "sha256": "97b5c44492f85c08d5bf4581cd2fd8f8a0374b350bcce4ad9c3d83ccb31d0094"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-mtf.png",
+      "sha256": "02040979315bccbfbbec7a3b09a2c97d66151c646b2864dd9c6e0e83fe2590d5"
+    },
+    {
+      "file": "double-gauss/workbench/geometric-through-focus-mtf.png",
+      "sha256": "54f9fa7fd0c9011d22430f2c15f39f826cef51d1525c9875ad29acc6b311ed14"
+    },
+    {
+      "file": "double-gauss/workbench/grid-distortion.png",
+      "sha256": "27db0391dd192a388bd23afc4269be60c574ac02a0cd941496be556b74dcd101"
+    },
+    {
+      "file": "double-gauss/workbench/huygens-mtf-vs-field.png",
+      "sha256": "cbd070e1caf4e380f6eaacc7f7e758e0c37a29bf5916bf0583247d28d14c5736"
+    },
+    {
+      "file": "double-gauss/workbench/huygens-mtf.png",
+      "sha256": "a50bea141c89150809186ef537b3566d992ef6a84d47a516f66e897e8a1aed1c"
+    },
+    {
+      "file": "double-gauss/workbench/huygens-psf-cross-section.png",
+      "sha256": "b31e8070bfcfae0f0f757681eab4a011d15dd2a06e9592dd9bde2c7047379659"
+    },
+    {
+      "file": "double-gauss/workbench/huygens-psf.png",
+      "sha256": "95d233958bca3df2cedebaa4d8d1049d9c317fd07faede107376945c3cc9a7f0"
+    },
+    {
+      "file": "double-gauss/workbench/huygens-surface-mtf.png",
+      "sha256": "0b2c0d66450daa787998f425f22bc974eb823f511b1c4f9c419ff8726bd19ccc"
+    },
+    {
+      "file": "double-gauss/workbench/huygens-through-focus-mtf.png",
+      "sha256": "e5ba9b9c75bffe7d0f49de597fd7048f758823626026c60d3c76bfb12b36ee6e"
+    },
+    {
+      "file": "double-gauss/workbench/image-simulation.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "double-gauss/workbench/incoherent-irradiance.png",
+      "sha256": "f394c840ce13739500c001946d3d50993f309741c7941e2623367c6a2aa29abf"
+    },
+    {
+      "file": "double-gauss/workbench/interferogram.png",
+      "sha256": "6ffb3df1a847e9d0f8d2bff4985be18ca3d1f5d95036e5b1082740f6a8091a61"
+    },
+    {
+      "file": "double-gauss/workbench/jones-pupil.png",
+      "sha256": "9eed356bfe43aba1e178890d332b5763ed779330d62fada0c5bd06a18410ec4b"
+    },
+    {
+      "file": "double-gauss/workbench/lateral-color.png",
+      "sha256": "d518c86e2aff1e84deb19a0735725ee245eb17918dce330f1397bd9ac6c90cc2"
+    },
+    {
+      "file": "double-gauss/workbench/light-source-analysis.png",
+      "sha256": "762cc91aff5152a747b04dfa1df256963d24e8f5ba43010cd0ce70335ef3ebd8"
+    },
+    {
+      "file": "double-gauss/workbench/matrix-spot-diagram.png",
+      "sha256": "84e2be0e2c850c6afe286ffc2cfd815c4ec29f0b3288eb4a02aa9c28dac60d40"
+    },
+    {
+      "file": "double-gauss/workbench/mtf.png",
+      "sha256": "9a99faa710982efeb0b0f1d5d091c463129b0da227ad355a93b2989c2b4d7e62"
+    },
+    {
+      "file": "double-gauss/workbench/optical-path-difference.png",
+      "sha256": "e16b07288d53403dac49104bb57f5f9706150182ccb313e764526cdbfdcaa1d3"
+    },
+    {
+      "file": "double-gauss/workbench/partially-coherent-image-analysis.png",
+      "sha256": "459c063dfcc7168e20faf9ca6e47e24de89809aafd20c9a68d29e1fc0923b996"
+    },
+    {
+      "file": "double-gauss/workbench/psf.png",
+      "sha256": "6e59c8c8c7e3065025a599bb5f4cf5a0c8200b3b33ad151f0a8c03a5b3a19045"
+    },
+    {
+      "file": "double-gauss/workbench/pupil-aberration.png",
+      "sha256": "932e0941cd42b7cc33b744b8ff01b597f582b8b3504b423adb2c9c3c4f94af51"
+    },
+    {
+      "file": "double-gauss/workbench/radiant-intensity.png",
+      "sha256": "21425faa2d7f837c00587c44213411f5c77130f5e501bb3ba4f4c197aba79b09"
+    },
+    {
+      "file": "double-gauss/workbench/ray-fan.png",
+      "sha256": "2fbc0b1dea9280fdeecd2633c820bb4fafa10f931c795950a34753da6741911e"
+    },
+    {
+      "file": "double-gauss/workbench/relative-illumination.png",
+      "sha256": "9251b05284e46f2d00048c51d87a8551c22a28a5cde6ddeae91a9c6718095e34"
+    },
+    {
+      "file": "double-gauss/workbench/rms-field-map.png",
+      "sha256": "5f33c42a4fe151c2b2e46340cedb8707accd87511523db003a194e0f71c27b4d"
+    },
+    {
+      "file": "double-gauss/workbench/rms-vs-field.png",
+      "sha256": "c21447e488d40dc5709404a6ff03c841b3dfb1da381b91ebfad9dffc2953d210"
+    },
+    {
+      "file": "double-gauss/workbench/rms-vs-focus.png",
+      "sha256": "c208154bb0fb103b73df40f43c67b1f8faf5ab9fb4019b9414877f6d50e0739a"
+    },
+    {
+      "file": "double-gauss/workbench/rms-vs-wavelength.png",
+      "sha256": "6db094401b8630e6268e2c95301c5417138aa29ebc88258038457e200d7da9f0"
+    },
+    {
+      "file": "double-gauss/workbench/rms-wavefront-vs-field.png",
+      "sha256": "9be9d6eb590ace1134f78a95860e03cf5ea2d875939867e1d00beb61e73437be"
+    },
+    {
+      "file": "double-gauss/workbench/sampled-mtf.png",
+      "sha256": "07ffbc6317f9efbd7eed538166954ed225500f6cdab1ef25d97978c4cb4311f7"
+    },
+    {
+      "file": "double-gauss/workbench/seidel-diagram.png",
+      "sha256": "f624c53acfe29a204ff7538c26f122a95a72925d3920bf30e3e36b41c18f8448"
+    },
+    {
+      "file": "double-gauss/workbench/solid-model.png",
+      "sha256": "9abfe875354803d8895a1821f2e3899f560ed02a112b14e3fbe8bf054b18abdc"
+    },
+    {
+      "file": "double-gauss/workbench/spot-diagram.png",
+      "sha256": "7e5850e34f7cf3e16991d41bd6824633d15644108848e1c021ebaaf6c45c87e5"
+    },
+    {
+      "file": "double-gauss/workbench/through-focus.png",
+      "sha256": "242c61442c677091bea6e8b89b6600adef044f3b8f8657b354f7d0b42c84ecec"
+    },
+    {
+      "file": "double-gauss/workbench/vignetting-diagram.png",
+      "sha256": "fdea76db392904a2f615d12a9528fae8d8efa006c5150d31d05c2c6fb8fba9e2"
+    },
+    {
+      "file": "double-gauss/workbench/wavefront-map.png",
+      "sha256": "9a622413ee66d1b24340881cbe5450292f85c31f4ca7c479840b95e3840d5f18"
+    },
+    {
+      "file": "double-gauss/workbench/wavefront.png",
+      "sha256": "12ed426645ce23290ebf053e0644f4ce5081ecc4e0603aba6d88602770737062"
+    },
+    {
+      "file": "double-gauss/workbench/y-ybar.png",
+      "sha256": "b763982ea0fb831c3385fb2846ea134925b5e3130c6557b7f1137504ee89345d"
+    },
+    {
+      "file": "double-gauss/workbench/zernike-vs-field.png",
+      "sha256": "69b85cb9c940526656fda247c882facde34659b58d11f7adaa0a5c44c6075b71"
+    },
+    {
+      "file": "double-gauss/zemax/2d-layout.JPG",
+      "sha256": "117c0c3809973c8051201b2b5fb680a75e6076d0709fc75b30308481ad4a8d0c"
+    },
+    {
+      "file": "double-gauss/zemax/3d-layout.JPG",
+      "sha256": "cbc178b888fd0f3376917d54bcc50d16b16854c4d5fbbb152f876912c2c0fe98"
+    },
+    {
+      "file": "double-gauss/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "371c1fc146360e7d8f53e63fbc0e887a17b750e70e74bd16c45695f4dbfb6d53"
+    },
+    {
+      "file": "double-gauss/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "371c1fc146360e7d8f53e63fbc0e887a17b750e70e74bd16c45695f4dbfb6d53"
+    },
+    {
+      "file": "double-gauss/zemax/angle-vs-image-height.JPG",
+      "sha256": "371c1fc146360e7d8f53e63fbc0e887a17b750e70e74bd16c45695f4dbfb6d53"
+    },
+    {
+      "file": "double-gauss/zemax/axial-aberration.JPG",
+      "sha256": "06161bb8d9fe25b1aa354ca9227824319f1b04262f71c486d068053217f65f91"
+    },
+    {
+      "file": "double-gauss/zemax/color-focus-shift.JPG",
+      "sha256": "f297c33f61acb2be590923c5620ba2af703c804eadacafa7c47c215d407af1c0"
+    },
+    {
+      "file": "double-gauss/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "b4c9b3bae6c30fa52e3137ae1749cd2482fe81458c3546c5beb7801b687e2109"
+    },
+    {
+      "file": "double-gauss/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "53e7b1680e41ed834b812864a4a0dd823a696ddefe86c1eb0b8ae0d1f26affeb"
+    },
+    {
+      "file": "double-gauss/zemax/encircled-energy.JPG",
+      "sha256": "aec85987d9272dee4f43cae2b18b722b21307315f14f1bb9460e117f7f608da7"
+    },
+    {
+      "file": "double-gauss/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "f0b80b39b97eeb7eec567208f8589bbacf2ab6687bd9751e5f73781e6e8b0d4a"
+    },
+    {
+      "file": "double-gauss/zemax/fft-line-edge-spread.JPG",
+      "sha256": "4e0c6ad7e7cc8f592ac58a981b0b63602856ae7cc938716d085fc11ed5467da3"
+    },
+    {
+      "file": "double-gauss/zemax/fft-mtf-map.JPG",
+      "sha256": "f94fb1976f178a9710c875a7f87857379e33db47828ab09dbeb56a7ed9d1b568"
+    },
+    {
+      "file": "double-gauss/zemax/fft-psf-cross-section.JPG",
+      "sha256": "d578e19c2103096911437cf50e08b2604c2781500f9433b4e787bcd3b4f63e6c"
+    },
+    {
+      "file": "double-gauss/zemax/fft-surface-mtf.JPG",
+      "sha256": "9ea86949f275fadb7929f54acd0e39f99d67980b2906e0a12893f2be4b49a0c3"
+    },
+    {
+      "file": "double-gauss/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "d39e52835b793f36dc720964c0f19afd82e8dfc64408f5b5456a00c0d33cdc0f"
+    },
+    {
+      "file": "double-gauss/zemax/field-curvature.JPG",
+      "sha256": "d39e52835b793f36dc720964c0f19afd82e8dfc64408f5b5456a00c0d33cdc0f"
+    },
+    {
+      "file": "double-gauss/zemax/footprint-diagram.JPG",
+      "sha256": "a2119126bb04381906904a7cbc61efee2d7dd3717109c117cc5bffb74a520cdd"
+    },
+    {
+      "file": "double-gauss/zemax/foucault-analysis.JPG",
+      "sha256": "b2d05a78e431bbc47e97f2e22097af4a3bae820f21f2f202bf25cdc7e2a17dcd"
+    },
+    {
+      "file": "double-gauss/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "2515ac24c7132bf042851076aca433d7a77ba1d35a4ed73e8cf3252c8cbcadb0"
+    },
+    {
+      "file": "double-gauss/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "47a3f27e841417967970f2d7660c9c871bb3c85468d10bae0ea7df83c2fb5b87"
+    },
+    {
+      "file": "double-gauss/zemax/full-field-aberration.JPG",
+      "sha256": "6b0c8cbeb4c0a267ec0c646963600e0ee965f356d192d58d9f3423db916c3a48"
+    },
+    {
+      "file": "double-gauss/zemax/full-field-spot-diagram.JPG",
+      "sha256": "8492a847faf37bb3d743b4e69fd97195b6137b492406040866645bd847104177"
+    },
+    {
+      "file": "double-gauss/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "efa9ca0b397b131d097321f34673c1773fcc1d40ce33c27cd2364bf5e536a599"
+    },
+    {
+      "file": "double-gauss/zemax/geometric-mtf-map.JPG",
+      "sha256": "8811e2c3cc45edf4ad4171d99665e630b28a946d8ec6cfe3407270a654f36159"
+    },
+    {
+      "file": "double-gauss/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "703fcae0abbb651f04ed52b50cf0987619fe9dd8b245f2d6dbecc2a187463d7f"
+    },
+    {
+      "file": "double-gauss/zemax/geometric-mtf.JPG",
+      "sha256": "24704f15f1c78e50f3e21d8ac9402e0f5ee50cb93a36652d3e1342f6eb3e1af3"
+    },
+    {
+      "file": "double-gauss/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "a31802721ff1b29994f03b1fe2dd643c9e17f8fe4cef3cc43d493ed9f58edb33"
+    },
+    {
+      "file": "double-gauss/zemax/grid-distortion.JPG",
+      "sha256": "cb8c1ea1ee3c66509c66a6dc10a9e67424732b2a5cd6e6899725273eddc2a9a8"
+    },
+    {
+      "file": "double-gauss/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "ae937a34009a3b912859e9ace996324fcde2df607fb4b66eb1c2439493eb7381"
+    },
+    {
+      "file": "double-gauss/zemax/huygens-mtf.JPG",
+      "sha256": "23873ba2bb637e26607d61fda30cd2aaa9753a4beed732553d66ea9e30b75dd4"
+    },
+    {
+      "file": "double-gauss/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "398d098a917cc24ac6c1001318a8a8ed46844001e7bedb36f936e26d7255517b"
+    },
+    {
+      "file": "double-gauss/zemax/huygens-psf.JPG",
+      "sha256": "df4068ee45ecd52c745e05e6dc1f076ee94fa4dd998414aca88604911498e8a5"
+    },
+    {
+      "file": "double-gauss/zemax/huygens-surface-mtf.JPG",
+      "sha256": "9c7f6ca80dea6c63cb8089d2ff0da917f5eb2ea4d376a144c8c7ffb72884f99c"
+    },
+    {
+      "file": "double-gauss/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "2e2dea5a98990972dfb087d04bc0c3d1deb5e3b1b9282289329e365bfee270c4"
+    },
+    {
+      "file": "double-gauss/zemax/interferogram.JPG",
+      "sha256": "985c0f863c4092eaff054bb0456bd1e5281ab62c088a4421d84263149caf7b04"
+    },
+    {
+      "file": "double-gauss/zemax/jones-pupil.JPG",
+      "sha256": "8d7e9eb123b81e0eb66fe5a2bf1deb70f30131752ebccd0eac2668af2520fb33"
+    },
+    {
+      "file": "double-gauss/zemax/lateral-color.JPG",
+      "sha256": "609f6da8a97d86afff98b4f31d9c97aef8b5fcfe97ad938d8a892839439b4b12"
+    },
+    {
+      "file": "double-gauss/zemax/matrix-spot-diagram.JPG",
+      "sha256": "1e49244a5dcca2a4970185cc8dec8af9afe51953b0e5c5bcc3cc75fdd5d26b34"
+    },
+    {
+      "file": "double-gauss/zemax/mtf.JPG",
+      "sha256": "9ca4a352ac348af349cd11928de9102fe9473d5d2588d7a77a635246e4103a1b"
+    },
+    {
+      "file": "double-gauss/zemax/optical-path-difference.JPG",
+      "sha256": "958a9d8554302aae1ae7967daf7b9fbe57ff11c429733a07c94683fcb4bb836c"
+    },
+    {
+      "file": "double-gauss/zemax/psf.JPG",
+      "sha256": "3b1f7efaae0607cb029ce1d2b951ec6058bc9c719e28e6ee239b2d62d96b205d"
+    },
+    {
+      "file": "double-gauss/zemax/pupil-aberration.JPG",
+      "sha256": "7365ba2d21f4866379f0d78e8e6903cabbbdf2df99fe0e52e874063804f456c7"
+    },
+    {
+      "file": "double-gauss/zemax/ray-fan.JPG",
+      "sha256": "4b3b66eb315da90fcbcbae889eba83ccee27a3fa1e1e739451b07acc9c20952f"
+    },
+    {
+      "file": "double-gauss/zemax/relative-illumination.JPG",
+      "sha256": "d42ce425c4ff27259943f690a7732e369d96fc2449094c4b7bd665c0cc598741"
+    },
+    {
+      "file": "double-gauss/zemax/rms-field-map.JPG",
+      "sha256": "929ae8021e7539aa04373f5f3322bb0a038d488cca65e02551fbb86829efc409"
+    },
+    {
+      "file": "double-gauss/zemax/rms-vs-field.JPG",
+      "sha256": "48057a7a389d92f3dafc8630464619f784322e9ca9c067bbe58836587a7afc03"
+    },
+    {
+      "file": "double-gauss/zemax/rms-vs-focus.JPG",
+      "sha256": "d0a693d781c3eddd31b3de967066c04399afc50e1bd773d22f39fde02e923f53"
+    },
+    {
+      "file": "double-gauss/zemax/rms-vs-wavelength.JPG",
+      "sha256": "18297a6f238e49a5afcf076997ca1add2a37371345e98f009ab038109ac41c9d"
+    },
+    {
+      "file": "double-gauss/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "48057a7a389d92f3dafc8630464619f784322e9ca9c067bbe58836587a7afc03"
+    },
+    {
+      "file": "double-gauss/zemax/seidel-diagram.JPG",
+      "sha256": "2f5d437f24dec32c44f16341cd7633300e3d21e743bc720e60df94f4fa4c6456"
+    },
+    {
+      "file": "double-gauss/zemax/solid-model.JPG",
+      "sha256": "9de405c0e2c171c0e882724499083bab4e169d15a9a78d5f6f92aadcfbbff2f9"
+    },
+    {
+      "file": "double-gauss/zemax/spot-diagram.JPG",
+      "sha256": "814426f4211962d0158393f79ebaca05f00b57f47979d74130b3d55f3b84cfea"
+    },
+    {
+      "file": "double-gauss/zemax/through-focus.JPG",
+      "sha256": "cf5f3f440f08daf3bdb890395819d9213652f21183b1f992a395fe9f26c3934f"
+    },
+    {
+      "file": "double-gauss/zemax/vignetting-diagram.JPG",
+      "sha256": "4a6986abf0852c5b547728cdd46d184ad86fc0b9dedac828f45a99a3678fac5b"
+    },
+    {
+      "file": "double-gauss/zemax/wavefront-map.JPG",
+      "sha256": "6d075b8cfa126682744af556f47c5e5f64bfb75077277e457bef0110daee18bf"
+    },
+    {
+      "file": "double-gauss/zemax/wavefront.JPG",
+      "sha256": "6d075b8cfa126682744af556f47c5e5f64bfb75077277e457bef0110daee18bf"
+    },
+    {
+      "file": "double-gauss/zemax/y-ybar.JPG",
+      "sha256": "9f51dca50e56ef80da65fe9c2fba6d38d8e8d7a9b1566348117e12deedb509de"
+    },
+    {
+      "file": "double-gauss/zemax/zernike-vs-field.JPG",
+      "sha256": "1c26b9f5b2be99d8edf7dfd6103a33707d25c871bff76752e452fb353e5a2414"
+    },
+    {
+      "file": "petzval/workbench/2d-layout.png",
+      "sha256": "ebc8a5c2a8f1f21ea879fd59ebe5ea16082d8fa6897523ae40ef39c098050f03"
+    },
+    {
+      "file": "petzval/workbench/3d-layout.png",
+      "sha256": "eaf33fbf39b0c61e273c95139d304858bbeeca3b6a95131263f4c1c3549c14b0"
+    },
+    {
+      "file": "petzval/workbench/angle-vs-image-height---through-field.png",
+      "sha256": "f59535f8f7598b39e7419cc4888ef45a38d1081e546beb3254f9b9d82094d744"
+    },
+    {
+      "file": "petzval/workbench/angle-vs-image-height---through-pupil.png",
+      "sha256": "aa516c8e7cf4a12ede3d32e1f7d2ef609e6fa37cc2fcaadc08c5ab97521a166c"
+    },
+    {
+      "file": "petzval/workbench/angle-vs-image-height.png",
+      "sha256": "aeb78bf3ab6f34ff1d336de459bc3130bd12478898b1f3b12480ccff917313a2"
+    },
+    {
+      "file": "petzval/workbench/axial-aberration.png",
+      "sha256": "285c7a2d46b0afd27045408484a5dcbe82c11f382f9f5d19a278a3b2bd1685d8"
+    },
+    {
+      "file": "petzval/workbench/best-fit-sphere-wavefront.png",
+      "sha256": "630fc1ad3ff04650dfe4c3575004ff5d39cb7aa75eaffd4fddf5dd57ca04404e"
+    },
+    {
+      "file": "petzval/workbench/centroid-sphere-wavefront.png",
+      "sha256": "545ed15a9053dcbbdabd853c1ac0f387da583da39faff456faa7aab7e24fb9ef"
+    },
+    {
+      "file": "petzval/workbench/color-focus-shift.png",
+      "sha256": "5d4dc7380e549c646057052b213938c6e71c95593a700ecdc32d894bd7d1d1a7"
+    },
+    {
+      "file": "petzval/workbench/configuration-matrix-spot-diagram.png",
+      "sha256": "aec50e8c1036362f4c11886b8803f194c4144f58679c9b6c7eea50cfb5018295"
+    },
+    {
+      "file": "petzval/workbench/contrast-loss-map.png",
+      "sha256": "a0a4f011fdb06eabffbabc0281b062d05d76bf6fe7d4112fcefd0ac4589b6d47"
+    },
+    {
+      "file": "petzval/workbench/diffraction-encircled-energy.png",
+      "sha256": "e6a8afdba75773d249c8146056916529e0b52b4660a134c0a172eb0180ee7363"
+    },
+    {
+      "file": "petzval/workbench/encircled-energy.png",
+      "sha256": "52e7d0f15d56d8674fd4a2f7303342986d40dcd435808af82331f3a6a64ca86b"
+    },
+    {
+      "file": "petzval/workbench/extended-diffraction-image-analysis.png",
+      "sha256": "529f457526dbd3d877be74e0e8c34f3aa5cf6a2884df57aefe5574ae0c1cba33"
+    },
+    {
+      "file": "petzval/workbench/extended-source-encircled-energy.png",
+      "sha256": "dfc2c2e3098f283726011d06b0da7b2ad04a73bf0cd70dc2d1c1ba09506d76ae"
+    },
+    {
+      "file": "petzval/workbench/fft-line-edge-spread.png",
+      "sha256": "10fb9b8ef251def58f3578599eed45545fa5cf0a0f9a1087277a96e8a171eaed"
+    },
+    {
+      "file": "petzval/workbench/fft-mtf-map.png",
+      "sha256": "ec86a7bc77bd40c480cfd2190d4a9172cf95efed1d8036cb1f974d5fa38d4c1c"
+    },
+    {
+      "file": "petzval/workbench/fft-psf-cross-section.png",
+      "sha256": "1f51fa73c7ba340920c5903096418a3c033b66c49817a1e8ed3639db0d61407f"
+    },
+    {
+      "file": "petzval/workbench/fft-surface-mtf.png",
+      "sha256": "22b7018ccef0ada19d5c3ecc4218b5b533d7e7bacb6a192caab6d7e05f26947b"
+    },
+    {
+      "file": "petzval/workbench/field-curvature-and-distortion.png",
+      "sha256": "4e20e9a0c2ba5d3e1af9fa1bece517a0c29fa4669f677408971b79366e3298be"
+    },
+    {
+      "file": "petzval/workbench/field-curvature.png",
+      "sha256": "ed702576767bcf40a6d0c1593d05522e983062943bcbc1facf23889f2dcc8308"
+    },
+    {
+      "file": "petzval/workbench/footprint-diagram.png",
+      "sha256": "67204653e80d04709c52b554ab556473a6ceeabc959e4604d268442887e46f1a"
+    },
+    {
+      "file": "petzval/workbench/foucault-analysis.png",
+      "sha256": "a183997e7603c6cae961e6fdca494cea15004262381b2a9a0b7f2b86e7dfe5c0"
+    },
+    {
+      "file": "petzval/workbench/fourier-mtf-vs-field.png",
+      "sha256": "0ac01549ccca05ace5f905a178616ce220e4371c3b236a5dee6666c45c38b490"
+    },
+    {
+      "file": "petzval/workbench/fourier-through-focus-mtf.png",
+      "sha256": "c05c5d7b54b810c72a9a31827eb80c3ceafa8a65e585774fba7e1fce86f4d445"
+    },
+    {
+      "file": "petzval/workbench/full-field-aberration.png",
+      "sha256": "66ceefa13b1998d8a168d06cc3bb206f6e4073570ac37456da04335d72cb127d"
+    },
+    {
+      "file": "petzval/workbench/full-field-spot-diagram.png",
+      "sha256": "82946794c25b1bc656ba8109b912d159f845554b9163becfdc5eee14fbb13bbb"
+    },
+    {
+      "file": "petzval/workbench/geometric-bitmap-image-analysis.png",
+      "sha256": "0f2f4e6b3914543898152b8f54b19a1d9a5da6292e8036b387e1650dd93c24e3"
+    },
+    {
+      "file": "petzval/workbench/geometric-image-analysis.png",
+      "sha256": "1beed4bbb377ea72820b70bf5125c88ee83632d357f1c1538b604da481ce8516"
+    },
+    {
+      "file": "petzval/workbench/geometric-line-edge-spread.png",
+      "sha256": "7fb69b83ed45736d70cf49b883c2381af177eb4392d907d8a9096859b311056a"
+    },
+    {
+      "file": "petzval/workbench/geometric-mtf-map.png",
+      "sha256": "3001184911d756f5b7118724e02765f80ff19dd36b365c6192506f5618322fb6"
+    },
+    {
+      "file": "petzval/workbench/geometric-mtf-vs-field.png",
+      "sha256": "5b9d1338a39b7df78dfcbd5b98f48560950417cfa6b8c706c396f4bc14939365"
+    },
+    {
+      "file": "petzval/workbench/geometric-mtf.png",
+      "sha256": "2741ce11e075857dc251c0307ce691806f7b9a34cccc93931981d89cad5a2992"
+    },
+    {
+      "file": "petzval/workbench/geometric-through-focus-mtf.png",
+      "sha256": "470059a9dd38ddd8cf4bd96cb941d5e8145a43eb1e2da775fcb715b9118e5d3e"
+    },
+    {
+      "file": "petzval/workbench/grid-distortion.png",
+      "sha256": "13b7c2500c4b9b2edc80eac99c1d0e1b817f39176c7cf4448a9a972bf905827d"
+    },
+    {
+      "file": "petzval/workbench/huygens-mtf-vs-field.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "petzval/workbench/huygens-mtf.png",
+      "sha256": "2bbc7cdcbb5183ea58ea3df949698a98da953bca53c9256e7d7e677b660603fe"
+    },
+    {
+      "file": "petzval/workbench/huygens-psf-cross-section.png",
+      "sha256": "e470c9ad00717db7d0e566aff193be1da76e3824fa3fc65d180a05b86d62e9b7"
+    },
+    {
+      "file": "petzval/workbench/huygens-psf.png",
+      "sha256": "dbaefb86a2a893cc7949bf97ec464b94a07f5e65bd38d68d9eba9f0064ff1ad7"
+    },
+    {
+      "file": "petzval/workbench/huygens-surface-mtf.png",
+      "sha256": "9124a45aee11e72ab56c100ab00435c385ac93e95881c09f19184c93de86a618"
+    },
+    {
+      "file": "petzval/workbench/huygens-through-focus-mtf.png",
+      "sha256": "40ea041d318ee949cabd0f0adbffa0acc64397e658d7e62b48a9b4dbd79d7d1f"
+    },
+    {
+      "file": "petzval/workbench/image-simulation.png",
+      "sha256": "9c4082c3da12aa4cd6da312fa492871979055ee6d0ff5e44f3d44d7d9d83a99d"
+    },
+    {
+      "file": "petzval/workbench/incoherent-irradiance.png",
+      "sha256": "f9dbd4863a8a01a55eb104786ebfce5689253207ff35c6d4bfbd8bed93c5de80"
+    },
+    {
+      "file": "petzval/workbench/interferogram.png",
+      "sha256": "f2b2aab3a28a30f38b8b7bca4d16aa0a68acda51e57954af53cab167cd3a0f5e"
+    },
+    {
+      "file": "petzval/workbench/jones-pupil.png",
+      "sha256": "3b3f7f6074c779d79c0ab275d89a0af71269e66b7a5a91e88b6a3b0f7cc6e2af"
+    },
+    {
+      "file": "petzval/workbench/lateral-color.png",
+      "sha256": "dac318fd2fa503f85e8cc516e2c4de211530a59d3e47e819e9c6a6c4e351c29d"
+    },
+    {
+      "file": "petzval/workbench/light-source-analysis.png",
+      "sha256": "5a97b303ed96b17f5a5f2340d55511cbb1c7f2f732f0a02c0d37ea3382563abb"
+    },
+    {
+      "file": "petzval/workbench/matrix-spot-diagram.png",
+      "sha256": "c4890506be04942f56dcf18b61622bee66733c92a2c50ede6bacf4bdae8abd1d"
+    },
+    {
+      "file": "petzval/workbench/mtf.png",
+      "sha256": "0e9c4a9f780fc3522d00bdc1ee8e1992024c187a5170606beaf178cf2a1499ce"
+    },
+    {
+      "file": "petzval/workbench/optical-path-difference.png",
+      "sha256": "81ad5dcb31e97417a3b5a0afa00f5d4990747b6ef7e660bb40b2ce728ab826c2"
+    },
+    {
+      "file": "petzval/workbench/partially-coherent-image-analysis.png",
+      "sha256": "61de640e90e2f355c020efd60b962970ac3a8d74ba2eba6618565f67b534be73"
+    },
+    {
+      "file": "petzval/workbench/psf.png",
+      "sha256": "82d19e492bb0f04be11c8cb67bbc8542322c04a3c78e997f78ef310d16137222"
+    },
+    {
+      "file": "petzval/workbench/pupil-aberration.png",
+      "sha256": "35feca5f07442889d4929a6850131e8a1e9d1a4ecc3f30d94e8716a01e132202"
+    },
+    {
+      "file": "petzval/workbench/radiant-intensity.png",
+      "sha256": "70235a21efa3f05aa7b7e1cc343889020ee38fa20245028193d89e070408f2de"
+    },
+    {
+      "file": "petzval/workbench/ray-fan.png",
+      "sha256": "9e449c0016755aef9307870f9a769ccfa136f860fa56a43077b669fe1c21b833"
+    },
+    {
+      "file": "petzval/workbench/relative-illumination.png",
+      "sha256": "1be60cdb238a10a8475f684c60889aa053873e0ca04a3bde190f0f08a50524d3"
+    },
+    {
+      "file": "petzval/workbench/rms-field-map.png",
+      "sha256": "6400003db50c6a30d95ddf0e882cd99d2693599901beea51ee683fcc8d034b92"
+    },
+    {
+      "file": "petzval/workbench/rms-vs-field.png",
+      "sha256": "18ab0f6d199598c3b1a710db69629136c69b710bbdcfeb6a4c74522cec38b479"
+    },
+    {
+      "file": "petzval/workbench/rms-vs-focus.png",
+      "sha256": "8e1d12f4ff995b04f991d1e55887a863ff4ae3a1ffde114877a88f82d49bf3f7"
+    },
+    {
+      "file": "petzval/workbench/rms-vs-wavelength.png",
+      "sha256": "01d67b2b7d560157b7749c2fbcc0d4ad70a27e0e916c691dadfa39da17ce9d83"
+    },
+    {
+      "file": "petzval/workbench/rms-wavefront-vs-field.png",
+      "sha256": "df3f66d553c282d52a8adc9c49c4fe7a446ae0d7d76d68a13d4f718a78df7c0f"
+    },
+    {
+      "file": "petzval/workbench/sampled-mtf.png",
+      "sha256": "d4dfee58bd82b2dd19088659273e9ee51e1d3875f2e6cc3235711c6bd7f61a95"
+    },
+    {
+      "file": "petzval/workbench/seidel-diagram.png",
+      "sha256": "76f4738993a74f96e2c64b13bc2b65ac4accc06d3d822d3ef071bf59d5b83413"
+    },
+    {
+      "file": "petzval/workbench/solid-model.png",
+      "sha256": "1c6ff35933c2b4defe56e40a45498ca57ac7032b462388ded4f4f8fb3d70f0a1"
+    },
+    {
+      "file": "petzval/workbench/spot-diagram.png",
+      "sha256": "dc8e0299f3dbf95d2989e1b329dee593effa4528bd4c317f906156e7b6eae451"
+    },
+    {
+      "file": "petzval/workbench/through-focus.png",
+      "sha256": "05133e5ff87101547f9a3142a541a90d97bf238513351ae8b1458e1980f59493"
+    },
+    {
+      "file": "petzval/workbench/vignetting-diagram.png",
+      "sha256": "59ce1c98205b588ace7c38af860dc76491071cf7b16369fd133135d4156e3bbb"
+    },
+    {
+      "file": "petzval/workbench/wavefront-map.png",
+      "sha256": "9094f4ec67b0245db0832f19535abcd38413b0e1b3817501c02973e0564ce3e9"
+    },
+    {
+      "file": "petzval/workbench/wavefront.png",
+      "sha256": "585b53cdc342d3f7d90f30fd82b3904c5d15804c0e565d27d6c2cb3d1bd078c0"
+    },
+    {
+      "file": "petzval/workbench/y-ybar.png",
+      "sha256": "ab149412c3d531d947fa62af8e566322ca55dae01cf1cc3adfc27edd9270dd96"
+    },
+    {
+      "file": "petzval/workbench/zernike-vs-field.png",
+      "sha256": "9a8f2c7a867c2cb9325f5af2d1d2995d80bbff39ce1bec5b3977cf4739001098"
+    },
+    {
+      "file": "petzval/zemax/2d-layout.JPG",
+      "sha256": "7ef6f238c9823fe2a7955914f757da6c0a92726ad45eb918014f5674a217d7fb"
+    },
+    {
+      "file": "petzval/zemax/3d-layout.JPG",
+      "sha256": "c2064b9c2fe7539feeda06ca322754dd91389b503e8a1c1a9627b3314882534a"
+    },
+    {
+      "file": "petzval/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "417ba6da7ecfbf082af43939a2aa8d263efac8c8dea0979068341ccd67700736"
+    },
+    {
+      "file": "petzval/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "417ba6da7ecfbf082af43939a2aa8d263efac8c8dea0979068341ccd67700736"
+    },
+    {
+      "file": "petzval/zemax/angle-vs-image-height.JPG",
+      "sha256": "417ba6da7ecfbf082af43939a2aa8d263efac8c8dea0979068341ccd67700736"
+    },
+    {
+      "file": "petzval/zemax/axial-aberration.JPG",
+      "sha256": "742c7ba59fb9cb3d19e30a6d0dee4f1ae716a41df8ebe3447ae2f8a6ca7e999c"
+    },
+    {
+      "file": "petzval/zemax/color-focus-shift.JPG",
+      "sha256": "01b60c00d597241d3cae643f8bc6a2d0ab3040800caa6cffb7aa657bbe91cb67"
+    },
+    {
+      "file": "petzval/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "5e71db09d3b82c35695086175565e8568e15f63a65c637b9064c647307c9fcd3"
+    },
+    {
+      "file": "petzval/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "9850729006c2fbaf1efa092e0269f1145aa41b1530aeb50a13d4be01ac5a4d49"
+    },
+    {
+      "file": "petzval/zemax/encircled-energy.JPG",
+      "sha256": "2c91e2981fb140fd797312b490b8edd653bd9a5d492364e5ca227efb1360d9ea"
+    },
+    {
+      "file": "petzval/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "dc71f3a36855de5703d26679a5eb74cdd48ed0b03a537f52f67b672da5ffa7fc"
+    },
+    {
+      "file": "petzval/zemax/fft-line-edge-spread.JPG",
+      "sha256": "9806dcf899918d908964bdd3f8d4f7bf2d83932582c37375d70a31ef0402c2c4"
+    },
+    {
+      "file": "petzval/zemax/fft-mtf-map.JPG",
+      "sha256": "c4315752ea94dc79f60442249f4dada503ddbd74b02bb22ca7592a494387a1e4"
+    },
+    {
+      "file": "petzval/zemax/fft-psf-cross-section.JPG",
+      "sha256": "691d0b13f48989add83e9d806cb6ec88ff0040f9ed77a625a79f0a4e63bb57b1"
+    },
+    {
+      "file": "petzval/zemax/fft-surface-mtf.JPG",
+      "sha256": "04a1a90ca8b4f4d5923e63873dfbbb54eb38fff65577436cc1aa0e93602b6e17"
+    },
+    {
+      "file": "petzval/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "c60b98a927c2fb35fb5699edbbd43368ada5e81f3d66b517f998db5a62519a84"
+    },
+    {
+      "file": "petzval/zemax/field-curvature.JPG",
+      "sha256": "c60b98a927c2fb35fb5699edbbd43368ada5e81f3d66b517f998db5a62519a84"
+    },
+    {
+      "file": "petzval/zemax/footprint-diagram.JPG",
+      "sha256": "a69208c54a48415965fffa402ea68ce225d278acacb985ada842e28bddca0415"
+    },
+    {
+      "file": "petzval/zemax/foucault-analysis.JPG",
+      "sha256": "d24665e883d4587ea4126f9dfee4e567fe89e71b5dee5c25a9ef3576e3e46a08"
+    },
+    {
+      "file": "petzval/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "88c02b8821e2dab3f8d604c3053fbed3da62c4c3c39b7c1d75dfd6cb3845cad1"
+    },
+    {
+      "file": "petzval/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "a50c024404dea56fcce9eecc28b16252ed4e24046a385c073270ff2031fdfaf3"
+    },
+    {
+      "file": "petzval/zemax/full-field-aberration.JPG",
+      "sha256": "e775a47e9adc701622648ec4f60fbf938a75cbda5db6a14fc73a89af99434084"
+    },
+    {
+      "file": "petzval/zemax/full-field-spot-diagram.JPG",
+      "sha256": "838a292787faebb6f4f76d938853dab071806388a400c2d891014b2784d394d0"
+    },
+    {
+      "file": "petzval/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "cb1161de854312629bbc6de5c28dea158f1b7770fabc46ee18341fd366f0c9a9"
+    },
+    {
+      "file": "petzval/zemax/geometric-mtf-map.JPG",
+      "sha256": "649a6d2ca51f43cdaebdb21fb743ca11e4f23f83486a2af1f32937f25b879131"
+    },
+    {
+      "file": "petzval/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "96815f96000a72649a60e3494762e99f1d3e4a0399c3fe6f8c82bf60111b958e"
+    },
+    {
+      "file": "petzval/zemax/geometric-mtf.JPG",
+      "sha256": "83b51a086f8afc21c84b7281913fb71d914cdd0d3ddbcb6c1425860b0c2b41d6"
+    },
+    {
+      "file": "petzval/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "df3d8043092fb81d0ef538fcdd35c8aa577637d457b55f6698c3f78169935d7a"
+    },
+    {
+      "file": "petzval/zemax/grid-distortion.JPG",
+      "sha256": "c1d988fa031f7dc9e96d57beda958432d7fe89c85c603ea0757d53f12870c1e1"
+    },
+    {
+      "file": "petzval/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "6d214c2c062e1c52d82c8f1818b5793168c1fbe9f3d7b18457727db5f1341bcb"
+    },
+    {
+      "file": "petzval/zemax/huygens-mtf.JPG",
+      "sha256": "ecb11678023a0204b0cf2868ad457e83381472080145dfdc851cbb35da1030e1"
+    },
+    {
+      "file": "petzval/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "ee4ee7d344fb132b0c0532c52cf1d1e786772105ebab8c2923a97146c886bdd9"
+    },
+    {
+      "file": "petzval/zemax/huygens-psf.JPG",
+      "sha256": "5c0ee303316a2e5252ca3cdfd34e02615bab74449f0bde968a23457fc7e89cb9"
+    },
+    {
+      "file": "petzval/zemax/huygens-surface-mtf.JPG",
+      "sha256": "ce93e7357d39ddebd9e589b9d0a40a7a8fb6e90c546d801659783160212a47da"
+    },
+    {
+      "file": "petzval/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "983b83e996e298fcef2b1ac75cfa5b7d2501b6dd6379e87a17bc8fdf0a4d365d"
+    },
+    {
+      "file": "petzval/zemax/interferogram.JPG",
+      "sha256": "bbd27fd4f038f81b79fd6fbb68cec9f10ef5e6a3309a09fe53e453763a68311a"
+    },
+    {
+      "file": "petzval/zemax/jones-pupil.JPG",
+      "sha256": "681681425a39bdba6ad2f6e373a53aa55483f0fcf5bc941ac222029cc70974f4"
+    },
+    {
+      "file": "petzval/zemax/lateral-color.JPG",
+      "sha256": "5e702123e487c250fee97311c393f7001924c9eac1c61ae294d33ae8dc1b0aaf"
+    },
+    {
+      "file": "petzval/zemax/matrix-spot-diagram.JPG",
+      "sha256": "3f4d9574a84a38cf9db3d5d0a9e118741c54bb6e357662ae740577852c3c9adf"
+    },
+    {
+      "file": "petzval/zemax/mtf.JPG",
+      "sha256": "c18fdd7850f8ae2ff27d858f767eacc34e2bacdf8481a8d09b7145f777d3e9e4"
+    },
+    {
+      "file": "petzval/zemax/optical-path-difference.JPG",
+      "sha256": "e83f4bc50302097fda53721a501f9384fb486eda7c167a1ae37cfb69f5af7374"
+    },
+    {
+      "file": "petzval/zemax/psf.JPG",
+      "sha256": "fbd85c517e058c96547eae0a6b57381b3efc7eba8b68b5774da98189cf88c20d"
+    },
+    {
+      "file": "petzval/zemax/pupil-aberration.JPG",
+      "sha256": "31e95bbdfc7e1326bfe52d5eb1224706cda0b6515a8ef42962a235c05ac39260"
+    },
+    {
+      "file": "petzval/zemax/ray-fan.JPG",
+      "sha256": "3d5266b113452b3fccbf3bc3746c0f2e4adae616cf712efbe906f229a1dda7c4"
+    },
+    {
+      "file": "petzval/zemax/relative-illumination.JPG",
+      "sha256": "4c679a1ba1f919475f0513cc6d0ed21dfb1c24cced0aecab8a3d29f2cc29fb81"
+    },
+    {
+      "file": "petzval/zemax/rms-field-map.JPG",
+      "sha256": "476eb0fca2cf0815d38abf7f078c883c09dd20fb8e34d03f160f71ca2de97427"
+    },
+    {
+      "file": "petzval/zemax/rms-vs-field.JPG",
+      "sha256": "f6cfa040032ae8f842886bfa69d04c5c8d10ac563c9b8bb319bad0a33167e1f5"
+    },
+    {
+      "file": "petzval/zemax/rms-vs-focus.JPG",
+      "sha256": "fba669ac9eaa7778985b5864e387af161ba6c9f7134cc86bc794c2ef0de2fbbb"
+    },
+    {
+      "file": "petzval/zemax/rms-vs-wavelength.JPG",
+      "sha256": "17d21679266d4d9366b18c051974df1b08556f24bbe976707291971399446fe6"
+    },
+    {
+      "file": "petzval/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "f6cfa040032ae8f842886bfa69d04c5c8d10ac563c9b8bb319bad0a33167e1f5"
+    },
+    {
+      "file": "petzval/zemax/seidel-diagram.JPG",
+      "sha256": "5ca430ba0dab67b3ab5798f30f24283d00931595fb121bd31a7a2bdee41b024f"
+    },
+    {
+      "file": "petzval/zemax/solid-model.JPG",
+      "sha256": "00cd9a8055b335789630b25c864b1d965e9a0fc6e4452762a1cc697e897b63d6"
+    },
+    {
+      "file": "petzval/zemax/spot-diagram.JPG",
+      "sha256": "b0b25c4f41e4a56174e04234e443adaa5fe6deb2daaa7cb9228147094efe40d3"
+    },
+    {
+      "file": "petzval/zemax/through-focus.JPG",
+      "sha256": "5b613bdbbe6ebf09a55fd08fc7ef40eb428f58f955ee202884c591538f189449"
+    },
+    {
+      "file": "petzval/zemax/vignetting-diagram.JPG",
+      "sha256": "aff49bbe407ccece397e4710dd863449eee482cc3164260fb8ac74e6890d708a"
+    },
+    {
+      "file": "petzval/zemax/wavefront-map.JPG",
+      "sha256": "0ba44dcaa36c3a8e7838bba62363d06ac82b2549cc9d8d78afb776ade7441962"
+    },
+    {
+      "file": "petzval/zemax/wavefront.JPG",
+      "sha256": "0ba44dcaa36c3a8e7838bba62363d06ac82b2549cc9d8d78afb776ade7441962"
+    },
+    {
+      "file": "petzval/zemax/y-ybar.JPG",
+      "sha256": "bbc81aa8541d4428dd6c8bedd18cc293083e19b8fb6d6c9e62646343afbebb8e"
+    },
+    {
+      "file": "petzval/zemax/zernike-vs-field.JPG",
+      "sha256": "79f19dbf999e1563e1223c60745419b9d07d1fbeacb5f714b90d9c5e01bd9a54"
+    }
+  ]
+}

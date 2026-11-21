@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bf7cc0bf-0aee-4782-a2e9-3ee8bcb08c69" name="allen@DESKTOP-SET3SNR 2026-11-21 17:33:40" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-21T17:33:40.3874267+08:00" queuing="2026-11-21T17:33:40.3874269+08:00" start="2026-11-21T17:33:34.5959975+08:00" finish="2026-11-21T17:33:51.4121974+08:00" />
+  <TestSettings name="default" id="51fcd3b3-0c65-484f-8f3c-22078b9be1ff">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-21_17_33_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1d271493-0cb8-49b1-9820-781eaaf0a50a" testId="f5e7660b-5d72-2ce8-871e-ff35599fdd65" testName="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Light&quot;, width: 620)" computerName="DESKTOP-SET3SNR" duration="00:00:02.9219633" startTime="2026-11-21T17:33:40.3766177+08:00" endTime="2026-11-21T17:33:43.2827785+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1d271493-0cb8-49b1-9820-781eaaf0a50a">
+      <Output>
+        <ErrorInfo>
+          <Message>HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=620, 850</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 60&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 29&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="730af6d5-069f-4295-a957-027261bc0e30" testId="fe9c64bf-a545-25c4-960b-c19a86a9fb18" testName="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Isekai&quot;, width: 1100)" computerName="DESKTOP-SET3SNR" duration="00:00:04.3493370" startTime="2026-11-21T17:33:35.9971738+08:00" endTime="2026-11-21T17:33:40.3596891+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="730af6d5-069f-4295-a957-027261bc0e30">
+      <Output>
+        <ErrorInfo>
+          <Message>HideSurfaceRays: bounds=138, 54, 166, 32; desired=166, 32; window=1100, 850</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 60&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 29&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e70c4d19-51c3-4bab-8c2f-2ff0b0c817cb" testId="ce30610f-2450-8c22-c9c3-cfaf359deb7c" testName="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Pixel&quot;, width: 1100)" computerName="DESKTOP-SET3SNR" duration="00:00:00.9138213" startTime="2026-11-21T17:33:45.9451328+08:00" endTime="2026-11-21T17:33:46.8583806+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e70c4d19-51c3-4bab-8c2f-2ff0b0c817cb">
+      <Output>
+        <ErrorInfo>
+          <Message>HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 60&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 29&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c80209ad-e3a5-4a38-8bd3-29ddd49a6b37" testId="e6d84964-d7be-9f9a-ec9b-7bb50536c87b" testName="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Light&quot;, width: 1100)" computerName="DESKTOP-SET3SNR" duration="00:00:02.1693183" startTime="2026-11-21T17:33:49.1571453+08:00" endTime="2026-11-21T17:33:51.3260104+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c80209ad-e3a5-4a38-8bd3-29ddd49a6b37">
+      <Output>
+        <ErrorInfo>
+          <Message>HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 60&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 29&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e93842e7-5549-4667-986e-7941b194328f" testId="c59359aa-39d6-93c2-68fb-1553f7f2f19e" testName="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Dark&quot;, width: 1100)" computerName="DESKTOP-SET3SNR" duration="00:00:02.6607192" startTime="2026-11-21T17:33:43.2848376+08:00" endTime="2026-11-21T17:33:45.9440659+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e93842e7-5549-4667-986e-7941b194328f">
+      <Output>
+        <ErrorInfo>
+          <Message>HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 60&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 29&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b2af8f95-5d37-44dc-96ac-c6aee00bdd43" testId="4b6b1962-765b-3fe8-8791-c4a2caa3f60b" testName="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Lumen&quot;, width: 1100)" computerName="DESKTOP-SET3SNR" duration="00:00:02.2972332" startTime="2026-11-21T17:33:46.8829569+08:00" endTime="2026-11-21T17:33:49.1561520+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2af8f95-5d37-44dc-96ac-c6aee00bdd43">
+      <Output>
+        <ErrorInfo>
+          <Message>HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 60&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs:line 29&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Isekai&quot;, width: 1100)" storage="c:\users\19851\appdata\local\temp\opticalsystemdesign-20261121-surfaces\drawing\release\net10.0\opticalsystemdesign.tests.dll" id="fe9c64bf-a545-25c4-960b-c19a86a9fb18">
+      <Execution id="730af6d5-069f-4295-a957-027261bc0e30" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\OpticalSystemDesign-20261121-surfaces\drawing\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests" name="RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Light&quot;, width: 1100)" storage="c:\users\19851\appdata\local\temp\opticalsystemdesign-20261121-surfaces\drawing\release\net10.0\opticalsystemdesign.tests.dll" id="e6d84964-d7be-9f9a-ec9b-7bb50536c87b">
+      <Execution id="c80209ad-e3a5-4a38-8bd3-29ddd49a6b37" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\OpticalSystemDesign-20261121-surfaces\drawing\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests" name="RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Lumen&quot;, width: 1100)" storage="c:\users\19851\appdata\local\temp\opticalsystemdesign-20261121-surfaces\drawing\release\net10.0\opticalsystemdesign.tests.dll" id="4b6b1962-765b-3fe8-8791-c4a2caa3f60b">
+      <Execution id="b2af8f95-5d37-44dc-96ac-c6aee00bdd43" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\OpticalSystemDesign-20261121-surfaces\drawing\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests" name="RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Light&quot;, width: 620)" storage="c:\users\19851\appdata\local\temp\opticalsystemdesign-20261121-surfaces\drawing\release\net10.0\opticalsystemdesign.tests.dll" id="f5e7660b-5d72-2ce8-871e-ff35599fdd65">
+      <Execution id="1d271493-0cb8-49b1-9820-781eaaf0a50a" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\OpticalSystemDesign-20261121-surfaces\drawing\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests" name="RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Pixel&quot;, width: 1100)" storage="c:\users\19851\appdata\local\temp\opticalsystemdesign-20261121-surfaces\drawing\release\net10.0\opticalsystemdesign.tests.dll" id="ce30610f-2450-8c22-c9c3-cfaf359deb7c">
+      <Execution id="e70c4d19-51c3-4bab-8c2f-2ff0b0c817cb" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\OpticalSystemDesign-20261121-surfaces\drawing\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests" name="RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: &quot;Dark&quot;, width: 1100)" storage="c:\users\19851\appdata\local\temp\opticalsystemdesign-20261121-surfaces\drawing\release\net10.0\opticalsystemdesign.tests.dll" id="c59359aa-39d6-93c2-68fb-1553f7f2f19e">
+      <Execution id="e93842e7-5549-4667-986e-7941b194328f" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\OpticalSystemDesign-20261121-surfaces\drawing\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceDrawingPanelTests" name="RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f5e7660b-5d72-2ce8-871e-ff35599fdd65" executionId="1d271493-0cb8-49b1-9820-781eaaf0a50a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe9c64bf-a545-25c4-960b-c19a86a9fb18" executionId="730af6d5-069f-4295-a957-027261bc0e30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce30610f-2450-8c22-c9c3-cfaf359deb7c" executionId="e70c4d19-51c3-4bab-8c2f-2ff0b0c817cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e6d84964-d7be-9f9a-ec9b-7bb50536c87b" executionId="c80209ad-e3a5-4a38-8bd3-29ddd49a6b37" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c59359aa-39d6-93c2-68fb-1553f7f2f19e" executionId="e93842e7-5549-4667-986e-7941b194328f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b6b1962-765b-3fe8-8791-c4a2caa3f60b" executionId="b2af8f95-5d37-44dc-96ac-c6aee00bdd43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="0" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.68]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:00.73]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:00.75]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:05.13]       HideSurfaceRays: bounds=138, 54, 166, 32; desired=166, 32; window=1100, 850&#xD;
+[xUnit.net 00:00:05.13]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.14]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(60,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0()&#xD;
+[xUnit.net 00:00:05.14]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.14]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.14]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.14]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.14]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(29,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width)&#xD;
+[xUnit.net 00:00:05.14]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.05]       HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=620, 850&#xD;
+[xUnit.net 00:00:08.06]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.06]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(60,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0()&#xD;
+[xUnit.net 00:00:08.06]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.06]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.06]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.06]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(29,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width)&#xD;
+[xUnit.net 00:00:08.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.72]       HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850&#xD;
+[xUnit.net 00:00:10.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.72]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(60,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0()&#xD;
+[xUnit.net 00:00:10.72]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.72]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.72]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.72]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(29,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width)&#xD;
+[xUnit.net 00:00:10.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.63]       HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850&#xD;
+[xUnit.net 00:00:11.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.65]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(60,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0()&#xD;
+[xUnit.net 00:00:11.65]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:11.65]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:11.65]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.65]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.65]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(29,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width)&#xD;
+[xUnit.net 00:00:11.65]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.93]       HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850&#xD;
+[xUnit.net 00:00:13.93]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.93]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(60,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0()&#xD;
+[xUnit.net 00:00:13.93]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:13.93]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:13.93]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.93]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.93]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(29,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width)&#xD;
+[xUnit.net 00:00:13.93]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.10]       HideSurfaceRays: bounds=138, 54, 154, 32; desired=154, 32; window=1100, 850&#xD;
+[xUnit.net 00:00:16.10]       Stack Trace:&#xD;
+[xUnit.net 00:00:16.10]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(60,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.&lt;&gt;c__DisplayClass1_0.&lt;RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface&gt;b__0()&#xD;
+[xUnit.net 00:00:16.10]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:16.10]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:16.10]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:16.10]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.10]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SurfaceDrawingPanelTests.cs(29,0): at OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(String theme, Int32 width)&#xD;
+[xUnit.net 00:00:16.10]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.10]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:33:40.3617701+08:00">
+        <Text>[xUnit.net 00:00:05.13]     OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: "Isekai", width: 1100) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:33:43.2831961+08:00">
+        <Text>[xUnit.net 00:00:08.05]     OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: "Light", width: 620) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:33:45.9450385+08:00">
+        <Text>[xUnit.net 00:00:10.72]     OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: "Dark", width: 1100) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:33:46.8586783+08:00">
+        <Text>[xUnit.net 00:00:11.63]     OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: "Pixel", width: 1100) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:33:49.1564057+08:00">
+        <Text>[xUnit.net 00:00:13.93]     OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: "Lumen", width: 1100) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:33:51.3262936+08:00">
+        <Text>[xUnit.net 00:00:16.10]     OpticalSystemDesign.Tests.SurfaceDrawingPanelTests.RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(theme: "Light", width: 1100) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -36,7 +36,11 @@ public sealed class AnalysisCrossFormatExportTests
         await session.Dispatch(async () =>
         {
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
-            DisplayTypography.Configure(new AppSettings());
+            // This comparison freezes the original 4:3 source. Auto is viewport
+            // dependent in the live view and uses export aspect without a viewport.
+            var displaySettings = new AppSettings { DiagramAspectRatio = DiagramSheetLayout.Standard };
+            DisplayTypography.Configure(displaySettings);
+            ImageExportResolution.Configure(displaySettings);
             using var app = WorkbenchApplication.Create();
             await app.Documents.OpenAsync(SequentialExampleCatalog.Examples.Single(example =>
                 example.RelativePath == "Objectives/Double Gauss 28 degree field.zmx").FilePath);
@@ -71,7 +75,7 @@ public sealed class AnalysisCrossFormatExportTests
                         }
                         var ordinary = await Dispatcher.UIThread.InvokeAsync(async () =>
                         {
-                            using var panel = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events, new AppSettings(), result.View.Name);
+                            using var panel = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events, displaySettings, result.View.Name);
                             typeof(AnalysisPanel).GetField("_initialRunRequested", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(panel, true);
                             panel.PresentResult(result.View, request.Document, request.CapturedAt);
                             host.Child = panel;
@@ -83,6 +87,11 @@ public sealed class AnalysisCrossFormatExportTests
                             Assert.False(sheet.HasOverflow);
                             using var image = panel.CapturePlotImage();
                             Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
+                            if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_CROSS_FORMAT_CAPTURE_DIR") is { } rawCapture)
+                            {
+                                Directory.CreateDirectory(rawCapture);
+                                image.Save(Path.Combine(rawCapture, format + "-" + stem + "-canvas.png"), PngBitmapEncoderOptions.Default);
+                            }
                             ExportImageAssertions.HasCompleteBorder(image);
                             using var frame = ExportImageAssertions.FrameBitmap(image);
                             using var png = frame.Encode(SKEncodedImageFormat.Png, 100);

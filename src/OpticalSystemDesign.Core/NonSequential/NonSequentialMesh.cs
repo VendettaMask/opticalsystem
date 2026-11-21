@@ -476,6 +476,16 @@ public static class NonSequentialStlImporter
             cancellationToken);
     }
 
+    public static NonSequentialMeshAsset FromGeometry(IReadOnlyList<Vector3D> vertices,
+        IReadOnlyList<NonSequentialMeshTriangle> triangles, string name, string sourceFormat)
+    {
+        ArgumentNullException.ThrowIfNull(vertices); ArgumentNullException.ThrowIfNull(triangles);
+        if (triangles.Any(t => t.A < 0 || t.B < 0 || t.C < 0 || t.A >= vertices.Count || t.B >= vertices.Count || t.C >= vertices.Count))
+            throw new InvalidDataException("Invalid native mesh vertex index.");
+        return BuildAsset(triangles.Select(t => new RawTriangle(vertices[t.A], vertices[t.B], vertices[t.C], t.FaceNumber)).ToArray(),
+            name, sourceFormat, 1, CancellationToken.None);
+    }
+
     private static NonSequentialMeshAsset BuildAsset(
         IReadOnlyList<RawTriangle> raw,
         string originalFileName,
@@ -820,7 +830,7 @@ public static class NonSequentialStlImporter
                 duplicate++;
                 continue;
             }
-            triangles.Add(new NonSequentialMeshTriangle(a, b, c));
+            triangles.Add(new NonSequentialMeshTriangle(a, b, c, item.FaceNumber));
         }
 
         if (triangles.Count == 0)
@@ -1194,7 +1204,7 @@ public static class NonSequentialStlImporter
     private static double Dot(Vector3D left, Vector3D right) =>
         left.X * right.X + left.Y * right.Y + left.Z * right.Z;
 
-    private readonly record struct RawTriangle(Vector3D A, Vector3D B, Vector3D C);
+    private readonly record struct RawTriangle(Vector3D A, Vector3D B, Vector3D C, int FaceNumber = 1);
     private readonly record struct Point2(double X, double Y);
     private readonly record struct VertexKey(long X, long Y, long Z);
     private readonly record struct FaceKey(int A, int B, int C)

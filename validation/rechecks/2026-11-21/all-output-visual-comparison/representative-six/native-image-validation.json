@@ -1,0 +1,2945 @@
+{
+  "scope": "visual-only; image capture is not numerical acceptance",
+  "channelsValidated": [
+    "zemax"
+  ],
+  "menuCatalogCount": 95,
+  "selectedLensCount": 6,
+  "completeCaptureInventory": true,
+  "cases": [
+    {
+      "name": "double-gauss",
+      "relativePath": "Objectives/Double Gauss 28 degree field.zmx",
+      "inMenu95": true,
+      "sourceUnchanged": true,
+      "nativeImages": 59,
+      "missingNativeWindows": [],
+      "currentEntries": 71,
+      "currentImages": 0,
+      "currentStatuses": {
+        "captured": 66,
+        "unavailable": 1,
+        "timeout": 4
+      },
+      "nativeAttempts": 1
+    },
+    {
+      "name": "schmidt-cassegrain",
+      "relativePath": "Telescopes/Schmidt-Cassegrain.zmx",
+      "inMenu95": true,
+      "sourceUnchanged": true,
+      "nativeImages": 59,
+      "missingNativeWindows": [],
+      "currentEntries": 71,
+      "currentImages": 0,
+      "currentStatuses": {
+        "captured": 54,
+        "unavailable": 3,
+        "analysis-error": 12,
+        "timeout": 2
+      },
+      "nativeAttempts": 1
+    },
+    {
+      "name": "yolo",
+      "relativePath": "Telescopes/Yolo.zmx",
+      "inMenu95": true,
+      "sourceUnchanged": true,
+      "nativeImages": 59,
+      "missingNativeWindows": [],
+      "currentEntries": 71,
+      "currentImages": 0,
+      "currentStatuses": {
+        "captured": 69,
+        "unavailable": 2
+      },
+      "nativeAttempts": 1
+    },
+    {
+      "name": "afocal-riflescope",
+      "relativePath": "Afocal/Afocal Riflescope.ZMX",
+      "inMenu95": true,
+      "sourceUnchanged": true,
+      "nativeImages": 59,
+      "missingNativeWindows": [],
+      "currentEntries": 71,
+      "currentImages": 0,
+      "currentStatuses": {
+        "captured": 62,
+        "unavailable": 7,
+        "not-applicable": 1,
+        "analysis-error": 1
+      },
+      "nativeAttempts": 1
+    },
+    {
+      "name": "zoom-lens",
+      "relativePath": "Zoom systems/Zoom lens.zmx",
+      "inMenu95": true,
+      "sourceUnchanged": true,
+      "nativeImages": 59,
+      "missingNativeWindows": [],
+      "currentEntries": 71,
+      "currentImages": 0,
+      "currentStatuses": {
+        "captured": 69,
+        "unavailable": 1,
+        "timeout": 1
+      },
+      "nativeAttempts": 1
+    },
+    {
+      "name": "grating",
+      "relativePath": "Diffractive components/Grating.zmx",
+      "inMenu95": true,
+      "sourceUnchanged": true,
+      "nativeImages": 59,
+      "missingNativeWindows": [],
+      "currentEntries": 56,
+      "currentImages": 0,
+      "currentStatuses": {
+        "captured": 42,
+        "unavailable": 7,
+        "analysis-error": 1,
+        "timeout": 6
+      },
+      "nativeAttempts": 2,
+      "captureInterruptionNote": "The original monitor read UTF-8 while native progress was UTF-16. Original interruptions remain recorded; valid exported images and completed retries establish visual coverage, not a native analysis stall."
+    }
+  ],
+  "invalidImages": [],
+  "images": [
+    {
+      "file": "double-gauss/zemax/2d-layout.JPG",
+      "sha256": "e35cdc5e8d9d8d747d516fb6486ac85b4c375659d2f35406974fcdf4c844ff84",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/3d-layout.JPG",
+      "sha256": "cbc178b888fd0f3376917d54bcc50d16b16854c4d5fbbb152f876912c2c0fe98",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "371c1fc146360e7d8f53e63fbc0e887a17b750e70e74bd16c45695f4dbfb6d53",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "371c1fc146360e7d8f53e63fbc0e887a17b750e70e74bd16c45695f4dbfb6d53",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/angle-vs-image-height.JPG",
+      "sha256": "371c1fc146360e7d8f53e63fbc0e887a17b750e70e74bd16c45695f4dbfb6d53",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/axial-aberration.JPG",
+      "sha256": "06161bb8d9fe25b1aa354ca9227824319f1b04262f71c486d068053217f65f91",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/color-focus-shift.JPG",
+      "sha256": "f297c33f61acb2be590923c5620ba2af703c804eadacafa7c47c215d407af1c0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "b4c9b3bae6c30fa52e3137ae1749cd2482fe81458c3546c5beb7801b687e2109",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "53e7b1680e41ed834b812864a4a0dd823a696ddefe86c1eb0b8ae0d1f26affeb",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/encircled-energy.JPG",
+      "sha256": "aec85987d9272dee4f43cae2b18b722b21307315f14f1bb9460e117f7f608da7",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "f0b80b39b97eeb7eec567208f8589bbacf2ab6687bd9751e5f73781e6e8b0d4a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/fft-line-edge-spread.JPG",
+      "sha256": "4e0c6ad7e7cc8f592ac58a981b0b63602856ae7cc938716d085fc11ed5467da3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/fft-mtf-map.JPG",
+      "sha256": "f94fb1976f178a9710c875a7f87857379e33db47828ab09dbeb56a7ed9d1b568",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/fft-psf-cross-section.JPG",
+      "sha256": "d578e19c2103096911437cf50e08b2604c2781500f9433b4e787bcd3b4f63e6c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/fft-surface-mtf.JPG",
+      "sha256": "9ea86949f275fadb7929f54acd0e39f99d67980b2906e0a12893f2be4b49a0c3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "dd96c4c3ccdb74cbd33554ab3a463a6da2b608b5ac876b4ee8f669e83b459568",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/field-curvature.JPG",
+      "sha256": "d39e52835b793f36dc720964c0f19afd82e8dfc64408f5b5456a00c0d33cdc0f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/footprint-diagram.JPG",
+      "sha256": "a2119126bb04381906904a7cbc61efee2d7dd3717109c117cc5bffb74a520cdd",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/foucault-analysis.JPG",
+      "sha256": "b2d05a78e431bbc47e97f2e22097af4a3bae820f21f2f202bf25cdc7e2a17dcd",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "2515ac24c7132bf042851076aca433d7a77ba1d35a4ed73e8cf3252c8cbcadb0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "47a3f27e841417967970f2d7660c9c871bb3c85468d10bae0ea7df83c2fb5b87",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/full-field-aberration.JPG",
+      "sha256": "6b0c8cbeb4c0a267ec0c646963600e0ee965f356d192d58d9f3423db916c3a48",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/full-field-spot-diagram.JPG",
+      "sha256": "8492a847faf37bb3d743b4e69fd97195b6137b492406040866645bd847104177",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "efa9ca0b397b131d097321f34673c1773fcc1d40ce33c27cd2364bf5e536a599",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/geometric-mtf-map.JPG",
+      "sha256": "8811e2c3cc45edf4ad4171d99665e630b28a946d8ec6cfe3407270a654f36159",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "703fcae0abbb651f04ed52b50cf0987619fe9dd8b245f2d6dbecc2a187463d7f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/geometric-mtf.JPG",
+      "sha256": "24704f15f1c78e50f3e21d8ac9402e0f5ee50cb93a36652d3e1342f6eb3e1af3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "a31802721ff1b29994f03b1fe2dd643c9e17f8fe4cef3cc43d493ed9f58edb33",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/grid-distortion.JPG",
+      "sha256": "cb8c1ea1ee3c66509c66a6dc10a9e67424732b2a5cd6e6899725273eddc2a9a8",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "ae937a34009a3b912859e9ace996324fcde2df607fb4b66eb1c2439493eb7381",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/huygens-mtf.JPG",
+      "sha256": "23873ba2bb637e26607d61fda30cd2aaa9753a4beed732553d66ea9e30b75dd4",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "398d098a917cc24ac6c1001318a8a8ed46844001e7bedb36f936e26d7255517b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/huygens-psf.JPG",
+      "sha256": "df4068ee45ecd52c745e05e6dc1f076ee94fa4dd998414aca88604911498e8a5",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/huygens-surface-mtf.JPG",
+      "sha256": "9c7f6ca80dea6c63cb8089d2ff0da917f5eb2ea4d376a144c8c7ffb72884f99c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "2e2dea5a98990972dfb087d04bc0c3d1deb5e3b1b9282289329e365bfee270c4",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/interferogram.JPG",
+      "sha256": "985c0f863c4092eaff054bb0456bd1e5281ab62c088a4421d84263149caf7b04",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/jones-pupil.JPG",
+      "sha256": "8d7e9eb123b81e0eb66fe5a2bf1deb70f30131752ebccd0eac2668af2520fb33",
+      "pixels": [
+        1058,
+        794
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/lateral-color.JPG",
+      "sha256": "609f6da8a97d86afff98b4f31d9c97aef8b5fcfe97ad938d8a892839439b4b12",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/matrix-spot-diagram.JPG",
+      "sha256": "1e49244a5dcca2a4970185cc8dec8af9afe51953b0e5c5bcc3cc75fdd5d26b34",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/mtf.JPG",
+      "sha256": "9ca4a352ac348af349cd11928de9102fe9473d5d2588d7a77a635246e4103a1b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/optical-path-difference.JPG",
+      "sha256": "958a9d8554302aae1ae7967daf7b9fbe57ff11c429733a07c94683fcb4bb836c",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/psf.JPG",
+      "sha256": "3b1f7efaae0607cb029ce1d2b951ec6058bc9c719e28e6ee239b2d62d96b205d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/pupil-aberration.JPG",
+      "sha256": "7365ba2d21f4866379f0d78e8e6903cabbbdf2df99fe0e52e874063804f456c7",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/ray-fan.JPG",
+      "sha256": "4b3b66eb315da90fcbcbae889eba83ccee27a3fa1e1e739451b07acc9c20952f",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/relative-illumination.JPG",
+      "sha256": "d42ce425c4ff27259943f690a7732e369d96fc2449094c4b7bd665c0cc598741",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/rms-field-map.JPG",
+      "sha256": "929ae8021e7539aa04373f5f3322bb0a038d488cca65e02551fbb86829efc409",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/rms-vs-field.JPG",
+      "sha256": "48057a7a389d92f3dafc8630464619f784322e9ca9c067bbe58836587a7afc03",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/rms-vs-focus.JPG",
+      "sha256": "d0a693d781c3eddd31b3de967066c04399afc50e1bd773d22f39fde02e923f53",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/rms-vs-wavelength.JPG",
+      "sha256": "18297a6f238e49a5afcf076997ca1add2a37371345e98f009ab038109ac41c9d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "48057a7a389d92f3dafc8630464619f784322e9ca9c067bbe58836587a7afc03",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/seidel-diagram.JPG",
+      "sha256": "29e5dd7b1733468c2ee3f5b6eef39525189547da06dd81d96038b485b710d5f6",
+      "pixels": [
+        1085,
+        816
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/solid-model.JPG",
+      "sha256": "9de405c0e2c171c0e882724499083bab4e169d15a9a78d5f6f92aadcfbbff2f9",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/spot-diagram.JPG",
+      "sha256": "814426f4211962d0158393f79ebaca05f00b57f47979d74130b3d55f3b84cfea",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/through-focus.JPG",
+      "sha256": "cf5f3f440f08daf3bdb890395819d9213652f21183b1f992a395fe9f26c3934f",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/vignetting-diagram.JPG",
+      "sha256": "4a6986abf0852c5b547728cdd46d184ad86fc0b9dedac828f45a99a3678fac5b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/wavefront-map.JPG",
+      "sha256": "6d075b8cfa126682744af556f47c5e5f64bfb75077277e457bef0110daee18bf",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/wavefront.JPG",
+      "sha256": "6d075b8cfa126682744af556f47c5e5f64bfb75077277e457bef0110daee18bf",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/y-ybar.JPG",
+      "sha256": "9f51dca50e56ef80da65fe9c2fba6d38d8e8d7a9b1566348117e12deedb509de",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "double-gauss/zemax/zernike-vs-field.JPG",
+      "sha256": "1c26b9f5b2be99d8edf7dfd6103a33707d25c871bff76752e452fb353e5a2414",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/2d-layout.JPG",
+      "sha256": "775979976732a42e6b3f2ec5430ce96ef260561e907ef7922cd718434bb0a865",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/3d-layout.JPG",
+      "sha256": "3df855320c13f7f738f33878970dda47e458282916b5f838ffe36c863e5d7231",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "2f7e2d7e837e68c6b53510fdbb995b1b14a3309c5c3b761987b1af663d17fd3f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "2f7e2d7e837e68c6b53510fdbb995b1b14a3309c5c3b761987b1af663d17fd3f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/angle-vs-image-height.JPG",
+      "sha256": "2f7e2d7e837e68c6b53510fdbb995b1b14a3309c5c3b761987b1af663d17fd3f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/axial-aberration.JPG",
+      "sha256": "b62994c15cfcf6c4eb1bc7c84dccd6ea368f13927fab89e79064f9cf0e0009e3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/color-focus-shift.JPG",
+      "sha256": "6a9997e66857116b499c8ee1ca92043182d2811e8abbc8b475784843445d7905",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "6ce4a3528b62150abb351564285789a23739dcd1d9023ed962f38fe918cd98fb",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "d37aa492d9bdcd830d65bf01afa24c29f406132394f72f25abbf1c725df5b8c5",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/encircled-energy.JPG",
+      "sha256": "5e2a338c63973ba4a58ad44506745694c8cd791f25fa7ff610bc68275a1bab8c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "d580e2267efec63814f8fe6171d2250a84d544ce26069d8f495b0f1002dd1e45",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/fft-line-edge-spread.JPG",
+      "sha256": "a931895bdd09873c77786b2a41b2e130407451357d6276401dad3884bbf97e8c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/fft-mtf-map.JPG",
+      "sha256": "29c3ab17bb1cd1fa02c84a976a7935b385a83af1cdeadf56a9c87851f5fb59d6",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/fft-psf-cross-section.JPG",
+      "sha256": "34460e7d16ecbd02b9ed364fa835d6ef0a773690d7be8a25c7558a39dd45dfc8",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/fft-surface-mtf.JPG",
+      "sha256": "49162c1b6ad551e8b84c9d501dd1cd23b96570953d531fcb44a4d3167fb340ee",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "ba0a3e4e35094817c79345d0ec650055453fb9c8a590ce7461c3dea87b89b7a6",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/field-curvature.JPG",
+      "sha256": "ba0a3e4e35094817c79345d0ec650055453fb9c8a590ce7461c3dea87b89b7a6",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/footprint-diagram.JPG",
+      "sha256": "976368dcfebb1bb4b56708fd6535de07b5364e82bb64dfd713d7d22b1107be9f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/foucault-analysis.JPG",
+      "sha256": "5134fe3657de808a44fa2b895a28b671073a6faeec83d1f419e53e4e7654bf31",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "faf841dcfd43e526929c28a0d75b7993dbb1025d4384b318898a583876b4864a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "b33392a8f41e2ef11fcb6068251b13da4b5b8b0c410a60b9fecf426ca3ec063a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/full-field-aberration.JPG",
+      "sha256": "e3f2a5963b3eb4336ba5fb96df176dc256fba72e943931b52a6948cce4dd85d0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/full-field-spot-diagram.JPG",
+      "sha256": "6b1567bfc17e3fc4c2f0930494cade3231708594ec8e269d95fa992f63402541",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "309b2d2de5efbeaf7bb671e55cba65ce0bf2b50e613f41ebe70e110a56242283",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/geometric-mtf-map.JPG",
+      "sha256": "eff059871446cdcb7fa64e18413548f4fc24dce53f02121ddd6cde0152a90b04",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "43622b43a3e9bf8ab5bd0e8b72fcbdcfdf1d4711d072db38968642ceffe81e7d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/geometric-mtf.JPG",
+      "sha256": "50596eca1a551cffdd82b2dff9aa3f28bd1dccb6c0903f4d3705f394ca835f62",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "66a26373b8af84e6d4238cfc22fb448ef7f96f24f4b33fa0a19b4ccf700778ed",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/grid-distortion.JPG",
+      "sha256": "8b8e3173dc3f8b6e7703744fed61ad9592f34caa8ae4ee3f262ee0db9b2ad174",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "0f0c47fa933072a68c7ed0c944fee1dc2da20492673895896e38af7b2156a51e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/huygens-mtf.JPG",
+      "sha256": "5b8a12ba6560e1efe209bc4ac621871222a95059edb5cd943fb6df6f1bd08f85",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "38b77752ca2e50d4e6fd3e1d04466c12d232af57450d2bdfd1cd381edbb1be73",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/huygens-psf.JPG",
+      "sha256": "793ed9c670f862bff5f866c0c74631b4ee260634bab32befe1d2259bb4b561f2",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/huygens-surface-mtf.JPG",
+      "sha256": "b8d84d5b3aa76dc47a6eafdced4a001c085a384ebacc5a906f9de58f3cfa7538",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "c44a54243ce599b2bc89be39f9ad6be43bc4fb359deb6f5aa38d56fcce615837",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/interferogram.JPG",
+      "sha256": "2c136cb3a3660e3fac13f78bdd9dfc9b172e4764e8435b0cab86f2233960ff2b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/jones-pupil.JPG",
+      "sha256": "1ba9991a37fcf87fc2e7fe4d61e9da151fca9de9d2700a27faf5e2ae524b4d7c",
+      "pixels": [
+        1058,
+        794
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/lateral-color.JPG",
+      "sha256": "7949e7484746fb8bb3b85cd85e4a0fc3226ac6df3d7de49ff8ad496336d6d28c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/matrix-spot-diagram.JPG",
+      "sha256": "85b36b47b84d44c8fe99dcc914f070d69e019d95398ddc9bf1a763b933ab336c",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/mtf.JPG",
+      "sha256": "2b579157036727b77176bf1dd1447db5a7dfc560b7535cd8bd9f5106b1652dec",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/optical-path-difference.JPG",
+      "sha256": "32255a94d857cfb2dd4f41548f200b8f63d40fa0449b2db2b088a1b1411c861a",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/psf.JPG",
+      "sha256": "9e5466eb00f39e99813a461a1e47e5fe05d34384c20698577ded665f12f58300",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/pupil-aberration.JPG",
+      "sha256": "b6d14600ad366e13dac8dceafc5e471fbedcaff21e6738fc220bc972acc4dd75",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/ray-fan.JPG",
+      "sha256": "078ff3b42a76f2e9eca0d3cb883b24a1e3004d9da42c77f4d3d9219aa69827e4",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/relative-illumination.JPG",
+      "sha256": "ce671681fb1ab298ea90ad88b25ceedf93a491a0596174cbc431fbb4c9c74076",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/rms-field-map.JPG",
+      "sha256": "a82e401bc2d6bee31bc1c17d2b28142957ed8c2bf11c94caf8fdcc6f058763fc",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/rms-vs-field.JPG",
+      "sha256": "d76a199376375efde2ba8fbe2306006f38705c8d9820a04787f86f38834acfc7",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/rms-vs-focus.JPG",
+      "sha256": "7d33d72ee72075414a73832ea34ee0acbf0a8f635a435a4abf28c51beec08e92",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/rms-vs-wavelength.JPG",
+      "sha256": "837b893ee2fdd85cab7c164370b2f72157d5cc854673ea3ad7d6a8a9f5ad6be6",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "d76a199376375efde2ba8fbe2306006f38705c8d9820a04787f86f38834acfc7",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/seidel-diagram.JPG",
+      "sha256": "26fb1b319a4c7156f2b4a529d9c449aae4f014510185320cbdb7e00d69a307ea",
+      "pixels": [
+        1085,
+        816
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/solid-model.JPG",
+      "sha256": "0abce712b2f036a3aeedae0a49c9a7425d0011cd4e41ad18cbee2eb1cbf55c05",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/spot-diagram.JPG",
+      "sha256": "736d6bd7e2f67f4b176cef4fc65bd55d15f07afe37868f8a8ce8cbe59d636745",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/through-focus.JPG",
+      "sha256": "14cf73d8780a787dcad9515e8e4555a23a54ce896d6a20e8387e3cc5ea0b2ef6",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/vignetting-diagram.JPG",
+      "sha256": "5d8d0965cf0d677a55779bc0ae77de8b1bcb45dd780d243f4e312dbe8d1ae0f1",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/wavefront-map.JPG",
+      "sha256": "48a1e98501d444c1d1fb81de7f0e9507cb9ebb91f0207225eb4b662ac84e029e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/wavefront.JPG",
+      "sha256": "48a1e98501d444c1d1fb81de7f0e9507cb9ebb91f0207225eb4b662ac84e029e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/y-ybar.JPG",
+      "sha256": "bb88735811ea2426f9163c0f4fd74dda8b9b60df11222135fcf50774cd657102",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "schmidt-cassegrain/zemax/zernike-vs-field.JPG",
+      "sha256": "1a5693ac8f7be93916dbc555214f39d0eb532a9083c0a86172763f349792e49e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/2d-layout.JPG",
+      "sha256": "cebba84e86bf324038cad06cab8b082a483467b58d37fd29cd7b7f6db1e7c6be",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "yolo/zemax/3d-layout.JPG",
+      "sha256": "1f109fca32dae4b737ef54570f651330c46c2eb5164e91d2e409293e50bff08e",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "yolo/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "826a769c5e39c744b26da6c391789d095d303dabc91e589b15769d75889bb775",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "826a769c5e39c744b26da6c391789d095d303dabc91e589b15769d75889bb775",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/angle-vs-image-height.JPG",
+      "sha256": "826a769c5e39c744b26da6c391789d095d303dabc91e589b15769d75889bb775",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/axial-aberration.JPG",
+      "sha256": "5631b22818243f5d8cac735b49f10b71f94877743c60b6b8a121a6cfe44ac797",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/color-focus-shift.JPG",
+      "sha256": "8e0ab5fde21fa85c994476f99682141d1211a59cf57ac740760986f1bdf0d538",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "57ce1cedd4931c7ea8c051b117ddf012da6ef49389d888c465530d0f73749b8c",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "yolo/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "6fb4b9c77bdf1804f353f39b0185078ecc6b130e7cf4a2e8fd4e0563ff1a5a67",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/encircled-energy.JPG",
+      "sha256": "4742504f9d7b23c20bbb04f0e3bf55ccea47c1e30e02766a49f683d3aa5ed2c8",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "d1a7078e79efc907ab5cf668b8c9abcdabf25e3a6afbfd5c4335bbce44a530fd",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/fft-line-edge-spread.JPG",
+      "sha256": "91732cbee2f502690ffc816c751b88e9472df2d02eaddff127f2d6b2333aeb2d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/fft-mtf-map.JPG",
+      "sha256": "50fd2924f3e6a0384d85a8584d04119ce7d7c51d4d21a7215d52fe589c173d8c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/fft-psf-cross-section.JPG",
+      "sha256": "35a5151842857e9f82f52a3a0caf99ebc42da03284271a49b65ae9845636b102",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/fft-surface-mtf.JPG",
+      "sha256": "f875b71f5718a80680f2ee9ccb4b03b0cf4aaed49b805dffad33b0d7c4c84850",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "f9949668d87c961158cd318b62e8612c65fee40993b896a6798b1874f90bf51b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/field-curvature.JPG",
+      "sha256": "f9949668d87c961158cd318b62e8612c65fee40993b896a6798b1874f90bf51b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/footprint-diagram.JPG",
+      "sha256": "d6acc1022a4094afbf1ed86957c9194bb3f05f789bc92775790acad85f0c4138",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/foucault-analysis.JPG",
+      "sha256": "0ff363e1120ae737769e29523e52c764c0b569a104e0f6dd3ad3c42074c572a0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "72919cec7c7a3acca5e945d3ac3177aea62bd75876257d407bacf2aaa64fc406",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "0a7aba9f57e66f54c79295624c2f3224890925499c5853ae73c3aa282d3dee38",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/full-field-aberration.JPG",
+      "sha256": "785a48ca9ddda163180862504c00cec12110526f662be9da01fcf79f2f873eff",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/full-field-spot-diagram.JPG",
+      "sha256": "2b034f2237e21346f9a5147b32eb737572e5ec133f41b4e70d1080f0173f7cc7",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "yolo/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "d366910700139da9531a4cedf561b727a7c8b15fe13346b8ee499b31200f091a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/geometric-mtf-map.JPG",
+      "sha256": "5d1d5cbe741f3efec37dcc6ec0d1c9576530439c9a16039d5a82d9baedcc1831",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "8e49c7eef0cd4197bd017d9c32b4da24d3f2ddceeb7f03ad46fa80cb63e64b46",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/geometric-mtf.JPG",
+      "sha256": "0474b6d27488977144dad62f77d6726ade769999eb3003d12010242525c79474",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "251ac170c844066f763961a1c05a79b451cbb155fb6782f26a6e36958bc977c1",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/grid-distortion.JPG",
+      "sha256": "fd1b75ce2244a56dc17265e9ed7ce91055a980103e23ea4b5e0266a9a4ef3f16",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "yolo/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "1bc2b6c1bda7efdc91968966e9679e064260f5fb8d6568cc9fcc85a036b34b4e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/huygens-mtf.JPG",
+      "sha256": "d115914e25eae4f8ec43b152e1f3f5ffba0b33a150f6af3002a74927a9b3ec10",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "99fad4befc15ea9e79250ab3929fc0546cb26e14726788ee95c0ea0a2a480a2f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/huygens-psf.JPG",
+      "sha256": "b096f9366911cdbcfd4346f8463b00cebfa05b05284c4a271485b6f40a23400f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/huygens-surface-mtf.JPG",
+      "sha256": "0429d447adae53c4e1bd96b456055fdfcd9f2218369433d43e26a9b689f6cb06",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "2dc7be729ae93861e4baa1df34e33eb0890191f5bf3aad732c41dfbc93d4b2b5",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/interferogram.JPG",
+      "sha256": "3e71f0a0786b4d1e7a043d91fce97dbbf7036f4fb152795d4404c2ecc2f5b0ce",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/jones-pupil.JPG",
+      "sha256": "4b9560c62d6ad90e3ca84a5360791ba4bde1d6b20df74f0d56de57ff281451ef",
+      "pixels": [
+        1058,
+        794
+      ]
+    },
+    {
+      "file": "yolo/zemax/lateral-color.JPG",
+      "sha256": "15c22fc7097516db5c6ef7cd80234c04fa0818d7ed6390985ed50bdef5bbc9d0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/matrix-spot-diagram.JPG",
+      "sha256": "375eb948a492af367fb9eaf2266a5b3199a670f49526b3c03bcdb1513d298001",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "yolo/zemax/mtf.JPG",
+      "sha256": "c78466b29553c79492bb44a9c80c783fad4fe6dd458ca57582b3a34d00d6bc1b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/optical-path-difference.JPG",
+      "sha256": "4d54056ec361964f388ea22c05c210ca3531ad82cf1957f5bbd2552e26e824cf",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "yolo/zemax/psf.JPG",
+      "sha256": "66e9c7a2f204c174e8e9d78a10f70d3e051f93644a7f1230b3a2cf28d3b2f16e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/pupil-aberration.JPG",
+      "sha256": "5f047b6a8b15e843266955186a9ee4372d50d2e35db07f3c5f5f7a12238aa4cb",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "yolo/zemax/ray-fan.JPG",
+      "sha256": "9e2ce4df3667f4ddd38bb2af5f09be0eb6c8e3b6ea740dc17e9af9e73080e827",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "yolo/zemax/relative-illumination.JPG",
+      "sha256": "b4e51d92ef7a23707d08233083aae1e36a36f07229ba8fb10578fcb1770f68df",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/rms-field-map.JPG",
+      "sha256": "198cc3ab28562ac5d57780db01f072f5c87c13d9f11fd494d54526795c39f20e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/rms-vs-field.JPG",
+      "sha256": "a869e0665fbcfabdd623f4ec2a2b9221d35fd3ef5b2c9460cda8192d733ae404",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/rms-vs-focus.JPG",
+      "sha256": "3e64f9846efc6346a6b884f710ddbc61a1931d0c68bfc171a7a6a366fba24caa",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/rms-vs-wavelength.JPG",
+      "sha256": "7334af86761221711a7559a80a53d29c5d56dde7cc7f5ef57e059ea8cdc541bf",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "a869e0665fbcfabdd623f4ec2a2b9221d35fd3ef5b2c9460cda8192d733ae404",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/seidel-diagram.JPG",
+      "sha256": "4f645f4def6e41716e6f92d1413cb56251a83f6ef2350886b8ef92b3aee94182",
+      "pixels": [
+        1085,
+        816
+      ]
+    },
+    {
+      "file": "yolo/zemax/solid-model.JPG",
+      "sha256": "3ae2a00e68141416f32f7674d84ae77dfb37561270729c58cae717dd445ba7c9",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "yolo/zemax/spot-diagram.JPG",
+      "sha256": "d9d9b60c87d6102812ea5af10ad178bd9ac3de89af0683433a8398286d6874ad",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/through-focus.JPG",
+      "sha256": "c3e99d10fb693c1ec7840aee6a2d4659f1b907b15b2d9cc3eddb9e41474dc23d",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "yolo/zemax/vignetting-diagram.JPG",
+      "sha256": "9893599de1fc8789e083ac08380f7e4e7e1be014e5e866980ccbf105e80a324a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/wavefront-map.JPG",
+      "sha256": "c0be702fb0fc0a0ed8c97289c72faa2965dbdea917ac2a867733a6fd3a8746f2",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/wavefront.JPG",
+      "sha256": "c0be702fb0fc0a0ed8c97289c72faa2965dbdea917ac2a867733a6fd3a8746f2",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "yolo/zemax/y-ybar.JPG",
+      "sha256": "d28961c980feaaf8ae9164359f6305595c0162216f55936e3fcc40cefed75695",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "yolo/zemax/zernike-vs-field.JPG",
+      "sha256": "59c67e30f9bbfac91e94380299b66501cdf0e29c1b28e956b7d0fa2d8d8a4a4c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/2d-layout.JPG",
+      "sha256": "1043a23bd1c4bf1acc3f3b3d750ddc7e0ac9626cb425874207d7083c66ce68c2",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/3d-layout.JPG",
+      "sha256": "ab37edece665958ee2495d4165f6958d3e803f5ef9e806b16844d7c426b18a30",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "2874c9c5a37c807a0267a3f10fe7597146ba45ffe148f72abffccfa79722076d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "2874c9c5a37c807a0267a3f10fe7597146ba45ffe148f72abffccfa79722076d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/angle-vs-image-height.JPG",
+      "sha256": "2874c9c5a37c807a0267a3f10fe7597146ba45ffe148f72abffccfa79722076d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/axial-aberration.JPG",
+      "sha256": "c7d10e2ef8fb8218840e1cfbccf02e90fb54347bc12c7bebfe52319111652932",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/color-focus-shift.JPG",
+      "sha256": "e62cd4387661ab273ecfd99e187ae507ba03f46a2403d482893421578dc4c432",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "66b66e1ce2e34e8db2940528d9a528f79dd8ea53799e21033ea3ce9d744615f0",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "5ef70fc343f242ebc492e2395110db92f72c53834ca3ef70b16f35c9f69e9465",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/encircled-energy.JPG",
+      "sha256": "375e64a35a6f8a1250ae7a09af10d539df51b53dadf59cfec625d63a4b3c5532",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "450c8320d05a3c7b440b9b0d96d7bee26d7a9d3f979052a64173c63b1150b68d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/fft-line-edge-spread.JPG",
+      "sha256": "850c206cde77cbb9e9a3d23f45e514887c892d94eb3b4ceb43b173bf277f9fa0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/fft-mtf-map.JPG",
+      "sha256": "add05b26cf2cc9eba666c4c61f1dcfbc89f01ceb2c2cad4c1f3274803ffacc10",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/fft-psf-cross-section.JPG",
+      "sha256": "bed838134084ad9d388c251f5368d7b5c8dd2b091d8711ebc0c6558f2853aa29",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/fft-surface-mtf.JPG",
+      "sha256": "4a1382f2ea9dd211a8050f78e875f9eef50bad34003dd8196876c81eec50a5ee",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "8dc0f26539dad3baab18e8952e5c30fdd927a4112bf63a6d73b95aed5e52f6de",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/field-curvature.JPG",
+      "sha256": "8dc0f26539dad3baab18e8952e5c30fdd927a4112bf63a6d73b95aed5e52f6de",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/footprint-diagram.JPG",
+      "sha256": "c912298c9cd1980a09d90a5d20aefce360bc5b3980f2c4f4979c267aa7139833",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/foucault-analysis.JPG",
+      "sha256": "6a61e2f80f3fba04422083b5cf35b0bdb13ccd50b1aebe4fcb4ece291afbd708",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "db48274c56c1598b85d21357a0c6c371a7b967082c40e5d97f90ce2bdd5e15be",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "fcae3ba4743149965b70a1917cdc2d650dd11bfdab84f03ce10c2257856fb9dd",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/full-field-aberration.JPG",
+      "sha256": "481ee951f65df289abfa050e303f3c2971f5f1122aa32bbeb31f02145f550cd7",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/full-field-spot-diagram.JPG",
+      "sha256": "62f742b62d4513f2620d7c3c84c2762251ed5f1c56aa7122d0e8b600952cfa39",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "51dd2f0ff0ca59c38e339d5b009a5df3cb93956cc2902ed4e47e59241a26bf34",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/geometric-mtf-map.JPG",
+      "sha256": "d70dfec8f9a58084f446fdcbd89b7dc8f8cd433f5703b99a97baa298e9c57d38",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "6ec6e58bfb30d5c88dd885dac034aed57e1a844453798e4732ccfc4bd3b42418",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/geometric-mtf.JPG",
+      "sha256": "5abed50231ac48f2cafba1dc65efd0aadfaf31900a270f60731e9e79051e0880",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "415fda0da1b11a2e9ef9906a8ddbf46e96e2975dacf24ec4a361b34d1e6a7fbc",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/grid-distortion.JPG",
+      "sha256": "3f0f4497cc994cd89c6f839ad5dbbb2210d933d9db6bcc6b88541497360c158d",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "1219428f096b8c6003ad25522fc098fc8b1180f6bd05a12eca96cbac401ff625",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/huygens-mtf.JPG",
+      "sha256": "03412925a96be5dba41886c26987c77c33108e2f1ce6d4fbfe601ecb956af954",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "8f04c6919aad9ca9ba5b7347f2832b8884676945df880f26cae9566f7cc9838a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/huygens-psf.JPG",
+      "sha256": "f8c5b17255075d9455254838724ba72912461e74d17e15493c5f8e39b341a2a0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/huygens-surface-mtf.JPG",
+      "sha256": "e961467a235a65b23b2d113f9053b833c90ac39619266d19e521f9bcc67bd74d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "c90dd49aa74171bd62d5c927f25428cb33b691f54a82b66deb93a66b7291bca3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/interferogram.JPG",
+      "sha256": "aac0f2d6a7957ade56244009a9340e0e0c53eff06bb4b4239071d08cd09e0cbe",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/jones-pupil.JPG",
+      "sha256": "56e230d26c968cd9f81b1cfa95ae08e28d8e7a770a35212d6c0050472531f367",
+      "pixels": [
+        1058,
+        794
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/lateral-color.JPG",
+      "sha256": "bc55a19ecac6d7bf3a54e51a9f96547492e54f8dfacfad46530a1146d8dc0f0c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/matrix-spot-diagram.JPG",
+      "sha256": "d402bec6b3c1f30d8fb1f971af7e46115494e47379456a1cc476a5f8bc0c2a38",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/mtf.JPG",
+      "sha256": "439c4842d3e8556bf1d4a3239a42bc9d392db6e33957935881fdd8c17a4914ec",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/optical-path-difference.JPG",
+      "sha256": "5c4b997029aaf8844239b646439069112d9a5cecc2c9dc099724d92bd10911e8",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/psf.JPG",
+      "sha256": "48be0681257bdccab6f2cf3665736f8cde8032461ca32c018621cb1fdfba44d8",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/pupil-aberration.JPG",
+      "sha256": "93d94dc327ac48872e6e5cec36e2953e97ba7ac34b8049b258626ddd16d67c93",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/ray-fan.JPG",
+      "sha256": "642f1a4613626cb8cbc65bdc3c9824d0354697ec31c7bbec39f0ee6a9072a073",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/relative-illumination.JPG",
+      "sha256": "9b6dc15ecb5d1d7b011087191c86594655c2834df4058ec136638da4b79a7927",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/rms-field-map.JPG",
+      "sha256": "e4a849f3a80602a6d2f9d118cc22b0264e1cc87817972248cec0c3e3f524fa2a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/rms-vs-field.JPG",
+      "sha256": "fed49e5c707d73190fd5de18d1970095d381a8f4efbf6418e9896fe442ef0c79",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/rms-vs-focus.JPG",
+      "sha256": "54f4d2cf97004b75993ede43548fe20611b1717cf478cb7fb3fb67a861173693",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/rms-vs-wavelength.JPG",
+      "sha256": "8c8c6ce5905aab54d0754d7e9e24abd1a2393b105b389aee1a4167f9183ad03c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "fed49e5c707d73190fd5de18d1970095d381a8f4efbf6418e9896fe442ef0c79",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/seidel-diagram.JPG",
+      "sha256": "eaf1c7bbb29560d04f3d02e18d008b4900e6f3dee754c7ae2f52890e0394eeda",
+      "pixels": [
+        1085,
+        816
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/solid-model.JPG",
+      "sha256": "4f9e34130f26497d53d556013b3582ac07f2df8b8c16099bbf2983cbc316fb47",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/spot-diagram.JPG",
+      "sha256": "5d737d98eaed5fe154c43e2e8b0a7ab13a492681745ef3d968d69fd756c8a5ae",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/through-focus.JPG",
+      "sha256": "0bd0f96a1d3b8cb54999313b3ae495d08c02a04684c7fe7fd7cd87d1e58c3a7b",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/vignetting-diagram.JPG",
+      "sha256": "2d7f1553e2ff14fb5e75f9c0d70e46e3121cec02f0ebee10e65e196d702feb40",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/wavefront-map.JPG",
+      "sha256": "d846cb57be6495b496864a4713f256b9003dbf86e2aa90cb934af6cddeb3b993",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/wavefront.JPG",
+      "sha256": "d846cb57be6495b496864a4713f256b9003dbf86e2aa90cb934af6cddeb3b993",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/y-ybar.JPG",
+      "sha256": "27d8f06db426cb3a01fe7a33f16b617873b369acc299abed41a2d2f2aa751b3b",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "afocal-riflescope/zemax/zernike-vs-field.JPG",
+      "sha256": "8687d0d8e86baaa9e620a4620109d0c68c8d8f87367410a93891f9ee7f857280",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/2d-layout.JPG",
+      "sha256": "cfd31e0bd3990b22f3dba98fdf6ae25bc290d2d047162aca22790596a7206d96",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/3d-layout.JPG",
+      "sha256": "cc4067246374d90d3c0800fb1974ae51f80e7f3702c6e5c6905e5d7881d03020",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/angle-vs-image-height---through-field.JPG",
+      "sha256": "4f7015f6f32029f8468bde9a35c5a2d97657baba069a6473e1ecbff4444d6516",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "4f7015f6f32029f8468bde9a35c5a2d97657baba069a6473e1ecbff4444d6516",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/angle-vs-image-height.JPG",
+      "sha256": "4f7015f6f32029f8468bde9a35c5a2d97657baba069a6473e1ecbff4444d6516",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/axial-aberration.JPG",
+      "sha256": "f752ece55fc4c8b99a28e0345928971dedea16ce3746edbc06368548cdebe974",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/color-focus-shift.JPG",
+      "sha256": "64b9475099b1975f8fbadcb47c018eda02660f4e3f3bde54f56e6a404e50788d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/configuration-matrix-spot-diagram.JPG",
+      "sha256": "6e2f2bf17d9078644b2a6f0235786967a2e75c357903ba0ad0f3ae6fa29b43e9",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/diffraction-encircled-energy.JPG",
+      "sha256": "ea5e15233e771fb4a92abb1a1320d57cb1c0ce0d7205a1fbd7fa7ba6064e177b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/encircled-energy.JPG",
+      "sha256": "0c1e83f06026063e9bf6d5b6b7a20529f64d147d62224d99209314e0ac373612",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/extended-source-encircled-energy.JPG",
+      "sha256": "fd637a10a523d66823835180882f0b668201f6bb2a500ba3cbcf75a17adcac6b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/fft-line-edge-spread.JPG",
+      "sha256": "5de826c8493b1e4f0c3fea41c792b326cb59f0de3894080559f58339fa8669a2",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/fft-mtf-map.JPG",
+      "sha256": "149b34eb134ffcd0c6de55d6e9c6fe39ab4a5ab2cd069c854142376eb1824180",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/fft-psf-cross-section.JPG",
+      "sha256": "80d49c4fa6717d89227e020766c33ec36360db63f9405cec8ce523491287e49d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/fft-surface-mtf.JPG",
+      "sha256": "37605f126c2d6d4b2cd049c401146bed1b2e472f92b070dbe23f20ec5b104750",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/field-curvature-and-distortion.JPG",
+      "sha256": "cd30821b705e3b9061c995d5d8819aa9664b95f9605db8c1581cd46ab5356b81",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/field-curvature.JPG",
+      "sha256": "cd30821b705e3b9061c995d5d8819aa9664b95f9605db8c1581cd46ab5356b81",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/footprint-diagram.JPG",
+      "sha256": "353c6b8f9ce3fb20545bb3e773a95a778905b7df0f9d1c4d5050de040371874c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/foucault-analysis.JPG",
+      "sha256": "5bced9141d426f942371b68ac0fecf9f16d256d0d5e266f95c59921933b999cc",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/fourier-mtf-vs-field.JPG",
+      "sha256": "95a41cc3e66f2f2eea824919e51fb01a54e7255187e0c9cf7ae238758f2c583b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/fourier-through-focus-mtf.JPG",
+      "sha256": "54f0b2ae76ebd1312dbb4fb4fe2696fa67d5dcbc41ef7db3575216850fd5d8fb",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/full-field-aberration.JPG",
+      "sha256": "a69efb1e9c9fb785e549c22482d9b200e65e38bdd1661243b9254580260b7d01",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/full-field-spot-diagram.JPG",
+      "sha256": "52aee8bcb078ec4d50093412a3fb8e5ee8dc3c82a60e071d4e4c8d77654f8bc8",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/geometric-line-edge-spread.JPG",
+      "sha256": "a641abc438afab9382bab4efc1dd1fa08aa3294b18809b644dd4467d3cea2278",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/geometric-mtf-map.JPG",
+      "sha256": "efb5e4401f5a9cae98840ae88e1a926ded079ca92efd0eeb8a043b5c58d2446f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/geometric-mtf-vs-field.JPG",
+      "sha256": "4193dde7bb02d51eef0cf2bd85e26599f324e1f10aef46ad7b450a427d9562c3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/geometric-mtf.JPG",
+      "sha256": "3519161b0696f4441216a29a7e872eef7150d74ad19fa3cce08a8bdd73f353fe",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/geometric-through-focus-mtf.JPG",
+      "sha256": "888ad8f94f3400873020c4e346761c5bab934cd19ad1c01de7c7a2f9f473d058",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/grid-distortion.JPG",
+      "sha256": "07cc88d6796ae17f157cb50ce1d735f6a024b8bdf1f3c56ea90fc0d910b4f2dc",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/huygens-mtf-vs-field.JPG",
+      "sha256": "32dc051fc5242425ba03a5ec606b23263de23d30957ea36f600503cb125f8b9d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/huygens-mtf.JPG",
+      "sha256": "e702617bd7cdd95f007256ecea38c1399136e8da99f7afce80ca6e431e58f881",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/huygens-psf-cross-section.JPG",
+      "sha256": "3f3905f65bb80256ef397d66aade5bc402f44aaf443a61f57b60173d8e9887dc",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/huygens-psf.JPG",
+      "sha256": "cf16dedeb6012ac4dcd2b210a9a61ffcb0961d81e9f5bd1bb7b6eca8c9b69cfa",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/huygens-surface-mtf.JPG",
+      "sha256": "950cd8bc7d1abfbd9b5e78033b7f03382a80595f7857ace07fbdb5d5bb9031c0",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/huygens-through-focus-mtf.JPG",
+      "sha256": "2960a19af5dd3c7045d7c6e386cebfb24d7e64710406790ca5ab03c028e30503",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/interferogram.JPG",
+      "sha256": "b455bdca5291327977d81e429af2e0dc18b9fa741e19945e47b900016ee2b5b2",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/jones-pupil.JPG",
+      "sha256": "089a7434b8849838c71065d4108a4364b3f0558cceec9a017613d28ee6eb0260",
+      "pixels": [
+        1058,
+        794
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/lateral-color.JPG",
+      "sha256": "d73cad7a5aba1c30e32534e54aa61dfc2567836b61536ae5bc6898ad2b9249a1",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/matrix-spot-diagram.JPG",
+      "sha256": "07ca2cc076b94891331be676d9c5beeea7c193145c9028495be721df4ee99002",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/mtf.JPG",
+      "sha256": "828547f57f0431c452c7af684f6aa05cbdccdc611481200768cb14d430e81693",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/optical-path-difference.JPG",
+      "sha256": "8eed4a4d1a26f8951d79fd59b948320c7e2f5e070b1a558a839e4bddd26dcb08",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/psf.JPG",
+      "sha256": "e435a2bf53ab4202d2b419bb8a96c8b5d716a1102e650bc71bb489948f0fb5aa",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/pupil-aberration.JPG",
+      "sha256": "d637999fb910a12bc60ebbd9ea655e51392b387b4f636d3e39a3854d98caecf5",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/ray-fan.JPG",
+      "sha256": "46bb2975263402de42bac6a08bd51c10d84130e54e0c3f7dfb984494edbabd2f",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/relative-illumination.JPG",
+      "sha256": "630508a17c9904444e0fae5ba7c3efa07e3e6874a827bff26a730fa16f199a40",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/rms-field-map.JPG",
+      "sha256": "908b8dc7ca7199696a7581aa95cd6600a28b6a85c58305ecc2863281b889c8a7",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/rms-vs-field.JPG",
+      "sha256": "2851761d298c174b970d51649489be7dc54285faf74a2b2157762101b389ef71",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/rms-vs-focus.JPG",
+      "sha256": "34d7614c28537e7fd6b7e8aab2109a66f10acda331c7418694cdda478b586f46",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/rms-vs-wavelength.JPG",
+      "sha256": "6833e6c4ecaf04857d6b71be6ea527e6f2433a7491443b1cee94e5b1cde52e46",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/rms-wavefront-vs-field.JPG",
+      "sha256": "2851761d298c174b970d51649489be7dc54285faf74a2b2157762101b389ef71",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/seidel-diagram.JPG",
+      "sha256": "56050630cf93e46dc7f8deedba34dd55e9b4ec5a093955a69e2440c8d95f6f42",
+      "pixels": [
+        1085,
+        816
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/solid-model.JPG",
+      "sha256": "9ab4856940644b576af0f0df61662eb21cbcbde0be52ce84760d50da50eec711",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/spot-diagram.JPG",
+      "sha256": "1de1f4d8081e78f9bc6cd9e846e76b70758734251a0b6f5b52a9cc5cb71eface",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/through-focus.JPG",
+      "sha256": "2927a4d85de85825efccc4e6e9d8b1cbfea0a2366c3489c7133874565a5bd291",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/vignetting-diagram.JPG",
+      "sha256": "21f1a4c98cecd9ff87f88d283d0ae39eb0afe351e734320b455f376bc49da5ab",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/wavefront-map.JPG",
+      "sha256": "fe673cce4c267835e086200296b370abeb0daf393fc0452b6da9b935d31a6e6f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/wavefront.JPG",
+      "sha256": "fe673cce4c267835e086200296b370abeb0daf393fc0452b6da9b935d31a6e6f",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/y-ybar.JPG",
+      "sha256": "fe9ef8f77a02a25dbc14246d1fcd39c6cab40b75adfa71913ea98e6abc8742fd",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "zoom-lens/zemax-config1/zernike-vs-field.JPG",
+      "sha256": "78427211c47e3a93b9429a6fbea4ef8022cacde7cc13c78afeb6ad416d6cf91d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/2d-layout.JPG",
+      "sha256": "8323d4763ea34cfcacf7a205819b54602e7351856a85221685f8162a4d5cdf3e",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "grating/zemax/3d-layout.JPG",
+      "sha256": "dffa23c62bd669d62c716c9c4bcb6fa7d7bd61017a606482d5001e2553c64ed9",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "grating/zemax/angle-vs-image-height---through-field.JPG",
+      "sha256": "0a6970e27bedb63b8cd3cf59010f6bdb86bb574e7113f8c32011f5cdf67ebe19",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/angle-vs-image-height---through-pupil.JPG",
+      "sha256": "0a6970e27bedb63b8cd3cf59010f6bdb86bb574e7113f8c32011f5cdf67ebe19",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/angle-vs-image-height.JPG",
+      "sha256": "0a6970e27bedb63b8cd3cf59010f6bdb86bb574e7113f8c32011f5cdf67ebe19",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/axial-aberration.JPG",
+      "sha256": "de8b0cea3173a5a59d827e8ef3815e622c84feb75ccd0ffa6f4386336d8eb7c7",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/color-focus-shift.JPG",
+      "sha256": "073a424ad256c97d2ce16616b44ab5051b620e7454018302f4b5cadb7c41b32e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/configuration-matrix-spot-diagram.JPG",
+      "sha256": "0c23c9604590e7fe23a9fa4d419bddbdd9e57e725dfda838d051d9dfc0e2c49f",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "grating/zemax/diffraction-encircled-energy.JPG",
+      "sha256": "f4b7a11e899944cd92b4272aa5d03616504ce410b9010851dd09f873df42a181",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/encircled-energy.JPG",
+      "sha256": "1ee177c6e06c9e2facaef815af731ad2545e00a194947f166275638216369107",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/extended-source-encircled-energy.JPG",
+      "sha256": "f5ed72741843e7c6873840f67ed961e8a04806d166f6df3463a306005e88bbc1",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/fft-line-edge-spread.JPG",
+      "sha256": "267ee87684b6ddd247740e4b4143e1826efafd785592f55003d14d8d153d1e85",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/fft-mtf-map.JPG",
+      "sha256": "e991ef7bd8e07298ae831a7916bb5808c84ebc7f1802c243aabcc63680d452a6",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/fft-psf-cross-section.JPG",
+      "sha256": "267ee87684b6ddd247740e4b4143e1826efafd785592f55003d14d8d153d1e85",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/fft-surface-mtf.JPG",
+      "sha256": "de156f204dedb9b9c86eb2ffef75ddc35c5e55696c8f6c8c26fd75b240296602",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/field-curvature-and-distortion.JPG",
+      "sha256": "839ce09aaf52b94c130e102aa1cbc2e80f6b64f194558dc882effd366a619d23",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/field-curvature.JPG",
+      "sha256": "839ce09aaf52b94c130e102aa1cbc2e80f6b64f194558dc882effd366a619d23",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/footprint-diagram.JPG",
+      "sha256": "3a8e5decc0c55929cf0a59e83e159809c0c01420f80aad79284fabdd6ba1e0d4",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/foucault-analysis.JPG",
+      "sha256": "e2a26c0e5e7a2474b221e724b4cf4a0ac51fade685847e56aebc3842efa46b06",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/fourier-mtf-vs-field.JPG",
+      "sha256": "f0073df345a130f8c30f42d938b15a240169e2d3ed3ef240ce75a5ecec1e8048",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/fourier-through-focus-mtf.JPG",
+      "sha256": "2c9842356fa53aae5bd26f34bd7b4739b86d5ce36a298fce9827e80c5497be25",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/full-field-aberration.JPG",
+      "sha256": "b1e11086a7912a135023c9f061c513bdfab4e04d4273ed60ab4f0ce3ce7e6ea8",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/full-field-spot-diagram.JPG",
+      "sha256": "ff72a97b1838f9dd95ec5df8c5d88fbf8d883344e2f653bdb2a2d51c14bd83d7",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "grating/zemax/geometric-line-edge-spread.JPG",
+      "sha256": "6121c0222984dcca2099e4eac450c9d767d74ded9aa567db187254e79fb7e0c5",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/geometric-mtf-map.JPG",
+      "sha256": "4b7615feac82d776379823d9841925b79bfb34574ba88e650dd0bfc95fb53bed",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/geometric-mtf-vs-field.JPG",
+      "sha256": "2c7dc042b44054e7f2b0e75231e38f5598287918e0e06375c7e1b1dd46616f5c",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/geometric-mtf.JPG",
+      "sha256": "6a146187fbbc910aaa6bbe19ce9e65dc34dbda380364083adf49da7b7fa38c10",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/geometric-through-focus-mtf.JPG",
+      "sha256": "60f02042b491fff752ab3823e66cf0a6a7fc94298306a425b69b7d11ac3d4653",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/grid-distortion.JPG",
+      "sha256": "388c0107b5053b7ba41758b79041de163142c2f186f33f1e03039638dbecfb71",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "grating/zemax/huygens-mtf-vs-field.JPG",
+      "sha256": "fa2725ed07db216fb504ce47320d6fc5a8ff7fb21e9d36a96ec7ae2ecc5f3168",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/huygens-mtf.JPG",
+      "sha256": "ea84ca79fe62d1aa3bfc8f6bf7d869d4c46bfcf51b833c5c50d7a0f5d495b45a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/huygens-psf-cross-section.JPG",
+      "sha256": "9abeb9290bd8061d813fae23c4f7d1f9d48a56a5449b05cb44ca6b777ab2c215",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/huygens-psf.JPG",
+      "sha256": "95fbe04d944730f7b79ed63239b91af74c1736aa47733de597aa69624951128a",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/huygens-surface-mtf.JPG",
+      "sha256": "8e830a7833621cb7057edd29c66771a3dcb1bcf2729c4f2c51c3e3f2fe327f47",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/huygens-through-focus-mtf.JPG",
+      "sha256": "756231af7566268a1a99bb697e8738c0f99caff3cba9e90248e1c6e1facc45e3",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/interferogram.JPG",
+      "sha256": "c400b9f658f73c03990417cd1edcbc2d93421bf397323aefbcac6608453cab6e",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/jones-pupil.JPG",
+      "sha256": "5ef5e7ead067a319611ac27e4648427d3682b09ac4d7c74e24182fe71f814dfd",
+      "pixels": [
+        1058,
+        794
+      ]
+    },
+    {
+      "file": "grating/zemax/lateral-color.JPG",
+      "sha256": "3f4b72c810841785123c6cb61bd08d5324b762fcd75e74b004efcc25fe7faa1d",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/matrix-spot-diagram.JPG",
+      "sha256": "0306289973524589724a2146d420bc66fcf631cded9d44bd9046c3f2cd0af273",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "grating/zemax/mtf.JPG",
+      "sha256": "ee7b6620b299867171cf7d039041af2cc728059c972ae6e4a2bed0157f221b24",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/optical-path-difference.JPG",
+      "sha256": "e56e5fb26a790be27a1c0d2f44d13ae5efa9ab0674f273dd772c8563f6eaa170",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "grating/zemax/psf.JPG",
+      "sha256": "0e1f34c4d1a67ba4c81e5ce571304b97b809864e91e33e123598ee68fd859d10",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/pupil-aberration.JPG",
+      "sha256": "095140ad649cc98166eccb5d6e1288c16f097ddfd01bbb2387f7d922b404a630",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "grating/zemax/ray-fan.JPG",
+      "sha256": "96644cabac64c011b16431a4a4643bd5014b9233e4d93dafcb32bbb529c42204",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "grating/zemax/relative-illumination.JPG",
+      "sha256": "f4aea6b738551bdf68255c8d003670e683745216d9ded1fa98b3aa3283ca0468",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/rms-field-map.JPG",
+      "sha256": "71b03d674f46512a57ed73eebae32e32548885cbb633218fd3a340fbe0fb6783",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/rms-vs-field.JPG",
+      "sha256": "1cf117478fb7497e22a4f1bf4d9026aa749b6796eb395cdeaa2ac0e9d144a1e8",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/rms-vs-focus.JPG",
+      "sha256": "5d12e3709697f8622d1814ee658150c31145800da594e8d9a95b03c163fb583b",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/rms-vs-wavelength.JPG",
+      "sha256": "38a72438f7fdb08831565da62e1db12ac2292ee81fb6c918e1c4c8607a72e488",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/rms-wavefront-vs-field.JPG",
+      "sha256": "1cf117478fb7497e22a4f1bf4d9026aa749b6796eb395cdeaa2ac0e9d144a1e8",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/seidel-diagram.JPG",
+      "sha256": "4a8d4a0a7db6eb53c3fad3ce5ba32462c228a3feb961d169d2cff3576c8a84d8",
+      "pixels": [
+        1085,
+        816
+      ]
+    },
+    {
+      "file": "grating/zemax/solid-model.JPG",
+      "sha256": "9dbc358946f46ace56585bc905e714d5f1d103d2bcb5171d9d80afd14ddb7b4e",
+      "pixels": [
+        1618,
+        816
+      ]
+    },
+    {
+      "file": "grating/zemax/spot-diagram.JPG",
+      "sha256": "4ad6d716009283a37aec50153e8be8c57351743f83d6b76cc7bf4fb1757858de",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/through-focus.JPG",
+      "sha256": "e1211fa5b56fe45595c7eda6df8ae49fdf5870b399e4fb447923c96779b9e5f1",
+      "pixels": [
+        1086,
+        814
+      ]
+    },
+    {
+      "file": "grating/zemax/vignetting-diagram.JPG",
+      "sha256": "74cc4c0e0431410f3bebd54adc29a3f3cd7e014ce591b7816ebc14ce1e74a5bb",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/wavefront-map.JPG",
+      "sha256": "51ca168e24bec224d59eb57814a46ae72342e53a18b3dace69bba2f13cd57495",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/wavefront.JPG",
+      "sha256": "51ca168e24bec224d59eb57814a46ae72342e53a18b3dace69bba2f13cd57495",
+      "pixels": [
+        1056,
+        792
+      ]
+    },
+    {
+      "file": "grating/zemax/y-ybar.JPG",
+      "sha256": "988134bef7ce54fe6d89cb0ed8620ebfa5b76b1fe5de27ea7f89f5ef5b2b7e7c",
+      "pixels": [
+        1054,
+        794
+      ]
+    },
+    {
+      "file": "grating/zemax/zernike-vs-field.JPG",
+      "sha256": "f14f30106ec430d0468248b32754a5dd818e747b3708faa357c8c8a407671bb0",
+      "pixels": [
+        1056,
+        792
+      ]
+    }
+  ]
+}

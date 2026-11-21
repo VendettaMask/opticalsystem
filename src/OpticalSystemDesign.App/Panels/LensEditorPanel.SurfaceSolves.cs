@@ -10,6 +10,7 @@ using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -170,7 +171,7 @@ public sealed partial class LensEditorPanel
             current.Kind == ThicknessSolveKind.Fixed ? 1 : Array.IndexOf(kinds, current.Kind));
         var source = PickupSource("ThicknessPickupSource", row.Number, current.SourceSurface, current.Kind == ThicknessSolveKind.Pickup);
         var scale = PickupNumber("ThicknessPickupScale", current.ScaleFactor);
-        var offset = PickupNumber("ThicknessPickupOffset", current.Offset);
+        var offset = PickupNumber("ThicknessPickupOffset", current.Offset / row.LensLengthUnit.Millimeters());
         var fields = new StackPanel
         {
             Name = "ThicknessPickupFields",
@@ -179,7 +180,7 @@ public sealed partial class LensEditorPanel
             {
                 SolveRow("拾取表面：", source),
                 SolveRow("比例因子：", scale),
-                SolveRow("偏移量：", offset),
+                SolveRow(row.LensLengthUnit == LensLengthUnit.Millimeter ? "偏移量：" : $"{UiLocalization.Text("偏移量：")} ({row.LengthUnitSymbol})", offset),
                 SolveRow("拾取列：", new TextBlock { Text = "厚度", VerticalAlignment = VerticalAlignment.Center })
             }
         };
@@ -199,7 +200,7 @@ public sealed partial class LensEditorPanel
                 var chosen = kinds[kind.SelectedIndex];
                 var sourceNumber = chosen == ThicknessSolveKind.Pickup ? RequireSource(source) : 0;
                 var factor = chosen == ThicknessSolveKind.Pickup ? ParseNumber(scale, "比例因子") : 1;
-                var additive = chosen == ThicknessSolveKind.Pickup ? ParseNumber(offset, "偏移量") : 0;
+                var additive = chosen == ThicknessSolveKind.Pickup ? ParseNumber(offset, "偏移量") * row.LensLengthUnit.Millimeters() : 0;
                 _prescription.SetThicknessSolve(
                     row.Number,
                     new ThicknessSolveUpdateDto(chosen, sourceNumber, factor, additive),

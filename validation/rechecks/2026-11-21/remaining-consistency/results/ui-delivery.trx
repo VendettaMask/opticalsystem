@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c4b3645b-72fa-479d-9fd1-8d596ec9190d" name="allen@DESKTOP-SET3SNR 2026-11-21 19:00:09" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-21T19:00:10.0023005+08:00" queuing="2026-11-21T19:00:10.0023009+08:00" start="2026-11-21T19:00:02.8429504+08:00" finish="2026-11-21T19:00:14.7397127+08:00" />
+  <TestSettings name="default" id="141cdb0b-89f8-4d2b-a3e7-4e9eafaab3a1">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-21_19_00_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="20f3c455-7f20-4628-8cc1-acec45a88481" testId="22c52a78-557a-2214-eb0f-fab6e2d14be6" testName="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, width: 900, height: 1100, scale: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:01.1906019" startTime="2026-11-21T19:00:13.4534541+08:00" endTime="2026-11-21T19:00:14.6395677+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20f3c455-7f20-4628-8cc1-acec45a88481" />
+    <UnitTestResult executionId="d585b56a-2b2b-4b31-9025-1415b2ee2ca0" testId="e86e7827-0ffb-193e-b926-b12c2e6aa008" testName="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: &quot;Dark&quot;, language: &quot;ja-JP&quot;, width: 1100, height: 960, scale: 1.5)" computerName="DESKTOP-SET3SNR" duration="00:00:04.3618062" startTime="2026-11-21T19:00:05.6262171+08:00" endTime="2026-11-21T19:00:09.9754954+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d585b56a-2b2b-4b31-9025-1415b2ee2ca0" />
+    <UnitTestResult executionId="b2d8f791-0f68-428a-879b-1a0144cfbcb3" testId="9d30e4d5-e2d8-3914-ad68-9efc17a915b8" testName="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1400, height: 960, scale: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:03.4725181" startTime="2026-11-21T19:00:09.9892890+08:00" endTime="2026-11-21T19:00:13.4486623+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2d8f791-0f68-428a-879b-1a0144cfbcb3" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, width: 900, height: 1100, scale: 2)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="22c52a78-557a-2214-eb0f-fab6e2d14be6">
+      <Execution id="20f3c455-7f20-4628-8cc1-acec45a88481" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests" name="DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: &quot;Dark&quot;, language: &quot;ja-JP&quot;, width: 1100, height: 960, scale: 1.5)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e86e7827-0ffb-193e-b926-b12c2e6aa008">
+      <Execution id="d585b56a-2b2b-4b31-9025-1415b2ee2ca0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests" name="DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests.DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1400, height: 960, scale: 1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9d30e4d5-e2d8-3914-ad68-9efc17a915b8">
+      <Execution id="b2d8f791-0f68-428a-879b-1a0144cfbcb3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MaterialLibraryConsistencyTests" name="DataReviewStatusAndReportFollowLanguageWithoutChangingCatalogValues" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="22c52a78-557a-2214-eb0f-fab6e2d14be6" executionId="20f3c455-7f20-4628-8cc1-acec45a88481" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e86e7827-0ffb-193e-b926-b12c2e6aa008" executionId="d585b56a-2b2b-4b31-9025-1415b2ee2ca0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d30e4d5-e2d8-3914-ad68-9efc17a915b8" executionId="b2d8f791-0f68-428a-879b-1a0144cfbcb3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.16]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.41]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.44]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:11.49]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

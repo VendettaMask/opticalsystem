@@ -18,6 +18,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (Optic.ImageSpaceAfocal) return ImageSimulationEngine.AfocalNotApplicable(Name);
         var oversampling = Math.Clamp(_config.Oversampling, 1, 16);
         var source = _config.SourceImage ?? ImageSimulationEngine.CreateSourceImage(
             _config.SourcePattern,

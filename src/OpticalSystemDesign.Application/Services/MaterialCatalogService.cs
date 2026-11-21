@@ -139,17 +139,35 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
         return glasses.Values.ToArray();
     }
 
-    private static GlassMaterialDto ToGlassMaterialDto(CatalogGlassMaterial glass)
+    public GlassConstantsDto? CalculateGlassConstants(string materialName, bool useCatalogDefinition = false)
     {
-        const double wavelengthF = 486.1327;
-        const double wavelengthD = 587.5618;
-        const double wavelengthC = 656.2725;
-        var refractiveIndexD = glass.ZemaxData is { ReferenceIndexD: > 0 } zemaxData
-            ? zemaxData.ReferenceIndexD
-            : glass.RefractiveIndex(wavelengthD);
-        var abbeNumber = glass.ZemaxData is { ReferenceAbbeNumber: > 0 } referenceData
-            ? referenceData.ReferenceAbbeNumber
-            : CalculateAbbeNumber(glass, refractiveIndexD, wavelengthF, wavelengthC);
+        lock (_gate)
+        {
+            var optic = _runtime.CurrentOptic;
+            CatalogGlassMaterial glass;
+            if (useCatalogDefinition && optic.Materials.TryResolveExternalGlass(materialName, optic.GlassCatalogs, out var catalogGlass))
+                glass = catalogGlass;
+            else if (optic.Materials.TryResolve(materialName, optic.GlassCatalogs, out var material)
+                && material is CatalogGlassMaterial resolvedGlass) glass = resolvedGlass;
+            else return null;
+            var result = CatalogGlassConstants.Calculate(glass);
+            return new(result.IndexF, result.IndexD, result.IndexC, result.AbbeNumber, MapConstantsStatus(result.Status));
+        }
+    }
+
+    internal static GlassMaterialDto ToGlassMaterialDto(CatalogGlassMaterial glass)
+    {
+        var calculated = CatalogGlassConstants.Calculate(glass);
+        double? referenceIndex = glass.ZemaxData is { ReferenceIndexD: > 0 } index && double.IsFinite(index.ReferenceIndexD)
+            ? index.ReferenceIndexD : null;
+        double? referenceAbbe = glass.ZemaxData is { ReferenceAbbeNumber: > 0 } abbe && double.IsFinite(abbe.ReferenceAbbeNumber)
+            ? abbe.ReferenceAbbeNumber : null;
+        var hasD = TryIndex(glass, CatalogGlassConstants.WavelengthD, out var actualD);
+        var refractiveIndexD = referenceIndex ?? (hasD ? actualD : double.NaN);
+        // Vd must use the same model's F/d/C values, never a rounded catalog nd.
+        var abbeNumber = referenceAbbe ?? calculated.AbbeNumber ?? double.NaN;
+        double? derivative = hasD && CatalogThermalOptics.TryReferenceThermalPower(glass,
+            CatalogGlassConstants.WavelengthD, actualD, out _, out var dnDt) ? dnDt : null;
         return new GlassMaterialDto(
             glass.CatalogName,
             glass.Manufacturer,
@@ -174,8 +192,19 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
             glass.ZemaxData?.MechanicalData.ToArray() ?? Array.Empty<double>(),
             glass.ZemaxData?.OtherData.ToArray() ?? Array.Empty<double>(),
             glass.ZemaxData?.InternalTransmissions.Count ?? 0,
-            glass.ZemaxData?.StressData.Count ?? 0);
+            glass.ZemaxData?.StressData.Count ?? 0,
+            referenceIndex, referenceAbbe, MapConstantsStatus(calculated.Status),
+            derivative.HasValue && CatalogThermalOptics.RequiresSourceReview(derivative.Value), derivative);
     }
+
+    private static GlassConstantsCalculationStatus MapConstantsStatus(GlassConstantsStatus status) => status switch
+    {
+        GlassConstantsStatus.Available => GlassConstantsCalculationStatus.Available,
+        GlassConstantsStatus.WavelengthOutOfRange => GlassConstantsCalculationStatus.WavelengthOutOfRange,
+        GlassConstantsStatus.UnsupportedModel => GlassConstantsCalculationStatus.UnsupportedModel,
+        GlassConstantsStatus.UndefinedAbbeNumber => GlassConstantsCalculationStatus.UndefinedAbbeNumber,
+        _ => GlassConstantsCalculationStatus.InvalidIndex
+    };
 
     private static CatalogGlassMaterial? SelectGlass(
         IReadOnlyList<CatalogGlassMaterial> glasses,

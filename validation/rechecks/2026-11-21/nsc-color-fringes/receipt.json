@@ -1,0 +1,81 @@
+{
+  "Source": "src/OpticalSystemDesign.App/Assets/NonSequentialExamples/Birefringence/Color Fringes.ZMX",
+  "SourceSha256": "ABF16161C24165584C14217A1274232BDA4A87018D1ED8C7F8A6455817F64D03",
+  "RayCount": 1000000,
+  "ElapsedSeconds": 279.4969805,
+  "DetectedPowerWatts": 0.446661346664945,
+  "SpectralFit": "CIE1931-2deg/1nm; XYZ nonnegative least squares; flat prior; uniform wavelength bands; unit radiometric power/1",
+  "MillionRayEngineSha256": "D1EB6C9EBBF911BD733A389D967A5A13CDC3802576F978E9F7601C410D4A60FF",
+  "SourceFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+      "Sha256": "2F0ED6CEFCFC37E26CD0200DE3F31292EDE08B26D9871645193A99586EC0D0C8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs",
+      "Sha256": "0EAA433FE1E19C532B579704F59968DF12EFE8A5637B0A78847BE5D0063C841B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialColorimetry.cs",
+      "Sha256": "11EAF06AF60CADBA5DE3E91EE0B837F3FB0F19998688BA842121E4B7AC67E407"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPolarization.cs",
+      "Sha256": "B11C163E6EE2F5F0F385C3969CB1AD48F000EEB792C19B216F282DF83D3D1B67"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Sha256": "CABAB6CC485378A914FD0C13239ABCE713151440303183E7402FEF5E60CC92A0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorAccumulator.cs",
+      "Sha256": "110827C02F0D2AC3BF8D33707B79298BC6E474058720458FAC66AC81AE46371B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "Sha256": "280418A76F915671EC4ECEB5F173CC5E75EB6D9C3A85BC40D124175B312DA3C0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialMesh.cs",
+      "Sha256": "065E05EBFF3BA71E0CEA9680F072FBBD9428F7914166A05EB2975889D200DCAB"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "Sha256": "5A3A1F7CBD4831E3FEDDF9EACB550306D09155D960326242EB009EF2B19D64F5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "Sha256": "A658A5408B886B2C76D65D8BB68154FF61FE4762FDF8B13944804DD55F49AEEF"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.cs",
+      "Sha256": "4A05DA6EE1C413B2419C14C9300B2264CB22728D2703F83922E26C0243F54D0D"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "Sha256": "AD8D49EDA4ACA097879B0CC569A315FD1D5CC59D668125893D9FD78F268122FB"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "63CF16D23D8FBE16A9C524B095D20CA418C2F95597B1395B3D2398A5889649B5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "Sha256": "45672072464F46757FCE48E5A1BE316B7422DAA20D747C0A2A9E21BC865948A6"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "Sha256": "E4AFC84A845323B224B7EBB09C27BE43F38BF6289D9B6B6F183BF22C15CFFE69"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/AnalysisPlotControl.cs",
+      "Sha256": "DF93D578379CFEF85EF133F11258FC767E2FF8FF89F673500F00BA9BD4351C73"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialColorFringesTests.cs",
+      "Sha256": "31783C57426C4995D069657400D7C135B376318A847CFB1D4E6F1DC581E59B39"
+    }
+  ],
+  "RawDataSha256": "B9AF43300E88FC0F6826B1CC1AAF75594799CF455EE37E2E8D4489F7761FDE05",
+  "NativePixelCertification": false
+}

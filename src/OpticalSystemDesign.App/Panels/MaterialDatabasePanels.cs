@@ -29,12 +29,19 @@ public sealed class MaterialLibraryPanel : UserControl
     private readonly TextBox _state = ReadOnlyField();
     private readonly TextBlock _nd = MetricValue();
     private readonly TextBlock _vd = MetricValue();
+    private readonly TextBlock _constantsSource = new() { Name = "MaterialConstantsSource", TextWrapping = TextWrapping.Wrap };
+    private Button _calculateConstants = null!;
+    private GlassConstantsDto? _calculatedConstants;
     private readonly TextBlock _selectionSummary = new()
     {
         VerticalAlignment = VerticalAlignment.Center
     };
-    private readonly TextBlock[] _coefficientLabels = new TextBlock[10];
-    private readonly TextBox[] _coefficientValues = new TextBox[10];
+    private TextBlock[] _coefficientLabels = new TextBlock[10];
+    private TextBox[] _coefficientValues = new TextBox[10];
+    private Control[] _coefficientRows = new Control[10];
+    private readonly Grid _coefficientGrid = new();
+    private readonly TextBlock _coefficientNote = new() { TextWrapping = TextWrapping.Wrap };
+    private readonly TextBlock _dataQuality = new() { Name = "MaterialDataQuality", TextWrapping = TextWrapping.Wrap };
     private readonly Dictionary<string, TextBox> _properties = new(StringComparer.Ordinal);
     private static readonly string[] CatalogPropertyNames = ["熔融频率", "标注", "参考成本", "CR", "FR", "SR", "AR", "PR"];
 
@@ -44,6 +51,12 @@ public sealed class MaterialLibraryPanel : UserControl
         UiLocalization.Preserve(_catalog);
         UiLocalization.Preserve(_glassList);
         _selectionSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        _constantsSource.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        _coefficientNote.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        _dataQuality.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        UiLocalization.BindLanguage(this, () => _state.Text = UiLocalization.Text(SelectedGlass()?.Status ?? ""));
+        _nd.Name = "MaterialNd";
+        _vd.Name = "MaterialVd";
         for (var index = 0; index < _coefficientLabels.Length; index++)
         {
             _coefficientLabels[index] = FieldLabel($"A{index}:");
@@ -114,7 +127,7 @@ public sealed class MaterialLibraryPanel : UserControl
     {
         var panel = new Grid
         {
-            RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto,Auto,Auto,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto,Auto,Auto,Auto,Auto"),
             RowSpacing = 8
         };
 
@@ -148,6 +161,7 @@ public sealed class MaterialLibraryPanel : UserControl
         Add(metrics, _vd, 3);
         Grid.SetRow(metrics, 6);
         panel.Children.Add(metrics);
+        AddRow(panel, _constantsSource, 7);
         return panel;
     }
 
@@ -155,23 +169,24 @@ public sealed class MaterialLibraryPanel : UserControl
     {
         var coefficients = new StackPanel { Spacing = 8 };
         coefficients.Children.Add(SectionTitle("色散系数"));
-        var coefficientFields = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("*,*"),
-            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto"),
-            ColumnSpacing = 16,
-            RowSpacing = 8
-        };
+        var coefficientFields = _coefficientGrid;
+        coefficientFields.ColumnDefinitions = new ColumnDefinitions("*,*");
+        coefficientFields.RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto");
+        coefficientFields.ColumnSpacing = 16;
+        coefficientFields.RowSpacing = 8;
         for (var index = 0; index < _coefficientValues.Length; index++)
         {
             _coefficientLabels[index].MinWidth = 32;
             var field = LabeledControl(_coefficientLabels[index], _coefficientValues[index]);
+            _coefficientRows[index] = field;
             Grid.SetRow(field, index / 2);
             Grid.SetColumn(field, index % 2);
             coefficientFields.Children.Add(field);
         }
         coefficients.Children.Add(coefficientFields);
+        coefficients.Children.Add(_coefficientNote);
         coefficients.Children.Add(SectionTitle("目录资料"));
+        coefficients.Children.Add(_dataQuality);
         var catalogFields = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,*"),
@@ -240,15 +255,12 @@ public sealed class MaterialLibraryPanel : UserControl
         var reload = CommandButton("action-recalculate", "重载玻璃库");
         var copyName = CommandButton("material-copy-glass", "复制玻璃");
         var copyReport = CommandButton("material-glass-report", "复制玻璃报告");
-        var calculate = CommandButton("material-nd-vd", "计算 Nd/Vd");
+        var calculate = _calculateConstants = CommandButton("material-nd-vd", "计算 Nd/Vd");
+        calculate.Name = "CalculateGlassConstants";
         reload.Click += (_, _) => ReloadCatalogs();
         copyName.Click += async (_, _) => await CopySelectedNameAsync();
         copyReport.Click += async (_, _) => await CopySelectedReportAsync();
-        calculate.Click += (_, _) =>
-        {
-            ShowSelectedGlass();
-            _selectionSummary.Text = "Nd/Vd 已按 Fraunhofer F-d-C 谱线计算";
-        };
+        calculate.Click += (_, _) => CalculateSelectedConstants();
 
         var commandBar = new Border
         {
@@ -308,6 +320,7 @@ public sealed class MaterialLibraryPanel : UserControl
 
     private void ShowSelectedGlass()
     {
+        _calculatedConstants = null;
         var glass = SelectedGlass();
         if (glass is null)
         {
@@ -317,14 +330,21 @@ public sealed class MaterialLibraryPanel : UserControl
 
         _name.Text = glass.Name;
         _formula.Text = DisplayFormula(glass.Formula);
-        _state.Text = glass.Status;
+        _state.Text = UiLocalization.Text(glass.Status);
         _nd.Text = FormatNumber(glass.RefractiveIndexD, "0.000000");
         _vd.Text = FormatNumber(glass.AbbeNumber, "0.000");
+        _calculateConstants.IsEnabled = true;
+        ToolTip.SetTip(_calculateConstants, "按材料色散模型在 F、d、C 谱线重算，不覆盖目录参考值。");
+        _constantsSource.Text = BrowsedConstantsSource(glass);
+        _dataQuality.Text = DataQualityText(glass);
+        _dataQuality.IsVisible = _dataQuality.Text.Length > 0;
         foreach (var (name, value) in CatalogProperties(glass)) SetProperty(name, value);
 
         var coefficients = DisplayCoefficients(glass);
+        EnsureCoefficientCapacity(coefficients.Count);
         for (var index = 0; index < _coefficientValues.Length; index++)
         {
+            _coefficientRows[index].IsVisible = index < coefficients.Count;
             if (index < coefficients.Count)
             {
                 _coefficientLabels[index].Text = $"{coefficients[index].Label}：";
@@ -332,10 +352,13 @@ public sealed class MaterialLibraryPanel : UserControl
             }
             else
             {
-                _coefficientLabels[index].Text = $"A{index}：";
+                _coefficientLabels[index].Text = "—";
                 _coefficientValues[index].Text = "—";
             }
         }
+        _coefficientNote.Text = coefficients.Count == 0 ? "当前材料没有解析色散系数。"
+            : coefficients.Any(item => item.Label.EndsWith('*')) ? "标记 * 的项为源记录额外系数，未参与当前公式计算。" : "";
+        _coefficientNote.IsVisible = _coefficientNote.Text.Length > 0;
 
         SetProperty("D0", CoefficientValue(glass.ThermalCoefficients, 0));
         SetProperty("D1", CoefficientValue(glass.ThermalCoefficients, 1));
@@ -347,8 +370,8 @@ public sealed class MaterialLibraryPanel : UserControl
         SetProperty("Temp", CoefficientValue(glass.ThermalCoefficients, 6, "0.###"));
         SetProperty("ρ", OptionalValue(glass.Density, "0.#####"));
         SetProperty("dPgF", OptionalValue(glass.RelativePartialDispersionDeviation, "0.000000"));
-        SetProperty("最小波长", $"{NumericDisplayFormatter.Format(glass.MinimumWavelengthMicrometers)} μm");
-        SetProperty("最大波长", $"{NumericDisplayFormatter.Format(glass.MaximumWavelengthMicrometers)} μm");
+        SetProperty("最小波长", $"{NumericDisplayFormatter.Format(glass.MinimumWavelengthMicrometers)} µm");
+        SetProperty("最大波长", $"{NumericDisplayFormatter.Format(glass.MaximumWavelengthMicrometers)} µm");
         _selectionSummary.Text = glass.ExtinctionSampleCount > 0
             ? $"{glass.ExtinctionSampleCount} 个消光样本"
             : glass.RefractiveIndexSampleCount > 0
@@ -358,6 +381,13 @@ public sealed class MaterialLibraryPanel : UserControl
 
     private void ClearDetails()
     {
+        _calculatedConstants = null;
+        _calculateConstants.IsEnabled = false;
+        ToolTip.SetTip(_calculateConstants, "请先选择材料。");
+        _constantsSource.Text = "";
+        _coefficientNote.IsVisible = false;
+        _dataQuality.Text = "";
+        _dataQuality.IsVisible = false;
         _name.Text = string.Empty;
         _formula.Text = string.Empty;
         _state.Text = string.Empty;
@@ -365,13 +395,90 @@ public sealed class MaterialLibraryPanel : UserControl
         _vd.Text = "—";
         for (var index = 0; index < _coefficientValues.Length; index++)
         {
-            _coefficientLabels[index].Text = $"A{index}：";
+            _coefficientRows[index].IsVisible = false;
+            _coefficientLabels[index].Text = "—";
             _coefficientValues[index].Text = "—";
         }
 
         foreach (var field in _properties.Values)
         {
             field.Text = "—";
+        }
+    }
+
+    private void CalculateSelectedConstants()
+    {
+        if (SelectedGlass() is not { } glass) return;
+        _calculatedConstants = _materials.CalculateGlassConstants($"{glass.Manufacturer}:{glass.Name}", useCatalogDefinition: true)
+            ?? new GlassConstantsDto(null, null, null, null, GlassConstantsCalculationStatus.UnsupportedModel);
+        _nd.Text = FormatNumber(_calculatedConstants.RefractiveIndexD ?? double.NaN, "0.000000");
+        _vd.Text = FormatNumber(_calculatedConstants.AbbeNumber ?? double.NaN, "0.000");
+        _constantsSource.Text = CalculatedConstantsSource(glass, _calculatedConstants);
+        _selectionSummary.Text = _calculatedConstants.Status == GlassConstantsCalculationStatus.Available
+            ? "Nd/Vd 已按 Fraunhofer F-d-C 谱线计算" : "Nd/Vd 计算未完成";
+    }
+
+    private static string BrowsedConstantsSource(GlassMaterialDto glass) =>
+        !double.IsFinite(glass.RefractiveIndexD) || !double.IsFinite(glass.AbbeNumber)
+        ? "Nd/Vd：部分数值不可用，请查看数据检查。" :
+        (glass.CatalogReferenceIndexD.HasValue, glass.CatalogReferenceAbbeNumber.HasValue) switch
+        {
+            (true, true) => "Nd/Vd：目录参考值",
+            (true, false) => "Nd：目录参考值；Vd：色散模型计算值",
+            (false, true) => "Nd：色散模型计算值；Vd：目录参考值",
+            _ => "Nd/Vd：色散模型计算值（F/d/C）"
+        };
+
+    internal static string DataQualityText(GlassMaterialDto glass)
+    {
+        var status = glass.CalculatedConstantsStatus switch
+        {
+            GlassConstantsCalculationStatus.Available => "数据检查：F-d-C 模型计算可用；目录参考值保持原值。",
+            GlassConstantsCalculationStatus.WavelengthOutOfRange => "数据检查：F、d、C 谱线超出材料有效波长或折射率表范围；目录参考值不代表该波段的有效计算。",
+            GlassConstantsCalculationStatus.UnsupportedModel => "数据检查：当前色散模型不受支持；仅保留已有目录参考值。",
+            GlassConstantsCalculationStatus.InvalidIndex => "数据检查：色散数据缺失或计算无效；仅保留已有目录参考值。",
+            GlassConstantsCalculationStatus.UndefinedAbbeNumber => "数据检查：F、C 折射率差值过小，Vd 无定义。",
+            _ => ""
+        };
+        if (glass.RequiresThermalDataReview)
+            status += (status.Length > 0 ? Environment.NewLine : "")
+                + $"热数据需核对：目录参考温度、d 谱线下 dn/dT={FormatNumber(glass.ReferenceThermalIndexDerivative ?? double.NaN, "0.0000000E+000")}/K；已保留原始 TD 数据，未缩放或修正。";
+        return status;
+    }
+
+    private static string CalculatedConstantsSource(GlassMaterialDto glass, GlassConstantsDto calculated)
+    {
+        var source = "Nd/Vd：色散模型计算值（F/d/C）" + Environment.NewLine
+            + $"目录参考 Nd：{FormatNumber(glass.CatalogReferenceIndexD ?? double.NaN, "0.000000")}；Vd：{FormatNumber(glass.CatalogReferenceAbbeNumber ?? double.NaN, "0.000")}";
+        var reason = calculated.Status switch
+        {
+            GlassConstantsCalculationStatus.Available => "",
+            GlassConstantsCalculationStatus.WavelengthOutOfRange => "无法计算：F、d、C 谱线超出材料有效波长或折射率表范围。",
+            GlassConstantsCalculationStatus.UnsupportedModel => "无法计算：当前材料的色散模型不受支持。",
+            GlassConstantsCalculationStatus.UndefinedAbbeNumber => "Vd 不可用：F、C 折射率相同或差值过小。",
+            _ => "无法计算：材料色散数据缺失或产生无效折射率。"
+        };
+        return reason.Length == 0 ? source : source + Environment.NewLine + reason;
+    }
+
+    private void EnsureCoefficientCapacity(int count)
+    {
+        var previous = _coefficientValues.Length;
+        if (count <= previous) return;
+        Array.Resize(ref _coefficientLabels, count);
+        Array.Resize(ref _coefficientValues, count);
+        Array.Resize(ref _coefficientRows, count);
+        while (_coefficientGrid.RowDefinitions.Count < (count + 1) / 2)
+            _coefficientGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        for (var index = previous; index < count; index++)
+        {
+            _coefficientLabels[index] = FieldLabel("");
+            _coefficientLabels[index].MinWidth = 32;
+            _coefficientValues[index] = ReadOnlyField();
+            var row = _coefficientRows[index] = LabeledControl(_coefficientLabels[index], _coefficientValues[index]);
+            Grid.SetRow(row, index / 2);
+            Grid.SetColumn(row, index % 2);
+            _coefficientGrid.Children.Add(row);
         }
     }
 
@@ -407,24 +514,34 @@ public sealed class MaterialLibraryPanel : UserControl
             return;
         }
 
-        await clipboard.SetTextAsync(BuildGlassReport(glass));
+        await clipboard.SetTextAsync(BuildGlassReport(glass, _calculatedConstants, UiLocalization.CurrentLanguage));
         _selectionSummary.Text = "玻璃报告已复制";
     }
 
-    internal static string BuildGlassReport(GlassMaterialDto glass)
+    internal static string BuildGlassReport(GlassMaterialDto glass, GlassConstantsDto? calculated = null, string language = UiLocalization.Chinese)
     {
+        string T(string source) => UiLocalization.Text(source, language);
+        string Line(string label, string value) => T(label) + (language == UiLocalization.English ? ": " : "：") + value;
         var report = new StringBuilder()
-            .AppendLine($"材料库：{glass.Manufacturer}")
-            .AppendLine($"玻璃：{glass.Name}")
-            .AppendLine($"公式：{DisplayFormula(glass.Formula)}")
-            .AppendLine($"Nd：{FormatNumber(glass.RefractiveIndexD, "0.000000")}")
-            .AppendLine($"Vd：{FormatNumber(glass.AbbeNumber, "0.000")}")
-            .AppendLine($"有效波长：{NumericDisplayFormatter.Format(glass.MinimumWavelengthMicrometers)}–{NumericDisplayFormatter.Format(glass.MaximumWavelengthMicrometers)} μm");
+            .AppendLine(Line("材料库", glass.Manufacturer))
+            .AppendLine(Line("玻璃", glass.Name))
+            .AppendLine(Line("公式", T(DisplayFormula(glass.Formula))))
+            .AppendLine(Line("Nd", FormatNumber(calculated is null ? glass.RefractiveIndexD : calculated.RefractiveIndexD ?? double.NaN, "0.000000")))
+            .AppendLine(Line("Vd", FormatNumber(calculated is null ? glass.AbbeNumber : calculated.AbbeNumber ?? double.NaN, "0.000")))
+            .AppendLine(T(calculated is null ? BrowsedConstantsSource(glass) : CalculatedConstantsSource(glass, calculated)))
+            .AppendLine(Line("有效波长", $"{NumericDisplayFormatter.Format(glass.MinimumWavelengthMicrometers)}–{NumericDisplayFormatter.Format(glass.MaximumWavelengthMicrometers)} µm"));
+        var quality = DataQualityText(glass);
+        if (quality.Length > 0) report.AppendLine(T(quality));
         foreach (var coefficient in DisplayCoefficients(glass))
         {
-            report.AppendLine($"{coefficient.Label}：{NumericDisplayFormatter.Format(coefficient.Value, CultureInfo.InvariantCulture)}");
+            report.AppendLine(Line(coefficient.Label, NumericDisplayFormatter.Format(coefficient.Value, CultureInfo.InvariantCulture)));
         }
-        foreach (var (name, value) in CatalogProperties(glass)) report.AppendLine($"{name}：{value}");
+        if (DisplayCoefficients(glass).Any(item => item.Label.EndsWith('*')))
+            report.AppendLine(T("标记 * 的项为源记录额外系数，未参与当前公式计算。"));
+        foreach (var (name, value) in CatalogProperties(glass)) report.AppendLine(Line(name, value));
+        var thermalSymbols = new[] { "D0", "D1", "D2", "E0", "E1", "Ltk", "Temp" };
+        for (var index = 0; index < thermalSymbols.Length; index++)
+            report.AppendLine(Line(thermalSymbols[index], CoefficientValue(glass.ThermalCoefficients, index, index == 6 ? "0.###" : "0.0000000E+000")));
         return report.ToString();
     }
 
@@ -442,42 +559,58 @@ public sealed class MaterialLibraryPanel : UserControl
         }
     }
 
-    private static IReadOnlyList<(string Label, double Value)> DisplayCoefficients(GlassMaterialDto glass)
+    internal static IReadOnlyList<(string Label, double Value)> DisplayCoefficients(GlassMaterialDto glass)
     {
         var source = glass.DispersionCoefficients;
-        if (glass.ZemaxFormulaNumber is not null)
+        if (glass.Formula.StartsWith("zemax formula ", StringComparison.Ordinal)
+            && int.TryParse(glass.Formula.AsSpan("zemax formula ".Length), out var model))
         {
-            return source.Take(10).Select((value, index) => ($"A{index}", value)).ToArray();
+            var labels = model switch
+            {
+                1 => new[] { "A0", "A1", "A2", "A3", "A4", "A5" },
+                2 => new[] { "K1", "L1", "K2", "L2", "K3", "L3" },
+                3 => new[] { "A", "B", "C", "D", "E", "F" },
+                4 => new[] { "A", "B1", "λ1", "B2", "λ2" },
+                5 => new[] { "n0", "A", "B" },
+                6 => new[] { "K1", "L1", "K2", "L2", "K3", "L3", "K4", "L4" },
+                7 or 8 => new[] { "A", "B", "C", "D" },
+                9 => new[] { "A", "B", "C", "D", "E" },
+                10 or 12 => Enumerable.Range(0, 8).Select(i => $"A{i}").ToArray(),
+                11 => new[] { "K1", "L1", "K2", "L2", "K3", "L3", "K4", "L4", "K5", "L5" },
+                13 => Enumerable.Range(0, 9).Select(i => $"A{i}").ToArray(),
+                _ => source.Select((_, i) => $"CD{i}").ToArray()
+            };
+            return source.Take(labels.Length).Select((value, index) => (labels[index], value))
+                .Concat(source.Select((value, index) => (Label: $"CD{index}*", Value: value))
+                    .Skip(labels.Length)).ToArray();
         }
 
         if (glass.Formula is "formula 3" or "formula 5")
         {
-            var indices = new[] { 0, 1, 3, 5, 7, 9 };
-            return indices
-                .Where(index => index < source.Count)
-                .Select((index, labelIndex) => ($"A{labelIndex}", source[index]))
+            return source.Select((value, index) => (value, index))
+                .Where(item => item.index == 0 || item.index % 2 == 1)
+                .Select(item => (item.index == 0 ? "C0" : $"C{(item.index + 1) / 2} (λ^{(item.index + 1 < source.Count ? source[item.index + 1].ToString("G", CultureInfo.InvariantCulture) : "?")})", item.value))
                 .ToArray();
         }
 
-        if (glass.Formula is "formula 1" or "formula 2")
+        if (glass.Formula is "formula 1" or "formula 2" or "formula 2 pchip-k-clamped/1")
         {
-            var labels = new[] { "B1", "C1", "B2", "C2", "B3", "C3" };
-            return source
-                .Skip(source.Count % 2)
-                .Take(labels.Length)
-                .Select((value, index) => (labels[index], value))
+            return source.Select((value, index) => (index == 0 ? "C0" : index % 2 == 1
+                    ? $"B{(index + 1) / 2}" : glass.Formula == "formula 1" ? $"λ{index / 2}" : $"C{index / 2}", value))
                 .ToArray();
         }
 
-        return source.Take(6).Select((value, index) => ($"C{index}", value)).ToArray();
+        return source.Select((value, index) => ($"C{index}", value)).ToArray();
     }
 
     private static string DisplayFormula(string formula) => formula switch
     {
         "formula 1" => "Sellmeier 1",
         "formula 2" => "Sellmeier 2",
-        "formula 3" => "Schott",
-        "formula 5" => "Cauchy",
+        "formula 3" => "多项式 n²",
+        "formula 5" => "多项式 n",
+        "formula 2 pchip-k-clamped/1" => "Sellmeier 2",
+        "tabulated nk pchip-clamped/1" => "复折射率表",
         "tabulated n" => "折射率表",
         "tabulated nk" => "复折射率表",
         _ when formula.StartsWith("zemax formula ", StringComparison.Ordinal) &&
@@ -601,7 +734,7 @@ public sealed class MaterialLibraryPanel : UserControl
         return grid;
     }
 
-    internal static Control DatabasePage(string title, string summary, Control content)
+    internal static Control DatabasePage(string title, string summary, Control content, bool showHeader = true)
     {
         var summaryText = new TextBlock { Text = summary };
         summaryText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
@@ -623,8 +756,11 @@ public sealed class MaterialLibraryPanel : UserControl
         header.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var root = new DockPanel();
         root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
-        DockPanel.SetDock(header, Avalonia.Controls.Dock.Top);
-        root.Children.Add(header);
+        if (showHeader)
+        {
+            DockPanel.SetDock(header, Avalonia.Controls.Dock.Top);
+            root.Children.Add(header);
+        }
         var contentCard = new Border
         {
             Margin = new Thickness(16),

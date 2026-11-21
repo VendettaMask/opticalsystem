@@ -1,0 +1,628 @@
+{
+  "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+  "scope": "30-39,48-56,58-64",
+  "items": [
+    {
+      "index": 30,
+      "key": "Fourier Through Focus MTF",
+      "disposition": "fixed",
+      "reason": "旧默认频率20 cycles/mrad超过本镜头约6.86 cycles/mrad的截止，故曲线为零；无焦App未指定频率现在取真实截止的10%，并明确cycles/mrad及离焦D。原生0.2 cycles/角分等于0.68755 cycles/mrad；Core默认及用户显式0/20/50均保留。FFT相位保护独立保留，见重新计算结果。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fourier-through-focus-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/fourier-through-focus-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fourier-through-focus-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64",
+        "DeltaFocus": "0.1",
+        "Frequency": "0",
+        "NumberOfSteps": "5",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "Type": "调制",
+        "UsePolarization": "false",
+        "UseDashes": "false"
+      }
+    },
+    {
+      "index": 31,
+      "key": "Huygens Through Focus MTF",
+      "disposition": "fixed",
+      "reason": "同样修正无焦扫描缺省频率及D单位。原生Huygens截图保存频率20 cycles/角分=68.7549 cycles/mrad，已超过本镜头截止；其大于1的振荡不能作为真实MTF拟合目标。新默认按截止10%选择有效频带，显式原生高频仍应依真实物理返回零。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-through-focus-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/huygens-through-focus-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-through-focus-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "UseCheckedFocusedPupil": "false",
+        "PupilSampling": "64",
+        "ImageSampling": "32",
+        "ImageDeltaMicrometers": "0",
+        "DeltaFocus": "0.1",
+        "SpatialFrequency": "20",
+        "Steps": "5",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0"
+      }
+    },
+    {
+      "index": 32,
+      "key": "Geometric Through Focus MTF",
+      "disposition": "fixed",
+      "reason": "旧50 cycles/mrad默认在无焦空间远超截止，产生全零；App现在仅对未指定频率按真实截止10%给值，单位cycles/mrad、离焦D，保留显式50不夹限。原生0.2 cycles/角分≈0.68755 cycles/mrad，属于频率设置不同。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-through-focus-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/geometric-through-focus-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-through-focus-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64",
+        "DeltaFocus": "0.1",
+        "SpatialFrequency": "50",
+        "Steps": "5",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "Distribution": "uniform",
+        "ScaleByDiffractionLimit": "true"
+      }
+    },
+    {
+      "index": 33,
+      "key": "Fourier MTF vs Field",
+      "disposition": "fixed",
+      "reason": "旧10..60 cycles/mrad六频率全部或大部分超过无焦截止；未指定频率的App默认现在取截止的1%、2.5%、5%、10%、25%、50%，显式频率保持。纵轴是MTF，横轴当前归一视场0..1、原生为0..2.5度；横轴定义需换算后比较。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fourier-mtf-vs-field.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/fourier-mtf-vs-field.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fourier-mtf-vs-field-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "PupilSampling": "32",
+        "Frequency1": "10",
+        "Frequency2": "20",
+        "Frequency3": "30",
+        "WavelengthNumber": "0",
+        "Frequency4": "40",
+        "Frequency5": "50",
+        "Frequency6": "60"
+      }
+    },
+    {
+      "index": 34,
+      "key": "Huygens MTF vs Field",
+      "disposition": "fixed",
+      "reason": "修复六条无焦频率默认沿用焦内10..60 cycles/mm数值的问题；默认依据真实角频率截止，标签cycles/mrad。原生图图例是cycles/角分，必须乘3.43774677才能与cycles/mrad比较；当前归一视场轴与原生角度轴也不同，不能直接逐像素判断。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-mtf-vs-field.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/huygens-mtf-vs-field.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-mtf-vs-field-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64",
+        "Frequency1": "10",
+        "Frequency2": "20",
+        "Frequency3": "30",
+        "Frequency4": "40",
+        "Frequency5": "50",
+        "Frequency6": "60",
+        "WavelengthNumber": "0",
+        "UsePolarization": "false",
+        "UseDashes": "false",
+        "RemoveVignettingFactors": "true",
+        "FieldDensity": "10",
+        "ScanType": "+y"
+      }
+    },
+    {
+      "index": 35,
+      "key": "Geometric MTF vs Field",
+      "disposition": "fixed",
+      "reason": "旧几何单频20 cycles/mrad超过截止；无焦App缺省改为六个截止比例频率，与已有多频计算接口一致，不改焦内单频20及显式自定义频率。原生六频率以cycles/角分标示，横轴2.5度与当前归一1代表相同最大视场。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-mtf-vs-field.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/geometric-mtf-vs-field.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-mtf-vs-field-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "SpatialFrequency": "20",
+        "PupilSampling": "32",
+        "ImageSize": "64",
+        "PixelPitchMillimeters": "0.005",
+        "WavelengthNumber": "0",
+        "Distribution": "uniform",
+        "ScaleByDiffractionLimit": "true"
+      }
+    },
+    {
+      "index": 36,
+      "key": "FFT Surface MTF",
+      "disposition": "presentation_difference",
+      "reason": "原生为透视3D表面，当前为二维MTF热图；角频率cycles/角分与cycles/mrad相差3.43774677倍，颜色与相机不同。保留实际截止及数值；截图级外形不能作为严格数值一致性认证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-surface-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/fft-surface-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-surface-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64",
+        "FieldNumber": "1",
+        "WavelengthNumber": "0",
+        "UsePolarization": "false",
+        "ShowAs": "表面",
+        "Type": "Modulation",
+        "Rotation": "0",
+        "DisplayScale": "1"
+      }
+    },
+    {
+      "index": 37,
+      "key": "FFT MTF Map",
+      "disposition": "settings_difference",
+      "reason": "旧当前固定20 cycles/mrad，原生固定10 cycles/角分=34.3775 cycles/mrad，两者均高于约6.86截止，零MTF图有物理原因。视场窗口当前±1.25度、原生±0.875度不同；不能把裁剪或虚构非零值当修复。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-mtf-map.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/fft-mtf-map.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-mtf-map-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "32",
+        "SpatialFrequency": "20",
+        "WavelengthNumber": "0",
+        "ReferenceFieldNumber": "0",
+        "Data": "Average",
+        "UsePolarization": "false",
+        "XFieldWidth": "0",
+        "YFieldWidth": "0",
+        "XFieldSamples": "9",
+        "YFieldSamples": "9",
+        "ShowAs": "伪彩色",
+        "RemoveVignettingFactors": "true",
+        "FixedColorScale": "false"
+      }
+    },
+    {
+      "index": 38,
+      "key": "Huygens Surface MTF",
+      "disposition": "presentation_difference",
+      "reason": "当前Huygens频域范围约±6.145 cycles/mrad，原生约±1.786 cycles/角分，换算后相符；二维色标/表面相机和配色不同。未将图形配色一致外推为数值认证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-surface-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/huygens-surface-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-surface-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "32",
+        "ImageSampling": "32",
+        "ImageDeltaMicrometers": "0",
+        "UsePolarization": "false",
+        "FieldNumber": "1",
+        "WavelengthNumber": "0",
+        "ShowAs": "伪彩色"
+      }
+    },
+    {
+      "index": 39,
+      "key": "Geometric MTF Map",
+      "disposition": "settings_difference",
+      "reason": "当前20 cycles/mrad与原生10 cycles/角分都在光学截止外，零图并非漏算；当前与原生视场裁剪范围不同。已核对保存设置，保留真实频率和输出。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-mtf-map.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/geometric-mtf-map.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-mtf-map-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "32",
+        "SpatialFrequency": "20",
+        "WavelengthNumber": "0",
+        "ReferenceFieldNumber": "0",
+        "Data": "Average",
+        "UsePolarization": "false",
+        "XFieldWidth": "0",
+        "YFieldWidth": "0",
+        "XFieldSamples": "9",
+        "YFieldSamples": "9",
+        "ShowAs": "伪彩色",
+        "RemoveVignettingFactors": "true",
+        "FixedColorScale": "false"
+      }
+    },
+    {
+      "index": 48,
+      "key": "PSF",
+      "disposition": "settings_difference",
+      "reason": "原生FFT PSF为3D表面且图宽18.19角分；当前为2D热图，采样64、显示128，角坐标mrad。采样、物理显示窗、相机与归一化选择未统一，不能靠平滑/缩放截图模拟原图；普通FFT相位恢复问题另见53。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/psf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/psf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/psf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "FourierSamplingMode": "按需加密",
+        "FourierMaximumSampling": "2048",
+        "FourierRelativeAccuracy": "0.001",
+        "Sampling": "64 x 64",
+        "Display": "128 x 128",
+        "Rotation": "0",
+        "ImageDeltaMicrometers": "0",
+        "UsePolarization": "false",
+        "WavelengthNumber": "所有",
+        "FieldNumber": "1 - 轴上视场",
+        "Type": "线性",
+        "DisplayAs": "伪彩色",
+        "SurfaceNumber": "像面",
+        "Normalized": "false"
+      }
+    },
+    {
+      "index": 49,
+      "key": "FFT PSF Cross Section",
+      "disposition": "settings_difference",
+      "reason": "FFT PSF截线当前横坐标mrad、原生角分；当前约±2.963mrad而原生±9.10角分≈±2.647mrad，FFT输出窗/采样不同。峰值当前约0.62、原生约0.634，并非数量级差异，需同域加密后才可认证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-psf-cross-section.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/fft-psf-cross-section.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-psf-cross-section-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "FourierSamplingMode": "按需加密",
+        "FourierMaximumSampling": "4096",
+        "FourierRelativeAccuracy": "0.001",
+        "Sampling": "64 x 64",
+        "Row": "中心",
+        "GraphScaleMicrometers": "0",
+        "UsePolarization": "false",
+        "WavelengthNumber": "所有",
+        "FieldNumber": "1 - 轴上视场",
+        "Type": "X-线性",
+        "Normalized": "false"
+      }
+    },
+    {
+      "index": 50,
+      "key": "FFT Line Edge Spread",
+      "disposition": "presentation_difference",
+      "reason": "FFT线/边扩散当前mrad、原生角分，线型、轴范围及布局不同；主峰与积分边缘阶跃形态相符。没有把纯单位/取窗差异通过强制缩放数值隐藏。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-line-edge-spread.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/fft-line-edge-spread.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/fft-line-edge-spread-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64 x 64",
+        "Spread": "线",
+        "GraphScaleMicrometers": "0",
+        "UsePolarization": "false",
+        "WavelengthNumber": "所有",
+        "FieldNumber": "1 - 轴上视场",
+        "Type": "X-线性",
+        "UseCoherentPsf": "false"
+      }
+    },
+    {
+      "index": 51,
+      "key": "Huygens PSF",
+      "disposition": "presentation_difference",
+      "reason": "Huygens PSF当前2D热图、原生3D表面；原生总宽6.34角分=1.844mrad，对应当前约±0.922mrad。色标/投影选择不同，保留实际计算与采样。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-psf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/huygens-psf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-psf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "AfocalIntegration": "原生有限单元",
+        "UseCheckedFocusedPupil": "false",
+        "PupilSampling": "32 x 32",
+        "ImageSampling": "32 x 32",
+        "ImageDeltaMicrometers": "0",
+        "Rotation": "0",
+        "UsePolarization": "false",
+        "UseCentroid": "false",
+        "WavelengthNumber": "所有",
+        "FieldNumber": "1 - 轴上视场",
+        "Type": "线性",
+        "DisplayAs": "伪彩色",
+        "Normalized": "false"
+      }
+    },
+    {
+      "index": 52,
+      "key": "Huygens PSF Cross Section",
+      "disposition": "presentation_difference",
+      "reason": "Huygens PSF截线当前约±0.9223mrad，原生±3.17角分，换算后同一物理域；峰值约0.739相符。单位和字体/线型不同，未伪造更细采样或外推全频认证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-psf-cross-section.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/huygens-psf-cross-section.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-psf-cross-section-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "AfocalIntegration": "原生有限单元",
+        "UseCheckedFocusedPupil": "false",
+        "PupilSampling": "32",
+        "ImageSampling": "32",
+        "ImageDeltaMicrometers": "0",
+        "WavelengthNumber": "0",
+        "FieldNumber": "1",
+        "ProfileType": "X",
+        "UsePolarization": "false",
+        "UseCentroid": "false"
+      }
+    },
+    {
+      "index": 53,
+      "key": "MTF",
+      "disposition": "unresolved",
+      "reason": "旧普通FFT MTF因瞳相位欠采样明确Unavailable，并非可以隐藏的空图。最新默认仍触发0.574507波>0.5保护；轴上主波长Adaptive64→512已满足既有0.001 RMS阈值，全部视场/波长恢复验证进行中，阈值保持不变。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "FourierSamplingMode": "按需加密",
+        "FourierMaximumSampling": "2048",
+        "FourierRelativeAccuracy": "0.001",
+        "Sampling": "64",
+        "MaximumFrequency": "0",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "SurfaceNumber": "0",
+        "Type": "调制",
+        "ShowDiffractionLimit": "false",
+        "UsePolarization": "false",
+        "UseDashes": "false"
+      }
+    },
+    {
+      "index": 54,
+      "key": "Huygens MTF",
+      "disposition": "presentation_difference",
+      "reason": "Huygens MTF原生频率轴cycles/角分、当前cycles/mrad；同一截止经过3.43774677单位换算后相符。原图和当前采样/最大频率不同，按真实角频率解释，不能仅凭六条曲线颜色布局宣称认证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/huygens-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/huygens-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "AfocalIntegration": "原生有限单元",
+        "PupilSampling": "32",
+        "ImageSampling": "32",
+        "ImageDeltaMicrometers": "0",
+        "MaximumFrequency": "0",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0"
+      }
+    },
+    {
+      "index": 55,
+      "key": "Geometric MTF",
+      "disposition": "presentation_difference",
+      "reason": "几何MTF比较必须把原生cycles/角分转换cycles/mrad；曲线整体与截止频带形状可对应，采样和自动频域窗口不同。没有为图形相似而裁频或改数值。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/geometric-mtf.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "NumRays": "32",
+        "PlotPointCount": "128",
+        "Distribution": "uniform",
+        "MaximumFrequency": "0",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "ScaleByDiffractionLimit": "true"
+      }
+    },
+    {
+      "index": 56,
+      "key": "Sampled MTF",
+      "disposition": "missing_native",
+      "reason": "图库没有Sampled MTF原生图。当前为独立采样MTF定义，不能用Geometric/Huygens MTF替代后标为通过；缺少原生同参数数据，保留missing_native。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/sampled-mtf.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/sampled-mtf-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "PupilSampling": "32",
+        "ZernikeTerms": "37",
+        "PlotPointCount": "128",
+        "MaximumFrequency": "0"
+      }
+    },
+    {
+      "index": 58,
+      "key": "Optical Path Difference",
+      "disposition": "presentation_difference",
+      "reason": "OPD光瞳扇形图当前把视场/切向弧矢分面排列、原生按另一布局显示；OPD单位均为波，自动纵轴/箭头和绘图分面不同。需要同一参考波长/参考平面及采样才能做数值认证，本次未改物理定义。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/optical-path-difference.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/optical-path-difference.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/optical-path-difference-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "GraphScale": "0",
+        "NumberOfRays": "20",
+        "UseDashes": "false",
+        "VignettedPupil": "true",
+        "CheckApertures": "true",
+        "WavelengthNumber": "所有",
+        "FieldNumber": "所有",
+        "SurfaceNumber": "像面"
+      }
+    },
+    {
+      "index": 59,
+      "key": "Foucault Analysis",
+      "disposition": "fixed",
+      "reason": "旧默认Foucault显式禁止ImageSpaceAfocal，产生分析错误；已复用既有复光瞳FFT刀口/逆FFT算子，按真实出瞳直径构造mrad角刀口坐标，携带typed单位到图下注释。解析平面波开闭功率、四刀口独立Fourier求和、口径/角刀口缩放已验证。独立32/64/128/256加密显示阴影仍有采样变化；默认32不标收敛或原生数值认证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/foucault-analysis.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/foucault-analysis.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/foucault-analysis-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "FoucaultPropagation": "焦面 FFT 再成像",
+        "KnifeDistanceMillimeters": "0",
+        "ObservationDistanceMillimeters": "0",
+        "ObservationHalfWidthMillimeters": "0",
+        "Sampling": "32 x 32",
+        "Type": "线性",
+        "DisplayAs": "灰度",
+        "KnifeEdge": "水平线上",
+        "DataSource": "计算的",
+        "WavelengthNumber": "2",
+        "FieldNumber": "1 - 轴上视场",
+        "YPositionMicrometers": "0",
+        "UsePolarization": "false"
+      }
+    },
+    {
+      "index": 60,
+      "key": "Wavefront Map",
+      "disposition": "presentation_difference",
+      "reason": "当前Wavefront Map对采样OPD减去最小值，色标从0到约0.3017波；原生为相同PV约0.3017波、RMS约0.0718波的有符号OPD（最小约−0.2099、最大约+0.093）。这是显示piston偏置及2D/3D相机差异，未改变PV/RMS或参考光程。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/wavefront-map.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/wavefront-map.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/wavefront-map-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64 x 64",
+        "Rotation": "0",
+        "DisplayScale": "1",
+        "Apodization": "无",
+        "ReferenceChiefRay": "false",
+        "ReferenceToPrimary": "false",
+        "UseExitPupilShape": "true",
+        "ExitPupilGeometry": "F 数近似",
+        "WavelengthNumber": "2",
+        "FieldNumber": "1 - 轴上视场",
+        "SurfaceNumber": "像面",
+        "DisplayAs": "表面",
+        "RemoveTilt": "false",
+        "PupilSx": "0",
+        "PupilSy": "0",
+        "PupilSr": "1"
+      }
+    },
+    {
+      "index": 61,
+      "key": "Interferogram",
+      "disposition": "presentation_difference",
+      "reason": "Interferogram当前灰度热图、原生黑白条纹，光瞳环形条纹位置及对称性可对应；颜色映射、绘图区大小不同。保持原波前参考及真实条纹，不以像素相似代替数值验证。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/interferogram.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/interferogram.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/interferogram-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64 x 64",
+        "SurfaceNumber": "-1 - 像面",
+        "ScaleFactor": "1",
+        "ShowAs": "灰度",
+        "WavelengthNumber": "2",
+        "FieldNumber": "1",
+        "XTilt": "0",
+        "YTilt": "0",
+        "Beam1": "-1 - 当前结构",
+        "Beam2": "0 - 参考光束",
+        "RefBeamToVertex": "false",
+        "UseExitPupilShape": "true",
+        "ConsiderPathLengthDifference": "false",
+        "ContourFormat": "",
+        "PupilSx": "0",
+        "PupilSy": "0",
+        "PupilSr": "1"
+      }
+    },
+    {
+      "index": 62,
+      "key": "Wavefront",
+      "disposition": "presentation_difference",
+      "reason": "Wavefront当前二维OPD热图、原生透视表面，相机/着色与显示范围不同；OPD单位波及无焦chief-ray平面参考保留。没有添加虚假曲面或改变参考来拟合截图。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/wavefront.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/wavefront.JPG",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/wavefront-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "Sampling": "64 x 64",
+        "Rotation": "0",
+        "DisplayScale": "1",
+        "Apodization": "无",
+        "ReferenceChiefRay": "false",
+        "ReferenceToPrimary": "false",
+        "UseExitPupilShape": "true",
+        "ExitPupilGeometry": "F 数近似",
+        "WavelengthNumber": "2",
+        "FieldNumber": "1 - 轴上视场",
+        "SurfaceNumber": "像面",
+        "DisplayAs": "表面",
+        "RemoveTilt": "false",
+        "PupilSx": "0",
+        "PupilSy": "0",
+        "PupilSr": "1"
+      }
+    },
+    {
+      "index": 63,
+      "key": "Centroid Sphere Wavefront",
+      "disposition": "missing_native",
+      "reason": "图库没有Centroid Sphere Wavefront对应原生图；它使用质心参考球定义，与普通Wavefront不同，不能借用普通波前图当验证。缺少原生同定义输出，保留missing_native。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/centroid-sphere-wavefront.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/centroid-sphere-wavefront-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "NumRings": "8",
+        "MapSize": "65",
+        "RobustTrimStandardDeviations": "3",
+        "WavelengthNumber": "0",
+        "FieldNumber": "1"
+      }
+    },
+    {
+      "index": 64,
+      "key": "Best Fit Sphere Wavefront",
+      "disposition": "missing_native",
+      "reason": "图库没有Best Fit Sphere Wavefront对应原生图；最佳拟合参考球与chief-ray/质心参考定义不同，不能用别的波前窗口替代认证。保留missing_native。",
+      "evidence": [
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/best-fit-sphere-wavefront.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/best-fit-sphere-wavefront-settings.json"
+      ],
+      "updatedImage": null,
+      "originalSettings": {
+        "NumRings": "8",
+        "MapSize": "65",
+        "RobustTrimStandardDeviations": "3",
+        "WavelengthNumber": "0",
+        "FieldNumber": "1"
+      }
+    }
+  ]
+}

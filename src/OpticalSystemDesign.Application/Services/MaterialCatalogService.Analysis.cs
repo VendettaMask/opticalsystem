@@ -198,21 +198,30 @@ internal sealed partial class MaterialCatalogService
         return series;
     }
 
-    private static AnalysisViewDto BuildAthermalGlassMap(
+    private AnalysisViewDto BuildAthermalGlassMap(
         IReadOnlyList<CatalogGlassMaterial> glasses,
         CatalogGlassMaterial? selected)
     {
-        const double wavelengthF = 486.1327;
-        const double wavelengthD = 587.5618;
-        const double wavelengthC = 656.2725;
-        var points = new List<AnalysisPointDto>();
+        var wavelengths = _runtime.Wavelengths.Select(wave => wave.Nanometers).Order().ToArray();
+        var wavelengthF = wavelengths.First();
+        var wavelengthD = _runtime.Wavelengths.FirstOrDefault(wave => wave.IsPrimary)?.Nanometers
+            ?? wavelengths[wavelengths.Length / 2];
+        var wavelengthC = wavelengths.Last();
+        if (_runtime.CurrentOptic.Environment.MatchRefractiveIndexData
+            && Math.Abs(_runtime.CurrentOptic.Environment.PressureAtmospheres - 1) > 1e-12)
+            return MaterialView("无热化玻璃图", Array.Empty<AnalysisSeriesDto>(), new(), glasses, 0, selected,
+                "无热化玻璃图按 1 atm 定义；启用环境折射率匹配时，请将系统压强设为 1 atm。")
+                with { Outcome = Contracts.AnalysisOutcome.Unavailable };
+        var points = new List<(CatalogGlassMaterial Glass, AnalysisPointDto Point)>();
+        var largeDerivatives = new List<string>();
         AnalysisPointDto? selectedPoint = null;
         foreach (var glass in glasses)
         {
             if (!TryIndex(glass, wavelengthF, out var nf)
                 || !TryIndex(glass, wavelengthD, out var nd)
                 || !TryIndex(glass, wavelengthC, out var nc)
-                || !TryThermalPower(glass, wavelengthD, nd, out var thermalPower))
+                || !CatalogThermalOptics.TryReferenceThermalPower(glass, wavelengthD, nd,
+                    out var thermalPower, out var dnDt))
             {
                 continue;
             }
@@ -224,30 +233,39 @@ internal sealed partial class MaterialCatalogService
             }
 
             var point = new AnalysisPointDto(
-                chromaticPower,
+                chromaticPower * 1e3,
                 thermalPower * 1e6,
-                GlassLabel(glass));
+                glass.CatalogName);
+            if (CatalogThermalOptics.RequiresSourceReview(dnDt))
+                largeDerivatives.Add(FormattableString.Invariant($"{GlassLabel(glass)}: dn/dT={dnDt:G6}/K"));
             if (ReferenceEquals(glass, selected))
             {
                 selectedPoint = point;
             }
             else
             {
-                points.Add(point);
+                points.Add((glass, point));
             }
         }
 
-        var series = ScatterSeries(
-                points,
-                selectedPoint,
-                "色光焦 ω",
-                "热光焦 γ (10⁻⁶/K)")
-            .ToList();
+        var series = points.GroupBy(item => item.Glass.ZemaxData?.Status ?? -1)
+            .OrderBy(group => group.Key).Select(group => new AnalysisSeriesDto(
+                "色光焦", "热光焦", group.Select(item => item.Point).ToArray(),
+                ContractAnalysisSeriesKind.Scatter, GlassStatus(group.Key),
+                ColorIndex: group.Key switch { 0 => 7, 1 => 2, 2 => 3, 3 => 0, 4 => 8, _ => 4 },
+                ShowMarkers: true, MarkerStyle: ContractAnalysisMarkerStyle.Square, MarkerSize: 2.2,
+                XQuantity: AnalysisAxisQuantity.ChromaticPower, XUnit: AnalysisAxisUnit.PartsPerThousand,
+                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower, YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin)).ToList();
         if (selectedPoint is not null)
         {
+            series.Add(new AnalysisSeriesDto("色光焦", "热光焦", new[] { selectedPoint },
+                ContractAnalysisSeriesKind.Scatter, $"所选：{GlassLabel(selected!)}", ColorIndex: 3,
+                ShowMarkers: true, MarkerStyle: ContractAnalysisMarkerStyle.Square, MarkerSize: 5,
+                XQuantity: AnalysisAxisQuantity.ChromaticPower, XUnit: AnalysisAxisUnit.PartsPerThousand,
+                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower, YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin));
             series.Insert(0, new AnalysisSeriesDto(
-                "色光焦 ω",
-                "热光焦 γ (10⁻⁶/K)",
+                "色光焦",
+                "热光焦",
                 new[]
                 {
                     new AnalysisPointDto(0, 0),
@@ -258,26 +276,37 @@ internal sealed partial class MaterialCatalogService
                 ColorIndex: 3,
                 LineWidth: 1,
                 XQuantity: AnalysisAxisQuantity.ChromaticPower,
-                XUnit: AnalysisAxisUnit.Dimensionless,
+                XUnit: AnalysisAxisUnit.PartsPerThousand,
                 YQuantity: AnalysisAxisQuantity.ThermalOpticalPower,
                 YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin));
         }
 
-        return MaterialView(
+        var allPoints = points.Select(item => item.Point).Concat(selectedPoint is null ? [] : new[] { selectedPoint }).ToArray();
+        var outside = allPoints.Count(point => point.X < 0 || point.X > 60 || point.Y < -30 || point.Y > 30);
+        var view = MaterialView(
             "无热化玻璃图",
             series,
             new AnalysisPlotOptionsDto(
                 Title: "色光焦与热光焦",
                 ShowVerticalZeroLine: true,
                 ShowHorizontalZeroLine: true,
-                ShowLegend: selectedPoint is not null,
+                XMinimum: 0, XMaximum: 60, YMinimum: -30, YMaximum: 30,
+                ShowLegend: true, LegendBelow: true, ShowPointLabels: true, AvoidOverlappingPointLabels: true,
                 HideTopAndRightAxes: true,
                 DottedGrid: true,
                 GridOpacity: 0.35),
             glasses,
             points.Count + (selectedPoint is null ? 0 : 1),
             selected,
-            "仅显示同时具备 TD 热系数和 TCE 数据的玻璃；参考线连接原点与所选玻璃。");
+            "使用工程最短、主波长和最长波长，在各玻璃目录参考温度、1 atm 下计算相对热光焦。名称按目录状态着色；默认范围外的有效点仍保留，可用“显示全部范围”查看。"
+            + (largeDerivatives.Count == 0 ? "" : "\nTD 导出的 |dn/dT| ≥ 0.01/K，需核对源目录；未猜测修正或删除：\n" + string.Join("\n", largeDerivatives)));
+        return view with { Rows = view.Rows.Concat(new[]
+        {
+            new AnalysisRowDto("最短 / 主 / 最长波长 (μm)", FormattableString.Invariant($"{wavelengthF / 1000:0.######} / {wavelengthD / 1000:0.######} / {wavelengthC / 1000:0.######}")),
+            new AnalysisRowDto("默认范围内", (allPoints.Length - outside).ToString(System.Globalization.CultureInfo.InvariantCulture)),
+            new AnalysisRowDto("默认范围外（保留）", outside.ToString(System.Globalization.CultureInfo.InvariantCulture)),
+            new AnalysisRowDto("缺少有效波长或热数据", (glasses.Count - allPoints.Length).ToString(System.Globalization.CultureInfo.InvariantCulture))
+        }).ToArray() };
     }
 
     private static AnalysisViewDto BuildInternalTransmission(
@@ -446,56 +475,19 @@ internal sealed partial class MaterialCatalogService
             1);
     }
 
-    private static IReadOnlyList<AnalysisSeriesDto> ScatterSeries(
-        IReadOnlyList<AnalysisPointDto> points,
-        AnalysisPointDto? selectedPoint,
-        string xAxis,
-        string yAxis)
-    {
-        var series = new List<AnalysisSeriesDto>
-        {
-            new(
-                xAxis,
-                yAxis,
-                points,
-                ContractAnalysisSeriesKind.Scatter,
-                "目录玻璃",
-                ColorIndex: 0,
-                ShowMarkers: true,
-                MarkerSize: 2.5,
-                Opacity: 0.65,
-                XQuantity: AnalysisAxisQuantity.ChromaticPower,
-                XUnit: AnalysisAxisUnit.Dimensionless,
-                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower,
-                YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin)
-        };
-        if (selectedPoint is not null)
-        {
-            series.Add(new AnalysisSeriesDto(
-                xAxis,
-                yAxis,
-                new[] { selectedPoint },
-                ContractAnalysisSeriesKind.Scatter,
-                selectedPoint.Label,
-                ColorIndex: 3,
-                ShowMarkers: true,
-                MarkerStyle: ContractAnalysisMarkerStyle.Square,
-                MarkerSize: 7,
-                LineWidth: 2,
-                XQuantity: AnalysisAxisQuantity.ChromaticPower,
-                XUnit: AnalysisAxisUnit.Dimensionless,
-                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower,
-                YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin));
-        }
-
-        return series;
-    }
-
     private static bool TryIndex(CatalogGlassMaterial glass, double wavelengthNanometers, out double value)
     {
         value = double.NaN;
         if (wavelengthNanometers < glass.MinimumWavelengthNanometers
-            || wavelengthNanometers > glass.MaximumWavelengthNanometers)
+            || wavelengthNanometers > glass.MaximumWavelengthNanometers
+            || !double.IsFinite(wavelengthNanometers)
+            || !double.IsFinite(glass.MinimumWavelengthNanometers)
+            || !double.IsFinite(glass.MaximumWavelengthNanometers)
+            || glass.MinimumWavelengthNanometers > glass.MaximumWavelengthNanometers
+            || glass.Formula.StartsWith("tabulated ", StringComparison.Ordinal)
+                && (glass.RefractiveIndexWavelengthsNanometers.Count == 0
+                    || wavelengthNanometers < glass.RefractiveIndexWavelengthsNanometers.Min()
+                    || wavelengthNanometers > glass.RefractiveIndexWavelengthsNanometers.Max()))
         {
             return false;
         }
@@ -507,52 +499,12 @@ internal sealed partial class MaterialCatalogService
         }
         catch (Exception exception) when (exception is InvalidDataException
             or InvalidOperationException
-            or ArgumentOutOfRangeException
+            or ArgumentException
+            or IndexOutOfRangeException
             or NotSupportedException)
         {
             return false;
         }
-    }
-
-    private static bool TryThermalPower(
-        CatalogGlassMaterial glass,
-        double wavelengthNanometers,
-        double refractiveIndex,
-        out double thermalPower)
-    {
-        thermalPower = double.NaN;
-        var data = glass.ZemaxData;
-        if (data is null
-            || data.ThermalCoefficients.Count < 6
-            || !data.ThermalExpansionLow.HasValue
-            || refractiveIndex <= 1)
-        {
-            return false;
-        }
-
-        var d0 = data.ThermalCoefficients[0];
-        var e0 = data.ThermalCoefficients[3];
-        var lambdaTk = data.ThermalCoefficients[5];
-        if (!double.IsFinite(d0) || !double.IsFinite(e0) || !double.IsFinite(lambdaTk))
-        {
-            return false;
-        }
-
-        var wavelengthMicrometers = wavelengthNanometers / 1000.0;
-        var denominator = (wavelengthMicrometers * wavelengthMicrometers)
-            - (Math.Sign(lambdaTk) * lambdaTk * lambdaTk);
-        if (Math.Abs(denominator) <= 1e-12)
-        {
-            return false;
-        }
-
-        var dnDt = ((refractiveIndex * refractiveIndex) - 1) / (2 * refractiveIndex)
-            * (d0 + (e0 / denominator));
-        var expansion = data.IgnoreThermalExpansion
-            ? 0
-            : data.ThermalExpansionLow.Value * 1e-6;
-        thermalPower = (dnDt / (refractiveIndex - 1)) - expansion;
-        return double.IsFinite(thermalPower);
     }
 
     private static string GlassLabel(CatalogGlassMaterial glass) =>

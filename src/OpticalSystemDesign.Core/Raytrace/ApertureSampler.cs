@@ -366,14 +366,17 @@ public static class ApertureSampler
         for (var index = 0; index < samples.Length; index++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
-            var u = VanDerCorput(index + 1, 2);
-            var v = VanDerCorput(index + 1, 3);
-            var radius = Math.Sqrt(u);
-            var angle = 2 * Math.PI * v;
-            samples[index] = new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
+            samples[index] = LowDiscrepancyDiskSample(index);
         }
 
         return samples;
+    }
+
+    internal static PupilSample LowDiscrepancyDiskSample(int index)
+    {
+        var radius = Math.Sqrt(VanDerCorput(index + 1, 2));
+        var angle = 2 * Math.PI * VanDerCorput(index + 1, 3);
+        return new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
     }
 
     private static IReadOnlyList<PupilSample> LineX(int sampleCount)

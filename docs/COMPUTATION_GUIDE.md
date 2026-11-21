@@ -1,6 +1,8 @@
 # 软件如何计算
 
-入口为 **帮助 → 用户指南 → 计算原理**。当前按使用流程组织为 27 章、39 组排版公式，覆盖产品分析目录中的 76 个条目。界面与 PDF 共用同一份离线矢量公式资源；对应关系完整不代表所有算法、面型和参数均已通过外部数值认证。
+2026-11-21：衍射圈入能量普通入口增加按需加密，保留原相位保护及 0.001 相对 RMS 目标。多视场、多波长的高采样在同一物理窗口内分别计算各波长强度，以谱权重和完整傅里叶周期的总能量、质心合成，不叠加不同波长的复振幅，也不以局部窗口重新归一化。专项四组 256 档检查中，独立的完整二维积分和有界窗口在相同采样下逐点一致至 1e-10；双高斯示例的 2048/4096 档复查及适用边界见 [专项记录](../validation/rechecks/2026-11-21/fft-energy-recovery/README.md)。
+
+入口为 **帮助 → 用户指南 → 计算原理**。当前按使用流程组织为 27 章、39 组排版公式，覆盖产品分析目录中的 80 个条目。界面与 PDF 共用同一份离线矢量公式资源；对应关系完整不代表所有算法、面型和参数均已通过外部数值认证。
 
 逐项对应见[分析入口核对表](COMPUTATION_COVERAGE.md)。新增入口必须在定向检查中找到实际计算章节，不能只凭一段通用“打开后运行”说明计为覆盖。
 
@@ -14,12 +16,13 @@
 
 | 主题 | 定义及适用边界 | 实现或详细说明 |
 | --- | --- | --- |
-| 工程快照 | 处方、结构、孔径、视场、波长、材料和设置一起进入分析。编辑后重算；显示网格和颜色不改变光学模型。 | [分析服务](../src/OpticalSystemDesign.Application/Services/AnalysisService.cs) |
+| 工程快照 | 处方、结构、孔径、视场、波长、材料和设置一起进入分析。提交时同步复制调用方参数字典，后台计算和请求指纹不受之后编辑影响。编辑后重算；显示网格和颜色不改变光学模型。 | [分析服务](../src/OpticalSystemDesign.Application/Services/AnalysisService.cs) |
+| 非序列彩色波片 | 波片模式沿普通光线路径保留Jones相位差，使用实际晶轴、倾斜实体和局部检偏方向；逐波长功率经CIE观察者转换为真彩色。XYZ拟合光谱具有非唯一性，方法及权重随工程保存。 | [操作、模型和支持边界](NSC_COLOR_FRINGES.md) |
 | 单位、坐标、材料 | 几何通常用 mm，材料查询用 nm；换算见公式附录。角度与高度视场、局部与全局坐标不同，材料按真实模型求折射率和消光。 | [材料](../src/OpticalSystemDesign.Core/Materials) |
 | 实光线、面型、GRIN | 按实际面型相交、检验口径、折反射、累计光程。圆锥/偶次非球面与其他自由曲面分别处理；GRIN 沿梯度积分并检查步长和边界。 | [几何](../src/OpticalSystemDesign.Core/Geometries)、[追迹](../src/OpticalSystemDesign.Core/Raytrace) |
-| 光瞳采样与瞄准 | 节点、面积权重、真实光阑瞄准、渐晕和无效样本共同定义积分。不能通过只重归一化幸存光线隐藏失光。 | [采样支持](../src/OpticalSystemDesign.Core/Analysis/Shared/AnalysisTrace.cs) |
+| 光瞳采样与瞄准 | 节点、面积权重、真实光阑瞄准、渐晕和无效样本共同定义积分。常规采样、主光线参考和派生分析继承工程的瞄准状态；离焦扫描保持输入节点与权重，逐位置检查相交与有效性。显式单光线选项、专用光阑积分及几何参考探针遵循各自定义。不能通过只重归一化幸存光线隐藏失光。 | [采样支持](../src/OpticalSystemDesign.Core/Analysis/Shared/AnalysisTrace.cs)、[结果对照](USER_GUIDE.md#光线瞄准与结果对照) |
 | 一阶、基面、Y-Ybar | 使用高度与几何斜率矩阵；空气到空气焦距关系有前提。Y-Ybar 对主光线像高有明确缩放。近轴焦点不等于实光线最佳焦点。 | [近轴矩阵](../src/OpticalSystemDesign.Core/Services/Paraxial.TransferMatrix.cs)、[Y-Ybar](../src/OpticalSystemDesign.Core/Analysis/Fields/YYbarAnalysis.cs) |
-| 点列、Seidel、场曲与色差 | 质心/主光线参考、权重、失败样本和单位需一致。Seidel 三阶基底、实光线畸变、色焦移、横向和轴向像差不能混用。 | [点列](../src/OpticalSystemDesign.Core/Analysis/Rays)、[Seidel](../src/OpticalSystemDesign.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs) |
+| 点列、Seidel、场曲与色差 | 质心/主光线参考、权重、失败样本和单位需一致。Seidel 三阶基底、实光线畸变、色焦移、横向和轴向像差不能混用。色焦移在有焦像方用 µm 表示焦点距离差；无焦像方先将每波长出射状态转为有符号屈光度，再减主波长近轴屈光度，以 D 表示。非零光瞳区域先分别转换正负有效真实光线再平均，不能对焦距差取倒数。 | [点列](../src/OpticalSystemDesign.Core/Analysis/Rays)、[Seidel](../src/OpticalSystemDesign.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs)、[色焦移](../src/OpticalSystemDesign.Core/Analysis/Fields/ColorFocusShiftAnalysis.cs) |
 | OPD、参考球、PSF | OPD 为参考减实际光程，当前 FFT 瞳相位与变换符号配套。主光线、质心和最佳拟合球不同。FFT/Huygens 保留各自映射、权重、物理采样和归一化。多色通常叠加强度。 | [波前](../src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs)、[衍射](../src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs) |
 | MTF、采样与局部损失 | 几何像点 OTF、衍射 OTF 和 Fringe 波前剪切的采样 MTF 是不同算法。Moore–Elliott 损失图在瞳面评价光线对，不是全视场 MTF。 | [采样 MTF](../src/OpticalSystemDesign.Core/Analysis/SampledMtfEngine.cs)、[局部损失](../src/OpticalSystemDesign.Core/Services/ContrastMetrics.cs) |
 | 能量、LSF、ESF | 几何能量累加加权射线；衍射能量积分 PSF。LSF 是投影积分，不能用中心截线代替；ESF 再累计。扩展源还需源分布。 | [能量与辐射](../src/OpticalSystemDesign.Core/Analysis/Radiometry) |

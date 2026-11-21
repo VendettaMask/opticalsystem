@@ -56,7 +56,8 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             {
                 RadiusSolve = Runtime.GetRadiusSolve(surface.Number),
                 ThicknessSolve = Runtime.GetThicknessSolve(surface.Number),
-                SemiDiameterSolve = Runtime.GetSemiDiameterSolve(surface.Number)
+                SemiDiameterSolve = Runtime.GetSemiDiameterSolve(surface.Number),
+                LensLengthUnit = Runtime.CurrentOptic.LensLengthUnit
             }).ToArray();
         }
     }
@@ -342,7 +343,19 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             update.SemiDiameter,
             update.Polynomial,
             update.BiconicRadiusX,
-            update.BiconicConicX));
+            update.BiconicConicX,
+            update.SurfaceColor,
+            update.Drawing is null ? null : ToDrawingOptions(update.Drawing)));
+    }
+
+    public void UpdateSurfaceDrawingSettings(int surfaceNumber, SurfaceDrawingOptionsDto drawing, string? surfaceColor = null)
+    {
+        ArgumentNullException.ThrowIfNull(drawing);
+        var options = ToDrawingOptions(drawing);
+        var color = surfaceColor is null ? null : SurfaceDisplayColor.Normalize(surfaceColor);
+        MutateTransactional(WorkspaceChangeCategory.Surface, () =>
+            Runtime.ApplySurfaceDrawingSettings(FindSurface(surfaceNumber) ?? throw new ArgumentOutOfRangeException(nameof(surfaceNumber)),
+                options, surfaceColor is null ? null : color ?? ""));
     }
 
     public void AddField() => MutateTransactional(WorkspaceChangeCategory.Field, Runtime.AddField);

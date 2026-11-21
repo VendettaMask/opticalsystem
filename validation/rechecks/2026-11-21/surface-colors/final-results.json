@@ -1,0 +1,197 @@
+[
+  {
+    "name": "SurfaceColorTests.ColorPersistsThroughHistoryFilesAndScenesWithoutChangingRays()",
+    "passed": true,
+    "seconds": 0.9951682
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(red)",
+    "passed": true,
+    "seconds": 0.0304956
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#123)",
+    "passed": true,
+    "seconds": 0.0291094
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#FF112233)",
+    "passed": true,
+    "seconds": 0.0183176
+  },
+  {
+    "name": "SurfaceColorTests.InvalidColorDoesNotChangePrescriptionRevisionOrUndoHistory(#12GG56)",
+    "passed": true,
+    "seconds": 0.0174437
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Light,1200,1)",
+    "passed": true,
+    "seconds": 8.2494437
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Dark,1200,1.5)",
+    "passed": true,
+    "seconds": 5.3305468
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Lumen,1200,1)",
+    "passed": true,
+    "seconds": 4.7535429
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Isekai,1200,2)",
+    "passed": true,
+    "seconds": 5.2109709
+  },
+  {
+    "name": "SurfaceColorTests.ColorEditorAppliesPresetsCustomDefaultAndRejectsInvalidInput(Pixel,600,1)",
+    "passed": true,
+    "seconds": 2.1991633
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(False,False,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.179202
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.2062993
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,False,Solid,False)",
+    "passed": true,
+    "seconds": 0.7644988
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,False)",
+    "passed": true,
+    "seconds": 0.6824296
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Transparent,False)",
+    "passed": true,
+    "seconds": 0.7386613
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Wireframe,False)",
+    "passed": true,
+    "seconds": 0.2265326
+  },
+  {
+    "name": "SurfaceColorTests.SurfaceColorChangesRenderedPixelsAndResetRestoresOriginal(True,True,Solid,True)",
+    "passed": true,
+    "seconds": 0.5309152
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(0)",
+    "passed": true,
+    "seconds": 0.0039768
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(∞)",
+    "passed": true,
+    "seconds": 0.0011632
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(25.5)",
+    "passed": true,
+    "seconds": 0.0007787
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip()",
+    "passed": true,
+    "seconds": 0.0493193
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory()",
+    "passed": true,
+    "seconds": 0.0046912
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(False)",
+    "passed": true,
+    "seconds": 0.0010555
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(True)",
+    "passed": true,
+    "seconds": 0.0009867
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted()",
+    "passed": true,
+    "seconds": 0.001306
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents()",
+    "passed": true,
+    "seconds": 0.0019383
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter()",
+    "passed": true,
+    "seconds": 0.0010547
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor()",
+    "passed": true,
+    "seconds": 0.0013285
+  },
+  {
+    "name": "SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros()",
+    "passed": true,
+    "seconds": 0.0003764
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()",
+    "passed": true,
+    "seconds": 8.0649726
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()",
+    "passed": true,
+    "seconds": 3.4763997
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(600)",
+    "passed": true,
+    "seconds": 2.5770667
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(1000)",
+    "passed": true,
+    "seconds": 2.4712343
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation()",
+    "passed": true,
+    "seconds": 2.0637941
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(1000)",
+    "passed": true,
+    "seconds": 7.2107286
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(600)",
+    "passed": true,
+    "seconds": 6.8452519
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts()",
+    "passed": true,
+    "seconds": 2.8803981
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(600)",
+    "passed": true,
+    "seconds": 7.823742
+  },
+  {
+    "name": "SurfacePropertiesPanelTests.ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(1000)",
+    "passed": true,
+    "seconds": 10.4078555
+  }
+]

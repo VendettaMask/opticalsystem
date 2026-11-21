@@ -225,7 +225,7 @@ public sealed class AnalysisResultPresentationTests
                 var maximum = contrast.PlotPanes.SelectMany(pane => pane.Series).Max(series => series.ValueMaximum);
                 Assert.All(plots, plot =>
                 {
-                    Assert.True(plot.PupilHeatmap);
+                    Assert.True(plot.SampledHeatmap);
                     Assert.False(plot.PlotOptions.HideAxes);
                     Assert.Equal(-1, plot.PlotOptions.XMinimum);
                     Assert.Equal(1, plot.PlotOptions.YMaximum);

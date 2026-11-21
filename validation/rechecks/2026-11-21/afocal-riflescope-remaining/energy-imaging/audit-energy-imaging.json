@@ -1,0 +1,429 @@
+{
+  "date": "2026-11-21",
+  "source": "Afocal/Afocal Riflescope.ZMX",
+  "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+  "items": [
+    {
+      "index": 18,
+      "key": "Encircled Energy",
+      "disposition": "settings_difference",
+      "reason": "当前图与原生图分别使用mrad和角分，旧图还使用不同自动范围与采样；最新运行时已使用显式角主光线参照。以2.9088820867 mrad（10角分）重算后，三视场的累计曲线形状和交叉次序与截图对应；字段颜色属产品分类色，不能以颜色判断Field身份。原生没有完整曲线数值和采样导出，不声明逐点数值认证。",
+      "currentImageViewed": true,
+      "nativeImageViewed": true,
+      "capturedSettings": {
+        "NumRays": "10000",
+        "NumPoints": "256",
+        "Distribution": "sobol",
+        "WavelengthNumber": "0",
+        "Reference": "centroid",
+        "MaximumDistanceMicrometers": "0",
+        "MultiplyByDiffractionLimit": "true"
+      },
+      "nativeSettingsIdentity": {
+        "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/afocal-riflescope/zemax/encircled-energy.CFG",
+        "sha256": "ab887713dc52ca0786b4280a72366806c4e7b50056f22c2cf04b18d1fbf6d5ac"
+      },
+      "evidence": [
+        "encircled-energy-aligned.json",
+        "encircled-energy-latest.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/encircled-energy.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/encircled-energy.JPG"
+      ],
+      "updatedImage": "encircled-energy-aligned.png",
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 19,
+      "key": "Diffraction Encircled Energy",
+      "disposition": "unresolved",
+      "reason": "旧默认64瞳孔采样被相位保护拒绝，不能因原生显示了一条曲线就绕过保护。显式Adaptive从64到1024的最大相位步仍为0.652891波，高于0.5波保护；1024与512的相对RMS变化0.005529也高于既定0.001目标。2048此前并非超时，而是高档bounded路径只支持有限像方，错误拒绝本镜头；该缺陷正在扩展为真实角Fourier窗口，修复后须重新验证相位及收敛。自动模式的afocal排除尚未解除。",
+      "currentImageViewed": true,
+      "nativeImageViewed": true,
+      "capturedSettings": {
+        "PupilSampling": "64 x 64",
+        "ImageSampling": "128 x 128",
+        "NumPoints": "401",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "Type": "encircled",
+        "Reference": "centroid",
+        "MaximumDistanceMicrometers": "0",
+        "FourierSamplingMode": "固定采样",
+        "FourierMaximumSampling": "1024",
+        "FourierRelativeAccuracy": "0.001"
+      },
+      "nativeSettingsIdentity": {
+        "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/afocal-riflescope/zemax/diffraction-encircled-energy.CFG",
+        "sha256": "dc882e1de4ae4d8304e0429ad58f6590a4183829299adeff599e40f0e6ca0c72"
+      },
+      "evidence": [
+        "ee-adaptive-512.json",
+        "ee-adaptive-1024.json",
+        "ee-adaptive-2048-interrupted.log",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/diffraction-encircled-energy.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/diffraction-encircled-energy.JPG"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 20,
+      "key": "Geometric Line Edge Spread",
+      "disposition": "fixed",
+      "reason": "确认真实单位错误：SpotAnalysisEngine在无焦像方已返回mrad，本分析仍乘1000并标作µm。已改为mrad角度坐标、角度范围与typed元数据，保留有焦µm。新图使用±1.4544410433 mrad（±5角分）及128瞳孔采样；原生把线/边分置两面板，产品仍在同一轴区叠加，两种布局与采样密度差异另行说明。",
+      "currentImageViewed": true,
+      "nativeImageViewed": true,
+      "capturedSettings": {
+        "PupilSampling": "32 x 32",
+        "NumPoints": "257",
+        "WavelengthNumber": "0",
+        "FieldNumber": "1",
+        "Orientation": "X",
+        "Display": "line and edge",
+        "MaximumRadiusMicrometers": "0"
+      },
+      "nativeSettingsIdentity": {
+        "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/afocal-riflescope/zemax/geometric-line-edge-spread.CFG",
+        "sha256": "11648a7989f23f193948372fc2ab0087a6a36c5fb5a099307daf8673b4ac63ec"
+      },
+      "evidence": [
+        "line-edge-spread-fixed.json",
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-line-edge-spread.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/geometric-line-edge-spread.JPG"
+      ],
+      "updatedImage": "line-edge-spread-fixed.png",
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 21,
+      "key": "Extended Source Encircled Energy",
+      "disposition": "fixed",
+      "reason": "旧图来自面积采样修复前，固定5×5点且无焦坐标被错误乘1000。最新实现已对真实发光面积取样并保留mrad；默认均匀方形源宽0.25°仍保持。原生CFG实际为LETTERF.IMA、宽3.5355339059°，两侧源并不相同。专项图对齐该源及581.7764173314mrad（2000角分）范围，形状/尺度对应，保留默认图与旧图，不把专项设置改成产品默认。",
+      "currentImageViewed": true,
+      "nativeImageViewed": true,
+      "capturedSettings": {
+        "SourceFile": "",
+        "FieldSize": "0",
+        "SourceSampling": "5",
+        "NumRays": "5000",
+        "NumPoints": "256",
+        "WavelengthNumber": "0",
+        "FieldNumber": "1",
+        "Type": "encircled",
+        "Reference": "centroid",
+        "MaximumDistanceMicrometers": "0"
+      },
+      "nativeSettingsIdentity": {
+        "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/afocal-riflescope/zemax/extended-source-encircled-energy.CFG",
+        "sha256": "4d3ad7946895246dbecdcd3a131c403049f0e063bcb97843b44bcb2cfa129988"
+      },
+      "evidence": [
+        "extended-source-aligned.json",
+        "extended-source-default.json",
+        "extended-source-default.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/extended-source-encircled-energy.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/extended-source-encircled-energy.JPG"
+      ],
+      "updatedImage": "extended-source-aligned.png",
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 44,
+      "key": "Relative Illumination",
+      "disposition": "not_applicable",
+      "reason": "两侧实际上都拒绝此无焦相对照度：原生图片明确写“无法计算相对照度…”，产品返回NotApplicable并说明要求有限像共轭。不是曲线缺失故障。独立适用性检查证明不能把原始投影立体角面积改名为无焦相对照度。",
+      "currentImageViewed": true,
+      "nativeImageViewed": true,
+      "capturedSettings": {
+        "RayDensity": "10",
+        "FieldDensity": "21",
+        "WavelengthNumber": "0",
+        "ScanDirection": "+y",
+        "RemoveVignettingFactors": "true",
+        "UsePolarization": "false"
+      },
+      "nativeSettingsIdentity": {
+        "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/afocal-riflescope/zemax/relative-illumination.CFG",
+        "sha256": "8eebcba214ca9ba3fd8a6a015a2e076b3641dcb2b5f268b025e7d9764e5ff35e"
+      },
+      "evidence": [
+        "relative-illumination-latest.json",
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/relative-illumination.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/relative-illumination.JPG"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 45,
+      "key": "Incoherent Irradiance",
+      "disposition": "missing_native",
+      "reason": "图册未映射原生对照项。产品本图是末端有限物理探测平面上的非相干辐照度/归一化分布，3视场×3波长，横纵坐标毫米；无焦出射并不禁止在给定物理平面统计光通量。其定义不同于以出射角为坐标的成像性能图，不应为了外观把该探测平面改成角度。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "NumRays": "5",
+        "ResolutionX": "128",
+        "ResolutionY": "128",
+        "DetectorSurfaceIndex": "-1",
+        "UseSurfaceSamplingWindow": "true",
+        "Distribution": "random",
+        "Normalized": "true"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "incoherent-irradiance-latest.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/incoherent-irradiance.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 46,
+      "key": "Radiant Intensity",
+      "disposition": "missing_native",
+      "reason": "图册没有对应原生窗口映射。产品统计±15°角窗中的辐射强度，单位W/sr；伴随截面取全局Y=0，所以离轴视场的主峰不一定穿过中央截面，后两行截面近零不等于缺光线。缺少同输入原生数据，不能按此图认定一致或修形。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "AngularBinsX": "101",
+        "AngularBinsY": "101",
+        "NumRays": "2048",
+        "ReferenceSurfaceIndex": "-1",
+        "Distribution": "random",
+        "UseAbsoluteUnits": "true"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "radiant-intensity-latest.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/radiant-intensity.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 57,
+      "key": "Contrast Loss Map",
+      "disposition": "missing_native",
+      "reason": "原生对照未映射。产品显示单色0.587µm、轴上、97×97瞳孔采样下的子午/弧矢对比度损失，实际空间频率0.343cycles/mrad；色块为瞳点贡献，不能用原生MTF面图或MTF随场图代替本项进行比较。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "Sampling": "97",
+        "Frequency": "0",
+        "Normalize": "false",
+        "WavelengthNumber": "2",
+        "FieldNumber": "1",
+        "ShowOPD": "false"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "contrast-loss-map-latest.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/contrast-loss-map.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 65,
+      "key": "Image Simulation",
+      "disposition": "missing_native",
+      "reason": "原生侧本轮没有配置并导出同一物方图像/传播设置。当前默认同时请求相对照度权重；无焦RI不适用，因此本项明确Unavailable且无仿真像。不能为消除诊断自动关闭相对照度，也不能把缺少原生输入解释成原生不支持。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "SourceImage": "彩色测试卡",
+        "SourceMode": "内置图像",
+        "SourceFile": "",
+        "ImageWidth": "64",
+        "ImageHeight": "48",
+        "FieldHeight": "2.5",
+        "Oversampling": "无",
+        "SourceFlip": "无",
+        "GuardBand": "无",
+        "SourceRotation": "无",
+        "WavelengthNumber": "RGB",
+        "FieldNumber": "1 - On axis",
+        "NumRays": "32 x 32",
+        "PsfSize": "32 x 32",
+        "PsfGridColumns": "3",
+        "PsfGridRows": "3",
+        "UsePolarization": "false",
+        "AberrationMode": "几何的",
+        "ApplyFixedApertures": "true",
+        "RelativeIllumination": "true",
+        "DisplayAs": "仿真图",
+        "Reference": "主光线",
+        "ImageFlip": "无",
+        "PixelSize": "0",
+        "DetectorXPixels": "0",
+        "DetectorYPixels": "0",
+        "CompressFrame": "false",
+        "OutputFile": "",
+        "EigenPsfComponents": "3",
+        "DistortionGridSize": "9",
+        "DistortionPolynomialDegree": "5"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/image-simulation.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 66,
+      "key": "Geometric Image Analysis",
+      "disposition": "missing_native",
+      "reason": "当前几何图像分析走内置分辨率源和场相关实际光线核，但默认开启相对照度权重，在无焦系统被同一适用性前置条件拒绝。原生侧没有同源图输入及截图。保持显式诊断，不凭空生成图像或改成均匀照度。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "SourceImage": "分辨率靶标",
+        "ImageSize": "64",
+        "NumRays": "8",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "4",
+        "RelativeIllumination": "true",
+        "AberrationMode": "Geometric"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-image-analysis.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 67,
+      "key": "Geometric Bitmap Image Analysis",
+      "disposition": "missing_native",
+      "reason": "当前入口使用内置RGB色卡替代图并默认请求相对照度，原生侧没有同一位图文件、像素尺寸或输出窗口。无焦RI请求被拒绝。源与传播设置未定义一致之前，没有可验证的位图像差对应关系。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "ImageSize": "64",
+        "RaysPerPixel": "8",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "4",
+        "RelativeIllumination": "true",
+        "AberrationMode": "Geometric"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/geometric-bitmap-image-analysis.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 68,
+      "key": "Light Source Analysis",
+      "disposition": "missing_native",
+      "reason": "本入口复用实际顺序光线角强度统计并归一化，默认65×65角网格；不是把镜头文件解释成另一个真实发光器件。图册未配置同输入的原生光源分析窗口，因此仅能确认当前计算成功，不能判原生一致。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "Resolution": "65",
+        "NumRays": "2048"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "light-source-analysis-latest.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/light-source-analysis.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 69,
+      "key": "Partially Coherent Image Analysis",
+      "disposition": "missing_native",
+      "reason": "部分相干分析还需要源图、互强度/相干长度、窗口和采样；原生这些输入未配置。产品当前默认开启相对照度，在无焦条件明确失败；不能以不相干或关闭权重的结果冒充当前部分相干请求。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "WavelengthNumber": "2",
+        "ImageSize": "64",
+        "PupilSampling": "16 x 16",
+        "CoherenceFunction": "Uniform",
+        "CoherenceMethod": "ExactSourcePairs",
+        "CoherenceFraction": "0.98",
+        "PsfEnergyFraction": "0",
+        "CoherenceSampling": "64 x 64",
+        "Coherence": "0.5",
+        "Alpha": "0.001",
+        "FileSize": "0",
+        "NormalizeImagePeak": "false",
+        "PsfSize": "32",
+        "PixelSize": "0",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "16",
+        "RelativeIllumination": "true"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/partially-coherent-image-analysis.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 70,
+      "key": "Extended Diffraction Image Analysis",
+      "disposition": "missing_native",
+      "reason": "扩展衍射图像依赖物方图像及传播窗口，本轮原生输入和截图未取得。当前默认相对照度权重对无焦系统不适用，因此保留Unavailable。没有伪造原生结果，也没有用任意归一化图像掩盖该条件。",
+      "currentImageViewed": true,
+      "nativeImageViewed": false,
+      "capturedSettings": {
+        "SourceImage": "分辨率靶标",
+        "ImageSize": "64",
+        "PupilSampling": "16 x 16",
+        "FieldGrid": "5",
+        "FieldHeight": "0",
+        "Oversampling": "1",
+        "GuardBand": "16",
+        "RelativeIllumination": "true",
+        "AberrationMode": "Diffraction"
+      },
+      "nativeSettingsIdentity": null,
+      "evidence": [
+        "checks.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/extended-diffraction-image-analysis.png"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    },
+    {
+      "index": 71,
+      "key": "Jones Pupil",
+      "disposition": "presentation_difference",
+      "reason": "左侧是完整Jones矩阵四分量的实/虚部（2×4热图），右侧是特定输入Jx=0、Jy=1的偏振椭圆/矢量分布；比较的是不同表示和输入。完整矩阵可用于计算该Y输入的输出，但热图数值不等同于某根矢量长度或整瞳透过率。当前三维量定义和取样保留；未把8面热图强改成原生矢量图，也未以截图宣称Jones数值认证。",
+      "currentImageViewed": true,
+      "nativeImageViewed": true,
+      "capturedSettings": {
+        "GridSize": "65"
+      },
+      "nativeSettingsIdentity": {
+        "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/afocal-riflescope/zemax/jones-pupil.CFG",
+        "sha256": "0e9b3d6ef097df5e26f992ac0c8e2ac06a8beb776c86be68b91f8df863a5f8c2"
+      },
+      "evidence": [
+        "jones-pupil-latest.json",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/workbench/jones-pupil.png",
+        "../../all-output-visual-comparison/representative-six/afocal-riflescope/zemax/jones-pupil.JPG"
+      ],
+      "updatedImage": null,
+      "validationScope": "Targeted shared-Core contracts and frozen screenshot review; no new native numerical capture"
+    }
+  ]
+}

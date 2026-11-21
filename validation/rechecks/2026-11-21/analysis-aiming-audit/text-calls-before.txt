@@ -1,0 +1,203 @@
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.AfocalQuadrature.cs:76:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:98:                    aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:103:                aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:140:            UseRayAiming = optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:52:    internal bool SupportsStreamedPhysicalPupil => SupportsDensePhysicalPupil && !Optic.RayAimingEnabled
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:76:            ["UseRayAiming"] = false, ["Row"] = _row, ["ProfileType"] = _type,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:173:            ["UseRayAiming"] = results.Select(r => r.Profile.UseRayAiming).ToArray(),
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:343:                var frame = DiffractionEngine.CreateHuygensImageFrame(Optic, normalizedField, wavelength, Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensDiffractionAnalyses.cs:150:                referenceWavelength, _numRays, Optic.RayAimingEnabled, AfocalIntegration)
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:69:        && !Optic.RayAimingEnabled && (_wavelengthNumber != 0 || Optic.Wavelengths.Count == 1);
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:165:            ignoreOpd: _ignoreOpd, aimAtStop: analysisOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:287:            ["UseRayAiming"] = results.Select(item => item.Result.UseRayAiming).ToArray(),
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:420:        && !Optic.ImageSpaceAfocal && !Optic.RayAimingEnabled
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:39:    public bool UseRayAiming { get; init; }
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:186:            ignoreOpd: ignoreOpd, aimAtStop: aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:198:            false, true, 0, null, null, true, false, optic.RayAimingEnabled, reference,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:258:        var pupilAimAtStop = aimAtStop ?? optic.RayAimingEnabled;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:273:                if ((preparedWavefront is not null && preparedWavefront.UseRayAiming != true)
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:274:                    || (usePolarization && preparedPolarization is not null && preparedPolarization.UseRayAiming != true))
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:277:                        "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:280:                workingAxes = WorkingFNumbers(optic, field, wavelength, aimAtStop: true);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:344:            ValidatePreparedPupil(preparedWavefront.UseRayAiming, preparedWavefront.PupilGrid,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:362:            ValidatePreparedPupil(preparedPolarization.UseRayAiming, preparedPolarization.PupilGrid,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:405:                    aimAtStop: pupilAimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:414:                aimAtStop: pupilAimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:500:            UseRayAiming = pupilAimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:586:            aimAtStop: preparedWavefront.UseRayAiming ?? optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:589:            : ImagePlaneFourierFNumbers(optic, field, wavelength, preparedWavefront.UseRayAiming ?? optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:730:            aimAtStop: normalizationWavefront.UseRayAiming ?? optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:770:        var useRayAiming = aimAtStop ?? optic.RayAimingEnabled;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:785:                aimAtStop: useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:799:                    aimAtStop: useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:816:                        aimAtStop: useRayAiming);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:837:                    aimAtStop: useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:948:        var useRayAiming = aimAtStop ?? optic.RayAimingEnabled;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:963:                    aimAtStop: useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:983:                    .ResolveRealImageFieldCoordinates(target.X, target.Y, aimAtStop: useRayAiming);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1006:                        aimAtStop: useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1018:                        aimAtStop: useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1325:            aimAtStop: optic.RayAimingEnabled, allowGeometricReference: true, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1327:        var fNumber = WorkingFNumber(optic, field, wavelength, aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1459:                    pixelPitchMillimeters, aimAtStop: aimAtStop, defocus: defocus, referenceWavelength: referenceWavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1504:                afocalPupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1512:            aimAtStop: aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1516:            ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true, aimAtStop: aimAtStop)
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1542:                    afocalPupils!.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1553:                        useFresnelCoatings: true, aimAtStop: aimAtStop);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1591:                UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1616:                aimAtStop: aimAtStop, allowGeometricReference: !usePolarization, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1626:                    useFresnelCoatings: true, aimAtStop: aimAtStop);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1652:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1720:            optic.RayAimingEnabled, referenceWavelength, imageCenterOffset,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1737:                pupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1872:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1919:            aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:2369:            aimAtStop: aimAtStop);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:2439:                    field.Hx, field.Hy, wavelength.Micrometers, pupilSamples, aimAtStop: aimAtStop);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:26:                    optic, field, wave, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:36:                    false, true, 0, null, null, true, ignoreOpd, optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:51:            var referenceF = WorkingFNumber(optic, field, reference, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:71:                    optic.RayAimingEnabled, reference, commonPitch, true, out _, referenceSphere, grid);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:106:                    optic.RayAimingEnabled, reference, commonPitch, true, out _, referenceSphere, grid);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:168:                        optic.RayAimingEnabled, reference, imagePitch, true, out _, referenceSphere, pupilGrid);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:180:                            var fftFNumber = WorkingFNumber(optic, field, item.Wave, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:196:        var referenceFNumber = WorkingFNumber(optic, field, scaleWave, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:210:            var fNumber = WorkingFNumber(optic, field, wave, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:214:            var axes = WorkingFNumbers(optic, field, wave, optic.RayAimingEnabled, zemaxDirectionalAverage: true);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:225:                null, null, true, ignoreOpd, optic.RayAimingEnabled, reference,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:264:        var fftFNumber = WorkingFNumber(optic, field, wavelength, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.cs:283:        if (!TryWorkingPupilDirections(optic, field, wavelength, optic.RayAimingEnabled, 1, out var directions)) return null;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.AxisProfiles.cs:8:    double Spacing, AnalysisAxisUnit Unit, bool UseRayAiming, bool StopAimingFallbackUsed,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.AxisProfiles.cs:47:        var aiming = optic.RayAimingEnabled;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.LocalIncoherentPsf.cs:76:        { CroppedImageCenterIndex = imageSize / 2, UseRayAiming = psf.UseRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.LocalIncoherentPsf.cs:93:            ignoreOpd: false, aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy32.cs:31:            false, true, 0, null, null, true, ignoreOpd, optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy32.cs:40:            if (optic.RayAimingEnabled && optic.SequentialRayTracer.RayGenerator.TryGenerateCachedFftPupil(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy32.cs:50:            else if (!TryWorkingPupilDirections(optic, field, wavelength, optic.RayAimingEnabled, 1, out directions)) return null;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.Reference.cs:13:        var sphere = WavefrontEngine.CreateChiefRayReferenceSphere(optic, field, reference, optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.Reference.cs:51:            generator.GenerateGeneric(field.Hx, field.Hy, 0, 0, reference.Micrometers, optic.RayAimingEnabled).Rays[0],
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.Window.cs:70:            false, true, 0, null, null, true, ignoreOpd, optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.Window.cs:81:                requireUnvignetted: true, includeSurfaceTransmission: false, aimAtStop: metadata.UseRayAiming)[0];
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.StreamedFourierAxis.cs:14:        if (optic.ImageSpaceAfocal || optic.RayAimingEnabled || count < 256 || count > MaximumStreamedPhysicalPsfSampling
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.PhysicalPsfWindow.cs:22:                false, true, 0, null, null, true, false, optic.RayAimingEnabled, reference,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.PhysicalPsfWindow.cs:25:            if (!TryWorkingFNumbersAtPupilZone(optic, field, wave, metadata.UseRayAiming,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CoherentImaging.cs:40:            ignoreOpd: false, aimAtStop: optic.RayAimingEnabled, referenceWavelength: null,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CoherentImaging.cs:56:            ignoreOpd: false, aimAtStop: optic.RayAimingEnabled, referenceWavelength: null,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.FocusedHuygensSampling.cs:36:        if (optic.ImageSpaceAfocal || field != (0d, 0d) || optic.RayAimingEnabled
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.HuygensBatches.cs:24:        var aimAtStop = optic.RayAimingEnabled;
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.HuygensBatches.cs:60:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.StreamedFourierEnergy.cs:42:        if (optic.ImageSpaceAfocal || optic.RayAimingEnabled || count < 256 || count > MaximumStreamedPhysicalPsfSampling
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.StreamedFourierMtf.cs:19:        if (optic.ImageSpaceAfocal || optic.RayAimingEnabled || count < blockRows
+src/OpticalSystemDesign.Core/Analysis\FootprintDiagramAnalysis.cs:73:                    pupilSamples, aimAtStop: Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Focus\ThroughFocusAnalyses.cs:215:            ["UseRayAiming"] = analysisOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:612:                        * DiffractionEngine.WorkingFNumber(optic, (hx, hy), wavelength, aimAtStop: optic.RayAimingEnabled)))
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:624:                                wavelength, Math.Max(2, config.NumRays), optic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:637:                            aimAtStop: optic.RayAimingEnabled, imageCenterOffset: imageCenterOffset).Values;
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:844:                field.Hx, field.Hy, wavelength.Micrometers, pupils, aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:856:                    0, 0, wavelength.Micrometers, optic.RayAimingEnabled).Rays.Single();
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:871:            aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:951:        var fNumber = Math.Max(1e-6, DiffractionEngine.WorkingFNumber(optic, (0, 0), wavelength, aimAtStop: optic.RayAimingEnabled));
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.StreamedFourierPupil.cs:24:        if (optic.ImageSpaceAfocal || optic.RayAimingEnabled || count < 256 || count > maximumSampling
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.StreamedFourierPupil.cs:82:        var directions = WorkingFNumbers(optic, field, wavelength, aimAtStop: false, zemaxDirectionalAverage: true);
+src/OpticalSystemDesign.Core/Analysis\Fields\ColorFocusShiftAnalysis.cs:62:            * Math.Pow(DiffractionEngine.WorkingFNumber(Optic, (0, 0), primary, aimAtStop: Optic.RayAimingEnabled), 2);
+src/OpticalSystemDesign.Core/Analysis\Fields\ColorFocusShiftAnalysis.cs:131:            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupilY, wavelengthMicrometers, aimAtStop: Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\JonesPupilEngine.cs:29:    public bool? UseRayAiming { get; init; }
+src/OpticalSystemDesign.Core/Analysis\JonesPupilEngine.cs:72:                    aimAtStop: aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\JonesPupilEngine.cs:79:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\Fields\AxialAberrationAnalysis.cs:119:            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupil, wavelengthMicrometers, aimAtStop: Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:287:                        aimAtStop: workingOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:298:                aimAtStop: workingOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:306:                    aimAtStop: workingOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:467:                        aimAtStop: Optic.RayAimingEnabled).Samples,
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:503:                ["UseRayAiming"] = Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:596:                    aimAtStop: true);
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:621:                    aimAtStop: true);
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:751:            var sample = Optic.TraceGenericSurfaceSample(hx, hy, px, py, wavelength.Micrometers, surfaceIndex, aimAtStop: Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:277:            ["UseRayAiming"] = Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:773:                aimAtStop: optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:783:                    aimAtStop: optic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:994:                aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1127:                referenceWavelength, pupilSampling, optic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1189:            reference: "absolute", aimAtStop: optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Extended\ImageAndPolarizationAnalyses.cs:159:        var result = JonesPupilEngine.Generate(Optic, (0, 0), wavelength, _gridSize, useFresnelCoatings: true, aimAtStop: Optic.RayAimingEnabled, includeBulkAbsorption: true);
+src/OpticalSystemDesign.Core/Analysis\Fields\FullFieldAberrationAnalysis.cs:103:                        aimAtStop: Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Fields\LateralColorAnalysis.cs:162:                    aimAtStop: Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Fields\LateralColorAnalysis.cs:213:            aimAtStop: Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:58:    internal bool SupportsStreamedPhysicalPupil => UseFftCumulativeGrid && !Optic.ImageSpaceAfocal && !Optic.RayAimingEnabled
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:296:            var aiming = ((bool[])source.Values["UseRayAiming"])[referenceIndex];
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:302:                requireUnvignetted: true, includeSurfaceTransmission: false, aimAtStop: aiming)[0];
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:346:                aimAtStop: results[Math.Max(0, index)].Result.UseRayAiming)[0];
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:789:            reference: "chief", aimAtStop: Optic.RayAimingEnabled, includeSurfaceTransmission: false);
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:965:            reference: "absolute", aimAtStop: Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:1133:            aimAtStop: optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAnalysisSupport.cs:129:                    aimAtStop: aimAtStop);
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAndRayAnalyses.cs:77:            aimAtStop: analysisOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAndRayAnalyses.cs:561:            aimAtStop: optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAndRayAnalyses.cs:585:            wavelength.Micrometers, aimAtStop: optic.RayAimingEnabled).Rays.Single();
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontAnalysis.cs:115:            ["UseRayAiming"] = Optic.RayAimingEnabled
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontAnalysis.cs:131:        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontAnalysis.cs:168:            ["UseRayAiming"] = Optic.RayAimingEnabled
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotDiagramVariantAnalyses.cs:133:            aimAtStop: Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotDiagramVariantAnalyses.cs:145:            aimAtStop: Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotDiagramVariantAnalyses.cs:246:            ["UseRayAiming"] = Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontEngine.cs:23:    public bool UseRayAiming { get; init; }
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontEngine.cs:62:            aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontEngine.cs:68:        var (ux, uy) = WavefrontEngine.LaunchTiltDirection(optic, field, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontEngine.cs:135:        { UseRayAiming = optic.RayAimingEnabled };
+src/OpticalSystemDesign.Core/Analysis\RelativeIlluminationAnalysis.cs:162:            _usePolarization, _includeScalarTransmission, _sampling != IlluminationSamplingKind.FiniteImageCosine || optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:60:            aimAtStop: Optic.RayAimingEnabled, includeSurfaceTransmission: false);
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:112:                        : DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength, aimAtStop: Optic.RayAimingEnabled)))
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:394:            aimAtStop: optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:395:            stopTargets: optic.RayAimingEnabled ? stopTargets : null);
+src/OpticalSystemDesign.Core/Analysis\RmsScanAnalyses.cs:612:            aimAtStop: optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Reports\CardinalAndVignettingAnalyses.cs:155:                pupil, aimAtStop: workingOptic.RayAimingEnabled, applyVignettingFactors: false);
+src/OpticalSystemDesign.Core/Analysis\Reports\FirstOrderAnalysis.cs:74:            || Optic.RayAimingEnabled || !FocalImageDomain.IsCollimatedPlaneTrain(Optic, allowSegmentedMirrors: true))
+src/OpticalSystemDesign.Core/Analysis\Reports\SystemReportAnalyses.cs:116:            Row("视场", "光线瞄准", Optic.RayAimingEnabled ? "启用" : "关闭"),
+src/OpticalSystemDesign.Core/Analysis\SampledApertureDiagnostics.cs:45:                normalizedFieldX, normalizedFieldY, wave.Micrometers, pupilSamples, aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\SampledMtfEngine.cs:17:            aimAtStop: optic.RayAimingEnabled, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisTrace.cs:197:                physical.X, physical.Y, 0, 0, wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisTrace.cs:584:            wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Shared\FocalImageDomain.Sagittal.cs:28:        if (optic.ImageSpaceAfocal || optic.RayAimingEnabled || optic.FieldDefinition != FieldDefinitionKind.Angle
+src/OpticalSystemDesign.Core/Analysis\Shared\FocalImageDomain.Sagittal.cs:51:                probes, aimAtStop: false)).ToArray();
+src/OpticalSystemDesign.Core/Analysis\Shared\FocalImageDomain.NearFocus.cs:54:            wave.Micrometers, nodes, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Shared\FocalImageDomain.NearFocus.cs:68:        var sphere = WavefrontEngine.CreateChiefRayReferenceSphere(optic, (0, 0), wave, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\SingleRayTraceAnalysis.cs:78:            aimAtStop: _useRayAiming,
+src/OpticalSystemDesign.Core/Analysis\SpotMetricEvaluator.cs:180:            aimAtStop: optic.RayAimingEnabled, explicitPupilSamples: pupilSamples, cancellationToken: cancellationToken);
+src/OpticalSystemDesign.Core/Analysis\SpotMetricEvaluator.cs:224:            aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\SpotMetricEvaluator.cs:386:            aimAtStop: optic.RayAimingEnabled)).ToArray();
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:37:    public bool? UseRayAiming { get; init; }
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:489:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:622:            UseRayAiming = aimAtStop,
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisSurfacePreparation.cs:20:        if (stop > index && source.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisSurfacePreparation.cs:30:                    0, 0, primary.Micrometers, source.RayAimingEnabled).Rays[0];
+src/OpticalSystemDesign.Core/Analysis\Shared\ImageSpaceAnalysisSupport.cs:268:                wave.Micrometers, pupils, optic.RayAimingEnabled));
+src/OpticalSystemDesign.Core/Analysis\Shared\ImageSpaceAnalysisSupport.cs:320:            aimAtStop: aimAtStop, referenceWavelength: wavelength, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\ExitPupilGeometryEngine.cs:47:                pupil.X, pupil.Y, wavelength.Micrometers, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Shared\AiryDiskSupport.cs:26:            optic, fields[0], wavelength, aimAtStop: optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultAnalysis.cs:99:            ["UseRayAiming"] = Optic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:48:            sampling, cellCentered: true, aimAtStop: optic.RayAimingEnabled, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:49:        var axes = DiffractionEngine.WorkingFNumbers(optic, field, wavelength, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:80:                    optic.RayAimingEnabled).Rays.Single();
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.Spatial.cs:26:        var wavefront = WavefrontEngine.GenerateImagePlaneUniform(optic, field, wavelength, sampling, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.Spatial.cs:28:            wavelength.Micrometers, optic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.Spatial.cs:62:                    sample.NormalizedPupilX, sample.NormalizedPupilY, wavelength.Micrometers, optic.RayAimingEnabled).Rays.Single();
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:98:            ? DiffractionEngine.WorkingFNumbers(shapeOptic, shapeField, wave, shapeOptic.RayAimingEnabled) : (Tangential: 1d, Sagittal: 1d);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:135:            ["UseRayAiming"] = shapeSource.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:196:        return WavefrontEngine.GenerateChiefRaySamples(prepared, field, wavelength, coordinates, aimAtStop: prepared.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:203:        return WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength, [(0d, 0d)], aimAtStop: optic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\OpticalPathDifferenceAnalysis.cs:69:                        aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true)).ToArray();
+src/OpticalSystemDesign.Core/Analysis\Wavefront\OpticalPathDifferenceAnalysis.cs:80:                        aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\OpticalPathDifferenceAnalysis.cs:92:                    aimAtStop: analysisOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\OpticalPathDifferenceAnalysis.cs:160:            ["UseRayAiming"] = analysisOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\ParabasalPupilEngine.cs:32:        var chiefBundle = tracer.RayGenerator.GenerateGeneric(0, 0, 0, 0, wavelength.Micrometers, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\ParabasalPupilEngine.cs:107:                useX ? 0 : sign * step, wavelength.Micrometers, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:123:                ? DiffractionEngine.DirectionalWorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:124:                : DiffractionEngine.WorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:132:                analysisOptic.RayAimingEnabled, allowGeometricReference: true) : null;
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:137:                analysisOptic.RayAimingEnabled, _referenceToPrimary ? referenceWavelength : null,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:140:                aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:233:            ["UseRayAiming"] = analysisOptic.RayAimingEnabled,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:522:            ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings, aimAtStop: Optic.RayAimingEnabled, zemaxCentered: true)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:523:            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:558:        values["UseRayAiming"] = Optic.RayAimingEnabled;

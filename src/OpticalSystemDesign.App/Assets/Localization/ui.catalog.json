@@ -120,6 +120,12 @@
     "Japanese": " コピー"
   },
   {
+    "Source": "#RRGGBB",
+    "Chinese": "#RRGGBB",
+    "English": "#RRGGBB",
+    "Japanese": "#RRGGBB"
+  },
+  {
     "Source": "**未完成：",
     "Chinese": "**未完成：",
     "English": "**Incomplete: ",
@@ -168,6 +174,12 @@
     "Japanese": "0 ≤ ρ ≤ 1。Standard 基底は単位 RMS 正規化を使用します。"
   },
   {
+    "Source": "0%（完全透明）",
+    "Chinese": "0%（完全透明）",
+    "English": "0% (transparent)",
+    "Japanese": "0%（透明）"
+  },
+  {
     "Source": "0（随 PSF 尺寸）",
     "Chinese": "0（随 PSF 尺寸）",
     "English": "0 (follow PSF size)",
@@ -184,6 +196,12 @@
     "Chinese": "1 生成膜系",
     "English": "1 Generate Stack",
     "Japanese": "1 膜構成を生成"
+  },
+  {
+    "Source": "100%（默认）",
+    "Chinese": "100%（默认）",
+    "English": "100% (default)",
+    "Japanese": "100%（既定）"
   },
   {
     "Source": "2 - 视场 2",
@@ -642,6 +660,12 @@
     "Japanese": "GEO 半径"
   },
   {
+    "Source": "GEO 半径：{0}",
+    "Chinese": "GEO 半径：{0}",
+    "English": "GEO radius: {0}",
+    "Japanese": "GEO半径：{0}"
+  },
+  {
     "Source": "GPU 不可用，自动模式使用 CPU。",
     "Chinese": "GPU 不可用，自动模式使用 CPU。",
     "English": "GPU unavailable; automatic mode uses CPU.",
@@ -984,10 +1008,52 @@
     "Japanese": "NSC読み込み失敗。元のA/Bを保持：{0}"
   },
   {
+    "Source": "Nd",
+    "Chinese": "Nd",
+    "English": "Nd",
+    "Japanese": "Nd"
+  },
+  {
     "Source": "Nd/Vd 已按 Fraunhofer F-d-C 谱线计算",
     "Chinese": "Nd/Vd 已按 Fraunhofer F-d-C 谱线计算",
     "English": "Nd/Vd calculated using Fraunhofer F-d-C lines",
     "Japanese": "Fraunhofer F-d-C線でNd/Vdを計算しました"
+  },
+  {
+    "Source": "Nd/Vd 计算未完成",
+    "Chinese": "Nd/Vd 计算未完成",
+    "English": "Nd/Vd calculation incomplete",
+    "Japanese": "Nd/Vd計算は未完了です"
+  },
+  {
+    "Source": "Nd/Vd：目录参考值",
+    "Chinese": "Nd/Vd：目录参考值",
+    "English": "Nd/Vd: catalog reference values",
+    "Japanese": "Nd/Vd：カタログ参考値"
+  },
+  {
+    "Source": "Nd/Vd：色散模型计算值（F/d/C）",
+    "Chinese": "Nd/Vd：色散模型计算值（F/d/C）",
+    "English": "Nd/Vd: calculated from the dispersion model (F/d/C)",
+    "Japanese": "Nd/Vd：分散モデルから計算（F/d/C）"
+  },
+  {
+    "Source": "Nd/Vd：部分数值不可用，请查看数据检查。",
+    "Chinese": "Nd/Vd：部分数值不可用，请查看数据检查。",
+    "English": "Nd/Vd: some values are unavailable; see the data check.",
+    "Japanese": "Nd/Vd：一部の値は利用できません。データ確認を参照してください。"
+  },
+  {
+    "Source": "Nd：目录参考值；Vd：色散模型计算值",
+    "Chinese": "Nd：目录参考值；Vd：色散模型计算值",
+    "English": "Nd: catalog reference; Vd: dispersion-model calculation",
+    "Japanese": "Nd：カタログ参考値；Vd：分散モデル計算値"
+  },
+  {
+    "Source": "Nd：色散模型计算值；Vd：目录参考值",
+    "Chinese": "Nd：色散模型计算值；Vd：目录参考值",
+    "English": "Nd: dispersion-model calculation; Vd: catalog reference",
+    "Japanese": "Nd：分散モデル計算値；Vd：カタログ参考値"
   },
   {
     "Source": "None",
@@ -1156,6 +1222,12 @@
     "Chinese": "RMS 半径",
     "English": "RMS radius",
     "Japanese": "RMS 半径"
+  },
+  {
+    "Source": "RMS 半径：{0}",
+    "Chinese": "RMS 半径：{0}",
+    "English": "RMS radius: {0}",
+    "Japanese": "RMS半径：{0}"
   },
   {
     "Source": "RMS 和系统评价函数按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。",
@@ -1494,6 +1566,12 @@
     "Japanese": "T · トロイダル"
   },
   {
+    "Source": "TD 导出的 |dn/dT| ≥ 0.01/K，需核对源目录；未猜测修正或删除：",
+    "Chinese": "TD 导出的 |dn/dT| ≥ 0.01/K，需核对源目录；未猜测修正或删除：",
+    "English": "TD gives |dn/dT| ≥ 0.01/K; check the source catalog. Values have not been rescaled or removed:",
+    "Japanese": "TDによる|dn/dT| ≥ 0.01/Kの項目は元カタログを確認してください。推測による補正や削除はしていません："
+  },
+  {
     "Source": "TEXI (双程条纹)",
     "Chinese": "TEXI (双程条纹)",
     "English": "TEXI (double-pass fringes)",
@@ -1534,6 +1612,18 @@
     "Chinese": "V[d] 公差",
     "English": "V[d] Tolerance",
     "Japanese": "V[d] 公差"
+  },
+  {
+    "Source": "Vd",
+    "Chinese": "Vd",
+    "English": "Vd",
+    "Japanese": "Vd"
+  },
+  {
+    "Source": "Vd 不可用：F、C 折射率相同或差值过小。",
+    "Chinese": "Vd 不可用：F、C 折射率相同或差值过小。",
+    "English": "Vd is undefined: the F and C indices are equal or too close.",
+    "Japanese": "Vdは定義できません：F線とC線の屈折率が等しいか、差が小さすぎます。"
   },
   {
     "Source": "Version {0}",
@@ -1740,10 +1830,22 @@
     "Japanese": "X 傾斜 = {0}、Y 傾斜 = {1}"
   },
   {
+    "Source": "X视场",
+    "Chinese": "X视场",
+    "English": "X Field",
+    "Japanese": "X視野"
+  },
+  {
     "Source": "X视场采样",
     "Chinese": "X视场采样",
     "English": "X Field Sampling",
     "Japanese": "X 視野サンプリング"
+  },
+  {
+    "Source": "X视场，单位：度 (°)",
+    "Chinese": "X视场，单位：度 (°)",
+    "English": "X Field (°)",
+    "Japanese": "X視野 (°)"
   },
   {
     "Source": "X：{0} mm    Y：{1} mm    Z：{2} mm\nX 倾斜：{3}°    Y 倾斜：{4}°    Z 倾斜：{5}°",
@@ -1890,10 +1992,22 @@
     "Japanese": "Y-線形"
   },
   {
+    "Source": "Y视场",
+    "Chinese": "Y视场",
+    "English": "Y Field",
+    "Japanese": "Y視野"
+  },
+  {
     "Source": "Y视场采样",
     "Chinese": "Y视场采样",
     "English": "Y Field Sampling",
     "Japanese": "Y 視野サンプリング"
+  },
+  {
+    "Source": "Y视场，单位：度 (°)",
+    "Chinese": "Y视场，单位：度 (°)",
+    "English": "Y Field (°)",
+    "Japanese": "Y視野 (°)"
   },
   {
     "Source": "Z 半轴 (mm)",
@@ -3048,6 +3162,24 @@
     "Japanese": "面型の分岐を追加せず既存面の円錐定数を解放します。面型分岐の既存変数規則は保持します"
   },
   {
+    "Source": "不显示此表面",
+    "Chinese": "不显示此表面",
+    "English": "Do not draw this surface",
+    "Japanese": "この面を描画しない"
+  },
+  {
+    "Source": "不显示此表面的边缘",
+    "Chinese": "不显示此表面的边缘",
+    "English": "Do not draw edges from this surface",
+    "Japanese": "この面からのエッジを描画しない"
+  },
+  {
+    "Source": "不绘制边缘",
+    "Chinese": "不绘制边缘",
+    "English": "No edges",
+    "Japanese": "エッジなし"
+  },
+  {
     "Source": "不能保存 ROI：{0}",
     "Chinese": "不能保存 ROI：{0}",
     "English": "Cannot save ROI: {0}",
@@ -3138,6 +3270,12 @@
     "Japanese": "中心遮蔽"
   },
   {
+    "Source": "中等",
+    "Chinese": "中等",
+    "English": "Medium",
+    "Japanese": "中"
+  },
+  {
     "Source": "中间规格探索",
     "Chinese": "中间规格探索",
     "English": "Intermediate-specification exploration",
@@ -3220,6 +3358,12 @@
     "Chinese": "主波长 · 全部已定义视场 · 每视场 7 个瞳采样 · A 共 {0} 条轨迹 · mm",
     "English": "Primary wavelength · all defined fields · 7 pupil samples per field · A has {0} paths · mm",
     "Japanese": "主波長 · 全定義視野 · 視野ごとに7瞳サンプル · Aは{0}経路 · mm"
+  },
+  {
+    "Source": "主波长近轴屈光度（D）",
+    "Chinese": "主波长近轴屈光度（D）",
+    "English": "Primary paraxial vergence (D)",
+    "Japanese": "主波長の近軸バージェンス (D)"
   },
   {
     "Source": "主题",
@@ -3798,6 +3942,12 @@
     "Japanese": "偏光を使用（システム入力、制限あり）"
   },
   {
+    "Source": "使用光线瞄准",
+    "Chinese": "使用光线瞄准",
+    "English": "Use Ray Aiming",
+    "Japanese": "光線照準を使用"
+  },
+  {
     "Source": "使用共享 Core 的几何导数联合求步，仍按原制造门槛严格复核；需要矩阵自动求导",
     "Chinese": "使用共享 Core 的几何导数联合求步，仍按原制造门槛严格复核；需要矩阵自动求导",
     "English": "Use shared Core geometry derivatives for joint recovery steps, then strictly check the original manufacturing limits; requires automatic matrix derivatives",
@@ -3868,6 +4018,12 @@
     "Chinese": "使用实验镜头与输入",
     "English": "Use Experiment Lens and Inputs",
     "Japanese": "実験のレンズと入力を使用"
+  },
+  {
+    "Source": "使用工程最短、主波长和最长波长，在各玻璃目录参考温度、1 atm 下计算相对热光焦。名称按目录状态着色；默认范围外的有效点仍保留，可用“显示全部范围”查看。",
+    "Chinese": "使用工程最短、主波长和最长波长，在各玻璃目录参考温度、1 atm 下计算相对热光焦。名称按目录状态着色；默认范围外的有效点仍保留，可用“显示全部范围”查看。",
+    "English": "Uses the project minimum, primary and maximum wavelengths at each catalog reference temperature and 1 atm. Labels use catalog status colors. Valid points outside the default view are retained; select Show full range to inspect them.",
+    "Japanese": "プロジェクトの最短・主・最長波長を使用し、各カタログ基準温度と1 atmで相対熱光学パワーを計算します。名称はカタログ状態別に配色します。既定範囲外の有効点も保持され、全範囲を表示で確認できます。"
   },
   {
     "Source": "使用当前工程镜头与输入",
@@ -5052,6 +5208,12 @@
     "Japanese": "NSC解析追跡を完了して検出器を読み込みます。パワーは選択した保存済み経路を含み、順序主像を追加しません。実際の波長をカバーする絶対QEを読み込みRAW/ISPを実行します。画素と寸法は一致が必要です。完全な実験はパワーと出所を保持し、再計算では再追跡しません。"
   },
   {
+    "Source": "先检查对象语义和外部资产；菜单收录不代表全部支持。",
+    "Chinese": "先检查对象语义和外部资产；菜单收录不代表全部支持。",
+    "English": "Inspect object semantics and external assets first; listing an example does not imply full support.",
+    "Japanese": "まずオブジェクトの意味と外部アセットを確認します。メニューへの収録は完全な対応を意味しません。"
+  },
+  {
     "Source": "先运行包含 Monte Carlo 的公差分析。",
     "Chinese": "先运行包含 Monte Carlo 的公差分析。",
     "English": "Run a tolerance analysis with Monte Carlo first.",
@@ -5394,6 +5556,12 @@
     "Japanese": "瞳アポダイゼーション"
   },
   {
+    "Source": "光瞳区域",
+    "Chinese": "光瞳区域",
+    "English": "Pupil zone",
+    "Japanese": "瞳ゾーン"
+  },
+  {
     "Source": "光瞳采样",
     "Chinese": "光瞳采样",
     "English": "Pupil Sampling",
@@ -5424,6 +5592,12 @@
     "Japanese": "光路差図"
   },
   {
+    "Source": "光纤",
+    "Chinese": "光纤",
+    "English": "Fibers",
+    "Japanese": "光ファイバー"
+  },
+  {
     "Source": "光线",
     "Chinese": "光线",
     "English": "Ray",
@@ -5436,10 +5610,22 @@
     "Japanese": "光線収差図"
   },
   {
+    "Source": "光线分裂",
+    "Chinese": "光线分裂",
+    "English": "Ray splitting",
+    "Japanese": "光線分岐"
+  },
+  {
     "Source": "光线密度",
     "Chinese": "光线密度",
     "English": "Ray density",
     "Japanese": "光線密度"
+  },
+  {
+    "Source": "光线忽略这个面",
+    "Chinese": "光线忽略这个面",
+    "English": "Skip this surface when drawing rays",
+    "Japanese": "光線の描画でこの面をスキップ"
   },
   {
     "Source": "光线数",
@@ -6072,6 +6258,12 @@
     "Japanese": "公開研究・教育"
   },
   {
+    "Source": "公式",
+    "Chinese": "公式",
+    "English": "Formula",
+    "Japanese": "式"
+  },
+  {
     "Source": "公式型玻璃",
     "Chinese": "公式型玻璃",
     "English": "Formula-Based Glass",
@@ -6480,6 +6672,12 @@
     "Japanese": "幾何シーン像 · 線形プレビュー"
   },
   {
+    "Source": "几何建模",
+    "Chinese": "几何建模",
+    "English": "Geometry Creation",
+    "Japanese": "形状作成"
+  },
+  {
     "Source": "几何往返追迹；理想仪器、归一化亮度，不含衍射及镀膜亮度。",
     "Chinese": "几何往返追迹；理想仪器、归一化亮度，不含衍射及镀膜亮度。",
     "English": "Geometric round-trip tracing with an ideal instrument and normalized brightness; excludes diffraction and coating intensity.",
@@ -6778,6 +6976,12 @@
     "Chinese": "分视场验收",
     "English": "Per-field acceptance",
     "Japanese": "視野ごとの合否判定"
+  },
+  {
+    "Source": "分解：{0}    最大项：{1}",
+    "Chinese": "分解：{0}    最大项：{1}",
+    "English": "Decomposition: {0}    Maximum term: {1}",
+    "Japanese": "分解：{0}    最大項：{1}"
   },
   {
     "Source": "分辨率靶标",
@@ -7212,6 +7416,18 @@
     "Japanese": "単位"
   },
   {
+    "Source": "单位换算",
+    "Chinese": "单位换算",
+    "English": "Convert units",
+    "Japanese": "単位を換算"
+  },
+  {
+    "Source": "单位换算保持实际尺寸不变，镜头数据表使用新单位；分析使用各自标注的单位。",
+    "Chinese": "单位换算保持实际尺寸不变，镜头数据表使用新单位；分析使用各自标注的单位。",
+    "English": "Unit conversion keeps physical dimensions unchanged. The lens data editor uses the new units; each analysis keeps its stated units.",
+    "Japanese": "単位換算では実際の寸法は変わりません。レンズデータ表には新しい単位を使い、解析は各表示単位を維持します。"
+  },
+  {
     "Source": "单位：DIP",
     "Chinese": "单位：DIP",
     "English": "Unit: DIP",
@@ -7330,6 +7546,12 @@
     "Chinese": "压缩框架",
     "English": "Compress Frame",
     "Japanese": "フレームを圧縮"
+  },
+  {
+    "Source": "厘米",
+    "Chinese": "厘米",
+    "English": "Centimeters",
+    "Japanese": "センチメートル"
   },
   {
     "Source": "厚度",
@@ -7596,6 +7818,12 @@
     "Japanese": "膜厚最適化に含める"
   },
   {
+    "Source": "参与计算的玻璃",
+    "Chinese": "参与计算的玻璃",
+    "English": "Catalog glasses",
+    "Japanese": "カタログガラス"
+  },
+  {
     "Source": "参数",
     "Chinese": "参数",
     "English": "Parameters",
@@ -7764,6 +7992,12 @@
     "Japanese": "参考例 · 目標はローカルの比較設定"
   },
   {
+    "Source": "参考线",
+    "Chinese": "参考线",
+    "English": "Reference line",
+    "Japanese": "基準線"
+  },
+  {
     "Source": "参考表面序号",
     "Chinese": "参考表面序号",
     "English": "Reference Surface Number",
@@ -7836,6 +8070,12 @@
     "Japanese": "列見出しをダブルクリックして構成をアクティブ化"
   },
   {
+    "Source": "双折射",
+    "Chinese": "双折射",
+    "English": "Birefringence",
+    "Japanese": "複屈折"
+  },
+  {
     "Source": "双折射棱镜",
     "Chinese": "双折射棱镜",
     "English": "Birefringent prisms",
@@ -7882,6 +8122,12 @@
     "Chinese": "反向极限：RMS 和系统评价函数为上限，MTF 为下限。反向增量：RMS 和系统评价值允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。",
     "English": "Inverse limits are upper bounds for RMS and system merit and lower bounds for MTF. Increments allow RMS and merit to increase or MTF to decrease. Per-field mode uses each field’s nominal value. Passing tolerances are retained.",
     "Japanese": "逆解析の限界は RMS とシステム評価値では上限、MTF では下限です。増分は RMS と評価値の増加、または MTF の低下を許容します。視野別モードでは各視野の公称値を使います。合格した公差は維持します。"
+  },
+  {
+    "Source": "反射器",
+    "Chinese": "反射器",
+    "English": "Reflectors",
+    "Japanese": "反射器"
   },
   {
     "Source": "反射率",
@@ -8562,6 +8808,12 @@
     "Japanese": "係数"
   },
   {
+    "Source": "因子缩放",
+    "Chinese": "因子缩放",
+    "English": "Scale by factor",
+    "Japanese": "倍率で拡大・縮小"
+  },
+  {
     "Source": "固定",
     "Chinese": "固定",
     "English": "Fixed",
@@ -8740,6 +8992,12 @@
     "Chinese": "图形缩放",
     "English": "Plot scale",
     "Japanese": "図のスケール"
+  },
+  {
+    "Source": "图形缩放 (mrad)",
+    "Chinese": "图形缩放 (mrad)",
+    "English": "Plot scale (mrad)",
+    "Japanese": "図のスケール (mrad)"
   },
   {
     "Source": "图形缩放 (µm)",
@@ -8988,6 +9246,12 @@
     "Japanese": "座標の原点は最初の実レンズ面の頂点、単位は mm、波長帯は 650/550/450 nm です。レンズと像面は処方に従い、自動焦点調整を行いません。回折は小角スカラー Huygens 法を使用し、同じ表面点の瞳面複素場を加算後、異なる点と波長の強度を加算し、最後に感光領域を積分します。光源の余白は窓半径以上で、有限窓の正規化は行いません。有限サンプリングの収束を比較してください。32×24 から開始できます。多重反射、ベクトル偏光、散乱は含みません。"
   },
   {
+    "Source": "坐标参考",
+    "Chinese": "坐标参考",
+    "English": "Coordinate reference",
+    "Japanese": "座標参照"
+  },
+  {
     "Source": "坐标模式搜索",
     "Chinese": "坐标模式搜索",
     "English": "Coordinate Pattern Search",
@@ -9028,6 +9292,12 @@
     "Chinese": "垂轴色差",
     "English": "Lateral Color",
     "Japanese": "倍率色収差"
+  },
+  {
+    "Source": "垂轴色差单位",
+    "Chinese": "垂轴色差单位",
+    "English": "Lateral color unit",
+    "Japanese": "倍率色収差の単位"
   },
   {
     "Source": "基于当前处方的几何指标与规则筛查",
@@ -9406,6 +9676,18 @@
     "Chinese": "多重结构",
     "English": "Multi-Configuration",
     "Japanese": "マルチコンフィグレーション"
+  },
+  {
+    "Source": "多项式 n",
+    "Chinese": "多项式 n",
+    "English": "Polynomial n",
+    "Japanese": "多項式 n"
+  },
+  {
+    "Source": "多项式 n²",
+    "Chinese": "多项式 n²",
+    "English": "Polynomial n²",
+    "Japanese": "多項式 n²"
   },
   {
     "Source": "大小",
@@ -10950,6 +11232,12 @@
     "Japanese": "プロジェクト改訂"
   },
   {
+    "Source": "工程已变化，请重新打开镜头缩放。",
+    "Chinese": "工程已变化，请重新打开镜头缩放。",
+    "English": "The project has changed. Reopen Scale Lens.",
+    "Japanese": "プロジェクトが変更されました。レンズのスケーリングを開き直してください。"
+  },
+  {
     "Source": "工程已变化；当前输入已保留，请还原输入后重新编辑。",
     "Chinese": "工程已变化；当前输入已保留，请还原输入后重新编辑。",
     "English": "The project changed; your input is preserved. Restore it before editing again.",
@@ -11508,10 +11796,28 @@
     "Japanese": "平均光路差"
   },
   {
+    "Source": "平均：{0} 波长",
+    "Chinese": "平均：{0} 波长",
+    "English": "Average: {0} waves",
+    "Japanese": "平均：{0} 波"
+  },
+  {
     "Source": "平滑半径",
     "Chinese": "平滑半径",
     "English": "Smoothing Radius",
     "Japanese": "平滑化半径"
+  },
+  {
+    "Source": "平直到下表面",
+    "Chinese": "平直到下表面",
+    "English": "Flat to next surface",
+    "Japanese": "次の面まで平らに"
+  },
+  {
+    "Source": "平直到下表面仅用于二维布局；三维布局和实体模型采用方形到下表面。",
+    "Chinese": "平直到下表面仅用于二维布局；三维布局和实体模型采用方形到下表面。",
+    "English": "Flat to next surface applies to 2D Layout; 3D Layout and Solid Model use squared edges.",
+    "Japanese": "次の面まで平らには2Dレイアウトに適用します。3Dレイアウトとソリッドモデルでは直角エッジを使用します。"
   },
   {
     "Source": "平铺全部",
@@ -11620,6 +11926,12 @@
     "Chinese": "应用",
     "English": "Apply",
     "Japanese": "適用"
+  },
+  {
+    "Source": "应用于全部配置",
+    "Chinese": "应用于全部配置",
+    "English": "Apply to all configurations",
+    "Japanese": "すべての構成に適用"
   },
   {
     "Source": "应用会替换该表面后的材料，可撤销。当前桌面入口限共轴、旋转对称和轴上可微的分布；边界面形仍由镜头表设置。独立倾斜矢高项和 LPTD 尚未实现。",
@@ -11758,6 +12070,12 @@
     "Chinese": "应用通过验证的候选",
     "English": "Apply Validated Candidate",
     "Japanese": "検証済み候補を適用"
+  },
+  {
+    "Source": "废弃",
+    "Chinese": "废弃",
+    "English": "Obsolete",
+    "Japanese": "廃止"
   },
   {
     "Source": "度",
@@ -11958,6 +12276,12 @@
     "Japanese": "メーカー未指定のガラス名は上から順に検索します。カタログを少なくとも一つ残してください。"
   },
   {
+    "Source": "当前单位",
+    "Chinese": "当前单位",
+    "English": "Current unit",
+    "Japanese": "現在の単位"
+  },
+  {
     "Source": "当前单元格 = 源值 × 比例 + 偏移。源行号、源配置号均不能晚于目标；移除拾取保留当前数值。",
     "Chinese": "当前单元格 = 源值 × 比例 + 偏移。源行号、源配置号均不能晚于目标；移除拾取保留当前数值。",
     "English": "Cell = source value × scale + offset. Source row and configuration cannot follow the target; removing a pickup keeps the current value.",
@@ -12022,6 +12346,12 @@
     "Chinese": "当前显示 {0} 项操作数，其中 {1} 项有计算路径、{2} 项仅保留。具体支持范围见各项说明。",
     "English": "Showing {0} operands: {1} have calculation paths and {2} are retained only. See each description for support details.",
     "Japanese": "{0}オペランドを表示中：{1}は計算経路あり、{2}は保持のみです。対応範囲は各説明を確認してください。"
+  },
+  {
+    "Source": "当前材料没有解析色散系数。",
+    "Chinese": "当前材料没有解析色散系数。",
+    "English": "This material has no analytic dispersion coefficients.",
+    "Japanese": "この材料には解析的な分散係数がありません。"
   },
   {
     "Source": "当前条目没有可打开的厂商页面地址。",
@@ -12286,6 +12616,12 @@
     "Chinese": "必须为正有限值；未规定时留空。",
     "English": "Must be positive and finite; leave blank if unspecified.",
     "Japanese": "正の有限値である必要があります。未指定の場合は空欄。"
+  },
+  {
+    "Source": "快速照明追迹",
+    "Chinese": "快速照明追迹",
+    "English": "LightningTrace",
+    "Japanese": "高速照明追跡"
   },
   {
     "Source": "快速聚焦",
@@ -12624,6 +12960,12 @@
     "Japanese": "すべての図表と数値は出力開始時の同一スナップショットに基づきます。各解析には選択した設定が適用され、パラメーターと元の出力は計算記録に保存されます。"
   },
   {
+    "Source": "所有材料库",
+    "Chinese": "所有材料库",
+    "English": "All material catalogs",
+    "Japanese": "全材料カタログ"
+  },
+  {
     "Source": "所有波长",
     "Chinese": "所有波长",
     "English": "All Wavelengths",
@@ -12676,6 +13018,12 @@
     "Chinese": "所选玻璃缺少此分析所需的数据",
     "English": "Selected Glass Lacks Data Required by This Analysis",
     "Japanese": "選択ガラスには解析に必要なデータがありません"
+  },
+  {
+    "Source": "所选：{0}",
+    "Chinese": "所选：{0}",
+    "English": "Selected: {0}",
+    "Japanese": "選択：{0}"
   },
   {
     "Source": "手动",
@@ -12790,6 +13138,18 @@
     "Chinese": "打开对应完整线性图的 ROI 记录",
     "English": "Open ROI Record for the Complete Linear Image",
     "Japanese": "対応する完全線形画像のROI記録を開く"
+  },
+  {
+    "Source": "打开导入检查；全部语义和资产通过后才能应用场景。",
+    "Chinese": "打开导入检查；全部语义和资产通过后才能应用场景。",
+    "English": "Open import inspection; apply the scene only after all semantics and assets pass.",
+    "Japanese": "インポート確認を開きます。すべての意味とアセットの確認後にシーンを適用できます。"
+  },
+  {
+    "Source": "打开导入检查；全部语义和资产通过后才能应用场景。{0}{1}",
+    "Chinese": "打开导入检查；全部语义和资产通过后才能应用场景。{0}{1}",
+    "English": "Open import inspection; apply the scene only after all semantics and assets pass.{0}{1}",
+    "Japanese": "インポート確認を開きます。すべての意味とアセットの確認後にシーンを適用できます。{0}{1}"
   },
   {
     "Source": "打开平板生成实验记录",
@@ -13326,6 +13686,12 @@
     "Japanese": "元の手順で0から設定値まで最終回を含めて更新します。予算によって2段階の計画を短縮せず、予算不足時は進捗を保存します。"
   },
   {
+    "Source": "按因子改变所选表面的尺寸；选择全部表面时，同时缩放系统孔径与高度视场。波长、材料和评价目标保持原值。",
+    "Chinese": "按因子改变所选表面的尺寸；选择全部表面时，同时缩放系统孔径与高度视场。波长、材料和评价目标保持原值。",
+    "English": "Scale the dimensions of the selected surfaces. Selecting all surfaces also scales the system aperture and height fields. Wavelengths, materials and merit targets keep their values.",
+    "Japanese": "選択した面の寸法を拡大・縮小します。全ての面を選ぶとシステム開口と高さ視野も変わります。波長、材料、評価目標は維持されます。"
+  },
+  {
     "Source": "按实际厚度与固定光阑构造 Delano 起点",
     "Chinese": "按实际厚度与固定光阑构造 Delano 起点",
     "English": "Construct Delano Seeds with Actual Thickness and Fixed Stop",
@@ -13360,6 +13726,12 @@
     "Chinese": "按材料标准填写类别及批差等级；留空未规定，V[d]绝对数值公差不自动换算为百分比或等级",
     "English": "Enter category and batch variation grade per the material standard. Blank means unspecified. Absolute V[d] tolerance is not automatically converted to a percentage or grade.",
     "Japanese": "材料規格に従い分類とロット差等級を入力します。空欄は未指定です。V[d] の絶対数値公差を百分率や等級に自動換算しません。"
+  },
+  {
+    "Source": "按材料色散模型在 F、d、C 谱线重算，不覆盖目录参考值。",
+    "Chinese": "按材料色散模型在 F、d、C 谱线重算，不覆盖目录参考值。",
+    "English": "Recalculate at the F, d and C lines using the material dispersion model, retaining catalog reference values.",
+    "Japanese": "材料の分散モデルからF・d・C線で再計算します。カタログ参考値は変更しません。"
   },
   {
     "Source": "按真实像差筛选并排序起点",
@@ -13546,6 +13918,12 @@
     "Chinese": "提高当前玻璃库的同名玻璃解析优先级。",
     "English": "Increase this catalog's priority when resolving glass names.",
     "Japanese": "同名ガラスの検索でこのカタログの優先度を上げます。"
+  },
+  {
+    "Source": "提高表面曲线和网格的绘图采样密度，不改变光线追迹精度。",
+    "Chinese": "提高表面曲线和网格的绘图采样密度，不改变光线追迹精度。",
+    "English": "Increase drawing samples for surface curves and meshes without changing ray-trace accuracy.",
+    "Japanese": "面の曲線とメッシュの描画サンプル密度を上げます。光線追跡精度は変わりません。"
   },
   {
     "Source": "搜索",
@@ -13902,6 +14280,36 @@
     "Japanese": "データ出典 / 作製条件"
   },
   {
+    "Source": "数据检查：F-d-C 模型计算可用；目录参考值保持原值。",
+    "Chinese": "数据检查：F-d-C 模型计算可用；目录参考值保持原值。",
+    "English": "Data check: F-d-C model calculation is available; catalog references are unchanged.",
+    "Japanese": "データ確認：F-d-Cモデル計算が可能です。カタログ参考値は元のままです。"
+  },
+  {
+    "Source": "数据检查：F、C 折射率差值过小，Vd 无定义。",
+    "Chinese": "数据检查：F、C 折射率差值过小，Vd 无定义。",
+    "English": "Data check: the F–C index difference is too small to define Vd.",
+    "Japanese": "データ確認：F・C線の屈折率差が小さすぎるためVdを定義できません。"
+  },
+  {
+    "Source": "数据检查：F、d、C 谱线超出材料有效波长或折射率表范围；目录参考值不代表该波段的有效计算。",
+    "Chinese": "数据检查：F、d、C 谱线超出材料有效波长或折射率表范围；目录参考值不代表该波段的有效计算。",
+    "English": "Data check: F, d or C is outside the valid material or index-table range; catalog references do not validate calculation in that range.",
+    "Japanese": "データ確認：F・d・C線が材料または屈折率表の有効範囲外です。カタログ参考値は範囲外の計算を保証しません。"
+  },
+  {
+    "Source": "数据检查：当前色散模型不受支持；仅保留已有目录参考值。",
+    "Chinese": "数据检查：当前色散模型不受支持；仅保留已有目录参考值。",
+    "English": "Data check: the dispersion model is unsupported; existing catalog references are retained.",
+    "Japanese": "データ確認：この分散モデルは未対応です。既存のカタログ参考値を保持します。"
+  },
+  {
+    "Source": "数据检查：色散数据缺失或计算无效；仅保留已有目录参考值。",
+    "Chinese": "数据检查：色散数据缺失或计算无效；仅保留已有目录参考值。",
+    "English": "Data check: dispersion data is missing or invalid; existing catalog references are retained.",
+    "Japanese": "データ確認：分散データが不足または無効です。既存のカタログ参考値を保持します。"
+  },
+  {
     "Source": "数据类型",
     "Chinese": "数据类型",
     "English": "Data Type",
@@ -14142,6 +14550,12 @@
     "Japanese": "方向マッチング"
   },
   {
+    "Source": "方形到下表面",
+    "Chinese": "方形到下表面",
+    "English": "Squared to next surface",
+    "Japanese": "次の面まで直角に"
+  },
+  {
     "Source": "方框降噪 (0–1)",
     "Chinese": "方框降噪 (0–1)",
     "English": "Box Denoising (0–1)",
@@ -14334,6 +14748,24 @@
     "Japanese": "リンクを開けません：{0}"
   },
   {
+    "Source": "无法计算：F、d、C 谱线超出材料有效波长或折射率表范围。",
+    "Chinese": "无法计算：F、d、C 谱线超出材料有效波长或折射率表范围。",
+    "English": "Cannot calculate: the F, d or C line is outside the material validity range or refractive-index table.",
+    "Japanese": "計算できません：F・d・C線が材料の有効波長範囲または屈折率表の範囲外です。"
+  },
+  {
+    "Source": "无法计算：当前材料的色散模型不受支持。",
+    "Chinese": "无法计算：当前材料的色散模型不受支持。",
+    "English": "Cannot calculate: the material dispersion model is unsupported.",
+    "Japanese": "計算できません：材料の分散モデルは未対応です。"
+  },
+  {
+    "Source": "无法计算：材料色散数据缺失或产生无效折射率。",
+    "Chinese": "无法计算：材料色散数据缺失或产生无效折射率。",
+    "English": "Cannot calculate: dispersion data are missing or produce an invalid refractive index.",
+    "Japanese": "計算できません：分散データが不足しているか、屈折率が無効です。"
+  },
+  {
     "Source": "无法评估",
     "Chinese": "无法评估",
     "English": "Assessment unavailable",
@@ -14350,6 +14782,12 @@
     "Chinese": "无热化玻璃图",
     "English": "Athermal Glass Map",
     "Japanese": "アサーマルガラスマップ"
+  },
+  {
+    "Source": "无热化玻璃图按 1 atm 定义；启用环境折射率匹配时，请将系统压强设为 1 atm。",
+    "Chinese": "无热化玻璃图按 1 atm 定义；启用环境折射率匹配时，请将系统压强设为 1 atm。",
+    "English": "The athermal glass map is defined at 1 atm. Set system pressure to 1 atm when environmental index matching is enabled.",
+    "Japanese": "アサーマルガラスマップは1 atmで定義されます。環境屈折率補正が有効な場合はシステム圧力を1 atmに設定してください。"
   },
   {
     "Source": "无焦瞳孔积分（标量）",
@@ -14508,6 +14946,12 @@
     "Japanese": "3Dレイアウトを表示"
   },
   {
+    "Source": "显示不透明度比例：100% 保持默认绘制强度，0% 完全透明；不改变材料透过率。",
+    "Chinese": "显示不透明度比例：100% 保持默认绘制强度，0% 完全透明；不改变材料透过率。",
+    "English": "Display opacity: 100% keeps the normal drawing strength; 0% is transparent. Material transmission is unchanged.",
+    "Japanese": "表示不透明度。100% は通常の描画強度、0% は透明です。材料の透過率は変わりません。"
+  },
+  {
     "Source": "显示为",
     "Chinese": "显示为",
     "English": "Display as",
@@ -14542,6 +14986,12 @@
     "Chinese": "显示光线段",
     "English": "Show ray segments",
     "Japanese": "光線区間を表示"
+  },
+  {
+    "Source": "显示全部范围",
+    "Chinese": "显示全部范围",
+    "English": "Show full range",
+    "Japanese": "全範囲を表示"
   },
   {
     "Source": "显示公差报告",
@@ -14608,6 +15058,12 @@
     "Chinese": "显示实体模型",
     "English": "Show Solid Model",
     "Japanese": "ソリッドモデルを表示"
+  },
+  {
+    "Source": "显示局部坐标轴",
+    "Chinese": "显示局部坐标轴",
+    "English": "Draw local axes",
+    "Japanese": "ローカル座標軸を描画"
   },
   {
     "Source": "显示已载入起点或所选候选，不改变搜索记录",
@@ -14736,6 +15192,30 @@
     "Japanese": "非順序オブジェクトデータを表示"
   },
   {
+    "Source": "显示：图标    视场：椭圆",
+    "Chinese": "显示：图标    视场：椭圆",
+    "English": "Display: Icons    Field: Elliptical",
+    "Japanese": "表示：アイコン    視野：楕円"
+  },
+  {
+    "Source": "显示：图标    视场：矩形",
+    "Chinese": "显示：图标    视场：矩形",
+    "English": "Display: Icons    Field: Rectangular",
+    "Japanese": "表示：アイコン    視野：矩形"
+  },
+  {
+    "Source": "显示：颜色图    视场：椭圆",
+    "Chinese": "显示：颜色图    视场：椭圆",
+    "English": "Display: Color Map    Field: Elliptical",
+    "Japanese": "表示：カラーマップ    視野：楕円"
+  },
+  {
+    "Source": "显示：颜色图    视场：矩形",
+    "Chinese": "显示：颜色图    视场：矩形",
+    "English": "Display: Color Map    Field: Rectangular",
+    "Japanese": "表示：カラーマップ    視野：矩形"
+  },
+  {
     "Source": "普通与科学计数法尾数最多保留的位数",
     "Chinese": "普通与科学计数法尾数最多保留的位数",
     "English": "Maximum decimal places for ordinary and scientific notation",
@@ -14764,6 +15244,12 @@
     "Chinese": "暂无共轭结果",
     "English": "No conjugate results",
     "Japanese": "共役結果はありません"
+  },
+  {
+    "Source": "暂无摘要数据",
+    "Chinese": "暂无摘要数据",
+    "English": "Summary unavailable",
+    "Japanese": "概要データなし"
   },
   {
     "Source": "暂未找到公开的正式版本（也可能仓库不可访问）。",
@@ -15144,6 +15630,12 @@
     "Japanese": "最大投影方向余弦面積"
   },
   {
+    "Source": "最大波长",
+    "Chinese": "最大波长",
+    "English": "Maximum wavelength",
+    "Japanese": "最大波長"
+  },
+  {
     "Source": "最大活动分支",
     "Chinese": "最大活动分支",
     "English": "Maximum Active Branches",
@@ -15154,6 +15646,36 @@
     "Chinese": "最大漂移",
     "English": "Maximum Shift",
     "Japanese": "最大変位"
+  },
+  {
+    "Source": "最大漂移 (D)",
+    "Chinese": "最大漂移 (D)",
+    "English": "Maximum shift (D)",
+    "Japanese": "最大焦点移動 (D)"
+  },
+  {
+    "Source": "最大漂移 (µm)",
+    "Chinese": "最大漂移 (µm)",
+    "English": "Maximum shift (µm)",
+    "Japanese": "最大焦点移動 (µm)"
+  },
+  {
+    "Source": "最大漂移（D）",
+    "Chinese": "最大漂移（D）",
+    "English": "Maximum shift (D)",
+    "Japanese": "最大焦点移動 (D)"
+  },
+  {
+    "Source": "最大焦移变化",
+    "Chinese": "最大焦移变化",
+    "English": "Maximum focal shift variation",
+    "Japanese": "最大焦点移動量"
+  },
+  {
+    "Source": "最大焦移变化（D）",
+    "Chinese": "最大焦移变化（D）",
+    "English": "Maximum focal shift variation (D)",
+    "Japanese": "最大焦点移動量 (D)"
   },
   {
     "Source": "最大畸变 = {0}%",
@@ -15214,6 +15736,12 @@
     "Chinese": "最大视场角 (deg)",
     "English": "Maximum field angle (deg)",
     "Japanese": "最大視野角 (deg)"
+  },
+  {
+    "Source": "最大距离",
+    "Chinese": "最大距离",
+    "English": "Maximum distance",
+    "Japanese": "最大距離"
   },
   {
     "Source": "最大距离 (µm)",
@@ -15312,6 +15840,12 @@
     "Japanese": "最小バックフォーカス / mm"
   },
   {
+    "Source": "最小波长",
+    "Chinese": "最小波长",
+    "English": "Minimum wavelength",
+    "Japanese": "最小波長"
+  },
+  {
     "Source": "最小相对能量",
     "Chinese": "最小相对能量",
     "English": "Minimum Relative Energy",
@@ -15408,6 +15942,12 @@
     "Japanese": "最新の安定版"
   },
   {
+    "Source": "最短 / 主 / 最长波长 (μm)",
+    "Chinese": "最短 / 主 / 最长波长 (μm)",
+    "English": "Minimum / primary / maximum wavelength (μm)",
+    "Japanese": "最短 / 主 / 最長波長 (μm)"
+  },
+  {
     "Source": "最短波长 / nm",
     "Chinese": "最短波长 / nm",
     "English": "Minimum Wavelength / nm",
@@ -15474,6 +16014,12 @@
     "Japanese": "有効光線数"
   },
   {
+    "Source": "有效波长",
+    "Chinese": "有效波长",
+    "English": "Valid wavelength range",
+    "Japanese": "有効波長範囲"
+  },
+  {
     "Source": "有效焦距",
     "Chinese": "有效焦距",
     "English": "Effective focal length",
@@ -15496,6 +16042,12 @@
     "Chinese": "有效焦距：",
     "English": "Effective Focal Length:",
     "Japanese": "有効焦点距離："
+  },
+  {
+    "Source": "有效绘图点",
+    "Chinese": "有效绘图点",
+    "English": "Valid plotted glasses",
+    "Japanese": "有効描画ガラス"
   },
   {
     "Source": "有效采样数",
@@ -16134,6 +16686,12 @@
     "Japanese": "タブ表示"
   },
   {
+    "Source": "标记 * 的项为源记录额外系数，未参与当前公式计算。",
+    "Chinese": "标记 * 的项为源记录额外系数，未参与当前公式计算。",
+    "English": "Items marked * are extra source-record coefficients unused by the current formula.",
+    "Japanese": "* は元データの追加係数で、現在の式では使用しません。"
+  },
+  {
     "Source": "校验轴对称瞳孔积分",
     "Chinese": "校验轴对称瞳孔积分",
     "English": "Check rotational pupil integral",
@@ -16224,6 +16782,12 @@
     "Japanese": "入力を確認"
   },
   {
+    "Source": "检查非序列示例：{0}",
+    "Chinese": "检查非序列示例：{0}",
+    "English": "Inspect non-sequential example: {0}",
+    "Japanese": "非シーケンシャル例を確認：{0}"
+  },
+  {
     "Source": "检查项目",
     "Chinese": "检查项目",
     "English": "Check",
@@ -16282,6 +16846,12 @@
     "Chinese": "棋盘行数",
     "English": "Checkerboard rows",
     "Japanese": "チェッカーボードの行数"
+  },
+  {
+    "Source": "棱镜",
+    "Chinese": "棱镜",
+    "English": "Prisms",
+    "Japanese": "プリズム"
   },
   {
     "Source": "椭圆",
@@ -16378,6 +16948,12 @@
     "Chinese": "模板 {0} 胶合面 S{1}",
     "English": "Template {0} cemented surface S{1}",
     "Japanese": "テンプレート {0} 接合面 S{1}"
+  },
+  {
+    "Source": "橙色",
+    "Chinese": "橙色",
+    "English": "Orange",
+    "Japanese": "オレンジ"
   },
   {
     "Source": "正切角",
@@ -17094,6 +17670,12 @@
     "Japanese": "尺度：{0}"
   },
   {
+    "Source": "比较玻璃的色光焦和热光焦，辅助无热化消色差选材",
+    "Chinese": "比较玻璃的色光焦和热光焦，辅助无热化消色差选材",
+    "English": "Compare chromatic and thermal power to select glasses for athermal achromats",
+    "Japanese": "色光学パワーと熱光学パワーを比較し、アサーマル色消しの材料を選択"
+  },
+  {
     "Source": "毫米",
     "Chinese": "毫米",
     "English": "Millimeters",
@@ -17284,6 +17866,12 @@
     "Chinese": "波前图尺寸",
     "English": "Wavefront Map Size",
     "Japanese": "波面図サイズ"
+  },
+  {
+    "Source": "波前差",
+    "Chinese": "波前差",
+    "English": "Wavefront error",
+    "Japanese": "波面誤差"
   },
   {
     "Source": "波前表面图",
@@ -17880,6 +18468,12 @@
     "Japanese": "飽和容量 (e⁻)"
   },
   {
+    "Source": "演示",
+    "Chinese": "演示",
+    "English": "Presentation",
+    "Japanese": "プレゼンテーション"
+  },
+  {
     "Source": "漫反射率 ρ (0–1)",
     "Chinese": "漫反射率 ρ (0–1)",
     "English": "Diffuse reflectance ρ (0–1)",
@@ -17896,6 +18490,12 @@
     "Chinese": "灰度",
     "English": "Grayscale",
     "Japanese": "グレースケール"
+  },
+  {
+    "Source": "灰色",
+    "Chinese": "灰色",
+    "English": "Gray",
+    "Japanese": "グレー"
   },
   {
     "Source": "灰色项尚未实现，不能编辑；不会改变当前追迹。",
@@ -17946,10 +18546,46 @@
     "Japanese": "点像分布関数"
   },
   {
+    "Source": "热光焦",
+    "Chinese": "热光焦",
+    "English": "Thermal power",
+    "Japanese": "熱光学パワー"
+  },
+  {
+    "Source": "热光焦 (10⁻⁶/K)",
+    "Chinese": "热光焦 (10⁻⁶/K)",
+    "English": "Thermal power (10⁻⁶/K)",
+    "Japanese": "熱光学パワー (10⁻⁶/K)"
+  },
+  {
     "Source": "热图颜色表",
     "Chinese": "热图颜色表",
     "English": "Heatmap Colormap",
     "Japanese": "ヒートマップ配色"
+  },
+  {
+    "Source": "热数据需核对：目录参考温度、d 谱线下 dn/dT={0}/K；已保留原始 TD 数据，未缩放或修正。",
+    "Chinese": "热数据需核对：目录参考温度、d 谱线下 dn/dT={0}/K；已保留原始 TD 数据，未缩放或修正。",
+    "English": "Thermal data needs review: dn/dT={0}/K at the catalog reference temperature and d line; original TD data is retained without rescaling or correction.",
+    "Japanese": "熱データの確認が必要：カタログ基準温度・d線でdn/dT={0}/Kです。元のTDデータは再スケーリング・修正せず保持しています。"
+  },
+  {
+    "Source": "焦移 (D)",
+    "Chinese": "焦移 (D)",
+    "English": "Focal shift (D)",
+    "Japanese": "焦点移動 (D)"
+  },
+  {
+    "Source": "焦移 (µm)",
+    "Chinese": "焦移 (µm)",
+    "English": "Focal shift (µm)",
+    "Japanese": "焦点移動 (µm)"
+  },
+  {
+    "Source": "焦移单位",
+    "Chinese": "焦移单位",
+    "English": "Focal shift unit",
+    "Japanese": "焦点移動の単位"
   },
   {
     "Source": "焦距 (mm)：",
@@ -17986,6 +18622,12 @@
     "Chinese": "照度",
     "English": "Illuminance",
     "Japanese": "照度"
+  },
+  {
+    "Source": "熔融",
+    "Chinese": "熔融",
+    "English": "Melt",
+    "Japanese": "溶解ロット"
   },
   {
     "Source": "熔融频率",
@@ -18166,6 +18808,12 @@
     "Chinese": "物高",
     "English": "Object Height",
     "Japanese": "物高"
+  },
+  {
+    "Source": "特殊",
+    "Chinese": "特殊",
+    "English": "Special",
+    "Japanese": "特殊"
   },
   {
     "Source": "状态",
@@ -18396,6 +19044,12 @@
     "Japanese": "物体側チェッカーボード像を生成"
   },
   {
+    "Source": "生成膜系",
+    "Chinese": "生成膜系",
+    "English": "Generate Stack",
+    "Japanese": "膜構成を生成"
+  },
+  {
     "Source": "生成评价函数",
     "Chinese": "生成评价函数",
     "English": "Generate Merit Function",
@@ -18534,6 +19188,12 @@
     "Japanese": "歪曲サンプリング格子"
   },
   {
+    "Source": "白色",
+    "Chinese": "白色",
+    "English": "White",
+    "Japanese": "白"
+  },
+  {
     "Source": "百分比",
     "Chinese": "百分比",
     "English": "Percentage",
@@ -18556,6 +19216,12 @@
     "Chinese": "目录分类",
     "English": "Catalog Category",
     "Japanese": "カタログ分類"
+  },
+  {
+    "Source": "目录参考 Nd：{0}；Vd：{1}",
+    "Chinese": "目录参考 Nd：{0}；Vd：{1}",
+    "English": "Catalog reference Nd: {0}; Vd: {1}",
+    "Japanese": "カタログ参考 Nd：{0}；Vd：{1}"
   },
   {
     "Source": "目录未解析",
@@ -18672,6 +19338,12 @@
     "Japanese": "相対照度"
   },
   {
+    "Source": "相干、干涉与衍射",
+    "Chinese": "相干、干涉与衍射",
+    "English": "Coherence Interference and Diffraction",
+    "Japanese": "コヒーレンス・干渉・回折"
+  },
+  {
     "Source": "相干函数采样",
     "Chinese": "相干函数采样",
     "English": "Coherence Function Sampling",
@@ -18736,6 +19408,18 @@
     "Chinese": "真实像差筛选，仅用于起点排序",
     "English": "Physical aberration screening, for seed ranking only",
     "Japanese": "実光線収差の選別（初期処方の順位付けのみ）"
+  },
+  {
+    "Source": "真彩色",
+    "Chinese": "真彩色",
+    "English": "True color",
+    "Japanese": "トゥルーカラー"
+  },
+  {
+    "Source": "真彩色使用实际光谱与统一曝光。关闭真彩色可调整标量显示。",
+    "Chinese": "真彩色使用实际光谱与统一曝光。关闭真彩色可调整标量显示。",
+    "English": "True color uses the traced spectrum and one shared exposure. Turn it off to adjust scalar display settings.",
+    "Japanese": "トゥルーカラーは追跡したスペクトルと共通露光を使用します。オフにするとスカラー表示を調整できます。"
   },
   {
     "Source": "瞳孔像差",
@@ -18988,6 +19672,12 @@
     "Chinese": "移除渐晕因子",
     "English": "Remove vignetting factors",
     "Japanese": "口径食係数を除去"
+  },
+  {
+    "Source": "空物体",
+    "Chinese": "空物体",
+    "English": "Null object",
+    "Japanese": "ヌルオブジェクト"
   },
   {
     "Source": "空间",
@@ -19290,6 +19980,12 @@
     "Japanese": "アルゴリズムの識別子"
   },
   {
+    "Source": "米",
+    "Chinese": "米",
+    "English": "Meters",
+    "Japanese": "メートル"
+  },
+  {
     "Source": "类型",
     "Chinese": "类型",
     "English": "Type",
@@ -19354,6 +20050,12 @@
     "Chinese": "系数 (n, m)",
     "English": "Coefficient (n, m)",
     "Japanese": "係数 (n, m)"
+  },
+  {
+    "Source": "系数 {0}",
+    "Chinese": "系数 {0}",
+    "English": "Coefficient {0}",
+    "Japanese": "係数 {0}"
   },
   {
     "Source": "系数采用镜头长度单位；n0Squared 表示 n²。切换分布会重置系数，点击应用前不改变工程。",
@@ -19476,6 +20178,12 @@
     "Japanese": "システムの非偏光設定"
   },
   {
+    "Source": "紫色",
+    "Chinese": "紫色",
+    "English": "Purple",
+    "Japanese": "紫"
+  },
+  {
     "Source": "红 QE (0–1)",
     "Chinese": "红 QE (0–1)",
     "English": "Red QE (0–1)",
@@ -19492,6 +20200,12 @@
     "Chinese": "红增益",
     "English": "Red Gain",
     "Japanese": "赤ゲイン"
+  },
+  {
+    "Source": "红色",
+    "Chinese": "红色",
+    "English": "Red",
+    "Japanese": "赤"
   },
   {
     "Source": "红蓝（蓝—白—红）",
@@ -19758,10 +20472,22 @@
     "Japanese": "結果指標"
   },
   {
+    "Source": "绘制局部原点",
+    "Chinese": "绘制局部原点",
+    "English": "Draw local origin point",
+    "Japanese": "ローカル原点を描画"
+  },
+  {
     "Source": "绘图",
     "Chinese": "绘图",
     "English": "Plot",
     "Japanese": "プロット"
+  },
+  {
+    "Source": "绘图时跳过此面节点，直连前后节点；物理追迹仍经过此面。用于无光焦度的辅助面。",
+    "Chinese": "绘图时跳过此面节点，直连前后节点；物理追迹仍经过此面。用于无光焦度的辅助面。",
+    "English": "Connect the preceding and following drawing nodes directly. Physical tracing still includes this surface. Intended for optically inactive dummy surfaces.",
+    "Japanese": "前後の描画点を直接接続します。物理追跡はこの面を通ります。光学的に作用しない補助面に使用します。"
   },
   {
     "Source": "绘图沿用当前主题与布局设置。独立表面颜色、透明度、隐藏表面及行颜色尚未实现。",
@@ -19774,6 +20500,24 @@
     "Chinese": "绘图版式",
     "English": "Drawing aspect",
     "Japanese": "図面の縦横比"
+  },
+  {
+    "Source": "绘图精度",
+    "Chinese": "绘图精度",
+    "English": "Drawing resolution",
+    "Japanese": "描画解像度"
+  },
+  {
+    "Source": "绘图精度：",
+    "Chinese": "绘图精度：",
+    "English": "Drawing resolution:",
+    "Japanese": "描画解像度："
+  },
+  {
+    "Source": "绘图范围：从 {0} 到 {1}",
+    "Chinese": "绘图范围：从 {0} 到 {1}",
+    "English": "Plot range: {0} to {1}",
+    "Japanese": "描画範囲：{0} ～ {1}"
   },
   {
     "Source": "绝对 QE 曲线必须覆盖全部探测波长。",
@@ -19854,6 +20598,12 @@
     "Japanese": "緑ゲイン"
   },
   {
+    "Source": "绿色",
+    "Chinese": "绿色",
+    "English": "Green",
+    "Japanese": "緑"
+  },
+  {
     "Source": "编辑",
     "Chinese": "编辑",
     "English": "Edit",
@@ -19902,10 +20652,40 @@
     "Japanese": "スケール"
   },
   {
+    "Source": "缩放后的数值超出有效范围，请调整缩放因子。",
+    "Chinese": "缩放后的数值超出有效范围，请调整缩放因子。",
+    "English": "The scaled values are out of range. Adjust the scale factor.",
+    "Japanese": "スケーリング後の値が有効範囲外です。倍率を調整してください。"
+  },
+  {
+    "Source": "缩放因子必须是大于零的有限数值。",
+    "Chinese": "缩放因子必须是大于零的有限数值。",
+    "English": "Enter a finite scale factor greater than zero.",
+    "Japanese": "倍率にはゼロより大きい有限値を入力してください。"
+  },
+  {
+    "Source": "缩放标尺：{0}    参考：主光线",
+    "Chinese": "缩放标尺：{0}    参考：主光线",
+    "English": "Scale bar: {0}    Reference: Chief ray",
+    "Japanese": "スケールバー：{0}    基準：主光線"
+  },
+  {
+    "Source": "缩放标尺：{0}    参考：质心",
+    "Chinese": "缩放标尺：{0}    参考：质心",
+    "English": "Scale bar: {0}    Reference: Centroid",
+    "Japanese": "スケールバー：{0}    基準：重心"
+  },
+  {
     "Source": "缩放比例超出限制",
     "Chinese": "缩放比例超出限制",
     "English": "Scale is outside the allowed range",
     "Japanese": "拡大率が許可範囲外"
+  },
+  {
+    "Source": "缺少有效波长或热数据",
+    "Chinese": "缺少有效波长或热数据",
+    "English": "Missing valid wavelength or thermal data",
+    "Japanese": "有効波長または熱データなし"
   },
   {
     "Source": "网格",
@@ -20334,6 +21114,24 @@
     "Japanese": "カスタムサイズ"
   },
   {
+    "Source": "自定义行颜色",
+    "Chinese": "自定义行颜色",
+    "English": "Custom Row Color",
+    "Japanese": "カスタム行色"
+  },
+  {
+    "Source": "自定义表面颜色",
+    "Chinese": "自定义表面颜色",
+    "English": "Custom surface color",
+    "Japanese": "カスタム面色"
+  },
+  {
+    "Source": "自定义颜色…",
+    "Chinese": "自定义颜色…",
+    "English": "Custom color…",
+    "Japanese": "カスタム色…"
+  },
+  {
     "Source": "自适应精度",
     "Chinese": "自适应精度",
     "English": "Adaptive Accuracy",
@@ -20344,6 +21142,30 @@
     "Chinese": "良率",
     "English": "Yield",
     "Japanese": "歩留まり"
+  },
+  {
+    "Source": "色光焦",
+    "Chinese": "色光焦",
+    "English": "Chromatic power",
+    "Japanese": "色光学パワー"
+  },
+  {
+    "Source": "色光焦 (10⁻³)",
+    "Chinese": "色光焦 (10⁻³)",
+    "English": "Chromatic power (10⁻³)",
+    "Japanese": "色光学パワー (10⁻³)"
+  },
+  {
+    "Source": "色光焦与热光焦",
+    "Chinese": "色光焦与热光焦",
+    "English": "Chromatic and thermal power",
+    "Japanese": "色光学パワーと熱光学パワー"
+  },
+  {
+    "Source": "色度学",
+    "Chinese": "色度学",
+    "English": "Colorimetry",
+    "Japanese": "測色"
   },
   {
     "Source": "色散",
@@ -20394,6 +21216,18 @@
     "Japanese": "エアリー半径 (mm)"
   },
   {
+    "Source": "艾里斑半径 (mrad)",
+    "Chinese": "艾里斑半径 (mrad)",
+    "English": "Airy radius (mrad)",
+    "Japanese": "エアリー半径 (mrad)"
+  },
+  {
+    "Source": "英寸",
+    "Chinese": "英寸",
+    "English": "Inches",
+    "Japanese": "インチ"
+  },
+  {
     "Source": "范围：{0} ～ {1}",
     "Chinese": "范围：{0} ～ {1}",
     "English": "Range: {0} ～ {1}",
@@ -20406,6 +21240,18 @@
     "Japanese": "ドラフトを復元できないため、確認用に保持しました：{0} · {1}"
   },
   {
+    "Source": "荧光粉与荧光",
+    "Chinese": "荧光粉与荧光",
+    "English": "Phosphors and Fluorescence",
+    "Japanese": "蛍光体と蛍光"
+  },
+  {
+    "Source": "菲涅耳透镜",
+    "Chinese": "菲涅耳透镜",
+    "English": "Fresnel Lenses",
+    "Japanese": "フレネルレンズ"
+  },
+  {
     "Source": "蓝 QE (0–1)",
     "Chinese": "蓝 QE (0–1)",
     "English": "Blue QE (0–1)",
@@ -20416,6 +21262,12 @@
     "Chinese": "蓝增益",
     "English": "Blue Gain",
     "Japanese": "青ゲイン"
+  },
+  {
+    "Source": "蓝色",
+    "Chinese": "蓝色",
+    "English": "Blue",
+    "Japanese": "青"
   },
   {
     "Source": "虚拟点距离 (mm)",
@@ -20440,6 +21292,18 @@
     "Chinese": "行/列",
     "English": "Row / Column",
     "Japanese": "行 / 列"
+  },
+  {
+    "Source": "行颜色",
+    "Chinese": "行颜色",
+    "English": "Row Color",
+    "Japanese": "行の色"
+  },
+  {
+    "Source": "行颜色请输入 #RRGGBB 格式的六位十六进制颜色。",
+    "Chinese": "行颜色请输入 #RRGGBB 格式的六位十六进制颜色。",
+    "English": "Enter a six-digit hexadecimal row color in #RRGGBB format.",
+    "Japanese": "行の色を #RRGGBB 形式の6桁の16進数で入力してください。"
   },
   {
     "Source": "行颜色：",
@@ -20472,10 +21336,22 @@
     "Japanese": "回折素子"
   },
   {
+    "Source": "衍射光学",
+    "Chinese": "衍射光学",
+    "English": "Diffractives",
+    "Japanese": "回折光学"
+  },
+  {
     "Source": "衍射光栅和薄透镜参数在“类型”页按面型显示。逐表面物理光学传播设置尚未实现；系统级 PSF / 波前分析不是逐面 POP 传播。",
     "Chinese": "衍射光栅和薄透镜参数在“类型”页按面型显示。逐表面物理光学传播设置尚未实现；系统级 PSF / 波前分析不是逐面 POP 传播。",
     "English": "Grating and thin-lens parameters appear by surface type on the Type tab. Per-surface physical optics propagation is not implemented; system PSF / wavefront analysis is not surface-by-surface POP.",
     "Japanese": "回折格子と薄レンズのパラメータは「タイプ」ページに面タイプ別で表示します。面別物理光学伝播は未実装で、光学系PSF / 波面解析は面ごとのPOP伝播ではありません。"
+  },
+  {
+    "Source": "衍射极限变化",
+    "Chinese": "衍射极限变化",
+    "English": "Diffraction-limit variation",
+    "Japanese": "回折限界の変化"
   },
   {
     "Source": "衍射瞳面每边采样",
@@ -20766,6 +21642,12 @@
     "Japanese": "面 {0}：{1}\n現在の有効半径：{2} mm\n機械半径：{3} mm"
   },
   {
+    "Source": "表面 {0}：{1}\n当前净半径：{2} {3}\n机械半直径：{4} {5}",
+    "Chinese": "表面 {0}：{1}\n当前净半径：{2} {3}\n机械半直径：{4} {5}",
+    "English": "Surface {0}: {1}\nCurrent clear radius: {2} {3}\nMechanical semi-diameter: {4} {5}",
+    "Japanese": "面 {0}：{1}\n現在の有効半径：{2} {3}\n機械半径：{4} {5}"
+  },
+  {
     "Source": "表面{0}含非居中圆形孔径，当前老国标透镜图不能将其简化为圆形D0。",
     "Chinese": "表面{0}含非居中圆形孔径，当前老国标透镜图不能将其简化为圆形D0。",
     "English": "Surface {0} has a non-centered circular aperture. The current legacy GB lens drawing cannot simplify it to circular D0.",
@@ -20922,10 +21804,34 @@
     "Japanese": "面の縁傾斜角"
   },
   {
+    "Source": "表面透明度",
+    "Chinese": "表面透明度",
+    "English": "Surface Opacity",
+    "Japanese": "面の不透明度"
+  },
+  {
     "Source": "表面透明度：",
     "Chinese": "表面透明度：",
     "English": "Surface Opacity:",
     "Japanese": "面の不透明度："
+  },
+  {
+    "Source": "表面颜色",
+    "Chinese": "表面颜色",
+    "English": "Surface color",
+    "Japanese": "面の色"
+  },
+  {
+    "Source": "表面颜色在“类型”页设置，应用于二维布局、三维布局及实体模型；默认颜色沿用原有绘图设置。",
+    "Chinese": "表面颜色在“类型”页设置，应用于二维布局、三维布局及实体模型；默认颜色沿用原有绘图设置。",
+    "English": "Set the surface color on the Type page for 2D Layout, 3D Layout and Solid Model. Default color keeps the normal drawing palette.",
+    "Japanese": "「タイプ」ページで設定した面の色は2D配置、3D配置、ソリッドモデルに適用されます。既定の色は元の描画設定を使用します。"
+  },
+  {
+    "Source": "表面颜色请输入 #RRGGBB 格式的六位十六进制颜色。",
+    "Chinese": "表面颜色请输入 #RRGGBB 格式的六位十六进制颜色。",
+    "English": "Enter a six-digit surface color in #RRGGBB format.",
+    "Japanese": "面の色を #RRGGBB 形式の6桁の16進数で入力してください。"
   },
   {
     "Source": "表面颜色：",
@@ -21588,6 +22494,12 @@
     "Japanese": "設定が変更されました。同期してください"
   },
   {
+    "Source": "设置当前表面的镜头表行颜色，点击应用后生效；默认颜色恢复材料和表面类型配色。",
+    "Chinese": "设置当前表面的镜头表行颜色，点击应用后生效；默认颜色恢复材料和表面类型配色。",
+    "English": "Set the lens-editor row color for this surface and click Apply. Default restores material and surface-type colors.",
+    "Japanese": "この面のレンズ表の行色を設定し、適用を押します。既定色は材料と面の種類の配色に戻します。"
+  },
+  {
     "Source": "设置输入与曝光 → 检查成像阶段 → 比较 A/B 结果",
     "Chinese": "设置输入与曝光 → 检查成像阶段 → 比较 A/B 结果",
     "English": "Set input and exposure → Inspect imaging stages → Compare A/B results",
@@ -22008,6 +22920,12 @@
     "Japanese": "先に公式目標プリセットを選択してください。"
   },
   {
+    "Source": "请先选择材料。",
+    "Chinese": "请先选择材料。",
+    "English": "Select a material first.",
+    "Japanese": "先に材料を選択してください。"
+  },
+  {
     "Source": "请先选择配置和表面。",
     "Chinese": "请先选择配置和表面。",
     "English": "Select a configuration and surface first.",
@@ -22144,6 +23062,12 @@
     "Chinese": "请选择至少一个参与公差的配置。",
     "English": "Select at least one configuration for tolerancing.",
     "Japanese": "公差解析を行う構成を少なくとも一つ選択してください。"
+  },
+  {
+    "Source": "请选择起始面和终止面。",
+    "Chinese": "请选择起始面和终止面。",
+    "English": "Select the first and last surfaces.",
+    "Japanese": "開始面と終了面を選択してください。"
   },
   {
     "Source": "请选择非序列探测器输入。",
@@ -22324,6 +23248,12 @@
     "Chinese": "起始面",
     "English": "Start Surface",
     "Japanese": "開始面"
+  },
+  {
+    "Source": "起始面和终止面必须存在，且起始面不能晚于终止面。",
+    "Chinese": "起始面和终止面必须存在，且起始面不能晚于终止面。",
+    "English": "Choose existing surfaces with the first surface no later than the last.",
+    "Japanese": "実在する面を選択し、開始面を終了面より後にしないでください。"
   },
   {
     "Source": "起点 X (从 0 开始)",
@@ -22518,6 +23448,18 @@
     "Japanese": "放射照度"
   },
   {
+    "Source": "输入 #RRGGBB，例如 #3366CC。",
+    "Chinese": "输入 #RRGGBB，例如 #3366CC。",
+    "English": "Enter #RRGGBB, for example #3366CC.",
+    "Japanese": "#RRGGBB 形式で入力してください（例：#3366CC）。"
+  },
+  {
+    "Source": "输入 #RRGGBB，例如 #E8DCF3。",
+    "Chinese": "输入 #RRGGBB，例如 #E8DCF3。",
+    "English": "Enter #RRGGBB, for example #E8DCF3.",
+    "Japanese": "#RRGGBB を入力してください。例：#E8DCF3。"
+  },
+  {
     "Source": "输入与光学",
     "Chinese": "输入与光学",
     "English": "Input and optics",
@@ -22654,6 +23596,18 @@
     "Chinese": "边缘处理",
     "English": "Edge Treatment",
     "Japanese": "縁処理"
+  },
+  {
+    "Source": "边缘显示",
+    "Chinese": "边缘显示",
+    "English": "Draw edges as",
+    "Japanese": "エッジの描画方法"
+  },
+  {
+    "Source": "边缘显示：",
+    "Chinese": "边缘显示：",
+    "English": "Draw edges as:",
+    "Japanese": "エッジの描画方法："
   },
   {
     "Source": "边缘滤光片（四分之一波堆栈）",
@@ -23166,6 +24120,12 @@
     "Japanese": "例を選択するか仕様を入力して、膜構成を生成してください。"
   },
   {
+    "Source": "选择表面显示颜色，点击应用后生效；默认颜色恢复原有绘图设置。",
+    "Chinese": "选择表面显示颜色，点击应用后生效；默认颜色恢复原有绘图设置。",
+    "English": "Choose a surface display color, then click Apply. Default color restores the normal drawing palette.",
+    "Japanese": "面の表示色を選択して適用してください。既定の色で元の描画配色に戻ります。"
+  },
+  {
     "Source": "选择评价表 ZMX",
     "Chinese": "选择评价表 ZMX",
     "English": "Select merit ZMX files",
@@ -23442,6 +24402,12 @@
     "Japanese": "サンプリングレポートを出力しました。完全な実験を保存するとB・A・確認結果をまとめて保持できます。"
   },
   {
+    "Source": "采样收敛",
+    "Chinese": "采样收敛",
+    "English": "Sampling convergence",
+    "Japanese": "サンプリング収束"
+  },
+  {
     "Source": "采样方式",
     "Chinese": "采样方式",
     "English": "Sampling Method",
@@ -23658,6 +24624,12 @@
     "Japanese": "コーン背景高さ / 最大値"
   },
   {
+    "Source": "锥形到下表面",
+    "Chinese": "锥形到下表面",
+    "English": "Tapered to next surface",
+    "Japanese": "次の面までテーパー状に"
+  },
+  {
     "Source": "镀膜",
     "Chinese": "镀膜",
     "English": "Coating",
@@ -23746,6 +24718,12 @@
     "Chinese": "镀膜：{0}",
     "English": "Coating:{0}",
     "Japanese": "コーティング：{0}"
+  },
+  {
+    "Source": "镜头工具",
+    "Chinese": "镜头工具",
+    "English": "Lens Tools",
+    "Japanese": "レンズツール"
   },
   {
     "Source": "镜头已收录，仅建立索引，尚未检索或验收",
@@ -23908,6 +24886,12 @@
     "Chinese": "镜头结构",
     "English": "Lens Structure",
     "Japanese": "レンズ構成"
+  },
+  {
+    "Source": "镜头缩放",
+    "Chinese": "镜头缩放",
+    "English": "Scale Lens",
+    "Japanese": "レンズのスケーリング"
   },
   {
     "Source": "镜头设计",
@@ -24258,10 +25242,22 @@
     "Japanese": "ソフトウェアに付属するローカルレンズ{0}件"
   },
   {
+    "Source": "隐藏到达此表面的绘图光线段，后续光线段继续显示。",
+    "Chinese": "隐藏到达此表面的绘图光线段，后续光线段继续显示。",
+    "English": "Hide incoming drawing segments at this surface; later segments remain visible.",
+    "Japanese": "この面への描画光線区間を非表示にし、以降の区間は表示します。"
+  },
+  {
     "Source": "隐藏底部框架",
     "Chinese": "隐藏底部框架",
     "English": "Hide Bottom Frame",
     "Japanese": "下部フレームを非表示"
+  },
+  {
+    "Source": "隐藏这个表面的光线",
+    "Chinese": "隐藏这个表面的光线",
+    "English": "Hide rays to this surface",
+    "Japanese": "この面への光線を非表示"
   },
   {
     "Source": "零件名称",
@@ -24286,6 +25282,12 @@
     "Chinese": "需评审项",
     "English": "Checks to review",
     "Japanese": "要確認項目"
+  },
+  {
+    "Source": "青色",
+    "Chinese": "青色",
+    "English": "Cyan",
+    "Japanese": "シアン"
   },
   {
     "Source": "非偏振",
@@ -24382,6 +25384,12 @@
     "Chinese": "非序列模式",
     "English": "Non-Sequential Mode",
     "Japanese": "ノンシーケンシャルモード"
+  },
+  {
+    "Source": "非序列示例先进行导入检查；不支持的对象或缺失资产会阻止应用。",
+    "Chinese": "非序列示例先进行导入检查；不支持的对象或缺失资产会阻止应用。",
+    "English": "Non-sequential examples open import inspection; unsupported objects or missing assets block application.",
+    "Japanese": "非シーケンシャル例はインポート確認を開きます。未対応オブジェクトや不足アセットがあれば適用できません。"
   },
   {
     "Source": "非序列设置",
@@ -24534,10 +25542,34 @@
     "Japanese": "面：{0}"
   },
   {
+    "Source": "面：{0}    单位是 {1}。    图例对应于波长",
+    "Chinese": "面：{0}    单位是 {1}。    图例对应于波长",
+    "English": "Surface: {0}    Units: {1}.    Legend items refer to wavelengths",
+    "Japanese": "面：{0}    単位：{1}。    凡例は波長に対応"
+  },
+  {
+    "Source": "面：{0}    单位是 {1}。    图例对应于视场",
+    "Chinese": "面：{0}    单位是 {1}。    图例对应于视场",
+    "English": "Surface: {0}    Units: {1}.    Legend items refer to fields",
+    "Japanese": "面：{0}    単位：{1}。    凡例は視野に対応"
+  },
+  {
     "Source": "面：像面",
     "Chinese": "面：像面",
     "English": "Surface: Image",
     "Japanese": "面：像面"
+  },
+  {
+    "Source": "面：像面    单位是 {0}。    图例对应于波长",
+    "Chinese": "面：像面    单位是 {0}。    图例对应于波长",
+    "English": "Surface: Image    Units: {0}.    Legend items refer to wavelengths",
+    "Japanese": "面：像面    単位：{0}。    凡例は波長に対応"
+  },
+  {
+    "Source": "面：像面    单位是 {0}。    图例对应于视场",
+    "Chinese": "面：像面    单位是 {0}。    图例对应于视场",
+    "English": "Surface: Image    Units: {0}.    Legend items refer to fields",
+    "Japanese": "面：像面    単位：{0}。    凡例は視野に対応"
   },
   {
     "Source": "靶标 X 旋转 (°)",
@@ -24616,6 +25648,12 @@
     "Chinese": "页面窗口布局",
     "English": "Page Window Layout",
     "Japanese": "ページウィンドウ配置"
+  },
+  {
+    "Source": "顶点",
+    "Chinese": "顶点",
+    "English": "Vertex",
+    "Japanese": "頂点"
   },
   {
     "Source": "顶点像",
@@ -24774,6 +25812,12 @@
     "Japanese": "この測定ヘッドでは外部媒質が空気である必要があります"
   },
   {
+    "Source": "首选",
+    "Chinese": "首选",
+    "English": "Preferred",
+    "Japanese": "推奨"
+  },
+  {
     "Source": "验收",
     "Chinese": "验收",
     "English": "Acceptance",
@@ -24844,6 +25888,12 @@
     "Chinese": "验证通过：{0} 个公差，{1} 个补偿器。",
     "English": "Validation passed: {0} tolerances, {1} compensators.",
     "Japanese": "検証合格：公差{0}個、補償子{1}個。"
+  },
+  {
+    "Source": "高",
+    "Chinese": "高",
+    "English": "High",
+    "Japanese": "高"
   },
   {
     "Source": "高 (px)",
@@ -24924,6 +25974,12 @@
     "Japanese": "ロバストクリッピング sigma"
   },
   {
+    "Source": "黄色",
+    "Chinese": "黄色",
+    "English": "Yellow",
+    "Japanese": "黄"
+  },
+  {
     "Source": "黑电平 (DN)",
     "Chinese": "黑电平 (DN)",
     "English": "Black Level (DN)",
@@ -24936,10 +25992,40 @@
     "Japanese": "黒レベル減算と双線形デモザイクは常に実行します。ISP無効時は線形RGBを表示します。"
   },
   {
+    "Source": "黑色",
+    "Chinese": "黑色",
+    "English": "Black",
+    "Japanese": "黒"
+  },
+  {
     "Source": "默认",
     "Chinese": "默认",
     "English": "Default",
     "Japanese": "既定"
+  },
+  {
+    "Source": "默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。",
+    "Chinese": "默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。",
+    "English": "The default view spans chromatic power 0–60 ×10⁻³ and thermal power −30–30 ×10⁻⁶/K. Select to fit every valid point, including out-of-range data.",
+    "Japanese": "既定範囲は色光学パワー0–60 ×10⁻³、熱光学パワー−30–30 ×10⁻⁶/Kです。選択すると範囲外も含む全有効点を表示します。"
+  },
+  {
+    "Source": "默认范围内",
+    "Chinese": "默认范围内",
+    "English": "Inside default range",
+    "Japanese": "既定範囲内"
+  },
+  {
+    "Source": "默认范围外（保留）",
+    "Chinese": "默认范围外（保留）",
+    "English": "Outside default range (retained)",
+    "Japanese": "既定範囲外（保持）"
+  },
+  {
+    "Source": "默认颜色",
+    "Chinese": "默认颜色",
+    "English": "Default color",
+    "Japanese": "既定の色"
   },
   {
     "Source": "（只读：暂不支持计算/编辑该 Zemax 面型）",
@@ -24952,5 +26038,11 @@
     "Chinese": "（只读：该导入面型暂不支持计算或编辑）",
     "English": "(read-only: calculation and editing are unavailable for this imported surface type)",
     "Japanese": "（読み取り専用：このインポート面タイプの計算と編集は未対応）"
+  },
+  {
+    "Source": "（面型参数只读，可编辑绘图与行颜色）",
+    "Chinese": "（面型参数只读，可编辑绘图与行颜色）",
+    "English": " (surface parameters are read-only; drawing and row color remain editable)",
+    "Japanese": "（面のパラメーターは読み取り専用。描画と行色は編集可能）"
   }
 ]

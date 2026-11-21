@@ -1,0 +1,64 @@
+{
+  "scope": "Supported sequential ZMX variable metadata, actual parameter writes, focused optimization and native project reopening; not full 95-lens numerical certification",
+  "tests": {
+    "total": 394,
+    "executed": 394,
+    "passed": 394,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "testArtifact": "remaining-verified.trx",
+  "corpusFiles": 95,
+  "corpusPassed": 95,
+  "coverage": {
+    "Synchronized": 214,
+    "UnsupportedRecorded": 6
+  },
+  "previous22": {
+    "Total": 22,
+    "NewlySupported": 16,
+    "StillUnsupported": 6
+  },
+  "finalLocalLinksChecked": 137,
+  "missingLinks": [],
+  "sourceWhitespaceIssues": [],
+  "nativeSourceHashes": {
+    "Diffractive components\\Dual Zone CD-DVD lens.ZMX": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+    "GRINs\\Grid GRIN.ZMX": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+    "GRINs\\Selfoc lens.zmx": "a0ab285e9e8a87c0c4a512149c8eaa0a11ee69e90e96d5c315c3db2d2413d08c",
+    "Image Simulation\\Example 4, a diffraction limited system.ZMX": "f62da96ae3351e40a088dedc731603c1ebfe0641ada8a8aea125a615204cea7d",
+    "Interconnects\\GRIN interconnect.ZMX": "4ebef758aa869859bd2ef45149ed73a255905f78d928932816e5d29fee00b6b7",
+    "Miscellaneous\\Apochromat_prism.zmx": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+    "Objectives\\Apochromat.zmx": "2399670b025a492f8dcaa960b258aa9e73ebc805c1142e7fd09ab409941ddb80",
+    "Optical testing\\Mach Zender Interferometer.zmx": "254bdafc78667865c1dbdcceb8e6fc04d1334479c36579a2964f75f9d2d6cc2c",
+    "Optical testing\\Offner refracting compensator.zmx": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+    "Telescopes\\Hubble.zmx": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf",
+    "Telescopes\\Yolo.zmx": "6a39e474aebba39360f7deb75a0ca07997ed9055caaa3988c006c59addb28e9a",
+    "Tilted systems & prisms\\Tilted object.zmx": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9"
+  },
+  "newSourceHashesCapturedAfterValidation": {
+    "src/OpticalSystemDesign.Core/Coordinates/SequentialSurfacePlacement.cs": "aff39b38764e7b7fe603d315fc131822e2195542d4fa5da96263811c18589227",
+    "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.CoordinateVariables.cs": "10f9ff4cb263b5eb8f26ba34c5509a2a54bef7b37c5e48c1e395cdc4f89e26c3",
+    "src/OpticalSystemDesign.Core/Services/SurfaceShapeParameters.Additional.cs": "41b12cd48ad1db348ec05699d31230c4803d4d97ea733795b17db15a902719a9",
+    "tests/OpticalSystemDesign.Tests/ZemaxRemainingVariableTests.cs": "f70aadf253998e577f7cc0f6113c9ea0368cf6c156283460980f620f11f6eeab"
+  },
+  "artifactHashes": {
+    "remaining-verified.trx": "664dd3b2c8d048f5810ca3aaad4c24f0eb4525e983fad6ca12e28c17bda147d5",
+    "extended-corpus.json": "590b91ae1fdf3ee97b4ad1242094bfb5705fe45523c494405bb3e85dc553a632",
+    "remaining-22-manifest.json": "26ca0c89cb2e3e145ca033da6e8072e00e82dd631cbe290cf78d3aa9792535e1",
+    "remaining-app-build.log": "3fb8d8ec26a389863ecceaa78858e5089dcf23d0b22db06dc6c1651bea1b34bb",
+    "remaining-docs.json": "85c574514583f2d77a8cdcd8cce40369367ad396592f9b1a1969642518c16443"
+  },
+  "finalLinkScope": "Owned ZMX status/guide paragraphs, file-format contracts and this task evidence; independent in-progress status sections excluded"
+}

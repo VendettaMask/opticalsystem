@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-21",
+  "scope": "Native corner triangle selects every lens row without number-column sorting",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "themes": [
+    "Light",
+    "Dark",
+    "Lumen",
+    "Isekai",
+    "Pixel"
+  ],
+  "font_sizes": [
+    13,
+    18
+  ],
+  "tests": [
+    "Whole-header mouse activation",
+    "Enter activation",
+    "All-row selection in a short viewport",
+    "Display order unchanged",
+    "No sorting events",
+    "Existing typography and column width checks"
+  ],
+  "build": {
+    "default_output": true,
+    "errors": 0,
+    "warnings": "7 NU1900 source-unavailable warnings",
+    "configuration": "Release"
+  },
+  "artifacts": [
+    {
+      "name": "OpticalSystemDesign.Tests.dll",
+      "sha256": "48d77969296122dc7a71116f6cfcbba2dea129532cb4f8d5db498fe1f3bf3638"
+    },
+    {
+      "name": "OpticalSystemDesign.App.dll",
+      "sha256": "eb6046124850f64abea16cbc32ad479345e2ab36b6271892a54e36dd89f42c18"
+    }
+  ],
+  "captures": [
+    "lens-headers-Dark-en-US-13.png",
+    "lens-headers-Dark-en-US-18.png",
+    "lens-headers-Isekai-en-US-13.png",
+    "lens-headers-Isekai-en-US-18.png",
+    "lens-headers-Light-zh-CN-13.png",
+    "lens-headers-Light-zh-CN-18.png",
+    "lens-headers-Lumen-zh-CN-13.png",
+    "lens-headers-Lumen-zh-CN-18.png",
+    "lens-headers-Pixel-ja-JP-13.png",
+    "lens-headers-Pixel-ja-JP-18.png",
+    "lens-type-narrow-Dark-en-US-13.png",
+    "lens-type-narrow-Dark-en-US-18.png",
+    "lens-type-narrow-Isekai-en-US-13.png",
+    "lens-type-narrow-Isekai-en-US-18.png",
+    "lens-type-narrow-Light-zh-CN-13.png",
+    "lens-type-narrow-Light-zh-CN-18.png",
+    "lens-type-narrow-Lumen-zh-CN-13.png",
+    "lens-type-narrow-Lumen-zh-CN-18.png",
+    "lens-type-narrow-Pixel-ja-JP-13.png",
+    "lens-type-narrow-Pixel-ja-JP-18.png"
+  ],
+  "boundaries": [
+    "Off-screen only; no user desktop interaction",
+    "Focused project links existing header tests",
+    "No full optical matrix or publication"
+  ]
+}

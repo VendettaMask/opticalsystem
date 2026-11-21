@@ -10,7 +10,7 @@ namespace OpticalSystemDesign.Core.Serialization;
 public static class OpticSnapshotValidator
 {
     public const int MinimumSupportedSchemaVersion = 1;
-    public const int CurrentSchemaVersion = 6;
+    public const int CurrentSchemaVersion = 10;
 
     private const int MaximumTopLevelItemCount = 100_000;
     private const int MaximumComponentNumberCount = 1_000_000;
@@ -54,6 +54,7 @@ public static class OpticSnapshotValidator
         "forbes_q");
 
     private static readonly IReadOnlySet<string> MaterialKinds = Kinds(
+        "model_glass",
         "uniaxial",
         "gradient_index",
         "unresolved",
@@ -160,6 +161,15 @@ public static class OpticSnapshotValidator
         }
 
         RequireText(snapshot.Name, "$.name");
+        if (!Enum.IsDefined(snapshot.LensLengthUnit)) Invalid("$.lensLengthUnit", "unknown prescription length unit");
+        if (snapshot.SchemaVersion < 9 && snapshot.LensLengthUnit != LensLengthUnit.Millimeter)
+            Invalid("$.lensLengthUnit", "prescription units require schema 9");
+        if (snapshot.ImportVariableWarnings is { } importWarnings)
+        {
+            if (snapshot.SchemaVersion < 8 && importWarnings.Count > 0) Invalid("$.importVariableWarnings", "variable import diagnostics require schema 8");
+            if (importWarnings.Count > MaximumTopLevelItemCount || importWarnings.Any(warning => string.IsNullOrWhiteSpace(warning) || warning.Length > 4096))
+                Invalid("$.importVariableWarnings", "invalid variable import diagnostic");
+        }
         ValidateSystemAperture(snapshot.Aperture);
         ValidateGlassCatalogs(snapshot.GlassCatalogs);
 
@@ -238,10 +248,47 @@ public static class OpticSnapshotValidator
         }
 
         var surfaceNumbers = new HashSet<int>();
+        if (snapshot.Surfaces.Any(surface => surface is null)) Invalid("$.surfaces", "null surface");
+        if (snapshot.Surfaces.Any(surface => surface.Placement is not null)
+            && (snapshot.SchemaVersion < 10 || snapshot.Surfaces.Any(surface => surface.Placement is null)
+                || snapshot.Surfaces[0].Placement!.Break is not null))
+            Invalid("$.surfaces.placement", "coordinate dependencies require a complete schema 10 chain");
         for (var index = 0; index < snapshot.Surfaces.Count; index++)
         {
             var surface = snapshot.Surfaces[index];
             ValidateSurface(surface, index);
+            if (surface.Placement is { } placement)
+            {
+                var values = new[] { placement.X, placement.Y, placement.Z, placement.RotationX, placement.RotationY, placement.RotationZ, placement.ObjectDistanceAtImport };
+                if (values.Any(value => !double.IsFinite(value))) Invalid($"$.surfaces[{index}].placement", "non-finite coordinate dependency");
+                if (placement.Break is { } operation && (surface.Components?.InteractionKind != "coordinate_reference"
+                    || new[] { operation.X, operation.Y, operation.TiltX, operation.TiltY, operation.TiltZ }.Any(value => !double.IsFinite(value))))
+                    Invalid($"$.surfaces[{index}].placement.break", "invalid coordinate operation");
+            }
+            if (snapshot.SchemaVersion < 10 && surface.ShapeVariables?.Any(Services.SurfaceShapeParameters.IsAdditionalVariableName) == true)
+                Invalid($"$.surfaces[{index}]", "extended surface variables require schema 10");
+            if (surface.BlockedVariableProperties is { Count: > 0 } blocked)
+            {
+                if (snapshot.SchemaVersion < 8 || blocked.Count > 8192 || blocked.Distinct(StringComparer.Ordinal).Count() != blocked.Count
+                    || blocked.Any(property => property is not ("radius" or "thickness" or "conic" or "semiDiameter")
+                        && !Services.SurfaceShapeParameters.IsShapeProperty(property) && !Services.GradientIndexParameters.IsGradientProperty(property)))
+                    Invalid($"$.surfaces[{index}].blockedVariableProperties", "invalid unsupported variable dependency");
+            }
+            if (surface.ShapeVariables is { Count: > 0 } shapeVariables)
+            {
+                if (snapshot.SchemaVersion < 7) Invalid($"$.surfaces[{index}].shapeVariables", "shape variables require schema version 7");
+                try
+                {
+                    var model = new OpticalSurface { Radius = surface.Radius, Conic = surface.Conic,
+                        Geometry = surface.Components?.Geometry is { } geometry
+                            ? ComponentSnapshotFactory.ToGeometry(geometry, surface.Radius, surface.Conic)
+                            : new Geometries.StandardGeometry(surface.Radius, surface.Conic),
+                        InteractionModel = ComponentSnapshotFactory.ToInteraction(surface.Components?.Interaction, surface.IsReflective),
+                        Placement = surface.Placement, ShapeVariables = shapeVariables };
+                    foreach (var parameter in shapeVariables) _ = Services.SurfaceShapeParameters.Read(model, parameter);
+                }
+                catch (ArgumentException) { Invalid($"$.surfaces[{index}].shapeVariables", "invalid, duplicate or unavailable shape coefficient"); }
+            }
             if (!surfaceNumbers.Add(surface.Number))
             {
                 Invalid($"$.surfaces[{index}].number", $"surface number {surface.Number} is duplicated");
@@ -373,6 +420,10 @@ public static class OpticSnapshotValidator
         }
         RequireText(surface.Material, $"{path}.material");
         RequireText(surface.Coating, $"{path}.coating");
+        try { SurfaceDisplayColor.Normalize(surface.SurfaceColor); }
+        catch (ArgumentException) { Invalid($"{path}.surfaceColor", "color must be #RRGGBB"); }
+        try { surface.Drawing?.Validated(); }
+        catch (ArgumentException) { Invalid($"{path}.drawing", "invalid surface drawing settings"); }
         RequireFiniteNonNegative(surface.SemiDiameter, $"{path}.semiDiameter");
         RequireFiniteNonNegative(surface.ChipZone, $"{path}.chipZone");
         RequireFinite(surface.SemiDiameter + surface.ChipZone, $"{path}.chipZone");
@@ -896,6 +947,13 @@ public static class OpticSnapshotValidator
             catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or InvalidDataException)
             { Invalid(path, exception.Message); }
             return; // Strict GRIN decoder validates the optional dispersion child in full.
+        }
+        if (role == ComponentRole.Material && component.Kind == "model_glass")
+        {
+            try { _ = ComponentSnapshotFactory.ToModelGlass(component); }
+            catch (Exception exception) when (exception is ArgumentException or InvalidDataException or KeyNotFoundException)
+            { Invalid(path, exception.Message); }
+            return;
         }
         if (role == ComponentRole.Apodization && component.Kind == "zemax_pupil")
         {

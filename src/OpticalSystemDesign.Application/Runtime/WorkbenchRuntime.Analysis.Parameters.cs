@@ -32,7 +32,8 @@ public partial class WorkbenchRuntime
         var distributionChoices = new[] { "hexapolar", "uniform", "sobol", "random", "line_x", "line_y", "ring" };
         AnalysisParameterDescriptor FourierFieldFrequencyParameter(int slot) => DoubleParameter(
             $"Frequency{slot}", $"空间频率 {slot} ({(CurrentOptic.ImageSpaceAfocal ? "cycles/mrad" : "cycles/mm")})",
-            (slot * 10).ToString(CultureInfo.InvariantCulture), 0, 10000, 1);
+            MtfFieldFrequencyPreset(slot).ToString("G12", CultureInfo.InvariantCulture), 0, 10000,
+            CurrentOptic.ImageSpaceAfocal ? 0.01 : 1);
         var mtfFrequencyUnit = CurrentOptic.ImageSpaceAfocal ? "cycles/mrad" : "cycles/mm";
         var mtfFieldUnit = CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
         var mtfSamplingChoices = new[] { "32", "64", "128", "256" };
@@ -340,19 +341,20 @@ public partial class WorkbenchRuntime
             },
             "Color Focus Shift" => new[]
             {
-                DoubleParameter("MaximumShift", "最大漂移", "0", 0, 1_000_000, 0.1),
+                DoubleParameter("MaximumShift", CurrentOptic.ImageSpaceAfocal ? "最大漂移 (D)" : "最大漂移 (µm)", "0", 0, 1_000_000,
+                    CurrentOptic.ImageSpaceAfocal ? 0.01 : 0.1),
                 DoubleParameter("PupilZone", "光瞳", "0", 0, 1, 0.01)
             },
             "Lateral Color" => new[]
             {
-                DoubleParameter("GraphScale", "图形缩放", "0", 0, 1_000_000, 0.1),
+                DoubleParameter("GraphScale", CurrentOptic.ImageSpaceAfocal ? "图形缩放 (mrad)" : "图形缩放", "0", 0, 1_000_000, 0.1),
                 BoolParameter("AllWavelengths", "所有波长", "false"),
                 BoolParameter("UseRealRays", "使用实际光线", "true"),
                 BoolParameter("ShowAiryDisk", "显示艾里斑", "true")
             },
             "Axial Aberration" => new[]
             {
-                DoubleParameter("GraphScale", "图形缩放", "0", 0, 1_000_000, 0.001),
+                DoubleParameter("GraphScale", CurrentOptic.ImageSpaceAfocal ? "图形缩放 (D)" : "图形缩放", "0", 0, 1_000_000, 0.001),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
@@ -389,7 +391,7 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("XFieldSamples", "X视场采样", "11", new[] { "5", "7", "9", "11", "15", "21", "31" }),
                 ChoiceParameter("YFieldSamples", "Y视场采样", "11", new[] { "5", "7", "9", "11", "15", "21", "31" }),
                 ChoiceParameter("PupilSampling", "光瞳采样", "32 x 32", new[] { "16 x 16", "32 x 32", "64 x 64" }),
-                ChoiceParameter("DisplayAs", "显示为", "图标", new[] { "图标", "颜色图" }),
+                ChoiceParameter("DisplayAs", "显示为", "颜色图", new[] { "图标", "颜色图" }),
                 ChoiceParameter("DisplayMode", "显示", "绝对值", new[] { "绝对值", "带符号" })
             },
             "Encircled Energy" => new[]
@@ -401,7 +403,8 @@ public partial class WorkbenchRuntime
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
                 ChoiceParameter("Reference", "参照", "centroid", new[] { "chief", "centroid", "vertex" }),
-                DoubleParameter("MaximumDistanceMicrometers", "最大距离 (µm)", "0", 0, 1_000_000, 1),
+                DoubleParameter("MaximumDistanceMicrometers", CurrentOptic.ImageSpaceAfocal
+                    ? "最大距离 (mrad)" : "最大距离 (µm)", "0", 0, 1_000_000, 1),
                 BoolParameter("MultiplyByDiffractionLimit", "乘以衍射极限", "true")
             },
             "Diffraction Encircled Energy" => new[]
@@ -423,10 +426,11 @@ public partial class WorkbenchRuntime
                     new[] { "encircled", "X only", "Y only", "ensquared" }),
                 ChoiceParameter("Reference", "\u53c2\u7167", "centroid",
                     new[] { "chief", "centroid", "vertex" }),
-                DoubleParameter("MaximumDistanceMicrometers", "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
+                DoubleParameter("MaximumDistanceMicrometers", CurrentOptic.ImageSpaceAfocal
+                    ? "\u6700\u5927\u8ddd\u79bb (mrad)" : "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
                     "0", 0, 1_000_000, 1),
-                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "自适应精度" }),
-                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "512", "1024", "2048", "4096", "6144" }),
+                ChoiceParameter("FourierSamplingMode", "采样策略", "按需加密", new[] { "按需加密", "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", DefaultFourierRecoveryLimit("Diffraction Encircled Energy").ToString(CultureInfo.InvariantCulture), new[] { "512", "1024", "2048", "4096", "6144" }),
                 DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001)
             },
             "Geometric Line Edge Spread" => new[]
@@ -443,7 +447,8 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("Orientation", "\u65b9\u5411", "X", new[] { "X", "Y" }),
                 ChoiceParameter("Display", "\u663e\u793a", "line and edge",
                     new[] { "line and edge", "line", "edge" }),
-                DoubleParameter("MaximumRadiusMicrometers", "\u6700\u5927\u534a\u5f84 (\u00b5m)",
+                DoubleParameter("MaximumRadiusMicrometers", CurrentOptic.ImageSpaceAfocal
+                    ? "\u6700\u5927\u534a\u5f84 (mrad)" : "\u6700\u5927\u534a\u5f84 (\u00b5m)",
                     "0", 0, 1_000_000, 1)
             },
             "Extended Source Encircled Energy" => new[]
@@ -463,7 +468,8 @@ public partial class WorkbenchRuntime
                     new[] { "encircled", "X only", "Y only", "ensquared" }),
                 ChoiceParameter("Reference", "\u53c2\u7167", "centroid",
                     new[] { "chief", "centroid", "vertex" }),
-                DoubleParameter("MaximumDistanceMicrometers", "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
+                DoubleParameter("MaximumDistanceMicrometers", CurrentOptic.ImageSpaceAfocal
+                    ? "\u6700\u5927\u8ddd\u79bb (mrad)" : "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
                     "0", 0, 1_000_000, 1)
             },
             "Pupil Aberration" => new[]
@@ -588,7 +594,7 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("Pattern", "样式", "六边", new[] { "六边", "矩形", "随机", "Sobol", "环形" }),
                 ChoiceParameter("ColorRaysBy", "颜色显示", "波长", new[] { "波长", "视场" }),
                 ChoiceParameter("Reference", "参照", "主光线", new[] { "主光线", "质心" }),
-                DoubleParameter("DefocusStepMicrometers", "离焦范围", "50", 0, 1_000_000, 1),
+                DoubleParameter("DefocusStepMicrometers", "离焦步长（有焦 µm／无焦 mD）", "50", 0, 1_000_000, 1),
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("ShowAiryDisk", "显示艾里斑", "false"),
                 ChoiceParameter(
@@ -623,8 +629,9 @@ public partial class WorkbenchRuntime
             "Fourier Through Focus MTF" => new[]
             {
                 ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices),
-                DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
-                DoubleParameter("Frequency", "频率 (cycles/mm)", "0", 0, 10000, 1),
+                DoubleParameter("DeltaFocus", CurrentOptic.ImageSpaceAfocal ? "离焦范围 (±D)" : "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
+                DoubleParameter("Frequency", $"频率 ({mtfFrequencyUnit})", CurrentOptic.ImageSpaceAfocal
+                    ? MtfScanFrequencyPreset(0).ToString("G12", CultureInfo.InvariantCulture) : "0", 0, 10000, CurrentOptic.ImageSpaceAfocal ? 0.01 : 1),
                 IntParameter("NumberOfSteps", "步长数", "5", 1, 101),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256),
@@ -637,9 +644,9 @@ public partial class WorkbenchRuntime
                 BoolParameter("UseCheckedFocusedPupil", "校验轴对称瞳孔积分", "false"),
                 ChoiceParameter("PupilSampling", "瞳面采样", "64", new[] { "32", "64", "128", "256", "512" }),
                 ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
-                DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
-                DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
-                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
+                DoubleParameter("ImageDeltaMicrometers", CurrentOptic.ImageSpaceAfocal ? "图像间隔 (mrad，0 为自动)" : "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
+                DoubleParameter("DeltaFocus", CurrentOptic.ImageSpaceAfocal ? "离焦范围 (±D)" : "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
+                DoubleParameter("SpatialFrequency", $"空间频率 ({mtfFrequencyUnit})", MtfScanFrequencyPreset(20).ToString("G12", CultureInfo.InvariantCulture), 0, 10000, CurrentOptic.ImageSpaceAfocal ? 0.01 : 1),
                 IntParameter("Steps", "步长数", "5", 1, 31),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256)
@@ -647,8 +654,8 @@ public partial class WorkbenchRuntime
             "Geometric Through Focus MTF" => new[]
             {
                 ChoiceParameter("Sampling", "采样", "64", new[] { "32", "64", "128", "256", "512" }),
-                DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
-                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "50", 0, 10000, 1),
+                DoubleParameter("DeltaFocus", CurrentOptic.ImageSpaceAfocal ? "离焦范围 (±D)" : "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
+                DoubleParameter("SpatialFrequency", $"空间频率 ({mtfFrequencyUnit})", MtfScanFrequencyPreset(50).ToString("G12", CultureInfo.InvariantCulture), 0, 10000, CurrentOptic.ImageSpaceAfocal ? 0.01 : 1),
                 IntParameter("Steps", "步长数", "5", 1, 31),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256),
@@ -658,12 +665,12 @@ public partial class WorkbenchRuntime
             "Huygens MTF vs Field" => new[]
             {
                 ChoiceParameter("Sampling", "瞳面采样", "64", new[] { "32", "64", "128", "256", "512" }),
-                DoubleParameter("Frequency1", "空间频率 1 (cycles/mm)", "10", 0, 10000, 1),
-                DoubleParameter("Frequency2", "空间频率 2 (cycles/mm)", "20", 0, 10000, 1),
-                DoubleParameter("Frequency3", "空间频率 3 (cycles/mm)", "30", 0, 10000, 1),
-                DoubleParameter("Frequency4", "空间频率 4 (cycles/mm)", "40", 0, 10000, 1),
-                DoubleParameter("Frequency5", "空间频率 5 (cycles/mm)", "50", 0, 10000, 1),
-                DoubleParameter("Frequency6", "空间频率 6 (cycles/mm)", "60", 0, 10000, 1),
+                FourierFieldFrequencyParameter(1),
+                FourierFieldFrequencyParameter(2),
+                FourierFieldFrequencyParameter(3),
+                FourierFieldFrequencyParameter(4),
+                FourierFieldFrequencyParameter(5),
+                FourierFieldFrequencyParameter(6),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("UseDashes", "使用虚线", "false"),
@@ -682,12 +689,22 @@ public partial class WorkbenchRuntime
                 FourierFieldFrequencyParameter(5),
                 FourierFieldFrequencyParameter(6)
             },
+            "Geometric MTF vs Field" when CurrentOptic.ImageSpaceAfocal => new[]
+            {
+                FourierFieldFrequencyParameter(1), FourierFieldFrequencyParameter(2), FourierFieldFrequencyParameter(3),
+                FourierFieldFrequencyParameter(4), FourierFieldFrequencyParameter(5), FourierFieldFrequencyParameter(6),
+                IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
+                IntParameter("FieldDensity", "视场密度", "21", 5, 100),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
+                ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
+                BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
+            },
             "Geometric MTF vs Field" => new[]
             {
-                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
+                DoubleParameter("SpatialFrequency", $"空间频率 ({mtfFrequencyUnit})", "20", 0, 10000, 1),
                 IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
                 IntParameter("ImageSize", "计算网格尺寸", "64", 4, 2048),
-                DoubleParameter("PixelPitchMillimeters", "惠更斯像素间距 (mm)", "0.005", 1e-6, 10, 0.001),
+                DoubleParameter("PixelPitchMillimeters", CurrentOptic.ImageSpaceAfocal ? "惠更斯像素间距 (mrad)" : "惠更斯像素间距 (mm)", "0.005", 1e-6, 10, 0.001),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
                 BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
@@ -945,7 +962,7 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", DefaultFourierRecoveryLimit("MTF").ToString(CultureInfo.InvariantCulture), new[] { "128", "256", "512", "1024", "2048", "4096", "6144" }),
                 DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices.Concat(new[] { "1024", "2048" }).Distinct().ToArray()),
-                DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0 为默认)", "0", 0, 10000, 10),
+                DoubleParameter("MaximumFrequency", $"最大频率 ({mtfFrequencyUnit}，0 为默认)", "0", 0, 10000, 10),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256),
                 IntParameter("SurfaceNumber", "表面（0 为像面）", "0", 0, 1024),
@@ -973,7 +990,7 @@ public partial class WorkbenchRuntime
                     new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
                 DoubleParameter(
                     "ImageDeltaMicrometers",
-                    "像面采样间距",
+                    CurrentOptic.ImageSpaceAfocal ? "像面采样间距 (mrad，0 为自动)" : "像面采样间距 (µm，0 为自动)",
                     "0",
                     0,
                     1_000_000,
@@ -1015,7 +1032,7 @@ public partial class WorkbenchRuntime
                     CurrentOptic.ImageSpaceAfocal ? new[] { "16", "32", "64", "128" }
                         : new[] { "16", "32", "64", "128", "256", "512", "1024", "2048", "4096" }),
                 ChoiceParameter("ImageSampling", "像面采样", "32", new[] { "16", "32", "64", "128" }),
-                DoubleParameter("ImageDeltaMicrometers", "像面采样间距 (µm，0 为自动)", "0", 0, 1000, 0.1),
+                DoubleParameter("ImageDeltaMicrometers", CurrentOptic.ImageSpaceAfocal ? "像面采样间距 (mrad，0 为自动)" : "像面采样间距 (µm，0 为自动)", "0", 0, 1000, 0.1),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场", "1", 1, 256),
                 ChoiceParameter("ProfileType", "截面", "X", new[] { "X", "Y", "Both" }),
@@ -1028,8 +1045,8 @@ public partial class WorkbenchRuntime
                     CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter("PupilSampling", "瞳面采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
-                DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
-                DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0=自动)", "0", 0, 10000, 10),
+                DoubleParameter("ImageDeltaMicrometers", CurrentOptic.ImageSpaceAfocal ? "图像间隔 (mrad，0 为自动)" : "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
+                DoubleParameter("MaximumFrequency", $"最大频率 ({mtfFrequencyUnit}，0=自动)", "0", 0, 10000, 10),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256)
             },
@@ -1182,7 +1199,8 @@ public partial class WorkbenchRuntime
                             ? "1 - 轴上视场"
                             : $"{index} - 视场 {index}")
                         .ToArray()),
-                DoubleParameter("YPositionMicrometers", "刀口位置：µm", "0", -1_000_000, 1_000_000, 0.1),
+                DoubleParameter("YPositionMicrometers", CurrentOptic.ImageSpaceAfocal
+                    ? "刀口位置：mrad（FFT）/µm（物理平面）" : "刀口位置：µm", "0", -1_000_000, 1_000_000, 0.1),
                 BoolParameter("UsePolarization", "使用偏振", "false")
             },
             "Interferogram" => new[]

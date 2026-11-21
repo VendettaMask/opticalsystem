@@ -1,0 +1,2319 @@
+[
+  {
+    "Analysis": "Seidel Coefficients",
+    "Declared": [
+      "WavelengthNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Seidel Diagram",
+    "Declared": [
+      "WavelengthNumber",
+      "MaximumAberration",
+      "GridInterval"
+    ],
+    "Consumed": [
+      "Axis",
+      "GridInterval",
+      "MaximumAberration",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Single Ray Trace",
+    "Declared": [
+      "FieldNumber",
+      "Hx",
+      "Hy",
+      "WavelengthNumber",
+      "Px",
+      "Py",
+      "GlobalCoordinates",
+      "Type",
+      "UseRayAiming",
+      "ShowRaySegments"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "GlobalCoordinates",
+      "Hx",
+      "Hy",
+      "Px",
+      "Py",
+      "ShowRaySegments",
+      "SourceFile",
+      "SourceMode",
+      "Type",
+      "UseRayAiming",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Non-Sequential Ray Trace",
+    "Declared": [
+      "SourceNumber",
+      "DirectRay",
+      "X",
+      "Y",
+      "Z",
+      "L",
+      "M",
+      "N",
+      "WavelengthNumber",
+      "PowerWatts",
+      "LayoutRays",
+      "SplitFresnelRays"
+    ],
+    "Consumed": [
+      "Axis",
+      "DirectRay",
+      "L",
+      "LayoutRays",
+      "M",
+      "N",
+      "PowerWatts",
+      "SourceFile",
+      "SourceMode",
+      "SourceNumber",
+      "SplitFresnelRays",
+      "WavelengthNumber",
+      "X",
+      "Y",
+      "Z"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Non-Sequential Detector Viewer",
+    "Declared": [
+      "DetectorNumber",
+      "SourceNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "DetectorNumber",
+      "SourceFile",
+      "SourceMode",
+      "SourceNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Full Field Spot Diagram",
+    "Declared": [
+      "RayDensity",
+      "Pattern",
+      "ColorRaysBy",
+      "Reference",
+      "Magnification",
+      "UsePolarization",
+      "ShowAiryDisk",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayScale",
+      "PlotScaleMicrometers",
+      "ScatterRays",
+      "UseSymbols"
+    ],
+    "Consumed": [
+      "Axis",
+      "ColorRaysBy",
+      "DirectionCosines",
+      "DisplayScale",
+      "Distribution",
+      "FieldNumber",
+      "IgnoreLateralColor",
+      "Magnification",
+      "NumRings",
+      "Pattern",
+      "PlotScaleMicrometers",
+      "RayDensity",
+      "Reference",
+      "ScatterRays",
+      "ShowAiryDisk",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UsePolarization",
+      "UseSymbols",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Matrix Spot Diagram",
+    "Declared": [
+      "RayDensity",
+      "Pattern",
+      "ColorRaysBy",
+      "Reference",
+      "UsePolarization",
+      "DirectionCosines",
+      "ShowAiryDisk",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayScale",
+      "PlotScaleMicrometers",
+      "ScatterRays",
+      "UseSymbols",
+      "IgnoreLateralColor"
+    ],
+    "Consumed": [
+      "Axis",
+      "ColorRaysBy",
+      "DirectionCosines",
+      "DisplayScale",
+      "Distribution",
+      "FieldNumber",
+      "IgnoreLateralColor",
+      "Magnification",
+      "NumRings",
+      "Pattern",
+      "PlotScaleMicrometers",
+      "RayDensity",
+      "Reference",
+      "ScatterRays",
+      "ShowAiryDisk",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UsePolarization",
+      "UseSymbols",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Spot Diagram",
+    "Declared": [
+      "RayDensity",
+      "Pattern",
+      "ColorRaysBy",
+      "Reference",
+      "UsePolarization",
+      "DirectionCosines",
+      "ShowAiryDisk",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayScale",
+      "PlotScaleMicrometers",
+      "ScatterRays",
+      "UseSymbols"
+    ],
+    "Consumed": [
+      "Axis",
+      "ColorRaysBy",
+      "DirectionCosines",
+      "DisplayScale",
+      "Distribution",
+      "FieldNumber",
+      "IgnoreLateralColor",
+      "Magnification",
+      "NumRings",
+      "Pattern",
+      "PlotScaleMicrometers",
+      "RayDensity",
+      "Reference",
+      "ScatterRays",
+      "ShowAiryDisk",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UsePolarization",
+      "UseSymbols",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Configuration Matrix Spot Diagram",
+    "Declared": [
+      "RayDensity",
+      "Pattern",
+      "ColorRaysBy",
+      "Reference",
+      "UsePolarization",
+      "DirectionCosines",
+      "ShowAiryDisk",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayScale",
+      "PlotScaleMicrometers",
+      "ScatterRays",
+      "UseSymbols"
+    ],
+    "Consumed": [
+      "Axis",
+      "ColorRaysBy",
+      "DirectionCosines",
+      "DisplayScale",
+      "Distribution",
+      "FieldNumber",
+      "IgnoreLateralColor",
+      "Magnification",
+      "NumRings",
+      "Pattern",
+      "PlotScaleMicrometers",
+      "RayDensity",
+      "Reference",
+      "ScatterRays",
+      "ShowAiryDisk",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UsePolarization",
+      "UseSymbols",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Ray Fan",
+    "Declared": [
+      "PlotScaleMicrometers",
+      "NumberOfRays",
+      "UseDashes",
+      "VignettedPupil",
+      "CheckApertures",
+      "WavelengthNumber",
+      "FieldNumber",
+      "TangentialAberration",
+      "SagittalAberration",
+      "SurfaceNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "CheckApertures",
+      "FieldNumber",
+      "NumberOfRays",
+      "PlotScaleMicrometers",
+      "SagittalAberration",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "TangentialAberration",
+      "UseDashes",
+      "VignettedPupil",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Footprint Diagram",
+    "Declared": [
+      "RayDensity",
+      "SurfaceNumber",
+      "WavelengthNumber",
+      "FieldNumber",
+      "DeleteVignetted",
+      "UseSymbols",
+      "ColorRaysBy"
+    ],
+    "Consumed": [
+      "Axis",
+      "ColorRaysBy",
+      "DeleteVignetted",
+      "FieldNumber",
+      "RayDensity",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UseSymbols",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Field Curvature and Distortion",
+    "Declared": [],
+    "Consumed": [
+      "Axis",
+      "ChiefRayParabasal",
+      "DisplayMode",
+      "DistortionType",
+      "IgnoreVignettingFactors",
+      "MaximumCurvature",
+      "MaximumDistortion",
+      "NumPoints",
+      "ParabasalDelta",
+      "ReferenceFieldNumber",
+      "ScanDirection",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Grid Distortion",
+    "Declared": [],
+    "Consumed": [
+      "Axis",
+      "DisplayMode",
+      "FieldWidth",
+      "HeightWidthAspect",
+      "NumPoints",
+      "ReferenceFieldNumber",
+      "Scale",
+      "SourceFile",
+      "SourceMode",
+      "SymmetricMagnification",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Field Curvature",
+    "Declared": [
+      "MaximumCurvature",
+      "WavelengthNumber",
+      "ScanDirection",
+      "ParabasalDelta",
+      "ChiefRayParabasal",
+      "IgnoreVignettingFactors"
+    ],
+    "Consumed": [
+      "Axis",
+      "ChiefRayParabasal",
+      "IgnoreVignettingFactors",
+      "MaximumCurvature",
+      "NumPoints",
+      "ParabasalDelta",
+      "ScanDirection",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Color Focus Shift",
+    "Declared": [
+      "MaximumShift",
+      "PupilZone"
+    ],
+    "Consumed": [
+      "Axis",
+      "MaximumShift",
+      "PupilZone",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Lateral Color",
+    "Declared": [
+      "GraphScale",
+      "AllWavelengths",
+      "UseRealRays",
+      "ShowAiryDisk"
+    ],
+    "Consumed": [
+      "AllWavelengths",
+      "Axis",
+      "GraphScale",
+      "ShowAiryDisk",
+      "SourceFile",
+      "SourceMode",
+      "UseRealRays"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Axial Aberration",
+    "Declared": [
+      "GraphScale",
+      "WavelengthNumber",
+      "UseDashes"
+    ],
+    "Consumed": [
+      "Axis",
+      "GraphScale",
+      "SourceFile",
+      "SourceMode",
+      "UseDashes",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Full Field Aberration",
+    "Declared": [
+      "FieldShape",
+      "XFieldWidth",
+      "YFieldWidth",
+      "MaximumTerm",
+      "Aberration",
+      "FieldNumber",
+      "WavelengthNumber",
+      "XFieldSamples",
+      "YFieldSamples",
+      "PupilSampling",
+      "DisplayAs",
+      "DisplayMode"
+    ],
+    "Consumed": [
+      "Aberration",
+      "Axis",
+      "DisplayAs",
+      "DisplayMode",
+      "FieldNumber",
+      "FieldShape",
+      "MaximumTerm",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber",
+      "XFieldSamples",
+      "XFieldWidth",
+      "YFieldSamples",
+      "YFieldWidth"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Encircled Energy",
+    "Declared": [
+      "NumRays",
+      "NumPoints",
+      "Distribution",
+      "WavelengthNumber",
+      "Reference",
+      "MaximumDistanceMicrometers",
+      "MultiplyByDiffractionLimit"
+    ],
+    "Consumed": [
+      "Axis",
+      "Distribution",
+      "MaximumDistanceMicrometers",
+      "MultiplyByDiffractionLimit",
+      "NumPoints",
+      "NumRays",
+      "Reference",
+      "SourceFile",
+      "SourceMode",
+      "UseNativeAfocalReferenceRay",
+      "WavelengthNumber",
+      "ZemaxCompatibleOutput"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Diffraction Encircled Energy",
+    "Declared": [
+      "PupilSampling",
+      "ImageSampling",
+      "NumPoints",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "Reference",
+      "MaximumDistanceMicrometers",
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "ImageSampling",
+      "MaximumDistanceMicrometers",
+      "NumPoints",
+      "PupilSampling",
+      "Reference",
+      "SourceFile",
+      "SourceMode",
+      "Type",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy"
+    ],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric Line Edge Spread",
+    "Declared": [
+      "PupilSampling",
+      "NumPoints",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Orientation",
+      "Display",
+      "MaximumRadiusMicrometers"
+    ],
+    "Consumed": [
+      "Axis",
+      "Display",
+      "FieldNumber",
+      "MaximumRadiusMicrometers",
+      "NumPoints",
+      "Orientation",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Extended Source Encircled Energy",
+    "Declared": [
+      "SourceFile",
+      "FieldSize",
+      "SourceSampling",
+      "NumRays",
+      "NumPoints",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "Reference",
+      "MaximumDistanceMicrometers"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "FieldSize",
+      "MaximumDistanceMicrometers",
+      "NumPoints",
+      "NumRays",
+      "Reference",
+      "SourceFile",
+      "SourceMode",
+      "SourceSampling",
+      "Type",
+      "WavelengthNumber",
+      "ZemaxCompatibleOutput"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Pupil Aberration",
+    "Declared": [
+      "NumberOfRays"
+    ],
+    "Consumed": [
+      "Axis",
+      "NumberOfRays",
+      "NumPoints",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "RMS vs Field",
+    "Declared": [
+      "FieldDensity",
+      "ScanDirection",
+      "NumRings",
+      "Method",
+      "GaussianAzimuthalSamples",
+      "Data",
+      "Distribution",
+      "WavelengthNumber",
+      "Reference",
+      "ShowDiffractionLimit",
+      "UsePolarization",
+      "RemoveVignetting"
+    ],
+    "Consumed": [
+      "Axis",
+      "Data",
+      "Distribution",
+      "FieldDensity",
+      "GaussianAzimuthalSamples",
+      "Method",
+      "NumFields",
+      "NumRings",
+      "Reference",
+      "RemoveVignetting",
+      "ScanDirection",
+      "ShowDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "RMS vs Wavelength",
+    "Declared": [
+      "WaveDensity",
+      "NumRings",
+      "Method",
+      "GaussianAzimuthalSamples",
+      "Data",
+      "Distribution",
+      "FieldNumber",
+      "Reference",
+      "ShowDiffractionLimit",
+      "UsePolarization",
+      "RemoveVignetting"
+    ],
+    "Consumed": [
+      "Axis",
+      "Data",
+      "Distribution",
+      "FieldNumber",
+      "GaussianAzimuthalSamples",
+      "Method",
+      "NumRings",
+      "Reference",
+      "RemoveVignetting",
+      "ShowDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WaveDensity"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "RMS vs Focus",
+    "Declared": [
+      "FocusDensity",
+      "MinimumFocus",
+      "MaximumFocus",
+      "NumRings",
+      "Method",
+      "GaussianAzimuthalSamples",
+      "Data",
+      "Distribution",
+      "WavelengthNumber",
+      "Reference",
+      "ShowDiffractionLimit",
+      "UsePolarization",
+      "RemoveVignetting"
+    ],
+    "Consumed": [
+      "Axis",
+      "Data",
+      "Distribution",
+      "FocusDensity",
+      "GaussianAzimuthalSamples",
+      "MaximumFocus",
+      "Method",
+      "MinimumFocus",
+      "NumRings",
+      "Reference",
+      "RemoveVignetting",
+      "ShowDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "RMS Field Map",
+    "Declared": [
+      "XFieldSamples",
+      "YFieldSamples",
+      "XFieldWidth",
+      "YFieldWidth",
+      "NumRings",
+      "Method",
+      "GaussianAzimuthalSamples",
+      "Data",
+      "Distribution",
+      "WavelengthNumber",
+      "Reference",
+      "UsePolarization",
+      "RemoveVignetting"
+    ],
+    "Consumed": [
+      "Axis",
+      "Data",
+      "Distribution",
+      "GaussianAzimuthalSamples",
+      "Method",
+      "NumRings",
+      "Reference",
+      "RemoveVignetting",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WavelengthNumber",
+      "XFieldSamples",
+      "XFieldWidth",
+      "YFieldSamples",
+      "YFieldWidth"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "RMS Wavefront vs Field",
+    "Declared": [
+      "RayDensity",
+      "FieldDensity",
+      "Method",
+      "GaussianAzimuthalSamples",
+      "Reference",
+      "WavelengthNumber",
+      "ScanType",
+      "RemoveVignettingFactors",
+      "UsePolarization"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldDensity",
+      "GaussianAzimuthalSamples",
+      "Method",
+      "NumFields",
+      "NumRings",
+      "RayDensity",
+      "Reference",
+      "RemoveVignettingFactors",
+      "ScanType",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Zernike vs Field",
+    "Declared": [
+      "FieldDensity",
+      "NumRings",
+      "ZernikeTerms",
+      "WavelengthNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldDensity",
+      "NumRings",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber",
+      "ZernikeTerms"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Through Focus",
+    "Declared": [
+      "RayDensity",
+      "Pattern",
+      "ColorRaysBy",
+      "Reference",
+      "DefocusStepMicrometers",
+      "UsePolarization",
+      "ShowAiryDisk",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayScale",
+      "PlotScaleMicrometers",
+      "ScatterRays",
+      "UseSymbols"
+    ],
+    "Consumed": [
+      "Axis",
+      "ColorRaysBy",
+      "DefocusStepMicrometers",
+      "DisplayScale",
+      "Distribution",
+      "FieldNumber",
+      "FocusStep",
+      "NumRings",
+      "Pattern",
+      "PlotScaleMicrometers",
+      "RayDensity",
+      "Reference",
+      "ScatterRays",
+      "ShowAiryDisk",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UsePolarization",
+      "UseSymbols",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Fourier Through Focus MTF",
+    "Declared": [
+      "Sampling",
+      "DeltaFocus",
+      "Frequency",
+      "NumberOfSteps",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "UsePolarization",
+      "UseDashes"
+    ],
+    "Consumed": [
+      "Axis",
+      "DeltaFocus",
+      "Distribution",
+      "FieldNumber",
+      "FocusPlaneCount",
+      "FocusStep",
+      "Frequency",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "NumberOfSteps",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "Steps",
+      "Type",
+      "UseDashes",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Huygens Through Focus MTF",
+    "Declared": [
+      "UseCheckedFocusedPupil",
+      "PupilSampling",
+      "ImageSampling",
+      "ImageDeltaMicrometers",
+      "DeltaFocus",
+      "SpatialFrequency",
+      "Steps",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "DeltaFocus",
+      "Distribution",
+      "FieldNumber",
+      "FocusPlaneCount",
+      "FocusStep",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "Steps",
+      "UseCheckedFocusedPupil",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric Through Focus MTF",
+    "Declared": [
+      "Sampling",
+      "DeltaFocus",
+      "SpatialFrequency",
+      "Steps",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Distribution",
+      "ScaleByDiffractionLimit"
+    ],
+    "Consumed": [
+      "Axis",
+      "DeltaFocus",
+      "Distribution",
+      "FieldNumber",
+      "FocusPlaneCount",
+      "FocusStep",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "Steps",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Huygens MTF vs Field",
+    "Declared": [
+      "Sampling",
+      "Frequency1",
+      "Frequency2",
+      "Frequency3",
+      "Frequency4",
+      "Frequency5",
+      "Frequency6",
+      "WavelengthNumber",
+      "UsePolarization",
+      "UseDashes",
+      "RemoveVignettingFactors",
+      "FieldDensity",
+      "ScanType"
+    ],
+    "Consumed": [
+      "Axis",
+      "Distribution",
+      "FieldDensity",
+      "Frequency1",
+      "Frequency2",
+      "Frequency3",
+      "Frequency4",
+      "Frequency5",
+      "Frequency6",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "RemoveVignettingFactors",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ScanType",
+      "SourceFile",
+      "SourceMode",
+      "UseDashes",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Fourier MTF vs Field",
+    "Declared": [
+      "PupilSampling",
+      "WavelengthNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "Distribution",
+      "FieldDensity",
+      "FieldPointCount",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "RemoveVignettingFactors",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ScanType",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric MTF vs Field",
+    "Declared": [
+      "SpatialFrequency",
+      "PupilSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "WavelengthNumber",
+      "Distribution",
+      "ScaleByDiffractionLimit"
+    ],
+    "Consumed": [
+      "Axis",
+      "Distribution",
+      "FieldDensity",
+      "FieldPointCount",
+      "Frequency1",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "RemoveVignettingFactors",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ScanType",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "FFT Surface MTF",
+    "Declared": [
+      "Sampling",
+      "FieldNumber",
+      "WavelengthNumber",
+      "UsePolarization",
+      "ShowAs",
+      "Type",
+      "Rotation",
+      "DisplayScale"
+    ],
+    "Consumed": [
+      "Axis",
+      "DisplayScale",
+      "Distribution",
+      "FieldNumber",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "Rotation",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ShowAs",
+      "SourceFile",
+      "SourceMode",
+      "Type",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Huygens Surface MTF",
+    "Declared": [
+      "Sampling",
+      "ImageSampling",
+      "ImageDeltaMicrometers",
+      "UsePolarization",
+      "FieldNumber",
+      "WavelengthNumber",
+      "ShowAs"
+    ],
+    "Consumed": [
+      "Axis",
+      "Distribution",
+      "FieldNumber",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ShowAs",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "FFT MTF Map",
+    "Declared": [
+      "Sampling",
+      "SpatialFrequency",
+      "WavelengthNumber",
+      "ReferenceFieldNumber",
+      "Data",
+      "UsePolarization",
+      "XFieldWidth",
+      "YFieldWidth",
+      "XFieldSamples",
+      "YFieldSamples",
+      "ShowAs",
+      "RemoveVignettingFactors",
+      "FixedColorScale"
+    ],
+    "Consumed": [
+      "Axis",
+      "Data",
+      "Distribution",
+      "FixedColorScale",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "ReferenceFieldNumber",
+      "RemoveVignettingFactors",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ShowAs",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "UsePolarization",
+      "WavelengthNumber",
+      "XFieldSamples",
+      "XFieldWidth",
+      "YFieldSamples",
+      "YFieldWidth"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric MTF Map",
+    "Declared": [
+      "Sampling",
+      "SpatialFrequency",
+      "WavelengthNumber",
+      "ReferenceFieldNumber",
+      "Data",
+      "UsePolarization",
+      "XFieldWidth",
+      "YFieldWidth",
+      "XFieldSamples",
+      "YFieldSamples",
+      "ShowAs",
+      "RemoveVignettingFactors",
+      "FixedColorScale"
+    ],
+    "Consumed": [
+      "Axis",
+      "Data",
+      "Distribution",
+      "FixedColorScale",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "PixelPitchMillimeters",
+      "PupilSampling",
+      "ReferenceFieldNumber",
+      "RemoveVignettingFactors",
+      "Sampling",
+      "ScaleByDiffractionLimit",
+      "ShowAs",
+      "SourceFile",
+      "SourceMode",
+      "SpatialFrequency",
+      "UsePolarization",
+      "WavelengthNumber",
+      "XFieldSamples",
+      "XFieldWidth",
+      "YFieldSamples",
+      "YFieldWidth"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Angle vs Image Height",
+    "Declared": [
+      "FieldDensity",
+      "WavelengthNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldDensity",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Angle vs Image Height - Through Pupil",
+    "Declared": [
+      "SurfaceIndex",
+      "Axis",
+      "NumPoints"
+    ],
+    "Consumed": [
+      "Axis",
+      "NumPoints",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceIndex"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Angle vs Image Height - Through Field",
+    "Declared": [
+      "SurfaceIndex",
+      "Axis"
+    ],
+    "Consumed": [
+      "Axis",
+      "NumPoints",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceIndex"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Cardinal Points Data",
+    "Declared": [
+      "ReferenceSurfaceNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "ReferenceSurfaceNumber",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Vignetting Diagram",
+    "Declared": [
+      "RayDensity",
+      "FieldDensity"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldDensity",
+      "RayDensity",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Relative Illumination",
+    "Declared": [
+      "RayDensity",
+      "FieldDensity",
+      "WavelengthNumber",
+      "ScanDirection",
+      "RemoveVignettingFactors",
+      "UsePolarization"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldDensity",
+      "RayDensity",
+      "RemoveVignettingFactors",
+      "ScanDirection",
+      "SourceFile",
+      "SourceMode",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Incoherent Irradiance",
+    "Declared": [
+      "NumRays",
+      "ResolutionX",
+      "ResolutionY",
+      "DetectorSurfaceIndex",
+      "UseSurfaceSamplingWindow",
+      "Distribution",
+      "Normalized"
+    ],
+    "Consumed": [
+      "Axis",
+      "DetectorSurfaceIndex",
+      "Distribution",
+      "Normalized",
+      "NumRays",
+      "ResolutionX",
+      "ResolutionY",
+      "SourceFile",
+      "SourceMode",
+      "UseSurfaceSamplingWindow"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Radiant Intensity",
+    "Declared": [
+      "AngularBinsX",
+      "AngularBinsY",
+      "NumRays",
+      "ReferenceSurfaceIndex",
+      "Distribution",
+      "UseAbsoluteUnits"
+    ],
+    "Consumed": [
+      "AngularBinsX",
+      "AngularBinsY",
+      "Axis",
+      "Distribution",
+      "NumRays",
+      "ReferenceSurfaceIndex",
+      "SourceFile",
+      "SourceMode",
+      "UseAbsoluteUnits"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "PSF",
+    "Declared": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy",
+      "Sampling",
+      "Display",
+      "Rotation",
+      "ImageDeltaMicrometers",
+      "UsePolarization",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "DisplayAs",
+      "SurfaceNumber",
+      "Normalized"
+    ],
+    "Consumed": [
+      "Axis",
+      "Display",
+      "DisplayAs",
+      "FieldNumber",
+      "GridSize",
+      "ImageDeltaMicrometers",
+      "Normalized",
+      "NumRays",
+      "Rotation",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "Type",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy"
+    ],
+    "Unread": []
+  },
+  {
+    "Analysis": "FFT PSF Cross Section",
+    "Declared": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy",
+      "Sampling",
+      "Row",
+      "GraphScaleMicrometers",
+      "UsePolarization",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "Normalized"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "GraphScaleMicrometers",
+      "GridSize",
+      "Normalized",
+      "NumRays",
+      "Row",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "Type",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy"
+    ],
+    "Unread": []
+  },
+  {
+    "Analysis": "FFT Line Edge Spread",
+    "Declared": [
+      "Sampling",
+      "Spread",
+      "GraphScaleMicrometers",
+      "UsePolarization",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "UseCoherentPsf"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "GraphScaleMicrometers",
+      "GridSize",
+      "NumRays",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "Spread",
+      "Type",
+      "UseCoherentPsf",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "MTF",
+    "Declared": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy",
+      "Sampling",
+      "MaximumFrequency",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "Type",
+      "ShowDiffractionLimit",
+      "UsePolarization",
+      "UseDashes"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "GridSize",
+      "MaximumFrequency",
+      "NumRays",
+      "Sampling",
+      "ShowDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "Type",
+      "UseDashes",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [
+      "FourierSamplingMode",
+      "FourierMaximumSampling",
+      "FourierRelativeAccuracy"
+    ],
+    "Unread": []
+  },
+  {
+    "Analysis": "Huygens PSF",
+    "Declared": [
+      "AfocalIntegration",
+      "UseCheckedFocusedPupil",
+      "PupilSampling",
+      "ImageSampling",
+      "ImageDeltaMicrometers",
+      "Rotation",
+      "UsePolarization",
+      "UseCentroid",
+      "WavelengthNumber",
+      "FieldNumber",
+      "Type",
+      "DisplayAs",
+      "Normalized"
+    ],
+    "Consumed": [
+      "AfocalIntegration",
+      "Axis",
+      "DisplayAs",
+      "FieldNumber",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "Normalized",
+      "NumRays",
+      "PupilSampling",
+      "Rotation",
+      "SourceFile",
+      "SourceMode",
+      "Type",
+      "UseCentroid",
+      "UseCheckedFocusedPupil",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Huygens PSF Cross Section",
+    "Declared": [
+      "AfocalIntegration",
+      "UseCheckedFocusedPupil",
+      "PupilSampling",
+      "ImageSampling",
+      "ImageDeltaMicrometers",
+      "WavelengthNumber",
+      "FieldNumber",
+      "ProfileType",
+      "UsePolarization",
+      "UseCentroid"
+    ],
+    "Consumed": [
+      "AfocalIntegration",
+      "Axis",
+      "FieldNumber",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "NumRays",
+      "ProfileType",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "UseCentroid",
+      "UseCheckedFocusedPupil",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Huygens MTF",
+    "Declared": [
+      "AfocalIntegration",
+      "PupilSampling",
+      "ImageSampling",
+      "ImageDeltaMicrometers",
+      "MaximumFrequency",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "AfocalIntegration",
+      "Axis",
+      "FieldNumber",
+      "ImageDeltaMicrometers",
+      "ImageDeltaMilliradians",
+      "ImageSampling",
+      "ImageSize",
+      "MaximumFrequency",
+      "NumRays",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric MTF",
+    "Declared": [
+      "NumRays",
+      "PlotPointCount",
+      "Distribution",
+      "MaximumFrequency",
+      "WavelengthNumber",
+      "FieldNumber",
+      "ScaleByDiffractionLimit"
+    ],
+    "Consumed": [
+      "Axis",
+      "Distribution",
+      "FieldNumber",
+      "MaximumFrequency",
+      "NumRays",
+      "PlotPointCount",
+      "ScaleByDiffractionLimit",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Sampled MTF",
+    "Declared": [
+      "PupilSampling",
+      "ZernikeTerms",
+      "PlotPointCount",
+      "MaximumFrequency"
+    ],
+    "Consumed": [
+      "Axis",
+      "MaximumFrequency",
+      "PlotPointCount",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "ZernikeTerms"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Contrast Loss Map",
+    "Declared": [
+      "Sampling",
+      "Frequency",
+      "Normalize",
+      "WavelengthNumber",
+      "FieldNumber",
+      "ShowOPD"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "Frequency",
+      "Normalize",
+      "Sampling",
+      "ShowOPD",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Optical Path Difference",
+    "Declared": [
+      "GraphScale",
+      "NumberOfRays",
+      "UseDashes",
+      "VignettedPupil",
+      "CheckApertures",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "CheckApertures",
+      "FieldNumber",
+      "GraphScale",
+      "NumberOfRays",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UseDashes",
+      "VignettedPupil",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Wavefront Map",
+    "Declared": [
+      "Sampling",
+      "Rotation",
+      "DisplayScale",
+      "Apodization",
+      "ReferenceChiefRay",
+      "ReferenceToPrimary",
+      "UseExitPupilShape",
+      "ExitPupilGeometry",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayAs",
+      "RemoveTilt",
+      "PupilSx",
+      "PupilSy",
+      "PupilSr"
+    ],
+    "Consumed": [
+      "Apodization",
+      "Axis",
+      "DisplayAs",
+      "DisplayScale",
+      "ExitPupilGeometry",
+      "FieldNumber",
+      "PupilSr",
+      "PupilSx",
+      "PupilSy",
+      "ReferenceChiefRay",
+      "ReferenceToPrimary",
+      "RemoveTilt",
+      "Rotation",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UseExitPupilShape",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Wavefront",
+    "Declared": [
+      "Sampling",
+      "Rotation",
+      "DisplayScale",
+      "Apodization",
+      "ReferenceChiefRay",
+      "ReferenceToPrimary",
+      "UseExitPupilShape",
+      "ExitPupilGeometry",
+      "WavelengthNumber",
+      "FieldNumber",
+      "SurfaceNumber",
+      "DisplayAs",
+      "RemoveTilt",
+      "PupilSx",
+      "PupilSy",
+      "PupilSr"
+    ],
+    "Consumed": [
+      "Apodization",
+      "Axis",
+      "DisplayAs",
+      "DisplayScale",
+      "ExitPupilGeometry",
+      "FieldNumber",
+      "PupilSr",
+      "PupilSx",
+      "PupilSy",
+      "ReferenceChiefRay",
+      "ReferenceToPrimary",
+      "RemoveTilt",
+      "Rotation",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UseExitPupilShape",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Foucault Analysis",
+    "Declared": [
+      "FoucaultPropagation",
+      "KnifeDistanceMillimeters",
+      "ObservationDistanceMillimeters",
+      "ObservationHalfWidthMillimeters",
+      "Sampling",
+      "Type",
+      "DisplayAs",
+      "KnifeEdge",
+      "DataSource",
+      "WavelengthNumber",
+      "FieldNumber",
+      "YPositionMicrometers",
+      "UsePolarization"
+    ],
+    "Consumed": [
+      "Axis",
+      "DataSource",
+      "DisplayAs",
+      "FieldNumber",
+      "FoucaultPropagation",
+      "KnifeDistanceMillimeters",
+      "KnifeEdge",
+      "ObservationDistanceMillimeters",
+      "ObservationHalfWidthMillimeters",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "Type",
+      "UsePolarization",
+      "WavelengthNumber",
+      "YPositionMicrometers"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Interferogram",
+    "Declared": [
+      "Sampling",
+      "SurfaceNumber",
+      "ScaleFactor",
+      "ShowAs",
+      "WavelengthNumber",
+      "FieldNumber",
+      "XTilt",
+      "YTilt",
+      "Beam1",
+      "Beam2",
+      "RefBeamToVertex",
+      "UseExitPupilShape",
+      "ConsiderPathLengthDifference",
+      "PupilSx",
+      "PupilSy",
+      "PupilSr"
+    ],
+    "Consumed": [
+      "Axis",
+      "Beam1",
+      "Beam2",
+      "ConsiderPathLengthDifference",
+      "ContourFormat",
+      "FieldNumber",
+      "PupilSr",
+      "PupilSx",
+      "PupilSy",
+      "RefBeamToVertex",
+      "Sampling",
+      "ScaleFactor",
+      "ShowAs",
+      "SourceFile",
+      "SourceMode",
+      "SurfaceNumber",
+      "UseExitPupilShape",
+      "WavelengthNumber",
+      "XTilt",
+      "YTilt"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Centroid Sphere Wavefront",
+    "Declared": [
+      "NumRings",
+      "MapSize",
+      "RobustTrimStandardDeviations",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "MapSize",
+      "NumRings",
+      "RobustTrimStandardDeviations",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Best Fit Sphere Wavefront",
+    "Declared": [
+      "NumRings",
+      "MapSize",
+      "RobustTrimStandardDeviations",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "MapSize",
+      "NumRings",
+      "RobustTrimStandardDeviations",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Zernike Fringe",
+    "Declared": [
+      "PupilSampling",
+      "ZernikeTerms",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber",
+      "ZernikeTerms"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Zernike Standard",
+    "Declared": [
+      "PupilSampling",
+      "ZernikeTerms",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "NumRings",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber",
+      "ZernikeTerms"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Zernike Annular",
+    "Declared": [
+      "PupilSampling",
+      "ZernikeTerms",
+      "ObscurationRatio",
+      "WavelengthNumber",
+      "FieldNumber"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "NumRings",
+      "ObscurationRatio",
+      "PupilSampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber",
+      "ZernikeTerms"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Zernike",
+    "Declared": [
+      "NumRings",
+      "ZernikeTerms",
+      "MapSize"
+    ],
+    "Consumed": [
+      "Axis",
+      "FieldNumber",
+      "MapSize",
+      "NumRings",
+      "Sampling",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber",
+      "ZernikeTerms"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric Image Analysis",
+    "Declared": [
+      "SourceImage",
+      "ImageSize",
+      "NumRays",
+      "FieldHeight",
+      "Oversampling",
+      "GuardBand",
+      "RelativeIllumination",
+      "AberrationMode"
+    ],
+    "Consumed": [
+      "AberrationMode",
+      "Axis",
+      "FieldHeight",
+      "GuardBand",
+      "ImageSize",
+      "NumRays",
+      "Oversampling",
+      "RelativeIllumination",
+      "SourceFile",
+      "SourceImage",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Geometric Bitmap Image Analysis",
+    "Declared": [
+      "ImageSize",
+      "RaysPerPixel",
+      "FieldHeight",
+      "Oversampling",
+      "GuardBand",
+      "RelativeIllumination",
+      "AberrationMode"
+    ],
+    "Consumed": [
+      "AberrationMode",
+      "Axis",
+      "FieldHeight",
+      "GuardBand",
+      "ImageSize",
+      "Oversampling",
+      "RaysPerPixel",
+      "RelativeIllumination",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Light Source Analysis",
+    "Declared": [
+      "Resolution",
+      "NumRays"
+    ],
+    "Consumed": [
+      "Axis",
+      "NumRays",
+      "Resolution",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Partially Coherent Image Analysis",
+    "Declared": [
+      "WavelengthNumber",
+      "ImageSize",
+      "PupilSampling",
+      "CoherenceFunction",
+      "CoherenceMethod",
+      "CoherenceFraction",
+      "PsfEnergyFraction",
+      "CoherenceSampling",
+      "Coherence",
+      "Alpha",
+      "FileSize",
+      "NormalizeImagePeak",
+      "PsfSize",
+      "PixelSize",
+      "FieldHeight",
+      "Oversampling",
+      "GuardBand",
+      "RelativeIllumination"
+    ],
+    "Consumed": [
+      "Alpha",
+      "Axis",
+      "Coherence",
+      "CoherenceFraction",
+      "CoherenceFunction",
+      "CoherenceMethod",
+      "CoherenceSampling",
+      "FieldHeight",
+      "FileSize",
+      "GuardBand",
+      "ImageSize",
+      "NormalizeImagePeak",
+      "Oversampling",
+      "PixelSize",
+      "PsfEnergyFraction",
+      "PsfSize",
+      "PupilSampling",
+      "RelativeIllumination",
+      "SourceFile",
+      "SourceMode",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Extended Diffraction Image Analysis",
+    "Declared": [
+      "SourceImage",
+      "ImageSize",
+      "PupilSampling",
+      "FieldGrid",
+      "FieldHeight",
+      "Oversampling",
+      "GuardBand",
+      "RelativeIllumination",
+      "AberrationMode"
+    ],
+    "Consumed": [
+      "AberrationMode",
+      "Axis",
+      "FieldGrid",
+      "FieldHeight",
+      "GuardBand",
+      "ImageSize",
+      "Oversampling",
+      "PupilSampling",
+      "RelativeIllumination",
+      "SourceFile",
+      "SourceImage",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  },
+  {
+    "Analysis": "Image Simulation",
+    "Declared": [
+      "SourceImage",
+      "SourceMode",
+      "SourceFile",
+      "ImageWidth",
+      "ImageHeight",
+      "FieldHeight",
+      "Oversampling",
+      "SourceFlip",
+      "GuardBand",
+      "SourceRotation",
+      "WavelengthNumber",
+      "FieldNumber",
+      "NumRays",
+      "PsfSize",
+      "PsfGridColumns",
+      "PsfGridRows",
+      "UsePolarization",
+      "AberrationMode",
+      "ApplyFixedApertures",
+      "RelativeIllumination",
+      "DisplayAs",
+      "Reference",
+      "ImageFlip",
+      "PixelSize",
+      "DetectorXPixels",
+      "DetectorYPixels",
+      "CompressFrame",
+      "OutputFile",
+      "EigenPsfComponents",
+      "DistortionGridSize",
+      "DistortionPolynomialDegree"
+    ],
+    "Consumed": [
+      "AberrationMode",
+      "ApplyFixedApertures",
+      "Axis",
+      "CompressFrame",
+      "DetectorXPixels",
+      "DetectorYPixels",
+      "DisplayAs",
+      "DistortionGridSize",
+      "DistortionPolynomialDegree",
+      "EigenPsfComponents",
+      "FieldHeight",
+      "FieldNumber",
+      "GuardBand",
+      "ImageFlip",
+      "ImageHeight",
+      "ImageWidth",
+      "NumRays",
+      "OutputFile",
+      "Oversampling",
+      "PixelSize",
+      "PsfGridColumns",
+      "PsfGridRows",
+      "PsfSize",
+      "Reference",
+      "RelativeIllumination",
+      "SourceFile",
+      "SourceFlip",
+      "SourceImage",
+      "SourceMode",
+      "SourceRotation",
+      "UsePolarization",
+      "WavelengthNumber"
+    ],
+    "WrapperConsumed": [
+      "NumRays",
+      "OutputFile"
+    ],
+    "Unread": []
+  },
+  {
+    "Analysis": "Jones Pupil",
+    "Declared": [
+      "GridSize"
+    ],
+    "Consumed": [
+      "Axis",
+      "GridSize",
+      "SourceFile",
+      "SourceMode"
+    ],
+    "WrapperConsumed": [],
+    "Unread": []
+  }
+]

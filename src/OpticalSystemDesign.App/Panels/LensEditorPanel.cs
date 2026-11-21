@@ -106,6 +106,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             CanUserResizeColumns = true,
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
+            SelectionMode = DataGridSelectionMode.Extended,
             IsReadOnly = false,
             BorderThickness = new Avalonia.Thickness(1, 0, 1, 1),
             RowHeight = UiDensity.CompactTableRowHeight,
@@ -135,7 +136,9 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                         ThemeResourceBindings.RibbonTabHover))
             }
         });
+        grid.Styles.Add(new MirrorRowStyles());
         grid.Styles.Add(new CoordinateReferenceRowStyles());
+        grid.Styles.Add(new CustomSurfaceRowStyles());
         grid.LoadingRow += (_, eventArgs) =>
         {
             if (eventArgs.Row.DataContext is SurfaceEditorRow row)
@@ -143,7 +146,56 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                 ApplyMaterialRowClass(eventArgs.Row, row);
             }
         };
-        grid.Columns.Add(Column("#", nameof(SurfaceEditorRow.Number), 44, true, HorizontalAlignment.Center));
+        var selectAllHeader = new Button
+        {
+            Name = "SelectAllSurfacesHeader",
+            Background = Brushes.Transparent,
+            BorderThickness = new Avalonia.Thickness(0),
+            Padding = new Avalonia.Thickness(0, 0, 7, 7),
+            MinWidth = 0,
+            MinHeight = 0,
+            CornerRadius = new CornerRadius(0),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch,
+            HorizontalContentAlignment = HorizontalAlignment.Right,
+            VerticalContentAlignment = VerticalAlignment.Bottom
+        };
+        var selectAllTriangle = new Avalonia.Controls.Shapes.Path
+        {
+            Width = 12,
+            Height = 12,
+            Data = Geometry.Parse("M0,12 L12,0 L12,12 Z"),
+            IsHitTestVisible = false
+        };
+        selectAllTriangle.BindThemeResource(Avalonia.Controls.Shapes.Shape.FillProperty, ThemeResourceBindings.TextMuted);
+        selectAllHeader.Content = selectAllTriangle;
+        ToolTip.SetTip(selectAllHeader, "全选");
+        AutomationProperties.SetName(selectAllHeader, "全选");
+        selectAllHeader.Click += (_, _) =>
+        {
+            if (!grid.CommitEdit(DataGridEditingUnit.Cell, true)
+                || !grid.CommitEdit(DataGridEditingUnit.Row, true)) return;
+            // A committed edit can queue a row refresh. Select the refreshed rows afterwards.
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (!_disposed) grid.SelectAll();
+            }, DispatcherPriority.Background);
+        };
+        grid.Styles.Add(new Style(s => s.OfType<DataGridColumnHeader>()
+            .PropertyEquals(ContentControl.ContentProperty, selectAllHeader))
+        {
+            Setters =
+            {
+                new Setter(TemplatedControl.PaddingProperty, new Avalonia.Thickness(0)),
+                new Setter(ContentControl.HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch),
+                new Setter(ContentControl.VerticalContentAlignmentProperty, VerticalAlignment.Stretch)
+            }
+        });
+        var numberColumn = Column(string.Empty, nameof(SurfaceEditorRow.Number), 44, true, HorizontalAlignment.Center);
+        numberColumn.Header = selectAllHeader;
+        numberColumn.CanUserSort = false;
+        numberColumn.CanUserReorder = false;
+        grid.Columns.Add(numberColumn);
         grid.Columns.Add(SurfaceTypeColumn());
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(RadiusColumn());
@@ -291,11 +343,11 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         _gratingAngle.IsEnabled = canEditComponents;
         _thinLensFocalLength.IsEnabled = canEditComponents && _infiniteThinLensFocalLength.IsChecked != true;
         _infiniteThinLensFocalLength.IsEnabled = canEditComponents;
-        _applyComponentsButton.IsEnabled = canEditComponents;
+        _applyComponentsButton.IsEnabled = true;
         LoadSurfaceProperties(row);
         if (!canEditComponents)
         {
-            _componentSummary.Text += "（只读：该导入面型暂不支持计算或编辑）";
+            _componentSummary.Text += "（面型参数只读，可编辑绘图与行颜色）";
         }
     }
 
@@ -306,14 +358,13 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             return;
         }
 
-        if (!row.GeometryComputable)
-        {
-            _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}（只读：该导入面型暂不支持计算或编辑）";
-            return;
-        }
-
         try
         {
+            if (!row.GeometryComputable || PhysicalPropertyInputs().SequenceEqual(_loadedPhysicalInputs))
+            {
+                _prescription.UpdateSurfaceDrawingSettings(row.Number, SelectedDrawingOptions(), SelectedSurfaceColor());
+                return;
+            }
             _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
             _geometryPicker.SelectedItem as string ?? row.SurfaceType,
             _aperturePicker.SelectedItem as string ?? row.ApertureKind,
@@ -329,7 +380,8 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             _surfaceCoating.Text,
             Polynomial: PolynomialUpdate(),
             BiconicRadiusX: _biconicProperties.IsVisible ? PropertyNumber(_biconicRadiusX.Text, allowInfinity: true) : null,
-            BiconicConicX: _biconicProperties.IsVisible ? PropertyNumber(_biconicConicX.Text) : null));
+            BiconicConicX: _biconicProperties.IsVisible ? PropertyNumber(_biconicConicX.Text) : null,
+            SurfaceColor: SelectedSurfaceColor(), Drawing: SelectedDrawingOptions()));
         }
         catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
         {
@@ -414,6 +466,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             HorizontalAlignment = HorizontalAlignment.Stretch,
             TextAlignment = TextAlignment.Right
         };
+        editor.Classes.Add(CustomSurfaceRowStyles.NumericEditorClass);
         // Dense cells use a validation border and tooltip without an extra message row.
         editor.Styles.Add(new Style(selector => selector.OfType<TextBox>().Template().OfType<DataValidationErrors>())
         {
@@ -520,8 +573,11 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
     private static void ApplyMaterialRowClass(DataGridRow dataGridRow, SurfaceEditorRow row)
     {
-        dataGridRow.Classes.Set("glass-material-row", row.HasOpticalMaterial && !row.IsCoordinateReference);
-        dataGridRow.Classes.Set(CoordinateReferenceRowStyles.RowClass, row.IsCoordinateReference);
+        var custom = !string.IsNullOrEmpty(row.Drawing.RowColor);
+        dataGridRow.Classes.Set("glass-material-row", !custom && row.HasOpticalMaterial && !row.IsCoordinateReference && !row.IsReflective);
+        dataGridRow.Classes.Set(MirrorRowStyles.RowClass, !custom && row.IsReflective && !row.IsCoordinateReference);
+        dataGridRow.Classes.Set(CoordinateReferenceRowStyles.RowClass, !custom && row.IsCoordinateReference);
+        dataGridRow.Classes.Set(CustomSurfaceRowStyles.RowClass, custom);
     }
 
     private static NumericUpDown Number(double width, decimal minimum, decimal maximum, decimal increment, decimal value) => new()

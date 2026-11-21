@@ -735,7 +735,10 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
             request.Space == NonSequentialDetectorSpace.Position ? "mm" : "deg",
             valueUnit, values, xProfile, yProfile, statistics,
             reader.IsStale(document, materials) || selectedSessionIsStale,
-            Path.GetFullPath(path)) { DataType = request.DataType, Space = request.Space, FieldSelection = fieldView?.Selection, ValidPixels = fieldView?.Valid };
+            Path.GetFullPath(path)) { DataType = request.DataType, Space = request.Space, FieldSelection = fieldView?.Selection, ValidPixels = fieldView?.Valid,
+                Rgb = detector.RecordColor && request.Space == NonSequentialDetectorSpace.Position
+                    && request.DataType is NonSequentialDetectorDataType.PixelPower or NonSequentialDetectorDataType.IncoherentIrradiance
+                    ? NonSequentialColorimetry.DetectorRgb(frame, document, request.WavelengthNumber) : null };
     }
 
     private static string CreateTraceConfigurationFingerprint(

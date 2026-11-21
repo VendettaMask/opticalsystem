@@ -17,6 +17,9 @@ public sealed record FoucaultResult(double[,] Intensity, int FourierGridSize,
     public FoucaultPropagationMode PropagationMode { get; init; }
     public double ObservationHalfWidthMicrometers { get; init; }
     public double TransverseProjectionDifferenceNormIntegral { get; init; }
+    public AnalysisAxisUnit ImageCoordinateUnit { get; init; } = AnalysisAxisUnit.Micrometer;
+    public double ImageSpacingXMilliradians { get; init; }
+    public double ImageSpacingYMilliradians { get; init; }
 }
 
 /// <summary>Focal FFT knife test followed by ideal pupil reimaging. Homogeneous-media
@@ -42,11 +45,15 @@ public static partial class FoucaultEngine
                 observationDistanceMillimeters, observationHalfWidthMillimeters);
         if (knifeDistanceMillimeters != 0 || observationDistanceMillimeters != 0 || observationHalfWidthMillimeters != 0)
             throw new ArgumentException("Physical plane distances/extent require an angular-spectrum propagation mode.");
-        if (optic.ImageSpaceAfocal)
-            throw new NotSupportedException("Foucault 的 µm 刀口位于有焦像面；无焦系统须先定义聚焦/再成像光学系统。");
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength,
             sampling, cellCentered: true, aimAtStop: optic.RayAimingEnabled, useSystemFocalReference: false);
-        var axes = DiffractionEngine.WorkingFNumbers(optic, field, wavelength, optic.RayAimingEnabled);
+        // The pupil Fourier coordinate is a length in focal mode and an angle
+        // for collimated output. No finite F/# or prescription change is needed.
+        var angular = optic.ImageSpaceAfocal;
+        var inverseDiameter = angular
+            ? 1 / ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic) : 0;
+        var axes = angular ? (Tangential: inverseDiameter, Sagittal: inverseDiameter)
+            : DiffractionEngine.WorkingFNumbers(optic, field, wavelength, optic.RayAimingEnabled);
         var gridSize = AnalysisResourceLimits.RoundUpPowerOfTwo(checked(4 * sampling), nameof(sampling));
         // Pupil pitch is 2/N; padding changes image pitch, not pupil density.
         var spacingX = wavelength.Micrometers * axes.Sagittal * sampling / gridSize;
@@ -107,8 +114,13 @@ public static partial class FoucaultEngine
         }
         // Do not remask diffraction outside the input circle. Full padded-grid energy
         // and the displayed central square are different quantities.
-        return new(intensity, gridSize, spacingX, spacingY, inputPower, outputPower,
-            intensity.Cast<double>().Sum(), illuminated, wavefront.VignettedRayCount, channels.Length);
+        return new(intensity, gridSize, angular ? 0 : spacingX, angular ? 0 : spacingY, inputPower, outputPower,
+            intensity.Cast<double>().Sum(), illuminated, wavefront.VignettedRayCount, channels.Length)
+        {
+            ImageCoordinateUnit = angular ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
+            ImageSpacingXMilliradians = angular ? spacingX : 0,
+            ImageSpacingYMilliradians = angular ? spacingY : 0
+        };
     }
 
     internal static Complex[,] FilterPupil(Complex[,] pupil, int gridSize, double spacingX, double spacingY,

@@ -189,7 +189,8 @@ public sealed partial class NonSequentialDocumentTracer
             ?? ((request.SplitFresnelRays ?? settings.SplitFresnelRays)
                 ? NonSequentialSplittingMode.FullFresnel
                 : NonSequentialSplittingMode.None);
-        var objects = document.Objects.Where(item => item.Enabled && !IsSource(item.Kind)).ToArray();
+        var objects = document.Objects.Where(item => item.Enabled && !IsSource(item.Kind) && item.Kind != NonSequentialObjectKind.Null).ToArray();
+        var hasWaveplates = objects.Any(item => item.Parameters.Waveplate is not null);
         var bsdfs = objects.Where(item => item.SurfaceBsdf is not null).ToDictionary(item => item.Id, item => item.SurfaceBsdf!.Create());
         var opticalAssemblies = objects.Where(o=>o.Parameters is OpticalAssemblyParameters).ToArray();
         var hasOpticalAssemblies=opticalAssemblies.Length>0;
@@ -202,6 +203,8 @@ public sealed partial class NonSequentialDocumentTracer
             .ToDictionary(item => item.Id, item => new NonSequentialDetectorAccumulator(item));
         var wavelengths = new NonSequentialWavelengthIndex(document.Wavelengths);
         var fieldTracing = settings.UsePolarization || settings.CoherentDetection;
+        if (hasWaveplates && fieldTracing && splittingMode == NonSequentialSplittingMode.SimpleStochastic)
+            throw new NotSupportedException("波片相位追迹需要确定性分裂，不能使用随机选支。");
         if (settings.CoherentDetection && splittingMode == NonSequentialSplittingMode.SimpleStochastic)
             throw new NotSupportedException("相干路径需要确定性分裂，不能用随机选支的功率权重替代振幅权重。");
         if (fieldTracing && bsdfs.Count > 0)
@@ -300,6 +303,13 @@ public sealed partial class NonSequentialDocumentTracer
                     break;
                 }
 
+                if (hasWaveplates && state.OpticalMedium is null)
+                {
+                    var containing = (bvh?.Candidates(state.Ray) ?? []).Where(o => Behavior(o.Item) == NonSequentialSurfaceBehavior.Refractive)
+                        .Select(o => Intersect(document, o.Item, state.Ray)).Where(h => h is { IsSolid: true, Entering: false }).OrderBy(h => h!.Distance).ToArray();
+                    state = state with { InsideObjects = containing.Select(h => h!.Item.Id).ToHashSet(),
+                        MaterialName = containing.Length > 0 ? SolidMaterial(containing[0]!.Item) : document.AmbientMaterial };
+                }
                 var hit = FindNearestHit(document, bvh, state.Ray);
                 if (hit is null)
                 {
@@ -323,8 +333,25 @@ public sealed partial class NonSequentialDocumentTracer
                 }
                 var incomingIntensity = state.Ray.Intensity;
                 if (state.Field is { } propagatingField)
-                    state = state with { Field = propagatingField.Propagate(distance * incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers), state.Ray.WavelengthNanometers),
-                        FieldRefractiveIndex = incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers) };
+                {
+                    var propagated = propagatingField.Propagate(distance * incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers), state.Ray.WavelengthNanometers);
+                    if (hasWaveplates && splittingMode == NonSequentialSplittingMode.FullFresnel)
+                    {
+                        var plateObject = state.InsideObjects.Select(id => document.TryFindObject(id, out var item) ? item : null)
+                            .FirstOrDefault(o => o?.Parameters.Waveplate is not null && SolidMaterial(o) == state.MaterialName);
+                        if (plateObject?.Parameters.Waveplate is { } plate)
+                        {
+                            var axis = document.ToWorldDirection(plateObject.Id, plate.LocalAxis); axis /= axis.Length;
+                            var no = incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers);
+                            var ne = materials.Resolve(plate.ExtraordinaryMaterial).RefractiveIndex(state.Ray.WavelengthNanometers);
+                            var ellipsoid = new OpticalIndexEllipsoid(axis, no, ne, true);
+                            var effective = ellipsoid.WaveplatePhaseIndex(state.Ray.Direction,
+                                state.WaveplateEntryNormal ?? state.Ray.Direction);
+                            propagated = propagated.Retard(state.Ray.Direction, axis, distance * (effective - no), state.Ray.WavelengthNanometers);
+                        }
+                    }
+                    state = state with { Field = propagated, FieldRefractiveIndex = incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers) };
+                }
 
                 if (hit.Item.Kind == NonSequentialObjectKind.DetectorRectangle)
                 {
@@ -522,12 +549,15 @@ public sealed partial class NonSequentialDocumentTracer
                 var nextMaterialName = hit.IsSolid
                     ? hit.Entering
                         ? SolidMaterial(hit.Item)
-                        : ExitMaterial(document, state, hit.Item)
+                        : hasWaveplates ? MaterialBeyond(document, bvh, state.Ray, hit) : ExitMaterial(document, state, hit.Item)
                     : PlaneDestination((PlaneRectangleParameters)hit.Item.Parameters, hit.LocalDirection);
                 var nextMaterial = materials.Resolve(nextMaterialName);
                 var n1 = incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers);
                 var n2 = nextMaterial.RefractiveIndex(state.Ray.WavelengthNanometers);
                 var optical = RefractAndFresnel(state.Ray.Direction, normal, n1, n2);
+                var suppressReflection = fieldTracing && splittingMode == NonSequentialSplittingMode.FullFresnel
+                    && (hit.Item.Parameters.Waveplate?.TraceReflections == false || state.InsideObjects.Any(id =>
+                        document.TryFindObject(id, out var insideItem) && insideItem.Parameters.Waveplate?.TraceReflections == false));
                 var transmissionFraction = 1 - optical.Reflectance;
                 NonSequentialFieldState? reflectedField = null, transmittedField = null;
                 if (state.Field is not null)
@@ -537,9 +567,39 @@ public sealed partial class NonSequentialDocumentTracer
                     optical = optical with { Reflectance = fields.Reflection };
                     transmissionFraction = fields.Transmission;
                     absorbedPower += incomingIntensity * Math.Max(0, 1 - fields.Reflection - fields.Transmission);
+                    // In common-path waveplate mode the Jones vector retains its
+                    // transverse amplitudes. At entry from an isotropic medium,
+                    // the ray flux is weighted by its ordinary/extraordinary components.
+                    if (hit.Entering && hit.Item.Parameters.Waveplate is { } enteringPlate
+                        && splittingMode == NonSequentialSplittingMode.FullFresnel
+                        && !state.InsideObjects.Any(id => document.TryFindObject(id, out var inside) && inside.Parameters.Waveplate is not null))
+                    {
+                        var axis = document.ToWorldDirection(hit.Item.Id, enteringPlate.LocalAxis);
+                        axis -= state.Ray.Direction * Dot(axis, state.Ray.Direction);
+                        if (axis.Length > 1e-14)
+                        {
+                            axis /= axis.Length;
+                            var e1 = state.Field.First.Field; var e2 = state.Field.Second.Field;
+                            var along1 = e1.X * axis.X + e1.Y * axis.Y + e1.Z * axis.Z;
+                            var along2 = e2.X * axis.X + e2.Y * axis.Y + e2.Z * axis.Z;
+                            var fraction = (along1.Magnitude * along1.Magnitude + along2.Magnitude * along2.Magnitude) / state.Field.Power;
+                            var extra = materials.Resolve(enteringPlate.ExtraordinaryMaterial);
+                            var extraOptical = RefractAndFresnel(state.Ray.Direction, normal, n1, extra.RefractiveIndex(state.Ray.WavelengthNanometers));
+                            var extraFields = InterfaceFields(state, normal, extraOptical.Reflected, extraOptical.Transmitted,
+                                incidentMaterial, extra, extraOptical.TotalInternalReflection);
+                            optical = optical with { Reflectance = fields.Reflection * (1 - fraction) + extraFields.Reflection * fraction };
+                            transmissionFraction = fields.Transmission * (1 - fraction) + extraFields.Transmission * fraction;
+                        }
+                    }
                 }
                 if (optical.TotalInternalReflection)
                 {
+                    if (suppressReflection)
+                    {
+                        truncatedPower += incomingIntensity;
+                        state.Segments.Add(Segment(state, hit, path, opticalPath, optical.Reflected, RayInteractionKind.TotalInternalReflection));
+                        termination = NonSequentialTerminationReason.SuppressedBranch; completed = true; break;
+                    }
                     state.Segments.Add(Segment(state, hit, path, opticalPath, optical.Reflected, RayInteractionKind.TotalInternalReflection));
                     state = state with
                     {
@@ -587,7 +647,7 @@ public sealed partial class NonSequentialDocumentTracer
                     continue;
                 }
 
-                if (splittingMode == NonSequentialSplittingMode.FullFresnel
+                if (splittingMode == NonSequentialSplittingMode.FullFresnel && !suppressReflection
                     && optical.Reflectance > 0 && optical.Reflectance < 1)
                 {
                     var pathPrefix = state.Segments.ToArray();
@@ -652,7 +712,8 @@ public sealed partial class NonSequentialDocumentTracer
                             opticalPath,
                             state.InitialIntensity, PendingDistance:fieldTracing?OriginOffset:0,
                             OpticalMedium:hasOpticalAssemblies?(materialName==state.MaterialName?state.OpticalMedium:nextMaterial):null,
-                            Field:interaction==RayInteractionKind.Reflected?reflectedField:transmittedField));
+                            Field:interaction==RayInteractionKind.Reflected?reflectedField:transmittedField,
+                            WaveplateEntryNormal:hit.WorldNormal));
                     }
                 }
 
@@ -678,6 +739,7 @@ public sealed partial class NonSequentialDocumentTracer
                     OpticalMedium=hasOpticalAssemblies?nextMaterial:null,
                     InsideObjects = insideObjects,
                     Field = transmittedField,
+                    WaveplateEntryNormal = hit.WorldNormal,
                     PendingDistance = fieldTracing ? OriginOffset : 0,
                         PathLength = path,
                     OpticalPathLength = opticalPath
@@ -788,6 +850,8 @@ public sealed partial class NonSequentialDocumentTracer
             var radialSampler = item.Parameters is SourceRadialParameters radialSource
                 ? new RadialDirectionSampler(radialSource.Distribution)
                 : null;
+            var sobol = source.Physics?.UseSobolSampling == true ? new NonSequentialSobolSource(settings.RandomSeed) : null;
+            var emissionRandom = (Random?)sobol ?? random;
             var count = item.Parameters is SourceRayParameters
                 ? 1
                 : request.RayCountOverride is int overrideCount
@@ -796,70 +860,73 @@ public sealed partial class NonSequentialDocumentTracer
                     ? source.LayoutRayCount
                     : source.AnalysisRayCount;
             var monochromaticWavelength = source.WavelengthNumber > 0 ? document.Wavelengths[source.WavelengthNumber - 1].Nanometers : 0;
-            var maximumWeight = document.Wavelengths.Max(w => w.Weight);
-            var relativeWeights = source.WavelengthNumber == 0 ? document.Wavelengths.Select(w => w.Weight / maximumWeight).ToArray() : [];
+            var spectrum = source.Physics?.Spectrum;
+            var maximumWeight = spectrum is { Count: > 0 } ? spectrum.Max(w => w.RelativePower) : document.Wavelengths.Max(w => w.Weight);
+            var relativeWeights = source.WavelengthNumber == 0 ? spectrum is { Count: > 0 }
+                ? spectrum.Select(w => w.RelativePower / maximumWeight).ToArray() : document.Wavelengths.Select(w => w.Weight / maximumWeight).ToArray() : [];
             var weightSum = relativeWeights.Sum();
             var power = source.PowerWatts / count;
             for (var index = 0; index < count; index++)
             {
+                sobol?.BeginRay(index);
                 var wavelength = monochromaticWavelength;
                 if (source.WavelengthNumber == 0)
                 {
-                    var draw = random.NextDouble() * weightSum; var waveIndex = 0;
+                    var draw = emissionRandom.NextDouble() * weightSum; var waveIndex = 0;
                     while (waveIndex < relativeWeights.Length - 1 && draw >= relativeWeights[waveIndex]) { draw -= relativeWeights[waveIndex]; waveIndex++; }
-                    wavelength = document.Wavelengths[waveIndex].Nanometers;
+                    wavelength = spectrum is { Count: > 0 } ? spectrum[waveIndex].Nanometers : document.Wavelengths[waveIndex].Nanometers;
                 }
                 var (origin, direction) = item.Parameters switch
                 {
                     SourceRayParameters ray => (ray.Origin, Normalize(ray.Direction)),
-                    SourcePointParameters point => (Vector3D.Zero, ConeDirection(random, point.ConeHalfAngleDegrees)),
-                    SourceRectangleParameters rectangle => SurfaceSourceRay(random, rectangle),
+                    SourcePointParameters point => (Vector3D.Zero, ConeDirection(emissionRandom, point.ConeHalfAngleDegrees)),
+                    SourceRectangleParameters rectangle => SurfaceSourceRay(emissionRandom, rectangle),
                     SourceGaussianParameters gaussian => (
                         new Vector3D(
-                            NextGaussian(random) * gaussian.WaistXMillimeters / 2,
-                            NextGaussian(random) * gaussian.WaistYMillimeters / 2,
+                            NextGaussian(emissionRandom) * gaussian.WaistXMillimeters / 2,
+                            NextGaussian(emissionRandom) * gaussian.WaistYMillimeters / 2,
                             0),
-                        GaussianDirection(random, gaussian.DivergenceHalfAngleDegrees)),
-                    SourceEllipseParameters ellipse => SurfaceSourceRay(random, ellipse),
+                        GaussianDirection(emissionRandom, gaussian.DivergenceHalfAngleDegrees)),
+                    SourceEllipseParameters ellipse => SurfaceSourceRay(emissionRandom, ellipse),
                     SourceTwoAngleParameters twoAngle => (
                         twoAngle.Shape == NonSequentialSourceApertureShape.Ellipse
-                            ? EllipsePoint(random, twoAngle.WidthMillimeters / 2, twoAngle.HeightMillimeters / 2)
-                            : BoxPoint(random, twoAngle.WidthMillimeters, twoAngle.HeightMillimeters, 0),
+                            ? EllipsePoint(emissionRandom, twoAngle.WidthMillimeters / 2, twoAngle.HeightMillimeters / 2)
+                            : BoxPoint(emissionRandom, twoAngle.WidthMillimeters, twoAngle.HeightMillimeters, 0),
                         AnisotropicDirection(
-                            random,
+                            emissionRandom,
                             twoAngle.AngularHalfAngleXDegrees,
                             twoAngle.AngularHalfAngleYDegrees)),
                     SourceRadialParameters => (
                         Vector3D.Zero,
-                        radialSampler!.Next(random)),
+                        radialSampler!.Next(emissionRandom)),
                     SourceVolumeRectangleParameters volumeRectangle => (
                         BoxPoint(
-                            random,
+                            emissionRandom,
                             volumeRectangle.WidthMillimeters,
                             volumeRectangle.HeightMillimeters,
                             volumeRectangle.DepthMillimeters),
                         VolumeDirection(
-                            random,
+                            emissionRandom,
                             volumeRectangle.AngularDistribution,
                             volumeRectangle.AngularHalfAngleDegrees)),
                     SourceVolumeEllipseParameters volumeEllipse => (
                         EllipsoidPoint(
-                            random,
+                            emissionRandom,
                             volumeEllipse.SemiAxisXMillimeters,
                             volumeEllipse.SemiAxisYMillimeters,
                             volumeEllipse.SemiAxisZMillimeters),
                         VolumeDirection(
-                            random,
+                            emissionRandom,
                             volumeEllipse.AngularDistribution,
                             volumeEllipse.AngularHalfAngleDegrees)),
                     SourceVolumeCylinderParameters volumeCylinder => (
                         CylinderPoint(
-                            random,
+                            emissionRandom,
                             volumeCylinder.RadiusXMillimeters,
                             volumeCylinder.RadiusYMillimeters,
                             volumeCylinder.LengthMillimeters),
                         VolumeDirection(
-                            random,
+                            emissionRandom,
                             volumeCylinder.AngularDistribution,
                             volumeCylinder.AngularHalfAngleDegrees)),
                     _ => throw new InvalidOperationException("Unknown source object.")
@@ -1116,6 +1183,14 @@ public sealed partial class NonSequentialDocumentTracer
             .Select(id => document.TryFindObject(id, out var item) ? Intersect(document, item, state.Ray) : null)
             .Where(hit => hit is not null).MinBy(hit => hit!.Distance);
         return remaining is not null ? SolidMaterial(remaining.Item) : OutsideMaterial(document, exiting);
+    }
+
+    private static string MaterialBeyond(NonSequentialDocument document, BvhNode? bvh, RealRay ray, SceneHit boundary)
+    {
+        var probe = ray with { Origin = boundary.WorldPoint + ray.Direction * (2 * OriginOffset) };
+        var next = (bvh?.Candidates(probe) ?? []).Where(o => o.Item.Id != boundary.Item.Id && Behavior(o.Item) == NonSequentialSurfaceBehavior.Refractive)
+            .Select(o => Intersect(document, o.Item, probe)).Where(h => h is { IsSolid: true, Entering: false }).MinBy(h => h!.Distance);
+        return next is null ? OutsideMaterial(document, boundary.Item) : SolidMaterial(next.Item);
     }
 
     private static string PlaneDestination(PlaneRectangleParameters plane, Vector3D localDirection) =>
@@ -1536,7 +1611,8 @@ public sealed partial class NonSequentialDocumentTracer
         double PendingDistance = 0,
         IMaterial? OpticalMedium = null,
         NonSequentialFieldState? Field = null,
-        double FieldRefractiveIndex = 1);
+        double FieldRefractiveIndex = 1,
+        Vector3D? WaveplateEntryNormal = null);
 
     private sealed record Aabb(Vector3D Minimum, Vector3D Maximum)
     {

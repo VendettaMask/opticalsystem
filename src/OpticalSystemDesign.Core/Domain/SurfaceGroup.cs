@@ -9,9 +9,12 @@ namespace OpticalSystemDesign.Core.Domain;
 public sealed class SurfaceGroup
 {
     private bool _suppressRenumber;
+    private Optic? _owner;
+    private bool _rebuildingCoordinates;
 
-    public SurfaceGroup()
+    public SurfaceGroup(Optic? owner = null)
     {
+        _owner = owner;
         Items.CollectionChanged += (_, _) =>
         {
             if (!_suppressRenumber)
@@ -22,6 +25,7 @@ public sealed class SurfaceGroup
     }
 
     public ObservableCollection<OpticalSurface> Items { get; } = new();
+    internal void Rebind(Optic owner) => _owner = owner;
 
     public SurfaceTraceData RecordedTrace { get; private set; } = SurfaceTraceData.Empty;
 
@@ -55,6 +59,8 @@ public sealed class SurfaceGroup
         };
 
         surface.InitializeFromLegacyProperties(0);
+        if (Items.Any(item => item.Placement is not null))
+            surface.Placement = SequentialSurfacePlacement.From(CoordinateSystem.Global);
         Items.Insert(surfaceNumber, surface);
         return surface;
     }
@@ -122,6 +128,15 @@ public sealed class SurfaceGroup
 
     public void Renumber()
     {
+        if (Items.Any(surface => surface.Placement is not null))
+        {
+            if (_rebuildingCoordinates) return;
+            for (var index = 0; index < Items.Count; index++) Items[index].Number = index;
+            _rebuildingCoordinates = true;
+            try { SequentialSurfacePlacement.Rebuild(Items, _owner); }
+            finally { _rebuildingCoordinates = false; }
+            return;
+        }
         var z = 0.0;
         for (var index = 0; index < Items.Count; index++)
         {

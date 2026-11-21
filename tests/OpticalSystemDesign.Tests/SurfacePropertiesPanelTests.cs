@@ -94,12 +94,10 @@ public sealed class SurfacePropertiesPanelTests
                 Capture(window, "standard-surface-infinite-radius.png");
                 EditRadiusAndApply("25.5");
                 Assert.Equal(25.5, application.Prescription.GetSurfaces()[1].Radius);
-                Assert.True(application.Documents.Undo()); // Component apply.
-                Assert.True(application.Documents.Undo()); // Radius edit.
+                Assert.True(application.Documents.Undo()); // The radius edit; an unchanged Apply adds no history.
                 Render(window);
                 Assert.Equal(0, application.Prescription.GetSurfaces()[1].Radius);
                 Assert.Equal("标准面", geometry.SelectedItem);
-                Assert.True(application.Documents.Redo());
                 Assert.True(application.Documents.Redo());
                 Render(window);
                 Assert.Equal(25.5, application.Prescription.GetSurfaces()[1].Radius);
@@ -352,7 +350,7 @@ public sealed class SurfacePropertiesPanelTests
                 var grating = Find<StackPanel>(editor, "SurfaceGratingProperties");
                 Assert.False(grating.IsVisible);
                 Assert.False(Find<StackPanel>(editor, "SurfaceThinLensProperties").IsVisible);
-                Assert.Equal(3, body.GetVisualDescendants().OfType<ComboBox>().Count(picker => !picker.IsEnabled));
+                Assert.True(Find<ComboBox>(editor, "SurfaceColor").IsEnabled);
                 Assert.Equal(3, body.GetVisualDescendants().OfType<CheckBox>().Count(check => !check.IsEnabled));
 
                 var geometry = Find<ComboBox>(editor, "SurfaceGeometry");

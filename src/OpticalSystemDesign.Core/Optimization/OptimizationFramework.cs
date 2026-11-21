@@ -255,7 +255,7 @@ public sealed class UnitRangeScaler : IVariableScaler
         OptimizationGuards.RequireFiniteArgument(value, nameof(value));
         var span = _upperBound - _lowerBound;
         return OptimizationGuards.RequireFiniteState(
-            Math.Abs(span) < 1e-12 ? 0 : (value - _lowerBound) / span,
+            span == 0 ? 0 : (value - _lowerBound) / span,
             "Scaled optimization value");
     }
 

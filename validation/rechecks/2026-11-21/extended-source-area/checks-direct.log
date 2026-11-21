@@ -1,0 +1,19 @@
+PASS analytic uniform square, strata 1, aiming False
+PASS analytic uniform square, strata 5, aiming False
+PASS analytic uniform square, strata 11, aiming False
+PASS analytic uniform square, strata 1, aiming True
+PASS analytic uniform square, strata 5, aiming True
+PASS analytic uniform square, strata 11, aiming True
+PASS uniform IMA equivalence
+PASS axis-only source width and scale
+PASS source outside last field
+PASS weighted IMA centroid
+PASS physical aperture clipping
+PASS afocal units
+PASS dark source and cancellation
+PASS existing extended source
+PASS existing energy plot convention
+PASS existing diffraction EE
+CAPTURE matched=False, fieldSize=1.4000000000000001, radius=1780.6320384180158, rays=4950
+CAPTURE matched=True, fieldSize=19.79898987322333, radius=50000, rays=99750
+16 focused checks passed

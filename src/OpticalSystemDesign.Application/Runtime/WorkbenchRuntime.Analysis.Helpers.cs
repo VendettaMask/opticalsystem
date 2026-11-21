@@ -130,6 +130,9 @@ public partial class WorkbenchRuntime
         };
         var format = analysisKey switch
         {
+            "Full Field Spot Diagram" when key is "RmsRadius" or "GeometricRadius"
+                or "RmsRadiusMicrometers" or "GeometricRadiusMicrometers" or "ScaleBarMicrometers"
+                or "RmsRadiusMilliradians" or "GeometricRadiusMilliradians" or "ScaleBarMilliradians" => "F2",
             "FFT Surface MTF" or "Huygens Surface MTF" or "FFT MTF Map" or "Geometric MTF Map"
                 when key is "MtfGridMinimum" or "MtfGridMaximum" => "0.######",
             "Seidel Coefficients" when key is "WavelengthMicrometers" or "ChiefRaySlopeObjectSpace" or "ChiefRaySlopeImageSpace"
@@ -163,10 +166,19 @@ public partial class WorkbenchRuntime
             : double.IsFinite(number) ? number.ToString(format, CultureInfo.InvariantCulture) : "—");
     }
 
+    private static IEnumerable<KeyValuePair<string, object>> DisplayAnalysisValues(string canonicalName, AnalysisData data)
+    {
+        if (canonicalName != "Full Field Spot Diagram") return data.Values;
+        var angular = data.PlotSeries.FirstOrDefault()?.XUnit == AnalysisAxisUnit.Milliradian;
+        return data.Values.Where(item => item.Key is not ("RmsRadius" or "RmsRadiusUnit" or "GeometricRadius" or "GeometricRadiusUnit")
+            && (angular ? item.Key is not ("RmsRadiusMicrometers" or "GeometricRadiusMicrometers" or "ScaleBarMicrometers" or "PlotScaleMicrometers")
+                : item.Key is not ("RmsRadiusMilliradians" or "GeometricRadiusMilliradians" or "ScaleBarMilliradians" or "PlotScaleMilliradians")));
+    }
+
     private static string FormatAnalysisData(string canonicalName, AnalysisData data)
     {
         var lines = new List<string> { $"分析：{DisplayAnalysisName(data.Name)}" };
-        lines.AddRange(data.Values.Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
+        lines.AddRange(DisplayAnalysisValues(canonicalName, data).Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
             .Select(item => FormatAnalysisRow(canonicalName, item))
             .Select(row => $"{row.Metric}：{row.Value}"));
         if (data.Table is not null)

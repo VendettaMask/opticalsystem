@@ -282,6 +282,7 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 XMinimum: _minimumFocus,
                 XMaximum: _maximumFocus,
                 YMinimum: 0,
+                ShowVerticalZeroLine: true,
                 ShowLegend: true,
                 HideTopAndRightAxes: true,
                 GridOpacity: 0.25,

@@ -7,8 +7,44 @@ namespace OpticalSystemDesign.Core.Services;
 /// <summary>Coefficient updates replace immutable materials and invalidate trace state.</summary>
 public static class GradientIndexParameters
 {
+    private static readonly IReadOnlySet<string> VariableKeys = new HashSet<string>(
+        new[] { "gradient1", "gradient2", "gradient3", "gradient4", "gradient5", "gradient9" }.SelectMany(GradientIndexProfileData.Keys), StringComparer.Ordinal);
+    public static string Property(string parameter) => $"grin:{parameter}";
+    public static bool IsGradientProperty(string? property) => property is not null && property.StartsWith("grin:", StringComparison.Ordinal)
+        && VariableKeys.Contains(property[5..]);
+
+    public static GradientIndexVariableRange DefaultVariableRange(GradientIndexMaterial material, string parameter)
+    {
+        var value = GradientIndexProfileData.Values(material.Profile)[parameter];
+        var extent = Math.Max(Math.Abs(value) * .2, parameter is "n0" or "n0Squared" ? .1 : .001);
+        return new(parameter is "n0" or "n0Squared" ? Math.Max(1e-6, value - extent) : value - extent, value + extent);
+    }
     public static GradientIndexMaterial Require(OpticalSurface surface) => surface.MaterialAfter as GradientIndexMaterial
         ?? throw new NotSupportedException("当前表面后没有 GRIN 材料。");
+
+    public static void SetVariable(Optic optic, OpticalSurface surface, string parameter, bool enabled)
+    {
+        var material = Require(surface);
+        var variables = material.Variables.ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+        if (enabled) variables.TryAdd(parameter, DefaultVariableRange(material, parameter)); else variables.Remove(parameter);
+        surface.MaterialAfter = new GradientIndexMaterial(material.Name, material.Profile, material.MaximumPathLength, material.IntegrationOptions, variables);
+        var index = optic.SurfaceGroup.Items.IndexOf(surface);
+        if (index + 1 < optic.SurfaceGroup.Items.Count) optic.SurfaceGroup.Items[index + 1].MaterialBefore = surface.MaterialAfter.Clone();
+        optic.InvalidateRayTraceCache();
+    }
+
+    public static void CopyValue(OpticalSurface source, OpticalSurface target, string parameter)
+        => WriteStoredValue(target, parameter, Read(source, parameter));
+
+    public static void WriteStoredValue(OpticalSurface target, string parameter, double value)
+    {
+        var material = Require(target);
+        var values = GradientIndexProfileData.Values(material.Profile).ToDictionary(pair => pair.Key, pair => pair.Value);
+        values[parameter] = value;
+        var profile = GradientIndexProfileData.Create(GradientIndexProfileData.Kind(material.Profile), values,
+            (material.Profile as Gradient5IndexProfile)?.Dispersion);
+        target.MaterialAfter = new GradientIndexMaterial(material.Name, profile, material.MaximumPathLength, material.IntegrationOptions, material.Variables);
+    }
 
     public static double Read(OpticalSurface surface, string parameter) => GradientIndexProfileData.Values(Require(surface).Profile)
         .TryGetValue(parameter, out var value) ? value : throw new ArgumentException("未知的 GRIN 系数。");

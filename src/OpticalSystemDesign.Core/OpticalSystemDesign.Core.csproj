@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="../../third_party/colorimetry/CIE_xyz_1931_2deg.csv" LogicalName="OpticalSystemDesign.Core.Colorimetry.CIE1931.csv" />
     <EmbeddedResource Include="Materials/Data/gradient9-catalog.json" LogicalName="OpticalSystemDesign.Core.Materials.Data.gradient9-catalog.json" />
     <EmbeddedResource Include="Materials/Data/sample-grid-gradient.ggd" LogicalName="OpticalSystemDesign.Core.Materials.Data.sample-grid-gradient.ggd" />
     <EmbeddedResource Include="Materials/Data/autolens-e58-materials.json" LogicalName="OpticalSystemDesign.Core.Materials.Data.autolens-e58-materials.json" />

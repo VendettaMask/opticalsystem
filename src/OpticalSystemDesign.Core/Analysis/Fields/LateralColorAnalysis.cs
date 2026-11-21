@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Analysis;
@@ -49,11 +50,11 @@ public sealed class LateralColorAnalysis : BaseAnalysis
                 maximumField,
                 index))
             .ToList();
-        var airyRadius = AiryRadiusMicrometers(0, primary);
+        var airyRadius = AiryRadius(0, primary);
         if (_showAiryDisk && airyRadius > 0)
         {
-            series.Add(AiryBoundary(-1, maximumField, primary, "艾里斑"));
-            series.Add(AiryBoundary(1, maximumField, primary, ""));
+            series.Add(AiryBoundary(-1, maximumField, primary, "艾里斑", airyRadius));
+            series.Add(AiryBoundary(1, maximumField, primary, "", airyRadius));
         }
 
         var curveMaximum = series
@@ -71,8 +72,10 @@ public sealed class LateralColorAnalysis : BaseAnalysis
             ["UseRealRays"] = _useRealRays,
             ["AllWavelengths"] = _allWavelengths,
             ["ShowAiryDisk"] = _showAiryDisk,
-            ["AiryRadiusMicrometers"] = airyRadius,
-            ["GraphScaleMicrometers"] = _graphScaleMicrometers,
+            [Optic.ImageSpaceAfocal ? "AiryRadiusMilliradians" : "AiryRadiusMicrometers"] = airyRadius,
+            [Optic.ImageSpaceAfocal ? "GraphScaleMilliradians" : "GraphScaleMicrometers"] = _graphScaleMicrometers,
+            ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
+            ["LateralColorUnit"] = ColorAxisLabel(),
             [AnalysisTrace.MaximumFieldValueKey(Optic)] = maximumField
         };
         return new AnalysisData(
@@ -126,28 +129,28 @@ public sealed class LateralColorAnalysis : BaseAnalysis
             .Select(index =>
             {
                 var fraction = index / (double)(_sampleCount - 1);
-                var firstHeight = ImageHeight(fraction, first.Micrometers);
-                var secondHeight = ImageHeight(fraction, second.Micrometers);
+                var firstCoordinate = ImageCoordinate(fraction, first.Micrometers);
+                var secondCoordinate = ImageCoordinate(fraction, second.Micrometers);
                 return new AnalysisPoint(
-                    (secondHeight - firstHeight) * 1000,
+                    secondCoordinate - firstCoordinate,
                     fraction * maximumField);
             })
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
             .ToArray();
         return new AnalysisSeries(
-            "µm",
+            ColorAxisLabel(),
             FieldAxisLabel(),
             points,
             Name: name,
             ColorIndex: _allWavelengths ? colorIndex : 10,
             LineWidth: 1.25,
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: Optic.ImageSpaceAfocal ? AnalysisAxisQuantity.Angle : AnalysisAxisQuantity.ImageHeight,
+            XUnit: Optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
             YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
             YUnit: AnalysisTrace.FieldAxisUnit(Optic));
     }
 
-    private double ImageHeight(double normalizedField, double wavelengthMicrometers)
+    private double ImageCoordinate(double normalizedField, double wavelengthMicrometers)
     {
         try
         {
@@ -161,14 +164,22 @@ public sealed class LateralColorAnalysis : BaseAnalysis
                     wavelengthMicrometers,
                     aimAtStop: Optic.RayAimingEnabled);
                 var sample = Optic.SequentialRayTracer.TraceFinalSamples(bundle).SingleOrDefault();
-                return sample is null || sample.Intensity <= 0 ? double.NaN : sample.Position.Y;
+                if (sample is null || sample.Intensity <= 0) return double.NaN;
+                return Optic.ImageSpaceAfocal
+                    ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(
+                        Optic.SurfaceGroup.Items[^1], sample.Direction).Y
+                    : sample.Position.Y * 1000;
             }
 
             var trace = Optic.Paraxial.TraceNormalizedPupil(
                 normalizedField,
                 new[] { 0.0 },
                 wavelengthMicrometers);
-            return trace.Heights.Count == 0 ? double.NaN : trace.Heights[^1][0];
+            if (trace.Heights.Count == 0) return double.NaN;
+            return Optic.ImageSpaceAfocal
+                ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(
+                    Optic.SurfaceGroup.Items[^1], new Vector3D(0, trace.Slopes[^1][0], 1)).Y
+                : trace.Heights[^1][0] * 1000;
         }
         catch (InvalidOperationException)
         {
@@ -180,17 +191,18 @@ public sealed class LateralColorAnalysis : BaseAnalysis
         double sign,
         double maximumField,
         Wavelength primary,
-        string name)
+        string name,
+        double onAxisRadius)
     {
         return new AnalysisSeries(
-            "µm",
+            ColorAxisLabel(),
             FieldAxisLabel(),
             Enumerable.Range(0, _sampleCount)
                 .Select(index =>
                 {
                     var fraction = index / (double)(_sampleCount - 1);
                     return new AnalysisPoint(
-                        sign * AiryRadiusMicrometers(fraction, primary),
+                        sign * (Optic.ImageSpaceAfocal ? onAxisRadius : AiryRadius(fraction, primary)),
                         fraction * maximumField);
                 })
                 .ToArray(),
@@ -198,14 +210,16 @@ public sealed class LateralColorAnalysis : BaseAnalysis
             LineStyle: AnalysisLineStyle.Dotted,
             ColorIndex: 10,
             LineWidth: 1,
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: Optic.ImageSpaceAfocal ? AnalysisAxisQuantity.Angle : AnalysisAxisQuantity.ImageHeight,
+            XUnit: Optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
             YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
             YUnit: AnalysisTrace.FieldAxisUnit(Optic));
     }
 
-    private double AiryRadiusMicrometers(double normalizedField, Wavelength primary)
+    private double AiryRadius(double normalizedField, Wavelength primary)
     {
+        if (Optic.ImageSpaceAfocal)
+            return ImageSpaceAnalysisSupport.AfocalAiryRadiusMilliradians(Optic, primary);
         var workingFNumber = DiffractionEngine.WorkingFNumber(
             Optic,
             (0, normalizedField),
@@ -213,6 +227,8 @@ public sealed class LateralColorAnalysis : BaseAnalysis
             aimAtStop: Optic.RayAimingEnabled);
         return 1.22 * primary.Micrometers * Math.Max(0, workingFNumber);
     }
+
+    private string ColorAxisLabel() => Optic.ImageSpaceAfocal ? "mrad" : "µm";
 
     private string FieldAxisLabel()
     {

@@ -481,6 +481,8 @@ public sealed class AccessibilityAndResponsiveLayoutTests
 
         public GlassMaterialDto? FindGlass(string materialName) => null;
 
+        public GlassConstantsDto? CalculateGlassConstants(string materialName, bool useCatalogDefinition = false) => null;
+
         public AnalysisViewDto Analyze(MaterialAnalysisRequestDto request) =>
             throw new NotSupportedException();
 

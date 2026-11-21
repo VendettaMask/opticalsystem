@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)..\..\..\..\..\</RepositoryRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <Using Include="Xunit" />
+    <ProjectReference Include="$(RepositoryRoot)src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj" />
+    <ProjectReference Include="$(RepositoryRoot)tools\OpticalSystemDesign.ZemaxLibraryImporter\OpticalSystemDesign.ZemaxLibraryImporter.csproj" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxVariableImportTests.cs" Link="ZemaxVariableImportTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxShapeVariableImportTests.cs" Link="ZemaxShapeVariableImportTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxVariableAuditTests.cs" Link="ZemaxVariableAuditTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxRemainingVariableTests.cs" Link="ZemaxRemainingVariableTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\GradientIndexEditingTests.cs" Link="GradientIndexEditingTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxGradient1ImportTests.cs" Link="ZemaxGradient1ImportTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs" Link="ZemaxCrossColumnPickupTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\UnresolvedZemaxGlassTests.cs" Link="UnresolvedZemaxGlassTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\OpticSnapshotValidationTests.cs" Link="OpticSnapshotValidationTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\RadiusSolveTests.cs" Link="RadiusSolveTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\SurfaceSolveTests.cs" Link="SurfaceSolveTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\MultiConfigurationVariableTests.cs" Link="MultiConfigurationVariableTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\MultiConfigurationOperandTests.cs" Link="MultiConfigurationOperandTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\MultiConfigurationPickupTests.cs" Link="MultiConfigurationPickupTests.cs" />
+    <Compile Include="$(RepositoryRoot)tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs" Link="ZemaxImportParameterAndSurfaceMappingTests.cs" />
+  </ItemGroup>
+</Project>

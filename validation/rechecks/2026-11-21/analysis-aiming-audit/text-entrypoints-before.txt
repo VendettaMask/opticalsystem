@@ -1,0 +1,182 @@
+src/OpticalSystemDesign.Core/Analysis\BestFitSphereEngine.cs:20:        var wavefront = ReferenceSphereWavefrontEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.AfocalQuadrature.cs:20:            WavefrontEngine.GenerateQuadratureHuygensSamples(optic, position, wavelength, samples,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.Reference.cs:26:        var central = generator.GenerateGeneric(0, 0, 0, 0, reference.Micrometers, false).Rays[0];
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.CumulativeEnergy.Reference.cs:51:            generator.GenerateGeneric(field.Hx, field.Hy, 0, 0, reference.Micrometers, optic.RayAimingEnabled).Rays[0],
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.FocusedHuygensSampling.cs:64:        var endpoints = WavefrontEngine.GenerateChiefRayBatch(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.FocusedHuygensSampling.cs:122:                var wavefront = WavefrontEngine.GenerateChiefRayBatch(optic, field, wavelength, batch.Select(p => p.Point).ToArray(), false);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.HuygensBatches.cs:74:                var wavefront = WavefrontEngine.GenerateChiefRayBatch(optic, sourceField, wavelength, batch, aimAtStop);
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:65:        var (values, strehl, fNumber, idealPeak, phase, diagnostics) = DiffractionEngine.ComputeStreamedFocalFftAxis(
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:146:        var transform = densePhysicalPupil ? DiffractionEngine.DensePupilPaddingFactor * _sampling : _gridSize ?? 2 * _sampling;
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:153:            var profile = DiffractionEngine.ComputeFftAxisProfiles(Optic, field, wave, _sampling, transform, reference,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfProfileAnalyses.cs:343:                var frame = DiffractionEngine.CreateHuygensImageFrame(Optic, normalizedField, wavelength, Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:50:            var psf = DiffractionEngine.ComputeCheckedFocusedHuygensPsf(optic, field, contributors[0],
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:57:            ? DiffractionEngine.TryPlanBatchedHuygens(optic, field, contributors[0], pupilSampling,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:89:                    psf = DiffractionEngine.ComputeBatchedPlanarHuygens(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:92:                    psf = DiffractionEngine.ComputeContactPupilHuygensPsf(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:95:                    psf = DiffractionEngine.ComputeCheckedAfocalHuygensPsf(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensPsfSynthesis.cs:101:                    psf = DiffractionEngine.ComputeHuygensPsf(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensDiffractionAnalyses.cs:37:        var psf = DiffractionEngine.ComputeMmdftPsf(
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensDiffractionAnalyses.cs:139:            : DiffractionEngine.DefaultHuygensImageDeltaMillimeters(
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensDiffractionAnalyses.cs:149:            ? DiffractionEngine.HuygensGeometricCenterOffset(Optic, field, wavelengths,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensDiffractionAnalyses.cs:474:                fullMtf = DiffractionEngine.ComputePsfMtf(psf);
+src/OpticalSystemDesign.Core/Analysis\Diffraction\HuygensDiffractionAnalyses.cs:477:            var mtf = DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:76:        catch (InvalidOperationException error) when (error.Data[DiffractionEngine.InsufficientFftPupilNodesKey] is true
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:77:            && SupportsPhysicalPsfWindow && _requestedRays is >= 4 and <= DiffractionEngine.MaximumPhysicalPsfWindowSampling
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:144:            : densePhysicalPupil ? DiffractionEngine.DensePupilPaddingFactor * pupilSampling
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:154:            ? DiffractionEngine.ComputeStreamedFocalFftPsf(analysisOptic, field, wavelengths.Single(), pupilSampling,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:158:            : physicalPsfWindow ? DiffractionEngine.ComputePhysicalPsfWindowSpectrum(analysisOptic, field, wavelengths,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:160:            ? DiffractionEngine.ComputeDenseFftPsfSpectrum(analysisOptic, field, wavelengths,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:162:            : DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:469:                    var streamed = DiffractionEngine.ComputeStreamedFocalFftMtf(analysisOptic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:476:                    return (wavelength, DiffractionEngine.ComputeFftMtfFromPupil(
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:481:                var psf = DiffractionEngine.ComputeFftPsf(
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:494:                return (wavelength, DiffractionEngine.ComputeFftMtf(psf, analysisOptic, wavelength));
+src/OpticalSystemDesign.Core/Analysis\Diffraction\PsfAndMtfAnalyses.cs:503:                : DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:290:                var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0, wavelength.Micrometers, aiming);
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:371:        var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayGrid(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:398:            ? preparedPolarization ?? JonesPupilEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:773:            var wavefront = WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:780:            return WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:794:                return WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:832:                return WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:958:                var wavefront = WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1013:                    WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1324:        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, numRays,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1501:            ? !usePolarization ? WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1503:                : WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1506:            : WavefrontEngine.GenerateChiefRayUniform(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1516:            ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true, aimAtStop: aimAtStop)
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1539:                : !usePolarization ? WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, (0, 0), wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1541:                : WavefrontEngine.GenerateChiefRaySamples(optic, (0, 0), wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1548:                    : JonesPupilEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1611:            : WavefrontEngine.GenerateChiefRayUniform(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1621:                : JonesPupilEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1736:            var result = WavefrontEngine.GenerateChiefRaySamples(optic, sourceField, wavelength,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1748:                var source = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(sourceField.Hx, sourceField.Hy,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:1769:            var source = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:2188:            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:2363:        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:2409:                var source = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0,
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.cs:2438:                var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\DiffractionEngine.StreamedFourierPupil.cs:168:                var wavefront = WavefrontEngine.GenerateChiefRayBatch(optic, field, wavelength, samples, false,
+src/OpticalSystemDesign.Core/Analysis\Extended\ImageAndPolarizationAnalyses.cs:159:        var result = JonesPupilEngine.Generate(Optic, (0, 0), wavelength, _gridSize, useFresnelCoatings: true, aimAtStop: Optic.RayAimingEnabled, includeBulkAbsorption: true);
+src/OpticalSystemDesign.Core/Analysis\FootprintDiagramAnalysis.cs:69:                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\GeometricMtfAnalysis.cs:50:        var result = SpotAnalysisEngine.Generate(Optic, fields, wavelengths, _numRays, _distribution);
+src/OpticalSystemDesign.Core/Analysis\Fields\ColorFocusShiftAnalysis.cs:62:            * Math.Pow(DiffractionEngine.WorkingFNumber(Optic, (0, 0), primary, aimAtStop: Optic.RayAimingEnabled), 2);
+src/OpticalSystemDesign.Core/Analysis\HuygensFourierSum.cs:239:                DiffractionEngine.FourierTransform2D(sum[momentIndex]);
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:23:            || MaximumPupilSampling > DiffractionEngine.MaximumAxisTransformSize / 2
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:140:            var limit = Math.Min(denseLimit, DiffractionEngine.MaximumPhysicalPsfWindowSampling);
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:159:            var maximumSampling = profile || energy is not null ? DiffractionEngine.MaximumStreamedPhysicalPsfSampling
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:160:                : name == "PSF" ? DiffractionEngine.MaximumStreamedPsfSampling : DiffractionEngine.MaximumStreamedMtfSampling;
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:164:            if (symmetricEnergy) limit = Math.Min(limit, DiffractionEngine.MaximumSymmetricCentroidEnergySampling);
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:178:                limit = Math.Min(limit, DiffractionEngine.MaximumStreamedPhysicalPsfSampling);
+src/OpticalSystemDesign.Core/Analysis\FourierResultValidation.cs:325:                        || unavailable.Data[DiffractionEngine.InsufficientFftPupilNodesKey] is true))
+src/OpticalSystemDesign.Core/Analysis\Fields\FullFieldAberrationAnalysis.cs:97:                    var wavefront = WavefrontEngine.GenerateChiefRayUniform(
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:293:            var monochromaticWavefronts = wavelengths.Select(wavelength => WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:301:                ? wavelengths.Select((wavelength, wavelengthIndex) => WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\Fields\FieldSweepAnalyses.cs:462:                    WavefrontEngine.GenerateChiefRay(
+src/OpticalSystemDesign.Core/Analysis\HuygensPupilDomain.cs:48:        var probes = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(field.Hx, field.Hy,
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:215:                var kernel = DiffractionEngine.ComputeCoherentImageKernel(workingOptic,
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:612:                        * DiffractionEngine.WorkingFNumber(optic, (hx, hy), wavelength, aimAtStop: optic.RayAimingEnabled)))
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:623:                            ? DiffractionEngine.HuygensGeometricCenterOffset(optic, (hx, hy), [wavelength],
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:630:                        var physical = DiffractionEngine.ComputeHuygensPsf(
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:843:            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:855:                var chief = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy,
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:862:        var spot = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\ImageSimulationEngine.cs:951:        var fNumber = Math.Max(1e-6, DiffractionEngine.WorkingFNumber(optic, (0, 0), wavelength, aimAtStop: optic.RayAimingEnabled));
+src/OpticalSystemDesign.Core/Analysis\Fields\LateralColorAnalysis.cs:156:                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\Fields\LateralColorAnalysis.cs:209:        var workingFNumber = DiffractionEngine.WorkingFNumber(
+src/OpticalSystemDesign.Core/Analysis\JonesPupilEngine.cs:102:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\MtfGridAnalyses.cs:55:            var transform = DiffractionEngine.ComputeCenteredPsfTransform(psf, doubleTransformSize: true);
+src/OpticalSystemDesign.Core/Analysis\MtfGridAnalyses.cs:69:                var psf = DiffractionEngine.ComputeFftPsf(Optic, field, wavelength, pupilSampling, gridSize,
+src/OpticalSystemDesign.Core/Analysis\MtfGridAnalyses.cs:74:                var (yStep, xStep, _) = DiffractionEngine.FftMtfFrequencyScale(psf, Optic, wavelength);
+src/OpticalSystemDesign.Core/Analysis\MtfGridAnalyses.cs:76:                spectra.Add(new OtfGrid(DiffractionEngine.ComputeCenteredPsfTransform(psf), xStep, yStep, weight));
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:320:            return MtfMethodEvaluator.SampleHuygensMtf(DiffractionEngine.ComputePsfMtf(psf), psf.GridSize,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:683:                var psf = DiffractionEngine.ComputeFftPsf(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:694:                return (wavelength, DiffractionEngine.ComputeFftMtf(psf, optic, wavelength));
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:767:            var wavefront = WavefrontEngine.GenerateChiefRayUniform(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:776:                ? JonesPupilEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:786:                DiffractionEngine.ComputeFastFftMtfAtFrequency(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:951:        var psf = DiffractionEngine.ComputeFftPsf(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:960:        return AtFrequency(DiffractionEngine.ComputeFftMtf(psf, optic, wavelength), spatialFrequency);
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:984:            ? DiffractionEngine.ComputeContactPupilHuygensPsf(optic, field, wavelength, pupilSampling,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:986:            : DiffractionEngine.ComputeHuygensPsf(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:998:            DiffractionEngine.ComputePsfMtf(psf), psf.GridSize, spatialFrequency,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1040:            var mtf = DiffractionEngine.ComputePsfMtf(psf, doubleTransformSize: true);
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1102:        return DiffractionEngine.ComputePsfMtf(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1126:            ? DiffractionEngine.HuygensGeometricCenterOffset(optic, field, wavelengths,
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1151:        return DiffractionEngine.DefaultHuygensImageDeltaMillimeters(
+src/OpticalSystemDesign.Core/Analysis\MtfScanAnalysis.cs:1182:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\MutualIntensityEngine.Spatial.cs:200:        DiffractionEngine.FourierTransform2D(spectrum, false);
+src/OpticalSystemDesign.Core/Analysis\MutualIntensityEngine.Spatial.cs:227:        DiffractionEngine.FourierTransform2D(spectrum, true);
+src/OpticalSystemDesign.Core/Analysis\RadiantIntensityAnalysis.cs:126:                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontAnalysis.cs:72:        var wavefront = ReferenceSphereWavefrontEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontAnalysis.cs:131:        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled, useSystemFocalReference: false);
+src/OpticalSystemDesign.Core/Analysis\ReferenceSphereWavefrontEngine.cs:57:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotDiagramVariantAnalyses.cs:124:        var common = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotDiagramVariantAnalyses.cs:136:        var referenced = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAndRayAnalyses.cs:66:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAndRayAnalyses.cs:556:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAndRayAnalyses.cs:584:        var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0,
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAnalysisSupport.cs:124:                var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\Rays\SpotAnalysisSupport.cs:285:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\SampledApertureDiagnostics.cs:44:            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:39:        if (pupilSampling > DiffractionEngine.MaximumBoundedFourierTransformSize / 2
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:70:                && DiffractionEngine.HasSagittalEnergySymmetry(Optic, fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)]);
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:81:        var energy = DiffractionEngine.ComputeStreamedFocalFftEnergy(Optic, field, wavelengths[0], sampling,
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:317:            return DiffractionEngine.ComputeBoundedCumulativeEnergyKnots(Optic, field, wavelengths[0], _pupilSampling,
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:322:        var results = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:783:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:959:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Radiometry\EncircledEnergyVariants.cs:1126:        var chief = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Reports\FirstOrderAnalysis.cs:80:        RealRayBundle Launch(double x, double y) => tracer.RayGenerator.GenerateGeneric(0, 0, x, y, wavelength.Micrometers, false);
+src/OpticalSystemDesign.Core/Analysis\RmsScanAnalyses.cs:603:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\RmsScanAnalyses.cs:650:        var wavefronts = DiffractionEngine.GenerateDefocusedPolychromaticWavefronts(
+src/OpticalSystemDesign.Core/Analysis\Reports\CardinalAndVignettingAnalyses.cs:154:            var bundle = tracer.RayGenerator.GenerateNormalizedPupilSamples(field.Hx, field.Hy, wavelength.Micrometers,
+src/OpticalSystemDesign.Core/Analysis\Radiometry\IncoherentIrradianceAnalysis.cs:111:                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:53:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:112:                        : DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength, aimAtStop: Optic.RayAimingEnabled)))
+src/OpticalSystemDesign.Core/Analysis\Radiometry\PupilAndEnergyAnalyses.cs:389:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\SingleRayTraceAnalysis.cs:72:        var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\SampledMtfEngine.cs:16:        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, pupilSampling,
+src/OpticalSystemDesign.Core/Analysis\SpotMetricEvaluator.cs:178:        var result = SpotAnalysisEngine.Generate(optic, [(normalizedFieldX, normalizedFieldY)], waves,
+src/OpticalSystemDesign.Core/Analysis\SpotMetricEvaluator.cs:215:        var result = SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\SpotMetricEvaluator.cs:376:        var results = offsets.Select(offset => SpotAnalysisEngine.Generate(
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:256:        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:330:        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:362:            : Reference(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:416:            : generator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:552:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+src/OpticalSystemDesign.Core/Analysis\WavefrontEngine.cs:707:            var direction = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+src/OpticalSystemDesign.Core/Analysis\Shared\AiryDiskSupport.cs:25:        var workingFNumber = DiffractionEngine.WorkingFNumber(
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisSurfacePreparation.cs:29:                var ray = source.SequentialRayTracer.RayGenerator.GenerateGeneric(fields[i].Hx, fields[i].Hy,
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisTrace.cs:196:            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateAtPhysicalField(
+src/OpticalSystemDesign.Core/Analysis\Shared\AnalysisTrace.cs:583:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(hx, hy, px, py,
+src/OpticalSystemDesign.Core/Analysis\Shared\FocalImageDomain.NearFocus.cs:53:        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0,
+src/OpticalSystemDesign.Core/Analysis\Shared\ImageSpaceAnalysisSupport.cs:267:            optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0,
+src/OpticalSystemDesign.Core/Analysis\Shared\ImageSpaceAnalysisSupport.cs:317:        var pencil = WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Shared\FocalImageDomain.Sagittal.cs:50:            rays = tracer.TraceFinalSamples(tracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0, wave.Micrometers,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\ExitPupilGeometryEngine.cs:46:            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\AngularSpectrumEngine.cs:26:        DiffractionEngine.FourierTransform2D(spectrum);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\AngularSpectrumEngine.cs:38:        DiffractionEngine.FourierTransform2D(spectrum, inverse: true);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\AngularSpectrumEngine.cs:61:        foreach (var component in e) DiffractionEngine.FourierTransform2D(component);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\AngularSpectrumEngine.cs:88:        foreach (var component in e.Concat(h)) DiffractionEngine.FourierTransform2D(component, inverse: true);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:123:                ? DiffractionEngine.DirectionalWorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:124:                : DiffractionEngine.WorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:134:            ? WavefrontEngine.GenerateChiefRayGrid(analysisOptic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:139:            : WavefrontEngine.GenerateChiefRay(analysisOptic, field, wavelength, _numRings,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:522:            ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings, aimAtStop: Optic.RayAimingEnabled, zemaxCentered: true)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\WavefrontAnalyses.cs:523:            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:98:            ? DiffractionEngine.WorkingFNumbers(shapeOptic, shapeField, wave, shapeOptic.RayAimingEnabled) : (Tangential: 1d, Sagittal: 1d);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:196:        return WavefrontEngine.GenerateChiefRaySamples(prepared, field, wavelength, coordinates, aimAtStop: prepared.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\InterferogramAnalysis.cs:203:        return WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength, [(0d, 0d)], aimAtStop: optic.RayAimingEnabled)
+src/OpticalSystemDesign.Core/Analysis\Wavefront\OpticalPathDifferenceAnalysis.cs:87:                var wavefront = WavefrontEngine.GenerateChiefRaySamples(
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:47:        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:49:        var axes = DiffractionEngine.WorkingFNumbers(optic, field, wavelength, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:78:                var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:130:        DiffractionEngine.FourierTransform2D(padded);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.cs:147:        DiffractionEngine.FourierTransform2D(padded, inverse: true);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\ParabasalPupilEngine.cs:32:        var chiefBundle = tracer.RayGenerator.GenerateGeneric(0, 0, 0, 0, wavelength.Micrometers, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\ParabasalPupilEngine.cs:106:            var bundle = tracer.RayGenerator.GenerateGeneric(0, 0, useX ? sign * step : 0,
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.Spatial.cs:26:        var wavefront = WavefrontEngine.GenerateImagePlaneUniform(optic, field, wavelength, sampling, optic.RayAimingEnabled);
+src/OpticalSystemDesign.Core/Analysis\Wavefront\FoucaultEngine.Spatial.cs:61:                var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy,

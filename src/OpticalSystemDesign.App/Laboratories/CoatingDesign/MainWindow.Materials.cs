@@ -5,7 +5,6 @@ namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;
 
 public sealed partial class MainWindow
 {
-    private Button? _cancel;
     private readonly ComboBox _distribution = new() { ItemsSource = new[] { "均匀 ±范围", "正态 1σ" }, SelectedIndex = 0 };
     private readonly ComboBox _correlation = new() { ItemsSource = new[] { "逐层独立", "同材料同步", "全部同步" }, SelectedIndex = 0 };
     private readonly CheckBox _varyStructure = new() { Content = "枚举 / 增删 / 换料", IsChecked = true };

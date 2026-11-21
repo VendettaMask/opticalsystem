@@ -139,6 +139,17 @@ public sealed record ImageSimulationResult(
 
 public static partial class ImageSimulationEngine
 {
+    internal const string AfocalImageReason = "Afocal angular image simulation is not implemented; this image pipeline requires a finite image plane, length-based pixel pitch and PSF. Add finite reimaging optics or use the supported angular PSF/MTF analyses.";
+
+    internal static AnalysisData AfocalNotApplicable(string name) =>
+        FocalImageDomain.NotApplicable(name, AfocalImageReason, "AfocalAngularImageMappingNotImplemented");
+
+    private static void RequireFiniteImageSpace(Optic optic)
+    {
+        if (optic.ImageSpaceAfocal)
+            throw new AnalysisDataUnavailableException("Image Simulation", AfocalImageReason);
+    }
+
     public static RgbImage CreateSourceImage(
         ImageSimulationSourcePattern pattern,
         int width = 96,
@@ -156,6 +167,7 @@ public static partial class ImageSimulationEngine
 
     public static ImageSimulationResult Simulate(Optic optic, RgbImage source, ImageSimulationConfig? config = null)
     {
+        RequireFiniteImageSpace(optic);
         ComputationCancellation.ThrowIfCancellationRequested();
         config ??= new ImageSimulationConfig();
         AnalysisResourceLimits.ValidateImageSimulation(source, config);
@@ -506,6 +518,7 @@ public static partial class ImageSimulationEngine
 
     public static PsfBasisResult GenerateBasis(Optic optic, Wavelength wavelength, ImageSimulationConfig config)
     {
+        RequireFiniteImageSpace(optic);
         ComputationCancellation.ThrowIfCancellationRequested();
         AnalysisResourceLimits.ValidatePsfConfiguration(config);
         optic = PrepareOptic(optic, config, convertRealImageFields: false);
@@ -918,7 +931,8 @@ public static partial class ImageSimulationEngine
             var imageCoordinates = optic.SurfaceGroup.Items[^1].CoordinateSystem;
             (double X, double Y)? LocalHit(double hx, double hy)
             {
-                var hit = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers);
+                var hit = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers,
+                    aimAtStop: optic.RayAimingEnabled);
                 if (hit is null) return null;
                 var local = imageCoordinates.ToLocalPoint(hit.Position);
                 return (local.X, local.Y);
@@ -1074,6 +1088,7 @@ public static partial class ImageSimulationEngine
         double fieldCenterY = 0,
         int padding = 0)
     {
+        RequireFiniteImageSpace(optic);
         ComputationCancellation.ThrowIfCancellationRequested();
         numGridPoints = AnalysisResourceLimits.ValidateImageDistortion(width, height, numGridPoints, degree);
         if (padding < 0 || 2L * padding >= Math.Min(width, height))
@@ -1106,14 +1121,15 @@ public static partial class ImageSimulationEngine
             {
                 var normalizedX = -1.0 + (2.0 * column / (numGridPoints - 1));
                 var hx = minimumFieldX + ((maximumFieldX - minimumFieldX) * column / (numGridPoints - 1));
-                var final = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers)
+                var final = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers,
+                    aimAtStop: optic.RayAimingEnabled)
                     ?? throw new InvalidOperationException("Distortion-grid ray did not reach the image surface.");
                 var reference = optic.TraceGenericFinalSample(
                     hx,
                     hy,
                     0,
                     0,
-                    referenceWavelength.Micrometers)
+                    referenceWavelength.Micrometers, aimAtStop: optic.RayAimingEnabled)
                     ?? throw new InvalidOperationException("Reference distortion-grid ray did not reach the image surface.");
                 // The detector grid and source field rotate with their frames, not global X/Y.
                 var local = imageCoordinates.ToLocalPoint(final.Position);

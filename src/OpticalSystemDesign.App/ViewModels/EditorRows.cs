@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Globalization;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
+using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.App.ViewModels;
 
@@ -10,6 +11,7 @@ public sealed class SurfaceEditorRow
     public SurfaceEditorRow(SurfaceRowDto source, bool isLastSurface = false)
     {
         Number = source.Number;
+        LensLengthUnit = source.LensLengthUnit;
         Label = source.Label;
         Radius = source.Radius;
         Thickness = source.Thickness;
@@ -31,6 +33,7 @@ public sealed class SurfaceEditorRow
         RadiusSolve = source.RadiusSolve ?? new RadiusSolveDto(
             source.RadiusVariable ? RadiusSolveKind.Variable : RadiusSolveKind.Fixed);
         ThicknessVariable = source.ThicknessVariable;
+        ShapeVariables = source.ShapeVariables ?? Array.Empty<string>();
         ThicknessSolve = source.ThicknessSolve ?? new ThicknessSolveDto(
             source.ThicknessVariable ? ThicknessSolveKind.Variable : ThicknessSolveKind.Fixed);
         SemiDiameterSolve = source.SemiDiameterSolve ?? new SemiDiameterSolveDto(
@@ -52,10 +55,25 @@ public sealed class SurfaceEditorRow
         CanOptimize = Number > 0 && !isLastSurface;
         IsLastSurface = isLastSurface;
         IsCoordinateReference = source.IsCoordinateReference;
+        IsReflective = source.IsReflective;
+        SurfaceColor = source.SurfaceColor;
+        Drawing = source.Drawing ?? new();
     }
 
     public int Number { get; }
+    public LensLengthUnit LensLengthUnit { get; }
+    public string LengthUnitSymbol => LensLengthUnit.Symbol();
+    private double MillimetersPerUnit => LensLengthUnit.Millimeters();
+    private double ParseLength(string text, string error)
+    {
+        var value = ParseNumber(text, error) * MillimetersPerUnit;
+        if (!double.IsFinite(value)) throw new FormatException(error);
+        return value;
+    }
     public bool IsCoordinateReference { get; }
+    public bool IsReflective { get; }
+    public string? SurfaceColor { get; }
+    public SurfaceDrawingOptionsDto Drawing { get; }
 
     internal static string SurfaceTypeForGeometry(string geometryKind) =>
         geometryKind is "平面" or "标准球面/圆锥" ? "标准面" : geometryKind;
@@ -68,7 +86,7 @@ public sealed class SurfaceEditorRow
     {
         get => !double.IsFinite(Radius) || Math.Abs(Radius) <= 1e-15
             ? NumericDisplayFormatter.Format(double.PositiveInfinity)
-            : NumericDisplayFormatter.Format(Radius);
+            : NumericDisplayFormatter.Format(Radius / MillimetersPerUnit);
         set
         {
             var text = value?.Trim() ?? string.Empty;
@@ -82,7 +100,7 @@ public sealed class SurfaceEditorRow
                 return;
             }
 
-            var current = ParseNumber(text, "曲率半径请输入有限数值；平面可输入 ∞。");
+            var current = ParseLength(text, "曲率半径请输入有限数值；平面可输入 ∞。");
             Radius = Math.Abs(current) <= 1e-15 ? 0 : current;
         }
     }
@@ -91,7 +109,7 @@ public sealed class SurfaceEditorRow
     {
         get => IsLastSurface
             ? "-"
-            : NumericDisplayFormatter.Format(Thickness);
+            : NumericDisplayFormatter.Format(Thickness / MillimetersPerUnit);
         set
         {
             if (IsLastSurface)
@@ -107,7 +125,7 @@ public sealed class SurfaceEditorRow
                 Thickness = double.PositiveInfinity;
                 return;
             }
-            Thickness = ParseNumber(text, Number == 0
+            Thickness = ParseLength(text, Number == 0
                 ? "物面厚度请输入有限数值或 ∞。"
                 : "厚度请输入有限数值。");
         }
@@ -127,12 +145,13 @@ public sealed class SurfaceEditorRow
     public bool SemiDiameterFixed { get; set; }
     public string SemiDiameterDisplay
     {
-        get => NumericDisplayFormatter.Format(SemiDiameter);
+        get => NumericDisplayFormatter.Format(SemiDiameter / MillimetersPerUnit);
         set
         {
             var text = value?.Trim() ?? string.Empty;
-            const string error = "净口径请输入不小于 0.1 的有限数值。";
-            var current = ParseNumber(text, error);
+            var error = LensLengthUnit == LensLengthUnit.Millimeter ? "净口径请输入不小于 0.1 的有限数值。"
+                : $"净半径请输入不小于 {0.1 / MillimetersPerUnit:G6} {LengthUnitSymbol} 的有限数值。";
+            var current = ParseLength(text, error);
             if (current < 0.1) throw new FormatException(error);
             SemiDiameter = current;
         }
@@ -161,6 +180,8 @@ public sealed class SurfaceEditorRow
     public bool RadiusVariable { get; set; }
     public RadiusSolveDto RadiusSolve { get; }
     public bool ThicknessVariable { get; set; }
+    public IReadOnlyList<string> ShapeVariables { get; }
+    public bool ConicVariable => ShapeVariables.Contains("conic");
     public ThicknessSolveDto ThicknessSolve { get; }
     public SemiDiameterSolveDto SemiDiameterSolve { get; }
     public bool CanOptimize { get; }
@@ -173,17 +194,17 @@ public sealed class SurfaceEditorRow
     public double ExtensionZone { get; private set; }
     public string ExtensionZoneDisplay
     {
-        get => NumericDisplayFormatter.Format(ExtensionZone);
+        get => NumericDisplayFormatter.Format(ExtensionZone / MillimetersPerUnit);
         set
         {
-            const string error = "延伸区请输入有限非负数值，单位为 mm。";
-            var current = ParseNumber(value?.Trim() ?? string.Empty, error);
+            var error = $"延伸区请输入有限非负数值，单位为 {LengthUnitSymbol}。";
+            var current = ParseLength(value?.Trim() ?? string.Empty, error);
             if (current < 0 || !double.IsFinite(SemiDiameter + current)) throw new FormatException(error);
             ExtensionZone = current;
         }
     }
     public double MechanicalSemiDiameter { get; set; }
-    public string MechanicalSemiDiameterDisplay => NumericDisplayFormatter.Format(MechanicalSemiDiameter);
+    public string MechanicalSemiDiameterDisplay => NumericDisplayFormatter.Format(MechanicalSemiDiameter / MillimetersPerUnit);
     public double? ThermalExpansionPpmPerC { get; private set; }
     public string ThermalExpansionDisplay
     {
@@ -221,7 +242,11 @@ public sealed class SurfaceEditorRow
         RadiusSolve,
         ThermalExpansionPpmPerC: ThermalExpansionPpmPerC,
         ChipZone: ExtensionZone,
-        IsCoordinateReference: IsCoordinateReference);
+        IsCoordinateReference: IsCoordinateReference,
+        IsReflective: IsReflective,
+        SurfaceColor: SurfaceColor,
+        Drawing: Drawing,
+        LensLengthUnit: LensLengthUnit);
 
     public override string ToString() => $"{Number}: {Label}";
 }

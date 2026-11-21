@@ -25,7 +25,7 @@ public sealed partial class MultiConfigurationPanel
     {
         public string Number => Row?.Number.ToString(CultureInfo.InvariantCulture) ?? "—";
         public string Surface => (Row?.SurfaceNumber ?? ThicknessSurface)?.ToString(CultureInfo.InvariantCulture) ?? "—";
-        public MultiConfigurationOperandBindingDto? Binding => Row is not null ? new(Row.Kind, Row.SurfaceNumber)
+        public MultiConfigurationOperandBindingDto? Binding => Row is not null ? new(Row.Kind, Row.SurfaceNumber, Row.Parameter)
             : ThicknessSurface.HasValue ? new(MultiConfigurationParameterKind.Thickness, ThicknessSurface.Value) : null;
     }
     private readonly DataGrid _operandGrid = new()
@@ -180,7 +180,7 @@ public sealed partial class MultiConfigurationPanel
     }
 
     private List<MultiConfigurationOperandBindingDto> Bindings() => _configurations.GetOperandRows()
-        .Select(row => new MultiConfigurationOperandBindingDto(row.Kind, row.SurfaceNumber)).ToList();
+        .Select(row => new MultiConfigurationOperandBindingDto(row.Kind, row.SurfaceNumber, row.Parameter)).ToList();
     private OperandDisplay SelectedOperand() => _operandGrid.SelectedItem is OperandDisplay { Row: not null } selected
         ? selected : throw new InvalidOperationException("请选择可编辑操作数；APER 请在系统选项中修改。");
     private static int PositiveInteger(string? text, string label) =>
@@ -216,7 +216,8 @@ public sealed partial class MultiConfigurationPanel
         var differences = _configurations.GetThicknessDifferences()
             .Where(row => !rows.Any(binding => binding.Kind == MultiConfigurationParameterKind.Thickness && binding.SurfaceNumber == row.SurfaceNumber))
             .Select(row => new OperandDisplay(null, "THIC", row.Values.Select(v => v.ToString("G12", CultureInfo.InvariantCulture)).ToArray(), row.Values, row.SurfaceNumber));
-        var display = rows.Select(row => new OperandDisplay(row, choices.Single(choice => choice.Kind == row.Kind).Label.Split(' ')[0],
+        var display = rows.Select(row => new OperandDisplay(row, row.Parameter is { } parameter ? $"PRAM {parameter}"
+                : choices.Single(choice => choice.Kind == row.Kind).Label.Split(' ')[0],
             row.Values.Select((value, index) => value.ToString("G12", CultureInfo.InvariantCulture) + (row.Pickups[index] is not null ? "  P" : row.Variables[index] ? "  V" : string.Empty)).ToArray(), row.Values))
             .Concat(differences)
             .Prepend(new OperandDisplay(null, "APER", aperture.Select(v => v.ToString("G12", CultureInfo.InvariantCulture)).ToArray(), aperture)).ToArray();
@@ -235,7 +236,7 @@ public sealed partial class MultiConfigurationPanel
     {
         var selected = SelectedOperand();
         var configuration = PositiveInteger(_operandConfiguration.Text, "配置号");
-        if (_editingBinding != new MultiConfigurationOperandBindingDto(selected.Row!.Kind, selected.Row.SurfaceNumber)
+        if (_editingBinding != new MultiConfigurationOperandBindingDto(selected.Row!.Kind, selected.Row.SurfaceNumber, selected.Row.Parameter)
             || configuration != _editingConfiguration)
             throw new InvalidOperationException("请先选择有效单元格并还原输入，再设置变量。");
         _configurations.SetOperandVariable(selected.Row!.Number, configuration - 1, enabled, _operandRevision);
@@ -271,6 +272,7 @@ public sealed partial class MultiConfigurationPanel
             MultiConfigurationParameterKind.Thickness => "厚度（mm）",
             MultiConfigurationParameterKind.Curvature => "曲率（mm⁻¹）",
             MultiConfigurationParameterKind.Conic => "圆锥系数",
+            MultiConfigurationParameterKind.ShapeCoefficient or MultiConfigurationParameterKind.GradientIndexCoefficient or MultiConfigurationParameterKind.ModelGlassCoefficient => $"系数 {selected.Binding.Parameter}",
             _ => "半口径（mm）"
         };
         _editingBinding = selected.Binding; _editingConfiguration = number;

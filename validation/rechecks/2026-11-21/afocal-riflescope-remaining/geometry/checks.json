@@ -1,0 +1,42 @@
+{
+  "runner": "direct invocation of xUnit assertions; not VSTest",
+  "results": [
+    {
+      "name": "colour field RMS cross-interface 1",
+      "status": "passed"
+    },
+    {
+      "name": "colour field RMS cross-interface 2",
+      "status": "passed"
+    },
+    {
+      "name": "colour field RMS cross-interface 3",
+      "status": "passed"
+    },
+    {
+      "name": "focal reference sphere cross-interface",
+      "status": "passed"
+    },
+    {
+      "name": "angular tangent / finite object grid units",
+      "status": "failed",
+      "error": "System.InvalidOperationException: Ray tracing did not produce an image-plane sample.\r\n   at OpticalSystemDesign.Core.Analysis.AnalysisTrace.FinalSample(Optic optic, Double hx, Double hy, Double px, Double py, Double wavelengthMicrometers, Boolean requireUnvignetted) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Analysis\\Shared\\AnalysisTrace.cs:line 585\r\n   at OpticalSystemDesign.Core.Analysis.AnalysisTrace.TraceChiefAtLinearField(Optic optic, Double linearX, Double linearY, Double wavelengthMicrometers, String distortionType, Boolean requireUnvignetted) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Analysis\\Shared\\AnalysisTrace.cs:line 210\r\n   at OpticalSystemDesign.Core.Analysis.GridDistortionAnalysis.GenerateData() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Analysis\\Fields\\GridDistortionAnalysis.cs:line 120\r\n   at OpticalSystemDesign.Tests.AfocalRmsReferenceTests.AngularGridDistortionKeepsTangentCoordinatesDimensionless() in D:\\Projects\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\AfocalRmsReferenceTests.cs:line 62\r\n   at Program.\u003C\u003Ec__DisplayClass0_1.\u003C\u003CMain\u003E$\u003Eg__Run|2(String name, Action action) in D:\\Projects\\opticalsystem\\.tmp\\riflescope-geometry\\Program.cs:line 28"
+    },
+    {
+      "name": "polychromatic common chief and independent colours",
+      "status": "passed"
+    },
+    {
+      "name": "wrapper and prescription invariance",
+      "status": "passed"
+    },
+    {
+      "name": "8 display / 37 fitted Fringe coefficients cross-interface",
+      "status": "passed"
+    },
+    {
+      "name": "Core fit default / display bounds",
+      "status": "passed"
+    }
+  ]
+}

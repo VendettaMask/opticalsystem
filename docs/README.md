@@ -1,6 +1,6 @@
 # 项目文档索引
 
-索引更新：2026-11-04，本轮补齐材料库与CDGM官网目录入口。先按现行指南操作；历史通过数、旧独立模块命令及内部对齐目标不作为当前验收。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，旧记录见[历史索引](history/README.md)。
+索引更新：2026-11-21。当前操作、计算定义、代码入口、三语应用内帮助与 PDF 按同一实现维护。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，历史通过数和旧命令保留在[历史索引](history/README.md)及各自证据中；专项通过不替代全部镜头或任意参数的精度验收。
 
 ## 从这里开始
 
@@ -13,6 +13,17 @@
 | 维护实现 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 设计与改进界面 | [全项目设计语言与工作方法](UI_DESIGN_SPEC.md#全项目设计语言与工作方法)、[走查与确认记录](UI_DESIGN_REVIEW.md)、[主题包规范](THEME_PACKAGES.md)、[图标语义](ICON_SEMANTIC_DESIGN.md) |
 | 维护文档 | [文档生命周期与检查](DOCUMENTATION_MAINTENANCE.md)、[历史报告索引](history/README.md) |
+
+## 本轮常用入口
+
+| 内容 | 当前说明与证据 |
+| --- | --- |
+| 镜头倍率与单位 | [镜头缩放](USER_GUIDE.md#镜头缩放与长度单位)、[实现与专项验证](../validation/rechecks/2026-11-21/lens-scaling/README.md) |
+| 表面外观、隐藏与行色 | [表面属性](SURFACE_PROPERTIES_EDITOR.md)、[操作说明](USER_GUIDE.md#表面绘图属性) |
+| 玻璃公式、源系数与 Nd/Vd | [材料库](USER_GUIDE.md#材料库目录与参数)、[计算契约](COMPUTATION_GUIDE.md) |
+| FFT 按需加密与能量曲线 | [采样策略](USER_GUIDE.md#fft采样验证)、[双高斯专项](../validation/rechecks/2026-11-21/fft-energy-recovery/README.md) |
+| 三语帮助与计算 PDF | [同源维护和检查方法](DOCUMENTATION_MAINTENANCE.md)、[计算目录](COMPUTATION_COVERAGE.md) |
+| 精度结论的适用范围 | [95 支复跑与专项处置](../validation/rechecks/2026-11-08/menu-all95-current-replay/README.md)、[数值验收规则](NUMERICAL_PARITY.md) |
 
 ## 当前指南与功能契约
 

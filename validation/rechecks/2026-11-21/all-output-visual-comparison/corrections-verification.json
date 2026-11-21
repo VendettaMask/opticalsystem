@@ -1,0 +1,161 @@
+{
+  "date": "2026-11-21",
+  "scope": "gallery references and image identities only",
+  "correctionsManifestSha256": "bb98f491d1887956a4178756783b649f64c860db68c56e3801ff1db3cfba59ec",
+  "galleries": [
+    {
+      "directory": ".",
+      "checks": {
+        "allSelectionsRendered": 213,
+        "localImageLinksChecked": 391,
+        "allSourcesUnchanged": true,
+        "embeddedDataMatchesJson": true,
+        "scopedCorrectionsChecked": 1,
+        "historicalImagesPreserved": 1
+      },
+      "corrections": [
+        {
+          "lens": "double-gauss",
+          "analysis": "Extended Source Encircled Energy",
+          "id": "extended-source-area",
+          "images": {
+            "current": {
+              "path": "../extended-source-area/matched-source.png",
+              "sha256": "bf538ec990b538db370f256d6f2ab3ae56b97826e5f510df61676cb805ac42a0",
+              "pixelSize": [
+                1260,
+                900
+              ]
+            },
+            "originalCurrent": {
+              "path": "double-gauss/workbench/extended-source-encircled-energy.png",
+              "sha256": "8425684191efa4154bac87eefe7db2de54d375988f19c28453ba15822247a3ac",
+              "pixelSize": [
+                1600,
+                1000
+              ]
+            },
+            "native": {
+              "path": "double-gauss/zemax/extended-source-encircled-energy.JPG",
+              "sha256": "f0b80b39b97eeb7eec567208f8589bbacf2ab6687bd9751e5f73781e6e8b0d4a",
+              "pixelSize": [
+                1056,
+                792
+              ]
+            }
+          },
+          "evidence": "../extended-source-area/README.md"
+        }
+      ]
+    },
+    {
+      "directory": "representative-six",
+      "checks": {
+        "allSelectionsRendered": 426,
+        "localImageLinksChecked": 780,
+        "allSourcesUnchanged": true,
+        "embeddedDataMatchesJson": true,
+        "scopedCorrectionsChecked": 3,
+        "historicalImagesPreserved": 3
+      },
+      "corrections": [
+        {
+          "lens": "double-gauss",
+          "analysis": "Extended Source Encircled Energy",
+          "id": "extended-source-area",
+          "images": {
+            "current": {
+              "path": "../../extended-source-area/matched-source.png",
+              "sha256": "bf538ec990b538db370f256d6f2ab3ae56b97826e5f510df61676cb805ac42a0",
+              "pixelSize": [
+                1260,
+                900
+              ]
+            },
+            "originalCurrent": {
+              "path": "double-gauss/workbench/extended-source-encircled-energy.png",
+              "sha256": "382dae363b51ca350400d89b951b9df3afba3cd772407d94b5bee9b037830d0b",
+              "pixelSize": [
+                1600,
+                1000
+              ]
+            },
+            "native": {
+              "path": "double-gauss/zemax/extended-source-encircled-energy.JPG",
+              "sha256": "f0b80b39b97eeb7eec567208f8589bbacf2ab6687bd9751e5f73781e6e8b0d4a",
+              "pixelSize": [
+                1056,
+                792
+              ]
+            }
+          },
+          "evidence": "../../extended-source-area/README.md"
+        },
+        {
+          "lens": "afocal-riflescope",
+          "analysis": "Lateral Color",
+          "id": "afocal-lateral-color",
+          "images": {
+            "current": {
+              "path": "../../afocal-lateral-color/lateral-color-native-range.png",
+              "sha256": "2b9fda2e60254b4f21c04103fdd7d3e096e4c69dd9b67bc8795758ffcbc2cf8e",
+              "pixelSize": [
+                1260,
+                900
+              ]
+            },
+            "originalCurrent": {
+              "path": "afocal-riflescope/workbench/lateral-color.png",
+              "sha256": "8c4348539220fbdd6f5dc1369be00de97d2e930c547bfa767d7cc93a33212e69",
+              "pixelSize": [
+                1600,
+                1000
+              ]
+            },
+            "native": {
+              "path": "afocal-riflescope/zemax/lateral-color.JPG",
+              "sha256": "bc55a19ecac6d7bf3a54e51a9f96547492e54f8dfacfad46530a1146d8dc0f0c",
+              "pixelSize": [
+                1056,
+                792
+              ]
+            }
+          },
+          "evidence": "../../afocal-lateral-color/README.md"
+        },
+        {
+          "lens": "afocal-riflescope",
+          "analysis": "Axial Aberration",
+          "id": "afocal-axial-aberration",
+          "images": {
+            "current": {
+              "path": "../../afocal-axial-aberration/riflescope-axial-fixed.png",
+              "sha256": "3cee0370e4eb010105d44e10ce95b1ace465a1f719759427f3594789b948ac8c",
+              "pixelSize": [
+                1260,
+                900
+              ]
+            },
+            "originalCurrent": {
+              "path": "afocal-riflescope/workbench/axial-aberration.png",
+              "sha256": "f6e4e0789fec6a894c246c2a1f9c6117ca4ba41b518a9873bc628c8fdf8921b8",
+              "pixelSize": [
+                1600,
+                1000
+              ]
+            },
+            "native": {
+              "path": "afocal-riflescope/zemax/axial-aberration.JPG",
+              "sha256": "c7d10e2ef8fb8218840e1cfbccf02e90fb54347bc12c7bebfe52319111652932",
+              "pixelSize": [
+                1056,
+                792
+              ]
+            }
+          },
+          "evidence": "../../afocal-axial-aberration/README.md"
+        }
+      ]
+    }
+  ]
+}

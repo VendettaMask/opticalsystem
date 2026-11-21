@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-21",
+  "lens": {
+    "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Double Gauss 28 degree field.zmx",
+    "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460"
+  },
+  "nativeSettings": {
+    "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/double-gauss/zemax/extended-source-encircled-energy.CFG",
+    "sha256": "694ff7cf173a331eda79bf716a4c647af03f27c9e49b72b1cb5c88ba159238cd",
+    "sourceName": "LETTERF.IMA",
+    "fieldSize": 19.79898987322333
+  },
+  "sourceImage": {
+    "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/LETTERF.IMA",
+    "sha256": "bf19b2f3f1c529ac165c22b39b3ec16e378c95ab9e2b54bc52c0646cb818c0b1",
+    "scope": "Image bytes reused only; historical companion lens was not run"
+  },
+  "matchedSettings": {
+    "FieldSize": 19.79898987322333,
+    "SourceSampling": 5,
+    "NumRays": 100000,
+    "ActualRayCount": 99750,
+    "NumPoints": 256,
+    "WavelengthNumber": 0,
+    "FieldNumber": 1,
+    "Type": "encircled",
+    "Reference": "centroid",
+    "MaximumDistanceMicrometers": 50000
+  },
+  "defaultSettings": {
+    "SourceFile": "",
+    "FieldSize": 0,
+    "ResolvedFieldSize": 1.4,
+    "SourceSampling": 5,
+    "NumRays": 5000,
+    "ActualRayCount": 4950
+  },
+  "referenceScope": "Frozen native screenshot only; source and size aligned, no pointwise numeric certification"
+}

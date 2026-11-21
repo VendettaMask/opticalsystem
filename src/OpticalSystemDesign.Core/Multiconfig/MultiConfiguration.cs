@@ -1,5 +1,6 @@
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Multiconfig;
 
@@ -200,6 +201,15 @@ public sealed partial class MultiConfiguration
                 surface.SemiDiameterFixed = true;
                 surface.SemiDiameterMaximum = false;
                 break;
+            case var shape when SurfaceShapeParameters.IsShapeProperty(shape):
+                SurfaceShapeParameters.Write(surface, shape[6..], value);
+                break;
+            case var gradient when GradientIndexParameters.IsGradientProperty(gradient):
+                GradientIndexParameters.Write(Configurations[configIndex], surface, gradient[5..], value);
+                break;
+            case var model when ModelGlassParameters.IsProperty(model):
+                ModelGlassParameters.Write(Configurations[configIndex], surface, model[6..], value);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(property));
         }
@@ -241,7 +251,7 @@ public sealed partial class MultiConfiguration
 
             var target = FindSurface(Configurations[config], surfaceNumber);
             CopyProperty(source, target, normalizedProperty);
-            if (normalizedProperty == "material") SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
+            if (normalizedProperty == "material" || GradientIndexParameters.IsGradientProperty(normalizedProperty) || ModelGlassParameters.IsProperty(normalizedProperty)) SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
             Configurations[config].SurfaceGroup.Renumber();
         }
     }
@@ -284,6 +294,20 @@ public sealed partial class MultiConfiguration
                     CopyMaterial(source, target);
                     SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
                 }
+                foreach (var parameter in SurfaceShapeParameters.CoefficientNames(source))
+                {
+                    var property = SurfaceShapeParameters.Property(parameter);
+                    if (!_brokenLinks.Contains((config, surfaceNumber, property))) CopyProperty(source, target, property);
+                }
+                foreach (var property in GradientProperties(source))
+                {
+                    if (!_brokenLinks.Contains((config, surfaceNumber, property))) CopyProperty(source, target, property);
+                }
+                foreach (var property in ModelProperties(source))
+                {
+                    if (!_brokenLinks.Contains((config, surfaceNumber, property))) CopyProperty(source, target, property);
+                }
+                if (source.MaterialAfter is Materials.GradientIndexMaterial or Materials.ModelGlassMaterial) SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
             }
 
             Configurations[config].SurfaceGroup.Renumber();
@@ -347,6 +371,15 @@ public sealed partial class MultiConfiguration
             case "material":
                 CopyMaterial(source, target);
                 break;
+            case var shape when SurfaceShapeParameters.IsShapeProperty(shape):
+                SurfaceShapeParameters.Write(target, shape[6..], SurfaceShapeParameters.Read(source, shape[6..]));
+                break;
+            case var gradient when GradientIndexParameters.IsGradientProperty(gradient):
+                GradientIndexParameters.CopyValue(source, target, gradient[5..]);
+                break;
+            case var model when ModelGlassParameters.IsProperty(model):
+                ModelGlassParameters.WriteStored(target, model[6..], ModelGlassParameters.Read(source, model[6..]));
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(property));
         }
@@ -381,15 +414,25 @@ public sealed partial class MultiConfiguration
         "material" => source.Material.Equals(target.Material, StringComparison.OrdinalIgnoreCase)
             && source.MaterialAfter.Name.Equals(target.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase)
             && source.IsReflective == target.IsReflective
-            && (source.MaterialAfter is not Materials.GradientIndexMaterial && target.MaterialAfter is not Materials.GradientIndexMaterial
+            && (source.MaterialAfter is not (Materials.GradientIndexMaterial or Materials.ModelGlassMaterial) && target.MaterialAfter is not (Materials.GradientIndexMaterial or Materials.ModelGlassMaterial)
                 || System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(source.MaterialAfter))
                     == System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(target.MaterialAfter))),
+        var shape when SurfaceShapeParameters.IsShapeProperty(shape) =>
+            SurfaceShapeParameters.CoefficientNames(target).Contains(shape[6..])
+            && SurfaceShapeParameters.Read(source, shape[6..]).Equals(SurfaceShapeParameters.Read(target, shape[6..])),
+        var gradient when GradientIndexParameters.IsGradientProperty(gradient) =>
+            source.MaterialAfter is Materials.GradientIndexMaterial sourceMaterial && target.MaterialAfter is Materials.GradientIndexMaterial targetMaterial
+            && Materials.GradientIndexProfileData.Kind(sourceMaterial.Profile) == Materials.GradientIndexProfileData.Kind(targetMaterial.Profile)
+            && GradientIndexParameters.Read(source, gradient[5..]).Equals(GradientIndexParameters.Read(target, gradient[5..])),
+        var model when ModelGlassParameters.IsProperty(model) => source.MaterialAfter is Materials.ModelGlassMaterial && target.MaterialAfter is Materials.ModelGlassMaterial
+            && ModelGlassParameters.Read(source, model[6..]).Equals(ModelGlassParameters.Read(target, model[6..])),
         _ => throw new ArgumentOutOfRangeException(nameof(property))
     };
 
     private static string NormalizeProperty(string property)
     {
         var normalized = property?.Trim().ToLowerInvariant();
+        if (SurfaceShapeParameters.IsShapeProperty(normalized) || GradientIndexParameters.IsGradientProperty(normalized) || ModelGlassParameters.IsProperty(normalized)) return normalized!;
         return normalized is "radius" or "thickness" or "semidiameter" or "conic" or "material"
             ? normalized == "semidiameter" ? "semiDiameter" : normalized
             : throw new ArgumentOutOfRangeException(nameof(property));
@@ -407,6 +450,11 @@ public sealed partial class MultiConfiguration
         _ = NormalizeProperty(link.Property);
     }
 
+    private static IEnumerable<string> GradientProperties(OpticalSurface surface) => surface.MaterialAfter is Materials.GradientIndexMaterial gradient
+        ? Materials.GradientIndexProfileData.Keys(Materials.GradientIndexProfileData.Kind(gradient.Profile)).Select(GradientIndexParameters.Property) : [];
+    private static IEnumerable<string> ModelProperties(OpticalSurface surface) => surface.MaterialAfter is Materials.ModelGlassMaterial
+        ? Materials.ModelGlassMaterial.ParameterNames.Select(ModelGlassParameters.Property) : [];
+
     private void InferBrokenLinks()
     {
         var baseOptic = Configurations[0];
@@ -421,7 +469,8 @@ public sealed partial class MultiConfiguration
                     continue;
                 }
 
-                foreach (var property in new[] { "radius", "thickness", "semiDiameter", "conic", "material" })
+                foreach (var property in new[] { "radius", "thickness", "semiDiameter", "conic", "material" }
+                    .Concat(SurfaceShapeParameters.CoefficientNames(source).Select(SurfaceShapeParameters.Property)).Concat(GradientProperties(source)).Concat(ModelProperties(source)))
                 {
                     if (!PropertyEquals(source, target, property))
                     {

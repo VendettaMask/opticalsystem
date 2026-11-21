@@ -57,7 +57,7 @@ public sealed partial class MainWindow : Window
     private Control? _reflectanceField;
     private bool _loading, _busy;
     private long _uiRevision;
-    private readonly List<Button> _computeButtons = [];
+    private readonly List<Control> _computeControls = [];
     public Task PendingOperation { get; private set; } = Task.CompletedTask;
     public Experiment CurrentExperiment => _session.Current;
 
@@ -82,13 +82,6 @@ public sealed partial class MainWindow : Window
 
         var commandBar = BuildCommandBar();
         _settingsContent = BuildInputs();
-        var actions = new WrapPanel();
-        AddCompute("1 生成膜系", () => RunAsync("generate"), actions);
-        AddCompute("2 优化", () => RunAsync("optimize"), actions);
-        AddCompute("结构搜索", () => RunAsync("search"), actions);
-        AddCompute("计算 / 复验", () => RunAsync("evaluate"), actions);
-        _cancel = ActionButton("取消", () => { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); _status.Text = "已请求取消；当前已完成结果保留。"; return Task.CompletedTask; });
-        actions.Children.Add(_cancel);
         var layerPanel = new Grid { RowDefinitions = new("Auto,*,Auto") };
         var layerHeading = BuildCompactEditorHeader();
         var editorControls = new ScrollViewer
@@ -142,8 +135,8 @@ public sealed partial class MainWindow : Window
             host.AddHandler(KeyDownEvent, HandleEditorHistoryKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
             host.AddHandler(KeyDownEvent, HandleEditorClipboardKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
         };
-        var main = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 6, Name = "CoatingResults" };
-        main.Children.Add(actions); Put(main, _workspace, 1);
+        var main = new Grid { Name = "CoatingResults" };
+        main.Children.Add(_workspace);
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto") };
         main.Margin = new Thickness(8, 8, 8, 0);
         _operationStatus.Margin = new Thickness(12, 8, 12, 8);
@@ -282,7 +275,7 @@ public sealed partial class MainWindow : Window
     {
         var button = ActionButton(label, action);
         if (label is "1 生成膜系" or "2 优化" or "结构搜索" or "计算 / 复验" or "公差复验") button.Classes.Add("accent");
-        _computeButtons.Add(button); panel.Children.Add(button);
+        _computeControls.Add(button); panel.Children.Add(button);
     }
     private static void Put(Grid grid, Control control, int row) { Grid.SetRow(control, row); grid.Children.Add(control); }
     private async Task Guard(Func<Task> action)
@@ -548,10 +541,17 @@ public sealed partial class MainWindow : Window
         _busy = value;
         UpdatePlotState();
         _operationStatus.IsVisible = value;
-        if (value) _operationStatus.Start("正在计算镀膜设计…", () => _session.Cancel());
+        if (value) _operationStatus.Start("正在计算镀膜设计…", CancelCurrentOperation);
         else _operationStatus.MarkIdle(_status.Text ?? "计算已结束");
-        foreach (var button in _computeButtons) ControlAvailability.Set(button, !value, "已有后台计算，请等待完成或先取消。");
-        ControlAvailability.Set(_cancel!, value, "当前没有正在运行的计算。");
+        foreach (var control in _computeControls) ControlAvailability.Set(control, !value, "已有后台计算，请等待完成或先取消。");
+    }
+
+    private void CancelCurrentOperation()
+    {
+        _uiRevision++;
+        _session.Cancel();
+        _plot.CancelPendingEvaluation();
+        _status.Text = "已请求取消；当前已完成结果保留。";
     }
     private async Task SaveAsync() => await TrySaveAsync();
 

@@ -459,10 +459,13 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             if (parameters is SourceParameters source && kind == row.Kind)
             {
                 var group = S("coherenceGroup").Trim();
-                parameters = source with { Physics = new(
-                    new OpticalSystemDesign.Core.Rays.SystemPolarization(B("unpolarized"), D("jx"), D("jy"), D("px"), D("py"),
+                parameters = source with { Physics = (source.Physics ?? new()) with
+                {
+                    Polarization = new OpticalSystemDesign.Core.Rays.SystemPolarization(B("unpolarized"), D("jx"), D("jy"), D("px"), D("py"),
                         E<OpticalSystemDesign.Core.Rays.PolarizationReferenceAxis>("polAxis")),
-                    group.Length == 0 ? null : group, D("sourcePhase")) };
+                    CoherenceGroup = group.Length == 0 ? null : group,
+                    PhaseDegrees = D("sourcePhase")
+                } };
             }
             _service.UpdateObject(row.ToUpdate() with
             {
@@ -508,6 +511,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         MeshObjectParameters p => p with { Behavior = E<NonSequentialSurfaceBehavior>("behavior"), Material = S("material"), TwoSided = B("twoSided") },
         DetectorRectangleParameters p => p with { WidthMillimeters = D("width"), HeightMillimeters = D("height"), PixelsX = I("pixelsX"), PixelsY = I("pixelsY"), FrontOnly = B("frontOnly"), Absorb = B("absorb"), NormalizeCoherentPower = B("normalizeCoherent") },
         OpticalAssemblyParameters p => p,
+        NullObjectParameters p => p,
         _ => throw new InvalidOperationException("未知非序列对象参数。")
     };
 

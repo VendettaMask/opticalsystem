@@ -296,7 +296,11 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                 wavelength,
                 pupilCoordinates,
                 aimAtStop: workingOptic.RayAimingEnabled,
-                usePolarization: _usePolarization)).ToArray();
+                usePolarization: _usePolarization,
+                // A monochromatic RMS curve uses that colour's chief direction.
+                // The common primary direction belongs to the spectral mixture,
+                // otherwise lateral colour is counted as monochromatic wavefront tilt.
+                referenceWavelength: workingOptic.ImageSpaceAfocal ? wavelength : null)).ToArray();
             var polychromaticWavefronts = useSharedReferenceSphere
                 ? wavelengths.Select((wavelength, wavelengthIndex) => WavefrontEngine.GenerateChiefRaySamples(
                     workingOptic,
@@ -312,7 +316,12 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                             primaryReferenceSphere.CenterZ,
                             wavelengthReferenceSpheres[wavelengthIndex].Radius),
                     usePolarization: _usePolarization)).ToArray()
-                : monochromaticWavefronts;
+                : workingOptic.ImageSpaceAfocal && _zemaxCompatibleOutput && _wavelengthNumber == 0 && wavelengths.Length > 1
+                    ? wavelengths.Select(wavelength => WavefrontEngine.GenerateChiefRaySamples(
+                        workingOptic, (field.Hx, field.Hy), wavelength, pupilCoordinates,
+                        aimAtStop: workingOptic.RayAimingEnabled, usePolarization: _usePolarization,
+                        referenceWavelength: referenceWavelength)).ToArray()
+                    : monochromaticWavefronts;
             return new
             {
                 Monochromatic = monochromaticWavefronts.Select(wavefront =>
@@ -353,7 +362,9 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                 XQuantity: wavelengthSeries[0].XQuantity,
                 XUnit: wavelengthSeries[0].XUnit,
                 YQuantity: wavelengthSeries[0].YQuantity,
-                YUnit: wavelengthSeries[0].YUnit));
+                YUnit: wavelengthSeries[0].YUnit,
+                LegendKey: "rms:polychromatic",
+                LegendLabel: "Poly"));
         }
         series.AddRange(wavelengthSeries);
         return new AnalysisData(Name, new Dictionary<string, object>
@@ -371,6 +382,8 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             ["WavelengthNumber"] = _wavelengthNumber,
             ["ScanType"] = _scanType,
             ["RemoveVignettingFactors"] = _removeVignettingFactors,
+            ["MonochromaticReference"] = workingOptic.ImageSpaceAfocal ? "PerWavelengthChiefDirection" : "PerWavelengthReferenceSphere",
+            ["PolychromaticReference"] = workingOptic.ImageSpaceAfocal ? "PrimaryWavelengthChiefDirection" : "PrimaryImageReference",
             ["MaximumRmsWavefrontError"] = series.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max()
         }, series.FirstOrDefault(), series.ToArray(), new AnalysisPlotOptions(
             XMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
@@ -418,6 +431,7 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
     private readonly int _numRings;
     private readonly int _requestedNumTerms;
     private readonly int _actualNumTerms;
+    private readonly int _fitTermCount;
     private readonly int _wavelengthNumber;
 
     public ZernikeVsFieldAnalysis(
@@ -425,12 +439,16 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
         int fieldDensity = 20,
         int numRings = 12,
         int numTerms = 8,
-        int wavelengthNumber = 0) : base(optic)
+        int wavelengthNumber = 0,
+        int fitTermCount = 0) : base(optic)
     {
         _fieldDensity = Math.Clamp(fieldDensity, 2, 200);
         _numRings = Math.Clamp(numRings, 2, 32);
         _requestedNumTerms = numTerms;
         _actualNumTerms = ZernikeFitEngine.ResolveFringeTermCount(numTerms);
+        _fitTermCount = fitTermCount == 0 ? _actualNumTerms : ZernikeFitEngine.ResolveFringeTermCount(fitTermCount);
+        if (_fitTermCount < _actualNumTerms)
+            throw new ArgumentOutOfRangeException(nameof(fitTermCount), "The fitted Fringe basis must include every displayed term.");
         _wavelengthNumber = wavelengthNumber;
     }
 
@@ -465,7 +483,7 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
                         wavelength,
                         _numRings,
                         aimAtStop: Optic.RayAimingEnabled).Samples,
-                    _requestedNumTerms);
+                    _fitTermCount);
                 return (Coordinate: coordinate, Coefficients: coefficients);
             })
             .ToArray();
@@ -504,6 +522,8 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
                 ["ZernikeTerms"] = _actualNumTerms,
                 ["RequestedZernikeTerms"] = _requestedNumTerms,
                 ["ActualZernikeTerms"] = _actualNumTerms,
+                ["DisplayedZernikeTerms"] = _actualNumTerms,
+                ["FittedZernikeTerms"] = _fitTermCount,
                 ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
                 ["WavelengthMicrometers"] = wavelength.Micrometers,
                 ["MaximumField"] = maximumField,

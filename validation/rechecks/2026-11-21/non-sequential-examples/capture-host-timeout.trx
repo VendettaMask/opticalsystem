@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="566049f8-235e-44eb-afbb-60c67803a93e" name="allen@DESKTOP-SET3SNR 2026-11-21 17:06:45" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-21T17:06:45.2259964+08:00" queuing="2026-11-21T17:06:45.2259969+08:00" start="2026-11-21T17:05:14.7944943+08:00" finish="2026-11-21T17:06:45.2268106+08:00" />
+  <TestSettings name="default" id="5b832c76-6667-452c-81a1-15f9aa69b7e1">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-21_17_06_45" />
+  </TestSettings>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="0" executed="0" passed="0" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-21T17:06:45.0005902+08:00">
+        <Text>vstest.console 进程未能在 90 秒后连接到 testhost 进程。出现此问题可能是因为计算机性能较低，请设置环境变量 VSTEST_CONNECTION_TIMEOUT，增加超时时间值。 The process with id 35212 was still running when this message was reported.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -341,6 +341,17 @@ public sealed partial class AnalysisPanel
 
     private static Control BuildFullFieldAberrationPlot(AnalysisViewDto view)
     {
+        if (view.Series.FirstOrDefault()?.Kind == AnalysisSeriesKind.Heatmap)
+        {
+            return new AnalysisPlotControl
+            {
+                Series = view.Series,
+                SampledHeatmap = true,
+                PlotOptions = view.PlotOptions with { ShowLegend = false, GridOpacity = 0, HideTopAndRightAxes = false },
+                MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+                MinWidth = DisplayTypography.Scale(360)
+            };
+        }
         return new FullFieldAberrationControl
         {
             Series = view.Series.FirstOrDefault(),
@@ -1181,6 +1192,26 @@ public sealed partial class AnalysisPanel
         string Row(string metric) => FindRowText(view, metric, "—");
         string WithUnit(string metric, string unit) => Row(metric) is var value && value != "—" ? value + unit : "—";
 
+        if (view.DiffractionEnergySummary is { } energy)
+        {
+            var wavelength = NumericDisplayFormatter.Format(energy.MinimumWavelengthMicrometers)
+                + (energy.WavelengthCount > 1 ? "–" + NumericDisplayFormatter.Format(energy.MaximumWavelengthMicrometers) : "");
+            var reference = UiLocalization.Text(energy.Reference switch { "centroid" => "质心", "chief" => "主光线", "vertex" => "顶点", _ => energy.Reference });
+            var sampling = $"{energy.ActualPupilSampling} × {energy.ActualPupilSampling}";
+            if (energy.RequestedPupilSampling != energy.ActualPupilSampling)
+                sampling = $"{energy.RequestedPupilSampling} × {energy.RequestedPupilSampling} → " + sampling;
+            var unit = energy.DistanceUnit == AnalysisAxisUnit.Milliradian ? "mrad" : "µm";
+            var lines = new List<string>
+            {
+                $"{UiLocalization.Text("波长")}：{wavelength} µm    {UiLocalization.Text("视场")}：{energy.FieldCount}",
+                $"{UiLocalization.Text("参照")}：{reference}    {UiLocalization.Text("最大距离")}：{NumericDisplayFormatter.Format(energy.MaximumDistance)} {unit}",
+                $"{UiLocalization.Text("瞳面采样")}：{sampling}"
+            };
+            if (energy.SamplingValidated && energy.RelativeRmsChange is { } change && energy.RelativeRmsTarget is { } target)
+                lines.Add($"{UiLocalization.Text("采样收敛")}：{change * 100:0.####}%    {UiLocalization.Text("目标")} ≤ {target * 100:0.####}%");
+            return new CompactAnalysisSummary(view.Name, string.Join(Environment.NewLine, lines));
+        }
+
         if (view.PresentationKind == AnalysisPresentationKind.RmsFieldMap && view.Series.FirstOrDefault() is { } rmsMap)
         {
             var xCount = rmsMap.Points.Select(point => point.X).Distinct().Count();
@@ -1321,18 +1352,17 @@ public sealed partial class AnalysisPanel
 
         if (IsHuygensPsfView(view))
         {
-            var wavelengthRange = FindRowText(view, "波长范围", "0");
-            var fieldHy = FindRowText(view, "归一化视场 Hy", "0");
-            var imageExtent = FindRowText(view, "像的尺寸", "0");
-            var strehl = FindRowText(view, "峰值斯特列尔比", "0");
-            var centroidX = FindRowText(view, "质心 X", "0");
-            var centroidY = FindRowText(view, "质心 Y", "0");
-            return new CompactAnalysisSummary(
-                view.PlotOptions.Title,
-                $"从 {wavelengthRange}，视场 Hy = {fieldHy}{Environment.NewLine}"
-                + $"像的尺寸：{imageExtent} µm 平方。{Environment.NewLine}"
-                + $"斯特列尔率：{strehl}{Environment.NewLine}"
-                + $"中心坐标：{centroidX}, {centroidY} µm");
+            var data = view.PsfImageSummary;
+            string Number(double? value) => value is { } finite && double.IsFinite(finite)
+                ? NumericDisplayFormatter.Format(finite, CultureInfo.InvariantCulture) : "—";
+            string Coordinate(double? value) => value is { } finite && double.IsFinite(finite) && data is not null
+                ? AnalysisAxisFormatting.FormatValue(finite, data.CoordinateUnit, CultureInfo.InvariantCulture) : "—";
+            var width = data?.CoordinateUnit == AnalysisAxisUnit.Milliradian ? "角域宽度" : "像宽";
+            return new CompactAnalysisSummary(UiLocalization.Text(view.PlotOptions.Title), UiLocalization.AnalysisReport(string.Join(Environment.NewLine,
+                $"波长：{data?.WavelengthRange ?? "—"}",
+                $"归一化视场 Hy：{Number(data?.NormalizedFieldY)}    {UiLocalization.Text(width)}：{Coordinate(data?.Extent)}",
+                $"斯特列尔比：{Number(data?.Strehl)}",
+                $"质心偏移（相对主光线）：X {Coordinate(data?.CentroidX)}, Y {Coordinate(data?.CentroidY)}")));
         }
 
         if (IsFoucaultView(view))
@@ -1341,12 +1371,18 @@ public sealed partial class AnalysisPanel
             var field = FindRowText(view, "归一化视场 Hy", "0");
             var knife = FindRowText(view, "刀口", "水平线上");
             var position = FindRowText(view, "刀口位置", "0");
+            var positionUnit = "µm";
+            if (view.FoucaultSummary is { } knifeSummary)
+            {
+                position = knifeSummary.KnifePosition.ToString("0.######", CultureInfo.InvariantCulture);
+                positionUnit = AnalysisAxisFormatting.UnitSymbol(knifeSummary.KnifeUnit);
+            }
             var axis = FindRowText(view, "刀口轴", "Y");
             var sampling = FindRowText(view, "采样", "32 x 32");
             return new CompactAnalysisSummary(
                 "傅科分析",
                 $"{wavelength} µm，视场 Hy = {field}{Environment.NewLine}"
-                + $"刀口：{knife}，{axis} = {position} µm{Environment.NewLine}"
+                + $"刀口：{knife}，{axis} = {position} {positionUnit}{Environment.NewLine}"
                 + $"取样：{sampling}");
         }
 
@@ -1419,17 +1455,14 @@ public sealed partial class AnalysisPanel
 
         if (view.PresentationKind == AnalysisPresentationKind.ColorFocusShift)
         {
-            var maximumChange = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("最大焦移变化", StringComparison.Ordinal))?.Value ?? "0";
-            var diffractionLimit = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("衍射极限变化", StringComparison.Ordinal))?.Value ?? "0";
-            var pupilZone = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("光瞳区域", StringComparison.Ordinal))?.Value ?? "0";
-            return new CompactAnalysisSummary(
-                "色焦移",
-                $"最大焦移变化：{maximumChange} µm{Environment.NewLine}"
-                + $"衍射极限变化：{diffractionLimit} µm{Environment.NewLine}"
-                + $"光瞳区域：{pupilZone}");
+            var data = view.ColorFocusShiftSummary;
+            string Value(double? value) => value is { } number && double.IsFinite(number) && data is not null
+                ? AnalysisAxisFormatting.FormatValue(number, data.Unit, CultureInfo.InvariantCulture) : "—";
+            var lines = new List<string> { $"最大焦移变化：{Value(data?.MaximumChange)}" };
+            if (data?.DiffractionLimitChange is { } diffractionLimit)
+                lines.Add($"衍射极限变化：{Value(diffractionLimit)}");
+            lines.Add($"光瞳区域：{data?.PupilZone.ToString("0.0000", CultureInfo.InvariantCulture) ?? "—"}");
+            return new CompactAnalysisSummary(UiLocalization.Text("色焦移"), UiLocalization.AnalysisReport(string.Join(Environment.NewLine, lines)));
         }
 
         if (IsSeidelDiagramView(view))
@@ -1479,19 +1512,18 @@ public sealed partial class AnalysisPanel
 
         if (view.PresentationKind == AnalysisPresentationKind.FullFieldSpot)
         {
-            var rmsRadius = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("RMS 半径", StringComparison.Ordinal))?.Value ?? "0";
-            var geometricRadius = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("GEO 半径", StringComparison.Ordinal))?.Value ?? "0";
-            var scale = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("缩放标尺", StringComparison.Ordinal))?.Value ?? "0";
-            var reference = view.Rows.FirstOrDefault(row =>
-                string.Equals(row.Metric, "参考", StringComparison.Ordinal))?.Value ?? "主光线";
+            var summary = view.FullFieldSpotSummary;
+            if (summary is null) return new CompactAnalysisSummary("全视场点列图", "暂无摘要数据");
+            var unit = AnalysisAxisFormatting.UnitSymbol(summary.Unit);
+            var reference = summary.Reference == SpotReferenceKind.ChiefRay ? "主光线" : "质心";
+            var legend = summary.ColorGrouping == SpotColorGrouping.Field ? "视场" : "波长";
+            var surface = summary.IsImageSurface ? "像面" : summary.SurfaceNumber.ToString(CultureInfo.InvariantCulture);
             return new CompactAnalysisSummary(
                 "全视场点列图",
-                $"单位是 µm。        图例对应于波长{Environment.NewLine}"
-                + $"RMS 半径：{rmsRadius}    GEO 半径：{geometricRadius}{Environment.NewLine}"
-                + $"缩放标尺：{scale}    参考：{reference}");
+                $"面：{surface}    单位是 {unit}。    图例对应于{legend}{Environment.NewLine}"
+                + $"RMS 半径：{summary.RmsRadius.ToString("F2", CultureInfo.InvariantCulture)}{Environment.NewLine}"
+                + $"GEO 半径：{summary.GeometricRadius.ToString("F2", CultureInfo.InvariantCulture)}{Environment.NewLine}"
+                + $"缩放标尺：{summary.ScaleBar.ToString("F2", CultureInfo.InvariantCulture)}    参考：{reference}");
         }
 
         if (view.PresentationKind == AnalysisPresentationKind.FieldCurvature)

@@ -653,6 +653,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
     private readonly TextBlock _statistics = new() { TextWrapping = Avalonia.Media.TextWrapping.Wrap };
     private readonly AnalysisPlotControl _plot = new();
     private readonly AnalysisPlotControl _profilePlot = new();
+    private readonly CheckBox _trueColor = new() { Content = "真彩色", IsChecked = true, IsVisible = false };
     private DetectorDisplayFrame? _displayFrame;
     private NonSequentialDetectorViewDto? _lastView;
     private CancellationTokenSource? _refreshCancellation;
@@ -697,7 +698,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
                 Label("相干组"), _coherenceGroup,
                 Label("偏振模态"), _coherentMode,
                 Label("复场分量"), _fieldComponent,
-                Label("色表"), _colorMap,
+                _trueColor, Label("色表"), _colorMap,
                 Label("归一化"), _normalization,
                 Label("平滑半径"), _smoothing,
                 _logarithmic, _autoRange,
@@ -742,6 +743,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             }
         };
         _colorMap.SelectionChanged += (_, _) => RenderLastView();
+        _trueColor.IsCheckedChanged += (_, _) => RenderLastView();
         _normalization.SelectionChanged += (_, _) => RenderLastView();
         _smoothing.ValueChanged += (_, _) => RenderLastView();
         _logarithmic.IsCheckedChanged += (_, _) => RenderLastView();
@@ -827,6 +829,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         if (_reloadingChoices || _disposed) return;
         _selectionVersion++; _refreshCancellation?.Cancel();
         _lastView = null; _displayFrame = null;
+        _trueColor.IsVisible = false;
         _plot.Series = Array.Empty<AnalysisSeriesDto>(); _profilePlot.Series = Array.Empty<AnalysisSeriesDto>();
         _statistics.Text = "选择已改变，请刷新结果。";
         UpdateFieldControls();
@@ -929,6 +932,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         {
             _statistics.Text = $"探测器结果不可用：{exception.Message}";
             _lastView = null; _displayFrame = null;
+            _trueColor.IsVisible = false;
             _plot.Series = Array.Empty<AnalysisSeriesDto>();
             _profilePlot.Series = Array.Empty<AnalysisSeriesDto>();
         }
@@ -953,13 +957,28 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
 
     private void RenderView(NonSequentialDetectorViewDto view)
     {
-        double? manualMinimum = _autoRange.IsChecked == true
+        _trueColor.IsVisible = view.Rgb is not null;
+        var trueColor = view.Rgb is not null && _trueColor.IsChecked == true;
+        const string colorReason = "真彩色使用实际光谱与统一曝光。关闭真彩色可调整标量显示。";
+        var domain = NonSequentialDetectorDisplay.Domain(view.DataType);
+        ControlAvailability.Set(_colorMap, !trueColor, colorReason);
+        ControlAvailability.Set(_normalization, !trueColor && domain != DetectorDisplayDomain.Phase,
+            trueColor ? colorReason : "相位保留原始角度，不进行强度归一化。");
+        ControlAvailability.Set(_smoothing, !trueColor && domain != DetectorDisplayDomain.Phase,
+            trueColor ? colorReason : "包裹相位不能跨越 ±180° 做线性平滑。");
+        ControlAvailability.Set(_autoRange, !trueColor, colorReason);
+        ControlAvailability.Set(_logarithmic, !trueColor && NonSequentialDetectorDisplay.Domain(view.DataType) == DetectorDisplayDomain.Scalar,
+            trueColor ? colorReason : "相位和有符号分量不使用对数显示。");
+        var rangeReason = trueColor ? colorReason : "自动显示范围";
+        ControlAvailability.Set(_rangeMinimum, !trueColor && _autoRange.IsChecked != true, rangeReason);
+        ControlAvailability.Set(_rangeMaximum, !trueColor && _autoRange.IsChecked != true, rangeReason);
+        double? manualMinimum = trueColor || _autoRange.IsChecked == true
             ? null
             : _rangeMinimum.Value is { } minimum ? decimal.ToDouble(minimum) : 0;
-        double? manualMaximum = _autoRange.IsChecked == true
+        double? manualMaximum = trueColor || _autoRange.IsChecked == true
             ? null
             : _rangeMaximum.Value is { } maximum ? decimal.ToDouble(maximum) : 1;
-        var normalization = _normalization.SelectedItem is DetectorDisplayNormalization selectedNormalization
+        var normalization = !trueColor && _normalization.SelectedItem is DetectorDisplayNormalization selectedNormalization
             ? selectedNormalization
             : DetectorDisplayNormalization.Absolute;
         var display = NonSequentialDetectorDisplay.Transform(
@@ -968,8 +987,8 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             view.PixelsY,
             view.ValueUnit,
             normalization,
-            _smoothing.Value is { } smoothing ? decimal.ToInt32(smoothing) : 0,
-            _logarithmic.IsChecked == true,
+            !trueColor && _smoothing.Value is { } smoothing ? decimal.ToInt32(smoothing) : 0,
+            !trueColor && _logarithmic.IsChecked == true,
             manualMinimum,
             manualMaximum, NonSequentialDetectorDisplay.Domain(view.DataType));
         _displayFrame = display;
@@ -983,14 +1002,17 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
                 points[index] = new AnalysisPointDto(
                     view.XMinimum + (x + 0.5) * (view.XMaximum - view.XMinimum) / view.PixelsX,
                     view.YMinimum + (y + 0.5) * (view.YMaximum - view.YMinimum) / view.PixelsY,
-                    Value: display.Values[index]);
+                    Value: display.Values[index],
+                    Red: trueColor ? view.Rgb![3 * index] : null,
+                    Green: trueColor ? view.Rgb![3 * index + 1] : null,
+                    Blue: trueColor ? view.Rgb![3 * index + 2] : null);
             }
         }
 
         var angle = view.Space == NonSequentialDetectorSpace.Angle;
         var dataType = view.DataType;
-        var transformed = normalization != DetectorDisplayNormalization.Absolute
-            || _logarithmic.IsChecked == true;
+        var transformed = !trueColor && (normalization != DetectorDisplayNormalization.Absolute
+            || _logarithmic.IsChecked == true);
         var (valueQuantity, valueUnit) = NonSequentialDetectorDisplay.ValueAxis(dataType, transformed);
         var dataLabel = dataType >= NonSequentialDetectorDataType.CoherentPower ? NonSequentialDetectorDisplay.DataLabel(dataType) : "";
         var valueLabel = dataLabel.Length > 0 ? dataLabel + (transformed ? $"（{display.ValueUnit}）" : "") : display.ValueUnit;
@@ -1001,7 +1023,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             $"X ({view.XUnit})",
             $"Y ({view.YUnit})",
             points,
-            AnalysisSeriesKind.Heatmap,
+            trueColor ? AnalysisSeriesKind.Raster : AnalysisSeriesKind.Heatmap,
             view.DetectorName,
             ValueLabel: valueLabel,
             ColorMap: _colorMap.SelectedItem is AnalysisColorMap colorMap
@@ -1185,6 +1207,8 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         AutomationProperties.SetName(_fieldComponent, "探测器复场分量");
         AutomationProperties.SetName(_filter, "探测器路径筛选");
         AutomationProperties.SetName(_logarithmic, "对数显示");
+        AutomationProperties.SetName(_trueColor, "真彩色");
+        AutomationProperties.SetAutomationId(_trueColor, "nsc-detector-true-color");
         AutomationProperties.SetName(_colorMap, "热图颜色表");
         AutomationProperties.SetName(_normalization, "显示归一化");
         AutomationProperties.SetName(_smoothing, "平滑半径");

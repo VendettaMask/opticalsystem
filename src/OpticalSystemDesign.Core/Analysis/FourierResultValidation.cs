@@ -109,8 +109,12 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
         var normalizedPupilEstimate = 0d;
         var retryWithPhysicalWindow = false;
         if (source is null) return Unavailable("The optical source cannot be identified losslessly for Fourier validation.");
+        // Energy evaluates an ideal pupil for the first field only. Count its
+        // actual spectral source grids, retaining the same total work limit.
+        var energySources = name == "Diffraction Encircled Energy"
+            ? (create(requested) as DiffractionEncircledEnergyAnalysis)?.NominalPupilSourceCount : null;
         var denseLimit = Math.Min(options.MaximumPupilSampling, AnalysisResourceLimits.MaximumFftGridSize);
-        if (allowStreamedEnergy)
+        if (allowStreamedEnergy && create(requested) is DiffractionEncircledEnergyAnalysis { SupportsStreamedPhysicalPupil: true })
         {
             var initial = Scan(requested, requested, densePhysicalPupil: false);
             if (initial is not null) return initial;
@@ -271,7 +275,7 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 // Conservative nominal-cell accounting includes both actual and
                 // ideal scalar pupils and all defined fields/wavelengths. It is
                 // explicitly not a claim about the tracer's private interpolation work.
-                var nextWork = checked(2L * n * n * sourceCount);
+                var nextWork = checked((energySources ?? 2L * sourceCount) * n * n);
                 if (nextWork > options.MaximumNominalPupilCells - work)
                     return Unavailable("The total declared Fourier pupil-cell budget was exhausted.");
                 work += nextWork;
@@ -303,20 +307,20 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                         {
                             if (n == requested)
                             {
-                                if (allowStreamedEnergy)
-                                {
-                                    if (analysis is not DiffractionEncircledEnergyAnalysis { SupportsStreamedPhysicalPupil: true } selectedEnergy)
-                                        return Unavailable("Adaptive energy requires a scalar focal radial analysis with a selected field and wavelength and a positive maximum radius.");
+                                if (allowStreamedEnergy && analysis is DiffractionEncircledEnergyAnalysis { SupportsStreamedPhysicalPupil: true } selectedEnergy)
                                     streamedEnergy = selectedEnergy;
-                                }
                                 supportsDensePupil = analysis is FftPsfCrossSectionAnalysis { SupportsDensePhysicalPupil: true }
                                     or PsfAnalysis { SupportsDensePhysicalPupil: true };
                                 supportsPhysicalPsfWindow = analysis is PsfAnalysis { SupportsPhysicalPsfWindow: true };
                                 supportsStreamedPsf = analysis is PsfAnalysis { SupportsStreamedPhysicalPupil: true };
                                 supportsStreamedProfile = analysis is FftPsfCrossSectionAnalysis { SupportsStreamedPhysicalPupil: true };
                             }
-                            data = analysis is PsfAnalysis directPsf
-                                ? directPsf.GenerateSamplingValidationBaseline() : analysis.GenerateData();
+                            data = analysis switch
+                            {
+                                PsfAnalysis directPsf => directPsf.GenerateSamplingValidationBaseline(),
+                                DiffractionEncircledEnergyAnalysis energy when original is not null => energy.GenerateOnFixedDomain(original),
+                                _ => analysis.GenerateData()
+                            };
                         }
                     }
                 }
@@ -338,7 +342,7 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 { return Unavailable(unavailable.Message); }
                 catch (ArgumentOutOfRangeException) when (n > requested)
                 { return Unavailable("The refined Fourier grid exceeds the existing backend allocation limit."); }
-                if (data.Values.TryGetValue("WavelengthNumber", out var selection) && selection is int wave)
+                if (energySources is null && data.Values.TryGetValue("WavelengthNumber", out var selection) && selection is int wave)
                 {
                     var fields = data.Values.GetValueOrDefault("FieldCount") is int count ? Math.Max(1, count) : 1;
                     var activeSources = (wave != 0 ? 1L : Math.Max(1, Optic.Wavelengths.Count)) * fields;
@@ -396,7 +400,8 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 }
                 var error = previous is null ? ((double Rms, double Max)?)null : Difference(previous, projected);
                 steps.Add(new(n, resolved, error?.Rms, error?.Max) { UsesDensePhysicalPupil = densePhysicalPupil,
-                    UsesPhysicalPsfWindow = physicalPsfWindow });
+                    UsesPhysicalPsfWindow = physicalPsfWindow,
+                    MaximumPupilPhaseStepWaves = phase.Count > 0 ? phase.Max(p => p.MaximumStepWaves) : null });
                 if (previousResolved && resolved && error is { } delta && Accept(delta))
                 {
                     var candidate = options.Mode == FourierSamplingMode.ValidateRequested ? Project(original, original) : projected;

@@ -233,7 +233,8 @@ public sealed class PupilFoucaultExtensionTests
         Assert.Contains("Poynting", result.Values["SpatialPowerModel"].ToString());
         Assert.Equal(2d, result.Values["KnifeDistanceMillimeters"]);
         Assert.Equal(3d, result.Values["ObservationDistanceMillimeters"]);
-        Assert.Throws<NotSupportedException>(() => new FoucaultAnalysis(optic, sampling: 16).GenerateData());
+        Assert.Equal(AnalysisAxisUnit.Milliradian,
+            new FoucaultAnalysis(optic, sampling: 16).GenerateData().Values["KnifeCoordinateUnit"]);
         Assert.Throws<ArgumentException>(() => FoucaultEngine.Compute(optic, (0, 0), optic.Wavelengths.Single(), 16,
             FoucaultKnifeEdge.VerticalLeft, 0, true, FoucaultPropagationMode.SpatialAngularSpectrum));
         Assert.Throws<ArgumentOutOfRangeException>(() => new FoucaultAnalysis(optic, knifeDistanceMillimeters: -1));

@@ -1,0 +1,542 @@
+{
+  "scope": "representative-six-selected-from-menu95",
+  "catalogSource": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\index.json",
+  "catalogCount": 95,
+  "lenses": [
+    {
+      "name": "double-gauss",
+      "file": "Double Gauss 28 degree field.zmx",
+      "relativePath": "Objectives/Double Gauss 28 degree field.zmx",
+      "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+      "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "kind": "常规折射物镜",
+      "selectionReason": "多片折射、轴上与离轴像差、色差和常规成像图",
+      "inMenu95": true
+    },
+    {
+      "name": "schmidt-cassegrain",
+      "file": "Schmidt-Cassegrain.zmx",
+      "relativePath": "Telescopes/Schmidt-Cassegrain.zmx",
+      "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Schmidt-Cassegrain.zmx",
+      "sha256": "1c423da6e3b927b28745a3679ffa6d60d32689f7ff7c7685c03e7507e70190ab",
+      "kind": "折反射望远镜",
+      "selectionReason": "反射路径、非球面、中心遮拦及环形光瞳",
+      "inMenu95": true
+    },
+    {
+      "name": "yolo",
+      "file": "Yolo.zmx",
+      "relativePath": "Telescopes/Yolo.zmx",
+      "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Yolo.zmx",
+      "sha256": "6a39e474aebba39360f7deb75a0ca07997ed9055caaa3988c006c59addb28e9a",
+      "kind": "离轴反射系统",
+      "selectionReason": "倾斜偏心、坐标变换及不对称光线布局",
+      "inMenu95": true
+    },
+    {
+      "name": "afocal-riflescope",
+      "file": "Afocal Riflescope.ZMX",
+      "relativePath": "Afocal/Afocal Riflescope.ZMX",
+      "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Afocal\\Afocal Riflescope.ZMX",
+      "sha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "kind": "无焦系统",
+      "selectionReason": "无焦光束、角度坐标及无焦分析适用性",
+      "inMenu95": true
+    },
+    {
+      "name": "zoom-lens",
+      "file": "Zoom lens.zmx",
+      "relativePath": "Zoom systems/Zoom lens.zmx",
+      "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Zoom systems\\Zoom lens.zmx",
+      "sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+      "kind": "多配置变焦",
+      "selectionReason": "多配置处方、变焦光路及配置矩阵显示",
+      "inMenu95": true,
+      "nativeDirectory": "zemax-config1",
+      "nativeRequestDirectory": "zemax",
+      "nativeSnapshotConfiguration": 1,
+      "reloadNativeBeforeEachWindow": true,
+      "previousNativeCaptureDirectory": "zemax"
+    },
+    {
+      "name": "grating",
+      "file": "Grating.zmx",
+      "relativePath": "Diffractive components/Grating.zmx",
+      "source": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Diffractive components\\Grating.zmx",
+      "sha256": "a44b51511647438fc88a2f74026a2fd37f746c6fd3b4ff3f856ca763b83dca3a",
+      "kind": "衍射光栅系统",
+      "selectionReason": "衍射方向、波长分离与衍射系统图形",
+      "inMenu95": true
+    }
+  ],
+  "analyses": [
+    {
+      "key": "Single Ray Trace",
+      "id": "RayTrace",
+      "code": "Rtr",
+      "slug": "single-ray-trace"
+    },
+    {
+      "key": "First Order",
+      "id": "SystemData",
+      "code": "Sys",
+      "slug": "first-order"
+    },
+    {
+      "key": "Seidel Coefficients",
+      "id": "SeidelCoefficients",
+      "code": "Sei",
+      "slug": "seidel-coefficients"
+    },
+    {
+      "key": "Seidel Diagram",
+      "id": "SeidelDiagram",
+      "code": "Sdi",
+      "slug": "seidel-diagram"
+    },
+    {
+      "key": "Spot Diagram",
+      "id": "StandardSpot",
+      "code": "Spt",
+      "slug": "spot-diagram"
+    },
+    {
+      "key": "Full Field Spot Diagram",
+      "id": "FullFieldSpot",
+      "code": "Sff",
+      "slug": "full-field-spot-diagram"
+    },
+    {
+      "key": "Matrix Spot Diagram",
+      "id": "MatrixSpot",
+      "code": "Sma",
+      "slug": "matrix-spot-diagram"
+    },
+    {
+      "key": "Configuration Matrix Spot Diagram",
+      "id": "ConfigurationMatrixSpot",
+      "code": "Smc",
+      "slug": "configuration-matrix-spot-diagram"
+    },
+    {
+      "key": "Ray Fan",
+      "id": "RayFan",
+      "code": "Ray",
+      "slug": "ray-fan"
+    },
+    {
+      "key": "Footprint Diagram",
+      "id": "FootprintSettings",
+      "code": "Foo",
+      "slug": "footprint-diagram"
+    },
+    {
+      "key": "Field Curvature and Distortion",
+      "id": "FieldCurvatureAndDistortion",
+      "code": "Fcd",
+      "slug": "field-curvature-and-distortion"
+    },
+    {
+      "key": "Grid Distortion",
+      "id": "GridDistortion",
+      "code": "Grd",
+      "slug": "grid-distortion"
+    },
+    {
+      "key": "Field Curvature",
+      "id": "FieldCurvatureAndDistortion",
+      "code": "Fcd",
+      "slug": "field-curvature"
+    },
+    {
+      "key": "Color Focus Shift",
+      "id": "FocalShiftDiagram",
+      "code": "Cfs",
+      "slug": "color-focus-shift"
+    },
+    {
+      "key": "Lateral Color",
+      "id": "LateralColor",
+      "code": "Lat",
+      "slug": "lateral-color"
+    },
+    {
+      "key": "Axial Aberration",
+      "id": "LongitudinalAberration",
+      "code": "Lon",
+      "slug": "axial-aberration"
+    },
+    {
+      "key": "Full Field Aberration",
+      "id": "FullFieldAberration",
+      "code": "Ffa",
+      "slug": "full-field-aberration"
+    },
+    {
+      "key": "Encircled Energy",
+      "id": "GeometricEncircledEnergy",
+      "code": "Gee",
+      "slug": "encircled-energy"
+    },
+    {
+      "key": "Diffraction Encircled Energy",
+      "id": "DiffractionEncircledEnergy",
+      "code": "Enc",
+      "slug": "diffraction-encircled-energy"
+    },
+    {
+      "key": "Geometric Line Edge Spread",
+      "id": "GeometricLineEdgeSpread",
+      "code": "Lin",
+      "slug": "geometric-line-edge-spread"
+    },
+    {
+      "key": "Extended Source Encircled Energy",
+      "id": "ExtendedSourceEncircledEnergy",
+      "code": "Xse",
+      "slug": "extended-source-encircled-energy"
+    },
+    {
+      "key": "Pupil Aberration",
+      "id": "PupilAberrationFan",
+      "code": "Pab",
+      "slug": "pupil-aberration"
+    },
+    {
+      "key": "RMS vs Field",
+      "id": "RMSField",
+      "code": "Rms",
+      "slug": "rms-vs-field"
+    },
+    {
+      "key": "RMS vs Wavelength",
+      "id": "RMSLambdaDiagram",
+      "code": "Rmw",
+      "slug": "rms-vs-wavelength"
+    },
+    {
+      "key": "RMS vs Focus",
+      "id": "RMSFocus",
+      "code": "Rmf",
+      "slug": "rms-vs-focus"
+    },
+    {
+      "key": "RMS Field Map",
+      "id": "RMSFieldMap",
+      "code": "Rfm",
+      "slug": "rms-field-map"
+    },
+    {
+      "key": "RMS Wavefront vs Field",
+      "id": "RMSField",
+      "code": "Rms",
+      "slug": "rms-wavefront-vs-field"
+    },
+    {
+      "key": "Through Focus",
+      "id": "ThroughFocusSpot",
+      "code": "Stf",
+      "slug": "through-focus"
+    },
+    {
+      "key": "Fourier Through Focus MTF",
+      "id": "FftThroughFocusMtf",
+      "code": "Tfm",
+      "slug": "fourier-through-focus-mtf"
+    },
+    {
+      "key": "Huygens Through Focus MTF",
+      "id": "HuygensThroughFocusMtf",
+      "code": "Htf",
+      "slug": "huygens-through-focus-mtf"
+    },
+    {
+      "key": "Geometric Through Focus MTF",
+      "id": "GeometricThroughFocusMtf",
+      "code": "Tfg",
+      "slug": "geometric-through-focus-mtf"
+    },
+    {
+      "key": "Fourier MTF vs Field",
+      "id": "FftMtfvsField",
+      "code": "Mth",
+      "slug": "fourier-mtf-vs-field"
+    },
+    {
+      "key": "Huygens MTF vs Field",
+      "id": "HuygensMtfvsField",
+      "code": "Hmh",
+      "slug": "huygens-mtf-vs-field"
+    },
+    {
+      "key": "Geometric MTF vs Field",
+      "id": "GeometricMtfvsField",
+      "code": "Gvf",
+      "slug": "geometric-mtf-vs-field"
+    },
+    {
+      "key": "FFT Surface MTF",
+      "id": "FftSurfaceMtf",
+      "code": "Smf",
+      "slug": "fft-surface-mtf"
+    },
+    {
+      "key": "FFT MTF Map",
+      "id": "FftMtfMap",
+      "code": "Fmm",
+      "slug": "fft-mtf-map"
+    },
+    {
+      "key": "Huygens Surface MTF",
+      "id": "HuygensSurfaceMtf",
+      "code": "Hsm",
+      "slug": "huygens-surface-mtf"
+    },
+    {
+      "key": "Geometric MTF Map",
+      "id": "GeometricMtfMap",
+      "code": "Gmm",
+      "slug": "geometric-mtf-map"
+    },
+    {
+      "key": "Angle vs Image Height",
+      "id": "IncidentAnglevsImageHeight",
+      "code": "Iht",
+      "slug": "angle-vs-image-height"
+    },
+    {
+      "key": "Angle vs Image Height - Through Pupil",
+      "id": "IncidentAnglevsImageHeight",
+      "code": "Iht",
+      "slug": "angle-vs-image-height---through-pupil"
+    },
+    {
+      "key": "Angle vs Image Height - Through Field",
+      "id": "IncidentAnglevsImageHeight",
+      "code": "Iht",
+      "slug": "angle-vs-image-height---through-field"
+    },
+    {
+      "key": "Cardinal Points Data",
+      "id": "CardinalPoints",
+      "code": "Car",
+      "slug": "cardinal-points-data"
+    },
+    {
+      "key": "Vignetting Diagram",
+      "id": "VignettingDiagramSettings",
+      "code": "Vig",
+      "slug": "vignetting-diagram"
+    },
+    {
+      "key": "Relative Illumination",
+      "id": "RelativeIllumination",
+      "code": "Rel",
+      "slug": "relative-illumination"
+    },
+    {
+      "key": "Incoherent Irradiance",
+      "id": "",
+      "code": null,
+      "slug": "incoherent-irradiance"
+    },
+    {
+      "key": "Radiant Intensity",
+      "id": "",
+      "code": null,
+      "slug": "radiant-intensity"
+    },
+    {
+      "key": "Y-Ybar",
+      "id": "YYbarDiagram",
+      "code": "Yyb",
+      "slug": "y-ybar"
+    },
+    {
+      "key": "PSF",
+      "id": "FftPsf",
+      "code": "Fps",
+      "slug": "psf"
+    },
+    {
+      "key": "FFT PSF Cross Section",
+      "id": "FftPsfCrossSection",
+      "code": "Pcs",
+      "slug": "fft-psf-cross-section"
+    },
+    {
+      "key": "FFT Line Edge Spread",
+      "id": "FftPsfLineEdgeSpread",
+      "code": "Lsf",
+      "slug": "fft-line-edge-spread"
+    },
+    {
+      "key": "Huygens PSF",
+      "id": "HuygensPsf",
+      "code": "Hps",
+      "slug": "huygens-psf"
+    },
+    {
+      "key": "Huygens PSF Cross Section",
+      "id": "HuygensPsfCrossSection",
+      "code": "Hcs",
+      "slug": "huygens-psf-cross-section"
+    },
+    {
+      "key": "MTF",
+      "id": "FftMtf",
+      "code": "Mtf",
+      "slug": "mtf"
+    },
+    {
+      "key": "Huygens MTF",
+      "id": "HuygensMtf",
+      "code": "Hmf",
+      "slug": "huygens-mtf"
+    },
+    {
+      "key": "Geometric MTF",
+      "id": "GeometricMtf",
+      "code": "Gtf",
+      "slug": "geometric-mtf"
+    },
+    {
+      "key": "Sampled MTF",
+      "id": "",
+      "code": null,
+      "slug": "sampled-mtf"
+    },
+    {
+      "key": "Contrast Loss Map",
+      "id": "ContrastLoss",
+      "code": null,
+      "slug": "contrast-loss-map"
+    },
+    {
+      "key": "Optical Path Difference",
+      "id": "OpticalPathFan",
+      "code": "Opd",
+      "slug": "optical-path-difference"
+    },
+    {
+      "key": "Foucault Analysis",
+      "id": "Foucault",
+      "code": "Foa",
+      "slug": "foucault-analysis"
+    },
+    {
+      "key": "Wavefront",
+      "id": "WavefrontMap",
+      "code": "Wfm",
+      "slug": "wavefront"
+    },
+    {
+      "key": "Interferogram",
+      "id": "Interferogram",
+      "code": "Int",
+      "slug": "interferogram"
+    },
+    {
+      "key": "Centroid Sphere Wavefront",
+      "id": "",
+      "code": null,
+      "slug": "centroid-sphere-wavefront"
+    },
+    {
+      "key": "Best Fit Sphere Wavefront",
+      "id": "",
+      "code": null,
+      "slug": "best-fit-sphere-wavefront"
+    },
+    {
+      "key": "Image Simulation",
+      "id": "ImageSimulation",
+      "code": "Sim",
+      "slug": "image-simulation"
+    },
+    {
+      "key": "Geometric Image Analysis",
+      "id": "GeometricImageAnalysis",
+      "code": "Ima",
+      "slug": "geometric-image-analysis"
+    },
+    {
+      "key": "Geometric Bitmap Image Analysis",
+      "id": "GeometricBitmapImageAnalysis",
+      "code": "Ibm",
+      "slug": "geometric-bitmap-image-analysis"
+    },
+    {
+      "key": "Light Source Analysis",
+      "id": "LightSourceAnalysis",
+      "code": "Lsa",
+      "slug": "light-source-analysis"
+    },
+    {
+      "key": "Partially Coherent Image Analysis",
+      "id": "PartiallyCoherentImageAnalysis",
+      "code": "Pci",
+      "slug": "partially-coherent-image-analysis"
+    },
+    {
+      "key": "Extended Diffraction Image Analysis",
+      "id": "ExtendedDiffractionImageAnalysis",
+      "code": "Xdi",
+      "slug": "extended-diffraction-image-analysis"
+    },
+    {
+      "key": "Jones Pupil",
+      "id": "PolarizationPupilMap",
+      "code": "Pmp",
+      "slug": "jones-pupil"
+    },
+    {
+      "key": "Prescription Report",
+      "id": "PrescriptionDataSettings",
+      "code": "Pre",
+      "slug": "prescription-report"
+    },
+    {
+      "key": "System Data Report",
+      "id": "SystemData",
+      "code": "Sys",
+      "slug": "system-data-report"
+    },
+    {
+      "key": "Classified Data Report",
+      "id": "",
+      "code": null,
+      "slug": "classified-data-report"
+    },
+    {
+      "key": "2D Layout",
+      "id": "Draw2D",
+      "code": "Lay",
+      "slug": "2d-layout"
+    },
+    {
+      "key": "3D Layout",
+      "id": "Draw3D",
+      "code": "L3d",
+      "slug": "3d-layout"
+    },
+    {
+      "key": "Solid Model",
+      "id": "ShadedModel",
+      "code": "Lsh",
+      "slug": "solid-model"
+    },
+    {
+      "key": "Zernike vs Field",
+      "id": "ZernikeCoefficientsVsField",
+      "code": "Zvf",
+      "slug": "zernike-vs-field"
+    },
+    {
+      "key": "Wavefront Map",
+      "id": "WavefrontMap",
+      "code": "Wfm",
+      "slug": "wavefront-map"
+    }
+  ]
+}

@@ -317,6 +317,7 @@ internal static class ExtendedSceneImageSupport
         double psfEnergyFraction = 0,
         IReadOnlyDictionary<string, object>? additionalValues = null)
     {
+        if (optic.ImageSpaceAfocal) return ImageSimulationEngine.AfocalNotApplicable(name);
         oversampling = Math.Clamp(oversampling, 1, 16);
         var source = ImageSimulationEngine.CreateSourceImage(
             sourcePattern,

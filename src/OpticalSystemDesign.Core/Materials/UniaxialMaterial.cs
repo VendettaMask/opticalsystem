@@ -37,6 +37,29 @@ public sealed class UniaxialMaterial : IMaterial
 /// <summary>Momentum ellipsoid k^T A k = 1; the ray follows normalize(A k).</summary>
 public readonly record struct OpticalIndexEllipsoid(Vector3D Axis, double OrdinaryIndex, double ExtraordinaryIndex, bool IsExtraordinary)
 {
+    internal Vector3D? SolveMomentum(Vector3D tangential, Vector3D normal, double sign)
+    {
+        var an = Apply(normal); var at = Apply(tangential);
+        var a = Dot(normal, an); var b = Dot(normal, at); var c = Dot(tangential, at) - 1;
+        var discriminant = b * b - a * c;
+        if (!double.IsFinite(discriminant) || a <= 0) throw new ArithmeticException("Invalid crystal interface dispersion.");
+        if (discriminant < 0) return null;
+        return tangential + ((-b + sign * Math.Sqrt(discriminant)) / a) * normal;
+    }
+
+    // Waveplate geometry follows the ordinary ray. Its extraordinary phase
+    // follows the refracted eigenmode's energy direction over the same length.
+    internal double WaveplatePhaseIndex(Vector3D ordinaryDirection, Vector3D entryNormal)
+    {
+        entryNormal /= entryNormal.Length;
+        var ordinaryMomentum = OrdinaryIndex * ordinaryDirection;
+        var tangent = ordinaryMomentum - Dot(ordinaryMomentum, entryNormal) * entryNormal;
+        var momentum = SolveMomentum(tangent, entryNormal, Math.CopySign(1, Dot(ordinaryDirection, entryNormal)))
+            ?? throw new NotSupportedException("The extraordinary waveplate eigenmode is evanescent.");
+        var energy = Apply(momentum);
+        return Dot(momentum, energy) / energy.Length;
+    }
+
     internal Vector3D Apply(Vector3D momentum)
     {
         var ordinary = 1 / (OrdinaryIndex * OrdinaryIndex);

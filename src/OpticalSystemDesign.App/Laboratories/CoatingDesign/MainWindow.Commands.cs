@@ -57,8 +57,10 @@ public sealed partial class MainWindow
         AutomationProperties.SetName(exampleButton, "镀膜示例");
         CommandTip(exampleButton, "选择镀膜示例");
         commands.Children.Add(exampleButton);
-        commands.Children.Add(SettingsMenu("设计", "设计选项", "settings-general", [("设计目标设置", 0), ("介质与膜料设置", 1)]));
-        commands.Children.Add(SettingsMenu("优化", "优化选项", "optimization-wizard", [("优化设置", 2), ("公差设置", 3)]));
+        commands.Children.Add(SettingsMenu("设计", "设计选项", "settings-general", [("设计目标设置", 0), ("介质与膜料设置", 1)],
+            [("生成膜系", "generate"), ("计算 / 复验", "evaluate")]));
+        commands.Children.Add(SettingsMenu("优化", "优化选项", "optimization-wizard", [("优化设置", 2), ("公差设置", 3)],
+            [("优化", "optimize"), ("结构搜索", "search")]));
         commands.Children.Add(CommandDivider());
         commands.Children.Add(ToolCommand("材料", "材料管理", "materials-library", ManageMaterialsAsync));
         commands.Children.Add(ToolCommand("堆栈几何", "堆栈几何分析", "coating-stack", ShowStackGeometryAsync));
@@ -76,7 +78,7 @@ public sealed partial class MainWindow
             Name = "LaboratoryHeader", Child = row, Padding = new Thickness(10, 5),
             BorderThickness = new Thickness(0, 0, 0, 1)
         };
-        bar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        bar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.RibbonPageBackground);
         bar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var tools = new Style(s => s.Is<Button>().Class("coating-tool"));
         tools.Setters.Add(new Setter(MinHeightProperty, 32d));
@@ -103,9 +105,22 @@ public sealed partial class MainWindow
         return button;
     }
 
-    private DropDownButton SettingsMenu(string text, string name, string icon, (string Label, int Page)[] pages)
+    private DropDownButton SettingsMenu(string text, string name, string icon, (string Label, int Page)[] pages,
+        (string Label, string Action)[] computations)
     {
         var menu = new MenuFlyout();
+        foreach (var (label, action) in computations)
+        {
+            var item = new MenuItem
+            {
+                Name = "CoatingCompute_" + action, Header = UiLocalization.Text(label), Tag = label
+            };
+            AutomationProperties.SetName(item, label);
+            item.Click += (_, _) => TrackOperation(() => RunAsync(action));
+            _computeControls.Add(item);
+            menu.Items.Add(item);
+        }
+        menu.Items.Add(new Separator());
         foreach (var (label, page) in pages)
         {
             var item = new MenuItem { Header = UiLocalization.Text(label), Tag = label };

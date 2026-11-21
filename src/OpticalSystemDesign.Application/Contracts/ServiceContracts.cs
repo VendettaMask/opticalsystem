@@ -185,6 +185,8 @@ public interface IPrescriptionService
     void SetSemiDiameterSolve(int surfaceNumber, SemiDiameterSolveUpdateDto update, long? expectedRevision = null);
 
     SystemSettingsDto GetSystemSettings();
+    LensScaleSettingsDto GetLensScaleSettings();
+    void ScaleLens(LensScaleRequestDto request, long expectedRevision);
 
     PolarizationSettingsDto GetPolarizationSettings();
 
@@ -208,6 +210,8 @@ public interface IPrescriptionService
     void UpdateSurface(SurfaceRowDto surface);
 
     void UpdateSurfaceComponents(int surfaceNumber, SurfaceComponentUpdateDto update);
+
+    void UpdateSurfaceDrawingSettings(int surfaceNumber, SurfaceDrawingOptionsDto drawing, string? surfaceColor = null);
 
     IReadOnlyList<GradientIndexProfileOptionDto> GetGradientIndexProfiles();
 
@@ -348,6 +352,10 @@ public interface IMaterialCatalogService
 
     /// <summary>Resolves a catalog glass using its qualified name or the current project's catalog order.</summary>
     GlassMaterialDto? FindGlass(string materialName);
+
+    /// <summary>Evaluates F-d-C indices and Vd from the resolved model within its declared range; never substitutes catalog reference constants.</summary>
+    /// <param name="useCatalogDefinition">Use the complete external catalog shown by GetGlasses; false preserves project material resolution and saved definitions.</param>
+    GlassConstantsDto? CalculateGlassConstants(string materialName, bool useCatalogDefinition = false);
 
     AnalysisViewDto Analyze(MaterialAnalysisRequestDto request);
 

@@ -419,7 +419,10 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             if (mode == OptimizationVariableUpdateMode.ClearAll)
             {
                 Runtime.ClearMultiConfigurationVariables();
+                Runtime.ClearSurfaceRadiusAndThicknessVariables();
+                Runtime.ClearSurfaceShapeVariables();
                 Runtime.ClearGradientIndexVariables();
+                Runtime.ClearModelGlassVariables();
                 foreach (var surface in Runtime.Surfaces.Where(s => s.CoatingModel is CoherentMultilayerCoating))
                 {
                     var coating = (CoherentMultilayerCoating)surface.CoatingModel;

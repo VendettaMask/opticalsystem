@@ -13,23 +13,10 @@ public static partial class DiffractionEngine
         var longest = wavelengths.MaxBy(w => w.Nanometers)!;
         if (optic.ImageSpaceAfocal)
         {
-            var diameter = ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic);
-            if (!(diameter > 0)) throw new AnalysisDataUnavailableException("Diffraction Encircled Energy", "no finite exit pupil");
-            var angularPitch = 2 * longest.Micrometers / (diameter * Math.Sqrt(pupilSampling));
+            var angularPitch = AfocalCumulativeEnergyPitch(optic, longest, pupilSampling);
             return wavelengths.Select(wave =>
             {
-                // Form the angular Fourier interval directly. Canceling the
-                // pupil diameter through a rounded default-pitch ratio can
-                // move the four diagonal nodes outside the closed unit pupil.
-                var step = (wave.Micrometers / longest.Micrometers) / (2 * Math.Sqrt(pupilSampling));
-                var aspect = ImageSpaceAnalysisSupport.AfocalFftPupilAspectStretch(
-                    optic, field, wave, optic.RayAimingEnabled);
-                var grid = new PupilGridSpecification(pupilSampling, true, true,
-                    step * aspect.X * (pupilSampling / 2d - 1))
-                {
-                    ExplicitCoordinateStep = step * aspect.X,
-                    ExplicitCoordinateStepY = step * aspect.Y
-                };
+                var grid = AfocalCumulativeEnergyGrid(optic, field, wave, longest, pupilSampling);
                 // Share the scalar FFT amplitude rule with afocal PSF displays;
                 // cumulative integration must receive the same apodized pupil.
                 var result = ComputeFftPsfCore(optic, field, wave, pupilSampling, 2 * pupilSampling,
@@ -234,6 +221,29 @@ public static partial class DiffractionEngine
                 return 1 / (pupilSampling * pitchMillimeters / (wave.Micrometers * .001) / axisFNumber);
             }
         }).ToArray();
+    }
+
+    private static double AfocalCumulativeEnergyPitch(Optic optic, Wavelength longest, int sampling)
+    {
+        var diameter = ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic);
+        if (!(diameter > 0)) throw new AnalysisDataUnavailableException("Diffraction Encircled Energy", "no finite exit pupil");
+        // Wavelength is in micrometers and pupil diameter in millimeters:
+        // this Fourier conjugate spacing is an angle in milliradians.
+        return 2 * longest.Micrometers / (diameter * Math.Sqrt(sampling));
+    }
+
+    private static PupilGridSpecification AfocalCumulativeEnergyGrid(
+        Optic optic, (double Hx, double Hy) field, Wavelength wave, Wavelength longest, int sampling)
+    {
+        // Dense and bounded readouts must retain exactly the same projected
+        // pupil interval, including closed circular boundary nodes.
+        var step = (wave.Micrometers / longest.Micrometers) / (2 * Math.Sqrt(sampling));
+        var aspect = ImageSpaceAnalysisSupport.AfocalFftPupilAspectStretch(optic, field, wave, optic.RayAimingEnabled);
+        return new(sampling, true, true, step * aspect.X * (sampling / 2d - 1))
+        {
+            ExplicitCoordinateStep = step * aspect.X,
+            ExplicitCoordinateStepY = step * aspect.Y
+        };
     }
 
     private static PupilGridSpecification DenseMonochromaticCumulativePupil(Optic optic,

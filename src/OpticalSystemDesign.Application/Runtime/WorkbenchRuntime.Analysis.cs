@@ -51,7 +51,7 @@ public partial class WorkbenchRuntime
     {
         var data = BuildAnalysisData(analysisName, settings, cancellationToken);
         var canonicalName = WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
-        var rows = data.Values
+        var rows = DisplayAnalysisValues(canonicalName, data)
             .Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
             .Where(item => canonicalName != "Interferogram" || item.Key is not ("ContourLevels" or "FieldIsAngular"))
             .Select(item => FormatAnalysisRow(canonicalName, item))
@@ -70,7 +70,23 @@ public partial class WorkbenchRuntime
             InterferogramSummary: canonicalName == "Interferogram" ? BuildInterferogramSummary(data) : null,
             Outcome: data.Outcome,
             OutcomeReason: data.OutcomeReason,
-            ReportSections: data.ReportSections);
+            ReportSections: data.ReportSections)
+        {
+            FullFieldSpotSummary = canonicalName == "Full Field Spot Diagram" && data.Outcome == AnalysisOutcome.Success
+                ? BuildFullFieldSpotSummary(data) : null,
+            ColorFocusShiftSummary = canonicalName == "Color Focus Shift" && data.Outcome == AnalysisOutcome.Success
+                ? BuildColorFocusShiftSummary(data) : null,
+            FoucaultSummary = canonicalName == "Foucault Analysis" && data.Outcome == AnalysisOutcome.Success
+                && data.Values.GetValueOrDefault("KnifeCoordinateUnit") is AnalysisAxisUnit knifeUnit
+                ? new Contracts.FoucaultSummaryDto(Convert.ToDouble(data.Values[knifeUnit == AnalysisAxisUnit.Milliradian
+                    ? "KnifePositionMilliradians" : "KnifePositionMicrometers"]),
+                    (Contracts.AnalysisAxisUnit)(int)knifeUnit) : null,
+            DiffractionEnergySummary = canonicalName == "Diffraction Encircled Energy" && data.Outcome == AnalysisOutcome.Success
+                && data.PlotSeries.Count > 0 && data.Values.GetValueOrDefault("PupilSampling") is int
+                ? BuildDiffractionEnergySummary(data) : null,
+            PsfImageSummary = canonicalName == "Huygens PSF" && data.Outcome == AnalysisOutcome.Success
+                ? BuildPsfImageSummary(data) : null
+        };
         if (data.Outcome != AnalysisOutcome.Success) return view;
         return canonicalName switch
         {
@@ -99,7 +115,9 @@ public partial class WorkbenchRuntime
         if (canonicalName == "Image Simulation" && settings.TryGetValue("OutputFile", out var destination)
             && !string.IsNullOrWhiteSpace(destination)) LosslessImageOutput.RequirePngOrBmp(destination);
         var analysis = CreateAnalysis(canonicalName, settings);
-        var supportsPhaseRecovery = canonicalName is "PSF" or "MTF" or "FFT PSF Cross Section";
+        var energyAnalysis = canonicalName == "Diffraction Encircled Energy";
+        var supportsPhaseRecovery = energyAnalysis || canonicalName is "PSF" or "MTF" or "FFT PSF Cross Section";
+        var pupilSamplingKey = energyAnalysis ? "PupilSampling" : "Sampling";
         var samplingMode = settings.GetValueOrDefault("FourierSamplingMode");
         var automatic = supportsPhaseRecovery && (samplingMode is null or "Automatic" or "按需加密");
         if (!automatic && samplingMode is not (null or "Fixed" or "固定采样"))
@@ -110,30 +128,31 @@ public partial class WorkbenchRuntime
                 "Adaptive" or "自适应精度" => FourierSamplingMode.Adaptive,
                 _ => throw new ArgumentException("Unknown Fourier sampling mode.", nameof(settings))
             };
-            var adaptiveEnergy = canonicalName == "Diffraction Encircled Energy" && mode == FourierSamplingMode.Adaptive;
-            if (!adaptiveEnergy && !supportsPhaseRecovery)
-                throw new NotSupportedException("Result-level Fourier validation supports FFT PSF, its cross section, FFT MTF and adaptive radial FFT energy.");
-            var samplingKey = adaptiveEnergy ? "PupilSampling" : "Sampling";
-            var requested = SettingInt(samplingKey, SettingInt("NumRays", 64));
+            if (!supportsPhaseRecovery)
+                throw new NotSupportedException("Result-level Fourier validation supports FFT PSF, its cross section, FFT MTF and diffraction energy.");
+            var requested = SettingInt(pupilSamplingKey, SettingInt("NumRays", 64));
             if (!FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
                 return AnalysisData.Unavailable(canonicalName, "This optical source cannot be identified losslessly for Fourier validation.");
-            analysis = CreateFourierValidation(samplingKey, requested, mode, SettingInt("FourierMaximumSampling", 1024));
+            analysis = CreateFourierValidation(pupilSamplingKey, requested, mode, SettingInt("FourierMaximumSampling", 1024));
         }
         using var fftSamplingScope = FftPupilSampling.RequireResolvedResults();
         AnalysisData data;
         try { data = analysis.GenerateData(cancellationToken); }
         catch (FftPupilSamplingException error)
         {
-            if (automatic && !CurrentOptic.ImageSpaceAfocal
+            // Angular MTF uses the same typed, fixed physical frequency domain
+            // in result validation. Other angular Fourier outputs retain their
+            // separate eligibility gates until their domain recovery is proven.
+            if (automatic && (!CurrentOptic.ImageSpaceAfocal || canonicalName == "MTF")
                 && error.Diagnostics is { Status: FftPhaseSamplingStatus.UndersampledPhase } measured
                 && double.IsFinite(measured.MaximumStepWaves))
             {
-                var requested = SettingInt("Sampling", SettingInt("NumRays", 64));
+                var requested = SettingInt(pupilSamplingKey, SettingInt("NumRays", 64));
                 var defaultLimit = DefaultFourierRecoveryLimit(canonicalName);
                 var maximum = Math.Min(defaultLimit, SettingInt("FourierMaximumSampling", defaultLimit));
                 if (requested < maximum && FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
                 {
-                    var refined = CreateFourierValidation("Sampling", requested, FourierSamplingMode.Adaptive, maximum)
+                    var refined = CreateFourierValidation(pupilSamplingKey, requested, FourierSamplingMode.Adaptive, maximum)
                         .GenerateData(cancellationToken);
                     return refined with { Values = new Dictionary<string, object>(refined.Values)
                     {
@@ -174,7 +193,59 @@ public partial class WorkbenchRuntime
         }
     }
 
-    private static int DefaultFourierRecoveryLimit(string analysis) => analysis == "FFT PSF Cross Section" ? 4096 : 2048;
+    private Contracts.DiffractionEnergySummaryDto BuildDiffractionEnergySummary(AnalysisData data)
+    {
+        var actual = (int)data.Values["PupilSampling"];
+        var report = data.Values.GetValueOrDefault("FourierSamplingValidation") as FourierValidationReport;
+        var selection = (int)data.Values["WavelengthNumber"];
+        var waves = CurrentOptic.Wavelengths.Where((_, index) => selection <= 0
+            || index == Math.Clamp(selection - 1, 0, CurrentOptic.Wavelengths.Count - 1)).ToArray();
+        var angular = data.PlotSeries[0].XUnit == AnalysisAxisUnit.Milliradian;
+        return new(report?.RequestedPupilSampling ?? actual, actual, (int)data.Values["FieldCount"], waves.Length,
+            waves.Min(w => w.Micrometers), waves.Max(w => w.Micrometers), (string)data.Values["Reference"],
+            angular ? Contracts.AnalysisAxisUnit.Milliradian : Contracts.AnalysisAxisUnit.Micrometer,
+            (double)data.Values[angular ? "MaximumDistanceMilliradians" : "MaximumDistanceMicrometers"],
+            report?.Validated == true, report?.Steps.LastOrDefault()?.RelativeRmsChange, report?.RelativeRmsAccuracy);
+    }
+
+    private static int DefaultFourierRecoveryLimit(string analysis) => analysis switch
+    {
+        "FFT PSF Cross Section" => 4096,
+        "Diffraction Encircled Energy" => 2048,
+        _ => 2048
+    };
+
+    private Contracts.FullFieldSpotSummaryDto BuildFullFieldSpotSummary(AnalysisData data)
+    {
+        // Read canonical, unrounded computation values; formatted/localized
+        // table rows are presentation text and never define footer semantics.
+        var unit = data.PlotSeries.First().XUnit;
+        var reference = data.Values["Reference"] as string;
+        var chief = reference is "主光线" || string.Equals(reference, "chief", StringComparison.OrdinalIgnoreCase);
+        var grouping = data.Values["ColorRaysBy"] as string;
+        var byField = grouping is "视场" || string.Equals(grouping, "field", StringComparison.OrdinalIgnoreCase);
+        var surfaceNumber = (int)data.Values["SurfaceNumber"];
+        return new Contracts.FullFieldSpotSummaryDto(
+            (double)data.Values["RmsRadius"], (double)data.Values["GeometricRadius"],
+            (double)data.Values[unit == Core.Analysis.AnalysisAxisUnit.Milliradian ? "ScaleBarMilliradians" : "ScaleBarMicrometers"],
+            (Contracts.AnalysisAxisUnit)(int)unit,
+            chief ? Contracts.SpotReferenceKind.ChiefRay : Contracts.SpotReferenceKind.Centroid,
+            byField ? Contracts.SpotColorGrouping.Field : Contracts.SpotColorGrouping.Wavelength,
+            surfaceNumber,
+            surfaceNumber == CurrentOptic.SurfaceGroup.Items[^1].Number,
+            chief ? 1 : null);
+    }
+
+    private static Contracts.ColorFocusShiftSummaryDto BuildColorFocusShiftSummary(AnalysisData data)
+    {
+        var unit = data.PlotSeries.First().XUnit;
+        var afocal = unit == Core.Analysis.AnalysisAxisUnit.Diopter;
+        return new Contracts.ColorFocusShiftSummaryDto(
+            (double)data.Values[afocal ? "MaximumFocalShiftChangeDiopters" : "MaximumFocalShiftChangeMicrometers"],
+            afocal ? null : (double)data.Values["DiffractionLimitChangeMicrometers"],
+            (double)data.Values["PupilZone"],
+            (Contracts.AnalysisAxisUnit)(int)unit);
+    }
 
     private Contracts.InterferogramSummaryDto BuildInterferogramSummary(AnalysisData data)
     {
@@ -543,7 +614,7 @@ public partial class WorkbenchRuntime
                 Int("XFieldSamples", 11),
                 Int("YFieldSamples", 11),
                 LeadingInt("PupilSampling", 32),
-                Text("DisplayAs", "图标"),
+                Text("DisplayAs", "颜色图"),
                 Text("DisplayMode", "绝对值")),
             "Encircled Energy" => new EncircledEnergyAnalysis(
                 CurrentOptic,
@@ -674,7 +745,8 @@ public partial class WorkbenchRuntime
                 Int("FieldDensity", 20),
                 Int("NumRings", 12),
                 Int("ZernikeTerms", 8),
-                LeadingInt("WavelengthNumber", 0)),
+                LeadingInt("WavelengthNumber", 0),
+                fitTermCount: ZernikeFitEngine.MaximumFringeTerm),
             "Through Focus" => new ThroughFocusAnalysis(
                 CurrentOptic,
                 new ThroughFocusSpotSettings(
@@ -704,50 +776,52 @@ public partial class WorkbenchRuntime
                     ScatterRays: Bool("ScatterRays", false),
                     UseSymbols: Bool("UseSymbols", true))),
             "Fourier Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Fourier,
-                Double("Frequency", Double("SpatialFrequency", 0)),
+                Double("Frequency", Double("SpatialFrequency", MtfScanFrequencyPreset(0))),
                 Double("DeltaFocus", Double("FocusStep", 0.1)),
                 Int("NumberOfSteps", Int("Steps", Int("FocusPlaneCount", 5))),
                 MtfScanSettings(zemaxCompatible: true),
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0),
                 Text("Type", "调制"), Bool("UseDashes", false)),
             "Huygens Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
-                Double("SpatialFrequency", 20), Double("DeltaFocus", Double("FocusStep", 0.1)),
+                Double("SpatialFrequency", MtfScanFrequencyPreset(20)), Double("DeltaFocus", Double("FocusStep", 0.1)),
                 Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(useHuygensImageSampling: true) with
                 { UseCheckedFocusedPupil = Bool("UseCheckedFocusedPupil", false) },
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0)),
             "Geometric Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
-                Double("SpatialFrequency", 50), Double("DeltaFocus", Double("FocusStep", 0.1)),
+                Double("SpatialFrequency", MtfScanFrequencyPreset(50)), Double("DeltaFocus", Double("FocusStep", 0.1)),
                 Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(),
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0)),
             "Fourier MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Fourier,
-                Double("SpatialFrequency", 20), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
+                Double("SpatialFrequency", MtfScanFrequencyPreset(20)), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
                 Int("WavelengthNumber", 0),
                 FourierFieldFrequencyKeys.Any(settings.ContainsKey)
-                    ? FourierFieldFrequencyKeys.Select((key, index) => Double(key, (index + 1) * 10))
+                    ? FourierFieldFrequencyKeys.Select((key, index) => Double(key, MtfFieldFrequencyPreset(index + 1)))
                         .Where(frequency => frequency != 0).ToArray()
-                    : null,
+                    : CurrentOptic.ImageSpaceAfocal && !settings.ContainsKey("SpatialFrequency")
+                        ? Enumerable.Range(1, 6).Select(MtfFieldFrequencyPreset).ToArray() : null,
                 Text("ScanType", "+y"), Bool("RemoveVignettingFactors", true), zemaxCompatibleOutput: true),
             "Huygens MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
-                Double("Frequency1", 10), Int("FieldDensity", 10),
+                Double("Frequency1", MtfFieldFrequencyPreset(1)), Int("FieldDensity", 10),
                 MtfScanSettings(useHuygensImageSampling: true),
                 Int("WavelengthNumber", 0),
                 new[]
                 {
-                    Double("Frequency1", 10),
-                    Double("Frequency2", 20),
-                    Double("Frequency3", 30),
-                    Double("Frequency4", 40),
-                    Double("Frequency5", 50),
-                    Double("Frequency6", 60)
+                    Double("Frequency1", MtfFieldFrequencyPreset(1)),
+                    Double("Frequency2", MtfFieldFrequencyPreset(2)),
+                    Double("Frequency3", MtfFieldFrequencyPreset(3)),
+                    Double("Frequency4", MtfFieldFrequencyPreset(4)),
+                    Double("Frequency5", MtfFieldFrequencyPreset(5)),
+                    Double("Frequency6", MtfFieldFrequencyPreset(6))
                 },
                 Text("ScanType", "+y"),
                 Bool("RemoveVignettingFactors", true),
                 zemaxCompatibleOutput: true,
                 useDashes: Bool("UseDashes", false)),
             "Geometric MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
-                Double("Frequency1", Double("SpatialFrequency", 20)), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
+                Double("Frequency1", Double("SpatialFrequency", MtfScanFrequencyPreset(20))), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
                 Int("WavelengthNumber", 0),
-                settings.ContainsKey("Frequency1") ? Enumerable.Range(1, 6).Select(i => Double("Frequency" + i, i * 10)).ToArray() : null,
+                settings.ContainsKey("Frequency1") ? Enumerable.Range(1, 6).Select(i => Double("Frequency" + i, MtfFieldFrequencyPreset(i))).ToArray()
+                    : CurrentOptic.ImageSpaceAfocal && !settings.ContainsKey("SpatialFrequency") ? Enumerable.Range(1, 6).Select(MtfFieldFrequencyPreset).ToArray() : null,
                 Text("ScanType", "+y"), Bool("RemoveVignettingFactors", true), zemaxCompatibleOutput: true),
             "FFT Surface MTF" => new MtfSurfaceAnalysis(CurrentOptic, MtfComputationMethod.Fourier, MtfScanSettings(),
                 Int("FieldNumber", 1), Int("WavelengthNumber", 0), Text("ShowAs", "表面"),

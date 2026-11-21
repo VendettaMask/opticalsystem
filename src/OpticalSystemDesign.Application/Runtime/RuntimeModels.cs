@@ -34,7 +34,14 @@ public sealed record AnalysisView(
     InterferogramSummaryDto? InterferogramSummary = null,
     Core.Analysis.AnalysisOutcome Outcome = Core.Analysis.AnalysisOutcome.Success,
     string? OutcomeReason = null,
-    IReadOnlyList<AnalysisReportSection>? ReportSections = null);
+    IReadOnlyList<AnalysisReportSection>? ReportSections = null)
+{
+    public FullFieldSpotSummaryDto? FullFieldSpotSummary { get; init; }
+    public ColorFocusShiftSummaryDto? ColorFocusShiftSummary { get; init; }
+    public FoucaultSummaryDto? FoucaultSummary { get; init; }
+    public PsfImageSummaryDto? PsfImageSummary { get; init; }
+    public DiffractionEnergySummaryDto? DiffractionEnergySummary { get; init; }
+}
 
 public sealed record AnalysisRow(string Metric, string Value);
 

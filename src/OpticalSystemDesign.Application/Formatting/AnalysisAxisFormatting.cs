@@ -36,6 +36,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.WattsPerSteradian => "W/sr",
         AnalysisAxisUnit.WattsPerSquareMillimeter => "W/mm²",
         AnalysisAxisUnit.PartsPerMillionPerKelvin => "10⁻⁶/K",
+        AnalysisAxisUnit.PartsPerThousand => "10⁻³",
         AnalysisAxisUnit.Watt => "W",
         AnalysisAxisUnit.SquareRootWatt => "√W",
         AnalysisAxisUnit.CyclesPerMilliradian => "cycles/mrad",
@@ -85,7 +86,9 @@ public static class AnalysisAxisFormatting
             return source != AnalysisAxisUnit.Unspecified;
         }
 
-        return IsLength(source) && IsLength(target)
+        return ((source is AnalysisAxisUnit.Dimensionless or AnalysisAxisUnit.PartsPerThousand)
+                && (target is AnalysisAxisUnit.Dimensionless or AnalysisAxisUnit.PartsPerThousand))
+            || IsLength(source) && IsLength(target)
             || IsAngle(source) && IsAngle(target);
     }
 
@@ -95,6 +98,9 @@ public static class AnalysisAxisFormatting
         {
             return value;
         }
+
+        if (source == AnalysisAxisUnit.Dimensionless && target == AnalysisAxisUnit.PartsPerThousand) return value * 1000;
+        if (source == AnalysisAxisUnit.PartsPerThousand && target == AnalysisAxisUnit.Dimensionless) return value / 1000;
 
         if (IsLength(source) && IsLength(target))
         {

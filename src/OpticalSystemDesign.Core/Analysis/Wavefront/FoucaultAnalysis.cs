@@ -64,6 +64,7 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             _positionMicrometers, _usePolarization, _propagationMode, _knifeDistance,
             _observationDistance, _observationHalfWidth);
         var spatial = _propagationMode != FoucaultPropagationMode.FocalFourierReimage;
+        var angular = result.ImageCoordinateUnit == AnalysisAxisUnit.Milliradian;
         var extent = spatial ? result.ObservationHalfWidthMicrometers : 1;
         var points = Enumerable.Range(0, _sampling).SelectMany(row => Enumerable.Range(0, _sampling)
             .Select(column => new AnalysisPoint(extent * (-1 + (2d * column + 1) / _sampling),
@@ -94,7 +95,8 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             ["FieldNumber"] = _fieldNumber,
             ["FieldHx"] = field.Hx,
             ["FieldHy"] = field.Hy,
-            ["KnifePositionMicrometers"] = _positionMicrometers,
+            [angular ? "KnifePositionMilliradians" : "KnifePositionMicrometers"] = _positionMicrometers,
+            ["KnifeCoordinateUnit"] = result.ImageCoordinateUnit,
             ["UsePolarization"] = _usePolarization,
             ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["ComputationModel"] = !spatial ? "FFT complex-field knife filtering and inverse-FFT ideal pupil reimaging"
@@ -106,7 +108,8 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             ["ObservationDistanceMillimeters"] = _observationDistance,
             ["ObservationHalfWidthMillimeters"] = result.ObservationHalfWidthMicrometers / 1000,
             ["TransverseProjectionDifferenceNormIntegral"] = result.TransverseProjectionDifferenceNormIntegral,
-            ["SpatialFieldBoundary"] = spatial ? "Chief-normal plane at image chief intercept; triangle Jacobian; no caustic/multibranch reconstruction" : "Focal Fourier plane",
+            ["SpatialFieldBoundary"] = spatial ? "Chief-normal plane at image chief intercept; triangle Jacobian; no caustic/multibranch reconstruction"
+                : angular ? "Angular Fourier plane relative to the chief direction" : "Focal Fourier plane",
             ["SpatialPowerModel"] = _propagationMode == FoucaultPropagationMode.VectorAngularSpectrum
                 ? "Integrated normal Poynting flux (2 Z0 Sz); displayed |E| squared is not power"
                 : spatial ? "Scalar squared-amplitude integral with physical pixel area" : "Discrete pupil power sums",
@@ -120,8 +123,8 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             ["FieldConvention"] = spatial ? "exp(-i omega t); negative geometric OPD phase; coating phase once; forward exp(+i kz z)"
                 : "Conjugated positive-time pupil; -2pi OPD; negative-exponent focal FFT",
             ["FourierGridSize"] = result.FourierGridSize,
-            ["ImageSpacingXMicrometers"] = result.ImageSpacingXMicrometers,
-            ["ImageSpacingYMicrometers"] = result.ImageSpacingYMicrometers,
+            [angular ? "ImageSpacingXMilliradians" : "ImageSpacingXMicrometers"] = angular ? result.ImageSpacingXMilliradians : result.ImageSpacingXMicrometers,
+            [angular ? "ImageSpacingYMilliradians" : "ImageSpacingYMicrometers"] = angular ? result.ImageSpacingYMilliradians : result.ImageSpacingYMicrometers,
             ["InputPupilPowerSum"] = result.InputPower,
             ["OutputNearFieldPowerSum"] = result.OutputPower,
             ["DisplayedNearFieldPowerSum"] = result.DisplayedPower,
