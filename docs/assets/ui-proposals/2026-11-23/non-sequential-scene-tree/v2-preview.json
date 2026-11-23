@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-23",
+  "revision": 2,
+  "status": "Revised layout preview for user review",
+  "productionSceneTreeImplemented": false,
+  "rendering": "Existing native Avalonia shell, typography and icons; candidate viewport renderer using shared Core scene coordinates",
+  "projection": "Uniform-scale orthographic view",
+  "meshPresentation": "Convex projected silhouettes for the two convex standard lenses; no facet edges; not a general CAD renderer",
+  "selectedObject": "L1 双凸透镜",
+  "alternativeImageSelectedObject": "L2 双凸透镜",
+  "width": 1760,
+  "height": 1080,
+  "scene": {
+    "sourceObjects": 1,
+    "standardLenses": 2,
+    "detectors": 1,
+    "nullReferenceFrames": 1,
+    "totalObjects": 5,
+    "lensReference": "Both lenses reference the actual identity Null frame named 透镜组",
+    "wavelengthNm": 550,
+    "sourceLayoutRayCount": 21
+  },
+  "changes": [
+    "Object tree follows actual coordinate reference group, without redundant type folders",
+    "Object commands merged into existing ribbon",
+    "Glass transparency plus outline selection; tessellation edges omitted",
+    "Numeric units outside input fields",
+    "Tree selection, model pointer selection and property inspector synchronized"
+  ],
+  "interactionChecks": {
+    "treeL2ChangesModelAndInspector": "passed",
+    "modelPointerL1ChangesTreeAndInspector": "passed"
+  },
+  "build": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "scope": "Preview only; not product integration, full interaction acceptance or optical precision acceptance",
+  "interactiveDesktopUsed": false,
+  "sources": [
+    {
+      "path": ".tmp/scene-tree-preview/ProgramV2.cs",
+      "sha256": "829a9a51f506ac38d00c1faf4697be760f962f6e4bf4c7e9787767cccd2c396a"
+    },
+    {
+      "path": ".tmp/scene-tree-preview/PreviewSceneView.cs",
+      "sha256": "a81b03f901c78f3af1cdf6665ee0fda2e7315634df91f1f876d4728fd3a7111f"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "v2-light.png",
+      "bytes": 247257,
+      "sha256": "2fd98abf3a22e021204409234302e9aec80cef57fb481ee6837b0633ae94d608"
+    },
+    {
+      "path": "v2-light-l2.png",
+      "bytes": 246937,
+      "sha256": "b6dbb5e17f85ef39c0267a34ea62b476b3e4c2c6f6de2c971915478e7ee87d53"
+    },
+    {
+      "path": "v2-interaction-check.txt",
+      "bytes": 162,
+      "sha256": "4202c71bde0034c77d1a7d4f126ffa45c5d9fa73894aa5ab178dad3d849e364f"
+    }
+  ]
+}

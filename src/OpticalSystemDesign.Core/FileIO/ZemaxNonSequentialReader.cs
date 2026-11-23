@@ -57,7 +57,7 @@ public static partial class ZemaxNonSequentialReader
             else if (current.Count > 0) Finish();
             if (r.Keyword == "MODE") mode = r.Values[0].ToUpperInvariant();
             if (r.Keyword == "UNIT") unit = r.Values[0].ToUpperInvariant();
-            if (r.Keyword == "UNIT" && r.Values.Count > 2 && r.Values[2] != "W")
+            if (r.Keyword == "UNIT" && r.Values.Count > 2 && r.Values[2] is not ("W" or "L"))
                 issues.Add(new(r.Line, null, "SourceUnits", "源功率单位不是 W，未猜测光度/辐射度转换。"));
             if (r.Keyword == "NAME") name = string.Join(" ", r.Values);
             if (r.Keyword == "PWAV") primary = Integer(r.Values[0]);
@@ -80,15 +80,16 @@ public static partial class ZemaxNonSequentialReader
         }
         Finish();
         var meshAssets = new List<NonSequentialMeshAsset>();
-        MapNativeObjects(objects, records, issues, meshAssets);
+        MapNativeObjects(objects, records, issues, meshAssets, assetDirectory);
         if (objects.Count == 0) issues.Add(new(0, null, "NoNscObjects", "文件未包含 NSOH 对象记录。"));
         if (mode != "NSC") issues.Add(new(0, null, "MixedModePorts", "混合模式的顺序入射/出射端口、变换与传播尚未完整映射；保持原场景。"));
         if (unit != "MM") issues.Add(new(0, null, "Units", $"当前直接映射只接受 MM；原单位 {unit} 已保留，未猜测转换。"));
         if (waves.Count == 0 || waves.Keys.Where((n, i) => n != i + 1).Any() || primary < 1 || primary > waves.Count)
             issues.Add(new(0, null, "Wavelengths", "波长表缺失、编号不连续或主波长无效。"));
-        var refs = objects.SelectMany(o => o.Records).Where(r => r.Keyword == "NSOA")
-            .SelectMany(r => r.Values).Where(IsAsset).Distinct(StringComparer.OrdinalIgnoreCase)
-            .Select(p => new ZemaxNscAsset(p, assetDirectory is not null && File.Exists(Path.Combine(assetDirectory, p)))).ToArray();
+        var refs = objects.SelectMany(o => o.Records).Where(r => r.Keyword == "NSOA"
+            || r.Keyword == "NSOH" && r.Values[0] is "NSC_POBJ" or "NSC_SIES" or "NSC_SLID" or "NSC_SFIL" or "NSC_CAD" or "NSC_STL")
+            .SelectMany(r => r.Keyword == "NSOH" ? r.Values.Skip(3) : r.Values).Where(IsAsset).Distinct(StringComparer.OrdinalIgnoreCase)
+            .Select(p => new ZemaxNscAsset(p, FindAsset(assetDirectory, p) is not null)).ToArray();
         foreach (var asset in refs.Where(a => !a.Exists)) issues.Add(new(0, null, "MissingAsset", $"缺少外部资产：{asset.Reference}"));
         NonSequentialDocument? document = null;
         if (!issues.Any(d => d.Blocking))
@@ -121,8 +122,13 @@ public static partial class ZemaxNonSequentialReader
             try
             {
                 reference = Integer(h.Values[1]); inside = Integer(h.Values[2]);
-                if (h.Values.Skip(3).Any(v => v.Length != 0)) issues.Add(new(h.Line, number, "ObjectHeader", "附加对象头字段已保留，尚未映射。"));
-                if (reference != 0 || inside != 0) issues.Add(new(h.Line, number, "ObjectReferences", "非零参考/包含对象记录已保留，尚待原生定义核验。"));
+                reference = Reference(reference); inside = Reference(inside);
+                int Reference(int value)
+                {
+                    var target = value < 0 ? number + value : value;
+                    if (target < 0 || target >= number) throw new InvalidDataException("参考/包含对象必须为此前已定义的对象。");
+                    return target;
+                }
             }
             catch (Exception e) when (e is ArgumentException or FormatException or OverflowException or IndexOutOfRangeException or InvalidDataException)
             { issues.Add(new(h.Line, number, "ObjectDefinition", e.Message)); }
@@ -153,7 +159,19 @@ public static partial class ZemaxNonSequentialReader
         var kind = NonSequentialObjectKind.PlaneRectangle; NonSequentialObjectParameters parameters; var max = 0;
         switch (type)
         {
-            case "NSC_SRCR": case "NSC_SRCE":
+            case "NSC_SRCP":
+                max = 6; kind = NonSequentialObjectKind.SourcePoint;
+                parameters = new SourcePointParameters(P(3), I(4), P(6), I(1), I(2));
+                if (material.Length != 0) issues.Add(new(pose.Line, number, "SourceMaterial", "非空光源材料尚未映射。"));
+                break;
+            case "NSC_SRAY":
+                max = 9; kind = NonSequentialObjectKind.SourceRay;
+                parameters = new SourceRayParameters(P(3), I(4), LocalDirection: new(P(6), P(7), P(8)));
+                if (P(9, 0) != 0) issues.Add(new(pose.Line, number, "SourceSeed", "光源的独立随机种子尚未映射。"));
+                if (material.Length != 0) issues.Add(new(pose.Line, number, "SourceMaterial", "非空光源材料尚未映射。"));
+                break;
+            case "NSC_SRCR":
+            case "NSC_SRCE":
                 max = 15; kind = type == "NSC_SRCR" ? NonSequentialObjectKind.SourceRectangle : NonSequentialObjectKind.SourceEllipse;
                 var distribution = P(9, 0) != 0 ? NonSequentialSurfaceSourceAngularDistribution.Cosine
                     : P(10, 0) != 0 || P(11, 0) != 0 ? NonSequentialSurfaceSourceAngularDistribution.Gaussian
@@ -172,10 +190,11 @@ public static partial class ZemaxNonSequentialReader
             case "NSC_DETE":
                 max = 17; kind = NonSequentialObjectKind.DetectorRectangle;
                 if (material is not ("" or "ABSORB")) throw new InvalidDataException("反射式探测器材料尚未映射。");
-                parameters = new DetectorRectangleParameters(2 * P(1), 2 * P(2), I(3), I(4), P(10, 0) != 0, material == "ABSORB");
-                if (P(11, 0) != 0 || P(16, 0) != 0 || P(17, 0) != 0
+                parameters = new DetectorRectangleParameters(2 * P(1), 2 * P(2), I(3), I(4), P(10, 0) != 0, material == "ABSORB")
+                { PolarizationComponent = I(16, 0) };
+                if (P(11, 0) != 0 || P(17, 0) != 0
                     || P(12, -90) != -90 || P(13, 90) != 90 || P(14, -90) != -90 || P(15, 90) != 90)
-                    issues.Add(new(pose.Line, number, "DetectorModes", "Huygens PSF、分量筛选、镜像或角域设置需要额外映射。"));
+                    issues.Add(new(pose.Line, number, "DetectorModes", "Huygens PSF、镜像或角域设置需要额外映射。"));
                 break;
             default:
                 issues.Add(new(rows[0].Line, number, "ObjectType", $"尚未支持对象类型 {type}；保留全部记录，禁止替代几何。")); return null;
@@ -196,7 +215,7 @@ public static partial class ZemaxNonSequentialReader
         }
         if (quote) throw new InvalidDataException("ZMX 中存在未闭合引号。"); if (active) result.Add(value.ToString()); return result;
     }
-    private static bool IsAsset(string text) => new[] { ".dll", ".stl", ".step", ".stp", ".iges", ".igs", ".sat", ".pob", ".sdf", ".bsdf", ".brdf", ".spc", ".grd" }.Any(e => text.EndsWith(e, StringComparison.OrdinalIgnoreCase));
+    private static bool IsAsset(string text) => new[] { ".dll", ".stl", ".step", ".stp", ".iges", ".igs", ".sat", ".pob", ".sdf", ".bsdf", ".brdf", ".spc", ".spcd", ".grd", ".ies", ".bmp", ".png", ".jpg", ".jpeg", ".ray", ".dat", ".uda" }.Any(e => text.EndsWith(e, StringComparison.OrdinalIgnoreCase));
     private static string F(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     private static int Integer(string text) { var d = Number(text); return d == Math.Truncate(d) && d >= int.MinValue && d <= int.MaxValue ? (int)d : throw new FormatException("需要整数值。"); }
     private static double Number(string text) => double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var v) && double.IsFinite(v) ? v : throw new FormatException("需要有限数值。");

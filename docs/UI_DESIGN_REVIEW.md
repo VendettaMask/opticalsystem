@@ -1,5 +1,50 @@
 # UI 设计走查记录
 
+## 2026-11-23 复杂场景第三版交互预览
+
+按用户选择继续修改预览，以实际构造的 32 通道、432 对象原生场景演示大型工程：32 个坐标参考、32 个光源、64 个标准透镜、32 个探测器和 272 个支撑/挡光对象。物理场景以单个 STAROPT 保存并重新载入，布局追迹由共享 Core 生成，实际保留 864 条分支、2055 段；这些是小采样界面输入，未执行精度验收。
+
+左侧提供结构、光学、仿真三种导航，组织文件夹单独保存于候选界面的内存树，不借用坐标参考或介质包含。结构保留通道装配及独立坐标节点，子分支按展开状态生成。演示状态生成 42 个树节点，未一次生成 432 个对象的全部表面。搜索名称/材料保留祖先路径；视图支持整机、通道隔离和只读对象表。右侧单选显示实际参数，多选显示公共材料和不同几何/位置值，并区分显示与参与追迹两个入口；底部任务区展示真实布局状态及未运行的照度任务。
+
+候选中实测三类导航、名称和材料搜索、祖先路径保留、树/模型选择同步、共同/混合值显示、本地选择集、对象表切换，以及隔离与组织整理前后的物理场景身份一致。独立预览构建零警告、零错误。[整机](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-overview.png) · [隔离通道](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-workspace.png) · [搜索](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-search.png) · [批量属性](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-batch.png) · [光学导航](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-optical.png) · [仿真导航](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-simulation.png) · [对象表](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-table.png)
+
+本轮仍为交互预览，未替换主程序工作区。批量应用、单步撤销、选择集持久化及完整任务编辑尚未接入产品；数值字段与部分按钮用于展示候选交互。视口从 Core 坐标绘制当前凸透镜和盒状对象的投影轮廓，不作为通用 CAD 渲染实现。范围、源身份和实际核对见[预览回执](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-preview.json)及[检查结果](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-checks.json)，演示物理场景见[原生工程](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-complex-demo.staropt)。
+
+## 2026-11-23 复杂非序列场景的界面调研
+
+用户进一步要求考察其他软件对大型复杂系统的组织方式。公开官方资料显示：LightTools 的 System Navigator 支持零件/装配特征层级，路径分析另有表面分组与筛选；Speos 采用结构、仿真与定义面板并提供命名选择集；TracePro 的系统树展开对象、面及属性，支持对象组、模型/树同步选择；OpticStudio 同时保留 NSC 参数表和对象/面属性编辑器。资料分别见 [LightTools 装配层级](https://www.keysight.com.cn/cn/zh/assets/3125-1208/data-sheets/LightTools-SOLIDWORKS-Link-Module.pdf)、[LightTools 2026 路径分析](https://www.keysight.com/mx/en/assets/3126-1359/flyers/What-s-New-in-LightTools-2026.pdf)、[Speos 面板介绍](https://innovationspace.ansys.com/knowledge/forums/topic/ansys-speos-luminaire-demo-part-1-new-user-experience-platform/)、[Speos 命名选择](https://ansyshelp.ansys.com/public/Views/Secured/corp/v2611/en/Optis_UG_ASP/Optis/UG_ASP/UG_ASP_useful_grouping.html)、[TracePro 系统树手册](https://lambdares.com/hubfs/TracePro_User_Manual-2025.pdf)、[对象编辑器](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Object_Editor_editors_group.html)。
+
+对本项目的设计建议如下，均为后续候选要求：
+
+- 保留真实的多级装配结构；“精简层级”只针对重复的类型分类文件夹。结构、光学属性、仿真/结果分别提供导航入口，同一对象沿用同一身份。
+- 将组织文件夹、坐标参考与介质包含分别表达。第二版用 Null 参考组演示两个镜片的层级，不应推广成所有文件夹都改变坐标参考；归档到组织文件夹不改物理位置或追迹关系。
+- 树搜索应保留匹配节点的祖先路径，配合对象/面选择模式、类型/材料/可见性筛选、定位、隔离与保存选择集。按需展开分支，默认不展开所有面。
+- 保留参数表和多选公共属性编辑。多选时区分共同值及混合值，批量修改保留单次撤销。
+- 可见性与参与追迹分开。光线按探测器、反射/散射事件和路径筛选，并限制屏幕显示条数；显示筛选不改变分析计算。
+- 下一版布局检验应使用多级装配、大量重复实例、多光源/探测器及迷光路径场景，验证定位和批量操作。此前五对象预览仅验证局部层级、画面和选择联动，未覆盖大型工程性能。
+
+## 2026-11-23 非序列场景树第二版预览
+
+按用户要求修订候选并重新渲染：对象按实际坐标参考关系直接排列，去掉光源/光学组件/探测器的重复类型文件夹；对象命令合入原功能区，模型区增加可用高度。两个透镜使用同一真实 Null 参考组，默认收起各自前后表面，材料和分析放在树底部切换入口。属性数值和单位分列，选中镜片以轮廓强调，玻璃保留透明填充。
+
+预览内实测树选择 L2 后的模型高亮及属性同步，以及鼠标点击模型 L1 后的树和属性同步，两个方向均通过；两份实际离屏图分别保留 L1/L2 的不同几何和位置值。原生外壳、字体和图标沿用产品；候选视口从 Core 场景坐标投影当前两片凸透镜的轮廓，省略三角网格边，不作为通用 CAD 渲染实现。独立预览构建零警告、零错误，主程序工作区尚未替换。[新版主图](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v2-light.png) · [切换 L2](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v2-light-l2.png) · [预览身份与范围](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v2-preview.json)
+
+## 2026-11-23 非序列场景树布局预览
+
+用户希望非序列工作区采用工程软件的模型树方式，并要求先看渲染。此版以场景对象为导航主体：左侧分组树与搜索，中间三维模型和对象表切换，右侧所选对象属性。树中提出光源、光学组件、探测器、材料和分析分组，以及透镜前后表面节点；分组和节点操作尚属布局方案。选中状态以原生树高亮及模型原有选择色关联，属性按位置与姿态、几何和光学属性排布。
+
+预览复用 Light 主题、现有产品字体、科学图标、原生控件及 Core 生成的四对象三维场景，1760×1080 离屏渲染。主程序对象表尚未替换；本轮交付用于用户看图的候选，没有修改工作区持久化或光学算法，也未运行精度矩阵。[布局图片](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/light.png) · [预览身份](assets/ui-proposals/2026-11-23/non-sequential-scene-tree/preview.json)
+
+## 2026-11-23 非序列直接导入
+
+用户任务是打开模型并继续编辑。可用的完整场景直接进入对象表；无法导入时只显示简短提示、原文件名与关闭按钮。移除检查窗口、应用确认、对象映射和光谱说明，示例路径提示恢复为原始相对路径。共用已有菜单、对象编辑器、原生主题 Chrome、字体及三语词库，保留场景的整次撤销。读取时关闭窗口即取消，失败和取消均保持当前工程。
+
+22 项定向流程与界面检查通过，覆盖示例菜单、对象编辑器、文件导入、文件打开、取消、失败和撤销。真实主窗口与失败提示按 Light 中文 100%、Dark 日文 150%、Isekai 英文 200% 离屏核对；成功后没有检查窗口，失败后可关闭短提示。详见[流程、截图及回执](../validation/rechecks/2026-11-23/nsc-direct-import/README.md)。下面早前的检查窗口记录保留其当时范围。
+
+## 2026-11-23 非序列导入状态（早前记录）
+
+导入检查以“可导入”和“需要处理”区分实际状态；对象行显示映射结果，普通光谱说明单列，重复属性按对象/原因合并并保留行范围。顶部命令可换行，完整原始诊断通过原子保存另存。使用现有原生控件、字体及共享三语词库；Light 中文、Dark 日文、Isekai 英文窗口已离屏核对，真实应用及撤销通过。[画面与回归](../validation/rechecks/2026-11-23/nsc-import-repair/README.md)
+
 ## 2026-11-21 无焦色焦移量纲
 
 无焦色焦移的横轴、手动范围和图签改为真实屈光度D；有限系统保留µm。图签接收未舍入typed数值与单位，去除无焦长度衍射限，显示行变化不再改变摘要。中英日的实际资源与正文同步，保留主题、字体、曲线和数值精度设置。Light中文/日文、Dark英文与Isekai固定英文的实际面板及PNG均保存，曲线恢复平滑，图签、坐标单位和完整页面已离屏核对。[新图、15项检查与范围](../validation/rechecks/2026-11-21/afocal-color-focus-shift/README.md)

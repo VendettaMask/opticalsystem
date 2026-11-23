@@ -46,8 +46,9 @@ public sealed class NonSequentialDesignWindowTests
         }, CancellationToken.None);
     }
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
-    public async Task DesignImportAndPhysicsControlsAreReachableOffscreen(string theme)
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    public async Task DesignAndPhysicsControlsAreReachableOffscreen(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
@@ -55,7 +56,7 @@ public sealed class NonSequentialDesignWindowTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create(); app.NonSequential.AddObject(NonSequentialObjectKind.SourceRay);
             app.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
-            var windows = new Window[] { new NonSequentialDesignWindow(app.NonSequential), new NonSequentialZemaxImportWindow(app.NonSequential),
+            var windows = new Window[] { new NonSequentialDesignWindow(app.NonSequential),
                 new NonSequentialTraceControlWindow(app.NonSequential, app.NonSequentialAnalysis) };
             foreach (var window in windows)
             {

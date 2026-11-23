@@ -1,0 +1,33 @@
+! A dove prism
+! FSI Dec 4, 1998
+
+! front face vertices
+V 1 -1 -1 0
+V 2  1 -1 0
+V 3  1  1 2
+V 4 -1  1 2
+
+! back face vertices
+V 5 -1 -1 8
+V 6  1 -1 8
+V 7  1  1 6
+V 8 -1  1 6
+
+! Front face rectangle
+R 1 2 3 4 0
+
+! Back face rectangle
+R 5 6 7 8 0
+
+! Top rectangle, note this is reflective
+R 4 3 7 8 1
+
+! Bottom rectangle, note this is reflective
+R 1 2 6 5 1
+
+! left side rectangle
+R 1 4 8 5 0
+
+! right side rectangle
+R 2 3 7 6 0
+

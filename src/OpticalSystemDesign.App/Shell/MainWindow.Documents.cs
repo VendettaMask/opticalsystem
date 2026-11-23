@@ -39,6 +39,12 @@ public sealed partial class MainWindow
         });
         if (files.Count > 0)
         {
+            if (_application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+                && files[0].Path.LocalPath.EndsWith(".zmx", StringComparison.OrdinalIgnoreCase))
+            {
+                await NonSequentialFileImport.ImportAsync(this, _application.NonSequential, files[0].Path.LocalPath);
+                return;
+            }
             if (files[0].Path.LocalPath.EndsWith(".starpack", StringComparison.OrdinalIgnoreCase))
             {
                 await OpenProjectArchiveAsync(files[0].Path.LocalPath);

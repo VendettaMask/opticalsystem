@@ -1,0 +1,1183 @@
+{
+  "schema": 1,
+  "date": "2026-11-23",
+  "scope": "Functional NSC import repair and all bundled text inputs; full precision matrix not run",
+  "baseCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "platform": "Windows x64",
+  "files": 106,
+  "before": {
+    "applicable": 1,
+    "mappedObjects": 209
+  },
+  "after": {
+    "applicable": 4,
+    "mappedObjects": 307,
+    "sourceBytesPreserved": true
+  },
+  "tests": {
+    "passed": 37,
+    "failed": 0,
+    "skipped": 0,
+    "classes": [
+      "NonSequentialImportRepairTests",
+      "NonSequentialImportWindowRepairTests",
+      "NonSequentialIntegrationTests",
+      "NonSequentialColorFringesTests",
+      "NonSequentialExampleTests"
+    ],
+    "repairedSceneRaysPerSource": 64
+  },
+  "build": {
+    "command": "dotnet build tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false",
+    "warnings": 0,
+    "errors": 0
+  },
+  "localization": {
+    "translations": 4354,
+    "occurrences": 3962,
+    "missing": 0,
+    "errors": 0
+  },
+  "auditWarnings": [
+    "NU1900: NuGet vulnerability service unavailable; audit program completed normally."
+  ],
+  "fullPrecisionMatrixRun": false,
+  "externalNumericalCaptureRun": false,
+  "filesSummary": [
+    {
+      "file": "Birefringence/Color Fringes.ZMX",
+      "sourceSha256": "ABF16161C24165584C14217A1274232BDA4A87018D1ED8C7F8A6455817F64D03",
+      "beforeApplicable": true,
+      "afterApplicable": true,
+      "beforeMapped": 5,
+      "afterMapped": 5,
+      "beforeBlocking": 0,
+      "afterBlocking": null
+    },
+    {
+      "file": "Birefringence/Extraordinary dispersion.ZMX",
+      "sourceSha256": "04C63F13C80A5929285900427F1F735FE3561087CBFAB3D838D306EA22C9DE7A",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 2,
+      "beforeBlocking": 6,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Birefringence/Imaging through Birefringent Cube.ZMX",
+      "sourceSha256": "7DDBC511DC5624A9FF8582024339FB09130F529E222C62DD89371C4F450ECFC4",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 14,
+      "afterBlocking": 12.0
+    },
+    {
+      "file": "Birefringence/Wollaston prism using non-sequential ray-tracing.zmx",
+      "sourceSha256": "A180B86CAE948CC95E71BA31B2484DD85C4770DFEEB64C878E31EC0065E4335F",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 2,
+      "beforeBlocking": 17,
+      "afterBlocking": 16.0
+    },
+    {
+      "file": "Coherence Interference and Diffraction/Interference Example 1- A Simple Interferometer.ZMX",
+      "sourceSha256": "F0AFDBBD4B25B32A1CECE7A008FF224CC1BAB943AD00B635692D30517725253A",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 5,
+      "afterMapped": 5,
+      "beforeBlocking": 22,
+      "afterBlocking": 21.0
+    },
+    {
+      "file": "Coherence Interference and Diffraction/Interference Example 2- A Mach-Zehnder Interferometer.ZMX",
+      "sourceSha256": "E5BF738CE5C176FE3C5F965AA937F0270288FAC8D599690E0CBA710A37DE3A20",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 6,
+      "beforeBlocking": 31,
+      "afterBlocking": 10.0
+    },
+    {
+      "file": "Coherence Interference and Diffraction/Interference Example 3- Coherence Length Reduces Fringe Visibility.ZMX",
+      "sourceSha256": "7022560C3E5BFA4FCC70B55D0FE4062C8DCF9BD3E7D7F13E8890B0CF05EC21CF",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 5,
+      "afterMapped": 5,
+      "beforeBlocking": 12,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Coherence Interference and Diffraction/Interference Example 4- Diffraction Limited Imaging.ZMX",
+      "sourceSha256": "794C0B1DB9258D4AC9D6764849C70225BAE7D23A3FC4EEEE11BBADAC0C787C84",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 4,
+      "beforeBlocking": 15,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Colorimetry/Example 1  Two-color mixing gives white.ZMX",
+      "sourceSha256": "BE8DDA408DE681485954B568CE1FFB9EAC97AA611D7EFDA4601567B16EFA70F9",
+      "beforeApplicable": false,
+      "afterApplicable": true,
+      "beforeMapped": 4,
+      "afterMapped": 5,
+      "beforeBlocking": 1,
+      "afterBlocking": null
+    },
+    {
+      "file": "Colorimetry/Example 2 Black Body and Grating.ZMX",
+      "sourceSha256": "405799DF4D61D4290396F07C2984DF79333843E8C8ACC50E4A0AF9D9251A92B0",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 2,
+      "beforeBlocking": 87,
+      "afterBlocking": 84.0
+    },
+    {
+      "file": "Colorimetry/Example 3 Grating Splits up Color.ZMX",
+      "sourceSha256": "6D92293FC1B564071065D0B4FF5C34BBD60A8AA9390CA2D64212E2CAADEC3217",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 85,
+      "afterBlocking": 84.0
+    },
+    {
+      "file": "Colorimetry/Example 4 An Array of White LEDs Illuminates a Wineglass.ZMX",
+      "sourceSha256": "158385306698E5CCEF33CECA1EC8108C18C95C42FFD1B1EA7B43DE6D9D9500D8",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 3,
+      "beforeBlocking": 10,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Diffractives/Binary 2.zmx",
+      "sourceSha256": "2FBF1F7DF157024B83EB79A3FE6C45E0C26D23FA62D0B26E6CFE491642CE900E",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 195,
+      "afterBlocking": 194.0
+    },
+    {
+      "file": "Diffractives/Diffraction Grating.zmx",
+      "sourceSha256": "883150ECC0F7BC57DFF73F943B8D3A6DA45FAF8FF9BDF7A91C7B2669D613B722",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 160,
+      "afterBlocking": 159.0
+    },
+    {
+      "file": "Diffractives/Diffraction grating fringes.zmx",
+      "sourceSha256": "2C39B166E839C2530C20C9B01F311AEB678A136B4BD80BC38522BC0CD4D5D89C",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 2,
+      "beforeBlocking": 90,
+      "afterBlocking": 89.0
+    },
+    {
+      "file": "Diffractives/Diffraction grating lens with hole.zmx",
+      "sourceSha256": "F742E1F16036206D6D1AB9153ECD8A09131F3960B022558B3AA2C72AFCB1A249",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 1,
+      "beforeBlocking": 90,
+      "afterBlocking": 86.0
+    },
+    {
+      "file": "Diffractives/Diffraction grating multiple orders MC model.zmx",
+      "sourceSha256": "44C085AAC9E61638D67C6CB8F6016CE640937897BA787661F9524C10F591A234",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 170,
+      "afterBlocking": 167.0
+    },
+    {
+      "file": "Diffractives/Diffraction grating multiple orders.zmx",
+      "sourceSha256": "FBADED9A4EB4FB11D98FB0AEE31E503006BCC9D1E54AD53387A655EDB65C7EC0",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 3,
+      "beforeBlocking": 94,
+      "afterBlocking": 91.0
+    },
+    {
+      "file": "Fibers/Beam delivery system.zmx",
+      "sourceSha256": "D13830800C221A0364F06BC21F59BDEEB53A3644BCA0AE4B2B4AB97A8E9B33DD",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 1,
+      "beforeBlocking": 26,
+      "afterBlocking": 24.0
+    },
+    {
+      "file": "Fibers/Core clad fiber.zmx",
+      "sourceSha256": "0E343061D13E2AB4297687E8371376CB38C3D2FA458B344F689F66FD133676D0",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 2,
+      "beforeBlocking": 17,
+      "afterBlocking": 11.0
+    },
+    {
+      "file": "Fibers/Fiber with tilted face.ZMX",
+      "sourceSha256": "1423C4A1F7B2D06CE5002C53CF66BBBD28A531D61C0A65942DF09D9D5067FA28",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 8,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Fibers/Glass rods.zmx",
+      "sourceSha256": "EFB1E781B0B8D1815D091F39A8315EEAF8D33C3AD68A93CA0E8FD1B736A62DE7",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 5,
+      "beforeBlocking": 17,
+      "afterBlocking": 11.0
+    },
+    {
+      "file": "Fibers/Light pipe.ZMX",
+      "sourceSha256": "BD4D232E0C8F69BC7929B24B8A74224B695F94D7CF0DE72B701EADF86CDF2D65",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 9,
+      "afterBlocking": 5.0
+    },
+    {
+      "file": "Fibers/Polygonal lightpipes.ZMX",
+      "sourceSha256": "B22E9F148C6188A7AF9DCB71F61E4AFF9F7B4FC08BBED7F29B64BDAFBAEDDEB8",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 15,
+      "afterMapped": 15,
+      "beforeBlocking": 20,
+      "afterBlocking": 14.0
+    },
+    {
+      "file": "Fibers/grating-grin-fiber.ZMX",
+      "sourceSha256": "B82F6C39F3D3AD522E47864802F7775240C1AA7B61E8CFBE6BBDC05866AD4BD5",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 5,
+      "afterMapped": 12,
+      "beforeBlocking": 224,
+      "afterBlocking": 205.0
+    },
+    {
+      "file": "Fresnel Lenses/A complex Fresnel lens with individually controllable rings.zmx",
+      "sourceSha256": "268ED9C81F239492724FF222B3D89CF3A0EC2B7F263210666AD5F86FD7DC82E4",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 20,
+      "afterBlocking": 10.0
+    },
+    {
+      "file": "Fresnel Lenses/Fresnel lens cylinder structure.zmx",
+      "sourceSha256": "F24A5A507C9F8BB98A5E870E023DCC669E9C9A37246E54E67448F13BF318433C",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 6,
+      "afterBlocking": 5.0
+    },
+    {
+      "file": "Fresnel Lenses/Fresnel lens from table.zmx",
+      "sourceSha256": "DF95D6B7CF938EFDB8D8E99521938D526B1D3BEFC0402DACC8BC0FC5CC8F388E",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 7,
+      "afterBlocking": 5.0
+    },
+    {
+      "file": "Fresnel Lenses/Fresnel lens ideal.zmx",
+      "sourceSha256": "C6713570B6082841F7714E1BADCDCA604F2CCEF73D7437189DAA9808573C7C4B",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 5,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Fresnel Lenses/Fresnel lens radial structure.zmx",
+      "sourceSha256": "C0D80F6B5572D65DA1B63AB0AF1EEFEFC2BF1136D66C5493AD3186BC6990920F",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 87,
+      "afterBlocking": 86.0
+    },
+    {
+      "file": "Fresnel Lenses/Fresnel lens unfaceted table.ZMX",
+      "sourceSha256": "732527429EDA0D057EEE22F52249AE2A7D0EEE0AE14D7C93F97EB7D9B01D1732",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 5,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "GRINs/GRIN prism.ZMX",
+      "sourceSha256": "EBD44EBF46488AE793C2C85FC4A60EF31447BE345F74341E6806407898BB93F5",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 40,
+      "afterBlocking": 37.0
+    },
+    {
+      "file": "GRINs/Gradium NSC.ZMX",
+      "sourceSha256": "E972F905585D2182D86BCA55F4F1F56A500164AC0C696DAA736910EB5E98D925",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 15,
+      "afterBlocking": 13.0
+    },
+    {
+      "file": "Geometry Creation/Array Example 1-  a three-dimensional array of lenses.ZMX",
+      "sourceSha256": "E375D9C65589FAB716D78FB58A42BCAB48236901C5CC12D37E06F0A943C2E1A8",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 4,
+      "afterBlocking": 2.0
+    },
+    {
+      "file": "Geometry Creation/Array Example 2-  an array of GRIN lenses.ZMX",
+      "sourceSha256": "3A3E4A52C36A07C4D78CF748682CB8D10514BB60CD6705EEF24821E08CDF734D",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 6,
+      "beforeBlocking": 20,
+      "afterBlocking": 15.0
+    },
+    {
+      "file": "Geometry Creation/Array Example 3-  an array of Boolean objects.ZMX",
+      "sourceSha256": "2D7ECCE0ED50B93DBACF53AD68ABFFF1F3F6B618860C8E1211E8344AB9890009",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 10,
+      "afterBlocking": 5.0
+    },
+    {
+      "file": "Geometry Creation/Boolean Example 1-  basic operations.ZMX",
+      "sourceSha256": "4A734F4416B8669A43119745E9032BACB11F8DD0E582AE57A8731F7148D78791",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 3,
+      "beforeBlocking": 23,
+      "afterBlocking": 17.0
+    },
+    {
+      "file": "Geometry Creation/Boolean Example 2-  a lens with a hexagonal edge.ZMX",
+      "sourceSha256": "613B3A11918EE25F3B19929F7351E5A019D2A9129D388143EBD2FF62A679CE8B",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 8,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Geometry Creation/Boolean Example 3-  a diffractive scattering Boolean object.ZMX",
+      "sourceSha256": "F3AFF8CBBBBE8E404A91DA7CB20B47A943B4C7476746756494539A9D75F081A1",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 4,
+      "afterMapped": 4,
+      "beforeBlocking": 103,
+      "afterBlocking": 93.0
+    },
+    {
+      "file": "Geometry Creation/Boolean Example 4-  a lens mount.ZMX",
+      "sourceSha256": "EA1068FA594F96151A1D8845CB763FA3C62575B9744322EACAC67839F58E5F0A",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 5,
+      "beforeBlocking": 97,
+      "afterBlocking": 87.0
+    },
+    {
+      "file": "Geometry Creation/Boolean Example 5-  a complex light pipe.ZMX",
+      "sourceSha256": "5F2DC050166EF9C6C527092FA3311B038D586C6CEF76A98F0A4A824425B472FB",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 22,
+      "afterBlocking": 14.0
+    },
+    {
+      "file": "Geometry Creation/Ring Array Example 1- Fly's Eye Array.ZMX",
+      "sourceSha256": "2B053A13ECD3FFFF3B6977CFE487CC1494241FDB4E97B0583BD7912325B5E3DA",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 8,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Geometry Creation/Ring Array Example 2- Spiral of Archimedes.ZMX",
+      "sourceSha256": "3ACEB5649DCF5388730AB7DD246ABF403E140267C8A6CF12ACD974D5994DBE62",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 8,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Geometry Creation/Ring Array Example 3- Hexapolar Array.ZMX",
+      "sourceSha256": "6805E30D57467807CDBABB89F4CDB946A32CB0FE4508F21C62574D786035CA72",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 8,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Geometry Creation/Swept Object Example 1-  a ring lens.ZMX",
+      "sourceSha256": "3E7A95C993224047A823A5586C1023EF8F4DA20C9EBCEE634F0D00679F501556",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 4,
+      "afterBlocking": 2.0
+    },
+    {
+      "file": "LightningTrace/Lightning Trace Demonstration 1.ZMX",
+      "sourceSha256": "DF9CFA2FC61656FEFC1D870C935E98CC7B2BAF6F0D126BB26C33C90C7FDDD074",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 9,
+      "afterBlocking": 8.0
+    },
+    {
+      "file": "LightningTrace/Lightning Trace Demonstration 2.ZMX",
+      "sourceSha256": "825ACAAF7A7DBD06BA6A68BC6A53C162D5021DF2F8F8B9F17C37BD47A98571C9",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 2,
+      "beforeBlocking": 98,
+      "afterBlocking": 73.0
+    },
+    {
+      "file": "LightningTrace/Lightning Trace Optimization Demonstration.ZMX",
+      "sourceSha256": "A6E1E21C226625C859F11F5C34C4E3934C55799F6981E675D87926035AAF8839",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 1,
+      "beforeBlocking": 16,
+      "afterBlocking": 14.0
+    },
+    {
+      "file": "Miscellaneous/Cones.zmx",
+      "sourceSha256": "EF7AD940EF7FF24F6C5A5CAD9D436ABBB8B37979F6D7945ECDDF758D8C1B96F2",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 5,
+      "beforeBlocking": 27,
+      "afterBlocking": 12.0
+    },
+    {
+      "file": "Miscellaneous/Cylinder lens.zmx",
+      "sourceSha256": "6CF695FBB5DE629D3560AB59C06E6B21A462ED3C660AF422EDD2B5A46CF927D1",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 5,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Miscellaneous/Demo 1.zmx",
+      "sourceSha256": "C0D3B69DBCC838EAE110E50F4DEB9148E609A1904AEBEEF24A5731FEC8D17EAA",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 3,
+      "beforeBlocking": 105,
+      "afterBlocking": 99.0
+    },
+    {
+      "file": "Miscellaneous/Demo 2.zmx",
+      "sourceSha256": "C955EACA75F86C4A8D17EDC23A9FCF5C07413B273CBC2C2DF9C9F65669A7ACEB",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 10,
+      "beforeBlocking": 114,
+      "afterBlocking": 85.0
+    },
+    {
+      "file": "Miscellaneous/Digital_projector_flys_eye_homogenizer.zmx",
+      "sourceSha256": "709EF069A8A05ACE44904C780D3FCD6A275306367C4723152E72CE5934EE0C64",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 4,
+      "beforeBlocking": 26,
+      "afterBlocking": 15.0
+    },
+    {
+      "file": "Miscellaneous/Embedded objects.zmx",
+      "sourceSha256": "9AA48BEC23D1783FCB7EA7FD2EB19AFC34700E77A14057812A77C2E24C77D4D0",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 10,
+      "afterMapped": 12,
+      "beforeBlocking": 912,
+      "afterBlocking": 898.0
+    },
+    {
+      "file": "Miscellaneous/Even asphere.zmx",
+      "sourceSha256": "FBF7EA34B7AB3B6F8FAF6E1DF91BBD21F402A7050EB571979042A4FC65650DDA",
+      "beforeApplicable": false,
+      "afterApplicable": true,
+      "beforeMapped": 4,
+      "afterMapped": 5,
+      "beforeBlocking": 2,
+      "afterBlocking": null
+    },
+    {
+      "file": "Miscellaneous/Freeform optimization.zmx",
+      "sourceSha256": "145650FFA8C0178892F8E7097E3C74C9656150B7387FD4EFBAB7F05829025ACF",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 21,
+      "afterBlocking": 15.0
+    },
+    {
+      "file": "Miscellaneous/Integrating Sphere.zmx",
+      "sourceSha256": "C3A317FD450664D05C259A661ACD439A1A757537FE5BC4294C1F4B7EFB3A6797",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 4,
+      "beforeBlocking": 15,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Miscellaneous/Lens in lens.zmx",
+      "sourceSha256": "0843FA664B4990F394F2328CD95EAA5EE943D2E4C2AB8F5D56A57B95596BFBDA",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 2,
+      "beforeBlocking": 10,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Miscellaneous/Lens with hole straddled.zmx",
+      "sourceSha256": "EDB4AB69FB1692F00595C4510F41DCA0617087D307DE22DDE6435857F9082E6A",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 3,
+      "beforeBlocking": 9,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Miscellaneous/Lens with hole.zmx",
+      "sourceSha256": "8387A69CB18C912C5E658B837366F074B716DD1ABF474D54C041B9AC992F8BC4",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 2,
+      "beforeBlocking": 7,
+      "afterBlocking": 2.0
+    },
+    {
+      "file": "Miscellaneous/MEMS device.zmx",
+      "sourceSha256": "E93F9764DCD368D33F76F17FB719AC3164D40FB421BA43142B08A6B0A6BAAC4F",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 7,
+      "afterMapped": 7,
+      "beforeBlocking": 19,
+      "afterBlocking": 13.0
+    },
+    {
+      "file": "Miscellaneous/Mirror with hole.zmx",
+      "sourceSha256": "A5FB2EC95AE6A32329F644870DC0F2340E05550C539D24E918ED053B13EB3C13",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 7,
+      "afterBlocking": 5.0
+    },
+    {
+      "file": "Miscellaneous/Multiple mirror telescope.zmx",
+      "sourceSha256": "6C415A837169BF70AF229E81AF862743386E6303C2F7722213B4C14A18E9B555",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 36,
+      "afterMapped": 36,
+      "beforeBlocking": 150,
+      "afterBlocking": 30.0
+    },
+    {
+      "file": "Miscellaneous/Toroid lens.zmx",
+      "sourceSha256": "64FC91D1E17B63E6E190F51AF123ED8EBDDDA4C188D580B88C815C470C82924E",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 5,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Miscellaneous/Torus pipe.zmx",
+      "sourceSha256": "5B7C34D477388933C7807308D97EE23FC1EB9A9A1FBC66BE86765FDE9EC0CE23",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Miscellaneous/User aperture sample.zmx",
+      "sourceSha256": "376648E960A1F71D4E3FC9233E72469EF370CC871A0F9FABCD52DAC6771B1AEB",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 5,
+      "afterBlocking": 2.0
+    },
+    {
+      "file": "Miscellaneous/Voxel detector for flash lamp pumping.ZMX",
+      "sourceSha256": "A0811D51070E60E03EFC6801E2802DC20ACCAA62A806795E6B2A6A186143D01E",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 1,
+      "beforeBlocking": 11,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Phosphors and Fluorescence/Fluorescence Example using Waveshift.ZMX",
+      "sourceSha256": "E299731DD2247D9F260F8266F7F5F0A9F129CB008170E85E9BC7BC2A674D6E1D",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 4,
+      "afterMapped": 5,
+      "beforeBlocking": 189,
+      "afterBlocking": 184.0
+    },
+    {
+      "file": "Phosphors and Fluorescence/White LED Phosphor.zmx",
+      "sourceSha256": "43C4E2E95DA8BB950BF6E701CAD61AC7AE143D1EE7F04B508D87754939DCE9D0",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 44,
+      "afterBlocking": 40.0
+    },
+    {
+      "file": "Prisms/30 60 90 prism.zmx",
+      "sourceSha256": "0B5C61AF3BCC612701A15094E5E15889D764D8E79EC4AAA9FFA45104AD13E704",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 11,
+      "afterBlocking": 11.0
+    },
+    {
+      "file": "Prisms/45 degree apex pair.zmx",
+      "sourceSha256": "E596389E7C9D1D211ED917860A1333E7EB56BFBAD5904CF3A9C2589FEDC566E6",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 8.0
+    },
+    {
+      "file": "Prisms/Abbe reversion.zmx",
+      "sourceSha256": "99A96BD6F4FEC2E263BB70C0C620882063045FE6E149E208878EAEFABD58AA30",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 6,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Prisms/Abbe roof.ZMX",
+      "sourceSha256": "DBBD662D5D0EB141EA8B431E34FE5B7CC9D0FB0AF8C6C3E767B583AD69D7DF7C",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 6,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Prisms/Amici roof with penta prism.zmx",
+      "sourceSha256": "B52A642253572794932CF018C51585B25F64287CB59511B96CF8DB5AA2D6D3C7",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 9.0
+    },
+    {
+      "file": "Prisms/Bauernfeind prism.zmx",
+      "sourceSha256": "0E7E5F2A5A9941A46AAD7BC1DCC35A1D50F8B6088DC5DEB46BFDB0DD0F83A9CB",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 8.0
+    },
+    {
+      "file": "Prisms/Corner Cube using POB.ZMX",
+      "sourceSha256": "5FC2D7AE75C01BCEA1F2D2913DECDE6325E96C58B3BA9FADD361C23A49E35845",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 8,
+      "afterBlocking": 8.0
+    },
+    {
+      "file": "Prisms/Double dove prism.zmx",
+      "sourceSha256": "C7E4CE301C2BFAFC80DD4B6958F49AA7C485893D713E329363A38F80D9D923E4",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 6,
+      "afterBlocking": 6.0
+    },
+    {
+      "file": "Prisms/Half penta prisms and amici roof.zmx",
+      "sourceSha256": "D21736B65FF0C0D15A7DE8C515FF9E16EDBAD0B7787FFBBA7D7B0C3E3CFCCE92",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 12,
+      "afterBlocking": 11.0
+    },
+    {
+      "file": "Prisms/Leman roof.zmx",
+      "sourceSha256": "A2281A248D2861285328F5BAF19CA0C1D23FD30ECCDF2918A22BA18F4E62054D",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 7,
+      "afterBlocking": 7.0
+    },
+    {
+      "file": "Prisms/Pechan prism.zmx",
+      "sourceSha256": "F2AAE2EA8909506319E84B6F16FE50422E07BCF40EC7B452997E4B9E7E422EC4",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 7,
+      "afterBlocking": 7.0
+    },
+    {
+      "file": "Prisms/Penta prisms.ZMX",
+      "sourceSha256": "34F7837861C69F22BC1109134FEEEF1BB92952BCE2DFC039DCEEA10D706728FE",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 14,
+      "afterBlocking": 11.0
+    },
+    {
+      "file": "Ray splitting/A simple brightness enhancement filter.ZMX",
+      "sourceSha256": "850C84A2FBEB601D13527CCB8F28F906192EF6F1C46DBB45D3EDB2755C3E1C6B",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 5,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Ray splitting/Beam splitter.ZMX",
+      "sourceSha256": "B9E0F8224E747DD11B6931DDE22A90B5D43226828F0D8D19FA78D30BDB4ACB5B",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 5,
+      "afterMapped": 5,
+      "beforeBlocking": 21,
+      "afterBlocking": 20.0
+    },
+    {
+      "file": "Ray splitting/Ronchi test.zmx",
+      "sourceSha256": "214EA5B6A6DF011234F044DDFA73E0E085B11B1E38404BE5E9E19298E1AC95C8",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 4,
+      "beforeBlocking": 95,
+      "afterBlocking": 86.0
+    },
+    {
+      "file": "Ray splitting/Twyman-Green.ZMX",
+      "sourceSha256": "5F6FF4D64EDEC86ACAC366F040FDAC1815DB5EF9935282B10285D1FF13AA3BC7",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 2,
+      "beforeBlocking": 20,
+      "afterBlocking": 12.0
+    },
+    {
+      "file": "Reflectors/3 helical lamps with reflectors.ZMX",
+      "sourceSha256": "7E7BDAEB02A7F3E1B01CD779EDC9D4350F4D0E2F81FB3376356CE273920461B4",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 3,
+      "beforeBlocking": 27,
+      "afterBlocking": 15.0
+    },
+    {
+      "file": "Reflectors/Cylinder faceted reflector.zmx",
+      "sourceSha256": "52FABE8745356234B55453601D782B109332F64A9E0ED7ACDB4E9A95DE62EDAB",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 10,
+      "afterBlocking": 9.0
+    },
+    {
+      "file": "Reflectors/Lamp reflector faceted bell.ZMX",
+      "sourceSha256": "9681412338929863EFC82A20434F678C74AE4FA0C754E249F27738F7F022F97D",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 7.0
+    },
+    {
+      "file": "Reflectors/Lamp reflector faceted cone.ZMX",
+      "sourceSha256": "EA20B4F2728A7C0555E261C52228E95999A13D324F379A3BCD0424317FE7CC60",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 7.0
+    },
+    {
+      "file": "Reflectors/Lamp reflector hyperhemisphere.ZMX",
+      "sourceSha256": "19B5F53464AA9A31FF86AD66A020E8CB7DCEEFB666F4AB1AC696E720FD717D55",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 9,
+      "afterBlocking": 8.0
+    },
+    {
+      "file": "Reflectors/Radial faceted reflector.ZMX",
+      "sourceSha256": "82153CB782431DA2FC53E9C52F95BE037DA409D7B8F380E90DEC1AEC18C046F1",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 10,
+      "afterBlocking": 9.0
+    },
+    {
+      "file": "Reflectors/Toroidal faceted reflector.ZMX",
+      "sourceSha256": "10B28EF9400AE7A16E3952A54DE9642ABB435B94CCCBF5117223BCC2F5BE09D8",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 0,
+      "beforeBlocking": 10,
+      "afterBlocking": 9.0
+    },
+    {
+      "file": "Scattering/ABg scattering surface.ZMX",
+      "sourceSha256": "080E62169310B46927D7BD66B3186E4D979647D5546AD764823783B338460BC3",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 4,
+      "beforeBlocking": 6,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Scattering/Bubbles in lens.ZMX",
+      "sourceSha256": "189EFB019EE5E16A5AA7D8499226CB094C626D34E6D23DCEC0A415DAB6E4C32F",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 0,
+      "afterMapped": 8,
+      "beforeBlocking": 26,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Scattering/Bulk scatter.ZMX",
+      "sourceSha256": "B3258A3A5EF50E52187821A6DCCB3456F2DF1EFD66A41A97968CF64143EFEDC3",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 48,
+      "afterBlocking": 46.0
+    },
+    {
+      "file": "Scattering/Importance Sampling Demonstration.ZMX",
+      "sourceSha256": "B6AB0C4A7EA13E9F9B5836228423895C706B309B7A70FB2FB2D45D529E87DC10",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 5,
+      "afterMapped": 6,
+      "beforeBlocking": 57,
+      "afterBlocking": 48.0
+    },
+    {
+      "file": "Scattering/Mixed Lambertian Gaussian Specular Scattering.ZMX",
+      "sourceSha256": "16C42A0384827370322385357124432D788D9F392D447C03ED19FF5CBCF33154",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 3,
+      "afterMapped": 4,
+      "beforeBlocking": 13,
+      "afterBlocking": 10.0
+    },
+    {
+      "file": "Scattering/Tabular BSDF scattering surface with Importance Sampling.ZMX",
+      "sourceSha256": "AEACD7F1C80FF53C4A97119ED0B5AA6FF1E2DC5B72A9D8667C96A9FB0382BD15",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 5,
+      "afterMapped": 6,
+      "beforeBlocking": 19,
+      "afterBlocking": 14.0
+    },
+    {
+      "file": "Scattering/Tabular BSDF scattering surface.ZMX",
+      "sourceSha256": "08FC5715314804A042D86304807C2A9F19C012E1A9FC7E1BEF0EF50D3DAF8866",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 6,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Sources/Array of diodes.ZMX",
+      "sourceSha256": "417A819384B27C8591ED8C4ED93C724BAF3166E9907A4B225C8E3D04F25E057A",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 2,
+      "afterBlocking": 2.0
+    },
+    {
+      "file": "Sources/Diode sample.ZMX",
+      "sourceSha256": "64B8807237A337C2AABAB1D3783C5AF61CF87101FC4937399CB44D273F72A054",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 4,
+      "afterBlocking": 4.0
+    },
+    {
+      "file": "Sources/Projector Modeled Using an IES Data File.ZMX",
+      "sourceSha256": "9FF736F4FC3DAB15CD655CCFB49695AC31CED2875ABA77201889D8E332AB0D5C",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 2,
+      "beforeBlocking": 4,
+      "afterBlocking": 3.0
+    },
+    {
+      "file": "Sources/Slide sample.ZMX",
+      "sourceSha256": "402D2E567BDC6F4BD5BDFFDB248434A618A018EB13C97E0E97E63AD35AC912A3",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 2,
+      "afterMapped": 3,
+      "beforeBlocking": 12,
+      "afterBlocking": 10.0
+    },
+    {
+      "file": "Sources/led_model.ZMX",
+      "sourceSha256": "4BD31577EC3FFD4DEF9FD8F1F87158CEE3B1D930ECB8DECBDAD8DED55EF3ACE1",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 2,
+      "beforeBlocking": 42,
+      "afterBlocking": 15.0
+    },
+    {
+      "file": "Sources/simple LXHL-BD01 LED model.ZMX",
+      "sourceSha256": "A165DE009A1F6064BBAFE1A703822B26DDCB4C7EB081BEB9A16DF64E2EE0EF2D",
+      "beforeApplicable": false,
+      "afterApplicable": false,
+      "beforeMapped": 1,
+      "afterMapped": 1,
+      "beforeBlocking": 3,
+      "afterBlocking": 2.0
+    },
+    {
+      "file": "Sources/sobol sampling.ZMX",
+      "sourceSha256": "139392F5D2E2F7A89623C03D78FC5D65485B894277CBF5F7438EA680DC9A23E8",
+      "beforeApplicable": false,
+      "afterApplicable": true,
+      "beforeMapped": 2,
+      "afterMapped": 4,
+      "beforeBlocking": 8,
+      "afterBlocking": null
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+      "sha256": "0f161bc0ed90ec7706cc45900235925c6dd320e6e6105b8284605a19dac1fbff"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs",
+      "sha256": "fe62a17f00713c2fcb5983cd4476718b49c571a62d4c6ef720c4cf554eb60ff1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialZemaxImportWindow.cs",
+      "sha256": "a78bebb27fb2e8e6979c3c5e42bd3ef31028123b7ccf437235cf5c13b8f13ce6"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialIntegrationTests.cs",
+      "sha256": "5efc5bfaeb498167a432d02bae164bdfabf48d5145e285569a02ac6a7ac20530"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportRepairTests.cs",
+      "sha256": "07fe2c6a4ce41cacdf58312bf8efeb90451eee77ba0cde1d03cbfa3ebd11f787"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportWindowRepairTests.cs",
+      "sha256": "1c17fa55f74155f7cf1b579e949439b35191ffd8807864e13f20dc3599cbf9d8"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.NscValidation/Program.cs",
+      "sha256": "f6e3b5d8eafd58a76a8c5d20b4c83d8901fe4dab5f03de15d5dff7d62e5e6f76"
+    },
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "3bacd6ecd225c545eb33565bf132632c5193ec2affe36f4bc0305a0a8d2de598"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "7ca6f632435e3833d13a9d5afcb9b6666211a2f0900e5951613fa0f0a5a84775"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "audit-execution.log.gz",
+      "bytes": 284,
+      "sha256": "91f15a70c5ea1280b4dde201aa7ff83ab690a3115d4faa15611bdacca1861835"
+    },
+    {
+      "path": "audit.json.gz",
+      "bytes": 37731,
+      "sha256": "62714ec94f1176addf33335d259d53e91256713973f9e844cc2116e482989bc9"
+    },
+    {
+      "path": "build.log.gz",
+      "bytes": 613,
+      "sha256": "3b42dfa1fe89ffb3723bc9f7bf0abe0a47a99c24c4a29473d40a429886eebebf"
+    },
+    {
+      "path": "Dark-inspection.png",
+      "bytes": 93658,
+      "sha256": "72f7e086bd5d147b851d09e49891f10c1712842f2bf8ed7c1f1a74e3f016378f"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 7807,
+      "sha256": "b235ac8dfa474ed6b13c5b96190a09a2fdd7ebcd38750581fd524549628b1475"
+    },
+    {
+      "path": "Isekai-inspection.png",
+      "bytes": 105460,
+      "sha256": "e83b917af9ec74b9357450bdd0d4c39495bb06de371fb3bde7d2949087678686"
+    },
+    {
+      "path": "Light-inspection.png",
+      "bytes": 43518,
+      "sha256": "9195540634d91565d1d1fac9c359ddb01684135ce7b826469c07fb765399273f"
+    }
+  ]
+}

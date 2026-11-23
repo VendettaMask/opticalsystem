@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "date": "2026-11-23",
+  "scope": "Supplied Objects tree integration, portable directory layout and functional NSC regression",
+  "baseCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "platform": "Windows x64",
+  "beforeReceipt": "../nsc-import-resources-spectra/results.json",
+  "files": 106,
+  "applicable": 4,
+  "beforeMappedObjects": 311,
+  "mappedObjects": 325,
+  "originalBytesPreserved": true,
+  "sourceManifestHashesVerified": 106,
+  "resources": {
+    "providedFiles": 317,
+    "providedBytes": 69740507,
+    "bundledFiles": 26,
+    "bundledBytes": 3304662,
+    "originalPathsAndCasePreserved": true,
+    "providedSourceHashesVerified": true,
+    "appAndTestBuildOutputHashesVerified": true,
+    "missing": [
+      {
+        "reference": "LETTERF.BMP",
+        "file": "Birefringence/Imaging through Birefringent Cube.ZMX"
+      },
+      {
+        "reference": "BARCHART.BMP",
+        "file": "LightningTrace/Lightning Trace Demonstration 2.ZMX"
+      },
+      {
+        "reference": "ALEX200.BMP",
+        "file": "Sources/Slide sample.ZMX"
+      }
+    ]
+  },
+  "runtimeLayout": {
+    "root": "Common data ancestor for design folders and Objects",
+    "ancestorLevels": 8,
+    "runtimeManifestWhitelist": false,
+    "hardcodedDownloadsPath": false,
+    "embeddedPobGeometryReopensWithoutSource": true
+  },
+  "tests": {
+    "passed": 58,
+    "failed": 0,
+    "skipped": 0,
+    "includesPrevious51": true,
+    "filter": "NonSequentialResourceLayoutTests | NonSequentialImportAssetSpectrumTests | NonSequentialImportRepairTests | NonSequentialImportWindowRepairTests | NonSequentialIntegrationTests | NonSequentialColorFringesTests | NonSequentialExampleTests"
+  },
+  "build": {
+    "command": "dotnet build tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false",
+    "warnings": 0,
+    "errors": 0
+  },
+  "auditBuildWarnings": [
+    "NU1900: NuGet vulnerability service unavailable; audit build and execution succeeded."
+  ],
+  "fullPrecisionMatrixRun": false,
+  "newExternalNumericalCapture": false,
+  "newInteractiveDesktopSession": false,
+  "installerOrOtaBuilt": false,
+  "sources": [
+    {
+      "path": ".gitattributes",
+      "sha256": "e46662f224c8191f112647d08d2570f7c4417181c10ad6f5dbbd4629ad14b005"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+      "sha256": "87810c4a6ce908be9e751d77589125bd653e01356178538d04ce2c09dae34dcc"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs",
+      "sha256": "8391c9612a83490148895a50bc117ded7cc53292102d7624263168f076a5caa0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Assets.cs",
+      "sha256": "df5359d2811776166a4b89e779b727dad6c5b121903dae4979445ccc3cd42279"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Spectra.cs",
+      "sha256": "8b74260d37ee80598acad0db9f6d02ee032fb7f02820a2bdcdd84c0c369c36a8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialColorimetry.cs",
+      "sha256": "812c10df13f6aeb36a574484caeb6fc0c56f239a4e188f12c0a0cab0d65161ec"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "sha256": "23f1b4b7ab1ea56ee73bd80133ab0c0cdf1b6501f2cd4702163c233d1ce1a102"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/NonSequentialExamples/index.json",
+      "sha256": "91e7c53201cdcc7b70c885473edc05739488902e2521c97c93b5a7097c19446e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/NonSequentialExamples/asset-index.json",
+      "sha256": "b89260d36b26e9e99e720b8f3bf2dd0cca5637c25e584e45b948d97c9d59dec2"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialResourceLayoutTests.cs",
+      "sha256": "aacfd86dbe96754921845dca2f8dbde4eef9b2c369513d7a43a2ae1ca9bad86e"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportAssetSpectrumTests.cs",
+      "sha256": "86e0ef77c57306fedf9bb3d369c1062de37f395a08a9417917ab9270c444b48c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportRepairTests.cs",
+      "sha256": "07fe2c6a4ce41cacdf58312bf8efeb90451eee77ba0cde1d03cbfa3ebd11f787"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportWindowRepairTests.cs",
+      "sha256": "1c17fa55f74155f7cf1b579e949439b35191ffd8807864e13f20dc3599cbf9d8"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialIntegrationTests.cs",
+      "sha256": "d6e53c973038eec23b4e852bf17b6a9cf6b0adc947a03ab6044269fe43b5ad32"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialColorFringesTests.cs",
+      "sha256": "41c143383b09e562c93dfbebf443a545e5bd71d219663eae8ba7a4c4a6b0df61"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialExampleTests.cs",
+      "sha256": "9d99a793164a01f1d8aeead713cd657d88d82083e1b0f44f7fa91822287b3f94"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.NscValidation/Program.cs",
+      "sha256": "f6e3b5d8eafd58a76a8c5d20b4c83d8901fe4dab5f03de15d5dff7d62e5e6f76"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "audit.json.gz",
+      "bytes": 39787,
+      "sha256": "85d96f07adee540e0ceb440df73dbdded287d0f506bff7ac2e8cc2489b25f98c"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 13001,
+      "sha256": "9dad9ce6f4cc74bad8008a7a3f8e8c70eaf7923df55fd86cdd465bca2afe9391"
+    },
+    {
+      "path": "build.log.gz",
+      "bytes": 618,
+      "sha256": "09b502d79cf18ffcfb9ebdf1319456b68e31d158d7d2004c6ba44c2ec3951095"
+    },
+    {
+      "path": "audit-build.log.gz",
+      "bytes": 350,
+      "sha256": "7ca50470c582e4290bc8178d31c550ffc375cff1da8c7907305c4db222b54750"
+    },
+    {
+      "path": "files.md",
+      "bytes": 13601,
+      "sha256": "05a30499426ab1e65d14a8e9234cd6606a81d4f719c62c8ef5b1494c51570996"
+    },
+    {
+      "path": "resources.md",
+      "bytes": 2533,
+      "sha256": "44b1c2561fb19282f7786a01efc62d52af5b6ff474f2c68e16ab8e2b2224ae80"
+    }
+  ]
+}

@@ -1824,6 +1824,12 @@
     "Japanese": "XYZには放射量校正が必要です。鏡面ピークには保存的な傾き配准を使用し、背景は固定します。校正と散乱データはプロジェクトとカメラ実験に保存されます。"
   },
   {
+    "Source": "XYZ 颜色已按非负光谱拟合导入，光谱权重随工程保存。",
+    "Chinese": "XYZ 颜色已按非负光谱拟合导入，光谱权重随工程保存。",
+    "English": "XYZ color imported using a nonnegative spectrum fit. Spectral weights are saved with the project.",
+    "Japanese": "XYZ色を非負のスペクトル適合で取り込みました。スペクトルの重みはプロジェクトに保存されます。"
+  },
+  {
     "Source": "X倾斜 = {0}，Y倾斜 = {1}",
     "Chinese": "X倾斜 = {0}，Y倾斜 = {1}",
     "English": "X tilt = {0}, Y tilt = {1}",
@@ -2448,6 +2454,12 @@
     "Japanese": "{0}実体面、{1}有限共役。前段レンズを通した平面にも有限の平行光共役が存在する場合があります。"
   },
   {
+    "Source": "{0} 个对象",
+    "Chinese": "{0} 个对象",
+    "English": "{0} objects",
+    "Japanese": "{0} 個のオブジェクト"
+  },
+  {
     "Source": "{0} 个折射率样本",
     "Chinese": "{0} 个折射率样本",
     "English": "{0} refractive-index samples",
@@ -2560,6 +2572,12 @@
     "Chinese": "{0} 项完成；{1} 项失败或不适用",
     "English": "{0} completed; {1} failed or not applicable",
     "Japanese": "{0} 項目完了、{1} 項目失敗または対象外"
+  },
+  {
+    "Source": "{0} 项需要处理",
+    "Chinese": "{0} 项需要处理",
+    "English": "{0} items to resolve",
+    "Japanese": "要対応 {0} 件"
   },
   {
     "Source": "{0}{1} · 修订 {2} · Field {3} · {4} · {5}\n{6}MTF50：{7}；MTF10：{8}\n拟合边缘 {9}°，残差 {10} px；PSF 截取能量 {11}；SFR 与窗口含像元 MTF 最大差 {12}\n{13}采样检查：{14}（门限 {15}）\n{16}",
@@ -3778,6 +3796,12 @@
     "Chinese": "优化函数",
     "English": "Merit Function",
     "Japanese": "評価関数"
+  },
+  {
+    "Source": "优化变量按文件当前值导入；原变量标记保存在导入记录中。",
+    "Chinese": "优化变量按文件当前值导入；原变量标记保存在导入记录中。",
+    "English": "Optimization variables imported at their saved values. Original variable flags are retained in the import record.",
+    "Japanese": "最適化変数を保存時の値で取り込みました。元の変数フラグはインポート記録に保持されます。"
   },
   {
     "Source": "优化变量滑块",
@@ -6306,6 +6330,12 @@
     "Japanese": "6次補償"
   },
   {
+    "Source": "共 {0} 条，行 {1}–{2}；详情见完整导入记录。",
+    "Chinese": "共 {0} 条，行 {1}–{2}；详情见完整导入记录。",
+    "English": "{0} records, lines {1}–{2}; see the complete import record for details.",
+    "Japanese": "{0} 件、行 {1}–{2}。詳細は完全なインポート記録をご覧ください。"
+  },
+  {
     "Source": "共享 Core 实际面型在共同净半口径处的切线角",
     "Chinese": "共享 Core 实际面型在共同净半口径处的切线角",
     "English": "Tangent angle of the actual surface at the common clear semidiameter",
@@ -8388,6 +8418,12 @@
     "Japanese": "製造性評価"
   },
   {
+    "Source": "可导入",
+    "Chinese": "可导入",
+    "English": "Ready to import",
+    "Japanese": "インポート可能"
+  },
+  {
     "Source": "可用",
     "Chinese": "可用",
     "English": "Available",
@@ -10338,6 +10374,12 @@
     "Japanese": "オブジェクト"
   },
   {
+    "Source": "对象 {0}",
+    "Chinese": "对象 {0}",
+    "English": "Object {0}",
+    "Japanese": "オブジェクト {0}"
+  },
+  {
     "Source": "对象 {0} · {1} · {2}",
     "Chinese": "对象 {0} · {1} · {2}",
     "English": "Object {0} · {1} · {2}",
@@ -10348,6 +10390,12 @@
     "Chinese": "对象 {0} 的属性已更新。",
     "English": "Properties updated for object {0}.",
     "Japanese": "オブジェクト{0}のプロパティを更新しました。"
+  },
+  {
+    "Source": "对象 {0}：{1} · {2}",
+    "Chinese": "对象 {0}：{1} · {2}",
+    "English": "Object {0}: {1} · {2}",
+    "Japanese": "オブジェクト {0}：{1} · {2}"
   },
   {
     "Source": "对象属性",
@@ -10552,6 +10600,12 @@
     "Chinese": "导入绝对 QE 曲线",
     "English": "Import Absolute QE Curve",
     "Japanese": "絶対QE曲線を読み込む"
+  },
+  {
+    "Source": "导入说明",
+    "Chinese": "导入说明",
+    "English": "Import notes",
+    "Japanese": "インポート情報"
   },
   {
     "Source": "导入起点",
@@ -11430,6 +11484,12 @@
     "Japanese": "実装済み：sRGB入力デコード、650/550/450 nmの3狭帯域、現在レンズの共有Core結像または理想対照、光電子変換、Poissonショットノイズ、読み出しノイズ、暗電流、PRNU/DSNU、飽和容量、ADC、Bayer、双線形デモザイク、RGBゲイン、ボックスノイズ除去、アンシャープマスク、Gamma。\n\nJSONセンサーパラメータとCSV絶対QE曲線に対応します。各CFA画素タイプは650/550/450 nmの3入力帯域に応答し、光電子を累積します。読み込み曲線は固定QEを置き換え、重複乗算しません。曲線がない場合は従来の独立3帯域応答を使用します。\n\n連続スペクトル：光源W/m²/nm、材質反射率、QEを読み込みます。単一材質または最大16種類の光源平面ラベル領域に対応します。波長ごとに材質反射率を適用してから共有光学を呼び出し、材質境界を越えてぼけが広がります。全折点を統合して区分3点Gauss-Legendre積分を行います。画像は線形グレースケールの空間パターンとなり、RGBからスペクトルを逆算しません。\n\n完全な実験の保存・読み込みと、固定レンズ・入力・光源・材質・センサー・ISPによるA/B再計算に対応します。既知ゲインのRAW暗・フラット画像からスカラーパラメータを推定し、測定条件と元フレームを保持します。画素別補正と内蔵実測センサーライブラリはありません。\n\n3Dシーン：不透明な矩形・球・直方体、点光源、Lambertian直接反射、遮蔽、異なる物体深度に対応し、幾何結像または有限セルのスカラーHuygens回折を使用します。実物点とレンズ光路長を用い、同じ点・波長内で複素電場を加算し、異なる点・波長間では強度を加算して感光面積とRAW/ISPへ接続します。感光領域は2×2/4×4 Gauss積分に対応し、光源・瞳・画素・有限窓の収束は個別確認が必要です。V5/V6/V7は元の再計算規則を保持します。一般BSDF・多重反射、ベクトル偏光回折、角度QE、マイクロレンズ、動的シャッター、迷光結合、メーカーISPはここには含まれません。出典の読み込みは実測の検証を意味しません。\n\n対照：無雑音結果は同一の光学像・露光・ADC・ISPを使用し、ランダムノイズと固定不均一性のみ無効化します。A/Bは各パラメータとレンズ改訂を保持します。同じシードで再現可能です。電子画像とRAWは画像別ピーク正規化をしません。\n\n公開機能参考（数値認証ではありません）：\nDeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/\nKeysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html\nSpeos sensor examples — https://optics.ansys.com/hc/en-us/articles/20419350770067\nEMVA 1288 — https://www.emva.org/standards-technology/emva-1288/\n\n検証根拠：独立した光子・電子数の式、露光・ゲイン制御、暗・フラット統計、既知のBayer色パッチ、無雑音・A/B対照。EMVA適合や商用ソフトウェアとの結果一致を主張しません。"
   },
   {
+    "Source": "已导入 Zemax NSC 场景。",
+    "Chinese": "已导入 Zemax NSC 场景。",
+    "English": "Zemax NSC scene imported.",
+    "Japanese": "Zemax NSCシーンを読み込みました。"
+  },
+  {
     "Source": "已导入 {0} 个装调阶段。请按系统评价值设置验收上限。",
     "Chinese": "已导入 {0} 个装调阶段。请按系统评价值设置验收上限。",
     "English": "Imported {0} alignment stages. Set the upper acceptance limit for system merit.",
@@ -11530,6 +11590,12 @@
     "Chinese": "已收紧",
     "English": "Tightened",
     "Japanese": "縮小済み"
+  },
+  {
+    "Source": "已映射",
+    "Chinese": "已映射",
+    "English": "Mapped",
+    "Japanese": "変換済み"
   },
   {
     "Source": "已是最后一个结构",
@@ -14718,6 +14784,12 @@
     "Japanese": "更新できませんでした。後で再試行するか、リリースページからインストールしてください。"
   },
   {
+    "Source": "无法导入此文件。",
+    "Chinese": "无法导入此文件。",
+    "English": "Unable to import this file.",
+    "Japanese": "このファイルを読み込めません。"
+  },
+  {
     "Source": "无法打开 IMA/BIM 图像：{0}",
     "Chinese": "无法打开 IMA/BIM 图像：{0}",
     "English": "Cannot open IMA/BIM image: {0}",
@@ -16606,6 +16678,12 @@
     "Chinese": "查看原图",
     "English": "View Original",
     "Japanese": "原図を表示"
+  },
+  {
+    "Source": "查看对象与资源，确认后将场景导入工程。完整原始记录可另存。",
+    "Chinese": "查看对象与资源，确认后将场景导入工程。完整原始记录可另存。",
+    "English": "Review the objects and assets, then import the scene. Save the full original record separately.",
+    "Japanese": "オブジェクトとアセットを確認してシーンを取り込みます。元の完全な記録は別途保存できます。"
   },
   {
     "Source": "查看过期光线",
@@ -19996,6 +20074,12 @@
     "Chinese": "类型参数",
     "English": "Type Parameters",
     "Japanese": "タイプ別パラメータ"
+  },
+  {
+    "Source": "类型待支持",
+    "Chinese": "类型待支持",
+    "English": "Unsupported type",
+    "Japanese": "未対応の種類"
   },
   {
     "Source": "粗",
@@ -25270,6 +25354,12 @@
     "Chinese": "需要 1–256 个实体表面（不含物面和像面）。",
     "English": "Requires 1–256 physical surfaces, excluding object and image surfaces.",
     "Japanese": "物体面と像面を除く 1–256 個の実体面が必要です。"
+  },
+  {
+    "Source": "需要处理",
+    "Chinese": "需要处理",
+    "English": "Needs attention",
+    "Japanese": "要対応"
   },
   {
     "Source": "需评审",

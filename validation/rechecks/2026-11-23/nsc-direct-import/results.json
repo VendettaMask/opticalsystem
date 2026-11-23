@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "date": "2026-11-23",
+  "scope": "NSC direct import and short failure UI",
+  "baseCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "platform": "Windows x64",
+  "behavior": {
+    "inspectionWindowRemoved": true,
+    "automaticWholeSceneApply": true,
+    "failureMessageAndFilenameOnly": true,
+    "successUndoable": true,
+    "cancelAndFailureKeepCurrentScene": true,
+    "closedOwnerCancelsPendingApply": true,
+    "entryPoints": [
+      "Samples",
+      "Object editor import",
+      "File import in NSC mode",
+      "File open ZMX in NSC mode"
+    ]
+  },
+  "tests": {
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "filter": "NonSequentialImportFlowTests | NonSequentialExampleTests | NonSequentialDesignWindowTests",
+    "classes": [
+      {
+        "name": "NonSequentialImportFlowTests",
+        "passed": 10
+      },
+      {
+        "name": "NonSequentialExampleTests",
+        "passed": 9
+      },
+      {
+        "name": "NonSequentialDesignWindowTests",
+        "passed": 3
+      }
+    ]
+  },
+  "build": {
+    "configuration": "Default Release app/test dependency graph",
+    "command": "dotnet build tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false",
+    "warnings": 0,
+    "errors": 0
+  },
+  "localization": {
+    "translations": 4356,
+    "occurrences": 3943,
+    "missing": 0,
+    "errors": 0
+  },
+  "render": {
+    "offscreen": true,
+    "themes": [
+      "Light/zh-CN/100%",
+      "Dark/ja-JP/150%",
+      "Isekai/en-US/200%"
+    ],
+    "states": [
+      "Supported sample applied with no inspector",
+      "Unsupported sample short message"
+    ]
+  },
+  "fileSupportReceipt": "../nsc-objects-layout/results.json",
+  "fileSupportChanged": false,
+  "fullPrecisionMatrixRun": false,
+  "interactiveDesktopUsed": false,
+  "installerOrOtaBuilt": false,
+  "removedSources": [
+    "src/OpticalSystemDesign.App/Panels/NonSequentialZemaxImportWindow.cs",
+    "tests/OpticalSystemDesign.Tests/NonSequentialImportWindowRepairTests.cs"
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Services/NonSequentialFileImport.cs",
+      "sha256": "423c4b47db2ba09871d333fe9910d20a4bbfcd10915d004abc50b8807c8d67e8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Examples.cs",
+      "sha256": "ea3f6a50ed146c26abc3e1206cd3ed7cfdba55631dad5877f00f7f8ecfee781f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Import.cs",
+      "sha256": "237197f7e91b5ee288daf2c5ca35ec5f1f4092f44a05f428da41e5e3a41929e2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Documents.cs",
+      "sha256": "9d26cb2c6dd166e5d3ae61febe6ca52cd1a5228307353e50e040b278e1dce316"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "sha256": "5b496105e5f6f38242c38bd0fb973e5654612bc8d497f3eae57153e438c32dc8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.Zemax.cs",
+      "sha256": "3e6e3dff7a22f2c5f92e2df64a179c93203a38041e59dfda997a4f0c278eb31a"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportFlowTests.cs",
+      "sha256": "b213937c188d5ce8014afba89f6609f56241f6f07e14f01110eff737faa6ceb7"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialExampleTests.cs",
+      "sha256": "2c437987d483766709a310de01b9e8e896c6e21a0317c701bfac784c685783db"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialDesignWindowTests.cs",
+      "sha256": "7a9053414911de70c9613a70cfe77bb37b2869f18b9659c1fc7898987438c660"
+    },
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "fe2ae82316e5923a62fed21e156307244afa4a8d4df194c2b700016b19640c81"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "448a1222fe2cba4e9159c1095ff10a22283a77d3add11289f481b193842a41c7"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build.log.gz",
+      "bytes": 618,
+      "sha256": "d8f6cb2fbf5661264a2aec69deb6a67f4e32420a7055455524d1021158154d0f"
+    },
+    {
+      "path": "Dark-imported.png",
+      "bytes": 260463,
+      "sha256": "7188fd257425bd7e3d65cbf15afdb8892b23cad212a3b27b40985bc5a01a7cad"
+    },
+    {
+      "path": "Dark-unavailable.png",
+      "bytes": 11982,
+      "sha256": "6ee27e659cc75bc2863eec8e7599701ee6618b5175242d266a6b12f8f7d64fc7"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 4370,
+      "sha256": "946c9afea9216d0b2548fdef1a68ed14d3d3a0e39afd922021694f6935e1fbf6"
+    },
+    {
+      "path": "Isekai-imported.png",
+      "bytes": 805346,
+      "sha256": "1d5a30101a7d9ce9c4cd62876022855a03260b5d496b9be332244b15e2a484fc"
+    },
+    {
+      "path": "Isekai-unavailable.png",
+      "bytes": 19090,
+      "sha256": "9d1b3865969d1293ff83ce536a084df40e70b76612eab6d5e3bf41cfdc18536a"
+    },
+    {
+      "path": "Light-imported.png",
+      "bytes": 155888,
+      "sha256": "e462e4e5b05fdac3d95f2515d83e1f54efcc63e338e9fc2506e870f66886e798"
+    },
+    {
+      "path": "Light-unavailable.png",
+      "bytes": 6942,
+      "sha256": "16573cda1fce8dc96e1054f237e5b3c652b34c1318e102b71132ddb6f836fd64"
+    },
+    {
+      "path": "localization-check.log.gz",
+      "bytes": 92,
+      "sha256": "91e148c29e252dce9b08db1bde340e25de369736b477d9b52852db39751c4f28"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2421,
+      "sha256": "2646c4b0f4afed0158e6e7ac7fbdf482840eba8c5543c1615b8172c5b3857bfb"
+    }
+  ]
+}

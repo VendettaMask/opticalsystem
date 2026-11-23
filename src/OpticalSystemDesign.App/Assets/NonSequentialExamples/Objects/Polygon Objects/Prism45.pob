@@ -1,0 +1,30 @@
+! A 45-45-90 prism with no mirror side
+! FSI Dec 18, 1998
+
+C 1 "Splitter surface"
+
+! front face vertices
+V 1 -1 -1 0
+V 2  1 -1 0
+V 3  1  1 0
+V 4 -1  1 0
+
+! back face vertices
+V 5 -1  1 2
+V 6  1  1 2
+
+! Front face rectangle
+R 1 2 3 4 0 0
+
+! Top face rectangle
+R 4 3 6 5 0 0
+
+! Bottom rectangle
+R 1 2 6 5 0 1
+
+! left side triangle
+T 1 4 5 0 0
+
+! right side triangle
+T 3 2 6 0 0
+

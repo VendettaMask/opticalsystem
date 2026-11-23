@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "date": "2026-11-23",
+  "scope": "NSC functional and preview verification before scoped remote synchronization",
+  "baseCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "target": "origin/main",
+  "platform": "Windows x64",
+  "tests": {
+    "passed": 72,
+    "failed": 0,
+    "skipped": 0,
+    "filter": "NonSequentialResourceLayoutTests | NonSequentialImportAssetSpectrumTests | NonSequentialImportRepairTests | NonSequentialImportFlowTests | NonSequentialIntegrationTests | NonSequentialColorFringesTests | NonSequentialExampleTests | NonSequentialDesignWindowTests"
+  },
+  "build": {
+    "configuration": "Default Release application/test dependency graph",
+    "warnings": 0,
+    "errors": 0
+  },
+  "localization": {
+    "translations": 4356,
+    "occurrences": 3943,
+    "missing": 0,
+    "errors": 0
+  },
+  "standalonePreview": {
+    "project": "docs/assets/ui-proposals/2026-11-23/non-sequential-scene-tree/prototype/Prototype.csproj",
+    "restored": true,
+    "buildWarnings": 0,
+    "buildErrors": 0,
+    "executedOffscreen": true,
+    "nativeSceneObjects": 432,
+    "channels": 32,
+    "productionWorkspaceReplaced": false
+  },
+  "fileSupport": {
+    "files": 106,
+    "completeApplicable": 4,
+    "mappedObjects": 325,
+    "bundledResources": 26,
+    "missingImages": 3
+  },
+  "otherWorkspaceTasksIncluded": false,
+  "fullPrecisionMatrixRun": false,
+  "installerOrOtaPublished": false,
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+      "sha256": "87810c4a6ce908be9e751d77589125bd653e01356178538d04ce2c09dae34dcc"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs",
+      "sha256": "8391c9612a83490148895a50bc117ded7cc53292102d7624263168f076a5caa0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Assets.cs",
+      "sha256": "df5359d2811776166a4b89e779b727dad6c5b121903dae4979445ccc3cd42279"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Spectra.cs",
+      "sha256": "8b74260d37ee80598acad0db9f6d02ee032fb7f02820a2bdcdd84c0c369c36a8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialColorimetry.cs",
+      "sha256": "812c10df13f6aeb36a574484caeb6fc0c56f239a4e188f12c0a0cab0d65161ec"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/NonSequentialFileImport.cs",
+      "sha256": "423c4b47db2ba09871d333fe9910d20a4bbfcd10915d004abc50b8807c8d67e8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Examples.cs",
+      "sha256": "ea3f6a50ed146c26abc3e1206cd3ed7cfdba55631dad5877f00f7f8ecfee781f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Documents.cs",
+      "sha256": "9d26cb2c6dd166e5d3ae61febe6ca52cd1a5228307353e50e040b278e1dce316"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Import.cs",
+      "sha256": "237197f7e91b5ee288daf2c5ca35ec5f1f4092f44a05f428da41e5e3a41929e2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "sha256": "5b496105e5f6f38242c38bd0fb973e5654612bc8d497f3eae57153e438c32dc8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.Zemax.cs",
+      "sha256": "3e6e3dff7a22f2c5f92e2df64a179c93203a38041e59dfda997a4f0c278eb31a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build.log.gz",
+      "bytes": 618,
+      "sha256": "722ca4c7784de032be96a61e478a7c6b160d6af743dee8431fb717ce4d54daac"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 16466,
+      "sha256": "6fc13796dfe227b9f8ecaff0b3c79f92ac4b55b5f070338b9dca3ec12c1d346e"
+    },
+    {
+      "path": "localization-check.log.gz",
+      "bytes": 92,
+      "sha256": "91e148c29e252dce9b08db1bde340e25de369736b477d9b52852db39751c4f28"
+    },
+    {
+      "path": "prototype-build.log.gz",
+      "bytes": 453,
+      "sha256": "e1a2fd35c24268e3d87819a29a8348a42b4fef65be6cd034f83ffa0a9b7e75a6"
+    },
+    {
+      "path": "prototype-checks.json.gz",
+      "bytes": 417,
+      "sha256": "9ec1f7ef6f7bce5ccf78dabad29788a3b6fbfd207d98ccb2162fbeefb5705c7f"
+    },
+    {
+      "path": "prototype-run.log.gz",
+      "bytes": 80,
+      "sha256": "57074150db87722860e6b7493910804ad823875648702eac26a68475dbc3b405"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1448,
+      "sha256": "5f94fd77639aa9928e606c406fc0b664552598d4ef3bc6bc83077701678c395b"
+    }
+  ]
+}

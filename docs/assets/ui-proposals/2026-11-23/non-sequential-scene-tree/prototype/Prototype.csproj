@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- Use the existing test friend assembly for this isolated offscreen harness. -->
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+    <NuGetAudit>false</NuGetAudit>
+    <RepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../../../../../'))</RepositoryRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(RepositoryRoot)/src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.0" />
+    <Compile Include="$(RepositoryRoot)/tests/Shared/SafeHeadlessUnitTestSession.cs" Link="SafeHeadlessUnitTestSession.cs" />
+  </ItemGroup>
+</Project>
