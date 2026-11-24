@@ -62,6 +62,18 @@ CI 使用同一根解决方案，以统一的 `CONFIGURATION=Release` 编译和�
 ./scripts/test-initial-structure-partition.ps1 -Partition contracts -Configuration Release -ResultsDirectory artifacts/validation/initial-contracts
 ```
 
+## 依赖漏洞检查的连接警告
+
+`NU1900` 表示获取依赖漏洞数据时连接或读取失败，不是已确认某个包存在漏洞。包可以从本地缓存还原成功，同时安全检查未完成。警告可能保存在项目 `obj/project.assets.json` 的还原结果中，后续 `build --no-restore` 会继续显示它。
+
+先确认正常构建环境能连接官方源 `https://api.nuget.org/v3/index.json` 及其漏洞数据资源。连接恢复后，在仓库根目录重新获取官方信息并生成锁定的还原结果：
+
+```powershell
+dotnet restore src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj --locked-mode --force --no-http-cache
+```
+
+这条命令保持依赖版本锁定和 NuGet Audit，不关闭审计、不屏蔽警告，也不需要删除整个包缓存或清理用户正在使用的程序。网络仍不可达时，保留警告并修复连接；只有成功完成审计后才将检查记录为完成。2026-11-24 的缓存警告修复见[检查记录](../validation/rechecks/2026-11-24/nuget-audit-recovery/results.json)。参考[官方 NU1900 说明](https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu1900)。
+
 ## 冻结证据门禁
 
 CI 在三个系统上同时核对工作区与 HEAD 的原始字节。历史清单保持原路径、2668 项和原汇总 SHA-256；产品更名后的四项证据通过[显式迁移表](../tools/validation/frozen-evidence-relocations.json)定位，绝不按旧目录前缀自动回退。三份夹具读取现目录，旧配置读取已保存的原字节归档，不以现配置的 JSON 语义相同代替字节校验。此表仅用于历史证据验证，不进入产品运行或旧名称兼容。

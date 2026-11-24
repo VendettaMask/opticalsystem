@@ -223,7 +223,7 @@ public sealed class GlobalRayOperandTests
     }
 
     [Fact]
-    public void ImportedCoordinateBreakRemapsPhysicalReferencesAndLeavesBreakReferencesInvalid()
+    public void ImportedCoordinateBreakPreservesPhysicalAndCoordinateReferences()
     {
         var text = """
             MODE SEQ
@@ -246,12 +246,13 @@ public sealed class GlobalRayOperandTests
             GLCY 1 0 0 0 0 0 0 1 0 0
             RAGZ 3 1 0 0 0 0 0 1 0 0
             """;
-        var optic = OpticalFormatCatalog.Import(text, ".zmx"); Assert.Equal(2, optic.GlobalReferenceSurfaceNumber);
-        Assert.Equal(2, optic.MeritFunctionOperands[0].ZemaxIntegerParameters[0]);
+        var optic = OpticalFormatCatalog.Import(text, ".zmx"); Assert.Equal(3, optic.GlobalReferenceSurfaceNumber);
+        Assert.Equal(3, optic.MeritFunctionOperands[0].ZemaxIntegerParameters[0]);
         Value(optic, optic.MeritFunctionOperands[0], 0); Value(optic, optic.MeritFunctionOperands[1], -3);
         Value(optic, optic.MeritFunctionOperands[2], 0);
-        Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(text + "\nGLCZ 2 0 0 0 0 0 0 1 0 0", ".zmx"));
-        Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(text.Replace("GLRS 3", "GLRS 2"), ".zmx"));
+        var withCoordinateOperand = OpticalFormatCatalog.Import(text + "\nGLCZ 2 0 0 0 0 0 0 1 0 0", ".zmx");
+        Value(withCoordinateOperand, withCoordinateOperand.MeritFunctionOperands[^1], 0);
+        Assert.Equal(2, OpticalFormatCatalog.Import(text.Replace("GLRS 3", "GLRS 2"), ".zmx").GlobalReferenceSurfaceNumber);
     }
 
     [Theory]

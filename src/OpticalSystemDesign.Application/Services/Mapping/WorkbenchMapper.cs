@@ -78,7 +78,15 @@ internal static partial class WorkbenchMapper
             IsReflective: surface.IsReflective,
             SurfaceColor: surface.SurfaceColor,
             Drawing: ToDrawingDto(surface.Drawing),
-            ShapeVariables: surface.ShapeVariables.ToArray());
+            ShapeVariables: surface.ShapeVariables.ToArray(),
+            ParaxialLens: surface.InteractionModel is ParaxialLensInteractionModel paraxial
+                ? new(paraxial.PowerX, paraxial.PowerY, paraxial.OpdMode) : null,
+            Birefringent: surface.InteractionModel is BirefringentInteractionModel crystalInterface
+                ? surface.MaterialAfter is UniaxialMaterial crystal && !crystalInterface.IsExit
+                    ? new(false, crystalInterface.AxisDisplayLength, crystal.Axis.X, crystal.Axis.Y, crystal.Axis.Z,
+                        crystal.TraceExtraordinary, crystal.ParaxialIgnore)
+                    : new(crystalInterface.IsExit, crystalInterface.AxisDisplayLength)
+                : null);
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch
@@ -116,6 +124,9 @@ internal static partial class WorkbenchMapper
 
     internal static string InteractionKind(OpticalSurface surface) => surface.InteractionModel switch
     {
+        CoordinateReferenceInteractionModel => "坐标间断",
+        BirefringentInteractionModel crystal => crystal.IsExit ? "双折射输出" : "双折射输入",
+        ParaxialLensInteractionModel => "近轴透镜",
         ThinLensInteractionModel model when model.IsReflective => "反射薄透镜",
         ThinLensInteractionModel => "薄透镜",
         DiffractiveInteractionModel model when model.IsReflective => "反射衍射",

@@ -1,6 +1,7 @@
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Optimization;
 
 namespace OpticalSystemDesign.Tests;
@@ -108,14 +109,14 @@ public sealed class ZemaxImportParameterAndSurfaceMappingTests
     [InlineData("GLCX")]
     [InlineData("RAGZ")]
     [InlineData("CVVA")]
-    public void SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(string code)
+    public void SurfaceSlotsRetainSourceRowsAndSurviveSnapshot(string code)
     {
         var optic = Import(Frames + $"\n{code} 4 1 0 0 0 0 0 1 0 0");
         var row = Assert.Single(optic.MeritFunctionOperands);
-        Assert.Equal(2, row.Surface);
-        Assert.Equal(new[] { 2, 1 }, row.ZemaxIntegerParameters);
+        Assert.Equal(4, row.Surface);
+        Assert.Equal(new[] { 4, 1 }, row.ZemaxIntegerParameters);
         var restored = Optic.FromSnapshot(optic.ToSnapshot());
-        Assert.Equal(2, Assert.Single(restored.MeritFunctionOperands).Surface);
+        Assert.Equal(4, Assert.Single(restored.MeritFunctionOperands).Surface);
     }
 
     [Fact]
@@ -131,8 +132,13 @@ public sealed class ZemaxImportParameterAndSurfaceMappingTests
     [Theory]
     [InlineData("CENX")]
     [InlineData("GLCZ")]
-    public void ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(string code) =>
-        Assert.Throws<NotSupportedException>(() => Import(Frames + $"\n{code} 2 1 0 0 0 0 0 1 0 0"));
+    public void ReferenceToCoordinateBreakRetainsItsDeclaredRow(string code)
+    {
+        var optic = Import(Frames + $"\n{code} 2 1 0 0 0 0 0 1 0 0");
+        Assert.Equal(2, Assert.Single(optic.MeritFunctionOperands).Surface);
+        Assert.IsType<CoordinateReferenceInteractionModel>(optic.SurfaceGroup.Items[2].InteractionModel);
+        if (code == "GLCZ") Assert.Empty(MeritFunctionCatalog.Evaluate(optic, optic.MeritFunctionOperands[0]).Error);
+    }
 
     [Theory]
     [InlineData("REAX")]
@@ -148,8 +154,8 @@ public sealed class ZemaxImportParameterAndSurfaceMappingTests
         Assert.False(plane.IsReflective);
         Assert.Equal(plane.MaterialBefore.Name, plane.MaterialAfter.Name);
         Assert.Equal(2, optic.MeritFunctionOperands[0].Surface);
-        Assert.Equal(3, optic.MeritFunctionOperands[1].Surface);
-        Assert.Equal(50, optic.SurfaceGroup.Items[3].Radius);
+        Assert.Equal(4, optic.MeritFunctionOperands[1].Surface);
+        Assert.Equal(50, optic.SurfaceGroup.Items[4].Radius);
         var restored = Optic.FromSnapshot(optic.ToSnapshot());
         Assert.IsType<PlaneGeometry>(restored.SurfaceGroup.Items[2].Geometry);
         Assert.Equal(2, restored.MeritFunctionOperands[0].ZemaxIntegerParameters[0]);
@@ -195,8 +201,8 @@ public sealed class ZemaxImportParameterAndSurfaceMappingTests
             CONS 4 0 0 0 0 0 0 1 0 0
             REAY 0 1 0 0 0 0 0 1 0 0
             """);
-        Assert.Equal(new[] { 1, 2 }, optic.MeritFunctionOperands[0].ZemaxIntegerParameters);
-        Assert.Equal(2, optic.MeritFunctionOperands[0].Wavelength);
+        Assert.Equal(new[] { 1, 4 }, optic.MeritFunctionOperands[0].ZemaxIntegerParameters);
+        Assert.Equal(4, optic.MeritFunctionOperands[0].Wavelength);
         Assert.Equal(new[] { 4, 1 }, optic.MeritFunctionOperands[1].ZemaxIntegerParameters);
         Assert.Equal(new[] { 4, 0 }, optic.MeritFunctionOperands[2].ZemaxIntegerParameters);
         Assert.Equal(0, optic.MeritFunctionOperands[3].Surface);

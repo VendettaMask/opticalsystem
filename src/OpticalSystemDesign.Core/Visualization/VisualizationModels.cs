@@ -255,9 +255,24 @@ public sealed partial class Layout2DBuilder
     {
         var curves = new List<Layout2DSurfaceCurve>();
         var surfaceCount = _optic.SurfaceGroup.Items.Count;
+        var planarFaces = PlanarDisplayFaces();
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
+            if (surface.InteractionModel is CoordinateReferenceInteractionModel && !surface.IsStop)
+            {
+                if (BuildLocalFrame(surface) is { } referenceFrame)
+                    curves.Add(new(surface.Number, surface.Label, false, false, true, [],
+                        LocalFrame: referenceFrame));
+                continue;
+            }
+            if (planarFaces.TryGetValue(surface.Number, out var planarFace))
+            {
+                curves.Add(new(surface.Number, surface.Label, surface.IsStop, false, false,
+                    ProjectedHull(planarFace.Rim), surface.SurfaceColor, surface.Drawing.Opacity,
+                    surface.Drawing.HideEdges, surface.Drawing.HideSurface, BuildLocalFrame(surface)));
+                continue;
+            }
             curves.Add(new Layout2DSurfaceCurve(
                 surface.Number,
                 surface.Label,
@@ -278,6 +293,13 @@ public sealed partial class Layout2DBuilder
 
         foreach (var group in BuildLensGroups())
         {
+            if (TryPlanarVolumes(group, out var planarVolumes))
+            {
+                foreach (var volume in planarVolumes)
+                    elements.Add(new(volume.Front.Number, volume.Back.Number, volume.Front.MaterialAfterName,
+                        volume.Outline, Math.Min(volume.Front.Drawing.Opacity, volume.Back.Drawing.Opacity)));
+                continue;
+            }
             for (var index = 0; index < group.Count - 1; index++)
             {
                 var surface = group[index];
@@ -315,6 +337,18 @@ public sealed partial class Layout2DBuilder
 
         foreach (var group in BuildLensGroups())
         {
+            if (TryPlanarVolumes(group, out var planarVolumes))
+            {
+                foreach (var volume in planarVolumes.Where(v => !v.Front.Drawing.HideEdges))
+                    for (var i = 0; i + 1 < volume.FrontRim.Count; i++)
+                    {
+                        var f = volume.FrontRim[i]; var b = volume.BackRim[i];
+                        if (Math.Abs(f.Z - b.Z) + Math.Abs(f.Y - b.Y) < 1e-9) continue;
+                        edges.Add(new(volume.Front.Number, volume.Back.Number, new(f.Z, f.Y), new(b.Z, b.Y),
+                            Math.Min(volume.Front.Drawing.Opacity, volume.Back.Drawing.Opacity)));
+                    }
+                continue;
+            }
             for (var index = 0; index < group.Count - 1; index++)
             {
                 var frontSurface = group[index];
@@ -349,9 +383,25 @@ public sealed partial class Layout2DBuilder
     {
         var primitives = new List<Layout3DSurfacePrimitive>();
         var surfaceCount = _optic.SurfaceGroup.Items.Count;
+        var planarFaces = PlanarDisplayFaces();
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
+            if (surface.InteractionModel is CoordinateReferenceInteractionModel && !surface.IsStop)
+            {
+                if (BuildLocalFrame(surface) is { } referenceFrame)
+                    primitives.Add(new(surface.Number, surface.Label, false, false, true,
+                        surface.MaterialAfterName, [], [], [], [], LocalFrame: referenceFrame));
+                continue;
+            }
+            if (planarFaces.TryGetValue(surface.Number, out var planarFace))
+            {
+                primitives.Add(new(surface.Number, surface.Label, surface.IsStop, false, false, surface.MaterialAfterName,
+                    planarFace.Rim, [], [], planarFace.Faces, SurfaceColor: surface.SurfaceColor,
+                    Opacity: surface.Drawing.Opacity, HideEdges: surface.Drawing.HideEdges, HideSurface: surface.Drawing.HideSurface,
+                    LocalFrame: BuildLocalFrame(surface)));
+                continue;
+            }
             var semiDiameter = SurfaceExtent(surface);
             var samples = DrawingSamples(surface, surfaceSamples);
             var angularSamples = DrawingSamples(surface, rimSamples, odd: false);
@@ -396,6 +446,17 @@ public sealed partial class Layout2DBuilder
 
         foreach (var group in BuildLensGroups())
         {
+            if (TryPlanarVolumes(group, out var planarVolumes))
+            {
+                foreach (var volume in planarVolumes)
+                    elements.Add(new(volume.Front.Number, volume.Back.Number, volume.Front.MaterialAfterName,
+                        volume.Front.MaterialAfter is UnresolvedMaterial ? double.NaN
+                            : volume.Front.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()),
+                        volume.FrontRim, volume.BackRim, volume.FrontFaces, volume.BackFaces,
+                        [], // Planar sections are derived from the actual cap and side faces.
+                        Math.Min(volume.Front.Drawing.Opacity, volume.Back.Drawing.Opacity)));
+                continue;
+            }
             for (var index = 0; index < group.Count - 1; index++)
             {
                 var surface = group[index];
@@ -748,6 +809,7 @@ public sealed partial class Layout2DBuilder
         for (var index = 1; index < surfaces.Count - 1; index++)
         {
             var surface = surfaces[index];
+            if (surface.InteractionModel is CoordinateReferenceInteractionModel) continue;
             if (surface.IsReflective)
             {
                 if (lensSurfaces.Count > 0)

@@ -876,7 +876,16 @@ public sealed record SurfaceRowDto(
     string? SurfaceColor = null,
     SurfaceDrawingOptionsDto? Drawing = null,
     IReadOnlyList<string>? ShapeVariables = null,
-    LensLengthUnit LensLengthUnit = LensLengthUnit.Millimeter);
+    LensLengthUnit LensLengthUnit = LensLengthUnit.Millimeter,
+    ParaxialLensSurfaceDto? ParaxialLens = null,
+    BirefringentSurfaceDto? Birefringent = null);
+
+public sealed record BirefringentSurfaceDto(bool IsExit, double AxisDisplayLength,
+    double? AxisX = null, double? AxisY = null, double? AxisZ = null,
+    bool? TraceExtraordinary = null, bool? ParaxialIgnore = null);
+
+/// <summary>Physical ideal-lens identity; a plane geometry alone does not describe this surface.</summary>
+public sealed record ParaxialLensSurfaceDto(double PowerXPerMillimeter, double PowerYPerMillimeter, int OpdMode);
 
 public sealed record LensScaleSurfaceDto(int Number, string Label);
 public sealed record LensScaleSettingsDto(long Revision, LensLengthUnit Unit, IReadOnlyList<LensScaleSurfaceDto> Surfaces, int ConfigurationCount);

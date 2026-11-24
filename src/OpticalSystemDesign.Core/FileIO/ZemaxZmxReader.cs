@@ -121,7 +121,7 @@ internal static partial class ZemaxZmxReader
     {
         var document = Parse(text);
         if (!document.SequentialModeSeen || document.LengthScaleToMillimeters != 1 || document.Surfaces.Count != surfaceCount
-            || document.Surfaces.Where((surface, index) => surface.Number != index || !IsImportedSurface(surface)).Any())
+            || document.Surfaces.Where((surface, index) => surface.Number != index).Any())
             throw new InvalidDataException("评价表来源须使用 mm，且 ZMX 表面编号必须与当前处方逐面一致。");
         if (document.MeritOperands.Count == 0)
             throw new InvalidDataException("ZMX 文件没有可读取的评价表。");
@@ -1036,14 +1036,9 @@ internal static partial class ZemaxZmxReader
                 PolygonPose = source.PolygonPose,
                 PolygonMaterial = source.PolygonMaterial,
                 PolygonScale = source.PolygonScale,
-                RetainReferencePlane = source.Type == "COORDBRK" && ((configuredStop.HasValue
-                    ? source.Number == (int)configuredStop.Value : source.IsStop) || ScaleConfiguredDistance(document,
-                    document.ConfigurationDouble("THIC", source.Number, configurationIndex), source.Thickness) != 0
-                    || source.ThicknessVariable || document.ConfigurationOperands.Any(operand => operand.Command == "THIC"
-                        && operand.Target == source.Number && operand.SolveCode == 1)
-                    || document.MeritOperands.Any(operand =>
-                    !operand.CompatibilityOnly && operand.Surface == source.Number
-                    && operand.Type is "REAX" or "REAY" or "REAR" or "REAZ" or "REAA" or "REAB" or "REAC")),
+                // Coordinate operations are prescription rows, including zero-thickness
+                // operations. Folding them changes every downstream user-facing number.
+                RetainReferencePlane = source.Type == "COORDBRK",
                 Comment = source.Comment,
                 Radius = RadiusFromConfiguredCurvature(
                     document,

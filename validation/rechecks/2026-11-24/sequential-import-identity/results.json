@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-24",
+  "timezone": "Asia/Shanghai",
+  "scope": "Sequential source-row identity, crystal surface presentation, native persistence and focused import guards.",
+  "build": {
+    "configuration": "Release",
+    "output": "standard project output",
+    "completed": true,
+    "warning": "NU1900: package vulnerability service was unreachable; compilation completed."
+  },
+  "finalReport": "final-recheck.trx",
+  "reports": [
+    {
+      "path": "final-recheck.trx",
+      "outcome": "Completed",
+      "total": 149,
+      "passed": 149,
+      "failed": 0,
+      "sha256": "484e004d5a4cf0a60871e0b63c2ceb243591c16e1b5cb320346f676ad8192a93"
+    },
+    {
+      "path": "final.trx",
+      "outcome": "Failed",
+      "total": 149,
+      "passed": 145,
+      "failed": 4,
+      "sha256": "d68d8a61a4ececebfb100a0ad630cdd4ee21bba087940e25ac473f29e8239384"
+    },
+    {
+      "path": "focused-unrestricted.trx",
+      "outcome": "Failed",
+      "total": 79,
+      "passed": 64,
+      "failed": 15,
+      "sha256": "fb60f967c105b76e464332d3b08c9114bbeab57c129eb5766b028169979ecc34"
+    },
+    {
+      "path": "focused.trx",
+      "outcome": "Failed",
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "sha256": "559fc156f81dc66b4c247b59d37a8a0789ef488b11faa645533fbdb2971b763c"
+    }
+  ],
+  "importAudit": {
+    "Scope": "Internal import/trace invariants across the 95 menu examples; not new external optical certification.",
+    "Files": 95,
+    "Configurations": 115,
+    "RestoredCoordinateRows": 49,
+    "ValidControlRays": 317,
+    "UnavailableControlRays": 28,
+    "MaximumNumericDelta": 2.1316282072803006E-14,
+    "PositionGuardMillimeters": 1E-08,
+    "DirectionGuard": 1E-10,
+    "Changes": [],
+    "Passed": true
+  },
+  "localization": {
+    "localTranslations": 4457,
+    "uiOccurrences": 4081,
+    "missing": 0,
+    "errors": 0
+  },
+  "ui": {
+    "renderer": "Actual native controls rendered off-screen with Skia",
+    "themes": [
+      "Light",
+      "Isekai"
+    ],
+    "width": 1450,
+    "height": 850,
+    "imagesVisuallyReviewed": true,
+    "foregroundControl": false
+  },
+  "controls": {
+    "RochonOriginalRows": 10,
+    "RochonOldImportedRows": 9,
+    "RochonNewImportedRows": 10,
+    "identity": "Typed interaction model, not geometry or user label",
+    "entryDisplay": "Mode, crystal axis in its defining frame, and display length",
+    "edits": "Drawing/color and undo preserve identity; specialized geometry selector is read-only."
+  },
+  "limitations": [
+    "No new external captures or full 95-lens analysis precision certification.",
+    "Coherent crystal polarization transport and full waveplate modes remain unsupported. Physical edits triggering automatic semi-diameter traces can report that limitation for polarized inputs.",
+    "95 menu files are read from unchanged raw sources; no sample cache regeneration is needed.",
+    "Historical design libraries, stock model packs and saved user projects were not overwritten.",
+    "A saved native project that has already lost coordinate rows needs the original source for reimport.",
+    "Earlier failing assertions and the aborted test connection run are retained, not counted as passes."
+  ],
+  "sourceHashTiming": "Workspace sources recorded after the final passing run; unrelated simultaneous work was preserved.",
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "3e45fa10e43c53e5122f2118babb896697c22c3c664bbe79b5a09514af153d22"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "4bd18fc34a98ef285d592ca4c74079e3a948f69c6343d2e04540c895bf1ccdd3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "b8721e2250a0554e6b6d1b7c1c377e2f7f1ec80337bce557ff7696fa5268713b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Components.cs",
+      "sha256": "3b735ed3bb31309da1d2f8126e4dc6f66f0b43526a2cbd22e76da6f54719d537"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/ViewModels/EditorRows.cs",
+      "sha256": "ee380a14cd1e0c5303b0800d8a63a9be179ecc343e956f9f0053f1e889eae814"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "sha256": "d5dc020cb0f40906e035e6da9d3ea7423c3877682362bb7349d4d21f5e661982"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs",
+      "sha256": "66550f3e96feb6496861d31182b9764c3f640011af73fb9fd2089ac9a89672db"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.Crystal.cs",
+      "sha256": "6465ec36adf29f077c5b0037ac6ca441d1fb4cfd55fea93472bbfed56782ff74"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/SequentialSurfaceIdentityTests.cs",
+      "sha256": "cbd33f031d605886348a1ef81005cfa8f00b2208aa8b23e472fa2c540f20209d"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxImportParameterAndSurfaceMappingTests.cs",
+      "sha256": "6e7e9259d41bea93ee7a96dc6cdce08c5c2ed92e13396a853ec83ce651edb8e3"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxImportTests.cs",
+      "sha256": "dca7711df02d81ac70971e637b93e6d729929891488bbffab9a98745db511f98"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxVariableImportTests.cs",
+      "sha256": "48d8a0eba627d69f45c3f12170cb9aa1bcdc4897cd853de9efa61f4659ca0f87"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/GlobalRayOperandTests.cs",
+      "sha256": "0b1c27722853b862f314e17fd94ce78292205ec3f6568de986188cc99b0570a0"
+    }
+  ],
+  "evidenceHashes": [
+    {
+      "path": "after.json",
+      "sha256": "ca8e4d211da6157e7facede34ff5b3310e31526b23ddad8bddd0e204a8df6e4f"
+    },
+    {
+      "path": "before.json",
+      "sha256": "cc183c59e2c7f9876bc1c3510d5b9bcbed5131061c10be76dd77e2116290415f"
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "1372528c8092c3077d70f194b0d4742eff093fa5497178c79d83b82ce2d21a4b"
+    },
+    {
+      "path": "rendered/rochon-Isekai.png",
+      "sha256": "26089b78cafbc8cfd230dc7766d30671abe6920db64a7d0108f5c497826e4cbf"
+    },
+    {
+      "path": "rendered/rochon-Light.png",
+      "sha256": "28726476f81ba2e5173fb6f7924266beae1be879f52769d47a6f1537a7027bf2"
+    }
+  ]
+}

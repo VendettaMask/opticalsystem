@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using OpticalSystemDesign.Application.Formatting;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
@@ -156,7 +157,21 @@ public partial class WorkbenchRuntime
 
     private static void ApplyGeometry(OpticalSurface surface, string geometryKind)
     {
+        if (surface.InteractionModel is CoordinateReferenceInteractionModel or BirefringentInteractionModel)
+        {
+            var identity = WorkbenchMapper.InteractionKind(surface);
+            if (geometryKind == identity) return;
+            if (CanonicalGeometryKind(geometryKind) != GeometryKind(surface.Geometry)
+                && !(CanonicalGeometryKind(geometryKind) == "Standard" && surface.Geometry is PlaneGeometry))
+                throw new NotSupportedException("特殊面型使用独立交互模型，不能通过几何类型切换替换。");
+            return;
+        }
         geometryKind = CanonicalGeometryKind(geometryKind);
+        if (surface.InteractionModel is ParaxialLensInteractionModel)
+        {
+            if (geometryKind is "Plane" or "Standard" or "近轴面" or "近轴 XY 面") return;
+            throw new NotSupportedException("近轴面使用平面几何及独立透镜模型，不能通过几何类型切换替换。");
+        }
         if (surface.Geometry is INonComputableGeometry opaque
             && geometryKind.StartsWith("不支持：", StringComparison.Ordinal)
             && string.Equals(
@@ -280,6 +295,8 @@ public partial class WorkbenchRuntime
     {
         var selectedMaterial = string.IsNullOrWhiteSpace(materialName) ? "Air" : materialName;
         var isMirror = selectedMaterial.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        if (isMirror && surface.InteractionModel is ParaxialLensInteractionModel)
+            throw new NotSupportedException("反射近轴面的方向和 OPD 约定尚未支持，原近轴参数保持不变。");
         surface.Material = isMirror ? "MIRROR" : selectedMaterial;
         var retainedMaterial = !isMirror
             && surface.MaterialAfter is (GradientIndexMaterial or AirMaterial { PressureAtmospheres: not 1 })
@@ -337,9 +354,12 @@ public partial class WorkbenchRuntime
 
     private static void SyncInteractionReflectivity(OpticalSurface surface, bool isMirror)
     {
+        if (isMirror && surface.InteractionModel is ParaxialLensInteractionModel)
+            throw new NotSupportedException("反射近轴面的方向和 OPD 约定尚未支持，原近轴参数保持不变。");
         surface.IsReflective = isMirror;
         surface.InteractionModel = surface.InteractionModel switch
         {
+            ParaxialLensInteractionModel paraxial => paraxial,
             ThinLensInteractionModel thinLens => new ThinLensInteractionModel(thinLens.FocalLength, isMirror),
             DiffractiveInteractionModel diffractive when diffractive.GrooveFrequencyLinesPerMillimeter is double frequency =>
                 new DiffractiveInteractionModel(frequency, diffractive.Order ?? 1, isMirror),
