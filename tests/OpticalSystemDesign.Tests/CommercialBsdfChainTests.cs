@@ -6,7 +6,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CommercialBsdfChainTests
 {
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task CommercialReflectionTransmissionFreezeAndReplayTheCompleteRawIspChain(bool anisotropic)
     {
         using var app = WorkbenchApplication.Create(); using var files = new CameraSensorFileTests.TemporaryFiles();

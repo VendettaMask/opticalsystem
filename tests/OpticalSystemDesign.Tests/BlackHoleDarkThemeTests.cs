@@ -64,7 +64,8 @@ public sealed class BlackHoleDarkThemeTests
             var choices = new ListBox { ItemsSource = new[] { "Field 1", "Field 2" }, SelectedIndex = 0 };
             var root = new StackPanel
             {
-                Margin = new Thickness(20), Spacing = 12,
+                Margin = new Thickness(20),
+                Spacing = 12,
                 Children =
                 {
                     new TextBlock { Text = "Optical System Design", FontSize = DisplayTypography.PageTitle },

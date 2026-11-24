@@ -1,6 +1,6 @@
 using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Tolerancing;
@@ -203,7 +203,11 @@ public sealed class JointConfigurationTolerancingTests
                 await app.Tolerancing.SaveSampleAsync(serial.WorstSample, Path.Combine(directory, "cooke-worst.startolsample.json"));
                 SaveEvidence("cooke-joint-trials.json", new
                 {
-                    request.Seed, serial.Statistics, serial.ConfigurationYields, serial.NominalConfigurations, serial.TrialRows
+                    request.Seed,
+                    serial.Statistics,
+                    serial.ConfigurationYields,
+                    serial.NominalConfigurations,
+                    serial.TrialRows
                 });
             }
         }
@@ -300,7 +304,9 @@ public sealed class JointConfigurationTolerancingTests
             await app.Documents.SaveAsync(Path.Combine(directory, "cooke-thickness-pickup.staropt"));
             SaveEvidence("cooke-mce-pickup.json", new
             {
-                PickupScale = 2, Uncompensated = forward.TrialRows, Compensated = compensated.TrialRows
+                PickupScale = 2,
+                Uncompensated = forward.TrialRows,
+                Compensated = compensated.TrialRows
             });
         }
 

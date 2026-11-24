@@ -18,7 +18,9 @@ public sealed class NonSequentialDesignTests
     private static NonSequentialDesignTarget Centre(Guid id, double tolerance = 1e-7) => new(id, NonSequentialMetric.CentroidX, 0, tolerance);
 
     [Theory]
-    [InlineData("Damped Least Squares")] [InlineData("Coordinate Pattern Search")] [InlineData("Nelder-Mead")]
+    [InlineData("Damped Least Squares")]
+    [InlineData("Coordinate Pattern Search")]
+    [InlineData("Nelder-Mead")]
     public void SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(string optimizer)
     {
         var (doc, source, detector) = Scene(); var materials = Optic.CreateBlank().Materials; var hash = NonSequentialSceneHasher.Compute(doc, materials);

@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Workbench;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;

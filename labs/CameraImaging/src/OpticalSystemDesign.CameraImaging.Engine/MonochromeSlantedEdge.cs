@@ -71,7 +71,7 @@ public static partial class MonochromeSlantedEdge
                         && fullMtf <= differenceThreshold && (axis != "PsfWindow" || integral <= differenceThreshold);
                     comparisons.Add(new(axis, requested, refined, image, sfr, mtf, integral, passed,
                         "One-axis doubled-sampling comparison; thresholds describe numerical differences, not absolute optical accuracy.")
-                        { MaximumFullPupilMtfDifference = fullMtf });
+                    { MaximumFullPupilMtfDifference = fullMtf });
                 }
                 catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
                 {
@@ -103,11 +103,18 @@ public static partial class MonochromeSlantedEdge
         var full = DiffractionEngine.ComputeLocalPupilMtfAlongDirection(optic, (normalized.X, normalized.Y), wave,
             settings.PupilSampling, frame.Measurement.Curve.Select(p => p.CyclesPerMillimeter).ToArray(), nx, ny);
         var optical = frame.Measurement.Curve.Select((p, i) => p with { Response = full[i] }).ToArray();
-        var integrated = frame.Measurement.Curve.Select((p, i) => p with { Response = full[i]
-            * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * nx) * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * ny) }).ToArray();
-        return frame with { FullPupilMtf = Array.AsReadOnly(optical), FullPupilPixelIntegratedMtf = Array.AsReadOnly(integrated),
+        var integrated = frame.Measurement.Curve.Select((p, i) => p with
+        {
+            Response = full[i]
+            * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * nx) * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * ny)
+        }).ToArray();
+        return frame with
+        {
+            FullPupilMtf = Array.AsReadOnly(optical),
+            FullPupilPixelIntegratedMtf = Array.AsReadOnly(integrated),
             MaximumSfrFullPupilDifference = frame.Measurement.Curve.Zip(integrated, (a, b) => Math.Abs(a.Response - b.Response)).Max(),
-            MaximumWindowFullPupilDifference = frame.OpticalMtf.Zip(optical, (a, b) => Math.Abs(a.Response - b.Response)).Max() };
+            MaximumWindowFullPupilDifference = frame.OpticalMtf.Zip(optical, (a, b) => Math.Abs(a.Response - b.Response)).Max()
+        };
     }
 
     internal static SlantedEdgeFrame RenderPsf(PsfResult psf, SlantedEdgeSettings settings)
@@ -146,7 +153,7 @@ public static partial class MonochromeSlantedEdge
         var optical = DiffractionEngine.ComputePsfMtfAlongDirection(psf, measurement.Curve.Select(p => p.CyclesPerMillimeter).ToArray(), mx, my);
         var optics = measurement.Curve.Select((p, i) => p with { Response = optical[i] }).ToArray();
         var integrated = measurement.Curve.Select((p, i) => p with
-            { Response = optical[i] * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * mx) * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * my) }).ToArray();
+        { Response = optical[i] * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * mx) * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * my) }).ToArray();
         return new(settings, Array.AsReadOnly(ideal), Array.AsReadOnly(pixels), measurement, optics, integrated,
             psf.SampleSpacingMicrometers, psf.GridSize, mass * psf.SampleSpacingMicrometers * psf.SampleSpacingMicrometers,
             measurement.Curve.Zip(integrated, (a, b) => Math.Abs(a.Response - b.Response)).Max());

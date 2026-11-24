@@ -1,6 +1,6 @@
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Headless;
+using Avalonia.Input;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Materials;

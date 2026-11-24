@@ -281,7 +281,9 @@ internal static class SpeosBsdfReader
     }
     private sealed class Profile
     {
-        public double[] Theta { get; } public double[] Phi { get; } private readonly double[][] _v;
+        public double[] Theta { get; }
+        public double[] Phi { get; }
+        private readonly double[][] _v;
         public double Integral { get; }
         private readonly bool _projected;
         private readonly bool _thetaLinear;

@@ -26,8 +26,14 @@ public sealed partial class DesignService
         var correctionAllowance = Math.Min(window, Remaining(controlWork));
         // Both directions start at the same certified point, while actual work
         // from the first direction remains charged to the shared N allowance.
-        var correctionInput = baseline with { Result = baseline.Result with { Run = startRun with
-        { GeneralWork = controlWork, Evaluations = controlRun.Evaluations, PassbandQualityIterationLimit = controlRun.PassbandQualityIterationLimit } } };
+        var correctionInput = baseline with
+        {
+            Result = baseline.Result with
+            {
+                Run = startRun with
+                { GeneralWork = controlWork, Evaluations = controlRun.Evaluations, PassbandQualityIterationLimit = controlRun.PassbandQualityIterationLimit }
+            }
+        };
         var corrected = RefinePassbandQualityPhase(correctionInput, materials, progress, token, nonlinearCorrection: true);
         var correctionRun = corrected.Result!.Run;
         double[] Od(Experiment e) => t.StopBands!.Select(b => MinimumOd(e.Result!.Spectrum, b)).ToArray();
@@ -51,10 +57,20 @@ public sealed partial class DesignService
         var directions = new[] { Direction("Uncorrected", control, controlAllowance, startWork, startRun.Evaluations, !useCorrection),
             Direction("NonlinearCorrection", corrected, correctionAllowance, controlWork, controlRun.Evaluations, useCorrection) };
         var chosen = useCorrection ? corrected : control;
-        chosen = chosen with { Result = chosen.Result! with { Run = chosen.Result.Run with
-        { GeneralWork = correctionRun.GeneralWork, Evaluations = correctionRun.Evaluations,
-            PassbandQualityIterationLimit = correctionRun.PassbandQualityIterationLimit,
-            PassbandDirectionTrials = directions, PassbandDirectionSelectionBounds = bounds } } };
+        chosen = chosen with
+        {
+            Result = chosen.Result! with
+            {
+                Run = chosen.Result.Run with
+                {
+                    GeneralWork = correctionRun.GeneralWork,
+                    Evaluations = correctionRun.Evaluations,
+                    PassbandQualityIterationLimit = correctionRun.PassbandQualityIterationLimit,
+                    PassbandDirectionTrials = directions,
+                    PassbandDirectionSelectionBounds = bounds
+                }
+            }
+        };
         // A final joint polish can only improve the selected direction's actual
         // margins. If neither direction dominates the uncorrected incumbent, that
         // incumbent remains the baseline; no target- or material-specific tie rule.
@@ -93,8 +109,14 @@ public sealed partial class DesignService
         var grid = Grid(best.Layers); var initial = Read(best.Layers, grid, false);
         var peakRow = Array.FindIndex(initial.Keys, k => k.Group == 0); var widthRow = Array.FindIndex(initial.Keys, k => k.Group == -3);
         if (peakRow < 0 || widthRow < 0 || !double.IsFinite(initial.Values[widthRow]))
-            return input with { Result = input.Result with { Run = originalRun with
-            { Evaluations = originalRun.Evaluations + 2, GeneralWork = work.Snapshot(), PassbandQualityStopReason = "UndefinedGuidedWidth" } } };
+            return input with
+            {
+                Result = input.Result with
+                {
+                    Run = originalRun with
+                    { Evaluations = originalRun.Evaluations + 2, GeneralWork = work.Snapshot(), PassbandQualityStopReason = "UndefinedGuidedWidth" }
+                }
+            };
         double WidthError(GeneralSystem s) => (s.Values[Array.FindIndex(s.Keys, k => k.Group == -3)] - GeneralConstraintInteriorGuard) * t.FwhmNm + t.FwhmToleranceNm;
         var peakScale = Math.Max(GeneralConstraintInteriorGuard, 1 - t.PeakTransmittance + t.PeakTransmittance * (initial.Values[peakRow] - GeneralConstraintInteriorGuard));
         var widthScale = Math.Max(t.FwhmNm * GeneralConstraintInteriorGuard, Math.Abs(WidthError(initial)));
@@ -213,14 +235,26 @@ public sealed partial class DesignService
             progress?.Report(new("通带与截止余量优化", evaluations, best.Result!.Merit));
             if (!accepted) { reason = "NoCertifiedMarginDescent"; break; }
         }
-        var output = best with { Result = best.Result! with { Run = originalRun with
-        { Evaluations = originalRun.Evaluations + evaluations, GeneralWork = work.Snapshot(), PassbandQualityStartLayers = originalRun.PassbandQualityStartLayers ?? d.Layers,
-            PassbandQualityTrials = history.ToArray(), PassbandQualityIterationLimit = Math.Min(d.Settings.MaximumIterations - work.RepairIterations - work.ParetoIterations, (originalRun.PassbandQualityIterationLimit ?? 0) + allowance), PassbandQualityStopReason = reason,
-            PassbandCorrectionStartLayers = nonlinearCorrection ? d.Layers : originalRun.PassbandCorrectionStartLayers,
-            PassbandCorrectionIterationLimit = nonlinearCorrection ? allowance : originalRun.PassbandCorrectionIterationLimit,
-            PassbandCorrectionStopReason = nonlinearCorrection ? reason : originalRun.PassbandCorrectionStopReason,
-            PassbandCorrectionAttempts = nonlinearCorrection ? correctionTrace.ToArray() : originalRun.PassbandCorrectionAttempts,
-            TargetRefinementIterationLimit = d.Settings.MaximumIterations } } };
+        var output = best with
+        {
+            Result = best.Result! with
+            {
+                Run = originalRun with
+                {
+                    Evaluations = originalRun.Evaluations + evaluations,
+                    GeneralWork = work.Snapshot(),
+                    PassbandQualityStartLayers = originalRun.PassbandQualityStartLayers ?? d.Layers,
+                    PassbandQualityTrials = history.ToArray(),
+                    PassbandQualityIterationLimit = Math.Min(d.Settings.MaximumIterations - work.RepairIterations - work.ParetoIterations, (originalRun.PassbandQualityIterationLimit ?? 0) + allowance),
+                    PassbandQualityStopReason = reason,
+                    PassbandCorrectionStartLayers = nonlinearCorrection ? d.Layers : originalRun.PassbandCorrectionStartLayers,
+                    PassbandCorrectionIterationLimit = nonlinearCorrection ? allowance : originalRun.PassbandCorrectionIterationLimit,
+                    PassbandCorrectionStopReason = nonlinearCorrection ? reason : originalRun.PassbandCorrectionStopReason,
+                    PassbandCorrectionAttempts = nonlinearCorrection ? correctionTrace.ToArray() : originalRun.PassbandCorrectionAttempts,
+                    TargetRefinementIterationLimit = d.Settings.MaximumIterations
+                }
+            }
+        };
         return output;
     }
 }

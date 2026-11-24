@@ -18,11 +18,13 @@ public static partial class SeedPreparationSearch
     });
     private static readonly string SpcKernelIdentity = ContentFingerprint.Compute(new
     {
-        KernelIdentity, Runtime = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
+        KernelIdentity,
+        Runtime = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
         OperatingSystem = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
         Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString(),
         VectorWidth = System.Numerics.Vector<double>.Count,
-        Avx2 = System.Runtime.Intrinsics.X86.Avx2.IsSupported, Fma = System.Runtime.Intrinsics.X86.Fma.IsSupported,
+        Avx2 = System.Runtime.Intrinsics.X86.Avx2.IsSupported,
+        Fma = System.Runtime.Intrinsics.X86.Fma.IsSupported,
         AdvSimd = System.Runtime.Intrinsics.Arm.AdvSimd.IsSupported
     });
     public static bool CanExecute(SeedPreparationCheckpoint state) => state.KernelFingerprint == (state.Mode == "Spc" ? SpcKernelIdentity : KernelIdentity);

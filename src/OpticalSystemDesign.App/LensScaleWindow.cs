@@ -38,7 +38,8 @@ public sealed class LensScaleWindow : Window
         _first.ItemsSource = _last.ItemsSource = _settings.Surfaces;
         var template = new FuncDataTemplate<LensScaleSurfaceDto>((surface, _) => new TextBlock
         {
-            Text = surface is null ? "" : SurfaceLabel(surface), TextTrimming = TextTrimming.CharacterEllipsis
+            Text = surface is null ? "" : SurfaceLabel(surface),
+            TextTrimming = TextTrimming.CharacterEllipsis
         });
         _first.ItemTemplate = _last.ItemTemplate = template;
         _first.SelectedIndex = 0; _last.SelectedIndex = _settings.Surfaces.Count - 1;
@@ -55,7 +56,8 @@ public sealed class LensScaleWindow : Window
         _unitMode.IsCheckedChanged += (_, _) => UpdateMode();
         var hint = new TextBlock
         {
-            Name = "LensScaleHint", Text = "按因子改变所选表面的尺寸；选择全部表面时，同时缩放系统孔径与高度视场。波长、材料和评价目标保持原值。",
+            Name = "LensScaleHint",
+            Text = "按因子改变所选表面的尺寸；选择全部表面时，同时缩放系统孔径与高度视场。波长、材料和评价目标保持原值。",
             TextWrapping = TextWrapping.Wrap
         };
         hint.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
@@ -67,7 +69,8 @@ public sealed class LensScaleWindow : Window
         {
             Content = new StackPanel
             {
-                Margin = new Thickness(22, 18), Spacing = 14,
+                Margin = new Thickness(22, 18),
+                Spacing = 14,
                 Children =
                 {
                     Pair(_factorMode, _factor), factorFields, hint,
@@ -79,8 +82,14 @@ public sealed class LensScaleWindow : Window
                 }
             }
         };
-        var footer = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right,
-            Spacing = 10, Margin = new Thickness(22, 12, 22, 18), Children = { confirm, cancel } };
+        var footer = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            Spacing = 10,
+            Margin = new Thickness(22, 12, 22, 18),
+            Children = { confirm, cancel }
+        };
         var layout = new Grid { RowDefinitions = new RowDefinitions("*,Auto"), Children = { body } };
         Grid.SetRow(footer, 1); layout.Children.Add(footer); Content = layout;
         _factorMode.Content = new TextBlock { Text = "因子缩放", TextWrapping = TextWrapping.Wrap };
@@ -97,8 +106,11 @@ public sealed class LensScaleWindow : Window
 
     private static string UnitLabel(LensLengthUnit unit) => $"{UiLocalization.Text(unit switch
     {
-        LensLengthUnit.Millimeter => "毫米", LensLengthUnit.Centimeter => "厘米",
-        LensLengthUnit.Meter => "米", LensLengthUnit.Inch => "英寸", _ => throw new ArgumentOutOfRangeException(nameof(unit))
+        LensLengthUnit.Millimeter => "毫米",
+        LensLengthUnit.Centimeter => "厘米",
+        LensLengthUnit.Meter => "米",
+        LensLengthUnit.Inch => "英寸",
+        _ => throw new ArgumentOutOfRangeException(nameof(unit))
     })} ({unit.Symbol()})";
 
     private void UpdateMode()

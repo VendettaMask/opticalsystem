@@ -43,7 +43,8 @@ internal sealed class LogBsdfSlice
     private static int Select(double[] cdf, double target)
     {
         int low = 0, high = cdf.Length - 1;
-        while (low < high) { var mid = (low + high) / 2; if (cdf[mid] > target) high = mid; else low = mid + 1; } return low;
+        while (low < high) { var mid = (low + high) / 2; if (cdf[mid] > target) high = mid; else low = mid + 1; }
+        return low;
     }
     internal (double Mu, double Phi) Sample(bool transmission, double u, double v)
     {
@@ -60,8 +61,8 @@ internal sealed class LogBsdfSlice
         private readonly record struct Leaf(double Low, double High, double Mass);
         public double Mass => _cdf[^1];
         // Positive Gauss-Legendre half rules, including their symmetric partners.
-        private static readonly (double X, double W)[] Rule8 = [(.1834346424956498,.362683783378362),(.525532409916329,.3137066458778873),(.7966664774136267,.2223810344533745),(.9602898564975363,.1012285362903763)];
-        private static readonly (double X, double W)[] Rule16 = [(.09501250983763744,.1894506104550685),(.2816035507792589,.1826034150449236),(.4580167776572274,.1691565193950025),(.6178762444026438,.1495959888165767),(.755404408355003,.1246289712555339),(.8656312023878318,.09515851168249278),(.9445750230732326,.06225352393864789),(.9894009349916499,.02715245941175409)];
+        private static readonly (double X, double W)[] Rule8 = [(.1834346424956498, .362683783378362), (.525532409916329, .3137066458778873), (.7966664774136267, .2223810344533745), (.9602898564975363, .1012285362903763)];
+        private static readonly (double X, double W)[] Rule16 = [(.09501250983763744, .1894506104550685), (.2816035507792589, .1826034150449236), (.4580167776572274, .1691565193950025), (.6178762444026438, .1495959888165767), (.755404408355003, .1246289712555339), (.8656312023878318, .09515851168249278), (.9445750230732326, .06225352393864789), (.9894009349916499, .02715245941175409)];
         public Cell(double low, double high, double phiLow, double phiHigh, double[] g, double scale, ref int budget)
         {
             _mu0 = low; _width = high - low; _phi0 = phiLow; _phiWidth = phiHigh - phiLow; _g = g; _scale = scale;

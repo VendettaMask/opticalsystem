@@ -111,7 +111,8 @@ public sealed class FourierResultValidationTests
     }
 
     [Theory]
-    [InlineData(FftPhaseSamplingStatus.NoConnectedSamples)] [InlineData(FftPhaseSamplingStatus.UnverifiedNodeOrder)]
+    [InlineData(FftPhaseSamplingStatus.NoConnectedSamples)]
+    [InlineData(FftPhaseSamplingStatus.UnverifiedNodeOrder)]
     public void UnknownPupilGeometryCannotBeCertified(FftPhaseSamplingStatus status)
     {
         var optic = Optic.CreateBlank(); var result = new FourierResultValidationAnalysis(optic, "test", 8,
@@ -131,8 +132,12 @@ public sealed class FourierResultValidationTests
         var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", new Dictionary<string, string>
         {
-            ["Sampling"] = "64", ["Display"] = "128", ["ImageDeltaMicrometers"] = "0.25",
-            ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["FourierSamplingMode"] = mode,
+            ["Sampling"] = "64",
+            ["Display"] = "128",
+            ["ImageDeltaMicrometers"] = "0.25",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1",
+            ["FourierSamplingMode"] = mode,
             ["FourierMaximumSampling"] = maximumSampling.ToString(System.Globalization.CultureInfo.InvariantCulture),
             ["FourierRelativeAccuracy"] = "0.01"
         });
@@ -177,8 +182,12 @@ public sealed class FourierResultValidationTests
         var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", new Dictionary<string, string>
         {
-            ["Sampling"] = "64", ["Display"] = "128", ["ImageDeltaMicrometers"] = "0.25",
-            ["WavelengthNumber"] = wavelength, ["FieldNumber"] = "1", ["UseRayAiming"] = aimAtStop.ToString(),
+            ["Sampling"] = "64",
+            ["Display"] = "128",
+            ["ImageDeltaMicrometers"] = "0.25",
+            ["WavelengthNumber"] = wavelength,
+            ["FieldNumber"] = "1",
+            ["UseRayAiming"] = aimAtStop.ToString(),
             ["FourierSamplingMode"] = "Fixed"
         });
 
@@ -206,9 +215,14 @@ public sealed class FourierResultValidationTests
         var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", new Dictionary<string, string>
         {
-            ["Sampling"] = "64", ["Display"] = "128", ["ImageDeltaMicrometers"] = "0.25",
-            ["WavelengthNumber"] = "2", ["FieldNumber"] = "1", ["UseRayAiming"] = "True",
-            ["FourierSamplingMode"] = "Adaptive", ["FourierMaximumSampling"] = "2048"
+            ["Sampling"] = "64",
+            ["Display"] = "128",
+            ["ImageDeltaMicrometers"] = "0.25",
+            ["WavelengthNumber"] = "2",
+            ["FieldNumber"] = "1",
+            ["UseRayAiming"] = "True",
+            ["FourierSamplingMode"] = "Adaptive",
+            ["FourierMaximumSampling"] = "2048"
         });
 
         Assert.Equal(AnalysisOutcome.Success, data.Outcome);
@@ -232,8 +246,12 @@ public sealed class FourierResultValidationTests
         var runtime = new WorkbenchRuntime(await new ZemaxZmxImporter().ImportFileAsync(source));
         var settings = runtime.MergeAnalysisSettings("MTF", new Dictionary<string, string>
         {
-            ["Sampling"] = "64", ["MaximumFrequency"] = "50", ["WavelengthNumber"] = "2", ["FieldNumber"] = "1",
-            ["SurfaceNumber"] = "-1", ["UseRayAiming"] = "False"
+            ["Sampling"] = "64",
+            ["MaximumFrequency"] = "50",
+            ["WavelengthNumber"] = "2",
+            ["FieldNumber"] = "1",
+            ["SurfaceNumber"] = "-1",
+            ["UseRayAiming"] = "False"
         });
         Assert.Equal("按需加密", settings["FourierSamplingMode"]);
         var data = runtime.BuildAnalysisData("MTF", settings);
@@ -281,9 +299,12 @@ public sealed class FourierResultValidationTests
     [Fact]
     public void PhysicalGridChangesAndUnitChangesAreRejected()
     {
-        var image = Data(1) with { SeriesList = [new("x", "y", [new(0, 0, Value: 1), new(1, 0, Value: 1)], AnalysisSeriesKind.Heatmap,
+        var image = Data(1) with
+        {
+            SeriesList = [new("x", "y", [new(0, 0, Value: 1), new(1, 0, Value: 1)], AnalysisSeriesKind.Heatmap,
             XQuantity: AnalysisAxisQuantity.ImageHeight, XUnit: AnalysisAxisUnit.Micrometer, YQuantity: AnalysisAxisQuantity.ImageHeight,
-            YUnit: AnalysisAxisUnit.Micrometer, ValueQuantity: AnalysisAxisQuantity.Irradiance, ValueUnit: AnalysisAxisUnit.Dimensionless)] };
+            YUnit: AnalysisAxisUnit.Micrometer, ValueQuantity: AnalysisAxisQuantity.Irradiance, ValueUnit: AnalysisAxisUnit.Dimensionless)]
+        };
         var shifted = image with { SeriesList = [image.PlotSeries[0] with { Points = [new(.01, 0, Value: 1), new(1.01, 0, Value: 1)] }] };
         Assert.Throws<InvalidOperationException>(() => FourierResultValidationAnalysis.Project(shifted, image));
         Assert.Throws<InvalidOperationException>(() => FourierResultValidationAnalysis.Project(Data(1) with { SeriesList = [Data(1).PlotSeries[0] with { XUnit = AnalysisAxisUnit.Millimeter }] }, Data(1)));

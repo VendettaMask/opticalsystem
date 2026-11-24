@@ -57,11 +57,19 @@ public static partial class AutonomousSearchService
         var safePause = policy.Expansion?.Cemented is not null;
         if (safePause && state.SeedCursor == 0 && state.Plan.Seeds.Any(t => StructureSearchDiagnostics.ExternalStopAperturePrecheck(t).ProvenInfeasible))
         {
-            state = state with { SeedCursor = state.Plan.Seeds.Length, TrialCursor = policy.MaximumTrials,
+            state = state with
+            {
+                SeedCursor = state.Plan.Seeds.Length,
+                TrialCursor = policy.MaximumTrials,
                 Events = state.Events.Add(new(state.Events.Length + 1, "specification-guard", null, "cemented", null,
-                    "OriginalExternalStopApertureConflict", "Original fixed external stop exceeds the retained clear apertures; no optical work dispatched.", new())) };
-            state = state with { Status = AutonomousSearchStatus.Completed, Revision = state.Revision + 1,
-                StopReason = policy.BoundedSearch is null ? null : BoundedSearchStopReason.NoEligibleBranch };
+                    "OriginalExternalStopApertureConflict", "Original fixed external stop exceeds the retained clear apertures; no optical work dispatched.", new()))
+            };
+            state = state with
+            {
+                Status = AutonomousSearchStatus.Completed,
+                Revision = state.Revision + 1,
+                StopReason = policy.BoundedSearch is null ? null : BoundedSearchStopReason.NoEligibleBranch
+            };
             save?.Invoke(state); return state;
         }
         // A persisted in-flight reservation has unknown execution extent. Charge its whole

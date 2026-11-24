@@ -10,20 +10,7 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ToleranceScriptImportTests
 {
-    internal const string Script = """
-        ! Portable two-step alignment
-        CLEARCOMP
-        LOADMERIT "C:\native\Gap Setup.MF"
-        COMP 2 0
-        OPTIMIZE 4
-        CLEARCOMP
-        LOADMERIT Focus.ZMX
-        COMP 6 0
-        OPTIMIZE 4
-        CLEARCOMP
-        LOADMERIT Acceptance.ZMX
-        GETMERIT
-        """;
+    internal const string Script = "! Portable two-step alignment\r\nCLEARCOMP\r\nLOADMERIT \"C:\\native\\Gap Setup.MF\"\r\nCOMP 2 0\r\nOPTIMIZE 4\r\nCLEARCOMP\r\nLOADMERIT Focus.ZMX\r\nCOMP 6 0\r\nOPTIMIZE 4\r\nCLEARCOMP\r\nLOADMERIT Acceptance.ZMX\r\nGETMERIT";
 
     [Fact]
     public async Task ScriptLoadsSelectedZmxTablesAndRunsTheMappedStages()
@@ -58,7 +45,9 @@ public sealed class ToleranceScriptImportTests
             Assert.Equal(new[] { 2, 6 }, result.Compensators.Select(row => row.SurfaceNumber));
             var options = TolerancingPanel.ApplyScriptOptions(TolerancingRunWindow.DefaultOptions() with
             {
-                Criterion = ToleranceCriterion.Mtf, YieldLimit = .4, Mode = ToleranceAnalysisMode.InverseLimit
+                Criterion = ToleranceCriterion.Mtf,
+                YieldLimit = .4,
+                Mode = ToleranceAnalysisMode.InverseLimit
             }, result);
             Assert.Equal(0, options.YieldLimit);
             Assert.Equal(ToleranceAnalysisMode.Sensitivity, options.Mode);

@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Normalization;
 

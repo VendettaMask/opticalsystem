@@ -61,7 +61,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
                     item.Weight,
                     item.IsPrimary)).ToArray(),
                 document.Objects.Select((item, index) => ToRow(document, item, index)).ToArray(),
-                ToDto(document.TraceSettings));
+                ToDto(document.TraceSettings), document.Organization);
         }
     }
 
@@ -157,35 +157,57 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
             Runtime.ReplaceNonSequentialDocument(document, "已调整非序列对象顺序。");
         });
 
-    public void UpdateObject(NonSequentialObjectUpdateDto update) => MutateTransactional(
+    public void DeleteObjects(IReadOnlyList<Guid> ids) => MutateTransactional(
+        WorkspaceChangeCategory.NonSequential, () =>
+        {
+            if (ids.Count == 0) throw new ArgumentException("No objects selected.", nameof(ids));
+            var document = Runtime.CurrentNonSequentialDocument.Clone();
+            document.RemoveObjects(ids.ToHashSet());
+            Runtime.ReplaceNonSequentialDocument(document, "已删除所选非序列对象。");
+        });
+
+    public void UpdateObject(NonSequentialObjectUpdateDto update) => UpdateObjects([update]);
+
+    public void UpdateOrganization(Core.NonSequential.NonSequentialOrganization organization) => MutateTransactional(
+        WorkspaceChangeCategory.NonSequential, () =>
+        {
+            var document = Runtime.CurrentNonSequentialDocument.Clone();
+            document.ReplaceOrganization(organization);
+            Runtime.ReplaceNonSequentialDocument(document, "已更新场景分组与选择集。");
+        });
+
+    public void UpdateObjects(IReadOnlyList<NonSequentialObjectUpdateDto> updates) => MutateTransactional(
         WorkspaceChangeCategory.NonSequential,
         () =>
         {
             var document = Runtime.CurrentNonSequentialDocument.Clone();
-            var existing = document.Objects.FirstOrDefault(item => item.Id == update.Id)
-                ?? throw new KeyNotFoundException($"Non-sequential object '{update.Id}' was not found.");
-            var coreKind = ToCore(update.Kind);
-            var parameters = existing.Kind == coreKind
-                ? ToCore(update.Parameters)
-                : CoreObjectDefinition.DefaultParameters(coreKind);
-            var replacement = new CoreObjectDefinition(
-                existing.Id,
-                update.Name,
-                coreKind,
-                update.Enabled,
-                update.Visible,
-                new CoordinateSystem(
-                    new(update.X, update.Y, update.Z),
-                    update.TiltXDegrees,
-                    update.TiltYDegrees,
-                    update.TiltZDegrees),
-                update.ReferenceObjectId,
-                update.ContainingObjectId,
-                parameters,
-                ToCore(update.SurfaceBsdf));
-            document.Replace(existing.Id, replacement);
+            if (updates.Count == 0) throw new ArgumentException("No objects selected.", nameof(updates));
+            var replacements = updates.Select(update =>
+            {
+                var existing = document.FindObject(update.Id);
+                var coreKind = ToCore(update.Kind);
+                var parameters = existing.Kind == coreKind
+                    ? ToCore(update.Parameters)
+                    : CoreObjectDefinition.DefaultParameters(coreKind);
+                return new CoreObjectDefinition(
+                    existing.Id,
+                    update.Name,
+                    coreKind,
+                    update.Enabled,
+                    update.Visible,
+                    new CoordinateSystem(
+                        new(update.X, update.Y, update.Z),
+                        update.TiltXDegrees,
+                        update.TiltYDegrees,
+                        update.TiltZDegrees),
+                    update.ReferenceObjectId,
+                    update.ContainingObjectId,
+                    parameters,
+                    ToCore(update.SurfaceBsdf));
+            }).ToArray();
+            document.ReplaceObjects(replacements);
             ValidateMaterials(document);
-            Runtime.ReplaceNonSequentialDocument(document, $"已更新非序列对象“{replacement.Name}”。");
+            Runtime.ReplaceNonSequentialDocument(document, "已更新非序列对象属性。");
         });
 
     public void UpdateWavelengths(IReadOnlyList<NonSequentialWavelengthDto> wavelengths) =>
@@ -295,7 +317,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
 
     private void ValidateMaterials(CoreDocument document)
     {
-        if(!document.Objects.Any(o=>o.Parameters is Core.NonSequential.OpticalAssemblyParameters g && g.Interfaces[0].MaterialBefore.Text.GetValueOrDefault("name", "Air")==document.AmbientMaterial))
+        if (!document.Objects.Any(o => o.Parameters is Core.NonSequential.OpticalAssemblyParameters g && g.Interfaces[0].MaterialBefore.Text.GetValueOrDefault("name", "Air") == document.AmbientMaterial))
             _ = Runtime.CurrentOptic.Materials.Resolve(document.AmbientMaterial);
         foreach (var material in document.Objects.SelectMany(MaterialNames).Distinct(StringComparer.OrdinalIgnoreCase))
         {
@@ -333,7 +355,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         item.LocalCoordinateSystem.RotationYDegrees,
         item.LocalCoordinateSystem.RotationZDegrees,
         item.Parameters is Core.NonSequential.OpticalAssemblyParameters group
-            ? string.Join(" / ",group.Interfaces.SelectMany(f=>new[]{f.MaterialBeforeName,f.MaterialAfterName}).Distinct())
+            ? string.Join(" / ", group.Interfaces.SelectMany(f => new[] { f.MaterialBeforeName, f.MaterialAfterName }).Distinct())
             : MaterialNames(item).FirstOrDefault() ?? string.Empty,
         ToDto(item.Parameters, document),
         Summary(item.Parameters) + (item.SurfaceBsdf is { } bsdf ? bsdf.MeasuredData is { } d ? $" · BSDF {d.Name}" : $" · Lambertian ρ={bsdf.Reflectance:G5}" : ""),
@@ -362,7 +384,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         CoreSphereParameters sphere => $"R {sphere.RadiusMillimeters:0.###} mm",
         CoreCylinderParameters cylinder => $"R {cylinder.RadiusMillimeters:0.###} × {cylinder.LengthMillimeters:0.###} mm",
         CoreBoxParameters box => $"{box.WidthMillimeters:0.###} × {box.HeightMillimeters:0.###} × {box.LengthMillimeters:0.###} mm",
-        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜"+(group.HasExtendedSurfaces?" · 非球面/独立坐标":""),
+        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜" + (group.HasExtendedSurfaces ? " · 非球面/独立坐标" : ""),
         CoreStandardLensParameters lens => $"CT {lens.CenterThicknessMillimeters:0.###}，SD {lens.SemiDiameterMillimeters:0.###} mm",
         CoreMeshObjectParameters mesh => $"STL 资产 {mesh.MeshAssetId:N}，{mesh.Behavior}",
         CoreDetectorRectangleParameters detector => $"{detector.WidthMillimeters:0.###} × {detector.HeightMillimeters:0.###} mm，{detector.PixelsX} × {detector.PixelsY}",
@@ -467,8 +489,8 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         CoreMeshObjectParameters mesh when document is not null => ToMeshDto(document.FindMeshAsset(mesh.MeshAssetId), mesh),
         CoreDetectorRectangleParameters detector => new DetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower)
-                { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
+            detector.FrontOnly, detector.Absorb, detector.IncidentSurface, detector.NormalizeCoherentPower)
+        { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter type '{value.GetType().Name}'.")
     };
 
@@ -543,8 +565,8 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
             mesh.MeshAssetId, ToCore(mesh.Behavior), mesh.Material, mesh.TwoSided),
         DetectorRectangleParameters detector => new CoreDetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower)
-                { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
+            detector.FrontOnly, detector.Absorb, detector.IncidentSurface, detector.NormalizeCoherentPower)
+        { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter DTO '{value.GetType().Name}'.")
     };
 

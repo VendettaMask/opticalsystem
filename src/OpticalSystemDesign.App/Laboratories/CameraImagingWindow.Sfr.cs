@@ -18,8 +18,13 @@ namespace OpticalSystemDesign.App.Laboratories;
 public sealed partial class CameraImagingWindow
 {
     private readonly Dictionary<string, NumericUpDown> _sfrNumbers = new();
-    private readonly ComboBox _sfrSpectrumMode = new() { Name = "camera-sfr-spectrum-mode", Width = 190,
-        ItemsSource = new[] { "单色", "当前镜头波长与权重" }, SelectedIndex = 1 };
+    private readonly ComboBox _sfrSpectrumMode = new()
+    {
+        Name = "camera-sfr-spectrum-mode",
+        Width = 190,
+        ItemsSource = new[] { "单色", "当前镜头波长与权重" },
+        SelectedIndex = 1
+    };
     private readonly Button _sfrRun = new() { Name = "camera-sfr-run", Content = "生成斜边并计算", Classes = { "accent" } };
     private readonly Button _sfrCancel = new() { Name = "camera-sfr-cancel", Content = "取消" };
     private readonly Button _sfrSave = new() { Name = "camera-sfr-save", Content = "保存实验" };
@@ -40,17 +45,34 @@ public sealed partial class CameraImagingWindow
     private Control BuildSfrPage()
     {
         var settings = new WrapPanel { Orientation = Orientation.Horizontal };
-        settings.Children.Add(new StackPanel { Spacing = 4, Margin = new Thickness(0, 0, 16, 10),
-            Children = { new TextBlock { Text = "波长模式" }, _sfrSpectrumMode } });
+        settings.Children.Add(new StackPanel
+        {
+            Spacing = 4,
+            Margin = new Thickness(0, 0, 16, 10),
+            Children = { new TextBlock { Text = "波长模式" }, _sfrSpectrumMode }
+        });
         AutomationProperties.SetName(_sfrSpectrumMode, "斜边波长模式");
         _sfrSpectrumMode.SelectionChanged += (_, _) => { if (!_sfrApplying) ClearSfr("波长模式已改变，请重新生成斜边。"); };
         void Number(string key, string label, decimal value, decimal min, decimal max, decimal step = 1, bool integer = false)
         {
-            var input = new CameraNumberInput { Name = "camera-sfr-" + key, Value = value, Minimum = min,
-                Maximum = max, Increment = step, IntegerOnly = integer, FormatString = "0.########", Width = 100 };
+            var input = new CameraNumberInput
+            {
+                Name = "camera-sfr-" + key,
+                Value = value,
+                Minimum = min,
+                Maximum = max,
+                Increment = step,
+                IntegerOnly = integer,
+                FormatString = "0.########",
+                Width = 100
+            };
             AutomationProperties.SetName(input, label); _sfrNumbers[key] = input;
-            var field = new StackPanel { Spacing = 4, Margin = new Thickness(0, 0, 16, 10),
-                Children = { new TextBlock { Text = label }, input } };
+            var field = new StackPanel
+            {
+                Spacing = 4,
+                Margin = new Thickness(0, 0, 16, 10),
+                Children = { new TextBlock { Text = label }, input }
+            };
             settings.Children.Add(field);
             input.ValueChanged += (_, _) => { if (!_sfrApplying) ClearSfr("参数已改变，请重新生成斜边。"); };
             input.PropertyChanged += (_, e) =>
@@ -77,20 +99,28 @@ public sealed partial class CameraImagingWindow
         foreach (var button in new Control[] { _sfrRun, _sfrCancel, _sfrSave, _sfrOpen, _sfrReplay, _sfrPng, _sfrLineWidth })
         { button.Margin = new Thickness(0, 0, 8, 8); actions.Children.Add(button); }
         var previews = new UniformGrid { Columns = 2, Children = { _sfrSource, _sfrImage } };
-        var body = new StackPanel { Spacing = 12, Children =
+        var body = new StackPanel
+        {
+            Spacing = 12,
+            Children =
         {
             new TextBlock { Text = "当前镜头 · 无噪声 · 单个 ROI。多波长使用镜头波长表及其权重，单色可手动设置。96 × 96 满填充方形像元，暗/亮 0.2/0.8。瞳面、像面和 PSF 窗口分别翻倍检查，差值门限 0.01。", TextWrapping = TextWrapping.Wrap },
             settings, actions, _sfrInfo, previews, _sfrGraph,
             new TextBlock { Text = "SFR 直接使用浮点线性像元数据，预览不参与计算。采用选定视场的局部恒定标量 PSF；未包含全视场畸变、偏振、CFA、ADC 或 ISP。有限 PSF 显式按截取能量归一化，并显示能量及窗口检查。结果不代表 ISO 12233 合规认证。", TextWrapping = TextWrapping.Wrap }
-        }};
+        }
+        };
         _sfrRun.Click += async (_, _) => await RunSfrAsync();
         _sfrReplay.Click += async (_, _) => await RunSfrAsync(true);
         _sfrCancel.Click += (_, _) => ClearSfr("斜边计算已取消。");
         _sfrSave.Click += async (_, _) => await SaveSfrAsync();
         _sfrOpen.Click += async (_, _) =>
         {
-            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "打开斜边实验", AllowMultiple = false,
-                FileTypeFilter = [new FilePickerFileType("斜边实验") { Patterns = ["*.sfr-experiment.zip"] }] });
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "打开斜边实验",
+                AllowMultiple = false,
+                FileTypeFilter = [new FilePickerFileType("斜边实验") { Patterns = ["*.sfr-experiment.zip"] }]
+            });
             if (files.Count > 0) await OpenSfrFromPathAsync(files[0].Path.LocalPath);
         };
         _sfrPng.Click += async (_, _) => await SaveSfrPngAsync();
@@ -236,8 +266,13 @@ public sealed partial class CameraImagingWindow
         var result = _sfrResult; if (_sfrBusy || result is null) return;
         try
         {
-            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "保存斜边实验", SuggestedFileName = "slanted-edge.sfr-experiment.zip",
-                ShowOverwritePrompt = true, FileTypeChoices = [new FilePickerFileType("斜边实验") { Patterns = ["*.sfr-experiment.zip"] }] });
+            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "保存斜边实验",
+                SuggestedFileName = "slanted-edge.sfr-experiment.zip",
+                ShowOverwritePrompt = true,
+                FileTypeChoices = [new FilePickerFileType("斜边实验") { Patterns = ["*.sfr-experiment.zip"] }]
+            });
             if (file is not null) await _application.CameraImaging.ExportSlantedEdgeAsync(result, file.Path.LocalPath);
         }
         catch (Exception ex) { if (!_closed) _sfrInfo.Text = "保存失败：" + ex.Message; }
@@ -256,8 +291,14 @@ public sealed partial class CameraImagingWindow
         try
         {
             using var bitmap = CaptureSfrImage();
-            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "导出斜边曲线", SuggestedFileName = "slanted-edge.png",
-                DefaultExtension = "png", ShowOverwritePrompt = true, FileTypeChoices = [new FilePickerFileType("PNG") { Patterns = ["*.png"] }] });
+            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "导出斜边曲线",
+                SuggestedFileName = "slanted-edge.png",
+                DefaultExtension = "png",
+                ShowOverwritePrompt = true,
+                FileTypeChoices = [new FilePickerFileType("PNG") { Patterns = ["*.png"] }]
+            });
             if (file is not null) AnalysisPanel.SavePlotImage(bitmap, file.Path.LocalPath);
         }
         catch (Exception ex) { if (!_closed) _sfrInfo.Text = "导出失败：" + ex.Message; }

@@ -48,24 +48,24 @@ internal static class ZemaxBsdfReader
         var channelPoints = new List<MeasuredBsdfPoint>[] { new(), new(), new() }; var channelIntegrals = new List<ZemaxBsdfTis>[] { new(), new(), new() };
         foreach (var channel in xyz ? new[] { 0, 1, 2 } : new[] { 1 })
         {
-        points = channelPoints[channel]; integrals = channelIntegrals[channel];
-        if (Line() != (xyz ? new[] { "TristimulusX", "TristimulusY", "TristimulusZ" }[channel] : "Monochrome") || Line() != "DataBegin") throw new InvalidDataException("Zemax 数据块标记无效。");
-        foreach (var a in rotations) foreach (var i in incidences)
-        {
-            var s = Value("TIS"); if (!double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var tis) || !double.IsFinite(tis) || tis is < 0 or > 1) throw new InvalidDataException("Zemax TIS 须在 0–1 之间。");
-            var rows = phi.Select(_ => Numbers(radial.Length)).ToArray();
-            if (rows.Any(r => r.Any(v => v < 0))) throw new InvalidDataException("Zemax 分布含负值。");
-            foreach (var side in sides)
+            points = channelPoints[channel]; integrals = channelIntegrals[channel];
+            if (Line() != (xyz ? new[] { "TristimulusX", "TristimulusY", "TristimulusZ" }[channel] : "Monochrome") || Line() != "DataBegin") throw new InvalidDataException("Zemax 数据块标记无效。");
+            foreach (var a in rotations) foreach (var i in incidences)
             {
-                integrals.Add(new(side, i, a, tis));
-                foreach (var p in outputPhi)
+                var s = Value("TIS"); if (!double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var tis) || !double.IsFinite(tis) || tis is < 0 or > 1) throw new InvalidDataException("Zemax TIS 须在 0–1 之间。");
+                var rows = phi.Select(_ => Numbers(radial.Length)).ToArray();
+                if (rows.Any(r => r.Any(v => v < 0))) throw new InvalidDataException("Zemax 分布含负值。");
+                foreach (var side in sides)
                 {
-                    var source = Array.BinarySearch(phi, plane && p > 180 ? 360 - p : p);
-                    for (var r = 0; r < radial.Length; r++) points.Add(new(side, wavelength, i, radial[r], p, transmission ? 0 : rows[source][r], transmission ? rows[source][r] : 0, a));
+                    integrals.Add(new(side, i, a, tis));
+                    foreach (var p in outputPhi)
+                    {
+                        var source = Array.BinarySearch(phi, plane && p > 180 ? 360 - p : p);
+                        for (var r = 0; r < radial.Length; r++) points.Add(new(side, wavelength, i, radial[r], p, transmission ? 0 : rows[source][r], transmission ? rows[source][r] : 0, a));
+                    }
                 }
             }
-        }
-        if (Line() != "DataEnd") throw new InvalidDataException("Zemax 数据块未结束。");
+            if (Line() != "DataEnd") throw new InvalidDataException("Zemax 数据块未结束。");
         }
         if (at != lines.Length) throw new InvalidDataException("Zemax 尾部有未知记录或额外数据块。");
         points = channelPoints[1]; integrals = channelIntegrals[1];
@@ -73,7 +73,7 @@ internal static class ZemaxBsdfReader
         if (calibration?.FitEvidence is { } fit)
             note += string.Format(CultureInfo.InvariantCulture, " Calibration fit origin={0}; independent validation bands={1}; maximum held-out normalized RMS={2:G17}, absolute BSDF error={3:G17}; XYZ source SHA256={4}; radiometric source SHA256={5}. A declared fit is not commercial certification.",
                 fit.Provenance.Kind, fit.Bands.Count, fit.Bands.Max(b => b.ValidationNormalizedRms), fit.Bands.Max(b => b.ValidationMaximumAbsoluteError), fit.Provenance.XyzSha256, fit.Provenance.RadiometricSha256);
-        if(calibration?.AbsoluteRbfModel is { } absolute)
+        if (calibration?.AbsoluteRbfModel is { } absolute)
             note += $" Absolute positive XYZ transfer {absolute.Method}; features={absolute.Features}, neighbours={absolute.NeighbourCount}, smoothing={absolute.Smoothing}; bounded colour and absolute-strength domain. Not invariant to arbitrary XYZ intensity scaling. Radiometric TIS is the actual mapped angular-grid integral; no power rescaling.";
         else if (calibration?.PositiveModel is { } positive)
             note += $" Positive homogeneous colour transfer {positive.Method}; neighbours={positive.NeighbourCount}; original absolute XYZ knots checked against declared domain; radiometric TIS is the actual converted angular-grid projection integral, not a nonlinear mapping of channel TIS. No negative-value clipping or power rescaling.";

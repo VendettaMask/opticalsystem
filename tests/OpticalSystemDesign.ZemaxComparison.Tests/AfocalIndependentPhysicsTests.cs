@@ -132,9 +132,16 @@ public sealed class AfocalIndependentPhysicsTests(ITestOutputHelper output)
         }
         // Preserve the existing conservative raster budget; this is not a high-precision gate.
         Assert.InRange(maximum, 0, 8d / (n - 1));
-        Record(new { kind = "production-huygens-airy", n, g, pitchMrad = pitch,
-            airyMaximumAbsolute = maximum, rasterBudget = 8d / (n - 1),
-            scope = "scalar paraxial disk; finite cell/window, no absolute flux claim" });
+        Record(new
+        {
+            kind = "production-huygens-airy",
+            n,
+            g,
+            pitchMrad = pitch,
+            airyMaximumAbsolute = maximum,
+            rasterBudget = 8d / (n - 1),
+            scope = "scalar paraxial disk; finite cell/window, no absolute flux claim"
+        });
     }
 
     // J1 power series is independent of the FFT implementation; evaluated only |z| <= 13.

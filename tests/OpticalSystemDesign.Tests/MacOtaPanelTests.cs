@@ -40,7 +40,7 @@ public sealed class MacOtaPanelTests
                 await panel.InstallAsync();
                 Assert.Equal(1, prompts); Assert.Equal(approve ? 1 : 0, engine.Installs); Assert.Equal(approve ? 1 : 0, closes);
                 Assert.Equal(approve ? MacOtaState.Installing : MacOtaState.Ready, engine.Status.State);
-                Assert.Equal(UiLocalization.Text(approve ? "正在安装更新并重启…" : "更新校验通过。安装前可选择保存或不保存当前修改；取消则不安装。"), Find<TextBlock>(panel,"OtaUpdateStatus").Text);
+                Assert.Equal(UiLocalization.Text(approve ? "正在安装更新并重启…" : "更新校验通过。安装前可选择保存或不保存当前修改；取消则不安装。"), Find<TextBlock>(panel, "OtaUpdateStatus").Text);
             }
             finally { window.Close(); }
         }, CancellationToken.None);
@@ -57,7 +57,7 @@ public sealed class MacOtaPanelTests
         {
             var engine = new Engine();
             using var panel = new MacSoftwareUpdatePanel(engine, () => throw new Exception("Must not prompt"), () => throw new Exception("Must not close"));
-            engine.Set((MacOtaState)state); Click(panel,"CancelUpdateDownload");
+            engine.Set((MacOtaState)state); Click(panel, "CancelUpdateDownload");
             Assert.Equal(1, engine.Cancels); Assert.Equal(0, engine.Installs); Assert.Equal(MacOtaState.Cancelled, engine.Status.State);
         }, CancellationToken.None);
     }
@@ -77,14 +77,14 @@ public sealed class MacOtaPanelTests
     }
 
     private static T Find<T>(Control panel, string name) where T : Control => panel.GetVisualDescendants().OfType<T>().Single(c => c.Name == name);
-    private static void Click(Control panel, string name) => Find<Button>(panel,name).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+    private static void Click(Control panel, string name) => Find<Button>(panel, name).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
     private sealed class Engine : IMacOtaUpdater
     {
         public MacOtaStatus Status { get; private set; } = new(MacOtaState.Idle);
         public event Action? Changed;
         public int Checks, Downloads, Installs, Cancels;
         public bool IncludeTests;
-        public void Set(MacOtaState state) { Status = new(state,"1.0.4 (3.1.1)",42); Changed?.Invoke(); }
+        public void Set(MacOtaState state) { Status = new(state, "1.0.4 (3.1.1)", 42); Changed?.Invoke(); }
         public void Check(bool includeTests) { Checks++; IncludeTests = includeTests; Set(MacOtaState.Checking); }
         public void Download() { Downloads++; Set(MacOtaState.Downloading); }
         public bool Install() { if (Status.State != MacOtaState.Ready) return false; Installs++; Set(MacOtaState.Installing); return true; }

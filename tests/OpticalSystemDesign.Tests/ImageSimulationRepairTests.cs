@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -9,6 +8,7 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

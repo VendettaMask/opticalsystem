@@ -22,16 +22,19 @@ public sealed record MeasuredBsdfLogInterpolation(double ScalePerSteradian, stri
     internal static double Log1p(double x)
     {
         if (Math.Abs(x) > 1e-4) return Math.Log(1 + x);
-        double term = x, sum = x; for (int i = 2; i <= 12; i++) { term *= -x; sum += term / i; } return sum;
+        double term = x, sum = x; for (int i = 2; i <= 12; i++) { term *= -x; sum += term / i; }
+        return sum;
     }
     internal static double Expm1(double x)
     {
         if (Math.Abs(x) > 1e-4) return Math.Exp(x) - 1;
-        double term = x, sum = x; for (int i = 2; i <= 12; i++) { term *= x / i; sum += term; } return sum;
+        double term = x, sum = x; for (int i = 2; i <= 12; i++) { term *= x / i; sum += term; }
+        return sum;
     }
     internal static double ExprelMinusOne(double x)
     {
         if (Math.Abs(x) > 1e-4) return Expm1(x) / x - 1;
-        double term = x / 2, sum = term; for (int i = 3; i <= 12; i++) { term *= x / i; sum += term; } return sum;
+        double term = x / 2, sum = term; for (int i = 3; i <= 12; i++) { term *= x / i; sum += term; }
+        return sum;
     }
 }

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Core.Raytrace;
@@ -6,18 +5,27 @@ using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
 public sealed class AutonomousDesignReviewTests
 {
-    private static readonly JsonSerializerOptions EvidenceJson = new() { WriteIndented = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase, NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
+    private static readonly JsonSerializerOptions EvidenceJson = new()
+    {
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals
+    };
     private static string Root => DelanoMaterializationTests.Root();
     internal static string Original(int seed = 45) => Path.Combine(Root, $"validation/rechecks/2026-11-01/initial-performance/candidate/seed{seed}/run.preparation.json");
 
     [Theory]
-    [InlineData(42)] [InlineData(43)] [InlineData(44)] [InlineData(45)] [InlineData(46)]
+    [InlineData(42)]
+    [InlineData(43)]
+    [InlineData(44)]
+    [InlineData(45)]
+    [InlineData(46)]
     public async Task OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(int seed)
     {
         using var files = new TemporaryFiles();
@@ -65,8 +73,17 @@ public sealed class AutonomousDesignReviewTests
         Assert.Equal(ContentFingerprint.Compute(independent.Targets), ContentFingerprint.Compute(again.Targets));
         Assert.All(again.Fields, f => Assert.Equal(f.CheckAttemptedRays, f.CheckValidRays));
         Assert.Equal(before, ContentFingerprint.Compute(state));
-        Evidence("original-F8-" + seed, new { seed, Source = before, Qualified = final.OriginalQualified, DisplayAndReportRays = 0,
-            OriginalTargets = state.Plan.Targets, SourceWork = state.Consumed, Independent = independent, NativeReadback = again });
+        Evidence("original-F8-" + seed, new
+        {
+            seed,
+            Source = before,
+            Qualified = final.OriginalQualified,
+            DisplayAndReportRays = 0,
+            OriginalTargets = state.Plan.Targets,
+            SourceWork = state.Consumed,
+            Independent = independent,
+            NativeReadback = again
+        });
     }
 
     [Fact]
@@ -84,8 +101,10 @@ public sealed class AutonomousDesignReviewTests
     }
 
     [Theory]
-    [InlineData("Paraxial", "Starts")] [InlineData("Retrieval", "Retrieval:Validate")]
-    [InlineData("Competition", "Competition:Rounds")] [InlineData("EvolutionDirect", "Evolution:Trials")]
+    [InlineData("Paraxial", "Starts")]
+    [InlineData("Retrieval", "Retrieval:Validate")]
+    [InlineData("Competition", "Competition:Rounds")]
+    [InlineData("EvolutionDirect", "Evolution:Trials")]
     public void SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(string mode, string stage)
     {
         var plan = PreparationModeResumeTests.Plan(mode); using var stop = new CancellationTokenSource();
@@ -123,8 +142,11 @@ public sealed class AutonomousDesignReviewTests
         var review = AutonomousDesignReview.Build(AutonomousDesignStudy.Capture("F8 reduction history", main));
         var transitions = review.Candidates.Where(c => c.Topology.HasTransitionElements).ToArray();
         Assert.NotEmpty(transitions);
-        Assert.All(transitions, item => { Assert.False(item.OriginalQualified); Assert.False(item.CanExport); Assert.False(item.OriginalSpecification);
-            Assert.True(item.Assessment!.StructuralConstraints.AllowTransitionElements); });
+        Assert.All(transitions, item =>
+        {
+            Assert.False(item.OriginalQualified); Assert.False(item.CanExport); Assert.False(item.OriginalSpecification);
+            Assert.True(item.Assessment!.StructuralConstraints.AllowTransitionElements);
+        });
         Assert.False(main.Plan.Constraints.AllowTransitionElements);
         var report = AutonomousDesignReport.BuildMarkdown(review);
         Assert.Contains("过渡结构，仅供研究", report); Assert.Contains("阶段验收条件", report);

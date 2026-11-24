@@ -251,7 +251,9 @@ public sealed class AnalysisResultPresentationTests
         var onAxis = await Run(app, key);
         var settings = app.Analyses.MergeSettings(key, new Dictionary<string, string>
         {
-            ["FieldNumber"] = "2", ["WavelengthNumber"] = "2", ["ProfileType"] = "Y"
+            ["FieldNumber"] = "2",
+            ["WavelengthNumber"] = "2",
+            ["ProfileType"] = "Y"
         });
         var offAxis = (await app.Analyses.RunAsync(new AnalysisRequestDto(Guid.NewGuid(), 1, key, settings))).View;
         Assert.Equal(AnalysisOutcome.Success, offAxis.Outcome);

@@ -19,12 +19,24 @@ public sealed class LegacyGb1991DrawingTests
         {
             LegacyGb1991 = new LegacyGb1991Requirements
             {
-                RefractiveIndexGrade = "3C", AbbeNumberGrade = "3C", HomogeneityGrade = "3",
-                AbsorptionGrade = "3", StressGrade = "4", StriaeGrade = "1C", BubbleGrade = "2D",
-                PowerFringes = "3", IrregularityFringes = "0.5", TestPlateGrade = "A",
-                SurfaceImperfection = "3×0.063", FocalLength = "340", FrontFocalDistance = "300", BackFocalDistance = "300",
-                OpticalSurfaceRaMicrometers = 0.01, OtherSurfaceRaMicrometers = 1.6,
-                OpticalRaSamplingLengthMillimeters = 0.08, OtherRaSamplingLengthMillimeters = 0.8,
+                RefractiveIndexGrade = "3C",
+                AbbeNumberGrade = "3C",
+                HomogeneityGrade = "3",
+                AbsorptionGrade = "3",
+                StressGrade = "4",
+                StriaeGrade = "1C",
+                BubbleGrade = "2D",
+                PowerFringes = "3",
+                IrregularityFringes = "0.5",
+                TestPlateGrade = "A",
+                SurfaceImperfection = "3×0.063",
+                FocalLength = "340",
+                FrontFocalDistance = "300",
+                BackFocalDistance = "300",
+                OpticalSurfaceRaMicrometers = 0.01,
+                OtherSurfaceRaMicrometers = 1.6,
+                OpticalRaSamplingLengthMillimeters = 0.08,
+                OtherRaSamplingLengthMillimeters = 0.8,
                 FringeReferenceWavelengthNanometers = 546.07
             }
         };
@@ -73,9 +85,12 @@ public sealed class LegacyGb1991DrawingTests
             OpticalDrawingRenderer.ExportPdf(Path.Combine(directory, stem + ".pdf"), sheet);
             File.WriteAllText(Path.Combine(directory, stem + ".json"), JsonSerializer.Serialize(new
             {
-                pageSize, cemented,
+                pageSize,
+                cemented,
                 Requirements = new { regions.Requirements.Left, regions.Requirements.Top, regions.Requirements.Width, regions.Requirements.Height },
-                MaterialRows = materials, PartRows = parts, sheet.LegacyGb1991,
+                MaterialRows = materials,
+                PartRows = parts,
+                sheet.LegacyGb1991,
                 Notes = OpticalDrawingRendererCore.Gb1991TechnicalRequirementLines(sheet),
                 Roughness = OpticalDrawingRendererCore.Gb1991RoughnessAnnotations(sheet),
                 Scope = "Presentation test values transcribed from the standard examples; not a computed focal-length claim for this demo lens."

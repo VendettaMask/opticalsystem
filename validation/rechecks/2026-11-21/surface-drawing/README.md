@@ -32,7 +32,7 @@ dotnet test validation/rechecks/2026-11-21/surface-drawing/focused/SurfaceDrawin
 
 原始结果：[完整运行](results/surface-drawing.trx)、[边界诊断](results/surface-drawing-ui-diagnostic.trx)、[最终 UI 与滚动验证](results/surface-drawing-ui-scroll-final.trx)。[verification.json](verification.json) 按相同测试名称用最新结果覆盖初次错误断言，记录 59 个唯一检查及实际运行程序集 SHA-256。
 
-默认 D 盘 Core/Application/App Release 构建成功。39 张离屏图片保存在 [captures](captures/)：包含五主题属性页、Light 窄窗及其滚动后的设置、0/35% 不透明度、局部坐标、边缘与剖切。已目视检查 [Isekai 英文页](captures/drawing-Isekai-1100.png)、[Light 窄窗滚动设置](captures/drawing-settings-Light-620.png)；完整控件、语言、字体与布局保持可读。
+默认 D 盘 Core/Application/App Release 构建成功。39 张离屏图片保存在 [captures](captures/)：包含五主题属性页、Light 窄窗及其滚动后的设置、0/35% 不透明度、局部坐标、边缘与剖切。已目视检查 [Isekai 英文页](captures/drawing-Isekai-1100.png)、[Light 窄窗滚动设置](captures/drawing-Light-620.png)；完整控件、语言、字体与布局保持可读。
 
 过程中的输出占用、并行分析任务暂时的类型可见性编译错误，以及测试误断言均保留为未通过的过程记录，不计为成功。输出占用进程随后自然结束，没有停止未知进程或用户程序。NuGet 漏洞数据源不可达仅在测试命令中关闭 audit，不能将其描述为漏洞检查通过。全仓本地化检查还包含既有未翻译项，本次只补充本功能 29 条实际运行时资源并验证原 4,215 条逐项保留，没有宣称全仓检查通过。
 

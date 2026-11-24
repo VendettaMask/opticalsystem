@@ -405,7 +405,8 @@ public sealed class NonSequentialDocument
         IReadOnlyList<NonSequentialObjectDefinition>? objects = null,
         string ambientMaterial = "Air",
         NonSequentialTraceSettings? traceSettings = null,
-        IReadOnlyList<NonSequentialMeshAsset>? meshAssets = null)
+        IReadOnlyList<NonSequentialMeshAsset>? meshAssets = null,
+        NonSequentialOrganization? organization = null)
     {
         Name = string.IsNullOrWhiteSpace(name) ? "Non-Sequential Scene" : name.Trim();
         AmbientMaterial = string.IsNullOrWhiteSpace(ambientMaterial) ? "Air" : ambientMaterial.Trim();
@@ -416,6 +417,8 @@ public sealed class NonSequentialDocument
         _wavelengthsView = _wavelengths.AsReadOnly();
         _objectsView = _objects.AsReadOnly();
         _meshAssetsView = _meshAssets.AsReadOnly();
+        Organization = (organization ?? NonSequentialOrganization.Empty).Freeze();
+        Organization.Validate(_objects.Select(o => o.Id).ToHashSet());
         Validate();
     }
 
@@ -425,6 +428,14 @@ public sealed class NonSequentialDocument
     public IReadOnlyList<NonSequentialWavelength> Wavelengths => _wavelengthsView;
     public IReadOnlyList<NonSequentialObjectDefinition> Objects => _objectsView;
     public IReadOnlyList<NonSequentialMeshAsset> MeshAssets => _meshAssetsView;
+    public NonSequentialOrganization Organization { get; private set; }
+
+    public void ReplaceOrganization(NonSequentialOrganization organization)
+    {
+        ArgumentNullException.ThrowIfNull(organization);
+        organization.Validate(_objects.Select(o => o.Id).ToHashSet());
+        Organization = organization.Freeze();
+    }
 
     public static NonSequentialDocument CreateDefault(string name, IEnumerable<NonSequentialWavelength> wavelengths) =>
         new(name, wavelengths.ToArray());
@@ -435,7 +446,8 @@ public sealed class NonSequentialDocument
         _objects.ToArray(),
         AmbientMaterial,
         TraceSettings,
-        _meshAssets.ToArray());
+        _meshAssets.ToArray(),
+        Organization);
 
     public NonSequentialMeshAsset FindMeshAsset(Guid id) =>
         MeshAssetLookup.TryGetValue(id, out var asset)
@@ -561,8 +573,41 @@ public sealed class NonSequentialDocument
         }
 
         _objects.RemoveAt(IndexOf(id));
+        Organization = Organization.Without(id).Freeze();
         RemoveUnusedMeshAssets();
         InvalidateObjectLookup();
+    }
+
+    public void ReplaceObjects(IReadOnlyList<NonSequentialObjectDefinition> replacements)
+    {
+        if (replacements.Select(o => o.Id).Distinct().Count() != replacements.Count)
+            throw new ArgumentException("Duplicate object updates.", nameof(replacements));
+        var byId = _objects.Select((o, index) => (o.Id, index)).ToDictionary(o => o.Id, o => o.index);
+        var indices = replacements.Select(o => byId.TryGetValue(o.Id, out var index) ? index
+            : throw new KeyNotFoundException($"Non-sequential object '{o.Id}' was not found.")).ToArray();
+        var previous = indices.Select(i => _objects[i]).ToArray();
+        for (var i = 0; i < indices.Length; i++) _objects[indices[i]] = replacements[i];
+        try { Validate(); RemoveUnusedMeshAssets(); }
+        catch
+        {
+            for (var i = 0; i < indices.Length; i++) _objects[indices[i]] = previous[i];
+            InvalidateObjectLookup();
+            throw;
+        }
+    }
+
+    public void RemoveObjects(IReadOnlySet<Guid> ids)
+    {
+        foreach (var id in ids) _ = IndexOf(id);
+        var dependent = _objects.FirstOrDefault(o => !ids.Contains(o.Id)
+            && (o.ReferenceObjectId is { } reference && ids.Contains(reference)
+                || o.ContainingObjectId is { } container && ids.Contains(container)));
+        if (dependent is not null) throw new InvalidOperationException($"对象“{dependent.Name}”仍引用所选对象。");
+        _objects.RemoveAll(o => ids.Contains(o.Id));
+        Organization = new NonSequentialOrganization(
+            Organization.Folders.Select(f => f with { ObjectIds = f.ObjectIds.Where(id => !ids.Contains(id)).ToArray() }).ToArray(),
+            Organization.SelectionSets.Select(s => s with { ObjectIds = s.ObjectIds.Where(id => !ids.Contains(id)).ToArray() }).ToArray()).Freeze();
+        RemoveUnusedMeshAssets(); InvalidateObjectLookup();
     }
 
     public void Move(Guid id, int destinationIndex)
@@ -645,13 +690,13 @@ public sealed class NonSequentialDocument
         {
             ValidateObject(item, byId, meshAssetsById);
         }
-        var assemblies=_objects.Select(o=>o.Parameters).OfType<OpticalAssemblyParameters>().ToArray();
-        if(assemblies.Any(g=>!g.Ambient.Name.Equals(AmbientMaterial,StringComparison.OrdinalIgnoreCase))
-            || assemblies.Skip(1).Any(g=>NonSequentialOpticalInterface.Identity(g.Interfaces[0].MaterialBefore)!=NonSequentialOpticalInterface.Identity(assemblies[0].Interfaces[0].MaterialBefore)))
+        var assemblies = _objects.Select(o => o.Parameters).OfType<OpticalAssemblyParameters>().ToArray();
+        if (assemblies.Any(g => !g.Ambient.Name.Equals(AmbientMaterial, StringComparison.OrdinalIgnoreCase))
+            || assemblies.Skip(1).Any(g => NonSequentialOpticalInterface.Identity(g.Interfaces[0].MaterialBefore) != NonSequentialOpticalInterface.Identity(assemblies[0].Interfaces[0].MaterialBefore)))
             throw new InvalidDataException("复合光学组件的完整外部介质必须与场景一致。");
-        var ports=_objects.Select(o=>o.Parameters).OfType<DetectorRectangleParameters>().Where(d=>d.IncidentSurface is not null).Select(d=>d.IncidentSurface!).ToArray();
-        if(assemblies.Sum(g=>g.Interfaces.Sum(f=>(long)f.PayloadEntries))+ports.Sum(f=>(long)f.PayloadEntries)>524288
-            ||assemblies.Sum(g=>g.Interfaces.Sum(f=>f.PayloadCharacters))+ports.Sum(f=>f.PayloadCharacters)>32*1024*1024)
+        var ports = _objects.Select(o => o.Parameters).OfType<DetectorRectangleParameters>().Where(d => d.IncidentSurface is not null).Select(d => d.IncidentSurface!).ToArray();
+        if (assemblies.Sum(g => g.Interfaces.Sum(f => (long)f.PayloadEntries)) + ports.Sum(f => (long)f.PayloadEntries) > 524288
+            || assemblies.Sum(g => g.Interfaces.Sum(f => f.PayloadCharacters)) + ports.Sum(f => f.PayloadCharacters) > 32 * 1024 * 1024)
             throw new InvalidDataException("非序列场景的光学组件载荷超出预算。");
         ValidateAcyclicLinks(byId, item => item.ReferenceObjectId, "参考");
         ValidateAcyclicLinks(byId, item => item.ContainingObjectId, "包含");
@@ -701,7 +746,7 @@ public sealed class NonSequentialDocument
         }
 
         ValidateParameters(item.Name, item.Parameters, meshAssetsById);
-        if(item.Parameters is OpticalAssemblyParameters && (item.SurfaceBsdf is not null || item.ContainingObjectId is not null))
+        if (item.Parameters is OpticalAssemblyParameters && (item.SurfaceBsdf is not null || item.ContainingObjectId is not null))
             throw new InvalidDataException("复合光学组件使用逐面光学属性，不接受对象级 BSDF 或包含介质覆盖。");
         item.SurfaceBsdf?.Validate(item.Parameters);
     }
@@ -906,8 +951,8 @@ public sealed class NonSequentialDocument
             case DetectorRectangleParameters detector:
                 RequirePositive(detector.WidthMillimeters, detector.HeightMillimeters);
                 if (detector.PolarizationComponent is < 0 or > 9) throw new InvalidDataException("探测器偏振分量必须在0到9之间。");
-                if(detector.IncidentSurface is { } port && (port.Frame is not null || port.SurfaceGeometry is not null || port.RadiusMillimeters!=0 || port.Film is not Coatings.NoneCoatingModel
-                    || NonSequentialOpticalInterface.Identity(port.MaterialBefore)!=NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
+                if (detector.IncidentSurface is { } port && (port.Frame is not null || port.SurfaceGeometry is not null || port.RadiusMillimeters != 0 || port.Film is not Coatings.NoneCoatingModel
+                    || NonSequentialOpticalInterface.Identity(port.MaterialBefore) != NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
                     throw new InvalidDataException("入射像面探测端口只接受无独立光学作用的平面；镀膜或介质界面须显式建模。");
                 if (detector.PixelsX <= 0 || detector.PixelsX > MaximumDetectorDimension
                     || detector.PixelsY <= 0 || detector.PixelsY > MaximumDetectorDimension

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -7,6 +6,7 @@ using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

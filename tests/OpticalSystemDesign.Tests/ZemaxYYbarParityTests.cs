@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;
@@ -14,6 +14,7 @@ public sealed partial class ZemaxYYbarParityTests
     public ZemaxYYbarParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ImageHeightNormalizedChiefRayMatchesZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

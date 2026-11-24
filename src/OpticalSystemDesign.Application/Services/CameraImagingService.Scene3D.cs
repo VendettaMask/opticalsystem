@@ -10,9 +10,9 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using BoxParameters = OpticalSystemDesign.Core.NonSequential.BoxParameters;
 using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 using PlaneRectangleParameters = OpticalSystemDesign.Core.NonSequential.PlaneRectangleParameters;
-using BoxParameters = OpticalSystemDesign.Core.NonSequential.BoxParameters;
 using SphereParameters = OpticalSystemDesign.Core.NonSequential.SphereParameters;
 
 namespace OpticalSystemDesign.Application.Services;
@@ -22,8 +22,11 @@ internal sealed partial class CameraImagingService
     private static readonly double[] SceneBands = [650, 550, 450];
     private static readonly JsonSerializerOptions Scene3DJson = new()
     {
-        WriteIndented = true, MaxDepth = 24, PropertyNameCaseInsensitive = true,
-        RespectRequiredConstructorParameters = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+        WriteIndented = true,
+        MaxDepth = 24,
+        PropertyNameCaseInsensitive = true,
+        RespectRequiredConstructorParameters = true,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
         Converters = { new JsonStringEnumConverter(allowIntegerValues: false) }
     };
 
@@ -80,8 +83,12 @@ internal sealed partial class CameraImagingService
             var bound = o.Shape == Camera3DShape.Sphere ? o.SizeX / 2
                 : Math.Sqrt(o.SizeX * o.SizeX + o.SizeY * o.SizeY + (o.Shape == Camera3DShape.Box ? o.SizeZ * o.SizeZ : 0)) / 2;
             if (o.Z + bound >= -1) throw new InvalidDataException("首版所有场景物体须完整位于第一镜面物方 1 mm 之外。");
-            return o with { Reflectance = Values(o.Reflectance, 1), DarkReflectance = o.DarkReflectance is null ? null : Values(o.DarkReflectance, 1),
-                EmittedRadiance = o.EmittedRadiance is null ? null : Values(o.EmittedRadiance, 1e6) };
+            return o with
+            {
+                Reflectance = Values(o.Reflectance, 1),
+                DarkReflectance = o.DarkReflectance is null ? null : Values(o.DarkReflectance, 1),
+                EmittedRadiance = o.EmittedRadiance is null ? null : Values(o.EmittedRadiance, 1e6)
+            };
         }).ToArray();
         var lights = scene.Lights.Select(l =>
         {
@@ -97,7 +104,8 @@ internal sealed partial class CameraImagingService
         var objects = scene.Objects.Select((o, i) => NonSequentialObjectDefinition.Create(o.Shape switch
         {
             Camera3DShape.Rectangle => NonSequentialObjectKind.PlaneRectangle,
-            Camera3DShape.Box => NonSequentialObjectKind.Box, _ => NonSequentialObjectKind.Sphere
+            Camera3DShape.Box => NonSequentialObjectKind.Box,
+            _ => NonSequentialObjectKind.Sphere
         }) with
         {
             Id = new Guid(i + 1, 0, 0, new byte[8]),

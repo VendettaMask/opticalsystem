@@ -1,8 +1,8 @@
 using System.Globalization;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Services;
 

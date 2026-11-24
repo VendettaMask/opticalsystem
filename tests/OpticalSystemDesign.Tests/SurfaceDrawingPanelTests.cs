@@ -1,3 +1,4 @@
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
@@ -5,7 +6,6 @@ using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using System.Reflection;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
@@ -21,8 +21,12 @@ public sealed class SurfaceDrawingPanelTests
     public static AppBuilder BuildAvaloniaApp() => DiagramViewportFitTests.BuildAvaloniaApp();
 
     [Theory]
-    [InlineData("Light", 1100)] [InlineData("Light", 620)] [InlineData("Dark", 1100)]
-    [InlineData("Lumen", 1100)] [InlineData("Isekai", 1100)] [InlineData("Pixel", 1100)]
+    [InlineData("Light", 1100)]
+    [InlineData("Light", 620)]
+    [InlineData("Dark", 1100)]
+    [InlineData("Lumen", 1100)]
+    [InlineData("Isekai", 1100)]
+    [InlineData("Pixel", 1100)]
     public async Task RealDrawingControlsApplyAndRevertWithoutLosingTheSelectedSurface(string theme, int width)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SurfaceDrawingPanelTests));

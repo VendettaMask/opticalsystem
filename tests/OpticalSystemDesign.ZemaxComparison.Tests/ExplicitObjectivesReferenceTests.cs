@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
@@ -7,6 +6,7 @@ using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -15,6 +15,11 @@ public sealed class IlluminationInverseNativeTests(Xunit.Abstractions.ITestOutpu
     [Theory]
     [InlineData("123456", "EFNO")]
     [InlineData("123456", "RELI")]
+    [Trait("AcceptanceScope", "RetiredReference")]
+    public void RetiredLensOperandsAgreeAtSharedRayTracePrecision(string name, string code) =>
+        OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name, code);
+
+    [Theory]
     [InlineData("double-gauss-28-degree-field", "EFNO")]
     [InlineData("double-gauss-28-degree-field", "RELI")]
     [InlineData("relay-lens", "EFNO")]

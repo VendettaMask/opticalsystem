@@ -1,9 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
-using Avalonia.VisualTree;
 
 namespace OpticalSystemDesign.App.Controls;
 

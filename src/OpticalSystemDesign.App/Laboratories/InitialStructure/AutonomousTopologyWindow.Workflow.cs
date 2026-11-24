@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using System.Globalization;
-using Avalonia.Controls;
 using Avalonia.Automation;
+using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Services;
@@ -76,16 +76,16 @@ public sealed partial class AutonomousTopologyWindow
         // An explicitly opened backup is authoritative even when this run was previously displayed at a later revision.
         _displayRevision = -1; _displayRun = null;
         _generation++; _draft = _session.Checkpoint?.Plan ?? _session.PreparationCheckpoint!.Plan; ApplyPlan(_draft);
-        if(_session.PreparationCheckpoint is {Stage:"Finished",ContinueIntoMain:false})
-        {await PresentPreparedDraftAsync();return;}
+        if (_session.PreparationCheckpoint is { Stage: "Finished", ContinueIntoMain: false })
+        { await PresentPreparedDraftAsync(); return; }
         if (_session.Checkpoint is { } main) Publish(main);
         else
         {
             _seedResult = _session.PreparationResult; _seedReportPath = _session.PreparationCheckpointPath; RefreshSeedSummary();
             _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear(); Refresh();
         }
-        if(_session.PreparationCheckpoint is { } preparation&&!SeedPreparationSearch.CanExecute(preparation))
-        {_status.Text=UiLocalization.Text("准备检查点来自其他计算版本，仅供查看，请使用原版本继续");return;}
+        if (_session.PreparationCheckpoint is { } preparation && !SeedPreparationSearch.CanExecute(preparation))
+        { _status.Text = UiLocalization.Text("准备检查点来自其他计算版本，仅供查看，请使用原版本继续"); return; }
         _status.Text = UiLocalization.Text(AutonomousSearchService.IsHistoricalReadOnlyPlan(_draft)
             ? "此通光原型仅供查看和导出，请新建版本化计划" : "记录已载入，尚未继续运行");
     }
@@ -127,8 +127,8 @@ public sealed partial class AutonomousTopologyWindow
         finally { _generation++; }
         if (_session.Checkpoint is not { } checkpoint)
         {
-            if(_session.PreparationCheckpoint is {Stage:"Finished",ContinueIntoMain:false})
-            {await PresentPreparedDraftAsync();return;}
+            if (_session.PreparationCheckpoint is { Stage: "Finished", ContinueIntoMain: false })
+            { await PresentPreparedDraftAsync(); return; }
             if (_session.PreparationResult is { } failed)
             {
                 _seedResult = failed; _seedReportPath = _session.PreparationReportPath; RefreshSeedSummary();
@@ -560,7 +560,7 @@ public sealed partial class AutonomousTopologyWindow
                 var work = preparation.Consumed; var limits = preparation.Options; var pending = preparation.Pending?.Reservation;
                 _budget.Text = UiLocalization.Text("起点准备（独立预算）") + $" · {PreparationStageText(preparation.Stage)} · {preparation.Cursor}\n"
                     + UiLocalization.Text("已计费 / 上限") + $" · {UiLocalization.Text("评价")} {work.FunctionEvaluations}/{limits.MaximumFunctionEvaluations} · "
-                    + $"{UiLocalization.Text("梯度")} {work.GradientEvaluations}/{limits.Spc?.MaximumGradientEvaluations??limits.ColdStart?.MaximumGradientEvaluations??limits.Competition?.MaximumGradientEvaluations??0} · {UiLocalization.Text("追迹")} {work.TracedRays}/{limits.MaximumTracedRays} · {work.Elapsed.TotalSeconds:F1}/{limits.TimeLimit.TotalSeconds:F1}s\n"
+                    + $"{UiLocalization.Text("梯度")} {work.GradientEvaluations}/{limits.Spc?.MaximumGradientEvaluations ?? limits.ColdStart?.MaximumGradientEvaluations ?? limits.Competition?.MaximumGradientEvaluations ?? 0} · {UiLocalization.Text("追迹")} {work.TracedRays}/{limits.MaximumTracedRays} · {work.Elapsed.TotalSeconds:F1}/{limits.TimeLimit.TotalSeconds:F1}s\n"
                     + UiLocalization.Text("在途预约") + $" · {UiLocalization.Text("评价")} {pending?.FunctionEvaluations ?? 0} · {UiLocalization.Text("追迹")} {pending?.TracedRays ?? 0}";
             }
             return;
@@ -589,26 +589,26 @@ public sealed partial class AutonomousTopologyWindow
         }
     }
 
-    private static string PreparationStageText(string stage)=>UiLocalization.Text(stage switch
+    private static string PreparationStageText(string stage) => UiLocalization.Text(stage switch
     {
-        "Spc:SelectParent" or "Spc:StartBranch"=>"SPC分支调度",
-        "Spc:OriginalAssessment" or "Spc:ParentAssessment" or "Spc:PhysicalAssessment"=>"SPC原规格验收",
-        "Spc:ParentOptimization" or "Spc:ParentCurvature"=>"SPC父结构优化",
-        "Spc:NullMerit" or "Spc:SaddleCurvature"=>"SPC鞍点核查",
-        "Spc:BranchOptimization" or "Spc:BranchCurvature"=>"SPC正负分支优化",
-        "Spc:PhysicalSetup" or "Spc:PhysicalOptimization"=>"SPC实体补偿",
-        "Construction" or "Competition:Construction"=>"构造起点",
-        "Compensation"=>"补偿优化",
-        "Starts"=>"一阶起点",
-        "Screening"=>"像差筛选",
-        "Retrieval:Index"=>"镜头库索引",
-        "Retrieval:Transform"=>"镜头库迁移",
-        "Retrieval:Validate" or "Competition:Finals" or "Evolution:Finals"=>"原规格验收",
-        "Competition:Rounds" or "Evolution:Competition"=>"多候选竞争",
-        "Evolution:Parents"=>"父方案验收",
-        "Evolution:Trials"=>"结构分支",
-        "Finished"=>"准备完成",
-        _=>stage
+        "Spc:SelectParent" or "Spc:StartBranch" => "SPC分支调度",
+        "Spc:OriginalAssessment" or "Spc:ParentAssessment" or "Spc:PhysicalAssessment" => "SPC原规格验收",
+        "Spc:ParentOptimization" or "Spc:ParentCurvature" => "SPC父结构优化",
+        "Spc:NullMerit" or "Spc:SaddleCurvature" => "SPC鞍点核查",
+        "Spc:BranchOptimization" or "Spc:BranchCurvature" => "SPC正负分支优化",
+        "Spc:PhysicalSetup" or "Spc:PhysicalOptimization" => "SPC实体补偿",
+        "Construction" or "Competition:Construction" => "构造起点",
+        "Compensation" => "补偿优化",
+        "Starts" => "一阶起点",
+        "Screening" => "像差筛选",
+        "Retrieval:Index" => "镜头库索引",
+        "Retrieval:Transform" => "镜头库迁移",
+        "Retrieval:Validate" or "Competition:Finals" or "Evolution:Finals" => "原规格验收",
+        "Competition:Rounds" or "Evolution:Competition" => "多候选竞争",
+        "Evolution:Parents" => "父方案验收",
+        "Evolution:Trials" => "结构分支",
+        "Finished" => "准备完成",
+        _ => stage
     });
 
     internal static string ReductionConclusionText(AutonomousSearchCheckpoint checkpoint)

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Reflection;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -8,6 +7,7 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

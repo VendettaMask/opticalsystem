@@ -21,8 +21,10 @@ public sealed class NonSequentialCameraSensorTests
     };
 
     [Theory]
-    [InlineData(BayerPattern.RGGB)] [InlineData(BayerPattern.BGGR)]
-    [InlineData(BayerPattern.GRBG)] [InlineData(BayerPattern.GBRG)]
+    [InlineData(BayerPattern.RGGB)]
+    [InlineData(BayerPattern.BGGR)]
+    [InlineData(BayerPattern.GRBG)]
+    [InlineData(BayerPattern.GBRG)]
     public void BandIntegratedPowerUsesOneExposureAndOutputRasterCfaWithoutExtraWeights(BayerPattern pattern)
     {
         var detector = Detector();
@@ -67,8 +69,14 @@ public sealed class NonSequentialCameraSensorTests
         Assert.Equal(frame.TotalPowerWatts, power.TotalPowerWatts);
         Assert.InRange(Math.Abs(trace.EnergyBalance.AccountedPowerWatts / 1e-13 - 1), 0, 1e-12);
         Assert.Equal(16, result.RawDn.Length); Assert.Equal(4, result.Developed.Width);
-        CameraContinuousSpectrumTests.Record("nsc-camera-source-ray", new { power.TotalPowerWatts, ExpectedElectrons = 1e-13 * .01 * 550e-9 / Hc * .5,
-            ActualElectrons = result.PhotoElectrons[6], trace.EnergyBalance, Scope = "Shared Core NSC ray -> raw W/pixel -> camera electrons/RAW/ISP; no 3D-scene or scatter certification" });
+        CameraContinuousSpectrumTests.Record("nsc-camera-source-ray", new
+        {
+            power.TotalPowerWatts,
+            ExpectedElectrons = 1e-13 * .01 * 550e-9 / Hc * .5,
+            ActualElectrons = result.PhotoElectrons[6],
+            trace.EnergyBalance,
+            Scope = "Shared Core NSC ray -> raw W/pixel -> camera electrons/RAW/ISP; no 3D-scene or scatter certification"
+        });
     }
 
     [Fact]
@@ -107,7 +115,9 @@ public sealed class NonSequentialCameraSensorTests
     }
 
     [Theory]
-    [InlineData(-1)] [InlineData(double.NaN)] [InlineData(double.PositiveInfinity)]
+    [InlineData(-1)]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
     public void InvalidRadiometricPixelsAreRejected(double invalid)
     {
         var values = new double[16]; values[5] = invalid;

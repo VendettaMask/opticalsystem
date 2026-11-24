@@ -151,9 +151,13 @@ public sealed partial class DesignService
                     var gain = Loss(baseline) - Loss(candidate);
                     windows.Add(new(used - metric.Run.Iterations, allowance, baseline.Layers, metric.Layers, Loss(baseline), Loss(candidate),
                         candidate.Result!.SamplingConverged, accepted, dampingStart, state.Damping));
-                    run = run with { Evaluations = run.Evaluations + metric.Run.Evaluations,
-                        ReflectanceMetricStartLayers = metricStart, ReflectanceMetricResultLayers = anyAccepted && !accepted ? best : metric.Layers,
-                        ReflectanceMetricAccepted = anyAccepted || accepted };
+                    run = run with
+                    {
+                        Evaluations = run.Evaluations + metric.Run.Evaluations,
+                        ReflectanceMetricStartLayers = metricStart,
+                        ReflectanceMetricResultLayers = anyAccepted && !accepted ? best : metric.Layers,
+                        ReflectanceMetricAccepted = anyAccepted || accepted
+                    };
                     if (!accepted) { metricStop = "NoCertifiedImprovement"; break; }
                     anyAccepted = true; best = candidate.Layers; baseline = candidate; assessment = AssessGeneral(d, candidate.Result.Spectrum);
                     if (candidate.Result.Passed) { metricStop = "Passed"; break; }
@@ -161,8 +165,12 @@ public sealed partial class DesignService
                     // another window is worth computing, never as a relaxed acceptance gate.
                     if (gain <= 1e-5) { metricStop = "GainBelowSamplingResolution"; break; }
                 }
-                run = run with { ReflectanceMetricWindows = windows.ToArray(), ReflectanceMetricIterationLimit = maximumIterations,
-                    ReflectanceMetricStopReason = metricStop };
+                run = run with
+                {
+                    ReflectanceMetricWindows = windows.ToArray(),
+                    ReflectanceMetricIterationLimit = maximumIterations,
+                    ReflectanceMetricStopReason = metricStop
+                };
             }
         }
         return (best, assessment.Merit, run with { GeneralWork = work.Snapshot() });

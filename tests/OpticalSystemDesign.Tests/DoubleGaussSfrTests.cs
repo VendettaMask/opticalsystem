@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Application.Contracts;
@@ -6,6 +5,7 @@ using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -20,14 +20,16 @@ public sealed class DoubleGaussSfrTests
         WavefrontResult Wave(double step, double piston = 0) => new(
             Enumerable.Range(0, 16).Select(i => new WavefrontSample(-.75 + .5 * (i % 4), -.75 + .5 * (i / 4),
                 0, 0, 0, piston + step * (i % 4), i == 0 ? 0 : 1)).ToArray(), 1, 1, 0)
-            { PupilGrid = new(4, true, false, 1) };
+        { PupilGrid = new(4, true, false, 1) };
         DiffractionEngine.ValidateLocalPupilSampling(Wave(.2, 1000));
         var exception = Assert.Throws<AnalysisDataUnavailableException>(() => DiffractionEngine.ValidateLocalPupilSampling(Wave(13)));
         Assert.Contains("0.5", exception.Message); Assert.Contains("13", exception.Message);
     }
 
     [Theory]
-    [InlineData(2)] [InlineData(-5)] [InlineData(10)]
+    [InlineData(2)]
+    [InlineData(-5)]
+    [InlineData(10)]
     public void ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(double angle)
     {
         var random = new Random(731); var values = new double[33, 33];

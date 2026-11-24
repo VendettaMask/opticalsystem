@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 
@@ -126,12 +126,27 @@ public sealed class QualifiedReductionTests
     private static AutonomousSearchPlan QualifiedPlan(CancellationToken token)
     {
         var plan = Plan();
-        var targets = new TopologyTargets { FocalLengthRelativeTolerance = 1, FNumberRelativeTolerance = 1,
-            MaximumRmsRadiusMillimeters = 5, MaximumSpotRadiusMillimeters = 10, MaximumDistortionFraction = 1, MinimumValidRayFraction = .1 };
+        var targets = new TopologyTargets
+        {
+            FocalLengthRelativeTolerance = 1,
+            FNumberRelativeTolerance = 1,
+            MaximumRmsRadiusMillimeters = 5,
+            MaximumSpotRadiusMillimeters = 10,
+            MaximumDistortionFraction = 1,
+            MinimumValidRayFraction = .1
+        };
         var assessment = TopologyValidator.Validate(TopologyCompiler.Compile(plan.Seeds[0], plan.Constraints), targets, token);
         Assert.True(assessment.Completed);
-        return plan with { Targets = targets with { EffectiveFocalLengthMillimeters = assessment.EffectiveFocalLengthMillimeters!.Value,
-            FNumber = assessment.FNumber!.Value, FocalLengthRelativeTolerance = 1e-8, FNumberRelativeTolerance = 1e-8 } };
+        return plan with
+        {
+            Targets = targets with
+            {
+                EffectiveFocalLengthMillimeters = assessment.EffectiveFocalLengthMillimeters!.Value,
+                FNumber = assessment.FNumber!.Value,
+                FocalLengthRelativeTolerance = 1e-8,
+                FNumberRelativeTolerance = 1e-8
+            }
+        };
     }
 
     private static AutonomousSearchPlan Plan()
@@ -139,13 +154,35 @@ public sealed class QualifiedReductionTests
         var root = new DirectoryInfo(AppContext.BaseDirectory);
         while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         var source = JsonSerializer.Deserialize<DesignTopology>(File.ReadAllText(Path.Combine(root!.FullName,
-            "labs/InitialStructure/benchmarks/autonomous-topology-v1/foundation-3.json")), Json)! with { Fields = [new("Axis", 0, 0)] };
-        var stage = new FixedTopologyOptions { ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false, MaximumUpdates = 0,
-            MaximumFunctionEvaluations = 1, MaximumGradientEvaluations = 0 };
-        return new() { Seeds = [source], Options = new() { QualifiedReductionOnly = true, SkipParaxialRecovery = true,
-            MaximumTrials = 4, BranchesPerParent = 1, MaximumFunctionEvaluations = 20, MaximumGradientEvaluations = 4,
-            MaximumTracedRays = 300_000, MaximumStageTracedRays = 10_000, FinalValidationRayReserve = 80_000,
-            TimeLimit = TimeSpan.FromSeconds(30), Local = stage, Full = stage } };
+            "labs/InitialStructure/benchmarks/autonomous-topology-v1/foundation-3.json")), Json)! with
+        { Fields = [new("Axis", 0, 0)] };
+        var stage = new FixedTopologyOptions
+        {
+            ComputeMode = DesignComputeMode.Cpu,
+            PerformFinalAssessment = false,
+            MaximumUpdates = 0,
+            MaximumFunctionEvaluations = 1,
+            MaximumGradientEvaluations = 0
+        };
+        return new()
+        {
+            Seeds = [source],
+            Options = new()
+            {
+                QualifiedReductionOnly = true,
+                SkipParaxialRecovery = true,
+                MaximumTrials = 4,
+                BranchesPerParent = 1,
+                MaximumFunctionEvaluations = 20,
+                MaximumGradientEvaluations = 4,
+                MaximumTracedRays = 300_000,
+                MaximumStageTracedRays = 10_000,
+                FinalValidationRayReserve = 80_000,
+                TimeLimit = TimeSpan.FromSeconds(30),
+                Local = stage,
+                Full = stage
+            }
+        };
     }
 
     private static void Write(string name, object value)

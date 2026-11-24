@@ -35,14 +35,21 @@ public interface INonSequentialDocumentService
     Guid PasteObject(NonSequentialObjectUpdateDto template, int insertionIndex);
 
     void DeleteObject(Guid id);
+    void DeleteObjects(IReadOnlyList<Guid> ids);
 
     void MoveObject(Guid id, int destinationIndex);
 
     void UpdateObject(NonSequentialObjectUpdateDto update);
 
+    void UpdateObjects(IReadOnlyList<NonSequentialObjectUpdateDto> updates);
+
+    void UpdateOrganization(Core.NonSequential.NonSequentialOrganization organization);
+
     Task<NonSequentialSurfaceBsdf> ImportMeasuredBsdfAsync(Guid objectId, string path, CancellationToken cancellationToken = default, BsdfImportOptions? options = null);
 
     void UpdateWavelengths(IReadOnlyList<NonSequentialWavelengthDto> wavelengths);
+
+    void UpdateSceneSettings(NonSequentialSceneSettingsDto settings, string expectedSceneIdentity, long expectedRevision);
 
     void UpdatePhysicsSettings(bool usePolarization, bool coherentDetection);
 

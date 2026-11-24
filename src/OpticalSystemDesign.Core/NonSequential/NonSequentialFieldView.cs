@@ -44,7 +44,8 @@ public static class NonSequentialFieldViewBuilder
             valid[i] = kind != NonSequentialFieldViewKind.PhaseDegrees || magnitude > error;
             values[i] = !valid[i] ? double.NaN : kind switch
             {
-                NonSequentialFieldViewKind.Real => field.Real, NonSequentialFieldViewKind.Imaginary => field.Imaginary,
+                NonSequentialFieldViewKind.Real => field.Real,
+                NonSequentialFieldViewKind.Imaginary => field.Imaginary,
                 NonSequentialFieldViewKind.Magnitude => magnitude,
                 _ => Math.Atan2(field.Imaginary, field.Real) * 180 / Math.PI
             };

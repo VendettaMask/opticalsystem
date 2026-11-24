@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -28,6 +28,7 @@ public sealed class SpatialCoherenceNativeTests
     [InlineData("wave1-g1")]
     [InlineData("wave3-g0")]
     [InlineData("wave3-g1")]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void OriginalLensMatchesNativeMostlyCoherentAtCapturedSettings(string name)
     {
         using var fixture = Fixture();
@@ -66,6 +67,7 @@ public sealed class SpatialCoherenceNativeTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FourierConjugateComplexKernelMatchesNativePsfWithoutFittedGainOrShift()
     {
         using var fixture = Fixture();

@@ -22,8 +22,13 @@ internal static class ColdStartSeedPreparation
         progress?.Invoke(events, cold.Work.FunctionEvaluations);
         return new()
         {
-            Algorithm = "initial-structure-cold-design-v" + cold.Policy.Version, ProtocolFingerprint = cold.ProtocolFingerprint,
-            SourcePlan = plan, Options = options, ColdStart = cold, Work = cold.Work, MatrixRequests = cold.Work.MatrixEvaluations,
+            Algorithm = "initial-structure-cold-design-v" + cold.Policy.Version,
+            ProtocolFingerprint = cold.ProtocolFingerprint,
+            SourcePlan = plan,
+            Options = options,
+            ColdStart = cold,
+            Work = cold.Work,
+            MatrixRequests = cold.Work.MatrixEvaluations,
             Termination = token.IsCancellationRequested || cold.StopReason == "Cancelled" ? ParaxialSeedTermination.Cancelled
                 : cold.StopReason == "TimeLimit" || cold.Work.Elapsed > options.TimeLimit ? ParaxialSeedTermination.TimeLimit
                 : cold.StopReason is "FunctionBudget" or "RayBudget" ? ParaxialSeedTermination.BudgetExhausted : ParaxialSeedTermination.Completed,

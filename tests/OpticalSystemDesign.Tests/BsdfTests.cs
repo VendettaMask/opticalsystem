@@ -6,7 +6,9 @@ namespace OpticalSystemDesign.Tests;
 public sealed class BsdfTests
 {
     [Theory]
-    [InlineData(0)] [InlineData(.25)] [InlineData(1)]
+    [InlineData(0)]
+    [InlineData(.25)]
+    [InlineData(1)]
     public void HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(double rho)
     {
         IBsdf model = new LambertianReflectionBsdf(rho);
@@ -25,7 +27,9 @@ public sealed class BsdfTests
     }
 
     [Theory]
-    [InlineData(0, 0, 1)] [InlineData(0, 0, -1)] [InlineData(.3, -.4, .8660254037844386)]
+    [InlineData(0, 0, 1)]
+    [InlineData(0, 0, -1)]
+    [InlineData(.3, -.4, .8660254037844386)]
     public void CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(double nx, double ny, double nz)
     {
         var normal = new Vector3D(nx, ny, nz); normal /= normal.Length;
@@ -56,13 +60,26 @@ public sealed class BsdfTests
             Assert.InRange(Math.Abs(cdf[k] / (double)count - p), 0, 6 * Math.Sqrt(p * (1 - p) / count));
         }
         Assert.All(azimuth, n => Assert.InRange(Math.Abs(n - count / 16d), 0, 6 * Math.Sqrt(count / 16d * 15 / 16)));
-        NonSequentialBsdfTests.Record($"samples-{nx}-{ny}-{nz}", new { Normal = new[] { nx, ny, nz }, Count = count,
-            Seed = 817, MeanCosine = mean / count, CosineSecondMoment = second / count, CdfCounts = cdf, AzimuthCounts = azimuth,
-            ExpectedMeanCosine = 2d / 3, ExpectedCosineSecondMoment = .5, SigmaMultiplier = 6 });
+        NonSequentialBsdfTests.Record($"samples-{nx}-{ny}-{nz}", new
+        {
+            Normal = new[] { nx, ny, nz },
+            Count = count,
+            Seed = 817,
+            MeanCosine = mean / count,
+            CosineSecondMoment = second / count,
+            CdfCounts = cdf,
+            AzimuthCounts = azimuth,
+            ExpectedMeanCosine = 2d / 3,
+            ExpectedCosineSecondMoment = .5,
+            SigmaMultiplier = 6
+        });
     }
 
     [Theory]
-    [InlineData(-.1)] [InlineData(1.1)] [InlineData(double.NaN)] [InlineData(double.PositiveInfinity)]
+    [InlineData(-.1)]
+    [InlineData(1.1)]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
     public void InvalidAlbedoIsRejectedWithoutClamping(double rho) => Assert.Throws<ArgumentOutOfRangeException>(() => new LambertianReflectionBsdf(rho));
 
     [Fact]

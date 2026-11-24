@@ -55,7 +55,7 @@ public sealed class OpticalAssemblySurfaceGeometry
             || kind is "plane" or "standard" && coefficients.Count != 0
             || kind == "odd_asphere" && coefficients.Count > 0 && coefficients[0] != 0)
             throw new InvalidDataException("旋转曲面参数无效、超过32项，或奇次面含轴上不可微的r一次尖点。");
-        if(kind=="plane"&&(!double.IsInfinity(radius)&&Math.Abs(radius)>=1e-12||conic!=0))
+        if (kind == "plane" && (!double.IsInfinity(radius) && Math.Abs(radius) >= 1e-12 || conic != 0))
             throw new InvalidDataException("平面几何不能夹带有曲率的声明。");
         Kind = kind; Radius = radius; Conic = conic; Coefficients = Array.AsReadOnly(coefficients.ToArray());
     }
@@ -70,7 +70,8 @@ public sealed class OpticalAssemblySurfaceGeometry
     };
     internal IGeometry Restore() => Kind switch
     {
-        "plane" => new PlaneGeometry(), "standard" => new StandardGeometry(Radius, Conic),
+        "plane" => new PlaneGeometry(),
+        "standard" => new StandardGeometry(Radius, Conic),
         "even_asphere" => new EvenAsphereGeometry(Radius, Conic, Coefficients),
         "odd_asphere" => new OddAsphereGeometry(Radius, Conic, Coefficients),
         _ => throw new InvalidDataException("Unknown rotational surface.")

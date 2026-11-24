@@ -231,7 +231,7 @@ public sealed partial class SequentialRayTracer
         RealRay? sourceRay = null,
         bool geometryOnly = false,
         ParaxialPhaseTrace? phaseTrace = null,
-        FloatingConicEdge? floatingConicEdge = null)
+        FloatingConicEdge? floatingConicEdge = null, bool recordCompoundInteractions = false)
     {
         var objectCone = _optic.Aperture.Kind == ApertureKind.ObjectConeAngle;
         if (surfaceIndex == 0 && (ObjectConjugate.IsInfinite(surface)
@@ -260,7 +260,7 @@ public sealed partial class SequentialRayTracer
         return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
             cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating,
             allowVirtualIntersection: allowVirtualIntersection, ignoreMaterialAbsorption: ignoreMaterialAbsorption,
-            useObjectConeIntersection: objectCone,
+            useObjectConeIntersection: objectCone, recordCompoundInteractions: recordCompoundInteractions,
             floatingConicEdge: ignorePhysicalAperture ? null : floatingConicEdge ?? ResolveFloatingConicEdge(surface, surfaceIndex),
             surfacePhaseOpticalPath: surface.InteractionModel is not ParaxialLensInteractionModel ? null
                 : geometryOnly ? static (_, _) => 0
@@ -331,6 +331,10 @@ public sealed partial class SequentialRayTracer
                 $"A sequential trace cannot retain more than {SequentialTraceLimits.MaximumRetainedSamples:N0} ray/surface samples.");
         }
 
+        if (request.RecordCompoundInteractions && requestedSampleCount + (long)rayCount
+            * retainedSurfaceIndices.Count(index => surfaces[index].Geometry is OpticalSystemDesign.Core.Geometries.PolygonGroupGeometry) * 128
+            > SequentialTraceLimits.MaximumRetainedSamples)
+            throw new ArgumentOutOfRangeException(nameof(request), "Compound interaction paths exceed the retained sample budget.");
         var sampleCount = checked((int)requestedSampleCount);
         var samples = System.Buffers.ArrayPool<RayTraceSampleValue>.Shared.Rent(Math.Max(1, sampleCount));
         var hasSamples = System.Buffers.ArrayPool<bool>.Shared.Rent(Math.Max(1, sampleCount));
@@ -343,7 +347,7 @@ public sealed partial class SequentialRayTracer
         }
 
         RayTraceCacheKey? cacheKey = null;
-        if (!request.RecordSurfaceData
+        if (!request.RecordSurfaceData && !request.RecordCompoundInteractions
             && _traceCache is not null
             && _traceCache.CanCache(sampleCount))
         {

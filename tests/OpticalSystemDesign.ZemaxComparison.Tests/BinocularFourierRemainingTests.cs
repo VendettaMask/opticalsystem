@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 
@@ -13,8 +13,16 @@ namespace OpticalSystemDesign.ZemaxComparison.Tests;
 public sealed class BinocularFourierRemainingTests
 {
     [Theory]
-    [InlineData(1, 0)] [InlineData(1, 1)] [InlineData(1, 2)] [InlineData(1, 3)] [InlineData(1, 4)]
-    [InlineData(2, 0)] [InlineData(2, 1)] [InlineData(2, 2)] [InlineData(2, 3)] [InlineData(2, 4)]
+    [InlineData(1, 0)]
+    [InlineData(1, 1)]
+    [InlineData(1, 2)]
+    [InlineData(1, 3)]
+    [InlineData(1, 4)]
+    [InlineData(2, 0)]
+    [InlineData(2, 1)]
+    [InlineData(2, 2)]
+    [InlineData(2, 3)]
+    [InlineData(2, 4)]
     public void RemainingFieldCurvesMeetOriginalGateAfterIndependentConvergenceChecks(int config, int frequencyIndex)
     {
         using var fixture = new Fixture();

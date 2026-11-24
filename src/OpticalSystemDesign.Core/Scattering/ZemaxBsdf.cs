@@ -181,8 +181,11 @@ internal sealed class ZemaxBsdfDistribution : IMeasuredBsdfDistribution
 
     private sealed class Slice
     {
-        public double Energy { get; } public double IncidentCosine { get; } public double Rotation { get; }
-        public double CosTheta { get; } public double SinTheta { get; }
+        public double Energy { get; }
+        public double IncidentCosine { get; }
+        public double Rotation { get; }
+        public double CosTheta { get; }
+        public double SinTheta { get; }
         public double[] Mus => _mu; public double[] Phis => _phi;
         public double RawIntegral => _integral;
         private readonly double[] _mu, _phi, _values; private readonly Cell[] _cells; private readonly double[] _cdf; private readonly double _integral;

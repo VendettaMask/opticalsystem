@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 
@@ -15,7 +15,7 @@ public sealed class CoatingWorkspaceTests
         var d = json.RootElement.GetProperty("Cases").EnumerateArray().Select(c => c.GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!)
             .Single(d => d.Name == "real-nbf2-96");
         var mats = d.Materials.ToDictionary(m => m.Id, m => m.Resolve(new MaterialRegistry()));
-        CoherentThinFilmSolver Independent(double[] values) => new(mats[d.IncidentId], mats[d.SubstrateId], d.Layers.Select((l,i) => new CoherentFilm(mats[l.MaterialId], values[i])));
+        CoherentThinFilmSolver Independent(double[] values) => new(mats[d.IncidentId], mats[d.SubstrateId], d.Layers.Select((l, i) => new CoherentFilm(mats[l.MaterialId], values[i])));
         var original = d.Layers.Select(l => l.ThicknessNm).ToArray(); var basis = Independent(original);
         foreach (var factor in new[] { .8, 1.0, 1.2 })
         {

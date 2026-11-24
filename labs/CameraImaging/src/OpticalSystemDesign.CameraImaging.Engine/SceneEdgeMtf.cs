@@ -132,8 +132,11 @@ public static class SceneEdgeMtf
 
         var activeSide = pitch * Math.Sqrt(fillFactor);
         var optical = frequency.Select((f, i) => new SfrSample(i / 256d, f, Math.Clamp(otf[i].Magnitude / dc, 0, 1))).ToArray();
-        var pixel = optical.Select(p => p with { Response = p.Response * Math.Abs(
-            Sinc(p.CyclesPerMillimeter * activeSide * edge.NormalX) * Sinc(p.CyclesPerMillimeter * activeSide * edge.NormalY)) }).ToArray();
+        var pixel = optical.Select(p => p with
+        {
+            Response = p.Response * Math.Abs(
+            Sinc(p.CyclesPerMillimeter * activeSide * edge.NormalX) * Sinc(p.CyclesPerMillimeter * activeSide * edge.NormalY))
+        }).ToArray();
         var radius = Math.Sqrt(edge.XMillimeters * edge.XMillimeters + edge.YMillimeters * edge.YMillimeters);
         double? tangentAngle = radius <= 1e-9 ? null : Math.Acos(Math.Clamp(Math.Abs(
             (edge.XMillimeters * edge.NormalX + edge.YMillimeters * edge.NormalY) / radius), 0, 1)) * 180 / Math.PI;

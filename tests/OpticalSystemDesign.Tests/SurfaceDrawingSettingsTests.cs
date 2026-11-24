@@ -135,7 +135,10 @@ public sealed class SurfaceDrawingSettingsTests
     }
 
     [Theory]
-    [InlineData(double.NaN)] [InlineData(double.PositiveInfinity)] [InlineData(-0.01)] [InlineData(1.01)]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(-0.01)]
+    [InlineData(1.01)]
     public void InvalidDrawingOptionsAreRejectedBeforeMutatingTheDocument(double opacity)
     {
         using var app = WorkbenchApplication.Create("cooke"); var revision = app.Events.Revision;

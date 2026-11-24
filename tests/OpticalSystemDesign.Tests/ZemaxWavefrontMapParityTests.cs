@@ -1,13 +1,14 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class ZemaxWavefrontMapParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public async Task WavefrontMapUsesZemaxEvenGridAndMatchesCapturedOpd()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

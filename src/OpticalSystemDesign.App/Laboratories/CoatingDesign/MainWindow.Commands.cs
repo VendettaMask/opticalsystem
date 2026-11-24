@@ -69,13 +69,16 @@ public sealed partial class MainWindow
 
         var row = new ScrollViewer
         {
-            Content = commands, HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
+            Content = commands,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
             VerticalScrollBarVisibility = ScrollBarVisibility.Disabled
         };
 
         var bar = new Border
         {
-            Name = "LaboratoryHeader", Child = row, Padding = new Thickness(10, 5),
+            Name = "LaboratoryHeader",
+            Child = row,
+            Padding = new Thickness(10, 5),
             BorderThickness = new Thickness(0, 0, 0, 1)
         };
         bar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.RibbonPageBackground);
@@ -113,7 +116,9 @@ public sealed partial class MainWindow
         {
             var item = new MenuItem
             {
-                Name = "CoatingCompute_" + action, Header = UiLocalization.Text(label), Tag = label
+                Name = "CoatingCompute_" + action,
+                Header = UiLocalization.Text(label),
+                Tag = label
             };
             AutomationProperties.SetName(item, label);
             item.Click += (_, _) => TrackOperation(() => RunAsync(action));
@@ -148,7 +153,8 @@ public sealed partial class MainWindow
         UiLocalization.LocalizeChoiceLabel(label);
         return new StackPanel
         {
-            Orientation = Orientation.Horizontal, Spacing = 6,
+            Orientation = Orientation.Horizontal,
+            Spacing = 6,
             Children = { glyph, label }
         };
     }

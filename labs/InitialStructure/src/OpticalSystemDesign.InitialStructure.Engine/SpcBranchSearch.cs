@@ -17,9 +17,18 @@ public static partial class SpcBranchSearch
     public static string GetProtocolFingerprint(AutonomousSearchPlan plan, ParaxialSeedSearchOptions budget, SpcBranchOptions policy, bool directGrowthControl = false)
     {
         Validate(plan, budget, policy);
-        return ContentFingerprint.Compute(new { Algorithm = directGrowthControl ? "initial-structure-direct-growth-control-v1" : "initial-structure-spc-branches-v1",
-            plan, budget, policy, Coordinates = "declared-unprotected-curvatures-only", OpticalMerit = "Core-power/inverseF/spot-energy/distortion/clearance-v1",
-            ResearchTrace = "cpu-null-element-continuation/1", Curvature = "central-exact-AD-gradient/h-and-half-h; symmetric-eigenvalue-index", Final = "original-TopologyValidator" });
+        return ContentFingerprint.Compute(new
+        {
+            Algorithm = directGrowthControl ? "initial-structure-direct-growth-control-v1" : "initial-structure-spc-branches-v1",
+            plan,
+            budget,
+            policy,
+            Coordinates = "declared-unprotected-curvatures-only",
+            OpticalMerit = "Core-power/inverseF/spot-energy/distortion/clearance-v1",
+            ResearchTrace = "cpu-null-element-continuation/1",
+            Curvature = "central-exact-AD-gradient/h-and-half-h; symmetric-eigenvalue-index",
+            Final = "original-TopologyValidator"
+        });
     }
     public static SpcBranchSearchResult Run(AutonomousSearchPlan plan, ParaxialSeedSearchOptions budget, SpcBranchOptions policy,
         CancellationToken cancellationToken = default, Action<string, int>? progress = null, bool directGrowthControl = false)
@@ -59,7 +68,7 @@ public static partial class SpcBranchSearch
                 var initialGlass = materials.Contains(site.Material) ? site.Material : materials[0];
                 var originalAssessment = Assess(original);
                 if (!originalAssessment.Completed || originalAssessment.Violations.Any(v => v.Code.StartsWith("geometry:", StringComparison.Ordinal)))
-                { parents.Add(new(id,"ParentManufacturingRejected",original,null,requests,null,null,site.Id){OriginalAssessment=originalAssessment});continue; }
+                { parents.Add(new(id, "ParentManufacturingRejected", original, null, requests, null, null, site.Id) { OriginalAssessment = originalAssessment }); continue; }
                 var binding = TopologyParameterBinder.Bind(source, requests, exactMechanicalFrame: true);
                 var parameters = binding.CoreParameters.ToArray(); var lower = binding.Slots.Select(s => s.LowerCoordinate).ToArray(); var upper = binding.Slots.Select(s => s.UpperCoordinate).ToArray();
                 var fields = TopologyEvaluationPlan.Fields(source, plan.Options.Local.Sampling.FieldsPerDirection).Select(f => (f.X, f.Y)).ToArray();
@@ -71,8 +80,10 @@ public static partial class SpcBranchSearch
                 var optimizedParent = TopologyParameterBinder.Apply(source, binding, minimum.Coordinates);
                 var parentAssessment = Assess(optimizedParent.Topology);
                 if (!parentAssessment.Completed || parentAssessment.Violations.Any(v => v.Code.StartsWith("geometry:", StringComparison.Ordinal)))
-                { parents.Add(new(id,"StationaryParentManufacturingRejected",original,optimizedParent.Topology,requests,null,null,site.Id)
-                    {OriginalAssessment=originalAssessment,StationaryAssessment=parentAssessment});continue; }
+                {
+                    parents.Add(new(id, "StationaryParentManufacturingRejected", original, optimizedParent.Topology, requests, null, null, site.Id)
+                    { OriginalAssessment = originalAssessment, StationaryAssessment = parentAssessment }); continue;
+                }
                 if (!directGrowthControl && !minimum.InteriorStationary)
                 { parents.Add(new(id, "ParentNotInteriorStationary:" + minimum.StopReason, original, optimizedParent.Topology, requests, null, null, site.Id)); continue; }
                 SpcStationarityEvidence? parentCertificate = null;
@@ -102,7 +113,7 @@ public static partial class SpcBranchSearch
                     if (direction[pivot] < 0) direction = direction.Select(x => -x).ToArray();
                 }
                 parents.Add(new(id, directGrowthControl ? "DirectGrowthControl" : "IndexOneSaddleCertified", original, optimizedParent.Topology, requests, parentCertificate, saddle, site.Id)
-                    { OriginalAssessment=originalAssessment,StationaryAssessment=parentAssessment });
+                { OriginalAssessment = originalAssessment, StationaryAssessment = parentAssessment });
                 foreach (var sign in new[] { -1, 1 })
                 {
                     var branchId = id + (sign < 0 ? ":minus" : ":plus"); var stages = new List<SpcPhysicalStage>();
@@ -150,8 +161,11 @@ public static partial class SpcBranchSearch
                                     endpoint[^2] * .01, endpoint[^1] * .01, plan.Constraints.MinimumCenterThicknessMillimeters * multiplier,
                                     plan.Constraints.MinimumAirGapMillimeters, initialGlass, plan.Constraints);
                             }
-                            else physical = physical with { Elements = physical.Elements.Select(e => e.Id == insertedId
-                                ? e with { ThicknessMillimeters = PositiveThickness(e.FrontZMillimeters, plan.Constraints.MinimumCenterThicknessMillimeters * multiplier) } : e).ToImmutableArray() };
+                            else physical = physical with
+                            {
+                                Elements = physical.Elements.Select(e => e.Id == insertedId
+                                ? e with { ThicknessMillimeters = PositiveThickness(e.FrontZMillimeters, plan.Constraints.MinimumCenterThicknessMillimeters * multiplier) } : e).ToImmutableArray()
+                            };
                             physical = Polish(physical);
                             assessment = Assess(physical);
                             stages.Add(new("Thickness:" + multiplier, initialGlass, physical.Elements.Single(e => e.Id == insertedId).ThicknessMillimeters,
@@ -178,8 +192,12 @@ public static partial class SpcBranchSearch
                     }
                     AddBranch();
                     void AddBranch() => branches.Add(new(branchId, id, sign, outcome, start.ToImmutableArray(), endpoint.ToImmutableArray(), startMerit, endMerit, stages.ToImmutableArray(), physical, assessment)
-                        { NullOptimizationStopReason=nullMinimum?.StopReason,NullGradient=nullMinimum?.Evaluation.Gradient.ToImmutableArray()??[],
-                            NullInteriorStationary=nullMinimum?.InteriorStationary??false, NullMinimum=branchCertificate });
+                    {
+                        NullOptimizationStopReason = nullMinimum?.StopReason,
+                        NullGradient = nullMinimum?.Evaluation.Gradient.ToImmutableArray() ?? [],
+                        NullInteriorStationary = nullMinimum?.InteriorStationary ?? false,
+                        NullMinimum = branchCertificate
+                    });
                 }
                 void ParentStop(string message) => parents.Add(new(id, message, original, null, [], null, null, null));
             }
@@ -197,12 +215,26 @@ public static partial class SpcBranchSearch
             if (gradients >= policy.MaximumGradientEvaluations) throw new Limit("GradientBudget");
             progress?.Invoke(parents.Count == 0 ? "Parent" : "Branches", functions);
         }
-        AutonomousSearchWork Work() => new() { FunctionEvaluations = functions, GradientEvaluations = gradients,
-            ValidationEvaluations = validations, TracedRays = rays.RayCount, GeometryProbes = probes, Elapsed = timer.Elapsed };
-        SpcBranchSearchResult Finish(string stop) => new() { Algorithm = directGrowthControl ? "initial-structure-direct-growth-control-v1" : "initial-structure-spc-branches-v1",
-            ProtocolFingerprint = identity, StopReason = stop, Work = Work(), Parents = parents.ToImmutableArray(), Branches = branches.ToImmutableArray(),
+        AutonomousSearchWork Work() => new()
+        {
+            FunctionEvaluations = functions,
+            GradientEvaluations = gradients,
+            ValidationEvaluations = validations,
+            TracedRays = rays.RayCount,
+            GeometryProbes = probes,
+            Elapsed = timer.Elapsed
+        };
+        SpcBranchSearchResult Finish(string stop) => new()
+        {
+            Algorithm = directGrowthControl ? "initial-structure-direct-growth-control-v1" : "initial-structure-spc-branches-v1",
+            ProtocolFingerprint = identity,
+            StopReason = stop,
+            Work = Work(),
+            Parents = parents.ToImmutableArray(),
+            Branches = branches.ToImmutableArray(),
             QualifiedBranchIds = branches.Where(b => b.Outcome == "QualifiedOriginalSpecification" && b.Assessment is { Completed: true, MeetsTargets: true }
-                && b.Endpoint is { HasTransitionElements: false }).Select(b => b.Id).ToImmutableArray() };
+                && b.Endpoint is { HasTransitionElements: false }).Select(b => b.Id).ToImmutableArray()
+        };
         StationaryValue Optical(Optic optic, OpticalDesignParameter[] parameters, (double, double)[] fields, PupilSample[] pupils, int first = -1, int last = -1)
         {
             Check(); functions++; gradients++;
@@ -245,9 +277,15 @@ public static partial class SpcBranchSearch
             Check(); var compiled = TopologyCompiler.Compile(topology, plan.Constraints); var variables = Variables(topology, plan.Options.CurvatureBoundPerMillimeter);
             var remaining = Math.Min(budget.MaximumFunctionEvaluations - functions - 1, policy.MaximumGradientEvaluations - gradients);
             if (remaining < 1) throw new Limit("PhysicalCompensationBudget");
-            var options = plan.Options.Local with { MaximumUpdates = Math.Min(policy.PhysicalUpdatesPerStage, remaining - 1),
-                MaximumFunctionEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1), MaximumGradientEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1),
-                TimeLimit = budget.TimeLimit - timer.Elapsed, ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false };
+            var options = plan.Options.Local with
+            {
+                MaximumUpdates = Math.Min(policy.PhysicalUpdatesPerStage, remaining - 1),
+                MaximumFunctionEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1),
+                MaximumGradientEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1),
+                TimeLimit = budget.TimeLimit - timer.Elapsed,
+                ComputeMode = DesignComputeMode.Cpu,
+                PerformFinalAssessment = false
+            };
             var result = FixedTopologyOptimizer.Run(compiled, TopologyParameterBinder.Bind(compiled, variables, exactMechanicalFrame: true), plan.Targets, options, token);
             functions += result.Work.FunctionEvaluations; gradients += result.Work.GradientEvaluations; probes += result.Work.GeometryProbes;
             token.ThrowIfCancellationRequested();
@@ -263,18 +301,32 @@ public static partial class SpcBranchSearch
         var index = parent.Elements.ToList().FindIndex(e => e.Id == siteId); var site = parent.Elements[index];
         var z = site.BackZMillimeters + gap;
         while (z - site.BackZMillimeters < gap) z = Math.BitIncrement(z);
-        var added = new LensElement { Id = id, FrontSurfaceId = id + ":front", BackSurfaceId = id + ":back", FrontZMillimeters = z,
-            ThicknessMillimeters = PositiveThickness(z, thickness), Material = material, Front = site.Back with { Profile = site.Back.Profile with { CurvaturePerMillimeter = front } },
-            Back = site.Back with { Profile = site.Back.Profile with { CurvaturePerMillimeter = back } } };
+        var added = new LensElement
+        {
+            Id = id,
+            FrontSurfaceId = id + ":front",
+            BackSurfaceId = id + ":back",
+            FrontZMillimeters = z,
+            ThicknessMillimeters = PositiveThickness(z, thickness),
+            Material = material,
+            Front = site.Back with { Profile = site.Back.Profile with { CurvaturePerMillimeter = front } },
+            Back = site.Back with { Profile = site.Back.Profile with { CurvaturePerMillimeter = back } }
+        };
         return TopologyCompiler.Compile(parent with { Elements = parent.Elements.Insert(index + 1, added) }, constraints).Topology;
     }
     private static double PositiveThickness(double front, double minimum)
     { var back = front + minimum; while (back - front < minimum) back = Math.BitIncrement(back); return back - front; }
     private static double Rank(TopologyAssessment assessment) => (assessment.MeetsTargets ? 0 : 1e9) + assessment.Violations.Length * 1e6
         + (assessment.Fields.IsEmpty ? 1e5 : assessment.Fields.Max(f => f.RmsRadiusMillimeters ?? 1e5));
-    private static AutonomousSearchWork Difference(AutonomousSearchWork a, AutonomousSearchWork b) => new() { FunctionEvaluations = a.FunctionEvaluations - b.FunctionEvaluations,
-        GradientEvaluations = a.GradientEvaluations - b.GradientEvaluations, ValidationEvaluations = a.ValidationEvaluations - b.ValidationEvaluations,
-        TracedRays = a.TracedRays - b.TracedRays, GeometryProbes = a.GeometryProbes - b.GeometryProbes, Elapsed = a.Elapsed - b.Elapsed };
+    private static AutonomousSearchWork Difference(AutonomousSearchWork a, AutonomousSearchWork b) => new()
+    {
+        FunctionEvaluations = a.FunctionEvaluations - b.FunctionEvaluations,
+        GradientEvaluations = a.GradientEvaluations - b.GradientEvaluations,
+        ValidationEvaluations = a.ValidationEvaluations - b.ValidationEvaluations,
+        TracedRays = a.TracedRays - b.TracedRays,
+        GeometryProbes = a.GeometryProbes - b.GeometryProbes,
+        Elapsed = a.Elapsed - b.Elapsed
+    };
     private static void Validate(AutonomousSearchPlan plan, ParaxialSeedSearchOptions budget, SpcBranchOptions policy)
     {
         _ = AutonomousSearchService.Create("spc-branch-preflight", plan);

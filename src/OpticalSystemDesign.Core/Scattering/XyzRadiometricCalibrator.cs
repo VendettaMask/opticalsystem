@@ -26,7 +26,7 @@ public sealed record XyzCalibrationFitEvidence(XyzCalibrationProvenance Provenan
         var gamut = Gamut?.Freeze();
         if (gamut is not null && !gamut.SourceSha256.Equals(Provenance.XyzSha256, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("XYZ 适用域与校准输入来源不一致。");
         if (PositiveModelSha256 is not null && (PositiveModelSha256.Length != 64 || PositiveModelSha256.Any(c => !Uri.IsHexDigit(c)) || gamut is null || Conditions is null)) throw new InvalidDataException("XYZ 正值颜色模型缺少域、条件或模型摘要。");
-        if (AbsoluteRbfModelSha256 is not null && (AbsoluteRbfModelSha256.Length!=64||AbsoluteRbfModelSha256.Any(c=>!Uri.IsHexDigit(c))||PositiveModelSha256 is not null||gamut is null||Conditions is null))throw new InvalidDataException("绝对XYZ模型缺少独立域/条件摘要或模型冲突。");
+        if (AbsoluteRbfModelSha256 is not null && (AbsoluteRbfModelSha256.Length != 64 || AbsoluteRbfModelSha256.Any(c => !Uri.IsHexDigit(c)) || PositiveModelSha256 is not null || gamut is null || Conditions is null)) throw new InvalidDataException("绝对XYZ模型缺少独立域/条件摘要或模型冲突。");
         if (PositiveModelSha256 is null && AbsoluteRbfModelSha256 is null && Conditions is not null) throw new InvalidDataException("显式光谱条件需要与正值模型摘要绑定。");
         return this with { Bands = Array.AsReadOnly(Bands.OrderBy(b => b.WavelengthNanometers).ToArray()), Gamut = gamut, Conditions = Conditions?.Freeze() };
     }
@@ -40,12 +40,12 @@ public sealed record XyzRadiometricFitResult(IReadOnlyList<XyzRadiometricBand> B
     {
         var evidence = Evidence.Freeze();
         if (!ModelValidationPassed || !evidence.Provenance.ObserverAndIlluminantVerified || Bands is null || Bands.Count != evidence.Bands.Count || Bands.Any(b => b is null)
-            || XyzRadiometricCalibrator.BandsDigest(Bands, evidence.Gamut, PositiveModel, evidence.Conditions,AbsoluteRbfModel) != evidence.CalibrationBandsSha256
+            || XyzRadiometricCalibrator.BandsDigest(Bands, evidence.Gamut, PositiveModel, evidence.Conditions, AbsoluteRbfModel) != evidence.CalibrationBandsSha256
             || PositiveModel?.Digest() != evidence.PositiveModelSha256
-            || AbsoluteRbfModel?.Digest()!=evidence.AbsoluteRbfModelSha256
-            || AbsoluteRbfModel is not null&&(PositiveModel is not null||observer!=evidence.Conditions?.Observer||illuminant!=evidence.Conditions?.Illuminant)
+            || AbsoluteRbfModel?.Digest() != evidence.AbsoluteRbfModelSha256
+            || AbsoluteRbfModel is not null && (PositiveModel is not null || observer != evidence.Conditions?.Observer || illuminant != evidence.Conditions?.Illuminant)
             || PositiveModel is not null && (observer != evidence.Conditions?.Observer || illuminant != evidence.Conditions?.Illuminant)) throw new InvalidDataException("XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。");
-        return new(name, observer, illuminant, XyzRadiometricCalibration.UnitsContract, Bands, FitEvidence: evidence, PositiveModel: PositiveModel,AbsoluteRbfModel:AbsoluteRbfModel);
+        return new(name, observer, illuminant, XyzRadiometricCalibration.UnitsContract, Bands, FitEvidence: evidence, PositiveModel: PositiveModel, AbsoluteRbfModel: AbsoluteRbfModel);
     }
 }
 
@@ -55,14 +55,16 @@ public sealed record XyzRadiometricFitResult(IReadOnlyList<XyzRadiometricBand> B
 public static partial class XyzRadiometricCalibrator
 {
     public const int MaximumObservations = 65536;
-    internal static string BandsDigest(IReadOnlyList<XyzRadiometricBand> bands, XyzCalibrationGamut? gamut = null, XyzPositiveColorModel? positive = null, XyzColorimetricConditions? conditions = null,XyzAbsoluteRbfModel? absoluteRbf=null)
+    internal static string BandsDigest(IReadOnlyList<XyzRadiometricBand> bands, XyzCalibrationGamut? gamut = null, XyzPositiveColorModel? positive = null, XyzColorimetricConditions? conditions = null, XyzAbsoluteRbfModel? absoluteRbf = null)
     {
         using var memory = new MemoryStream(); using (var writer = new BinaryWriter(memory, System.Text.Encoding.UTF8, true))
-        { writer.Write(absoluteRbf is not null?"XyzRadiometricAbsoluteRbfBands/1":positive is not null ? "XyzRadiometricPositiveFitBands/1" : gamut is null ? "XyzRadiometricFitBands/1" : "XyzRadiometricGamutFitBands/1");
-            if(absoluteRbf is not null){writer.Write(absoluteRbf.Digest());writer.Write(System.Text.Json.JsonSerializer.Serialize(conditions));}
+        {
+            writer.Write(absoluteRbf is not null ? "XyzRadiometricAbsoluteRbfBands/1" : positive is not null ? "XyzRadiometricPositiveFitBands/1" : gamut is null ? "XyzRadiometricFitBands/1" : "XyzRadiometricGamutFitBands/1");
+            if (absoluteRbf is not null) { writer.Write(absoluteRbf.Digest()); writer.Write(System.Text.Json.JsonSerializer.Serialize(conditions)); }
             if (positive is not null) { writer.Write(positive.Digest()); writer.Write(System.Text.Json.JsonSerializer.Serialize(conditions)); }
             if (gamut is not null) { writer.Write(gamut.Source); writer.Write(gamut.SourceSha256); writer.Write(gamut.Vertices.Count); foreach (var p in gamut.Vertices) { writer.Write(p.X); writer.Write(p.Y); writer.Write(p.Z); } }
-            foreach (var b in bands.OrderBy(b => b.WavelengthNanometers)) { writer.Write(b.WavelengthNanometers); writer.Write(b.X); writer.Write(b.Y); writer.Write(b.Z); } }
+            foreach (var b in bands.OrderBy(b => b.WavelengthNanometers)) { writer.Write(b.WavelengthNanometers); writer.Write(b.X); writer.Write(b.Y); writer.Write(b.Z); }
+        }
         return Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(memory.ToArray())).ToLowerInvariant();
     }
     internal static void Validate(XyzCalibrationProvenance p, XyzCalibrationFitPolicy policy)

@@ -1,9 +1,9 @@
 using System.Buffers.Binary;
 using System.IO.Compression;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Text;
 using OpticalSystemDesign.Core.FileIO;
 
 namespace OpticalSystemDesign.Core.Serialization;
@@ -19,8 +19,10 @@ public static class ProjectArchiveStore
     private const int CentralDirectoryLimit = 32 * 1024 * 1024;
     private static readonly JsonSerializerOptions Json = new()
     {
-        RespectRequiredConstructorParameters = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
-        MaxDepth = 32, WriteIndented = true
+        RespectRequiredConstructorParameters = true,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+        MaxDepth = 32,
+        WriteIndented = true
     };
 
     public static async Task<ProjectArchiveManifest> CreateAsync(string path, string name, string applicationVersion,

@@ -12,7 +12,8 @@ public sealed class SpeosV11BinaryTests
         void Packed(byte[] raw)
         {
             using var buffer = new MemoryStream(); buffer.WriteByte((byte)(Math.Min(raw.Length, 15) << 4));
-            if (raw.Length >= 15) { var n = raw.Length - 15; while (n >= 255) { buffer.WriteByte(255); n -= 255; } buffer.WriteByte((byte)n); } buffer.Write(raw);
+            if (raw.Length >= 15) { var n = raw.Length - 15; while (n >= 255) { buffer.WriteByte(255); n -= 255; } buffer.WriteByte((byte)n); }
+            buffer.Write(raw);
             w.Write((long)raw.Length); if (raw.Length > 0) { w.Write(raw.Length); w.Write((int)buffer.Length); w.Write(buffer.ToArray()); }
         }
         void Values(params double[] values) { using var memory = new MemoryStream(); using (var writer = new BinaryWriter(memory, Encoding.UTF8, true)) foreach (var v in values) writer.Write(v); Packed(memory.ToArray()); }
@@ -23,7 +24,10 @@ public sealed class SpeosV11BinaryTests
         for (var i = 0; i < 3; i++) w.Write(.5); for (var i = 0; i < 3; i++) w.Write(.1);
         w.Write((byte)(white ? 1 : 0)); w.Write(550d); return output.ToArray();
     }
-    [Theory] [InlineData(false, false)] [InlineData(true, false)] [InlineData(true, true)]
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
     public void V11ArchiveAndConeTablesRoundTrip(bool enhanced, bool white)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path("synthetic-v11.anisotropicbsdf"); var raw = Binary(enhanced, white); File.WriteAllBytes(path, raw);
@@ -39,7 +43,9 @@ public sealed class SpeosV11BinaryTests
         foreach (var variant in new[] { raw[..^1], raw.Concat(new byte[] { 0 }).ToArray(), raw.ToArray() })
         { if (variant.Length == raw.Length) variant[Array.IndexOf(variant, (byte)10) + 6] = 0; File.WriteAllBytes(path, variant); Assert.Throws<InvalidDataException>(() => BsdfFileImporter.Read(path, BinaryZemaxBsdfTests.Options)); }
     }
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public void InstalledV11MaterialRetainsItsFullSpectrumWithoutExpansion(bool withoutAuxiliary)
     {
         const string path = @"D:\Program Files\ANSYS Inc\v261\Optical Products\OpticalLibraries\Optical_Property\volume_optical_properties\plastic\covestro\material_plastic_covestro_makrolon_opaque_reflector\Covestro_Makrolon_RW2407_010226.anisotropicbsdf";

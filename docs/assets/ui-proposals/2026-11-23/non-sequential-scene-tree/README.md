@@ -1,8 +1,8 @@
 # Non-sequential scene-tree previews
 
-These are UI proposals rendered on 2026-11-23. The desktop workspace has not been replaced by this prototype. The application changes in this work concern NSC import and resource handling.
+These are historical UI proposals rendered on 2026-11-23. Their interaction direction was integrated into the desktop workspace on 2026-11-24 using the existing production scene renderer, document services and transactional undo. See the [current workspace guide](../../../../NONSEQUENTIAL_WORKSPACE.md) for the delivered interactions. This folder retains the standalone design prototype and its original scope.
 
-The latest proposal uses a native 32-channel STAROPT scene containing 432 objects. Structure, optical properties and simulation navigation share object identities; the prototype demonstrates ancestor-preserving search, channel isolation, selection synchronization, shared/mixed property display, a read-only object table and local selection sets. Batch apply, single-step undo and persistent selection sets are still product integration work.
+The latest proposal uses a native 32-channel STAROPT scene containing 432 objects. Structure, optical properties and simulation navigation share object identities; the prototype demonstrates ancestor-preserving search, channel isolation, selection synchronization, shared/mixed property display, a read-only object table and local selection sets. Its batch controls remain illustrative; the integrated product supplies real transactional edits, undo and persistent organization independently of this harness.
 
 Run the standalone C# offscreen harness from the repository root:
 

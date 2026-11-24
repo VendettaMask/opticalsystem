@@ -85,11 +85,16 @@ public static partial class DiffractionEngine
         HuygensSamplingDiagnostics Diagnostics(string status) => new(status, initialSampling,
             radial, azimuthal, current?.PupilQuadratureNodeCount ?? 0, totalNodes, operations,
             HuygensSamplingTolerance, intensityDisagreement, referenceDisagreement, trials.ToArray())
-            { WorkLimit = refinement.MaximumOperations, RadialOrderLimit = refinement.MaximumRadialOrder,
-                AzimuthalOrderLimit = refinement.MaximumAzimuthalOrder, WavelengthNanometers = wavelength.Nanometers,
-                FieldX = field.Hx, FieldY = field.Hy,
-                PupilPartition = domain is null && referenceDomain is null ? "FullDisk" : "PlanarApertureBoundaries",
-                ApertureBoundaryCount = (domain?.BoundaryCount ?? 0) + (offAxis ? referenceDomain?.BoundaryCount ?? 0 : 0) };
+        {
+            WorkLimit = refinement.MaximumOperations,
+            RadialOrderLimit = refinement.MaximumRadialOrder,
+            AzimuthalOrderLimit = refinement.MaximumAzimuthalOrder,
+            WavelengthNanometers = wavelength.Nanometers,
+            FieldX = field.Hx,
+            FieldY = field.Hy,
+            PupilPartition = domain is null && referenceDomain is null ? "FullDisk" : "PlanarApertureBoundaries",
+            ApertureBoundaryCount = (domain?.BoundaryCount ?? 0) + (offAxis ? referenceDomain?.BoundaryCount ?? 0 : 0)
+        };
         AnalysisDataUnavailableException Failure(string status, string reason)
         {
             var error = new AnalysisDataUnavailableException("Huygens PSF", reason);
@@ -133,8 +138,11 @@ public static partial class DiffractionEngine
                 var result = ComputeGaussianAfocalHuygensPsf(optic, field, wavelength, initialSampling, imageSize,
                     pitchMilliradians, aimAtStop, defocus, referenceWavelength, imageCenterOffset,
                     useParaxialPupilDefocus, samples, domain is not null || referenceDomain is not null, referenceSamples);
-                trials[^1] = trials[^1] with { ReferenceAmplitude = result.HuygensReferenceAmplitude,
-                    GeometricChiefReferenceUsed = result.GeometricChiefReferenceUsed };
+                trials[^1] = trials[^1] with
+                {
+                    ReferenceAmplitude = result.HuygensReferenceAmplitude,
+                    GeometricChiefReferenceUsed = result.GeometricChiefReferenceUsed
+                };
                 return result;
             }
             catch (AnalysisDataUnavailableException error)
@@ -179,8 +187,11 @@ public static partial class DiffractionEngine
             if (intensityDisagreement <= HuygensSamplingTolerance && referenceDisagreement <= HuygensSamplingTolerance)
             {
                 radial = nextRadial; azimuthal = nextAzimuthal; current = fine;
-                return fine with { AfocalIntegration = AfocalHuygensIntegration.CheckedGaussianPupil,
-                    HuygensSamplingChecks = new[] { Diagnostics("SamplingStable") } };
+                return fine with
+                {
+                    AfocalIntegration = AfocalHuygensIntegration.CheckedGaussianPupil,
+                    HuygensSamplingChecks = new[] { Diagnostics("SamplingStable") }
+                };
             }
             static bool Unresolved((double Intensity, double Reference) d) =>
                 d.Intensity > HuygensSamplingTolerance || d.Reference > HuygensSamplingTolerance;

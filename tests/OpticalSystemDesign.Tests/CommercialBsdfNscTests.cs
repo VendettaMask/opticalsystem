@@ -19,7 +19,8 @@ public sealed class CommercialBsdfNscTests
     }
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public void FixedAxisAndPoleFallbackFollowTheWholeReferenceCoordinateChain(bool pole)
     {
         var scene = Scene(pole); var materials = Optic.CreateBlank().Materials; var tracer = new NonSequentialDocumentTracer();

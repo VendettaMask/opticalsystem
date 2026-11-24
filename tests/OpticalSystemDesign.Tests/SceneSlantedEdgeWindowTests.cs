@@ -22,7 +22,8 @@ public sealed class SceneSlantedEdgeWindowTests
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false }).UseHarfBuzz();
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SceneSlantedEdgeWindowTests));

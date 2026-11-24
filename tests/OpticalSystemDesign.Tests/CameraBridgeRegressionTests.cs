@@ -48,7 +48,8 @@ public sealed class CameraBridgeRegressionTests
     }
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public void BothSceneRenderersRejectCurvedImageSurfaces(bool diffraction)
     {
         var lens = CameraSamplingTests.Lens(); lens.SurfaceGroup.Items[^1].Geometry = new StandardGeometry(1);

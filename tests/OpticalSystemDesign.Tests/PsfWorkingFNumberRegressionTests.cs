@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

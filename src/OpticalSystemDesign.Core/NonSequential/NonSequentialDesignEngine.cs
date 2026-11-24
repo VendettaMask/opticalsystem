@@ -56,9 +56,17 @@ public static class NonSequentialDesignEngine
         try { result = OptimizerCatalog.Create(settings.Optimizer).Optimize(problem, settings.MaximumIterations); }
         catch (DesignBudgetException)
         {
-            result = new() { Success = false, Algorithm = settings.Optimizer, StopReason = "LaunchedRayOrTraceBudget",
-                Message = "保留已实际评估的最好候选；剩余额度用于独立种子验证。", InitialMerit = Merit(initialMetrics), FinalMerit = bestMerit,
-                BestVariables = Array.AsReadOnly(best.ToArray()), FunctionEvaluations = problem.FunctionEvaluationCount };
+            result = new()
+            {
+                Success = false,
+                Algorithm = settings.Optimizer,
+                StopReason = "LaunchedRayOrTraceBudget",
+                Message = "保留已实际评估的最好候选；剩余额度用于独立种子验证。",
+                InitialMerit = Merit(initialMetrics),
+                FinalMerit = bestMerit,
+                BestVariables = Array.AsReadOnly(best.ToArray()),
+                FunctionEvaluations = problem.FunctionEvaluationCount
+            };
         }
         var final = NonSequentialDesignParameters.Apply(source, variables, best);
         var validation = Evaluate(final, materials, targets, settings, settings.ValidationSeed, cost, "independent validation");
@@ -100,8 +108,11 @@ public static class NonSequentialDesignEngine
         var collectors = targets.Select(t => new NonSequentialDetectorCollector(doc, t.SourceObjectId, t.DetectorId, t.PathFilter)).ToArray();
         var sink = new TargetSink(collectors);
         var work = new NonSequentialTraceWork(); NonSequentialDocumentTraceResult trace;
-        try { trace = new NonSequentialDocumentTracer().Trace(doc, materials,
-            new(RandomSeed: seed, RayCountOverride: settings.RayCountOverride, OutputMode: NonSequentialTraceOutputMode.SummaryOnly) { Work = work }, sink); }
+        try
+        {
+            trace = new NonSequentialDocumentTracer().Trace(doc, materials,
+            new(RandomSeed: seed, RayCountOverride: settings.RayCountOverride, OutputMode: NonSequentialTraceOutputMode.SummaryOnly) { Work = work }, sink);
+        }
         finally { budget.Rays += work.LaunchedRays; budget.Branches += work.Branches; budget.Segments += work.Segments; }
         if (sink.InvalidBranches > 0 || trace.EnergyBalance.SourcePowerWatts <= 0
             || trace.EnergyBalance.TruncatedPowerWatts / trace.EnergyBalance.SourcePowerWatts > settings.MaximumTruncatedFraction)

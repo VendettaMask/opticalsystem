@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -95,6 +95,7 @@ public sealed class SeidelCoefficientsAnalysisTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456ReportMatchesAllFourCoefficientTablesAtCapturedWavelengthTwo()
     {
         var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");
@@ -120,6 +121,7 @@ public sealed class SeidelCoefficientsAnalysisTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ConversionFormulasMatchCaptured123456TablesWithinPrintedInputPrecision()
     {
         // This isolates the new conversion formulas, NOT lens-import/trace parity.

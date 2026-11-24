@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -10,6 +9,7 @@ using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

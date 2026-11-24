@@ -39,8 +39,11 @@ public sealed partial class AnalysisPanel
             var date = generatedAt.LocalDateTime.ToString("yyyy/M/d", CultureInfo.InvariantCulture);
             var lineEnd = view.ReportText.IndexOf(Environment.NewLine, StringComparison.Ordinal);
             var identity = $"文件：{source}{Environment.NewLine}日期：{date}{Environment.NewLine}";
-            view = view with { ReportText = view.ReportText.Insert(
-                lineEnd < 0 ? 0 : lineEnd + Environment.NewLine.Length, identity) };
+            view = view with
+            {
+                ReportText = view.ReportText.Insert(
+                lineEnd < 0 ? 0 : lineEnd + Environment.NewLine.Length, identity)
+            };
         }
         _view = view;
         _resultHost.Content = BuildResultContent(view, document, generatedAt, cardinalScene);
@@ -62,8 +65,11 @@ public sealed partial class AnalysisPanel
 
         if (IsCardinalPointsView(view) && cardinalScene?.TwoDimensional is not null)
         {
-            return new ResponsiveAnalysisPlotHost { Child = new UniformDiagramPage(
-                BuildCardinalPointsScene(view, cardinalScene), BuildAnalysisTitleBlock(view, document, generatedAt)) };
+            return new ResponsiveAnalysisPlotHost
+            {
+                Child = new UniformDiagramPage(
+                BuildCardinalPointsScene(view, cardinalScene), BuildAnalysisTitleBlock(view, document, generatedAt))
+            };
         }
 
         if (IsSeidelCoefficientsView(view))

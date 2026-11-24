@@ -45,8 +45,8 @@ public sealed class UnifiedFontManagementTests
                 Assert.Equal(expected, typography.Primary(ProductFontRole.Engineering));
                 Assert.Equal(ProductFonts.MathFamilyName, typography.Primary(ProductFontRole.Math));
                 foreach (var role in new[] { ProductFontRole.Document, ProductFontRole.Engineering, ProductFontRole.Code, ProductFontRole.Math })
-                foreach (var rune in "Optical 0123456789 中文 λρ√∞± µm".EnumerateRunes().Where(r => !Rune.IsWhiteSpace(r)))
-                    Assert.NotEqual((ushort)0, typography.TypefaceFor(role, rune.Value).GetGlyph(rune.Value));
+                    foreach (var rune in "Optical 0123456789 中文 λρ√∞± µm".EnumerateRunes().Where(r => !Rune.IsWhiteSpace(r)))
+                        Assert.NotEqual((ushort)0, typography.TypefaceFor(role, rune.Value).GetGlyph(rune.Value));
                 foreach (var face in typography.Assets)
                 {
                     Assert.NotEmpty(face.Bytes);

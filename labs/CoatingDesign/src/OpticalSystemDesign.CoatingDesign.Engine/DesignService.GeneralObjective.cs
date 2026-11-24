@@ -1,7 +1,7 @@
+using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
-using System.Text.Json.Serialization;
 
 namespace OpticalSystemDesign.CoatingDesign.Engine;
 
@@ -144,16 +144,25 @@ public sealed partial class DesignService
             DenseProtectionRejections = DenseRejections,
             QualityRestarts = QualityRestarts,
             TargetDirectionRestarts = ProtectionRestarts,
-            InequalitySubproblems = InequalitySteps, InequalityActiveSetIterations = InequalityIterations, InequalitySubproblemLimits = InequalityLimits,
-            TargetRepairIterations = RepairIterations, TargetRepairAcceptedCandidates = RepairAccepted,
+            InequalitySubproblems = InequalitySteps,
+            InequalityActiveSetIterations = InequalityIterations,
+            InequalitySubproblemLimits = InequalityLimits,
+            TargetRepairIterations = RepairIterations,
+            TargetRepairAcceptedCandidates = RepairAccepted,
             TangentTrialEvaluations = TangentTrials,
             InequalityStepProtocol = InequalitySteps > 0 ? InequalityLeastSquaresStep.Version : null,
             TargetRepairProtocol = RepairIterations > 0 ? DesignService.TargetRepairProtocol : null,
-            TargetComparisonRuns = ComparisonRuns, TargetComparisonIterations = ComparisonIterations,
-            TargetRepairContinuationIterations = ContinuationIterations, TargetParetoPolishIterations = ParetoIterations, TargetParetoAcceptedCandidates = ParetoAccepted,
-            ReflectancePreconditionerIterations = ReflectancePreconditionerIterations, ReflectanceMetricIterations = MetricIterations,
-            SearchPeakReferenceBatches = PeakReferenceBatches, SearchSamplingProtocol = PeakReferenceBatches > 0 ? DesignService.SearchSamplingProtocol : null,
-            PassbandQualityIterations = PassbandQualityIterations, PassbandQualityAcceptedCandidates = PassbandQualityAccepted,
+            TargetComparisonRuns = ComparisonRuns,
+            TargetComparisonIterations = ComparisonIterations,
+            TargetRepairContinuationIterations = ContinuationIterations,
+            TargetParetoPolishIterations = ParetoIterations,
+            TargetParetoAcceptedCandidates = ParetoAccepted,
+            ReflectancePreconditionerIterations = ReflectancePreconditionerIterations,
+            ReflectanceMetricIterations = MetricIterations,
+            SearchPeakReferenceBatches = PeakReferenceBatches,
+            SearchSamplingProtocol = PeakReferenceBatches > 0 ? DesignService.SearchSamplingProtocol : null,
+            PassbandQualityIterations = PassbandQualityIterations,
+            PassbandQualityAcceptedCandidates = PassbandQualityAccepted,
             PassbandQualityProtocol = PassbandQualityIterations > 0 ? DesignService.PassbandQualityProtocol : null,
             NonlinearConstraintCorrections = NonlinearCorrections,
             PassbandCorrectionIterations = PassbandCorrectionIterations,

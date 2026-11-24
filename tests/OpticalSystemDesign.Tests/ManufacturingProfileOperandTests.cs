@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -12,6 +11,7 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

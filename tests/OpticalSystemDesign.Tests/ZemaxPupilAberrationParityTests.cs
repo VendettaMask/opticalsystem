@@ -1,13 +1,14 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class ZemaxPupilAberrationParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedRayAimedSettingsUseFortyOneSamplesAndRemainAtNumericalZero()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

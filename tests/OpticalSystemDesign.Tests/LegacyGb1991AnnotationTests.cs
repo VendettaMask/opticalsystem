@@ -43,10 +43,15 @@ public sealed class LegacyGb1991AnnotationTests
             SurfaceTextureNanometers = 7,
             LegacyGb1991 = new LegacyGb1991Requirements
             {
-                OpticalSurfaceRaMicrometers = 0.01, OtherSurfaceRaMicrometers = 1.6,
-                OpticalRaSamplingLengthMillimeters = 0.08, OtherRaSamplingLengthMillimeters = 0.8,
-                PowerFringes = "S1:3;S2:2", IrregularityFringes = "0.5", TestPlateGrade = "S1:A;S2:B",
-                FringeReferenceWavelengthNanometers = 632.8, TechnicalRequirements = "镀膜后检验；光学面按S面号识别。"
+                OpticalSurfaceRaMicrometers = 0.01,
+                OtherSurfaceRaMicrometers = 1.6,
+                OpticalRaSamplingLengthMillimeters = 0.08,
+                OtherRaSamplingLengthMillimeters = 0.8,
+                PowerFringes = "S1:3;S2:2",
+                IrregularityFringes = "0.5",
+                TestPlateGrade = "S1:A;S2:B",
+                FringeReferenceWavelengthNanometers = 632.8,
+                TechnicalRequirements = "镀膜后检验；光学面按S面号识别。"
             }
         };
         var rows = OpticalDrawingRendererCore.Gb1991RoughnessAnnotations(specified);
@@ -114,11 +119,14 @@ public sealed class LegacyGb1991AnnotationTests
         using var application = WorkbenchApplication.Create("tessar");
         var sheet = Sheet(application);
         var component = sheet.Element.Components[0];
-        sheet = sheet with { Element = new OpticalDrawingElementDefinition(new[]
+        sheet = sheet with
+        {
+            Element = new OpticalDrawingElementDefinition(new[]
         {
             component with { FrontSurface = component.FrontSurface with { Radius = 1, Thickness = 0.2 },
                 BackSurface = component.BackSurface with { Radius = -1 } }
-        }) };
+        })
+        };
         Assert.Contains(OpticalDrawingRenderer.ValidateTemplateLayout(sheet), text => text.Contains("机械口径"));
         Assert.Throws<ArgumentException>(() => OpticalDrawingRenderer.RenderPreview(sheet, 100));
     }
@@ -134,9 +142,12 @@ public sealed class LegacyGb1991AnnotationTests
         using var application = WorkbenchApplication.Create("tessar");
         var sheet = Sheet(application);
         var component = sheet.Element.Components[0];
-        sheet = sheet with { Element = new OpticalDrawingElementDefinition(new[]
+        sheet = sheet with
+        {
+            Element = new OpticalDrawingElementDefinition(new[]
         { component with { FrontSurface = component.FrontSurface with
-            { DrawingAperture = mapped.DrawingAperture, ApertureKind = "display name is not the authority" } } }) };
+            { DrawingAperture = mapped.DrawingAperture, ApertureKind = "display name is not the authority" } } })
+        };
         Assert.Contains(OpticalDrawingRendererCore.Gb1991PartSpecificationRows(sheet), row => row.Item == "D_0" && row.Value == "⌀6");
         Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(sheet));
         Capture("annotation-physical-circle-6-mechanical-12", sheet);
@@ -165,8 +176,15 @@ public sealed class LegacyGb1991AnnotationTests
     public void HiddenIsoOnlyFieldsDoNotBlockIndependentLegacyIndications()
     {
         using var application = WorkbenchApplication.Create("tessar");
-        var sheet = Sheet(application) with { SurfaceImperfection = "", StressBirefringence = "", BubblesAndInclusions = "",
-            HomogeneityAndStriae = "", FrontRadiusTolerance = -1, BackRadiusTolerance = -1 };
+        var sheet = Sheet(application) with
+        {
+            SurfaceImperfection = "",
+            StressBirefringence = "",
+            BubblesAndInclusions = "",
+            HomogeneityAndStriae = "",
+            FrontRadiusTolerance = -1,
+            BackRadiusTolerance = -1
+        };
         Assert.Empty(sheet.Validate());
         Assert.NotEmpty(OpticalDrawingRenderer.RenderPreview(sheet, 100));
         Assert.Equal(6, (sheet with { Standard = OpticalDrawingStandard.Iso10110 }).Validate().Count);
@@ -207,8 +225,11 @@ public sealed class LegacyGb1991AnnotationTests
         var component = sheet.Element.Components[0];
         var definition = new SurfaceGeometryDefinitionDto("forbes_q", new Dictionary<string, double>
         { ["radius"] = 100, ["conic"] = 0, ["normalizationRadius"] = 10, ["q0"] = 0.0001, ["q1"] = -0.00001 });
-        sheet = sheet with { Element = new OpticalDrawingElementDefinition(new[]
-        { component with { FrontSurface = component.FrontSurface with { GeometryDefinition = definition } } }) };
+        sheet = sheet with
+        {
+            Element = new OpticalDrawingElementDefinition(new[]
+        { component with { FrontSurface = component.FrontSurface with { GeometryDefinition = definition } } })
+        };
         Assert.Contains(OpticalDrawingRenderer.ValidateTemplateLayout(sheet), text => text.Contains("须填写面型定义"));
         sheet = sheet with { LegacyGb1991 = new LegacyGb1991Requirements { AsphericDefinitionReference = "受控面型图 Q-001 Rev A（测试引用）" } };
         var lines = OpticalDrawingRendererCore.Gb1991GeometryDefinitionLines(sheet);
@@ -237,7 +258,9 @@ public sealed class LegacyGb1991AnnotationTests
     {
         var sheet = LegacyGb1991DrawingTests.CreateSheet(application, OpticalDrawingPageSize.A4, false);
         var component = sheet.Element.Components[0];
-        return sheet with { Element = new OpticalDrawingElementDefinition(new[]
+        return sheet with
+        {
+            Element = new OpticalDrawingElementDefinition(new[]
         {
             component with
             {
@@ -246,7 +269,8 @@ public sealed class LegacyGb1991AnnotationTests
                 BackSurface = component.BackSurface with { Radius = -100, Conic = 0, SemiDiameter = 4, MechanicalSemiDiameter = 6,
                     GeometryDefinition = new("standard", new Dictionary<string, double> { ["radius"] = -100, ["conic"] = 0 }), DrawingAperture = new("none") }
             }
-        }) };
+        })
+        };
     }
 
     private static void Capture(string name, OpticalDrawingSheet sheet)
@@ -257,10 +281,13 @@ public sealed class LegacyGb1991AnnotationTests
         File.WriteAllBytes(Path.Combine(directory, name + ".png"), OpticalDrawingRenderer.RenderPreview(sheet, 1500));
         OpticalDrawingRenderer.ExportPdf(Path.Combine(directory, name + ".pdf"), sheet);
         File.WriteAllText(Path.Combine(directory, name + ".json"), JsonSerializer.Serialize(new
-        { sheet, Definitions = OpticalDrawingRendererCore.Gb1991GeometryDefinitionLines(sheet),
+        {
+            sheet,
+            Definitions = OpticalDrawingRendererCore.Gb1991GeometryDefinitionLines(sheet),
             Notes = OpticalDrawingRendererCore.Gb1991TechnicalRequirementLines(sheet),
             Roughness = OpticalDrawingRendererCore.Gb1991RoughnessAnnotations(sheet),
-            Scope = "Explicit synthetic presentation fixtures; shared Core checks only; not external optical numerical certification." },
+            Scope = "Explicit synthetic presentation fixtures; shared Core checks only; not external optical numerical certification."
+        },
             new JsonSerializerOptions { WriteIndented = true }));
     }
 }

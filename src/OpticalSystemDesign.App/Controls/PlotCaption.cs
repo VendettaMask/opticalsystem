@@ -93,8 +93,14 @@ internal static class PlotCaption
         foreach (var item in scene.ConfigurationSummaries ?? [])
         {
             var entry = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 5, Margin = new Thickness(0, 0, 12, 0) };
-            entry.Children.Add(new Border { Width = 9, Height = 9, CornerRadius = new CornerRadius(5),
-                Background = new SolidColorBrush(OpticSceneControl.ConfigurationColor(item.Number)), VerticalAlignment = VerticalAlignment.Center });
+            entry.Children.Add(new Border
+            {
+                Width = 9,
+                Height = 9,
+                CornerRadius = new CornerRadius(5),
+                Background = new SolidColorBrush(OpticSceneControl.ConfigurationColor(item.Number)),
+                VerticalAlignment = VerticalAlignment.Center
+            });
             entry.Children.Add(Label($"{UiLocalization.Text("结构")} {item.Number}", DisplayTypography.Caption, ThemeResourceBindings.TextSecondary));
             ToolTip.SetTip(entry, ConfigurationMetricsSummary(new SceneDto(scene.SourceRevision, scene.Dimension, null, null, item.Summary)));
             legend.Children.Add(entry);

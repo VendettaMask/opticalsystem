@@ -37,7 +37,7 @@ public sealed class ZemaxVariableAuditTests
                 + string.Join("\n", Enumerable.Range(0, 25).Select(index => $"GARR {index} 0 0 0 0 0")), ["a0", "a7"])
         };
         foreach (var input in inputs)
-        foreach (var unit in input.Type == "GRID_SAG" ? new[] { "MM" } : new[] { "MM", "CM", "IN" }) yield return [input.Type, input.Body, input.Keys, unit];
+            foreach (var unit in input.Type == "GRID_SAG" ? new[] { "MM" } : new[] { "MM", "CM", "IN" }) yield return [input.Type, input.Body, input.Keys, unit];
     }
 
     [Theory]
@@ -337,8 +337,14 @@ public sealed class ZemaxVariableAuditTests
                 var markers = ReadMarkers(await File.ReadAllTextAsync(path));
                 var coverage = markers.Select(marker => AccountForMarker(marker, imported)).ToArray();
                 Assert.DoesNotContain(coverage, item => item.Status == "Missing");
-                results.Add(new { File = Path.GetRelativePath(corpus, path), Configurations = imported.Configurations.Count,
-                    Variables = Variables(after), Coverage = coverage, Diagnostics = imported.Configurations.SelectMany(optic => optic.ImportVariableWarnings).Distinct().ToArray() });
+                results.Add(new
+                {
+                    File = Path.GetRelativePath(corpus, path),
+                    Configurations = imported.Configurations.Count,
+                    Variables = Variables(after),
+                    Coverage = coverage,
+                    Diagnostics = imported.Configurations.SelectMany(optic => optic.ImportVariableWarnings).Distinct().ToArray()
+                });
             }
             catch (Exception exception)
             {

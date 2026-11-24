@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -22,8 +22,14 @@ public sealed class CandidateChainTests
         T Read<T>(string name) => JsonSerializer.Deserialize<T>(input.RootElement.GetProperty(name).GetRawText(), json)!;
         var source = TopologyCompiler.Compile(Read<DesignTopology>("Source"), Read<TopologyConstraints>("Constraints"));
         var binding = TopologyParameterBinder.Bind(source, Read<ImmutableArray<TopologyVariableRequest>>("Variables"));
-        var options = Read<FixedTopologyOptions>("Full") with { TransmissionPolicyVersion = 13,
-            MaximumUpdates = 2, MaximumFunctionEvaluations = 3, MaximumGradientEvaluations = 3, PerformFinalAssessment = false };
+        var options = Read<FixedTopologyOptions>("Full") with
+        {
+            TransmissionPolicyVersion = 13,
+            MaximumUpdates = 2,
+            MaximumFunctionEvaluations = 3,
+            MaximumGradientEvaluations = 3,
+            PerformFinalAssessment = false
+        };
         using var quota = SequentialTraceMeasurement.BeginCpuBudget(150_000);
         using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(60));
         FixedTopologyResult? full = null, part = null, resumed = null;
@@ -57,8 +63,15 @@ public sealed class CandidateChainTests
             if (Environment.GetEnvironmentVariable("AUTOLENS_CHAIN_EVIDENCE") is { } folder)
             {
                 Directory.CreateDirectory(folder);
-                File.WriteAllText(Path.Combine(folder, "reproduction.json"), JsonSerializer.Serialize(new { full, part, resumed,
-                    Rays = quota.RayCount, RayCap = 150_000, TimeCapSeconds = 60 }, json));
+                File.WriteAllText(Path.Combine(folder, "reproduction.json"), JsonSerializer.Serialize(new
+                {
+                    full,
+                    part,
+                    resumed,
+                    Rays = quota.RayCount,
+                    RayCap = 150_000,
+                    TimeCapSeconds = 60
+                }, json));
             }
         }
     }

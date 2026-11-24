@@ -10,7 +10,9 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class SpeosV11NscTests
 {
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task NewBtdfModelsUpdateMediumAndUseTheirDeclaredProjectVersion(bool speos)
     {
         var scene = CommercialBsdfNscTests.Scene(); var source = scene.Objects[0]; var plane = scene.Objects[1];

@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Validation;
 using System.Diagnostics;
 using System.Xml.Linq;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

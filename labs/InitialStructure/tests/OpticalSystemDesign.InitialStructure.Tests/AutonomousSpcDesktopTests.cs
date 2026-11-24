@@ -55,8 +55,19 @@ public sealed partial class AutonomousDesktopTests
     public async Task AutomaticSpcStopsReopensHandsOffExactlyOnceAndReportsOnlyPhysicalEvidence()
     {
         using var files = new OwnedFiles(); var plan = SpcPreparationTests.Plan();
-        plan = plan with { Options = plan.Options with { MaximumTrials = 1, MaximumFunctionEvaluations = 400, MaximumGradientEvaluations = 100,
-            MaximumTracedRays = 600000, MaximumStageTracedRays = 200000, FinalValidationRayReserve = 100000, TimeLimit = TimeSpan.FromSeconds(30) } };
+        plan = plan with
+        {
+            Options = plan.Options with
+            {
+                MaximumTrials = 1,
+                MaximumFunctionEvaluations = 400,
+                MaximumGradientEvaluations = 100,
+                MaximumTracedRays = 600000,
+                MaximumStageTracedRays = 200000,
+                FinalValidationRayReserve = 100000,
+                TimeLimit = TimeSpan.FromSeconds(30)
+            }
+        };
         var original = ContentFingerprint.Compute(plan); var session = new AutonomousDesktopSession(files.Root); var stopped = false;
         await session.RunAsync(plan, false, _ => { }, preparationProgress: (_, _) =>
         {

@@ -13,8 +13,17 @@ public static class LocalizationExtractor
     private static readonly HashSet<string> Properties = ["Text", "Content", "Header", "Title", "PlaceholderText", "Watermark"];
     private static readonly Dictionary<string, int[]> Calls = new(StringComparer.Ordinal)
     {
-        ["Text"] = [0], ["Format"] = [0], ["Template"] = [0], ["SetDefaultText"] = [1], ["SetTip"] = [1], ["SetName"] = [1], ["SetHelpText"] = [1],
-        ["RibbonButton"] = [2], ["RibbonTab"] = [0], ["RibbonGroup"] = [0], ["Register"] = [1, 2]
+        ["Text"] = [0],
+        ["Format"] = [0],
+        ["Template"] = [0],
+        ["SetDefaultText"] = [1],
+        ["SetTip"] = [1],
+        ["SetName"] = [1],
+        ["SetHelpText"] = [1],
+        ["RibbonButton"] = [2],
+        ["RibbonTab"] = [0],
+        ["RibbonGroup"] = [0],
+        ["Register"] = [1, 2]
     };
 
     public static IReadOnlyList<UiOccurrence> Extract(string source, string path)
@@ -184,15 +193,15 @@ public static class LocalizationExtractor
             .Where(values => values.All(x => x is not null)).Select(values => new TranslationEntry(values[0]!, values[0]!, values[1]!, values[2]!)).ToArray();
         void Visit(MethodDeclarationSyntax method)
         {
-                foreach (var call in method.DescendantNodes().OfType<InvocationExpressionSyntax>())
-                {
-                    if (methods.TryGetValue(call.Expression.ToString(), out var nested)) { Visit(nested); continue; }
-                    if (call.Expression.ToString() is not ("Add" or "add") || call.ArgumentList.Arguments.Count != 3) continue;
-                    var values = call.ArgumentList.Arguments.Select(x => Literal(x.Expression, constants)).ToArray();
-                    if (values.All(x => x is not null)) result.Add(new(values[0]!, values[0]!, values[1]!, values[2]!));
-                    else if (call.ToString().Contains("item.Zh", StringComparison.Ordinal)) result.AddRange(review);
-                    else throw new InvalidDataException($"Unresolved translation seed: {call}");
-                }
+            foreach (var call in method.DescendantNodes().OfType<InvocationExpressionSyntax>())
+            {
+                if (methods.TryGetValue(call.Expression.ToString(), out var nested)) { Visit(nested); continue; }
+                if (call.Expression.ToString() is not ("Add" or "add") || call.ArgumentList.Arguments.Count != 3) continue;
+                var values = call.ArgumentList.Arguments.Select(x => Literal(x.Expression, constants)).ToArray();
+                if (values.All(x => x is not null)) result.Add(new(values[0]!, values[0]!, values[1]!, values[2]!));
+                else if (call.ToString().Contains("item.Zh", StringComparison.Ordinal)) result.AddRange(review);
+                else throw new InvalidDataException($"Unresolved translation seed: {call}");
+            }
         }
         if (methods.TryGetValue("BuildTexts", out var entryPoint)) Visit(entryPoint);
         return result;

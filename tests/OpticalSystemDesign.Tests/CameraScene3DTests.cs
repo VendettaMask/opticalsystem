@@ -8,10 +8,10 @@ using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Core.NonSequential;
-using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.NonSequential;
+using OpticalSystemDesign.Core.Services;
 using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 using PlaneRectangleParameters = OpticalSystemDesign.Core.NonSequential.PlaneRectangleParameters;
 
@@ -20,8 +20,12 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraScene3DTests
 {
     [Theory]
-    [InlineData(2, 1)] [InlineData(2, .36)] [InlineData(2, .04)]
-    [InlineData(4, 1)] [InlineData(4, .36)] [InlineData(4, .04)]
+    [InlineData(2, 1)]
+    [InlineData(2, .36)]
+    [InlineData(2, .04)]
+    [InlineData(4, 1)]
+    [InlineData(4, .36)]
+    [InlineData(4, .04)]
     public void ActualActiveAreaQuadratureMovesNodesAndIntegratesIndependentPolynomial(int n, double fill)
     {
         var nodes = CameraPixelAperture.Quadrature(new(n, fill));
@@ -162,7 +166,8 @@ public sealed class CameraScene3DTests
     }
 
     [Theory]
-    [InlineData(128, 96, 2)] [InlineData(64, 48, 4)]
+    [InlineData(128, 96, 2)]
+    [InlineData(64, 48, 4)]
     public async Task OriginalCameraSizeAndFourByFourAreaSamplingStayWithinTheDeclaredRayBudget(int width, int height, int sampling)
     {
         using var app = WorkbenchApplication.Create("cooke"); var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -176,8 +181,16 @@ public sealed class CameraScene3DTests
             await app.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier, 1, run), Path.Combine(evidence, "scene3d-128.camera-experiment.zip"));
             await app.CameraImaging.ExportAsync(run, Path.Combine(evidence, "scene3d-128-export.zip"));
         }
-        CameraContinuousSpectrumTests.Record($"scene3d-size-{width}-{height}-{sampling}", new { width, height, sampling,
-            run.Scene3D.LaunchedRays, run.Scene3D.TotalPowerWatts, run.MeanPhotoElectrons, ElapsedSeconds = watch.Elapsed.TotalSeconds });
+        CameraContinuousSpectrumTests.Record($"scene3d-size-{width}-{height}-{sampling}", new
+        {
+            width,
+            height,
+            sampling,
+            run.Scene3D.LaunchedRays,
+            run.Scene3D.TotalPowerWatts,
+            run.MeanPhotoElectrons,
+            ElapsedSeconds = watch.Elapsed.TotalSeconds
+        });
     }
 
     [Fact]
@@ -185,8 +198,11 @@ public sealed class CameraScene3DTests
     {
         using var app = WorkbenchApplication.Create("cooke");
         var request = Request(app.CameraImaging); var run = await app.CameraImaging.SimulateAsync(request);
-        var doubleLight = request.Scene3D! with { Lights = request.Scene3D!.Lights.Select(l => l with
-            { BandPowerWatts = l.BandPowerWatts.Select(v => v * 2).ToArray() }).ToArray() };
+        var doubleLight = request.Scene3D! with
+        {
+            Lights = request.Scene3D!.Lights.Select(l => l with
+            { BandPowerWatts = l.BandPowerWatts.Select(v => v * 2).ToArray() }).ToArray()
+        };
         var bright = await app.CameraImaging.SimulateAsync(request with { Scene3D = doubleLight });
         for (var i = 0; i < run.PhotoElectrons.Count; i++) Assert.Equal(run.PhotoElectrons[i] * 2, bright.PhotoElectrons[i], 9);
         var dark = await app.CameraImaging.SimulateAsync(request with { Scene3D = request.Scene3D! with { Lights = [] } });

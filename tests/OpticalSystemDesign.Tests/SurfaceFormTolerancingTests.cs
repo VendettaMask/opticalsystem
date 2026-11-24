@@ -350,13 +350,13 @@ public sealed class SurfaceFormTolerancingTests
         var weights = new[] { 5.0 / 18, 4.0 / 9, 5.0 / 18 };
         var squared = 0.0;
         for (var i = 0; i < nodes.Length; i++)
-        for (var j = 0; j < 12; j++)
-        {
-            var (sine, cosine) = Math.SinCos(j * Math.PI / 6);
-            var r = radius * Math.Sqrt(nodes[i]);
-            var sag = geometry.Sag(r * cosine, r * sine);
-            squared += weights[i] * sag * sag / 12;
-        }
+            for (var j = 0; j < 12; j++)
+            {
+                var (sine, cosine) = Math.SinCos(j * Math.PI / 6);
+                var r = radius * Math.Sqrt(nodes[i]);
+                var sag = geometry.Sag(r * cosine, r * sine);
+                squared += weights[i] * sag * sag / 12;
+            }
         return Math.Sqrt(squared);
     }
 }

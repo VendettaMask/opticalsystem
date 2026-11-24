@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 using OpticalSystemDesign.ZemaxComparison.Normalization;
@@ -68,11 +68,18 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
                 .Analyses["PSF"].Quantities["Irradiance"];
             var errors = matched.Workbench.Zip(matched.Zemax, (a, b) => Math.Abs(a - b)).ToArray();
             var violations = errors.Where((e, i) => e > policy.Absolute + policy.Relative * Math.Abs(matched.Zemax[i])).Count();
-            output.WriteLine(JsonSerializer.Serialize(new { id, samples = errors.Length, violations,
-                actualPeak = matched.Workbench.Max(), nativePeak = matched.Zemax.Max(),
-                maximumAbsolute = errors.Max(), windowSumRatio = matched.Workbench.Sum() / matched.Zemax.Sum(),
+            output.WriteLine(JsonSerializer.Serialize(new
+            {
+                id,
+                samples = errors.Length,
+                violations,
+                actualPeak = matched.Workbench.Max(),
+                nativePeak = matched.Zemax.Max(),
+                maximumAbsolute = errors.Max(),
+                windowSumRatio = matched.Workbench.Sum() / matched.Zemax.Sum(),
                 idealPeakRatio = Convert.ToDouble(data.Values["UnaberratedPeakRatio"]),
-                metric = ComparisonMetrics.Calculate("grid", "Dimensionless", matched, policy) }));
+                metric = ComparisonMetrics.Calculate("grid", "Dimensionless", matched, policy)
+            }));
             BeamPsfShapeDiagnostics.WriteIfRequested(id, optic, request, expected, actual);
             // Apply the unchanged pointwise gate to the peak explicitly, rather
             // than relying on whole-grid NRMSE to detect its previous 23% loss.

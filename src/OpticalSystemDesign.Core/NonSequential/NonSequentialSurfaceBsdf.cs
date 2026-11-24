@@ -35,8 +35,11 @@ public sealed record NonSequentialSurfaceBsdf(NonSequentialBsdfKind Kind, double
         _ = Create();
         var behavior = parameters switch
         {
-            PlaneRectangleParameters p => p.Behavior, SphereParameters p => p.Behavior,
-            CylinderParameters p => p.Behavior, BoxParameters p => p.Behavior, MeshObjectParameters p => p.Behavior,
+            PlaneRectangleParameters p => p.Behavior,
+            SphereParameters p => p.Behavior,
+            CylinderParameters p => p.Behavior,
+            BoxParameters p => p.Behavior,
+            MeshObjectParameters p => p.Behavior,
             _ => (NonSequentialSurfaceBehavior?)null
         };
         if (MeasuredData?.HasTransmission == true)

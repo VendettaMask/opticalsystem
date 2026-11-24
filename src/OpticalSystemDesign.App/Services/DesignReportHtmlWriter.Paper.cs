@@ -59,11 +59,17 @@ internal static partial class DesignReportHtmlWriter
         var script = Regex.Match(template, @"<script>([\s\S]*?)</script>").Groups[1].Value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
         var values = new Dictionary<string, string>
         {
-            ["DOCUMENT_TITLE"] = Encode(report.Name + UiLocalization.Text(" 光学设计分析报告")), ["REPORT_TITLE"] = Encode(report.Name + UiLocalization.Text(" 光学设计分析报告")),
-            ["REPORT_NAME"] = Encode(report.Name), ["SNAPSHOT"] = Encode(UiLocalization.Template($"计算快照 {report.CapturedAt:yyyy.MM.dd HH:mm}")),
-            ["CONFIGURATION_NOTE"] = report.Configurations.Count + UiLocalization.Text(" 个配置 · 光学设计分析"), ["PAGE_COUNT"] = layout.Pages.Count.ToString(CultureInfo.InvariantCulture),
+            ["DOCUMENT_TITLE"] = Encode(report.Name + UiLocalization.Text(" 光学设计分析报告")),
+            ["REPORT_TITLE"] = Encode(report.Name + UiLocalization.Text(" 光学设计分析报告")),
+            ["REPORT_NAME"] = Encode(report.Name),
+            ["SNAPSHOT"] = Encode(UiLocalization.Template($"计算快照 {report.CapturedAt:yyyy.MM.dd HH:mm}")),
+            ["CONFIGURATION_NOTE"] = report.Configurations.Count + UiLocalization.Text(" 个配置 · 光学设计分析"),
+            ["PAGE_COUNT"] = layout.Pages.Count.ToString(CultureInfo.InvariantCulture),
             ["OUTLINE_NOTE"] = Encode(UiLocalization.Template($"{layout.Pages.Count} 页 · {report.Sections.Count} 个分析项目")) + $"<br>{report.CapturedAt:yyyy.MM.dd}",
-            ["TOOLBAR_LOGO"] = logo, ["NAVIGATION"] = navigation.ToString(), ["PAGES"] = sheets.ToString(), ["RAW_RECORDS"] = raw.ToString(),
+            ["TOOLBAR_LOGO"] = logo,
+            ["NAVIGATION"] = navigation.ToString(),
+            ["PAGES"] = sheets.ToString(),
+            ["RAW_RECORDS"] = raw.ToString(),
             ["SCRIPT_HASH"] = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(script)))
         };
         var html = Regex.Replace(template, @"@@([A-Z_]+)@@", match => values[match.Groups[1].Value]);

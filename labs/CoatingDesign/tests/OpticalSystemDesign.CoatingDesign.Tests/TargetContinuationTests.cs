@@ -1,7 +1,7 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 
@@ -93,9 +93,15 @@ public sealed class TargetContinuationTests
     {
         var d = Case("holdout-real-hr-nearir").GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!;
         var map = d.Materials.Select((m, i) => (m.Id, New: "cosmetic-" + i)).ToDictionary(x => x.Id, x => x.New);
-        var renamed = d with { Materials = d.Materials.Select(m => m with { Id = map[m.Id] }).ToArray(),
-            IncidentId = map[d.IncidentId], SubstrateId = map[d.SubstrateId], LowId = map[d.LowId], HighId = map[d.HighId],
-            Layers = d.Layers.Select(l => l with { MaterialId = map[l.MaterialId] }).ToArray() };
+        var renamed = d with
+        {
+            Materials = d.Materials.Select(m => m with { Id = map[m.Id] }).ToArray(),
+            IncidentId = map[d.IncidentId],
+            SubstrateId = map[d.SubstrateId],
+            LowId = map[d.LowId],
+            HighId = map[d.HighId],
+            Layers = d.Layers.Select(l => l with { MaterialId = map[l.MaterialId] }).ToArray()
+        };
         var service = new DesignService(); var a = service.Optimize(d); var b = service.Optimize(renamed);
         Assert.Equal(a.Result!.Spectrum, b.Result!.Spectrum); Assert.Equal(a.Result.Run.GeneralWork, b.Result.Run.GeneralWork);
     }

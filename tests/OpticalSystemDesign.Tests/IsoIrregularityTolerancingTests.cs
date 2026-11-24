@@ -172,8 +172,10 @@ public sealed class IsoIrregularityTolerancingTests
 
         var inverse = await app.Tolerancing.RunAsync(request with
         {
-            Criterion = ToleranceCriterion.RmsSpotRadius, Mode = ToleranceAnalysisMode.InverseIncrement,
-            InverseValue = .00005, Trials = 1
+            Criterion = ToleranceCriterion.RmsSpotRadius,
+            Mode = ToleranceAnalysisMode.InverseIncrement,
+            InverseValue = .00005,
+            Trials = 1
         });
         Assert.Equal(3, inverse.InverseRows!.Count);
         Assert.All(inverse.AdjustedOperands!, row => Assert.Equal(-row.Maximum, row.Minimum));
@@ -291,8 +293,10 @@ public sealed class IsoIrregularityTolerancingTests
 
         var inverse = await app.Tolerancing.RunAsync(request with
         {
-            Criterion = ToleranceCriterion.RmsSpotRadius, Mode = ToleranceAnalysisMode.InverseIncrement,
-            InverseValue = .00001, Trials = 1
+            Criterion = ToleranceCriterion.RmsSpotRadius,
+            Mode = ToleranceAnalysisMode.InverseIncrement,
+            InverseValue = .00001,
+            Trials = 1
         });
         Assert.Equal(2, inverse.InverseRows!.Count);
         var adjusted = inverse.AdjustedOperands!;
@@ -380,7 +384,9 @@ public sealed class IsoIrregularityTolerancingTests
                     targetTotalPvMm = total,
                     targetRotationalPvMm = rotational,
                     fringeCoefficientsMm = terms,
-                    field, wave, frequencyCyclesPerMm = frequency,
+                    field,
+                    wave,
+                    frequencyCyclesPerMm = frequency,
                     method = "FFT MTF, modulation, no refocus",
                     comparisons
                 }, new JsonSerializerOptions { WriteIndented = true }));

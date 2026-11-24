@@ -1,7 +1,7 @@
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.Core.Tolerancing;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.Application.Runtime;
 
@@ -53,13 +53,15 @@ public partial class WorkbenchRuntime
             var adjusted = inverse ? ReplaceEnabled(_request.Operands ?? [], operands) : null;
             var settings = _settings with
             {
-                Scope = ToleranceConfigurationScope.Selected, Configurations = _selected,
+                Scope = ToleranceConfigurationScope.Selected,
+                Configurations = _selected,
                 MceRows = mce.Select(item => item.Row).ToArray()
             };
             var worstSample = trials.Length > 0
                 ? TolerancingService.CaptureJointWorstSample(_snapshot, _request with
                 {
-                    Operands = adjusted ?? _request.Operands, ConfigurationSettings = settings
+                    Operands = adjusted ?? _request.Operands,
+                    ConfigurationSettings = settings
                 }, trials)
                 : null;
 

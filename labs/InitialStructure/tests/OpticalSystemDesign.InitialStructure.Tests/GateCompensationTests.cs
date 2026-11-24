@@ -36,14 +36,17 @@ public sealed class GateCompensationTests
 
     private static TopologyObjectiveEvaluation Evaluation(double power = 0, double geometry = -1,
         double rms = 1, double clearance = 1, double secondClearance = -1, double image = 1) => new()
-    {
-        LayoutFingerprint = "same-layout", OpticFingerprint = "test", Available = true,
-        Residuals = [power, 0, Math.Max(0, geometry), Math.Max(0, rms), Math.Max(0, rms), 0,
+        {
+            LayoutFingerprint = "same-layout",
+            OpticFingerprint = "test",
+            Available = true,
+            Residuals = [power, 0, Math.Max(0, geometry), Math.Max(0, rms), Math.Max(0, rms), 0,
             Math.Max(0, clearance), image, 0, Math.Max(0, secondClearance)],
-        Gradient = [1], Jacobian = Enumerable.Range(0, Ids.Length).Select(_ => ImmutableArray.Create(1.0)).ToImmutableArray(),
-        ConstraintTangents = new[] { (0, power), (1, 0.0), (2, geometry), (3, rms), (4, rms), (5, -1.0),
+            Gradient = [1],
+            Jacobian = Enumerable.Range(0, Ids.Length).Select(_ => ImmutableArray.Create(1.0)).ToImmutableArray(),
+            ConstraintTangents = new[] { (0, power), (1, 0.0), (2, geometry), (3, rms), (4, rms), (5, -1.0),
             (6, clearance), (9, secondClearance) }.Select(v => new TopologyConstraintTangent(v.Item1, v.Item2, [1.0])).ToImmutableArray()
-    };
+        };
 
     [Fact]
     public void JointVersionRepairsTheSameTinyHardViolationThatAcceptanceRejects()
@@ -54,8 +57,11 @@ public sealed class GateCompensationTests
         Assert.False(old.NeedsHardCorrection(before, after));
         Assert.True(current.NeedsHardCorrection(before, after));
         Assert.False(current.Accept(before, after));
-        Assert.True(current.Accept(before, after with { ConstraintTangents = after.ConstraintTangents!.Value
-            .Select(t => t.Row == 2 ? t with { Value = -1e-8 } : t).ToImmutableArray() }));
+        Assert.True(current.Accept(before, after with
+        {
+            ConstraintTangents = after.ConstraintTangents!.Value
+            .Select(t => t.Row == 2 ? t with { Value = -1e-8 } : t).ToImmutableArray()
+        }));
     }
 
     [Fact]
@@ -91,9 +97,16 @@ public sealed class GateCompensationTests
             .Select(id => new TopologyVariableRequest(id, OpticalDesignParameterKind.Curvature, -1, 1, 1));
         var binding = TopologyParameterBinder.Bind(source, requests);
         string[] ids = ["target:power", "target:inverse-f-number", "field:0:rms", "field:0:ray:0:x", "field:0:ray:0:y"];
-        var value = new TopologyObjectiveEvaluation { LayoutFingerprint = "rank-scope", OpticFingerprint = "point-one", Available = true,
-            Residuals = [0, 0, 1, 0, 0], Gradient = [1, 1], Jacobian = [[0, 0], [0, 0], [1, 1], [100, 0], [0, 1]],
-            ConstraintTangents = [new(0, 0, [0, 0]), new(1, 0, [0, 0]), new(2, 1, [1, 1])] };
+        var value = new TopologyObjectiveEvaluation
+        {
+            LayoutFingerprint = "rank-scope",
+            OpticFingerprint = "point-one",
+            Available = true,
+            Residuals = [0, 0, 1, 0, 0],
+            Gradient = [1, 1],
+            Jacobian = [[0, 0], [0, 0], [1, 1], [100, 0], [0, 1]],
+            ConstraintTangents = [new(0, 0, [0, 0]), new(1, 0, [0, 0]), new(2, 1, [1, 1])]
+        };
         using var performance = SearchPerformanceMeasurement.Begin(); var retained = new TopologyGateCompensation(ids, 3);
         _ = retained.Propose(value, binding.InitialCoordinates, binding, 1, default);
         var retry = retained.Propose(value, binding.InitialCoordinates, binding, .5, default);
@@ -115,10 +128,16 @@ public sealed class GateCompensationTests
             .Select(id => new TopologyVariableRequest(id, OpticalDesignParameterKind.Curvature, -1, 1, 1));
         var binding = TopologyParameterBinder.Bind(source, requests);
         string[] ids = ["target:power", "target:inverse-f-number", "field:0:rms", "field:0:ray:0:x", "field:0:ray:0:y"];
-        var value = new TopologyObjectiveEvaluation { LayoutFingerprint = "two-variable-control", OpticFingerprint = "test", Available = true,
-            Residuals = [0,0,1,0,0], Gradient = [1,1],
-            Jacobian = [[0,0],[0,0],[1,1],[100,0],[0,1]],
-            ConstraintTangents = [new(0,0,[0,0]),new(1,0,[0,0]),new(2,1,[1,1])] };
+        var value = new TopologyObjectiveEvaluation
+        {
+            LayoutFingerprint = "two-variable-control",
+            OpticFingerprint = "test",
+            Available = true,
+            Residuals = [0, 0, 1, 0, 0],
+            Gradient = [1, 1],
+            Jacobian = [[0, 0], [0, 0], [1, 1], [100, 0], [0, 1]],
+            ConstraintTangents = [new(0, 0, [0, 0]), new(1, 0, [0, 0]), new(2, 1, [1, 1])]
+        };
         var proposal = new TopologyGateCompensation(ids, 3).Propose(value, binding.InitialCoordinates, binding, 1, default);
         var first = proposal.Coordinates[0] - binding.InitialCoordinates[0];
         var second = proposal.Coordinates[1] - binding.InitialCoordinates[1];
@@ -135,24 +154,28 @@ public sealed class GateCompensationTests
         var binding = TopologyParameterBinder.Bind(source, requests);
         var value = Evaluation(geometry: 4e-12, rms: -1, clearance: -1) with
         {
-            Gradient = [0,0], Jacobian = Enumerable.Range(0,Ids.Length).Select(_ => ImmutableArray.Create(0.0,0.0)).ToImmutableArray()
+            Gradient = [0, 0],
+            Jacobian = Enumerable.Range(0, Ids.Length).Select(_ => ImmutableArray.Create(0.0, 0.0)).ToImmutableArray()
         };
-        value = value with { ConstraintTangents = value.ConstraintTangents!.Value.Select(t => t with
-            { Derivatives = t.Row == 2 ? [1.0,0.0] : [0.0,0.0] }).ToImmutableArray() };
-        var previous = new TopologyGateCompensation(Ids,3).Propose(value,binding.InitialCoordinates,binding,1,default);
+        value = value with
+        {
+            ConstraintTangents = value.ConstraintTangents!.Value.Select(t => t with
+            { Derivatives = t.Row == 2 ? [1.0, 0.0] : [0.0, 0.0] }).ToImmutableArray()
+        };
+        var previous = new TopologyGateCompensation(Ids, 3).Propose(value, binding.InitialCoordinates, binding, 1, default);
         Assert.Equal(binding.InitialCoordinates[0], previous.Coordinates[0]);
-        var current = new TopologyGateCompensation(Ids,4).Propose(value,binding.InitialCoordinates,binding,1,default);
-        Assert.InRange(current.Coordinates[0]-binding.InitialCoordinates[0],-.001,-1e-6);
-        Assert.False(new TopologyGateCompensation(Ids,4).Converged(value));
+        var current = new TopologyGateCompensation(Ids, 4).Propose(value, binding.InitialCoordinates, binding, 1, default);
+        Assert.InRange(current.Coordinates[0] - binding.InitialCoordinates[0], -.001, -1e-6);
+        Assert.False(new TopologyGateCompensation(Ids, 4).Converged(value));
     }
 
     [Fact]
     public void InwardImageMarginIsStricterThanOriginalAcceptanceAndDoesNotUpgradeEarlierVersions()
     {
-        var value = Evaluation(rms: -.00025, clearance:-1);
-        Assert.True(new TopologyGateCompensation(Ids,3).Converged(value));
-        Assert.False(new TopologyGateCompensation(Ids,4).Converged(value));
-        Assert.True(new TopologyGateCompensation(Ids,4).Converged(Evaluation(rms:-.001,clearance:-1)));
+        var value = Evaluation(rms: -.00025, clearance: -1);
+        Assert.True(new TopologyGateCompensation(Ids, 3).Converged(value));
+        Assert.False(new TopologyGateCompensation(Ids, 4).Converged(value));
+        Assert.True(new TopologyGateCompensation(Ids, 4).Converged(Evaluation(rms: -.001, clearance: -1)));
     }
 
     [Fact]
@@ -215,8 +238,11 @@ public sealed class GateCompensationTests
             Gradient = [0, 0],
             Jacobian = Enumerable.Range(0, Ids.Length).Select(_ => ImmutableArray.Create(0.0, 0.0)).ToImmutableArray()
         };
-        before = before with { ConstraintTangents = before.ConstraintTangents!.Value.Select(t => t with
-            { Derivatives = t.Row == 9 ? [1, 0] : [0, 0] }).ToImmutableArray() };
+        before = before with
+        {
+            ConstraintTangents = before.ConstraintTangents!.Value.Select(t => t with
+            { Derivatives = t.Row == 9 ? [1, 0] : [0, 0] }).ToImmutableArray()
+        };
         var gates = new TopologyGateCompensation(Ids, 2);
         Assert.False(gates.Converged(before));
         var proposed = gates.Propose(before, binding.InitialCoordinates, binding, 1e-8, default);
@@ -224,8 +250,11 @@ public sealed class GateCompensationTests
         Assert.True(gates.Accept(before, Evaluation(clearance: -1, secondClearance: -1e-6, rms: -5e-5)));
         Assert.False(gates.Accept(before, Evaluation(clearance: -1, secondClearance: -1e-6, rms: 1e-6)));
         Assert.False(gates.Accept(before, Evaluation(clearance: -1, secondClearance: -1e-6, rms: -.001, geometry: .01)));
-        var fixedStopNoise = before with { ConstraintTangents = before.ConstraintTangents!.Value.Select(t => t.Row == 9
-            ? t with { Value = 1e-13, Derivatives = [1e-17, 0] } : t).ToImmutableArray() };
+        var fixedStopNoise = before with
+        {
+            ConstraintTangents = before.ConstraintTangents!.Value.Select(t => t.Row == 9
+            ? t with { Value = 1e-13, Derivatives = [1e-17, 0] } : t).ToImmutableArray()
+        };
         Assert.True(gates.Converged(fixedStopNoise));
     }
 
@@ -234,10 +263,14 @@ public sealed class GateCompensationTests
     {
         var (plan, _) = StructureEvolutionTests.Specification();
         var topology = plan.Seeds[0] with { Stop = new("stop", plan.Seeds[0].Reference.ZMillimeters, 6.25) };
-        topology = topology with { Elements = topology.Elements.Select(e => e with
+        topology = topology with
         {
-            Front = e.Front with { ClearSemiDiameterMillimeters = 5 }, Back = e.Back with { ClearSemiDiameterMillimeters = 5 }
-        }).ToImmutableArray() };
+            Elements = topology.Elements.Select(e => e with
+            {
+                Front = e.Front with { ClearSemiDiameterMillimeters = 5 },
+                Back = e.Back with { ClearSemiDiameterMillimeters = 5 }
+            }).ToImmutableArray()
+        };
         var conflict = StructureSearchDiagnostics.ExternalStopAperturePrecheck(topology);
         Assert.True(conflict.ProvenInfeasible); Assert.Equal(6.25, conflict.Actual); Assert.Equal(5, conflict.Limit);
         Assert.False(StructureSearchDiagnostics.ExternalStopAperturePrecheck(topology with { Stop = topology.Stop with { ClearSemiDiameterMillimeters = 5 } }).ProvenInfeasible);
@@ -267,13 +300,25 @@ public sealed class GateCompensationTests
         Assert.Throws<ArgumentException>(() => StructureEvolutionSearch.ReleaseTransmissionProfiles(original, forbidden));
         var reductionOnly = plan with { Options = plan.Options with { QualifiedReductionOnly = true } };
         Assert.Throws<ArgumentException>(() => StructureEvolutionSearch.ReleaseTransmissionProfiles(original, reductionOnly));
-        Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(forbidden, options with { Evolution = options.Evolution! with
-            { GateCompensationVersion = 2, TransmissionProfileVersion = 1, Operations = [TopologyOperationKind.Profile] } }));
-        Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(plan, options with { Evolution = options.Evolution! with
-            { GateCompensationVersion = 1, TransmissionEnvelopeVersion = 1 } }));
+        Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(forbidden, options with
+        {
+            Evolution = options.Evolution! with
+            { GateCompensationVersion = 2, TransmissionProfileVersion = 1, Operations = [TopologyOperationKind.Profile] }
+        }));
+        Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(plan, options with
+        {
+            Evolution = options.Evolution! with
+            { GateCompensationVersion = 1, TransmissionEnvelopeVersion = 1 }
+        }));
         var protectedParent = original with { Elements = original.Elements.SetItem(0, original.Elements[0] with { Protected = true }) };
-        var permitted = plan with { Options = plan.Options with { Expansion = plan.Options.Expansion! with
-            { EnableProfile = true, MaximumEvenPower = 8, CoefficientCoordinateSagMillimeters = .02 } } };
+        var permitted = plan with
+        {
+            Options = plan.Options with
+            {
+                Expansion = plan.Options.Expansion! with
+                { EnableProfile = true, MaximumEvenPower = 8, CoefficientCoordinateSagMillimeters = .02 }
+            }
+        };
         var released = StructureEvolutionSearch.ReleaseTransmissionProfiles(protectedParent, permitted);
         Assert.Equal(protectedParent.Elements[0], released.Elements[0]);
         Assert.Equal(protectedParent.Reference, released.Reference); Assert.Equal(protectedParent.Stop, released.Stop); Assert.Equal(protectedParent.Image, released.Image);
@@ -316,10 +361,20 @@ public sealed class GateCompensationTests
         var targets = plan.Targets with { MaximumRmsRadiusMillimeters = .001, MaximumSpotRadiusMillimeters = .003 };
         var options = new FixedTopologyOptions
         {
-            GateCompensationVersion = version, MaximumUpdates = 3, MaximumFunctionEvaluations = 5, MaximumGradientEvaluations = 4,
+            GateCompensationVersion = version,
+            MaximumUpdates = 3,
+            MaximumFunctionEvaluations = 5,
+            MaximumGradientEvaluations = 4,
             ComputeMode = DesignComputeMode.Cpu,
-            Sampling = new() { FieldsPerDirection = 3, PupilRings = 2, PupilArms = 8, ProfileRadialSamples = 64,
-                IncludeBoundaryClearance = true, IncludeBoundaryMaximum = true }
+            Sampling = new()
+            {
+                FieldsPerDirection = 3,
+                PupilRings = 2,
+                PupilArms = 8,
+                ProfileRadialSamples = 64,
+                IncludeBoundaryClearance = true,
+                IncludeBoundaryMaximum = true
+            }
         };
         using var stop = new CancellationTokenSource();
         var first = FixedTopologyOptimizer.Run(source, binding, targets, options, stop.Token, _ => stop.Cancel());
@@ -414,12 +469,18 @@ public sealed class GateCompensationTests
     {
         var (plan, options) = StructureEvolutionTests.Specification();
         plan = plan with { Options = plan.Options with { Expansion = plan.Options.Expansion! with { EnableInsertion = false } } };
-        options = options with { Evolution = options.Evolution! with
+        options = options with
         {
-            GateCompensationVersion = 1, Operations = [TopologyOperationKind.Delete, TopologyOperationKind.Insert],
-            MaximumBranches = 4, OptimizeParents = false, CompensationUpdatesPerBranch = 0,
-            Mode = StructureEvolutionMode.DirectCompensation
-        } };
+            Evolution = options.Evolution! with
+            {
+                GateCompensationVersion = 1,
+                Operations = [TopologyOperationKind.Delete, TopologyOperationKind.Insert],
+                MaximumBranches = 4,
+                OptimizeParents = false,
+                CompensationUpdatesPerBranch = 0,
+                Mode = StructureEvolutionMode.DirectCompensation
+            }
+        };
         var result = ParaxialSeedSearch.Run(plan, options);
         Assert.Equal(4, result.Evolution!.Trials.Length);
         Assert.All(result.Evolution.Trials, trial => Assert.Equal("delete", trial.Operation));

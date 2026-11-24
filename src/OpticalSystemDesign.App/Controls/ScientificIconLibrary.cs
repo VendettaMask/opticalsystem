@@ -111,8 +111,12 @@ internal sealed class ScientificSvgArtwork
         var role = (string?)element.Attribute("class");
         (ink, filled) = role switch
         {
-            "structure" => (0, false), "signal" => (1, false), "secondary" => (2, false),
-            "signal-fill" => (1, true), "secondary-fill" => (2, true), null or "glyph" => (ink, filled),
+            "structure" => (0, false),
+            "signal" => (1, false),
+            "secondary" => (2, false),
+            "signal-fill" => (1, true),
+            "secondary-fill" => (2, true),
+            null or "glyph" => (ink, filled),
             "hot-fill" => (3, true),
             "dark" when tag == "svg" => (ink, filled),
             _ => throw new InvalidOperationException($"Unsupported scientific SVG role: {role}")
@@ -126,10 +130,18 @@ internal sealed class ScientificSvgArtwork
         var geometry = new ThreadLocal<Geometry>(() => tag switch
         {
             "path" => Geometry.Parse((string)element.Attribute("d")!),
-            "circle" => new EllipseGeometry { Center = new Point(Number(element, "cx"), Number(element, "cy")),
-                RadiusX = Number(element, "r"), RadiusY = Number(element, "r") },
-            "ellipse" => new EllipseGeometry { Center = new Point(Number(element, "cx"), Number(element, "cy")),
-                RadiusX = Number(element, "rx"), RadiusY = Number(element, "ry") },
+            "circle" => new EllipseGeometry
+            {
+                Center = new Point(Number(element, "cx"), Number(element, "cy")),
+                RadiusX = Number(element, "r"),
+                RadiusY = Number(element, "r")
+            },
+            "ellipse" => new EllipseGeometry
+            {
+                Center = new Point(Number(element, "cx"), Number(element, "cy")),
+                RadiusX = Number(element, "rx"),
+                RadiusY = Number(element, "ry")
+            },
             "rect" => new RectangleGeometry(new Rect(Number(element, "x"), Number(element, "y"),
                 Number(element, "width"), Number(element, "height")), Number(element, "rx"), Number(element, "ry", Number(element, "rx"))),
             "line" => Geometry.Parse(FormattableString.Invariant($"M{Number(element, "x1")} {Number(element, "y1")}L{Number(element, "x2")} {Number(element, "y2")}")),

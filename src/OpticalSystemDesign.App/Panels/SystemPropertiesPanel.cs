@@ -529,7 +529,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         FontWeight = FontWeight.SemiBold
     };
 
-    private static Control Section(string title, string iconName, Control content, bool expanded = false)
+    internal static Control Section(string title, string iconName, Control content, bool expanded = false)
     {
         var arrow = new LocalIcon
         {

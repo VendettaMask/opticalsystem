@@ -36,11 +36,17 @@ public sealed class CameraSfrTests
             Assert.Equal(result.LensSha256, replay.LensSha256); Assert.Equal(blank, app.Documents.GetSnapshot());
             Assert.Equal(before, replay.SourceDocument);
             Assert.All(replay.Baseline.Curve, p => Assert.NotNull(p.FullPupilPixelIntegratedMtf));
-            var missingReference = result with { Baseline = result.Baseline with
-                { Curve = result.Baseline.Curve.Select(p => p with { FullPupilMtf = null }).ToArray() } };
+            var missingReference = result with
+            {
+                Baseline = result.Baseline with
+                { Curve = result.Baseline.Curve.Select(p => p with { FullPupilMtf = null }).ToArray() }
+            };
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.ExportSlantedEdgeAsync(missingReference, path));
-            var inconsistentSampling = result with { Sampling = result.Sampling.Select((c, i) => i == 0
-                ? c with { MaximumFullPupilMtfDifference = c.MaximumFullPupilMtfDifference + .0001 } : c).ToArray() };
+            var inconsistentSampling = result with
+            {
+                Sampling = result.Sampling.Select((c, i) => i == 0
+                ? c with { MaximumFullPupilMtfDifference = c.MaximumFullPupilMtfDifference + .0001 } : c).ToArray()
+            };
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.ExportSlantedEdgeAsync(inconsistentSampling, path));
             var invalid = result with { Baseline = result.Baseline with { LinearPixels = new[] { double.NaN } } };
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.ExportSlantedEdgeAsync(invalid, path));
@@ -50,11 +56,27 @@ public sealed class CameraSfrTests
             {
                 Directory.CreateDirectory(evidence); File.Copy(path, Path.Combine(evidence, "reference-lens.sfr-experiment.zip"), true);
                 await File.WriteAllTextAsync(Path.Combine(evidence, "service-summary.json"), System.Text.Json.JsonSerializer.Serialize(new
-                { result.Algorithm, result.LensSha256, result.Request, result.SamplingConverged, result.Baseline.Mtf50CyclesPerPixel,
-                    result.Baseline.MaximumSfrReferenceDifference, result.Baseline.MaximumSfrFullPupilDifference,
-                    result.Baseline.MaximumWindowFullPupilDifference, result.Baseline.RelativePsfReadoutIntegral,
-                    Checks = result.Sampling.Select(c => new { c.Axis, c.WithinCriteria, c.MaximumImageDifference, c.MaximumSfrDifference,
-                        c.MaximumMtfDifference, c.MaximumFullPupilMtfDifference }), ExactReplay = true }));
+                {
+                    result.Algorithm,
+                    result.LensSha256,
+                    result.Request,
+                    result.SamplingConverged,
+                    result.Baseline.Mtf50CyclesPerPixel,
+                    result.Baseline.MaximumSfrReferenceDifference,
+                    result.Baseline.MaximumSfrFullPupilDifference,
+                    result.Baseline.MaximumWindowFullPupilDifference,
+                    result.Baseline.RelativePsfReadoutIntegral,
+                    Checks = result.Sampling.Select(c => new
+                    {
+                        c.Axis,
+                        c.WithinCriteria,
+                        c.MaximumImageDifference,
+                        c.MaximumSfrDifference,
+                        c.MaximumMtfDifference,
+                        c.MaximumFullPupilMtfDifference
+                    }),
+                    ExactReplay = true
+                }));
             }
             using (var zip = ZipFile.Open(path, ZipArchiveMode.Update))
             {

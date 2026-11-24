@@ -150,7 +150,8 @@ internal static class HuygensFourierSum
         }
         var moments = MomentCount(maxOrder);
         return new(size, maxOrder, moments, work + transformWork * moments, minimumBytes + gridBytes * moments,
-            DenseTaylorTolerance) { SourceOrders = orders };
+            DenseTaylorTolerance)
+        { SourceOrders = orders };
     }
 
     private static int MomentCount(int order) => order * (order + 1) / 2;

@@ -42,11 +42,24 @@ public sealed partial class CameraImagingWindow
         var settings = new WrapPanel { Orientation = Orientation.Horizontal };
         void Number(string key, string label, decimal value, decimal min, decimal max, bool integer = false)
         {
-            var input = new CameraNumberInput { Name = "camera-scene-edge-" + key, Value = value, Minimum = min,
-                Maximum = max, Increment = integer ? 1 : .1m, IntegerOnly = integer, FormatString = "0.########", Width = 100 };
+            var input = new CameraNumberInput
+            {
+                Name = "camera-scene-edge-" + key,
+                Value = value,
+                Minimum = min,
+                Maximum = max,
+                Increment = integer ? 1 : .1m,
+                IntegerOnly = integer,
+                FormatString = "0.########",
+                Width = 100
+            };
             AutomationProperties.SetName(input, label); _sceneEdgeNumbers[key] = input;
-            settings.Children.Add(new StackPanel { Spacing = 4, Margin = new Thickness(0, 0, 16, 10),
-                Children = { new TextBlock { Text = label }, input } });
+            settings.Children.Add(new StackPanel
+            {
+                Spacing = 4,
+                Margin = new Thickness(0, 0, 16, 10),
+                Children = { new TextBlock { Text = label }, input }
+            });
             input.ValueChanged += (_, _) => { if (!_sceneEdgeApplying) ClearSceneEdge("参数已改变，请重新生成场景像。"); };
             input.PropertyChanged += (_, e) => { if (e.Property == NumericUpDown.TextProperty && !_sceneEdgeApplying) ClearSceneEdge("请输入有效参数后生成场景像。"); };
         }
@@ -76,16 +89,23 @@ public sealed partial class CameraImagingWindow
         _sceneEdgeSave.Click += async (_, _) =>
         {
             var result = _sceneEdgeResult; if (result is null) return;
-            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "保存物方棋盘线性实验",
-                SuggestedFileName = "chart.scene-sfr.zip", FileTypeChoices = [new("场景斜边实验") { Patterns = ["*.scene-sfr.zip"] }] });
+            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "保存物方棋盘线性实验",
+                SuggestedFileName = "chart.scene-sfr.zip",
+                FileTypeChoices = [new("场景斜边实验") { Patterns = ["*.scene-sfr.zip"] }]
+            });
             if (file is null || _closed) return;
             try { await _application.CameraImaging.ExportSceneSlantedEdgeAsync(result, file.Path.LocalPath); _sceneEdgeInfo.Text += "\n线性像元与冻结输入已保存。"; }
             catch (Exception ex) { _sceneEdgeInfo.Text += "\n保存失败：" + ex.Message; }
         };
         _sceneEdgeOpen.Click += async (_, _) =>
         {
-            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "打开物方棋盘线性实验",
-                FileTypeFilter = [new("场景斜边实验") { Patterns = ["*.scene-sfr.zip"] }] });
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "打开物方棋盘线性实验",
+                FileTypeFilter = [new("场景斜边实验") { Patterns = ["*.scene-sfr.zip"] }]
+            });
             if (files.Count > 0) await OpenSceneEdgeFromPathAsync(files[0].Path.LocalPath);
         };
         var png = new Button { Content = "PNG", Name = "camera-scene-edge-png" };
@@ -95,28 +115,41 @@ public sealed partial class CameraImagingWindow
             try
             {
                 using var bitmap = CaptureSceneEdgeImage();
-                var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "导出场景 SFR 曲线", SuggestedFileName = "scene-sfr.png",
-                    DefaultExtension = "png", FileTypeChoices = [new("PNG") { Patterns = ["*.png"] }] });
+                var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+                {
+                    Title = "导出场景 SFR 曲线",
+                    SuggestedFileName = "scene-sfr.png",
+                    DefaultExtension = "png",
+                    FileTypeChoices = [new("PNG") { Patterns = ["*.png"] }]
+                });
                 if (file is not null) AnalysisPanel.SavePlotImage(bitmap, file.Path.LocalPath);
             }
             catch (Exception ex) { if (!_closed) _sceneEdgeInfo.Text += "\n导出失败：" + ex.Message; }
         };
         _sceneEdgeLineWidth = AnalysisPanel.CreateCurveWidthButton(_sceneEdgeGraph);
         _sceneEdgeInfo.Text = "物方发光棋盘 → 当前实际镜头 → 线性像元。默认使用镜头主波长；请根据镜头取景设置靶标和 ROI。";
-        var roiPage = Scroll(new StackPanel { Spacing = 12, Children =
+        var roiPage = Scroll(new StackPanel
+        {
+            Spacing = 12,
+            Children =
         {
             new TextBlock { Text = "场景斜边 · 几何成像", FontSize = 18, FontWeight = FontWeight.Bold },
             new TextBlock { Text = "此页沿用镜片与保存像面，不自动调焦。初始参数是 100 m 远靶控制；有限共轭请填写实际物距。浮点功率和辐照度用于测量；两张预览仅用于取景。当前阶段尚未提供正式 MTF 对照、ROM 或收敛判定。", TextWrapping = TextWrapping.Wrap },
             settings, LaboratoryPresentation.Commands(_sceneEdgePrimary, _sceneEdgeMeasure, _sceneEdgeFresnel),
             LaboratoryPresentation.Commands(_sceneEdgeRun, _sceneEdgeCancel, _sceneEdgeSave, _sceneEdgeOpen, _sceneEdgeReplay, png, _sceneEdgeLineWidth),
             _sceneEdgeInfo, new UniformGrid { Columns = 2, Children = { _sceneEdgeTarget, _sceneEdgeImage } }, _sceneEdgeGraph
-        } });
-        return new TabControl { Name = "SceneImagingModes", ItemsSource = new[]
+        }
+        });
+        return new TabControl
+        {
+            Name = "SceneImagingModes",
+            ItemsSource = new[]
         {
             new TabItem { Header = "单 ROI 诊断", Content = roiPage },
             new TabItem { Header = "全幅逐波段", Name = "scene-linear-batch-tab", Content = BuildSceneBatchPage() },
             new TabItem { Header = "多 ROI SFR", Name = "scene-roi-sfr-tab", Content = BuildSceneRoiPage() }
-        } };
+        }
+        };
     }
 
     private static bool SceneEdgeInteger(string key) => key is "columns" or "rows" or "width" or "height" or "subpixels" or "rings" or "arms"

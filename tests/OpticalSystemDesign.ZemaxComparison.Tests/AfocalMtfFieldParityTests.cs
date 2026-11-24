@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -8,6 +7,7 @@ using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 using OpticalSystemDesign.ZemaxComparison.Normalization;

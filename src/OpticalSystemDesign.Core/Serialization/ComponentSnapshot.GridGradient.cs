@@ -8,16 +8,31 @@ public static partial class ComponentSnapshotFactory
     private static ComponentSnapshot FromGridGradient(GradientIndexMaterial material, GridGradientIndexProfile grid)
     {
         if (material.Variables.Count != 0) throw new NotSupportedException("Grid-gradient node optimization is not implemented.");
-        var n = new Dictionary<string, double> { ["nx"] = grid.Nx, ["ny"] = grid.Ny, ["nz"] = grid.Nz,
-            ["originX"] = grid.Origin.X, ["originY"] = grid.Origin.Y, ["originZ"] = grid.Origin.Z,
-            ["spacingX"] = grid.Spacing.X, ["spacingY"] = grid.Spacing.Y, ["spacingZ"] = grid.Spacing.Z };
+        var n = new Dictionary<string, double>
+        {
+            ["nx"] = grid.Nx,
+            ["ny"] = grid.Ny,
+            ["nz"] = grid.Nz,
+            ["originX"] = grid.Origin.X,
+            ["originY"] = grid.Origin.Y,
+            ["originZ"] = grid.Origin.Z,
+            ["spacingX"] = grid.Spacing.X,
+            ["spacingY"] = grid.Spacing.Y,
+            ["spacingZ"] = grid.Spacing.Z
+        };
         for (var i = 0; i < grid.Values.Count; i++) n.Add($"v{i}", grid.Values[i]);
         var options = material.IntegrationOptions;
         var values = new[] { material.MaximumPathLength, options.MaximumStep, options.MinimumStep, options.PositionTolerance,
             options.DirectionTolerance, options.OpticalPathTolerance, options.RelativeTolerance, options.SurfaceTolerance, options.MaximumAttempts };
         foreach (var pair in GradientOptionKeys.Zip(values)) n.Add(pair.First, pair.Second);
-        return new("gradient_index", n, new() { ["name"] = material.Name, ["profile"] = "grid_gradient", ["formula"] = grid.Formula,
-            ["sourceName"] = grid.SourceName, ["sourceSha256"] = grid.SourceSha256 });
+        return new("gradient_index", n, new()
+        {
+            ["name"] = material.Name,
+            ["profile"] = "grid_gradient",
+            ["formula"] = grid.Formula,
+            ["sourceName"] = grid.SourceName,
+            ["sourceSha256"] = grid.SourceSha256
+        });
     }
     private static GradientIndexMaterial ToGridGradient(ComponentSnapshot snapshot)
     {

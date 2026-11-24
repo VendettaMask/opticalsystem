@@ -17,7 +17,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SceneSlantedEdgeTests
 {
     [Theory]
-    [InlineData(14, 14, 0, 0, 5)] [InlineData(5, 3, 17, -11, 23)]
+    [InlineData(14, 14, 0, 0, 5)]
+    [InlineData(5, 3, 17, -11, 23)]
     public void EveryEmissiveCellMatchesSeparateCoplanarFacesIncludingOddCountsAndPose(int columns, int rows, double rx, double ry, double rz)
     {
         var settings = new EmissiveCheckerboardSettings(columns, rows, 2, 100, 1, -2, rx, ry, rz);

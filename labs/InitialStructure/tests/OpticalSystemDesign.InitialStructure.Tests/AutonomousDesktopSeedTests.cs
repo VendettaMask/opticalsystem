@@ -25,8 +25,12 @@ public sealed partial class AutonomousDesktopTests
             var screening = new SeedImageScreeningOptions { MaximumCandidates = 3, BoundaryCheckArms = 8, MaximumTracedRaysPerCandidate = 1800 };
             var plan = Plan() with { Options = Plan().Options with { SeedPreparation = new() { ImageScreening = screening } } };
             using var trace = SequentialTraceMeasurement.Begin();
-            var window = new AutonomousTopologyWindow(new() { RunDirectory = files.Root, InitialPlan = plan,
-                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("image-ranked.topology-plan.json")) });
+            var window = new AutonomousTopologyWindow(new()
+            {
+                RunDirectory = files.Root,
+                InitialPlan = plan,
+                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("image-ranked.topology-plan.json"))
+            });
             try
             {
                 window.Show(); window.UpdateLayout();
@@ -57,10 +61,20 @@ public sealed partial class AutonomousDesktopTests
         await host.Dispatch(async () =>
         {
             var language = UiLocalization.CurrentLanguage;
-            var plan = Plan() with { Options = Plan().Options with { AxialCompensation = null,
-                SeedPreparation = new() { MaximumStarts = 1, RetainedSeeds = 1, MaximumFunctionEvaluations = 40 } } };
-            var window = new AutonomousTopologyWindow(new() { RunDirectory = files.Root, InitialPlan = plan,
-                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("planned.topology-plan.json")) });
+            var plan = Plan() with
+            {
+                Options = Plan().Options with
+                {
+                    AxialCompensation = null,
+                    SeedPreparation = new() { MaximumStarts = 1, RetainedSeeds = 1, MaximumFunctionEvaluations = 40 }
+                }
+            };
+            var window = new AutonomousTopologyWindow(new()
+            {
+                RunDirectory = files.Root,
+                InitialPlan = plan,
+                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("planned.topology-plan.json"))
+            });
             try
             {
                 window.Show(); window.UpdateLayout();

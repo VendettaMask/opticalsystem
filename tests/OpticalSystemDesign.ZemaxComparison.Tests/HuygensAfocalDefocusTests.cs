@@ -27,7 +27,7 @@ public sealed class HuygensAfocalDefocusTests
         };
         var wavefront = new WavefrontResult(samples, double.PositiveInfinity, 0, 0,
             ImageSpaceAfocal: true, AfocalPupilDiameterMillimeters: 4)
-            { AfocalReferencePlaneOrigin = Vector3D.Zero };
+        { AfocalReferencePlaneOrigin = Vector3D.Zero };
         var result = (double[,])typeof(DiffractionEngine)
             .GetMethod("HuygensFarFieldSummation", BindingFlags.NonPublic | BindingFlags.Static)!
             .Invoke(null, [wavefront, new Wavelength { Micrometers = .55 }, 8, .03,

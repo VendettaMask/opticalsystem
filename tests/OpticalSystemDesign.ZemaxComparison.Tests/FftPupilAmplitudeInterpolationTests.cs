@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Numerics;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;
@@ -89,7 +89,8 @@ public sealed class FftPupilAmplitudeInterpolationTests(ITestOutputHelper output
     {
         var grid = new PupilGridSpecification(32, true, true, 1);
         WavefrontSample Sample(int x, int y, double intensity) => new(grid.Coordinate(x), grid.Coordinate(y),
-            0, 0, 0, .123, intensity) { LaunchIntensity = intensity };
+            0, 0, 0, .123, intensity)
+        { LaunchIntensity = intensity };
         var samples = new[] { Sample(16, 16, 1), Sample(15, 16, blocked ? 0 : 4),
             Sample(17, 16, 16), Sample(16, 15, 36), Sample(16, 17, 64), Sample(14, 16, 7) };
         var before = samples.ToArray();

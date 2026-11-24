@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis.Assembly;
 using OpticalSystemDesign.Core.Analysis.Imaging;
+using OpticalSystemDesign.Validation;
 using CoatingDesignWindow = OpticalSystemDesign.App.Laboratories.CoatingDesign.MainWindow;
 using InitialStructureWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 

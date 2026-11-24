@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,6 +17,7 @@ using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Visualization;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

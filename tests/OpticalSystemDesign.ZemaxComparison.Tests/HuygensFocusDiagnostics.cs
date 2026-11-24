@@ -32,10 +32,15 @@ internal static class HuygensFocusDiagnostics
             {
                 var psf = (PsfResult)method.Invoke(null, [optic, (0d, 0d), optic.Wavelengths.ToArray(), settings, focus])!;
                 var n = psf.GridSize;
-                rows.Add(new { focus, psf.SampleSpacingMicrometers, n,
+                rows.Add(new
+                {
+                    focus,
+                    psf.SampleSpacingMicrometers,
+                    n,
                     values = Enumerable.Range(0, n).Select(row => Enumerable.Range(0, n).Select(col => psf.Values[row, col]).ToArray()).ToArray(),
                     mtf = DiffractionEngine.ComputePsfMtf(psf),
-                    doubleMtf = DiffractionEngine.ComputePsfMtf(psf, doubleTransformSize: true) });
+                    doubleMtf = DiffractionEngine.ComputePsfMtf(psf, doubleTransformSize: true)
+                });
             }
         }
         JsonFiles.Write(Path.Combine(directory, id + ".json"), new { id, request, data.Values, actual, expected, rows, pupil });

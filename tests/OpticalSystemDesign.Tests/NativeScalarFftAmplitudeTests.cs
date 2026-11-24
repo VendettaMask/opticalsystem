@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;

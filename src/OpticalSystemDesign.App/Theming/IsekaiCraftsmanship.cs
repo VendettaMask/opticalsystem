@@ -43,10 +43,10 @@ internal static class IsekaiCraftsmanship
     {
         DrawLeather(context, bounds);
         using (context.PushOpacity(.3))
-        foreach (var y in new[] { bounds.Top + 1, bounds.Bottom - 1 })
-        {
-            context.DrawLine(Gold, new Point(bounds.Left, y), new Point(bounds.Right, y));
-        }
+            foreach (var y in new[] { bounds.Top + 1, bounds.Bottom - 1 })
+            {
+                context.DrawLine(Gold, new Point(bounds.Left, y), new Point(bounds.Right, y));
+            }
         if (decoratedEnds && bounds.Width > 80 && bounds.Height > 18)
         {
             var size = Math.Min(8, bounds.Height - 4);
@@ -126,10 +126,14 @@ internal static class IsekaiCraftsmanship
         internal readonly IBrush[] PlaqueBrushes;
         internal Artwork()
         {
-            LeatherBrush = new ImageBrush(Leather) { TileMode = TileMode.Tile, Stretch = Stretch.Fill,
-                DestinationRect = new RelativeRect(0, 0, 520, 520, RelativeUnit.Absolute) };
+            LeatherBrush = new ImageBrush(Leather)
+            {
+                TileMode = TileMode.Tile,
+                Stretch = Stretch.Fill,
+                DestinationRect = new RelativeRect(0, 0, 520, 520, RelativeUnit.Absolute)
+            };
             CornerBrushes = PaperCorners.Select(source => new ImageBrush(Corners)
-                { SourceRect = new RelativeRect(source, RelativeUnit.Absolute), Stretch = Stretch.Fill }).ToArray();
+            { SourceRect = new RelativeRect(source, RelativeUnit.Absolute), Stretch = Stretch.Fill }).ToArray();
             // A brush for the native Dock/Fluent bodies; no text or hit targets are in the bitmap.
             PlaqueBrushes = Enumerable.Range(0, 4).Select(state =>
             {

@@ -1,0 +1,675 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-23",
+  "decision": "User confirmed that current numerical acceptance uses the 95 menu example lenses. Out-of-scope historical lens comparisons are retired, never reported as passes. Generic physics, import, persistence and export guards remain active.",
+  "currentCorpus": {
+    "index": "src/OpticalSystemDesign.App/Assets/SequentialExamples/index.json",
+    "count": 95,
+    "indexLfSha256": "87880dbba4869af29a3ab22eac0202b3d1dd61cffb2c0b0981887481da20fdef"
+  },
+  "testFilter": "AcceptanceScope!=RetiredReference",
+  "retiredCaptureSources": [
+    {
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "reason": "Explicit 123456 source identified by archived request input and capture id.",
+      "captures": [
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-123456-c1-primary-f1-w2-diffraction-encircled-energy/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-n64/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-n128/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-all-waves/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "slit-0852/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-n64-w1/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-n64-w2/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip",
+          "entry": "0852-n64-w3/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip",
+          "entry": "matrix/0852-n256-poly/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip",
+          "entry": "matrix/0852-n256-primary/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip",
+          "entry": "matrix/0852-n512-poly/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip",
+          "entry": "matrix/0852-n512-primary/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-polychromatic-zemax-2026-r1.zip",
+          "entry": "0852-all-waves/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-polychromatic128-zemax-2026-r1.zip",
+          "entry": "0852-poly128/source.zmx"
+        }
+      ]
+    },
+    {
+      "sha256": "20bd8ceb45aa6ced3142715058cfd129c1a4da565b5ee20b1aec4ae38d391c65",
+      "reason": "Retired 123456 lens; FNUM variants differ only in that aperture line.",
+      "captures": [
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip",
+          "entry": "controls/base-fnum-minus/source.zmx"
+        }
+      ]
+    },
+    {
+      "sha256": "e3c145035c93ea0237901cd4e40bef834446573c8e11174fc0ae6bd843542898",
+      "reason": "Retired 123456 lens; FNUM variants differ only in that aperture line.",
+      "captures": [
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip",
+          "entry": "controls/base-fnum-plus/source.zmx"
+        }
+      ]
+    },
+    {
+      "sha256": "c543dd377caaa6dd057211e3cc3990b6023e18ff9474a5eb3bd660f7b7cc3ed0",
+      "reason": "Retired 123456 lens; FNUM variants differ only in that aperture line.",
+      "captures": [
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-fnum-perturb-zemax-2026-r1.zip",
+          "entry": "fnum-minus-wave1/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-fnum-perturb-zemax-2026-r1.zip",
+          "entry": "fnum-minus-wave3/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-fnum-perturb-zemax-2026-r1.zip",
+          "entry": "fnum-minus128/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-fnum-perturb-zemax-2026-r1.zip",
+          "entry": "fnum-minus256/source.zmx"
+        },
+        {
+          "archive": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-fnum-perturb-zemax-2026-r1.zip",
+          "entry": "fnum-minus64/source.zmx"
+        }
+      ]
+    }
+  ],
+  "retiredTests": [
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ChromaticFocusOperandTests.cs",
+      "type": "ChromaticFocusOperandTests",
+      "method": "LongitudinalOperandMatchesCaptured123456PupilCurve",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/DistortionOperandTests.cs",
+      "type": "DistortionOperandTests",
+      "method": "Captured123456ComparisonKeepsExplicitAccuracyAndResidualBudgets",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/FieldCurvatureNativeMatrixTests.cs",
+      "type": "FieldCurvatureNativeMatrixTests",
+      "method": "NativeMfeControlsPassOriginalCurvatureTarget",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/FieldCurvatureNativeMatrixTests.cs",
+      "type": "FieldCurvatureNativeMatrixTests",
+      "method": "ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/FiniteSpatialCoherenceNativeTests.cs",
+      "type": "FiniteSpatialCoherenceNativeTests",
+      "method": "OriginalLensMatchesCompleteNativeFiniteImage",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/GeometricIlluminationTests.cs",
+      "type": "GeometricIlluminationTests",
+      "method": "ProductPolZeroCurveRetainsOriginalCapturedRelativeIlluminationGate",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/GeometricIlluminationTests.cs",
+      "type": "GeometricIlluminationTests",
+      "method": "GeometricRayPowerMatchesExistingNativeUnpolarizedRayControls",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/HuygensMtfOperandTests.cs",
+      "type": "HuygensMtfOperandTests",
+      "method": "Captured123456SettingsCompareAtSelectedFieldsAndFrequencies",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/IlluminationOperandTests.cs",
+      "type": "IlluminationOperandTests",
+      "method": "CapturedFileReportsOperandDifferencesWithoutInventingAnAcceptanceGate",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/InterferogramAnalysisTests.cs",
+      "type": "InterferogramAnalysisTests",
+      "method": "CapturedZemax2026R1InterferogramMatchesItsPrintedGrid",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/PsfEnergyWindowNativeTests.cs",
+      "type": "PsfEnergyWindowNativeTests",
+      "method": "IntensitySamplingAvailabilityMatchesNativeIncludingDiscreteBandEdges",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/PsfEnergyWindowNativeTests.cs",
+      "type": "PsfEnergyWindowNativeTests",
+      "method": "OriginalLensMatchesNativeWideImageWithEnergySelectedComplexSupport",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SharedCalculationConvergenceTests.cs",
+      "type": "SharedCalculationConvergenceTests",
+      "method": "Captured123456FftThroughFocusIsComparedWithoutChangingItsReference",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SpatialCoherenceNativeTests.cs",
+      "type": "SpatialCoherenceNativeTests",
+      "method": "OriginalLensMatchesNativeMostlyCoherentAtCapturedSettings",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SpatialCoherenceNativeTests.cs",
+      "type": "SpatialCoherenceNativeTests",
+      "method": "FourierConjugateComplexKernelMatchesNativePsfWithoutFittedGainOrShift",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxContrastLossParityTests.cs",
+      "type": "ZemaxContrastLossParityTests",
+      "method": "MooreElliottLossMapsMatchCapturedZemax123456Settings",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxEncircledEnergyParityTests.cs",
+      "type": "ZemaxEncircledEnergyParityTests",
+      "method": "DiffractionEncircledEnergyUsesTheCapturedFftCumulativeGrid",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxEncircledEnergyParityTests.cs",
+      "type": "ZemaxEncircledEnergyParityTests",
+      "method": "ExtendedSourceUsesTheCapturedLetterFImageAndFieldScale",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxHuygensMtfParityTests.cs",
+      "type": "ZemaxHuygensMtfParityTests",
+      "method": "CapturedPolychromaticSettingsMatchZemax123456",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxHuygensPsfCrossSectionParityTests.cs",
+      "type": "ZemaxHuygensPsfCrossSectionParityTests",
+      "method": "CapturedCrossSectionSettingsUseZemaxPsfCenterRowAndScale",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxHuygensPsfParityTests.cs",
+      "type": "ZemaxHuygensPsfParityTests",
+      "method": "CapturedAnalysisSettingsMatchZemaxHuygensPsf",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxLateralColorParityTests.cs",
+      "type": "ZemaxLateralColorParityTests",
+      "method": "CapturedAnalysisSettingsMatchZemaxChiefRayAndAiryCurves",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxOpticalPathDifferenceParityTests.cs",
+      "type": "ZemaxOpticalPathDifferenceParityTests",
+      "method": "PolychromaticFansUsePrimaryWavelengthReferenceSphere",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxPupilAberrationParityTests.cs",
+      "type": "ZemaxPupilAberrationParityTests",
+      "method": "CapturedRayAimedSettingsUseFortyOneSamplesAndRemainAtNumericalZero",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxRmsWavefrontVsFocusParityTests.cs",
+      "type": "ZemaxRmsWavefrontVsFocusParityTests",
+      "method": "CapturedChiefRayFocusScanSettingsMatchZemax123456",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxWavefrontMapParityTests.cs",
+      "type": "ZemaxWavefrontMapParityTests",
+      "method": "WavefrontMapUsesZemaxEvenGridAndMatchesCapturedOpd",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "PhysicalAperturesMatchFrozenReference",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "ApodizationMatchesFrozenReference",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "NativeSnapshotRoundTripsApodizationReference",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "PhaseProfilesMatchFrozenReference",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "FrozenPhaseInteractionsMatchReferenceRayForRay",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "NativeSnapshotRoundTripsPhaseProfiles",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "FrozenThinLensInteractionsMatchReferenceRayForRay",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "ThinLensSlopeStateNormalizesBeforeSurfacePropagation",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "FrozenDiffractiveInteractionsMatchReferenceRayForRay",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "type": "CookeTripletGoldenTests",
+      "method": "NativeSnapshotRoundTripsDiffractiveGratingComponents",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FieldDefinitionParityTests.cs",
+      "type": "FieldDefinitionParityTests",
+      "method": "FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FieldDefinitionParityTests.cs",
+      "type": "FieldDefinitionParityTests",
+      "method": "ParaxialImageHeightUnitChiefRaysMatchFrozenReference",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FieldDefinitionParityTests.cs",
+      "type": "FieldDefinitionParityTests",
+      "method": "NonImageFieldsMatchFrozenReferenceAndImageFieldsSatisfyTheLinearConjugates",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "SpotDiagramPreservesFrozenRelativeRayCoordinatesAcrossWavelengths",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "RmsVsFieldSpotUsesRequestedDirectionalDensity",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "RmsWavefrontVsFieldUsesDefinedFields",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "IncidentAngleVsHeightMatchesFrozenReferencePointForPoint",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "IncoherentIrradianceMatchesFrozenReferencePixelForPixel",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "RadiantIntensityRawPowerPreservesFrozenHistoricalBins",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "GeometricMtfRemainsCloseToFrozenReferenceWithIntensityWeighting",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "RayFanMatchesFrozenReferencePointForPoint",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "BestFitSphereMatchesFrozenReferencePointForPoint",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "SampledMtfUsesZemaxAutocorrelationContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "ThroughFocusSpotPreservesFrozenRelativeRayCoordinatesAcrossWavelengths",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "ThroughFocusMtfUsesSampledZemaxAutocorrelationContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "PupilAberrationCurvesMatchFrozenWithSharedZemaxDisplayScale",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "YYbarMatchesFrozenReferencePointForPoint",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "ChiefRayWavefrontMatchesFrozenReferencePointForPoint",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "ReferenceSphereWavefrontMatchesFrozenReferenceRayForRay",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "FringeZernikeLowerTermsRemainCompatibleWithFrozenReference",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "FftPsfRetainsFrozenReferenceGridWithPowerAmplitude",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "FftMtfRetainsFrozenReferenceModulationSamplesWithPowerAmplitude",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "MmdftPsfRetainsFrozenReferenceGridWithPowerAmplitude",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "HuygensPsfUsesZemaxImageSurfaceTangentPlaneGrid",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "HuygensMtfUsesZemaxImageSurfaceTangentPlaneGrid",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "WavefrontAnalysisUsesFrozenOpdMapContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "ReferenceSphereWavefrontAnalysisUsesFrozenOpdMapContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "ZernikeAnalysisPreservesFrozenHeatmapShapeContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "PsfAnalysisUsesFftHeatmapContractWithPowerAmplitude",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "MtfAnalysisRetainsFrozenReferenceModulationWithPowerAmplitude",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "MmdftPsfAnalysisUsesHeatmapContractWithPowerAmplitude",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "HuygensPsfAnalysisUsesZemaxHeatmapContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "HuygensMtfAnalysisUsesZemaxSeriesContract",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "type": "FrozenAnalysisRegressionTests",
+      "method": "JonesPupilMatchesFrozenReferencePointForPoint",
+      "reason": "Optiland 0.5.8 Cooke/Tessar frozen comparison is historical, outside current Zemax 95-lens numerical acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ExplicitDistortionOperandTests.cs",
+      "type": "ExplicitDistortionOperandTests",
+      "method": "Captured123456SurfaceW311AndTotalTransverseDistortionMatchAt440Nm",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/IncidenceCardinalOperandTests.cs",
+      "type": "IncidenceCardinalOperandTests",
+      "method": "CardinalDataMatchesExistingZemax123456CapturedSettings",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SeidelCoefficientsAnalysisTests.cs",
+      "type": "SeidelCoefficientsAnalysisTests",
+      "method": "Captured123456ReportMatchesAllFourCoefficientTablesAtCapturedWavelengthTwo",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SeidelCoefficientsAnalysisTests.cs",
+      "type": "SeidelCoefficientsAnalysisTests",
+      "method": "ConversionFormulasMatchCaptured123456TablesWithinPrintedInputPrecision",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SeidelOperandTests.cs",
+      "type": "SeidelOperandTests",
+      "method": "Captured123456WaveTableMatchesEverySurfaceAndTotalAt440Nm",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/SharedCalculationConvergenceTests.cs",
+      "type": "SharedCalculationConvergenceTests",
+      "method": "Captured123456SagTableMatchesTheActualApplicationManufacturingPath",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxHuygensMtfVsFieldParityTests.cs",
+      "type": "ZemaxHuygensMtfVsFieldParityTests",
+      "method": "SixFrequencyRelativeFieldScanMatchesZemax123456",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxHuygensThroughFocusMtfParityTests.cs",
+      "type": "ZemaxHuygensThroughFocusMtfParityTests",
+      "method": "AxisFieldMatchesZemax123456AtTheFiveConfiguredFocusPlanes",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxRelativeIlluminationParityTests.cs",
+      "type": "ZemaxRelativeIlluminationParityTests",
+      "method": "ChiefRayTangentPupilProjectionMatchesZemax123456",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxRmsWavefrontVsFieldParityTests.cs",
+      "type": "ZemaxRmsWavefrontVsFieldParityTests",
+      "method": "ChiefRayGaussianQuadratureFieldScanMatchesZemax123456",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxYYbarParityTests.cs",
+      "type": "ZemaxYYbarParityTests",
+      "method": "ImageHeightNormalizedChiefRayMatchesZemax123456",
+      "reason": "Dedicated numerical comparison uses retired 123456 lens, outside current 95-lens acceptance."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/FNumberPerturbationEnergyTests.cs",
+      "type": "FNumberPerturbationEnergyTests",
+      "method": "AdjacentConeMomentsUseOneFourierGridAtCapturedSettings",
+      "reason": "Archived source differs from the explicit 123456 source only in the FNUM line (2.7000000000000002 to 2.699999999999987)."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/MultiLensEncircledEnergyTests.cs",
+      "type": "MultiLensEncircledEnergyTests",
+      "method": "RetiredLensCapturedCurves",
+      "reason": "multi-lens-dee-zemax-2026-r1.zip: split by exact archived source SHA-256; all selected data rows retained in disjoint current and retired providers."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ExpandedSamplingEnergyTests.cs",
+      "type": "ExpandedSamplingEnergyTests",
+      "method": "RetiredLensCapturedCurves",
+      "reason": "fft-cumulative-expanded-zemax-2026-r1.zip: split by exact archived source SHA-256; all selected data rows retained in disjoint current and retired providers."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/PolychromaticCumulativeEnergyTests.cs",
+      "type": "PolychromaticCumulativeEnergyTests",
+      "method": "RetiredLensCapturedCurves",
+      "reason": "fft-cumulative-polychromatic-zemax-2026-r1.zip: split by exact archived source SHA-256; all selected data rows retained in disjoint current and retired providers."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/HighSamplingPolychromaticEnergyTests.cs",
+      "type": "HighSamplingPolychromaticEnergyTests",
+      "method": "RetiredLensCapturedCurves",
+      "reason": "fft-cumulative-polychromatic128-zemax-2026-r1.zip: split by exact archived source SHA-256; all selected data rows retained in disjoint current and retired providers."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/BestFitSphereOperandTests.cs",
+      "type": "BestFitSphereOperandTests",
+      "method": "CommittedSphericalSagTableProvidesAFileSpecificReference",
+      "reason": "Dedicated 123456 numerical comparison; source and captured reference explicitly identified in the method."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/DirectionalSagOperandTests.cs",
+      "type": "DirectionalSagOperandTests",
+      "method": "CapturedSagTableValidatesOnlyItsZeroTiltSphericalCase",
+      "reason": "Dedicated 123456 numerical comparison; source and captured reference explicitly identified in the method."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/IncidentAngleVsImageHeightParityTests.cs",
+      "type": "IncidentAngleVsImageHeightParityTests",
+      "method": "AimedPupilRaysMatchTheZemaxReferenceValues",
+      "reason": "Dedicated 123456 numerical comparison; source and captured reference explicitly identified in the method."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/PsfEnergyWindowNativeTests.cs",
+      "type": "PsfEnergyWindowNativeTests",
+      "method": "CompleteComplexResponseIntensityMatchesNativeTestPsfAtItsDeclaredAxisOrigin",
+      "reason": "Dedicated 123456 numerical comparison; source and captured reference explicitly identified in the method."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/ZemaxEncircledEnergyParityTests.cs",
+      "type": "ZemaxEncircledEnergyParityTests",
+      "method": "GeometricEncircledEnergyUsesNormalizedPolychromaticCentroidCurves",
+      "reason": "Dedicated 123456 numerical comparison; source and captured reference explicitly identified in the method."
+    },
+    {
+      "file": "tests/OpticalSystemDesign.Tests/IlluminationInverseNativeTests.cs",
+      "type": "IlluminationInverseNativeTests",
+      "method": "RetiredLensOperandsAgreeAtSharedRayTracePrecision",
+      "reason": "Only the two explicit 123456 InlineData rows moved from the four-lens operand theory; three current lenses keep their original thresholds."
+    }
+  ]
+}

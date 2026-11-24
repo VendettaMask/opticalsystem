@@ -303,7 +303,8 @@ internal static partial class WorkbenchMapper
                 HideSurface: surface.HideSurface,
                 LocalFrame: surface.LocalFrame is not { } frame ? null : new SceneLocalFrame2Dto(
                     new(frame.Origin.Z, frame.Origin.Y), new(frame.XAxisEnd.Z, frame.XAxisEnd.Y),
-                    new(frame.YAxisEnd.Z, frame.YAxisEnd.Y), new(frame.ZAxisEnd.Z, frame.ZAxisEnd.Y), frame.DrawAxes, frame.DrawOrigin))).ToArray(),
+                    new(frame.YAxisEnd.Z, frame.YAxisEnd.Y), new(frame.ZAxisEnd.Z, frame.ZAxisEnd.Y), frame.DrawAxes, frame.DrawOrigin),
+                Contours: surface.Contours?.Select(contour => (IReadOnlyList<ScenePoint2Dto>)contour.Select(Point).ToArray()).ToArray())).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement2Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,
@@ -330,7 +331,7 @@ internal static partial class WorkbenchMapper
                     ToSceneRaySegmentType(segment.SegmentType),
                     ToSceneRayInteractionType(segment.InteractionType),
                     segment.SourceSurfaceNumber,
-                    segment.TargetSurfaceNumber)).ToArray())).ToArray(),
+                    segment.TargetSurfaceNumber, segment.SourceFaceIndex, segment.TargetFaceIndex)).ToArray())).ToArray(),
             scene.ZMin,
             scene.ZMax,
             scene.YExtent);
@@ -356,7 +357,7 @@ internal static partial class WorkbenchMapper
                  SurfaceColor: surface.SurfaceColor, Opacity: surface.Opacity, HideEdges: surface.HideEdges,
                  HideSurface: surface.HideSurface,
                  LocalFrame: surface.LocalFrame is not { } frame ? null : new SceneLocalFrame3Dto(
-                     Point(frame.Origin), Point(frame.XAxisEnd), Point(frame.YAxisEnd), Point(frame.ZAxisEnd), frame.DrawAxes, frame.DrawOrigin))).ToArray(),
+                     Point(frame.Origin), Point(frame.XAxisEnd), Point(frame.YAxisEnd), Point(frame.ZAxisEnd), frame.DrawAxes, frame.DrawOrigin), IsPolygonGroup: surface.IsPolygonGroup)).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement3Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,
@@ -388,7 +389,7 @@ internal static partial class WorkbenchMapper
                     ToSceneRaySegmentType(segment.SegmentType),
                     ToSceneRayInteractionType(segment.InteractionType),
                     segment.SourceSurfaceNumber,
-                    segment.TargetSurfaceNumber)).ToArray())).ToArray(),
+                    segment.TargetSurfaceNumber, segment.SourceFaceIndex, segment.TargetFaceIndex)).ToArray())).ToArray(),
             scene.XExtent,
             scene.YExtent,
             scene.ZMin,

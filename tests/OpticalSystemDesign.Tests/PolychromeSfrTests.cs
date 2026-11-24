@@ -1,11 +1,11 @@
-using OpticalSystemDesign.Validation;
 using System.Numerics;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

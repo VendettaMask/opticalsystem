@@ -59,7 +59,7 @@ public static class SurfacePhaseMetrics
             PhaseInteractionModel interaction => interaction.Profile,
             DiffractivePhaseInteractionModel interaction => interaction.Profile,
             RuledGratingInteractionModel grating => new PolynomialPhaseProfile(new Dictionary<(int, int), double>
-                { [(0, 1)] = 2 * Math.PI * 1000 * grating.Order * grating.LinesPerMicrometer }),
+            { [(0, 1)] = 2 * Math.PI * 1000 * grating.Order * grating.LinesPerMicrometer }),
             _ => throw new NotSupportedException("此面不是相位面，不能计算相位操作数。")
         };
     }

@@ -81,12 +81,14 @@ public sealed class DiffractionEnergyRecoveryTests
     }
 
     [Theory]
-    [InlineData("Fixed")] [InlineData("ValidateRequested")] [InlineData("Automatic")]
+    [InlineData("Fixed")]
+    [InlineData("ValidateRequested")]
+    [InlineData("Automatic")]
     public void ExplicitFixedOrInsufficientBudgetCannotPublishUnresolvedCurves(string mode)
     {
         var runtime = new WorkbenchRuntime(Source.Value.Clone());
         var settings = runtime.MergeAnalysisSettings("Diffraction Encircled Energy", new Dictionary<string, string>
-            { ["FourierSamplingMode"] = mode, ["FourierMaximumSampling"] = "64" });
+        { ["FourierSamplingMode"] = mode, ["FourierMaximumSampling"] = "64" });
         var data = runtime.BuildAnalysisData("Diffraction Encircled Energy", settings);
         Assert.Equal(AnalysisOutcome.Unavailable, data.Outcome); Assert.Empty(data.PlotSeries);
         if (mode == "ValidateRequested") Assert.False(Assert.IsType<FourierValidationReport>(data.Values["FourierSamplingValidation"]).Validated);
@@ -110,7 +112,7 @@ public sealed class DiffractionEnergyRecoveryTests
     {
         var runtime = new WorkbenchRuntime(Source.Value.Clone());
         var view = runtime.BuildAnalysisView("Diffraction Encircled Energy", new Dictionary<string, string>
-            { ["PupilSampling"] = "256", ["FourierSamplingMode"] = "Fixed", ["MaximumDistanceMicrometers"] = "20" });
+        { ["PupilSampling"] = "256", ["FourierSamplingMode"] = "Fixed", ["MaximumDistanceMicrometers"] = "20" });
         var summary = Assert.IsType<OpticalSystemDesign.Application.Contracts.DiffractionEnergySummaryDto>(view.DiffractionEnergySummary);
         Assert.Equal(256, summary.ActualPupilSampling); Assert.Equal(256, summary.RequestedPupilSampling);
         Assert.Equal(3, summary.FieldCount); Assert.Equal(3, summary.WavelengthCount); Assert.Equal(20, summary.MaximumDistance);
@@ -128,5 +130,5 @@ public sealed class DiffractionEnergyRecoveryTests
     }
 
     private static string Snapshot(Optic optic) => JsonSerializer.Serialize(optic.ToSnapshot(), new JsonSerializerOptions
-        { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals });
+    { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals });
 }

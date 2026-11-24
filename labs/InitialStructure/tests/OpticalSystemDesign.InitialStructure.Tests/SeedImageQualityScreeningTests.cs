@@ -14,8 +14,11 @@ public sealed class SeedImageQualityScreeningTests
     public async Task SparseScreenCompletesWideFieldsWithinTheOriginalTotalPreparationQuota()
     {
         var (plan, previous) = await DelanoMaterializationTests.Wide();
-        var options = previous with { Generation = previous.Generation! with { MaterializationVersion = 2 },
-            ImageScreening = new() { BoundaryCheckArms = 8, PupilRings = 1, PupilArms = 4 } };
+        var options = previous with
+        {
+            Generation = previous.Generation! with { MaterializationVersion = 2 },
+            ImageScreening = new() { BoundaryCheckArms = 8, PupilRings = 1, PupilArms = 4 }
+        };
         var result = ParaxialSeedSearch.Run(plan, options);
         if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_IMAGE_SCREEN_EVIDENCE") is { } directory)
             await ParaxialSeedSearchFiles.SaveAsync(result, Path.Combine(directory, "development-preparation.seed-search.json"));
@@ -58,11 +61,17 @@ public sealed class SeedImageQualityScreeningTests
     {
         var plan = ParaxialSeedSearchTests.Plan();
         var first = plan.Seeds[0]; var element = first.Elements[0];
-        var second = first with { Elements = first.Elements.SetItem(0, element with
+        var second = first with
         {
-            Front = element.Front with { Profile = element.Front.Profile with
-                { CurvaturePerMillimeter = element.Front.Profile.CurvaturePerMillimeter * .85 } }
-        }) };
+            Elements = first.Elements.SetItem(0, element with
+            {
+                Front = element.Front with
+                {
+                    Profile = element.Front.Profile with
+                    { CurvaturePerMillimeter = element.Front.Profile.CurvaturePerMillimeter * .85 }
+                }
+            })
+        };
         var options = new SeedImageScreeningOptions { MaximumTracedRaysPerCandidate = 100000 };
         var assessed = new[] { first, second }.Select(seed => (Topology: seed,
             Result: SeedImageQualityScreening.Evaluate(TopologyCompiler.Compile(seed, plan.Constraints), plan.Targets, options, default))).ToArray();
@@ -93,8 +102,11 @@ public sealed class SeedImageQualityScreeningTests
         Assert.Equal(actual.Max(field => field.MaximumRadius), result.WorstMaximumMillimeters);
         Assert.All(actual, field => Assert.Equal(3, field.Integration.Wavelengths.Count));
         var element = topology.Elements[0];
-        var clipped = topology with { Elements = topology.Elements.SetItem(0, element with
-            { Front = element.Front with { ClearSemiDiameterMillimeters = .1 } }) };
+        var clipped = topology with
+        {
+            Elements = topology.Elements.SetItem(0, element with
+            { Front = element.Front with { ClearSemiDiameterMillimeters = .1 } })
+        };
         var rejected = SeedImageQualityScreening.Evaluate(TopologyCompiler.Compile(clipped, plan.Constraints), plan.Targets, options, default);
         Assert.NotEqual("Screened", rejected.Outcome); Assert.Null(rejected.QualityScore);
     }
@@ -148,9 +160,15 @@ public sealed class SeedImageQualityScreeningTests
     public void WholePreparationChargesScreeningInsideItsOriginalBudgetAndKeepsLegacyIdentity()
     {
         var plan = ParaxialSeedSearchTests.Plan(); var originalFingerprint = ContentFingerprint.Compute(plan);
-        var options = new ParaxialSeedSearchOptions { MaximumStarts = 3, RetainedSeeds = 2,
-            MaximumFunctionEvaluations = 120, MaximumTracedRays = 100000, TimeLimit = TimeSpan.FromSeconds(30),
-            ImageScreening = new() { MaximumTracedRaysPerCandidate = 20000 } };
+        var options = new ParaxialSeedSearchOptions
+        {
+            MaximumStarts = 3,
+            RetainedSeeds = 2,
+            MaximumFunctionEvaluations = 120,
+            MaximumTracedRays = 100000,
+            TimeLimit = TimeSpan.FromSeconds(30),
+            ImageScreening = new() { MaximumTracedRaysPerCandidate = 20000 }
+        };
         using var measured = SequentialTraceMeasurement.Begin();
         var result = ParaxialSeedSearch.Run(plan, options);
         Assert.NotEmpty(result.ImageScreens!.Value);

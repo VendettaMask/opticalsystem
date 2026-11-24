@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
@@ -14,6 +13,7 @@ using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

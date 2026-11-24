@@ -42,8 +42,14 @@ public static partial class XyzRadiometricCalibrator
             }
             var training = Metrics(false); var validation = Metrics(true);
             if (new[] { training.Rms, validation.Rms, validation.Max, validation.Relative }.Any(v => !double.IsFinite(v))) throw new InvalidDataException("XYZ 正值拟合误差溢出。");
-            stats.Add(reference with { TrainingNormalizedRms = training.Rms, ValidationNormalizedRms = validation.Rms, ValidationMaximumAbsoluteError = validation.Max,
-                ValidationMaximumRelativeError = validation.Relative, Passed = reference.Rank == 3 && validation.Rms <= policy.MaximumValidationNormalizedRms && validation.Max <= policy.MaximumValidationAbsoluteError });
+            stats.Add(reference with
+            {
+                TrainingNormalizedRms = training.Rms,
+                ValidationNormalizedRms = validation.Rms,
+                ValidationMaximumAbsoluteError = validation.Max,
+                ValidationMaximumRelativeError = validation.Relative,
+                Passed = reference.Rank == 3 && validation.Rms <= policy.MaximumValidationNormalizedRms && validation.Max <= policy.MaximumValidationAbsoluteError
+            });
         }
         // For this explicitly marked model Bands carry wavelength axes; its nonnegative
         // ratios, not the unused zero linear coefficients, define the transfer function.

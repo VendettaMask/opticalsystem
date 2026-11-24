@@ -10,8 +10,8 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using InitialWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 using CoatingWindow = OpticalSystemDesign.App.Laboratories.CoatingDesign.MainWindow;
+using InitialWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 
 namespace OpticalSystemDesign.Tests;
 

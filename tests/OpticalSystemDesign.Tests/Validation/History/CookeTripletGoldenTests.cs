@@ -119,6 +119,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void PhysicalAperturesMatchFrozenReference()
     {
         using var reference = LoadApertureReference();
@@ -145,6 +146,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ApodizationMatchesFrozenReference()
     {
         using var reference = LoadApodizationReference();
@@ -169,6 +171,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void NativeSnapshotRoundTripsApodizationReference()
     {
         using var reference = LoadApodizationReference();
@@ -238,6 +241,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void PhaseProfilesMatchFrozenReference()
     {
         using var reference = LoadPhaseReference();
@@ -254,6 +258,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FrozenPhaseInteractionsMatchReferenceRayForRay()
     {
         using var reference = LoadPhaseReference();
@@ -291,6 +296,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void NativeSnapshotRoundTripsPhaseProfiles()
     {
         using var reference = LoadPhaseReference();
@@ -332,6 +338,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FrozenThinLensInteractionsMatchReferenceRayForRay()
     {
         using var reference = LoadThinLensReference();
@@ -411,6 +418,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ThinLensSlopeStateNormalizesBeforeSurfacePropagation()
     {
         using var reference = LoadThinLensReference();
@@ -470,6 +478,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FrozenDiffractiveInteractionsMatchReferenceRayForRay()
     {
         using var reference = LoadDiffractiveReference();
@@ -534,6 +543,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void NativeSnapshotRoundTripsDiffractiveGratingComponents()
     {
         using var reference = LoadDiffractiveReference();

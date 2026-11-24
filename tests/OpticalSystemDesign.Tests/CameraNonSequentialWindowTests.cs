@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using Avalonia.LogicalTree;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
@@ -17,7 +17,9 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraNonSequentialWindowTests
 {
     [Theory]
-    [InlineData("Light", "zh-CN")] [InlineData("Dark", "en-US")] [InlineData("Light", "ja-JP")]
+    [InlineData("Light", "zh-CN")]
+    [InlineData("Dark", "en-US")]
+    [InlineData("Light", "ja-JP")]
     public async Task DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(string theme, string language)
     {
         using var host = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

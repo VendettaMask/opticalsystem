@@ -1,7 +1,7 @@
+using System.Numerics;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
-using System.Numerics;
 
 namespace OpticalSystemDesign.Tests;
 

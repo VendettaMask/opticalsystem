@@ -42,7 +42,7 @@ public sealed class NonSequentialExecutionWindowTests
             app.NonSequential.AddObject(Dto.NonSequentialObjectKind.SourcePoint);
             var database = new NonSequentialRayDatabaseWindow(app.NonSequentialAnalysis, path);
             var trace = new NonSequentialTraceControlWindow(app.NonSequential, app.NonSequentialAnalysis)
-                { Width = 600, Height = 540 };
+            { Width = 600, Height = 540 };
             try
             {
                 database.Show();

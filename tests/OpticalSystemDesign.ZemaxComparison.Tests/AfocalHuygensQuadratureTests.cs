@@ -3,10 +3,10 @@ using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
-using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
 using Xunit.Abstractions;
 
@@ -94,8 +94,15 @@ public sealed class AfocalHuygensQuadratureTests(ITestOutputHelper output)
     public void ApplicationSelectionUsesSharedCoreAndNamesTheChosenProtocol(string name)
     {
         var optic = Disk(); var runtime = new WorkbenchRuntime(optic);
-        var settings = new Dictionary<string, string> { ["PupilSampling"] = "32", ["ImageSampling"] = "32",
-            ["ImageDeltaMilliradians"] = ".02", ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["ProfileType"] = "Both" };
+        var settings = new Dictionary<string, string>
+        {
+            ["PupilSampling"] = "32",
+            ["ImageSampling"] = "32",
+            ["ImageDeltaMilliradians"] = ".02",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1",
+            ["ProfileType"] = "Both"
+        };
         var legacy = runtime.BuildAnalysisData(name, settings);
         Assert.Equal("NativeFiniteCell", legacy.Values["AfocalIntegration"]);
         settings["AfocalIntegration"] = "高阶圆瞳积分";

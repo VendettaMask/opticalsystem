@@ -79,8 +79,11 @@ public static partial class IlluminationMetrics
         RequireRelativeIllumination(optic);
         var working = AnalysisTrace.PrepareVignettingFactors(optic, true);
         IReadOnlyList<IlluminationMetricResult> results;
-        try { results = EvaluateFields(working, [(0, 0), normalizedField], wavelengthMicrometers,
-            rayDensity, usePolarization, sampling, includeScalarTransmission); }
+        try
+        {
+            results = EvaluateFields(working, [(0, 0), normalizedField], wavelengthMicrometers,
+            rayDensity, usePolarization, sampling, includeScalarTransmission);
+        }
         catch (AnalysisDataUnavailableException error) when (error.Data[NonInjectiveMappingKey] is true
             && (normalizedField == (0d, 0d) || FieldCoordinates.MaximumRadius(working.Fields) == 0))
         {

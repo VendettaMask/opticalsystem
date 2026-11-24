@@ -86,23 +86,23 @@ public sealed record FftPupilSampling(FftPhaseSamplingStatus Status, int Connect
         // Two one-row buffers avoid another dense allocation for raster grids.
         var previousPhase = new double[grid.SampleCount];
         var previousRow = Enumerable.Repeat(-2, grid.SampleCount).ToArray();
-        var lastRow=-1;var lastColumn=-1;var leftColumn=-2;var leftPhase=0d;
-        var edges=0;var maximum=0d;
-        foreach(var sample in wavefront.Samples)
+        var lastRow = -1; var lastColumn = -1; var leftColumn = -2; var leftPhase = 0d;
+        var edges = 0; var maximum = 0d;
+        foreach (var sample in wavefront.Samples)
         {
-            var row=grid.RowIndex(sample.NormalizedPupilY);var column=grid.ColumnIndex(sample.NormalizedPupilX);
-            if(row<lastRow || row==lastRow && column<=lastColumn)
-                return new(FftPhaseSamplingStatus.UnverifiedNodeOrder,edges,maximum);
-            if(row!=lastRow)leftColumn=-2;
-            lastRow=row;lastColumn=column;
-            if(sample.Intensity<=0 || pupil[row,column]==Complex.Zero){leftColumn=-2;continue;}
-            var phase=phaseWaves(sample);
-            if(!double.IsFinite(phase))return new(FftPhaseSamplingStatus.UndersampledPhase,edges,double.PositiveInfinity);
-            if(leftColumn==column-1){maximum=Math.Max(maximum,Math.Abs(phase-leftPhase));edges++;}
-            if(previousRow[column]==row-1){maximum=Math.Max(maximum,Math.Abs(phase-previousPhase[column]));edges++;}
-            leftColumn=column;leftPhase=phase;previousRow[column]=row;previousPhase[column]=phase;
+            var row = grid.RowIndex(sample.NormalizedPupilY); var column = grid.ColumnIndex(sample.NormalizedPupilX);
+            if (row < lastRow || row == lastRow && column <= lastColumn)
+                return new(FftPhaseSamplingStatus.UnverifiedNodeOrder, edges, maximum);
+            if (row != lastRow) leftColumn = -2;
+            lastRow = row; lastColumn = column;
+            if (sample.Intensity <= 0 || pupil[row, column] == Complex.Zero) { leftColumn = -2; continue; }
+            var phase = phaseWaves(sample);
+            if (!double.IsFinite(phase)) return new(FftPhaseSamplingStatus.UndersampledPhase, edges, double.PositiveInfinity);
+            if (leftColumn == column - 1) { maximum = Math.Max(maximum, Math.Abs(phase - leftPhase)); edges++; }
+            if (previousRow[column] == row - 1) { maximum = Math.Max(maximum, Math.Abs(phase - previousPhase[column])); edges++; }
+            leftColumn = column; leftPhase = phase; previousRow[column] = row; previousPhase[column] = phase;
         }
-        return new(edges==0?FftPhaseSamplingStatus.NoConnectedSamples
-            :maximum>MaximumAdjacentStepWaves*(1+1e-12)?FftPhaseSamplingStatus.UndersampledPhase:FftPhaseSamplingStatus.ResolvedAtNodes,edges,maximum);
+        return new(edges == 0 ? FftPhaseSamplingStatus.NoConnectedSamples
+            : maximum > MaximumAdjacentStepWaves * (1 + 1e-12) ? FftPhaseSamplingStatus.UndersampledPhase : FftPhaseSamplingStatus.ResolvedAtNodes, edges, maximum);
     }
 }

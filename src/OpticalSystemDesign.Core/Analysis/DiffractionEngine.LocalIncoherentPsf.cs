@@ -73,8 +73,11 @@ public static partial class DiffractionEngine
         }
         return new(intensity, n, imageSize, psf.WorkingFNumber, spacingMicrometers,
             psf.TangentialWorkingFNumber, psf.SagittalWorkingFNumber)
-        { CroppedImageCenterIndex = imageSize / 2, UseRayAiming = psf.UseRayAiming,
-            StopAimingFallbackUsed = psf.StopAimingFallbackUsed };
+        {
+            CroppedImageCenterIndex = imageSize / 2,
+            UseRayAiming = psf.UseRayAiming,
+            StopAimingFallbackUsed = psf.StopAimingFallbackUsed
+        };
     }
 
     private static double LocalCellFootprint(double x) => Math.Abs(x) < 1e-12 ? 1 : Math.Sin(Math.PI * x) / (Math.PI * x);

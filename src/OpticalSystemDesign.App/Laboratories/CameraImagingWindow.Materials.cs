@@ -28,8 +28,11 @@ public sealed partial class CameraImagingWindow
         import.Click += async (_, _) =>
         {
             var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-            { Title = "导入标签 PNG / 材质场景 JSON", AllowMultiple = false,
-                FileTypeFilter = new[] { new FilePickerFileType("材质标签与场景") { Patterns = new[] { "*.png", "*.json" } } } });
+            {
+                Title = "导入标签 PNG / 材质场景 JSON",
+                AllowMultiple = false,
+                FileTypeFilter = new[] { new FilePickerFileType("材质标签与场景") { Patterns = new[] { "*.png", "*.json" } } }
+            });
             if (!_closed && files.Count > 0) await ImportMaterialSceneFromPathAsync(files[0].Path.LocalPath);
         };
         example.Click += async (_, _) => await ImportMaterialSceneFromPathAsync(Path.Combine(AppContext.BaseDirectory, "Examples", "CameraImaging", "three-materials.camera-scene.json"));
@@ -143,8 +146,12 @@ public sealed partial class CameraImagingWindow
         _reflectancePlot.Series = series; var enabled = Enumerable.Repeat(true, series.Length).ToArray();
         for (var i = 0; i < series.Length; i++)
         {
-            var index = i; var check = new CheckBox { Name = "camera-material-visible-" + materials[i].Id,
-                Content = new TextBlock { Text = series[i].Name, TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 220 }, IsChecked = true };
+            var index = i; var check = new CheckBox
+            {
+                Name = "camera-material-visible-" + materials[i].Id,
+                Content = new TextBlock { Text = series[i].Name, TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 220 },
+                IsChecked = true
+            };
             check.IsCheckedChanged += (_, _) => { enabled[index] = check.IsChecked == true; _reflectancePlot.SetVisibleSeries(series.Where((_, j) => enabled[j]).ToArray()); };
             _reflectanceLegend.Children.Add(check);
         }

@@ -52,7 +52,9 @@ public sealed class SpeosV11XyzTests
     internal static void Record(string name, object value)
     { var dir = Environment.GetEnvironmentVariable("OPTICAL_SPEOS_V11_XYZ_EVIDENCE_DIR"); if (string.IsNullOrWhiteSpace(dir)) return; Directory.CreateDirectory(dir); File.WriteAllText(Path.Combine(dir, name + ".json"), JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true })); }
 
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public void V11TextBothQuantitiesAndTerminalMarkerAreExplicit(bool projected)
     {
         var text = SpeosText(both: true); if (!projected) text = text.Replace("1 1\n0\n", "1 1\n1\n");
@@ -60,7 +62,9 @@ public sealed class SpeosV11XyzTests
         var e = new MeasuredBsdf(data).Integrate(Context(0)); Assert.Equal(.15, e.Reflection, 12); Assert.Equal(.25, e.Transmission, 12);
         Assert.Equal(projected ? BsdfStoredQuantity.ProjectedBsdf : BsdfStoredQuantity.Bsdf, data.StoredQuantity);
     }
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public void RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(bool transmission)
     {
         var plain = Read(SpeosText(transmission)); var data = Read(SpeosText(transmission), new(14, .01)); var model = new MeasuredBsdf(data); var c = Context();
@@ -82,9 +86,13 @@ public sealed class SpeosV11XyzTests
         Assert.Equal(isolatedPeak.Evaluate(Context(wave: 400), Direction(45)), isolatedPeak.Evaluate(Context(wave: 700), Direction(45)), 12);
         Assert.Equal(background.Integrate(Context(wave: 400)).Total * 2, background.Integrate(Context(wave: 700)).Total, 12);
         var plain = new MeasuredBsdf(Read(SpeosText(), new(14, .01)));
-        var model = new MeasuredBsdf(data); foreach (var w in new[] { 400d, 550, 700 }) { var c = Context(0, wave: w); Assert.InRange(model.Integrate(c).Total, 0, 1); Assert.Equal(Math.Max(plain.Integrate(c).Total, isolatedPeak.Integrate(c).Total), model.Integrate(c).Total, 12); }        Record("white-specular", new { peak.WhiteReferenceNanometers, data.DataSha256, Low = model.Integrate(Context(wave: 400)), Middle = model.Integrate(Context()), High = model.Integrate(Context(wave: 700)) });
+        var model = new MeasuredBsdf(data); foreach (var w in new[] { 400d, 550, 700 }) { var c = Context(0, wave: w); Assert.InRange(model.Integrate(c).Total, 0, 1); Assert.Equal(Math.Max(plain.Integrate(c).Total, isolatedPeak.Integrate(c).Total), model.Integrate(c).Total, 12); }
+        Record("white-specular", new { peak.WhiteReferenceNanometers, data.DataSha256, Low = model.Integrate(Context(wave: 400)), Middle = model.Integrate(Context()), High = model.Integrate(Context(wave: 700)) });
     }
-    [Theory] [InlineData(false)] [InlineData(true)] [InlineData(false, true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    [InlineData(false, true)]
     public void XyzUsesIndependentTisAndCalibratedSpectralMixture(bool transmission, bool fixedAxes = false)
     {
         var data = Read(XyzText(transmission, fixedAxes), xyz: true); var model = new MeasuredBsdf(data); Assert.NotNull(data.ZemaxXyz); Assert.Equal("MeasuredBsdfGrid/4", data.ComputationProtocol);

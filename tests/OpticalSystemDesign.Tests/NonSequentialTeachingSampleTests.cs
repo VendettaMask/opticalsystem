@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

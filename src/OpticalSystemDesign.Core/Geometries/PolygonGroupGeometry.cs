@@ -51,7 +51,7 @@ public sealed class PolygonGroupGeometry : IGeometry
     public IGeometry Clone() => new PolygonGroupGeometry(Faces, VolumeMaterial);
 
     internal SurfaceRayTraceStateResult Trace(OpticalSurface port, RayState input,
-        IMaterial ambient, double cumulativePath, double cumulativeOpd, bool ignoreAbsorption)
+        IMaterial ambient, double cumulativePath, double cumulativeOpd, bool ignoreAbsorption, bool recordInteractions = false)
     {
         if (input.PolarizationMatrix is not null)
             throw new NotSupportedException("Polygon-group coherent polarization transport is not implemented.");
@@ -62,6 +62,7 @@ public sealed class PolygonGroupGeometry : IGeometry
         var opd = cumulativeOpd;
         var inside = false;
         var observer = DiagnosticObserver;
+        var interactions = recordInteractions ? new List<CompoundRayInteraction>() : null;
         static double[] Coordinates(Vector3D v) => [v.X, v.Y, v.Z];
         for (var interaction = 0; interaction < 128; interaction++)
         {
@@ -75,11 +76,15 @@ public sealed class PolygonGroupGeometry : IGeometry
             foreach (var face in Faces)
             {
                 var hit = new PolygonFaceGeometry(face.Vertices).DistanceToIntersection(ray.Origin, ray.Direction);
-                candidates?.Add(new { faceId, status = hit.Status.ToString(),
+                candidates?.Add(new
+                {
+                    faceId,
+                    status = hit.Status.ToString(),
                     distance = hit.IsHit ? (double?)hit.Distance : null,
                     point = hit.IsHit ? Coordinates(hit.Point) : null,
                     normal = hit.IsHit ? Coordinates(hit.Normal) : null,
-                    eligible = hit.IsHit && hit.Distance > 1e-8 });
+                    eligible = hit.IsHit && hit.Distance > 1e-8
+                });
                 faceId++;
                 // Resolve only roundoff-close distances on a shared, nearly
                 // coplanar diagonal by record order. Retain the chosen plane's
@@ -95,9 +100,17 @@ public sealed class PolygonGroupGeometry : IGeometry
             }
             if (!inside && portHit.IsHit && portHit.Distance >= 0 && portHit.Distance < nearest)
             {
-                observer?.Invoke(new { kind = "port", interaction, inside, candidates,
-                    origin = Coordinates(ray.Origin), direction = Coordinates(ray.Direction),
-                    distance = portHit.Distance, point = Coordinates(portHit.Point) });
+                observer?.Invoke(new
+                {
+                    kind = "port",
+                    interaction,
+                    inside,
+                    candidates,
+                    origin = Coordinates(ray.Origin),
+                    direction = Coordinates(ray.Direction),
+                    distance = portHit.Distance,
+                    point = Coordinates(portHit.Point)
+                });
                 var exit = new OpticalSurface { Geometry = new PlaneGeometry(), CoordinateSystem = CoordinateSystem.Global };
                 var end = exit.TraceRayState(ray, currentMaterial, ambient, path, opd, ignorePhysicalAperture: true,
                     ignoreMaterialAbsorption: ignoreAbsorption);
@@ -112,12 +125,19 @@ public sealed class PolygonGroupGeometry : IGeometry
                     SegmentLength = end.CumulativePathLength - cumulativePath,
                     SegmentOpticalPathLength = end.CumulativeOpticalPathLength - cumulativeOpd
                 };
-                return end with { Ray = globalRay, Sample = sample };
+                return end with { Ray = globalRay, Sample = sample with { CompoundInteractions = interactions?.AsReadOnly() } };
             }
             if (selected is null)
             {
-                observer?.Invoke(new { kind = "miss", interaction, inside, candidates,
-                    origin = Coordinates(ray.Origin), direction = Coordinates(ray.Direction) });
+                observer?.Invoke(new
+                {
+                    kind = "miss",
+                    interaction,
+                    inside,
+                    candidates,
+                    origin = Coordinates(ray.Origin),
+                    direction = Coordinates(ray.Direction)
+                });
                 break;
             }
             var surface = new OpticalSurface
@@ -126,19 +146,38 @@ public sealed class PolygonGroupGeometry : IGeometry
                 CoordinateSystem = CoordinateSystem.Global,
                 IsReflective = selected.Reflective
             };
-            if (selected.Absorbing) break;
+            if (selected.Absorbing)
+            {
+                interactions?.Add(new(Faces.ToList().IndexOf(selected), frame.ToGlobalPoint(ray.Origin + ray.Direction * nearest),
+                    frame.ToGlobalDirection(ray.Direction), null));
+                break;
+            }
             var next = inside ? ambient : VolumeMaterial;
             var result = surface.TraceRayState(ray, currentMaterial, next, path, opd,
                 ignorePhysicalAperture: true, ignoreMaterialAbsorption: ignoreAbsorption);
-            observer?.Invoke(new { kind = "face", interaction, inside, candidates,
+            if (interactions is not null)
+                interactions.Add(new(Enumerable.Range(0, Faces.Count).First(i => ReferenceEquals(Faces[i], selected)),
+                    frame.ToGlobalPoint(result.Ray.Origin), frame.ToGlobalDirection(result.Ray.Direction), result.Sample.InteractionKind));
+            observer?.Invoke(new
+            {
+                kind = "face",
+                interaction,
+                inside,
+                candidates,
                 faceId = Enumerable.Range(0, Faces.Count).First(i => ReferenceEquals(Faces[i], selected)),
-                distance = nearest, origin = Coordinates(ray.Origin), direction = Coordinates(ray.Direction),
-                point = Coordinates(result.Ray.Origin), outgoing = Coordinates(result.Ray.Direction),
+                distance = nearest,
+                origin = Coordinates(ray.Origin),
+                direction = Coordinates(ray.Direction),
+                point = Coordinates(result.Ray.Origin),
+                outgoing = Coordinates(result.Ray.Direction),
                 normal = Coordinates(surface.Geometry.SurfaceNormal(result.Ray.Origin)),
                 interactionKind = result.Sample.InteractionKind.ToString(),
                 refractiveIndexBefore = currentMaterial.RefractiveIndex(ray.WavelengthNanometers),
                 refractiveIndexAfter = result.OutgoingMaterial.RefractiveIndex(ray.WavelengthNanometers),
-                result.StopTracing, result.Sample.Vignetted, result.Sample.Intensity });
+                result.StopTracing,
+                result.Sample.Vignetted,
+                result.Sample.Intensity
+            });
             if (result.StopTracing) break;
             if (result.Sample.InteractionKind == OpticalSystemDesign.Core.Interactions.RayInteractionKind.Transmitted) inside = !inside;
             ray = result.Ray;
@@ -149,7 +188,8 @@ public sealed class PolygonGroupGeometry : IGeometry
         var missed = input with { Intensity = 0 };
         return new SurfaceRayTraceStateResult(missed,
             new RayTraceSampleValue(port.Number, port.Label, input.Origin, input.Direction, 0, true,
-                CumulativePathLength: path, CumulativeOpticalPathLength: opd),
+                CumulativePathLength: path, CumulativeOpticalPathLength: opd)
+            { CompoundInteractions = interactions?.AsReadOnly() },
             ambient.RefractiveIndex(input.WavelengthNanometers), ambient, null, path, opd, true);
     }
 }

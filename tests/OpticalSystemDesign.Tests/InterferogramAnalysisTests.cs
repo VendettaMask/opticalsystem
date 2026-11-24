@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -212,6 +212,7 @@ public sealed class InterferogramAnalysisTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedZemax2026R1InterferogramMatchesItsPrintedGrid()
     {
         var optic = Lens();

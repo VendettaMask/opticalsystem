@@ -40,7 +40,8 @@ internal sealed partial class ToleranceResultsPanel : UserControl, IDisposable
         _worst = Button("tolerance-data-viewer", "定位最差试验", SelectWorst);
         var toolbar = new WrapPanel
         {
-            ItemSpacing = 6, LineSpacing = 4,
+            ItemSpacing = 6,
+            LineSpacing = 4,
             Children = { Button("tolerance-report", "公差报告", openReport), _histogram, _yieldChart, _worst }
         };
         _summary.Classes.Add("section-title");
@@ -233,7 +234,9 @@ internal sealed partial class ToleranceResultsPanel : UserControl, IDisposable
 
     private static DataGridTextColumn Column(string header, string property, int width, string? sort = null, bool fill = false) => new()
     {
-        Header = UiLocalization.Text(header), Binding = new Binding(property), SortMemberPath = sort ?? property,
+        Header = UiLocalization.Text(header),
+        Binding = new Binding(property),
+        SortMemberPath = sort ?? property,
         MinWidth = fill ? width : 0,
         Width = fill ? new DataGridLength(1, DataGridLengthUnitType.Star) : new DataGridLength(width)
     };

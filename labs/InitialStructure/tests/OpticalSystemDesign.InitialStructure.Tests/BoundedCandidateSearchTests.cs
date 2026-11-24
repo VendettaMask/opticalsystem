@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -7,6 +6,7 @@ using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -140,8 +140,14 @@ public sealed class BoundedCandidateSearchTests
     [Fact]
     public void LayerLimitStopsSameCountRefinementEvenWhenTheCandidateStaysQualified()
     {
-        var plan = SmallPlan() with { Options = SmallPlan().Options with { FixedTopologyOnly = true,
-            BoundedSearch = new() { MaximumAttemptsPerElementCount = 1, MaximumUnsuccessfulTrials = 128 } } };
+        var plan = SmallPlan() with
+        {
+            Options = SmallPlan().Options with
+            {
+                FixedTopologyOnly = true,
+                BoundedSearch = new() { MaximumAttemptsPerElementCount = 1, MaximumUnsuccessfulTrials = 128 }
+            }
+        };
         var result = AutonomousSearchService.Run(AutonomousSearchService.Create("layer-limit", plan));
         Assert.Equal(BoundedSearchStopReason.LayerLimit, result.StopReason);
         Assert.Equal(1, result.TrialCursor); Assert.NotEmpty(result.AcceptedArchive);
@@ -150,9 +156,15 @@ public sealed class BoundedCandidateSearchTests
     [Fact]
     public void StagnationStopsAfterTheConfiguredNumberOfEffectiveTrials()
     {
-        var plan = SmallPlan() with { Options = SmallPlan().Options with { FixedTopologyOnly = true,
-            Full = SmallPlan().Options.Full with { LearningRate = 1e-16 },
-            BoundedSearch = new() { MaximumAttemptsPerElementCount = 8, MaximumUnsuccessfulTrials = 1, MinimumRelativeQualityGain = .1 } } };
+        var plan = SmallPlan() with
+        {
+            Options = SmallPlan().Options with
+            {
+                FixedTopologyOnly = true,
+                Full = SmallPlan().Options.Full with { LearningRate = 1e-16 },
+                BoundedSearch = new() { MaximumAttemptsPerElementCount = 8, MaximumUnsuccessfulTrials = 1, MinimumRelativeQualityGain = .1 }
+            }
+        };
         var result = AutonomousSearchService.Run(AutonomousSearchService.Create("no-improvement", plan));
         Assert.Equal(BoundedSearchStopReason.NoImprovement, result.StopReason);
         Assert.Equal(1, result.TrialCursor); Assert.NotEmpty(result.AcceptedArchive);

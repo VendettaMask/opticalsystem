@@ -21,6 +21,9 @@ public readonly record struct RayTraceSampleValue(
     double? RefractiveIndexBefore = null,
     double? RefractiveIndexAfter = null)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyList<CompoundRayInteraction>? CompoundInteractions { get; init; }
+
     public RayTraceSample ToRayTraceSample() => new(
         SurfaceNumber,
         SurfaceLabel,
@@ -37,7 +40,8 @@ public readonly record struct RayTraceSampleValue(
         IncidentDirection,
         PhaseInclusiveOpticalPathLength,
         RefractiveIndexBefore,
-        RefractiveIndexAfter);
+        RefractiveIndexAfter)
+    { CompoundInteractions = CompoundInteractions };
 
     public static RayTraceSampleValue FromRayTraceSample(RayTraceSample sample) => new(
         sample.SurfaceNumber,
@@ -55,5 +59,6 @@ public readonly record struct RayTraceSampleValue(
         sample.IncidentDirection,
         sample.PhaseInclusiveOpticalPathLength,
         sample.RefractiveIndexBefore,
-        sample.RefractiveIndexAfter);
+        sample.RefractiveIndexAfter)
+    { CompoundInteractions = sample.CompoundInteractions };
 }

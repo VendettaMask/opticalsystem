@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -14,6 +13,7 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -120,6 +120,7 @@ public sealed class SeidelOperandTests
     [InlineData("COMA", 2)]
     [InlineData("ASTI", 3)]
     [InlineData("FCUR", 4)]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456WaveTableMatchesEverySurfaceAndTotalAt440Nm(string code, int column)
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");

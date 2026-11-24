@@ -111,9 +111,12 @@ internal sealed partial class NonSequentialDetectorAccumulator
             Snapshot(_hits),
             Snapshot(_angularPixels),
             Snapshot(_angularHits))
-        { StokesByWavelength = StokesSnapshot(), CoherentByWavelength = CoherentSnapshot(),
+        {
+            StokesByWavelength = StokesSnapshot(),
+            CoherentByWavelength = CoherentSnapshot(),
             MomentsByWavelength = _collectMoments ? new System.Collections.ObjectModel.ReadOnlyDictionary<int, NonSequentialDetectorMoments>(
-                _moments.ToDictionary(p => p.Key, p => p.Value.Snapshot())) : null };
+                _moments.ToDictionary(p => p.Key, p => p.Value.Snapshot())) : null
+        };
     }
 
     private static IReadOnlyDictionary<int, IReadOnlyList<double>> Snapshot(Dictionary<int, double[]> source) =>

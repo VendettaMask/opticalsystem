@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using Avalonia.Controls;
@@ -9,6 +8,7 @@ using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
 using OpticalSystemDesign.Tests;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 

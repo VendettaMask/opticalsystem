@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "date": "2026-11-24",
+  "feature": "Non-sequential scene settings",
+  "validation": "Functional / native offscreen",
+  "total": 67,
+  "passed": 67,
+  "failed": 0,
+  "batches": [
+    {
+      "name": "settings",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "result": "nsc-settings-controls-final.trx.gz"
+    },
+    {
+      "name": "document-organization-design",
+      "total": 40,
+      "passed": 40,
+      "failed": 0,
+      "result": "nsc-settings-service.trx.gz"
+    },
+    {
+      "name": "workspace-import",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "result": "nsc-settings-workspace.trx.gz"
+    }
+  ],
+  "releaseBuild": {
+    "errors": 0,
+    "warnings": [
+      "NU1900: NuGet vulnerability data service unavailable"
+    ]
+  },
+  "localization": "check: 4457 local translations, 4081 UI occurrences, 0 missing, 0 errors.",
+  "scopedWhitespaceCheck": "passed",
+  "fixture": {
+    "sha256": "abf16161c24165584c14217a1274232bda4a87018d1ed8c7f8a6455817f64d03",
+    "wavelengths": 44,
+    "path": "src/OpticalSystemDesign.App/Assets/NonSequentialExamples/Birefringence/Color Fringes.ZMX",
+    "objects": 5
+  },
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialModePanel.cs",
+      "sha256": "4d0f3e2fd0558b585e9d0d9f2c1f80fffb8b4851f13683997792d29de89afe3c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "sha256": "210bf7d4f42939611ba830fe038512c22e5ccb26af8a0cf3857c3b71f350fcc1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.Workspace.cs",
+      "sha256": "22eda0fd240716d8602c11e61ad05f2bc28f764b244b7dba9ce534476b2347b4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "sha256": "b690d745da3cf81a6db903b1a161141b49d44d26ec9828e5ca7f1397b3bbb192"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs",
+      "sha256": "072b044eb38b4155e78c416ad9f6b2c8be5e37e4827edf51d1d41f21efe93f3c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "sha256": "687428b9f3e3f133bc8ffcbbc37a8ddb839e645fda2572333faef8c14006a368"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "sha256": "9ab5fbf0ec9d65de272ca8d46a9d52e2b3e28f66c79ca4f7f26a98dd040adc05"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "4bd18fc34a98ef285d592ca4c74079e3a948f69c6343d2e04540c895bf1ccdd3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.Settings.cs",
+      "sha256": "71c108c271fe4cd8af6dd85b4ab94d6565d90566d6baa25dbc5759d57cd1d35a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.Design.cs",
+      "sha256": "dd8f150cf1a5cadac5be22a57d44253b4ad54bffc006f0a648e005b8e15e719f"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialSceneSettingsTests.cs",
+      "sha256": "1264a9cde1966a5a9f8f41b7927c0111ea6ae6041fe98c74c432c66ab0b6e7ad"
+    },
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "ad28d34fb096435eb19e58f4c39afc547440134efae342242e9a845fd888d3f5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "08ec6bb8b39f120e2d7c5aeeccb6a5171db51f8f70e9ca16603e724bf05b1562"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "Dark-sidebar.png",
+      "bytes": 98158,
+      "sha256": "62f06b76b921ceef17187f7537f6e5acb9ef8d92b471f2294d4dbef1aba211b0"
+    },
+    {
+      "name": "Isekai-sidebar.png",
+      "bytes": 147076,
+      "sha256": "4cdd9babe4ac009d07c3223a74d93c7a440703c95179d40a8fe995e81fef73b5"
+    },
+    {
+      "name": "Light-narrow-sidebar.png",
+      "bytes": 55200,
+      "sha256": "c1201630d71a0fadcf1779e190722cd557400d337e7bf01ea342195fc4b70af8"
+    },
+    {
+      "name": "Light-sidebar.png",
+      "bytes": 56728,
+      "sha256": "4c148276e5efbf3baf5dfb14f6a5bb033bacd3f88babae087a094618c4256626"
+    },
+    {
+      "name": "Light-wavelength-end.png",
+      "bytes": 66205,
+      "sha256": "89c1526429bca1491214e0a7fe9e4f13893210a8edf1ef9e91f77888043a913c"
+    },
+    {
+      "name": "Light-workspace-settings.png",
+      "bytes": 57580,
+      "sha256": "f7b74bef2c5416b14cfb1c5624fdd4f0203774b6008606ced9d3cddcfebe4c7c"
+    },
+    {
+      "name": "Lumen-sidebar.png",
+      "bytes": 57198,
+      "sha256": "070f84808813d7ed92a588a98cdc9784483dbf7814f757287d48645720d9ad5d"
+    },
+    {
+      "name": "nsc-settings-build-final.log.gz",
+      "bytes": 756,
+      "sha256": "8c51320d71238a36349be46322e01d08a387302ed4d66668ab598e24e7b3858a"
+    },
+    {
+      "name": "nsc-settings-build-lock-failure.log.gz",
+      "bytes": 713,
+      "sha256": "bc7ad657e6196125c37f417b17ca215536bc742ff7d5c0c3470903b21d65681a"
+    },
+    {
+      "name": "nsc-settings-build-overlap-failure.log.gz",
+      "bytes": 2382,
+      "sha256": "479665ce96b846cce2e18b95f1e1503b4a1738006ee21484f5c002204a22bedb"
+    },
+    {
+      "name": "nsc-settings-build-shared-source-failure.log.gz",
+      "bytes": 582,
+      "sha256": "e75621b9f46b6cd43d4f5b94576aadc519ee8670cb73997b0d4bc35dd6e009cf"
+    },
+    {
+      "name": "nsc-settings-build-test-compile-failure.log.gz",
+      "bytes": 737,
+      "sha256": "16edc04afa7ca8b35863dea5089713749066124ec95dc0f0ffa39dfb612719a7"
+    },
+    {
+      "name": "nsc-settings-controls-final.log.gz",
+      "bytes": 935,
+      "sha256": "ef563aa29aa9ef95f743f5f62340f6dc2c3071bdd876ad487fd22826003e6cd4"
+    },
+    {
+      "name": "nsc-settings-controls-final.trx.gz",
+      "bytes": 2907,
+      "sha256": "f311473e2d588c05796e99192e6028dbe6307469540267a52d569ea1e8565755"
+    },
+    {
+      "name": "nsc-settings-controls-initial-failure.log.gz",
+      "bytes": 1355,
+      "sha256": "c009ebafc24f9a823f090c279b5af8d4d8ef60e8fe7346fc6ad0bc85ce9b7c6b"
+    },
+    {
+      "name": "nsc-settings-controls-initial-failure.trx.gz",
+      "bytes": 3432,
+      "sha256": "d553f9aa1d3aee368b4ad55721a3014413d3e42a5b2560ae5d7f5c73d1259bfd"
+    },
+    {
+      "name": "nsc-settings-format-final.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "nsc-settings-localization-final.log.gz",
+      "bytes": 92,
+      "sha256": "e631def03ff8ec22c081aab17c1f56f422bb25034262952b835923fda18bd9a4"
+    },
+    {
+      "name": "nsc-settings-service.log.gz",
+      "bytes": 1883,
+      "sha256": "81c479776b44d26a1e18233c00fc76948ec21adb80ff66d7f5ec1ebda83deb87"
+    },
+    {
+      "name": "nsc-settings-service.trx.gz",
+      "bytes": 8179,
+      "sha256": "f49f4714b159d37bcb3a3b81b9e9c49effb087e4b65a3ddec3b1c4cccae3e5ba"
+    },
+    {
+      "name": "nsc-settings-tests.log.gz",
+      "bytes": 656,
+      "sha256": "2b6eb11490fa38348edd8f19ee331c4166ef5e71c4fc75f76ecf5b9beea29a52"
+    },
+    {
+      "name": "nsc-settings-workspace.log.gz",
+      "bytes": 1130,
+      "sha256": "61de4c84d9dea49a0719b77c9859f81d46e8f521489c915d701ed6cfdb380a25"
+    },
+    {
+      "name": "nsc-settings-workspace.trx.gz",
+      "bytes": 3933,
+      "sha256": "051b818134323ab984ddb13852589efb6fce0f166c5ee6dfb4e611d5c2438098"
+    },
+    {
+      "name": "Pixel-sidebar.png",
+      "bytes": 17396,
+      "sha256": "fbc618cebb9840dae411183e2ed5a27767b77d42ea6077ef4dd5b2e89cc3d664"
+    }
+  ],
+  "notes": [
+    "The final 10 scene-setting checks include the adaptive short table height.",
+    "The separate 40 service and 17 workspace/import checks passed before the final table-height-only adjustment.",
+    "The mixed check without a final result was interrupted; it contributes no pass count.",
+    "No full precision matrix, foreground application interaction, installer, commit or push."
+  ],
+  "incidentalCompileRepair": "Added the existing Application.Services namespace import in WorkbenchRuntime.Components.cs while shared source edits were in progress."
+}

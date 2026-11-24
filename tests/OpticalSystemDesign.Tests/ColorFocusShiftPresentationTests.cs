@@ -38,7 +38,8 @@ public sealed class ColorFocusShiftPresentationTests
             Assert.Equal(afocal ? 0.01 : 0.1, parameter.Increment);
             var view = WorkbenchMapper.ToAnalysisViewDto(runtime.BuildAnalysisView("Color Focus Shift",
                 new Dictionary<string, string> { ["MaximumShift"] = "0.25", ["PupilZone"] = "0" }))
-                with { PresentationKind = AnalysisPresentationKind.ColorFocusShift };
+                with
+            { PresentationKind = AnalysisPresentationKind.ColorFocusShift };
             var summary = Assert.IsType<ColorFocusShiftSummaryDto>(view.ColorFocusShiftSummary);
             Assert.Equal(afocal ? AnalysisAxisUnit.Diopter : AnalysisAxisUnit.Micrometer, summary.Unit);
             Assert.Equal(summary.Unit, Assert.Single(view.Series).XUnit);

@@ -1,6 +1,6 @@
+using System.Globalization;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Validation;
-using System.Globalization;
 
 namespace OpticalSystemDesign.ZemaxComparison;
 

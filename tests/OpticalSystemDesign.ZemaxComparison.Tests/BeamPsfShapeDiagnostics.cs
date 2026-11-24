@@ -25,22 +25,32 @@ internal static class BeamPsfShapeDiagnostics
         var raw = WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wave, request.PupilSampling,
             cellCentered: true, aimAtStop: optic.RayAimingEnabled,
             pupilGridStretch: psf.PupilGridStretch, zemaxCentered: true, referenceWavelength: wave);
-        raw = raw with { Samples = raw.Samples.Select(s => s.Intensity > 0 && s.LaunchIntensity is { } launch
-            ? s with { Intensity = launch } : s).ToArray() };
+        raw = raw with
+        {
+            Samples = raw.Samples.Select(s => s.Intensity > 0 && s.LaunchIntensity is { } launch
+            ? s with { Intensity = launch } : s).ToArray()
+        };
         var smoothed = (WavefrontResult)typeof(DiffractionEngine).GetMethod("InterpolateFftPupilPhase",
             BindingFlags.NonPublic | BindingFlags.Static)!.Invoke(null, [raw, grid])!;
         JsonFiles.Write(Path.Combine(output, id + ".json"), new
         {
-            id, request, n = request.PupilSampling, g = request.ImageSampling,
-            psf.SampleSpacingMicrometers, psf.PupilGridStretch,
+            id,
+            request,
+            n = request.PupilSampling,
+            g = request.ImageSampling,
+            psf.SampleSpacingMicrometers,
+            psf.PupilGridStretch,
             points = raw.Samples.Zip(smoothed.Samples, (r, s) => new
             {
                 column = (int)Math.Round(r.NormalizedPupilX / grid.Stretch * (request.PupilSampling / 2d - 1)
                     + request.PupilSampling / 2d),
                 row = (int)Math.Round(r.NormalizedPupilY / grid.Stretch * (request.PupilSampling / 2d - 1)
                     + request.PupilSampling / 2d),
-                r.NormalizedPupilX, r.NormalizedPupilY, r.Intensity,
-                rawPhase = r.OpdWaves, phase = s.OpdWaves
+                r.NormalizedPupilX,
+                r.NormalizedPupilY,
+                r.Intensity,
+                rawPhase = r.OpdWaves,
+                phase = s.OpdWaves
             }).ToArray(),
             native = new { expected.X, expected.Y, expected.Z },
             actual = new { actual.X, actual.Y, actual.Z }

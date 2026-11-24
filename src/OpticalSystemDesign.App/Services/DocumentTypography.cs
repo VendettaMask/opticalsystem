@@ -1,7 +1,7 @@
 using System.Text;
 using Avalonia.Media;
-using SkiaSharp;
 using OpticalSystemDesign.App.Theming;
+using SkiaSharp;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -47,8 +47,11 @@ internal sealed class DocumentTypography
 
     private static SKFont RunFont(SKFont font, SKTypeface face) => new(face, font.Size)
     {
-        Embolden = font.Embolden && face.FontStyle.Weight < 600, SkewX = font.SkewX,
-        Subpixel = font.Subpixel, Edging = font.Edging, Hinting = font.Hinting
+        Embolden = font.Embolden && face.FontStyle.Weight < 600,
+        SkewX = font.SkewX,
+        Subpixel = font.Subpixel,
+        Edging = font.Edging,
+        Hinting = font.Hinting
     };
 
     internal float Measure(string text, SKFont font, ProductFontRole role = ProductFontRole.Document) =>

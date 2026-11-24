@@ -154,10 +154,13 @@ public partial class WorkbenchRuntime
                 {
                     var refined = CreateFourierValidation(pupilSamplingKey, requested, FourierSamplingMode.Adaptive, maximum)
                         .GenerateData(cancellationToken);
-                    return refined with { Values = new Dictionary<string, object>(refined.Values)
+                    return refined with
                     {
-                        ["RequestedPupilPhaseSampling"] = measured
-                    } };
+                        Values = new Dictionary<string, object>(refined.Values)
+                        {
+                            ["RequestedPupilPhaseSampling"] = measured
+                        }
+                    };
                 }
             }
             data = new AnalysisData(canonicalName, new Dictionary<string, object>
@@ -984,7 +987,8 @@ public partial class WorkbenchRuntime
                 maximumFrequency: OptionalFrequency(),
                 wavelengthNumber: Int("WavelengthNumber", 0),
                 fieldNumber: Int("FieldNumber", 0),
-                zemaxCompatible: true) { AfocalIntegration = AfocalIntegration() },
+                zemaxCompatible: true)
+            { AfocalIntegration = AfocalIntegration() },
             "Geometric MTF" => new GeometricMtfAnalysis(
                 CurrentOptic,
                 Int("NumRays", 32),

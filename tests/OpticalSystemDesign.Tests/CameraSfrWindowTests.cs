@@ -8,8 +8,8 @@ using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Theming;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -20,7 +20,8 @@ public sealed class CameraSfrWindowTests
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false }).UseHarfBuzz();
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraSfrWindowTests));

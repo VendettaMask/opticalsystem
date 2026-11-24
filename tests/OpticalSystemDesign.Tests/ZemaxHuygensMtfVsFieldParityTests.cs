@@ -1,13 +1,14 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class ZemaxHuygensMtfVsFieldParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void SixFrequencyRelativeFieldScanMatchesZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

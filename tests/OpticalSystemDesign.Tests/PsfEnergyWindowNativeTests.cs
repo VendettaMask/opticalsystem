@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Numerics;
 using System.Text.Json;
@@ -6,6 +5,7 @@ using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -20,6 +20,7 @@ public sealed class PsfEnergyWindowNativeTests
 
     [Theory]
     [MemberData(nameof(SamplingBoundaries))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void IntensitySamplingAvailabilityMatchesNativeIncludingDiscreteBandEdges(string name)
     {
         using var manifest = ReadBoundaryEntry("manifest.json");
@@ -93,6 +94,7 @@ public sealed class PsfEnergyWindowNativeTests
 
     [Theory]
     [MemberData(nameof(NativeImages))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void OriginalLensMatchesNativeWideImageWithEnergySelectedComplexSupport(string name)
     {
         using var manifest = ReadEntry("manifest.json");
@@ -140,6 +142,7 @@ public sealed class PsfEnergyWindowNativeTests
     [Theory]
     [InlineData(128)]
     [InlineData(256)]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CompleteComplexResponseIntensityMatchesNativeTestPsfAtItsDeclaredAxisOrigin(int sampling)
     {
         using var native = ReadEntry($"psfs/{sampling}.json");

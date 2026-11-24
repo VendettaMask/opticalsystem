@@ -5,7 +5,9 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class CommercialBsdfCalibrationChainTests
 {
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task IndependentlyValidatedSyntheticFitReachesRawIspWithFrozenEvidence(bool transmission)
     {
         using var app = WorkbenchApplication.Create(); using var files = new CameraSensorFileTests.TemporaryFiles(); var scene = await MeasuredBsdfChainTests.Setup(app, files);

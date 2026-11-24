@@ -28,10 +28,18 @@ public sealed partial class MainWindow
         Grid.SetRow(footer, 1); root.Children.Add(footer);
         var dialog = new Window
         {
-            Name = "CoatingSettingsWindow", Title = "镀膜设置", Width = Math.Min(760, 600 * Math.Max(1, FontSize / 13)),
-            Height = Math.Min(820, 650 * Math.Max(1, FontSize / 13)), MinWidth = 500, MinHeight = 400,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner, ShowInTaskbar = false,
-            FontFamily = FontFamily, FontSize = FontSize, FontStyle = FontStyle, FontWeight = FontWeight
+            Name = "CoatingSettingsWindow",
+            Title = "镀膜设置",
+            Width = Math.Min(760, 600 * Math.Max(1, FontSize / 13)),
+            Height = Math.Min(820, 650 * Math.Max(1, FontSize / 13)),
+            MinWidth = 500,
+            MinHeight = 400,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            ShowInTaskbar = false,
+            FontFamily = FontFamily,
+            FontSize = FontSize,
+            FontStyle = FontStyle,
+            FontWeight = FontWeight
         };
         close.Click += (_, _) => dialog.Close();
         dialog.Content = MainWindowTitleBar.Wrap(dialog, root);

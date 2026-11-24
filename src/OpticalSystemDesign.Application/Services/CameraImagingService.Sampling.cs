@@ -94,9 +94,12 @@ internal sealed partial class CameraImagingService
                     ToCore(settings.Diffraction), new(region.X, region.Y, region.Width, region.Height));
                 var sensor = ToCore(request.Sensor);
                 var originalPattern = sensor.Pattern;
-                sensor = sensor with { Pattern = Enum.GetValues<BayerPattern>().Single(p =>
+                sensor = sensor with
+                {
+                    Pattern = Enum.GetValues<BayerPattern>().Single(p =>
                     Enumerable.Range(0, 4).All(i => CameraSensorPipeline.ColorAt(p, i / 2, i % 2)
-                        == CameraSensorPipeline.ColorAt(originalPattern, region.Y + i / 2, region.X + i % 2))) };
+                        == CameraSensorPipeline.ColorAt(originalPattern, region.Y + i / 2, region.X + i % 2)))
+                };
                 var photo = SpectralDetectorSensor.IntegratePhotoElectrons(image.Result.Image.DetectorPower, SceneResponse(request), sensor,
                     settings.PixelSampling?.QeIncludesFillFactor == false ? QuantumEfficiencyAreaReference.CollectionArea : QuantumEfficiencyAreaReference.WholePixel);
                 var sensorOutput = CameraSensorPipeline.SimulatePhotoElectrons(photo, region.Width, region.Height, sensor, ToCore(request.Isp!));
@@ -124,8 +127,11 @@ internal sealed partial class CameraImagingService
     {
         CameraSamplingAxis.Pupil => settings with { Diffraction = settings.Diffraction with { PupilSamplesAcross = Math.Min(64, settings.Diffraction.PupilSamplesAcross * 2) } },
         CameraSamplingAxis.Scene => settings with { Diffraction = settings.Diffraction with { SceneSubdivisions = Math.Min(4, settings.Diffraction.SceneSubdivisions * 2) } },
-        CameraSamplingAxis.Pixel => settings with { PixelSampling = (settings.PixelSampling ?? new()) with
-            { SamplesPerAxis = Math.Min(4, (settings.PixelSampling?.SamplesPerAxis ?? 1) * 2) } },
+        CameraSamplingAxis.Pixel => settings with
+        {
+            PixelSampling = (settings.PixelSampling ?? new()) with
+            { SamplesPerAxis = Math.Min(4, (settings.PixelSampling?.SamplesPerAxis ?? 1) * 2) }
+        },
         CameraSamplingAxis.Window => settings with { Diffraction = settings.Diffraction with { PsfRadiusPixels = Math.Min(32, settings.Diffraction.PsfRadiusPixels * 2) } },
         CameraSamplingAxis.Guard => settings with { Diffraction = settings.Diffraction with { SourceGuardPixels = Math.Min(32, settings.Diffraction.SourceGuardPixels + 8) } },
         _ => throw new ArgumentException("无效采样项目。")

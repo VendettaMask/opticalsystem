@@ -13,12 +13,12 @@ public sealed class MeasuredBsdfTests
     {
         var points = new List<MeasuredBsdfPoint>();
         foreach (var side in Enum.GetValues<BsdfSide>()) foreach (var w in wavelengths ?? [400d, 700d])
-        foreach (var i in incidences ?? [0d, 60d, 90d]) foreach (var o in new[] { 0d, 45d, 90d })
-        foreach (var phi in new[] { 0d, 90d, 180d, 270d, 360d })
-        {
-            var muI = i == 90 ? 0 : Math.Cos(i * Math.PI / 180); var mu = o == 90 ? 0 : Math.Cos(o * Math.PI / 180);
-            var values = function(w, muI, mu, phi); points.Add(new(side, w, i, o, phi, values.R, values.T));
-        }
+            foreach (var i in incidences ?? [0d, 60d, 90d]) foreach (var o in new[] { 0d, 45d, 90d })
+                foreach (var phi in new[] { 0d, 90d, 180d, 270d, 360d })
+                {
+                    var muI = i == 90 ? 0 : Math.Cos(i * Math.PI / 180); var mu = o == 90 ? 0 : Math.Cos(o * Math.PI / 180);
+                    var values = function(w, muI, mu, phi); points.Add(new(side, w, i, o, phi, values.R, values.T));
+                }
         return new("Analytical synthetic control", "control.csv", new string('a', 64), points);
     }
     internal static MeasuredBsdfData Constant(double r, double t) => Data((_, _, _, _) => (r / Math.PI, t / Math.PI));
@@ -49,18 +49,21 @@ public sealed class MeasuredBsdfTests
         double integral = 0, density = 0;
         // Independent two-node Gauss integration in mu, midpoint integration in each piecewise-linear azimuth interval.
         foreach (var sign in new[] { -1, 1 }) foreach (var mu in new[] { .5 - .5 / Math.Sqrt(3), .5 + .5 / Math.Sqrt(3) })
-        for (var a = 0; a < 4; a++)
-        {
-            var direction = Direction(sign * mu, (a + .5) * Math.PI / 2);
-            integral += model.Evaluate(c, direction) * mu * .5 * Math.PI / 2;
-            density += model.Pdf(c, direction) * .5 * Math.PI / 2;
-        }
+            for (var a = 0; a < 4; a++)
+            {
+                var direction = Direction(sign * mu, (a + .5) * Math.PI / 2);
+                integral += model.Evaluate(c, direction) * mu * .5 * Math.PI / 2;
+                density += model.Pdf(c, direction) * .5 * Math.PI / 2;
+            }
         Assert.Equal(.535, integral, 13); Assert.Equal(1, density, 13);
         Assert.Equal(model.Evaluate(c, Direction(.3, Math.PI / 4)), model.Evaluate(c, Direction(.3, Math.PI / 4 + 2 * Math.PI)), 13);
         var original = Directional();
         var asymmetric = new MeasuredBsdf(new MeasuredBsdfData(original.Name, original.SourceFileName, original.SourceSha256,
-            original.Points.Select(p => p.Side == BsdfSide.Back ? p with { BrdfPerSteradian = p.BrdfPerSteradian / 2,
-                BtdfPerSteradian = p.BtdfPerSteradian / 4 } : p).ToArray()));
+            original.Points.Select(p => p.Side == BsdfSide.Back ? p with
+            {
+                BrdfPerSteradian = p.BrdfPerSteradian / 2,
+                BtdfPerSteradian = p.BtdfPerSteradian / 4
+            } : p).ToArray()));
         var back = new BsdfContext(c.IncomingDirection, c.SurfaceNormal, 550, BsdfSide.Back);
         Assert.Equal(.0675, asymmetric.Integrate(back).Reflection, 13); Assert.Equal(.1, asymmetric.Integrate(back).Transmission, 13);
         Assert.Equal(.135, asymmetric.Integrate(c).Reflection, 13); Assert.Equal(.4, asymmetric.Integrate(c).Transmission, 13);
@@ -95,12 +98,24 @@ public sealed class MeasuredBsdfTests
         // Integral of triangular cos-azimuth over the positive-X half-plane is pi/2; radial integral mu(1-mu)=1/6.
         var expectedPositiveX = (.135 / 2 + .01 / 12) / .535;
         Assert.InRange(Math.Abs(positiveXReflection / (double)n - expectedPositiveX), 0, 6 * Math.Sqrt(expectedPositiveX * (1 - expectedPositiveX) / n));
-        Record("distribution", new { Count = n, Seed = 3081, Reflected = reflected, Transmitted = n - reflected,
-            MeanAbsCosine = first / n, CosineSecondMoment = second / n, CdfCounts = cdf, PositiveXReflection = positiveXReflection });
+        Record("distribution", new
+        {
+            Count = n,
+            Seed = 3081,
+            Reflected = reflected,
+            Transmitted = n - reflected,
+            MeanAbsCosine = first / n,
+            CosineSecondMoment = second / n,
+            CdfCounts = cdf,
+            PositiveXReflection = positiveXReflection
+        });
     }
 
     [Theory]
-    [InlineData(0, 0)] [InlineData(.2, 0)] [InlineData(0, 1)] [InlineData(.2, .5)]
+    [InlineData(0, 0)]
+    [InlineData(.2, 0)]
+    [InlineData(0, 1)]
+    [InlineData(.2, .5)]
     public void PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(double r, double t)
     {
         var model = new MeasuredBsdf(Constant(r, t)); var normal = new Vector3D(.3, -.4, .8660254037844386);
@@ -132,8 +147,8 @@ public sealed class MeasuredBsdfTests
     {
         var points = new List<MeasuredBsdfPoint>();
         foreach (var side in Enum.GetValues<BsdfSide>()) foreach (var theta in new[] { 0d, 1d, 2d, 90d })
-        foreach (var phi in new[] { 0d, 40d, 180d, 360d })
-            points.Add(new(side, 550, 0, theta, phi, 0, theta == 1 ? 100 : 0));
+            foreach (var phi in new[] { 0d, 40d, 180d, 360d })
+                points.Add(new(side, 550, 0, theta, phi, 0, theta == 1 ? 100 : 0));
         var data = new MeasuredBsdfData("Synthetic narrow lobe", "narrow.csv", new string('b', 64), points);
         var model = new MeasuredBsdf(data); var context = new BsdfContext(new(0, 0, 1), new(0, 0, 1), 550);
         var lo = Math.Cos(2 * Math.PI / 180); var mid = Math.Cos(Math.PI / 180);
@@ -152,7 +167,12 @@ public sealed class MeasuredBsdfTests
     }
 
     [Theory]
-    [InlineData("missing")] [InlineData("duplicate")] [InlineData("negative")] [InlineData("active")] [InlineData("seam")] [InlineData("pole")]
+    [InlineData("missing")]
+    [InlineData("duplicate")]
+    [InlineData("negative")]
+    [InlineData("active")]
+    [InlineData("seam")]
+    [InlineData("pole")]
     public void InvalidMeasuredGridsAreRejectedWithoutRepairOrNormalization(string defect)
     {
         var data = Constant(.2, .5); var points = data.Points.ToList();

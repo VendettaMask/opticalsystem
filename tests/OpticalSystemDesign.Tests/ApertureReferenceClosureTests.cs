@@ -1,12 +1,12 @@
-using OpticalSystemDesign.Validation;
+using System.Globalization;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
-using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Geometries;
-using System.Globalization;
+using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -50,27 +50,31 @@ public sealed class ApertureReferenceClosureTests
         }
     }
 
-    [Theory] [InlineData(2)] [InlineData(20)]
+    [Theory]
+    [InlineData(2)]
+    [InlineData(20)]
     public void NativeGeometricPlotOpensAtZeroEvenForAnExactlyFocusedBundle(double diameter)
     {
-        var source=FormattableString.Invariant($"MODE SEQ\nUNIT MM\nENPD {diameter}\nWAVM 1 .55 1\nPWAV 1\nSURF 0\nCURV 0\nDISZ INFINITY\nSURF 1\nSTOP\nTYPE PARAXIAL\nCURV 0\nPARM 1 100\nDISZ 100\nSURF 2\nCURV 0");
-        var optic=OpticalFormatCatalog.Import(source,".zmx");
-        var data=new EncircledEnergyAnalysis(optic,32,"uniform",401,1,maximumDistanceMicrometers:5,multiplyByDiffractionLimit:false){ZemaxCompatibleOutput=true}.GenerateData();
-        var points=Assert.Single(data.PlotSeries).Points;
-        Assert.Equal(0,points[0].X);Assert.Equal(0,points[0].Y);
-        Assert.Equal(1,points[4].Y,12);
-        Assert.All(points.Zip(points.Skip(1)),p=>Assert.True(p.Second.Y>=p.First.Y));
-        var physical=new OpticalSystemDesign.Core.Services.GeometricEnergyDistribution([new(0,0,1)],OpticalSystemDesign.Core.Services.GeometricEnergyReference.Centroid,OpticalSystemDesign.Core.Services.EnergyRegion.Circle);
-        Assert.Equal(1,physical.FractionAtDistance(0));
+        var source = FormattableString.Invariant($"MODE SEQ\nUNIT MM\nENPD {diameter}\nWAVM 1 .55 1\nPWAV 1\nSURF 0\nCURV 0\nDISZ INFINITY\nSURF 1\nSTOP\nTYPE PARAXIAL\nCURV 0\nPARM 1 100\nDISZ 100\nSURF 2\nCURV 0");
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var data = new EncircledEnergyAnalysis(optic, 32, "uniform", 401, 1, maximumDistanceMicrometers: 5, multiplyByDiffractionLimit: false) { ZemaxCompatibleOutput = true }.GenerateData();
+        var points = Assert.Single(data.PlotSeries).Points;
+        Assert.Equal(0, points[0].X); Assert.Equal(0, points[0].Y);
+        Assert.Equal(1, points[4].Y, 12);
+        Assert.All(points.Zip(points.Skip(1)), p => Assert.True(p.Second.Y >= p.First.Y));
+        var physical = new OpticalSystemDesign.Core.Services.GeometricEnergyDistribution([new(0, 0, 1)], OpticalSystemDesign.Core.Services.GeometricEnergyReference.Centroid, OpticalSystemDesign.Core.Services.EnergyRegion.Circle);
+        Assert.Equal(1, physical.FractionAtDistance(0));
     }
 
-    [Theory] [InlineData(0, 0)] [InlineData(.23, -.4)]
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(.23, -.4)]
     public void ZeroRadiusObscurationHasNoBlockedPoint(double x, double y)
     {
         IPhysicalAperture aperture = new CircularObscurationAperture(0, 0, x, y);
         foreach (var copy in new[] { aperture, aperture.Clone() })
-        foreach (var point in new[] { new Vector3D(x, y, 0), new Vector3D(0, 0, 0), new Vector3D(x + 1e-15, y, 0) })
-            Assert.True(copy.Contains(point));
+            foreach (var point in new[] { new Vector3D(x, y, 0), new Vector3D(0, 0, 0), new Vector3D(x + 1e-15, y, 0) })
+                Assert.True(copy.Contains(point));
         Assert.False(new CircularObscurationAperture(1).Contains(new(0, 0, 0)));
         Assert.False(new CircularObscurationAperture(1).Contains(new(1, 0, 0)));
     }
@@ -127,7 +131,10 @@ public sealed class ApertureReferenceClosureTests
         Assert.Equal(new[] { point }, EnergyPlotSampling.Geometric([point]));
     }
 
-    [Theory] [InlineData("MM", 1)] [InlineData("CM", 10)] [InlineData("IN", 25.4)]
+    [Theory]
+    [InlineData("MM", 1)]
+    [InlineData("CM", 10)]
+    [InlineData("IN", 25.4)]
     public void ToroidalNativeRotationRadiusSlotAndInactiveNormalizationRoundTrip(string unit, double scale)
     {
         var source = string.Create(CultureInfo.InvariantCulture, $"MODE SEQ\nUNIT {unit}\nENPD 2\nSURF 0\nDISZ INFINITY\nSURF 1\nTYPE TOROIDAL\nCURV {scale / 50:R}\nPARM 1 {80 / scale:R}\nPARM 2 0\nXDAT 1 0\nXDAT 2 100\nDISZ 1\nSURF 2");

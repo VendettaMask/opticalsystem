@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

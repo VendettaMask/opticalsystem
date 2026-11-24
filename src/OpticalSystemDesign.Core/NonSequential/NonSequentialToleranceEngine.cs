@@ -58,8 +58,11 @@ public static class NonSequentialToleranceEngine
                 IReadOnlyList<double>? adjusted = null;
                 if (compensators.Count > 0)
                 {
-                    var childSettings = settings with { MaximumTraceEvaluations = compensationTraceEvaluations,
-                        MaximumLaunchedRays = (long)budget.RaysPerTrace * compensationTraceEvaluations };
+                    var childSettings = settings with
+                    {
+                        MaximumTraceEvaluations = compensationTraceEvaluations,
+                        MaximumLaunchedRays = (long)budget.RaysPerTrace * compensationTraceEvaluations
+                    };
                     // This entire allocation was charged in the whole-job preflight; no per-sample budget reset loophole.
                     var result = NonSequentialDesignEngine.Optimize(perturbed, materials, compensators, targets, childSettings,
                         cancellationToken: cancellationToken, costObserver: cost =>

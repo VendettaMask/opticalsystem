@@ -18,17 +18,35 @@ public sealed class FeasibleThickLayoutTests
         var plan = original with
         {
             Seeds = [original.Seeds[0] with { Stop = new("stop", 0, 3.125), Image = new("image", 65) }],
-            Targets = original.Targets with { EffectiveFocalLengthMillimeters = 50, FNumber = 8,
-                MinimumEdgeThicknessMillimeters = .1, MinimumEdgeAirGapMillimeters = .05, MaximumOpticalTrackMillimeters = 65 },
-            Constraints = original.Constraints with { MinimumCenterThicknessMillimeters = .1,
-                MinimumAirGapMillimeters = .05, MinimumBackFocusMillimeters = 15, MaximumMechanicalTrackMillimeters = 65 }
+            Targets = original.Targets with
+            {
+                EffectiveFocalLengthMillimeters = 50,
+                FNumber = 8,
+                MinimumEdgeThicknessMillimeters = .1,
+                MinimumEdgeAirGapMillimeters = .05,
+                MaximumOpticalTrackMillimeters = 65
+            },
+            Constraints = original.Constraints with
+            {
+                MinimumCenterThicknessMillimeters = .1,
+                MinimumAirGapMillimeters = .05,
+                MinimumBackFocusMillimeters = 15,
+                MaximumMechanicalTrackMillimeters = 65
+            }
         };
         var partitions = ImmutableArray.Create(0, 1, 3);
-        var descriptor = new StructureGenerationOptions { Method = StructureGenerationMethod.Delano, MaterializationVersion = 3,
+        var descriptor = new StructureGenerationOptions
+        {
+            Method = StructureGenerationMethod.Delano,
+            MaterializationVersion = 3,
             Elements = [new() { Materials = ["N-BK7"] }, new() { Materials = ["N-F2"] }, new() { Materials = ["N-BK7"] }],
-            ClearSemiDiameterMillimeters = 5, MinimumThicknessMillimeters = .5, MaximumThicknessMillimeters = 2,
-            MinimumBackFocusMillimeters = 15, AnnealingProposals = 24,
-            FeasibleLayouts = new() { MaximumLayouts = partitions.Length, StopAfterElementCandidates = partitions } };
+            ClearSemiDiameterMillimeters = 5,
+            MinimumThicknessMillimeters = .5,
+            MaximumThicknessMillimeters = 2,
+            MinimumBackFocusMillimeters = 15,
+            AnnealingProposals = 24,
+            FeasibleLayouts = new() { MaximumLayouts = partitions.Length, StopAfterElementCandidates = partitions }
+        };
         var random = new DeterministicRandom(42); var work = new StructureGenerationWork();
         var topology = StructureSeedGenerator.Create(plan, descriptor, ref random, () => { }, default, work: work);
         Assert.Equal(partitions.Length, work.AttemptedLayouts);
@@ -72,24 +90,46 @@ public sealed class FeasibleThickLayoutTests
         {
             Seeds = [source.Seeds[0] with { Stop = source.Seeds[0].Stop with { ClearSemiDiameterMillimeters = 50 / (2 * fNumber) },
                 Image = source.Seeds[0].Image with { ZMillimeters = 65 }, Fields = [new("axis", 0, 0), new("edge", 0, halfField)] }],
-            Targets = source.Targets with { EffectiveFocalLengthMillimeters = 50, FNumber = fNumber,
-                MinimumEdgeThicknessMillimeters = .1, MinimumEdgeAirGapMillimeters = .05, MaximumOpticalTrackMillimeters = 65 },
-            Constraints = source.Constraints with { MinimumElementCount = 2, MaximumElementCount = 8,
-                MinimumCenterThicknessMillimeters = .1, MinimumAirGapMillimeters = .05,
-                MinimumBackFocusMillimeters = 15, MaximumMechanicalTrackMillimeters = 65 },
+            Targets = source.Targets with
+            {
+                EffectiveFocalLengthMillimeters = 50,
+                FNumber = fNumber,
+                MinimumEdgeThicknessMillimeters = .1,
+                MinimumEdgeAirGapMillimeters = .05,
+                MaximumOpticalTrackMillimeters = 65
+            },
+            Constraints = source.Constraints with
+            {
+                MinimumElementCount = 2,
+                MaximumElementCount = 8,
+                MinimumCenterThicknessMillimeters = .1,
+                MinimumAirGapMillimeters = .05,
+                MinimumBackFocusMillimeters = 15,
+                MaximumMechanicalTrackMillimeters = 65
+            },
             Options = source.Options with { Seed = seed, AxialCompensation = null }
         };
         var options = new ParaxialSeedSearchOptions
         {
-            FixedStopRecoveryVersion = 2, MaximumStarts = 3, RetainedSeeds = 3,
-            MaximumFunctionEvaluations = 180, MaximumEvaluationsPerStart = 60, TimeLimit = TimeSpan.FromSeconds(30),
-            Generation = new() { MaterializationVersion = 3, Method = StructureGenerationMethod.Delano,
+            FixedStopRecoveryVersion = 2,
+            MaximumStarts = 3,
+            RetainedSeeds = 3,
+            MaximumFunctionEvaluations = 180,
+            MaximumEvaluationsPerStart = 60,
+            TimeLimit = TimeSpan.FromSeconds(30),
+            Generation = new()
+            {
+                MaterializationVersion = 3,
+                Method = StructureGenerationMethod.Delano,
                 FeasibleLayouts = new() { MaximumLayouts = 3 },
                 Elements = Enumerable.Range(0, count).Select(i => new StructureElementDescriptor
                 { Materials = [i % 2 == 0 ? "N-BK7" : "N-F2"] }).ToImmutableArray(),
                 ClearSemiDiameterMillimeters = Math.Max(5, 50 / (2 * fNumber)),
-                MinimumThicknessMillimeters = .5, MaximumThicknessMillimeters = 2,
-                MinimumBackFocusMillimeters = 15, AnnealingProposals = 24 }
+                MinimumThicknessMillimeters = .5,
+                MaximumThicknessMillimeters = 2,
+                MinimumBackFocusMillimeters = 15,
+                AnnealingProposals = 24
+            }
         };
         var fingerprint = ContentFingerprint.Compute(plan);
         var result = ParaxialSeedSearch.Run(plan, options);
@@ -115,7 +155,8 @@ public sealed class FeasibleThickLayoutTests
             await DelanoMaterializationTests.Evidence("user-spec-independent-physical-inspection.json", new
             {
                 Scope = "Separate post-preparation CPU physical validation; not optimization or a changed acceptance protocol",
-                Assessment = assessment, AdditionalTracedRays = physicalBudget.RayCount
+                Assessment = assessment,
+                AdditionalTracedRays = physicalBudget.RayCount
             });
         }
     }

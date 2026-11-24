@@ -40,24 +40,24 @@ foreach (var group in entries.Values.SelectMany(entry => new[] { entry.Chinese, 
         && occurrences.Any(x => x.Source == group.Key))
         entries[group.Key] = group.First().Entry with { Source = group.Key };
 for (var pass = 0; pass < 3; pass++)
-foreach (var occurrence in occurrences.Where(x => !entries.ContainsKey(x.Source) && !invariants.ContainsKey(x.Source)))
-{
-    var source = occurrence.Source;
-    var accelerator = source.LastIndexOf("(_", StringComparison.Ordinal);
-    if (accelerator > 0 && source.EndsWith(')') && entries.TryGetValue(source[..accelerator], out var original))
-        entries[source] = new(source, original.Chinese + source[accelerator..], original.English + source[accelerator..], original.Japanese + source[accelerator..]);
-    else if (source.EndsWith('：') && entries.TryGetValue(source[..^1], out original))
-        entries[source] = new(source, original.Chinese + "：", original.English + ":", original.Japanese + "：");
-    else if (source.EndsWith("{0}", StringComparison.Ordinal) && source.Length > 3
-        && source[^4] is '：' or ':' or ' ' && entries.TryGetValue(source[..^3], out original))
-        entries[source] = new(source, original.Chinese + "{0}", original.English + "{0}", original.Japanese + "{0}");
-    else if (source.Trim() is var trimmed && source != trimmed && entries.TryGetValue(trimmed, out original))
+    foreach (var occurrence in occurrences.Where(x => !entries.ContainsKey(x.Source) && !invariants.ContainsKey(x.Source)))
     {
-        var begin = source[..(source.Length - source.TrimStart().Length)];
-        var end = source[source.TrimEnd().Length..];
-        entries[source] = new(source, begin + original.Chinese + end, begin + original.English + end, begin + original.Japanese + end);
+        var source = occurrence.Source;
+        var accelerator = source.LastIndexOf("(_", StringComparison.Ordinal);
+        if (accelerator > 0 && source.EndsWith(')') && entries.TryGetValue(source[..accelerator], out var original))
+            entries[source] = new(source, original.Chinese + source[accelerator..], original.English + source[accelerator..], original.Japanese + source[accelerator..]);
+        else if (source.EndsWith('：') && entries.TryGetValue(source[..^1], out original))
+            entries[source] = new(source, original.Chinese + "：", original.English + ":", original.Japanese + "：");
+        else if (source.EndsWith("{0}", StringComparison.Ordinal) && source.Length > 3
+            && source[^4] is '：' or ':' or ' ' && entries.TryGetValue(source[..^3], out original))
+            entries[source] = new(source, original.Chinese + "{0}", original.English + "{0}", original.Japanese + "{0}");
+        else if (source.Trim() is var trimmed && source != trimmed && entries.TryGetValue(trimmed, out original))
+        {
+            var begin = source[..(source.Length - source.TrimStart().Length)];
+            var end = source[source.TrimEnd().Length..];
+            entries[source] = new(source, begin + original.Chinese + end, begin + original.English + end, begin + original.Japanese + end);
+        }
     }
-}
 var missing = occurrences.Where(x => !entries.ContainsKey(x.Source) && !invariants.ContainsKey(x.Source)).GroupBy(x => x.Source, StringComparer.Ordinal)
     .Select(x => new { Source = x.Key, Occurrences = x.ToArray() }).OrderBy(x => x.Source, StringComparer.Ordinal).ToArray();
 Directory.CreateDirectory(folder);

@@ -1,6 +1,6 @@
+using System.Numerics;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Services;
-using System.Numerics;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -48,7 +48,8 @@ public static partial class DiffractionEngine
             throw new AnalysisDataUnavailableException("Diffraction Encircled Energy", "no finite full marginal cone");
         var nativePitch = ExpandedCumulativeEnergyPitch(wave.Micrometers, scale.Rms, sampling);
         var source = DenseMonochromaticCumulativePupil(optic, field, wave, sampling, nativePitch, scale.Rms, cone)
-            with { UseCachedFftStopMap = true };
+            with
+        { UseCachedFftStopMap = true };
         var grid = CompactFftPupilGrid(source);
         var logical = checked(2 * sampling); var pitch = nativePitch;
         if (additionalImageDecimation < 1 || (additionalImageDecimation & (additionalImageDecimation - 1)) != 0)

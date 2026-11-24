@@ -312,7 +312,8 @@ public sealed class CameraImagingWindowTests
     }
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task MaterialScenesPreserveABAndAllowCurveAssignmentWithoutPhotoClassification(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

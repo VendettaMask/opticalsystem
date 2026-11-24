@@ -1,11 +1,11 @@
 using System.Numerics;
 using System.Text.Json;
+using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
-using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Phase;
 using Xunit.Abstractions;
@@ -188,8 +188,12 @@ public sealed class AfocalHuygensBoundaryTests(ITestOutputHelper output)
         var optic = Disk(); optic.SurfaceGroup.Items[1].PhysicalAperture = new AnnularAperture(1, .31);
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(name, new Dictionary<string, string>
         {
-            ["AfocalIntegration"] = "CheckedGaussianPupil", ["PupilSampling"] = "8", ["ImageSampling"] = "16",
-            ["ImageDeltaMilliradians"] = ".08", ["WavelengthNumber"] = "1", ["FieldNumber"] = "1"
+            ["AfocalIntegration"] = "CheckedGaussianPupil",
+            ["PupilSampling"] = "8",
+            ["ImageSampling"] = "16",
+            ["ImageDeltaMilliradians"] = ".08",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1"
         });
         Assert.Equal(AnalysisOutcome.Success, data.Outcome);
         var checks = Assert.IsAssignableFrom<IReadOnlyList<HuygensSamplingDiagnostics>>(data.Values["SamplingChecks"]);
@@ -215,8 +219,15 @@ public sealed class AfocalHuygensBoundaryTests(ITestOutputHelper output)
         var check = Assert.Single(psf.HuygensSamplingChecks!);
         Assert.Equal("SamplingStable", check.Status);
         Assert.InRange(check.CumulativeOperations, 1, AnalysisResourceLimits.MaximumDirectPsfOperations);
-        output.WriteLine(JsonSerializer.Serialize(new { kind, parameters, maximum, psf.HuygensReferenceAmplitude,
-            psf.GeometricChiefReferenceUsed, check }));
+        output.WriteLine(JsonSerializer.Serialize(new
+        {
+            kind,
+            parameters,
+            maximum,
+            psf.HuygensReferenceAmplitude,
+            psf.GeometricChiefReferenceUsed,
+            check
+        }));
     }
     private PsfResult Compute(Optic optic, int initial, int grid, double pitch, double defocus = 0)
     {

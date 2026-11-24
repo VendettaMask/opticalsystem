@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Zemax;
 
 namespace OpticalSystemDesign.ZemaxComparison.Normalization;

@@ -4,7 +4,6 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
-using Polygon = Avalonia.Controls.Shapes.Polygon;
 using Avalonia.Headless;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -17,6 +16,7 @@ using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Services;
+using Polygon = Avalonia.Controls.Shapes.Polygon;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -147,8 +147,12 @@ public sealed class IsekaiTypographyPolicyTests
         {
             var settings = JsonSerializer.Deserialize<AppSettings>(JsonSerializer.Serialize(new AppSettings
             {
-                Theme = "Isekai", Language = preferredLanguage, FontFamily = "Arial", FontSize = fontSize,
-                WindowWidth = 1600, WindowHeight = 1000
+                Theme = "Isekai",
+                Language = preferredLanguage,
+                FontFamily = "Arial",
+                FontSize = fontSize,
+                WindowWidth = 1600,
+                WindowHeight = 1000
             }))!;
             using var workbench = WorkbenchApplication.Create("cooke");
             var original = workbench.Documents.GetRecoveryState();
@@ -321,8 +325,12 @@ public sealed class IsekaiTypographyPolicyTests
             var combo = new ComboBox { ItemsSource = new[] { text, "Other" }, SelectedIndex = 0 };
             var flyout = new Flyout { Content = new TextBlock { Text = text } };
             var context = new ContextMenu { Items = { new MenuItem { Header = text } } };
-            var window = new Window { Width = 600, Height = 400,
-                Content = new StackPanel { Children = { button, combo } } };
+            var window = new Window
+            {
+                Width = 600,
+                Height = 400,
+                Content = new StackPanel { Children = { button, combo } }
+            };
             try
             {
                 window.Show(); DisplayTypography.Apply(window); Tick(window);

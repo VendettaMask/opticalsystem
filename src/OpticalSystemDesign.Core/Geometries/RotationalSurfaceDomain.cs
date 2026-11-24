@@ -48,21 +48,21 @@ internal sealed partial class RotationalSurfaceDomain
         return Expand(low, high);
     }
 
-    private (double Low,double High) SlopeFactorBound(double lowRadius,double highRadius)
+    private (double Low, double High) SlopeFactorBound(double lowRadius, double highRadius)
     {
-        var curvature=Math.Abs(_radius)<1e-12||double.IsInfinity(_radius)?0:1/_radius;
-        var factor=(1+_conic)*curvature*curvature;
-        var a=curvature/Math.Sqrt(1-factor*lowRadius*lowRadius);var b=curvature/Math.Sqrt(1-factor*highRadius*highRadius);
-        double low=Math.Min(a,b),high=Math.Max(a,b);
-        for(int i=0;i<_coefficients.Length;i++)
+        var curvature = Math.Abs(_radius) < 1e-12 || double.IsInfinity(_radius) ? 0 : 1 / _radius;
+        var factor = (1 + _conic) * curvature * curvature;
+        var a = curvature / Math.Sqrt(1 - factor * lowRadius * lowRadius); var b = curvature / Math.Sqrt(1 - factor * highRadius * highRadius);
+        double low = Math.Min(a, b), high = Math.Max(a, b);
+        for (int i = 0; i < _coefficients.Length; i++)
         {
-            if(_coefficients[i]==0)continue;
-            var coefficient=_powers[i]*_coefficients[i];var power=_powers[i]-2;
-            a=coefficient*Math.Pow(lowRadius,power);b=coefficient*Math.Pow(highRadius,power);
-            low+=Math.Min(a,b);high+=Math.Max(a,b);
+            if (_coefficients[i] == 0) continue;
+            var coefficient = _powers[i] * _coefficients[i]; var power = _powers[i] - 2;
+            a = coefficient * Math.Pow(lowRadius, power); b = coefficient * Math.Pow(highRadius, power);
+            low += Math.Min(a, b); high += Math.Max(a, b);
         }
-        var rounding=64*2.2204460492503131e-16*Math.Max(Math.Abs(low),Math.Abs(high));
-        return(Math.BitDecrement(low-rounding),Math.BitIncrement(high+rounding));
+        var rounding = 64 * 2.2204460492503131e-16 * Math.Max(Math.Abs(low), Math.Abs(high));
+        return (Math.BitDecrement(low - rounding), Math.BitIncrement(high + rounding));
     }
 
     public static (double Low, double High) Difference(RotationalSurfaceDomain a, double weightA, RotationalSurfaceDomain b, double weightB)

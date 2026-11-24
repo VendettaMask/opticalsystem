@@ -18,7 +18,8 @@ public sealed class SceneLinearBatchWindowTests
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false }).UseHarfBuzz();
 
     [Theory]
-    [InlineData("Light", 0)] [InlineData("Dark", 1)]
+    [InlineData("Light", 0)]
+    [InlineData("Dark", 1)]
     public async Task FullRasterTaskSelectionFrozenRecomputeAndOriginalBudgetFailureAreVisible(string theme, int mode)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SceneLinearBatchWindowTests));

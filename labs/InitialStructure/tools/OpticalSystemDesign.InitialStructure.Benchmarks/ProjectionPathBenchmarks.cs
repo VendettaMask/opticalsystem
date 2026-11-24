@@ -49,16 +49,30 @@ internal static class ProjectionPathBenchmarks
             var fullEvents = new List<TopologyProjectionAttempt>();
             var fullPolicy = new TopologyTransmissionCompensation(fullObjective.ResidualIds, version, fullEvents.Add);
             var first = fullPolicy.Propose(full.InitialEvaluation!, fullBinding.InitialCoordinates, fullBinding, Enumerable.Range(0, 12).ToArray(), 1, deadline.Token);
-            rows.Add(new { Version = version, Phase = "full-first", Events = fullEvents, Coordinates = first.Coordinates,
+            rows.Add(new
+            {
+                Version = version,
+                Phase = "full-first",
+                Events = fullEvents,
+                Coordinates = first.Coordinates,
                 InitialCoordinates = fullBinding.InitialCoordinates,
-                AllRecordedAttemptsDimension = 12, RecordedAttempts = full.Steps.Length, Termination = full.Termination.ToString(),
-                ResumeUsed = false });
+                AllRecordedAttemptsDimension = 12,
+                RecordedAttempts = full.Steps.Length,
+                Termination = full.Termination.ToString(),
+                ResumeUsed = false
+            });
             async Task<FixedTopologyResult> Read(string name) => JsonSerializer.Deserialize<FixedTopologyResult>(await File.ReadAllTextAsync(Path.Combine(directory, name + ".json")), TopologySamplingBenchmarks.Json)!;
         }
         var sameCandidates = localCandidates[5].Zip(localCandidates[11], (a, b) => a.SequenceEqual(b)).All(v => v);
         if (!sameCandidates || measured.RayCount != 0) throw new InvalidDataException("Candidate equivalence or zero-trace audit failed.");
-        await File.WriteAllTextAsync(Path.Combine(output, "audit.json"), JsonSerializer.Serialize(new { SameLocalCandidates = sameCandidates,
-            TracedRays = measured.RayCount, Seconds = timer.Elapsed.TotalSeconds, TimeCapSeconds = 60, Rows = rows }, TopologySamplingBenchmarks.Json));
+        await File.WriteAllTextAsync(Path.Combine(output, "audit.json"), JsonSerializer.Serialize(new
+        {
+            SameLocalCandidates = sameCandidates,
+            TracedRays = measured.RayCount,
+            Seconds = timer.Elapsed.TotalSeconds,
+            TimeCapSeconds = 60,
+            Rows = rows
+        }, TopologySamplingBenchmarks.Json));
         return 0;
     }
 }

@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Scattering;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -55,7 +55,8 @@ public sealed class BinaryZemaxBsdfTests
         void Values(double[] values) { using var b = new MemoryStream(); using (var w = new BinaryWriter(b, Encoding.UTF8, true)) foreach (var v in values) w.Write(v); Packed(b.ToArray()); }
         void Text(string value) { var b = Encoding.UTF8.GetBytes(value); writer.Write(b.Length); if (b.Length > 0) Packed(b); }
         Text("Synthetic archive-3 LZ4"); Text("Synthetic R/T"); writer.Write(1d); writer.Write(0d); writer.Write(0d); writer.Write((byte)1); writer.Write((byte)1);
-        if (version >= 9) { writer.Write(1d); writer.Write(1d); } writer.Write((byte)0); writer.Write((byte)0);
+        if (version >= 9) { writer.Write(1d); writer.Write(1d); }
+        writer.Write((byte)0); writer.Write((byte)0);
         for (var lobe = 0; lobe < 2; lobe++) { writer.Write(1); Values([0]); writer.Write(3); Values([0, 60, 90]); }
         for (var lobe = 0; lobe < 2; lobe++) { writer.Write(0d); writer.Write(0d); Text("R/T spectrum"); writer.Write(2); writer.Write(400d); writer.Write(700d); writer.Write(lobe == 0 ? 20d : 50d); writer.Write(lobe == 0 ? 30d : 40d); }
         for (var lobe = 0; lobe < 2; lobe++) for (var i = 0; i < 3; i++)
@@ -85,7 +86,8 @@ public sealed class BinaryZemaxBsdfTests
         Record("official-speos-v9", new { data.SourceSha256, data.DataSha256, Nodes = data.Points.Count, AtReference = model.Integrate(CommercialBsdfTests.Context(6)) });
     }
     [Theory]
-    [InlineData(7)] [InlineData(9)]
+    [InlineData(7)]
+    [InlineData(9)]
     public void Lz4AnisotropicVersionsDecodeBothSpectraAndTransmissionHemisphere(int version)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path("synthetic.anisotropicbsdf"); File.WriteAllBytes(path, BinaryAnisotropic(version));
@@ -96,7 +98,10 @@ public sealed class BinaryZemaxBsdfTests
         Assert.Equal(.45 / Math.PI, model.Evaluate(CommercialBsdfTests.Context(30), new(.8, 0, -.6)), 12);
     }
     [Theory]
-    [InlineData("truncate")] [InlineData("checksum")] [InlineData("size")] [InlineData("version")]
+    [InlineData("truncate")]
+    [InlineData("checksum")]
+    [InlineData("size")]
+    [InlineData("version")]
     public void CorruptBinaryFilesFailWithoutAllocatingFromUntrustedSizes(string defect)
     {
         var raw = BinarySpeos();
@@ -108,7 +113,9 @@ public sealed class BinaryZemaxBsdfTests
         Assert.ThrowsAny<InvalidDataException>(() => BsdfFileImporter.Read(path, new(BsdfImportSides.BothDeclaredIdentical)));
     }
     [Theory]
-    [InlineData("lz4-offset")] [InlineData("enhancement")] [InlineData("white-specular")]
+    [InlineData("lz4-offset")]
+    [InlineData("enhancement")]
+    [InlineData("white-specular")]
     public void UnsupportedBinaryPhysicsAndMalformedLz4AreNotSilentlyIgnored(string defect)
     {
         var raw = EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Fixtures", "speos-r-test-v9.anisotropicbsdf"));
@@ -117,7 +124,10 @@ public sealed class BinaryZemaxBsdfTests
         Assert.Throws<InvalidDataException>(() => BsdfFileImporter.Read(path, new(BsdfImportSides.BothDeclaredIdentical)));
     }
     [Theory]
-    [InlineData(false, false)] [InlineData(true, false)] [InlineData(false, true)] [InlineData(true, true)]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
     public void SpecularFramesIntegrateAConstantPhysicalBsdfAtObliqueAndGrazingIncidence(bool transmission, bool anisotropic)
     {
         var data = Read(Zemax(transmission, anisotropic)); var model = new MeasuredBsdf(data);
@@ -159,7 +169,8 @@ public sealed class BinaryZemaxBsdfTests
         Assert.Throws<InvalidDataException>(() => Read(Zemax(true), Options with { IncidentIndex = 1, TransmittedIndex = 1.5 }));
     }
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public void GrazingProjectionSamplesThePhysicalHemisphereAndAnalyticalMoments(bool transmission)
     {
         var model = new MeasuredBsdf(Read(Zemax(transmission, incidences: [85]))); var context = CommercialBsdfTests.Context(85); var random = new Random(9107); const int count = 8192; double cosine = 0, x = 0, y = 0;
@@ -185,7 +196,14 @@ public sealed class BinaryZemaxBsdfTests
         }
     }
     [Theory]
-    [InlineData("wavelength")] [InlineData("photometric")] [InlineData("xyz")] [InlineData("negative")] [InlineData("active")] [InlineData("short")] [InlineData("sides")] [InlineData("normal-gap")]
+    [InlineData("wavelength")]
+    [InlineData("photometric")]
+    [InlineData("xyz")]
+    [InlineData("negative")]
+    [InlineData("active")]
+    [InlineData("short")]
+    [InlineData("sides")]
+    [InlineData("normal-gap")]
     public void MissingDeclarationsAndMalformedZemaxDataFailExplicitly(string defect)
     {
         var text = Zemax(); var options = Options;

@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Core.Serialization;
 using System.Globalization;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Multiconfig;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.FileIO;
 

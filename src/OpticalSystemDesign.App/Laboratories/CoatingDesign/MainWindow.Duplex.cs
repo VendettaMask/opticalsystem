@@ -53,8 +53,12 @@ public sealed partial class MainWindow
             finally { _editorTransaction--; }
             RecordEditorHistory(null);
         };
-        return new StackPanel { Spacing = 12, Children = { _duplexEnabled, Field("优化表面", _optimizeSurface),
-            _symmetricFilms, Field("双面优化流程", _duplexProtocol), _evaluationBadge } };
+        return new StackPanel
+        {
+            Spacing = 12,
+            Children = { _duplexEnabled, Field("优化表面", _optimizeSurface),
+            _symmetricFilms, Field("双面优化流程", _duplexProtocol), _evaluationBadge }
+        };
     }
     private void ChangeDuplexMode()
     {

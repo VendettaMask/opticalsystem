@@ -37,7 +37,9 @@ public sealed class MaterialAnalysisPanel : UserControl
     private readonly StackPanel _details = new() { Spacing = 8 };
     private readonly CheckBox _showAllAthermal = new()
     {
-        Name = "AthermalShowAllRange", Content = "显示全部范围", MinHeight = 34
+        Name = "AthermalShowAllRange",
+        Content = "显示全部范围",
+        MinHeight = 34
     };
     private readonly TextBlock _status = new()
     {
@@ -97,7 +99,7 @@ public sealed class MaterialAnalysisPanel : UserControl
             _glass));
         if (_kind == MaterialAnalysisKind.AthermalGlassMap)
         {
-            ToolTip.SetTip(_showAllAthermal, "默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。" );
+            ToolTip.SetTip(_showAllAthermal, "默认显示色光焦 0–60 ×10⁻³、热光焦 −30–30 ×10⁻⁶/K；勾选后自动缩放到全部有效点，保留范围外数据。");
             Avalonia.Automation.AutomationProperties.SetName(_showAllAthermal, "显示全部范围");
             _showAllAthermal.IsCheckedChanged += (_, _) => RefreshAnalysis();
             toolbar.Children.Add(new Border { Margin = new Thickness(8, 18, 8, 0), Child = _showAllAthermal });

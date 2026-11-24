@@ -4,8 +4,8 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Controls;
 

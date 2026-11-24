@@ -1,11 +1,11 @@
 using System.IO.Compression;
 using System.Text.Json;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Serialization;
-using OpticalSystemDesign.Application.Services;
 using Dto = OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.Tests;
@@ -13,14 +13,15 @@ namespace OpticalSystemDesign.Tests;
 public sealed class NonSequentialDesignArchiveTests
 {
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task CompleteArchiveReplaysOptimizationOrManufacturingWithoutOriginalCatalogues(bool tolerancing)
     {
         var optic = Optic.CreateBlank(); optic.Materials.Register(new ConstantIndexMaterial("Independent medium", 1.25));
         optic.Materials.Register("custom alias", optic.Materials.Resolve("Independent medium"));
         var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay) with { LocalCoordinateSystem = new(new(.3, 0, 0)) };
         var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
-            { LocalCoordinateSystem = new(new(0, 0, 1)), Parameters = new DetectorRectangleParameters(4, 4, 2, 2) };
+        { LocalCoordinateSystem = new(new(0, 0, 1)), Parameters = new DetectorRectangleParameters(4, 4, 2, 2) };
         var doc = new NonSequentialDocument("independent", [new("d", 550, 1, true)], [source, detector], "custom alias");
         var variable = new NonSequentialDesignVariable(source.Id, NonSequentialVariableDomain.Position, "X", -1, 1, .02);
         var target = new NonSequentialDesignTarget(detector.Id, NonSequentialMetric.CentroidX, 0, .01);

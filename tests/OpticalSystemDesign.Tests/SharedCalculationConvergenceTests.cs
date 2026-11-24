@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -12,6 +11,7 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;
@@ -96,6 +96,7 @@ public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public async Task Captured123456SagTableMatchesTheActualApplicationManufacturingPath()
     {
         using var application = WorkbenchApplication.Create();
@@ -141,6 +142,7 @@ public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456FftThroughFocusIsComparedWithoutChangingItsReference()
     {
         var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");

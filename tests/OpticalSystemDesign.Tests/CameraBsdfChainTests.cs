@@ -65,10 +65,19 @@ public sealed class CameraBsdfChainTests
         Assert.Equal(run.Developed.Rgb24, replay.Developed.Rgb24);
         Assert.Equal(.5, Assert.Single(replay.Request.NscDetector!.SurfaceBsdfs!).Model.Reflectance);
         Assert.Equal(input.BsdfStatistics, replay.Request.NscDetector.BsdfStatistics);
-        NonSequentialBsdfTests.Record("camera-chain", new { PowerWatts = power, MaximumPhotonConversionError = maxError,
-            PhotoElectrons = run.PhotoElectrons.Sum(), ReplayedExactly = true, Width = 32, Height = 32, PixelPitchMicrometers = 4,
-            OpticalModel = input.SurfaceBsdfProtocol, Statistics = input.BsdfStatistics,
-            Source = "Analytical Lambertian control; not measured or commercial reference data" });
+        NonSequentialBsdfTests.Record("camera-chain", new
+        {
+            PowerWatts = power,
+            MaximumPhotonConversionError = maxError,
+            PhotoElectrons = run.PhotoElectrons.Sum(),
+            ReplayedExactly = true,
+            Width = 32,
+            Height = 32,
+            PixelPitchMicrometers = 4,
+            OpticalModel = input.SurfaceBsdfProtocol,
+            Statistics = input.BsdfStatistics,
+            Source = "Analytical Lambertian control; not measured or commercial reference data"
+        });
     }
 
     [Fact]

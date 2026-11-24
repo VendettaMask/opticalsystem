@@ -41,11 +41,17 @@ public sealed class IsekaiMaterialSizingTests
                     .Select((title, n) => new Document { Id = "tab-" + n, Title = title, CanClose = n != 0 }).ToArray(),
                 IconTemplate = new FuncDataTemplate<Document>((_, _) => new Border()),
                 HeaderTemplate = new FuncDataTemplate<Document>((d, _) => new TextBlock { Text = d?.Title, FontSize = fontSize }),
-                SelectedIndex = 3, IsActive = true, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left
+                SelectedIndex = 3,
+                IsActive = true,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left
             };
-            var window = new Window { Width = 1000, Height = 160,
+            var window = new Window
+            {
+                Width = 1000,
+                Height = 160,
                 Background = new SolidColorBrush(IsekaiTheme.Palette.Workspace),
-                Content = new StackPanel { Margin = new Thickness(12), Children = { strip } } };
+                Content = new StackPanel { Margin = new Thickness(12), Children = { strip } }
+            };
             DisplayTypography.Apply(window);
             try
             {
@@ -57,7 +63,8 @@ public sealed class IsekaiMaterialSizingTests
                 var geometry = tabs.Select(t => t.Bounds).ToArray();
                 Write($"{prefix}-geometry.json", tabs.Select(t => new
                 {
-                    t.IsSelected, Bounds = t.Bounds.ToString(),
+                    t.IsSelected,
+                    Bounds = t.Bounds.ToString(),
                     Parts = t.GetVisualDescendants().OfType<Control>()
                         .Where(c => c.Name is "PART_TabBody" or "PART_HeaderPresenter" or "PART_ClosePresenter")
                         .Select(c => new { c.Name, Bounds = c.Bounds.ToString(), Origin = c.TranslatePoint(default, t)?.ToString() }),
@@ -111,8 +118,12 @@ public sealed class IsekaiMaterialSizingTests
                     using var actual = CapturePixels(window);
                     var area = new Rect(scene.Bounds.Size).TransformToAABB(scene.TransformToVisual(window)!.Value);
                     area = area.TransformToAABB(Matrix.CreateScale(scaling, scaling));
-                    var paper = new Border { Width = sourceSize.Width, Height = sourceSize.Height,
-                        Background = IsekaiDrawingMaterial.Instance.CreateResources(false)[ThemeResourceBindings.SceneBackground] as IBrush };
+                    var paper = new Border
+                    {
+                        Width = sourceSize.Width,
+                        Height = sourceSize.Height,
+                        Background = IsekaiDrawingMaterial.Instance.CreateResources(false)[ThemeResourceBindings.SceneBackground] as IBrush
+                    };
                     scaled.Child = paper; Tick(window);
                     using var plain = CapturePixels(window);
                     scaled.Child = scene; Tick(window);
@@ -147,16 +158,16 @@ public sealed class IsekaiMaterialSizingTests
             background.Measure(body.Bounds.Size); background.Arrange(new Rect(body.Bounds.Size));
             using var pixels = Render(background, scaling);
             foreach (var xFraction in new[] { .3, .5, .7 })
-            foreach (var yFraction in new[] { .3, .5, .7 })
-            {
-                var sample = pixels.GetPixel((int)(pixels.Width * xFraction), (int)(pixels.Height * yFraction));
-                var opacity = sample.Alpha / 255d;
-                var colour = Color.FromRgb((byte)(sample.Red * opacity + IsekaiTheme.Palette.Workspace.R * (1 - opacity)),
-                    (byte)(sample.Green * opacity + IsekaiTheme.Palette.Workspace.G * (1 - opacity)),
-                    (byte)(sample.Blue * opacity + IsekaiTheme.Palette.Workspace.B * (1 - opacity)));
-                Assert.True(ScientificIconPalette.Contrast(ink, colour) >= 4.5,
-                    $"Unreadable native tab (selected={tab.IsSelected}): {ink} on {sample} at {xFraction},{yFraction}");
-            }
+                foreach (var yFraction in new[] { .3, .5, .7 })
+                {
+                    var sample = pixels.GetPixel((int)(pixels.Width * xFraction), (int)(pixels.Height * yFraction));
+                    var opacity = sample.Alpha / 255d;
+                    var colour = Color.FromRgb((byte)(sample.Red * opacity + IsekaiTheme.Palette.Workspace.R * (1 - opacity)),
+                        (byte)(sample.Green * opacity + IsekaiTheme.Palette.Workspace.G * (1 - opacity)),
+                        (byte)(sample.Blue * opacity + IsekaiTheme.Palette.Workspace.B * (1 - opacity)));
+                    Assert.True(ScientificIconPalette.Contrast(ink, colour) >= 4.5,
+                        $"Unreadable native tab (selected={tab.IsSelected}): {ink} on {sample} at {xFraction},{yFraction}");
+                }
             var close = tab.GetVisualDescendants().OfType<ContentPresenter>()
                 .Where(p => p.Name == "PART_ClosePresenter" && p.IsEffectivelyVisible)
                 .SelectMany(p => p.GetVisualDescendants().OfType<Button>()).SingleOrDefault();

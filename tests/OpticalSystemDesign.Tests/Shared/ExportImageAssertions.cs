@@ -47,6 +47,22 @@ internal static class ExportImageAssertions
             bytes.AsSpan((y * w + x) * 4, 4).SequenceEqual(bytes.AsSpan((otherY * w + otherX) * 4, 4));
         if (Same(w / 2, 0) && Same(w / 2, h - 1) && Same(0, h / 2) && Same(w - 1, h / 2))
             return new PixelRect(image.PixelSize);
+        // Integer centering can put a one-pixel gutter only on the right or
+        // bottom. Then (0,0) is the frame colour, not the canvas background.
+        if (Same(w / 2, 0) && Same(w / 2, h - 1) && Same(0, h / 2))
+        {
+            var edge = w - 1;
+            while (edge > w / 2 && !Same(edge, h / 2)) edge--;
+            if (edge > w / 2 && Same(edge, 0) && Same(edge, h - 1))
+                return new PixelRect(0, 0, edge + 1, h);
+        }
+        if (Same(w / 2, 0) && Same(0, h / 2) && Same(w - 1, h / 2))
+        {
+            var edge = h - 1;
+            while (edge > h / 2 && !Same(w / 2, edge)) edge--;
+            if (edge > h / 2 && Same(0, edge) && Same(w - 1, edge))
+                return new PixelRect(0, 0, w, edge + 1);
+        }
         var top = 0; while (top < h && Same(w / 2, top)) top++;
         var bottom = h - 1; while (bottom >= top && Same(w / 2, bottom)) bottom--;
         var left = 0; while (left < w && Same(left, h / 2)) left++;

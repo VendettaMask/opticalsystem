@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Analysis.Imaging;
 using System.Text.Json.Serialization;
+using OpticalSystemDesign.Core.Analysis.Imaging;
 
 namespace OpticalSystemDesign.Application.Contracts;
 

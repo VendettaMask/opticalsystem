@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
@@ -13,12 +12,14 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelper output)
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedFileReportsOperandDifferencesWithoutInventingAnAcceptanceGate()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

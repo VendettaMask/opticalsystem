@@ -1,7 +1,7 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;
@@ -13,6 +13,7 @@ public sealed class ZemaxRmsWavefrontVsFocusParityTests
     public ZemaxRmsWavefrontVsFocusParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedChiefRayFocusScanSettingsMatchZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

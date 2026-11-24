@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

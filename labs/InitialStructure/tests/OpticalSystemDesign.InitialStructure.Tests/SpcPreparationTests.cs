@@ -12,8 +12,12 @@ namespace OpticalSystemDesign.InitialStructure.Tests;
 public sealed class SpcPreparationTests
 {
     private sealed class Stop : Exception;
-    private static readonly JsonSerializerOptions Json = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals, Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } };
+    private static readonly JsonSerializerOptions Json = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+    };
 
     [Fact]
     public void BfgsAndHessianContinuationNeverReplayAnOpticalCallback()
@@ -123,8 +127,11 @@ public sealed class SpcPreparationTests
     public void InvalidStrategiesAndForeignKernelsAreRejectedWithoutTracing()
     {
         var plan = Plan();
-        Assert.Throws<ArgumentException>(() => SeedPreparationSearch.Create("mixed", plan with { Options = plan.Options with
-        { SeedPreparation = plan.Options.SeedPreparation! with { ColdStart = new() } } }));
+        Assert.Throws<ArgumentException>(() => SeedPreparationSearch.Create("mixed", plan with
+        {
+            Options = plan.Options with
+            { SeedPreparation = plan.Options.SeedPreparation! with { ColdStart = new() } }
+        }));
         var state = SeedPreparationSearch.Create("foreign", plan) with { KernelFingerprint = new('0', 64) };
         SeedPreparationSearch.Validate(state); Assert.False(SeedPreparationSearch.CanExecute(state));
         var regular = SeedPreparationSearch.Create("regular", plan with { Options = plan.Options with { SeedPreparation = new() } });

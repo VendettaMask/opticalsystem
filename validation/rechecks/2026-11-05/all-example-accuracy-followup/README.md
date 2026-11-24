@@ -11,4 +11,4 @@
 
 固定光线另核对 251 组，共 259,395 个有效逐面结果，143 组通过，108 组不可比。320° 椭圆反射器仍因物方锥角子类型受阻。其余超差和错误按镜头及请求列明。参考沿用冻结的 OpticStudio 2026 R1。显式自适应的七个 FFT 通过结果见[独立物理域复验](../fourier-physical-pupil/README.md)。
 
-[逐镜头表](BY_LENS.md) · [全部原请求](request-results.csv) · [固定光线数据](ray-results.json) · [机器汇总](summary.json) · [最终集成测试](../tolerance-precision-integration/README.md)
+[逐镜头表](BY_LENS.md) · [全部原请求](request-results.csv) · [固定光线数据](../all-example-accuracy/ray-results.json) · [机器汇总](summary.json) · [最终集成测试](../tolerance-precision-integration/README.md)

@@ -211,7 +211,8 @@ internal sealed partial class MaterialCatalogService
             && Math.Abs(_runtime.CurrentOptic.Environment.PressureAtmospheres - 1) > 1e-12)
             return MaterialView("无热化玻璃图", Array.Empty<AnalysisSeriesDto>(), new(), glasses, 0, selected,
                 "无热化玻璃图按 1 atm 定义；启用环境折射率匹配时，请将系统压强设为 1 atm。")
-                with { Outcome = Contracts.AnalysisOutcome.Unavailable };
+                with
+            { Outcome = Contracts.AnalysisOutcome.Unavailable };
         var points = new List<(CatalogGlassMaterial Glass, AnalysisPointDto Point)>();
         var largeDerivatives = new List<string>();
         AnalysisPointDto? selectedPoint = null;
@@ -300,13 +301,16 @@ internal sealed partial class MaterialCatalogService
             selected,
             "使用工程最短、主波长和最长波长，在各玻璃目录参考温度、1 atm 下计算相对热光焦。名称按目录状态着色；默认范围外的有效点仍保留，可用“显示全部范围”查看。"
             + (largeDerivatives.Count == 0 ? "" : "\nTD 导出的 |dn/dT| ≥ 0.01/K，需核对源目录；未猜测修正或删除：\n" + string.Join("\n", largeDerivatives)));
-        return view with { Rows = view.Rows.Concat(new[]
+        return view with
+        {
+            Rows = view.Rows.Concat(new[]
         {
             new AnalysisRowDto("最短 / 主 / 最长波长 (μm)", FormattableString.Invariant($"{wavelengthF / 1000:0.######} / {wavelengthD / 1000:0.######} / {wavelengthC / 1000:0.######}")),
             new AnalysisRowDto("默认范围内", (allPoints.Length - outside).ToString(System.Globalization.CultureInfo.InvariantCulture)),
             new AnalysisRowDto("默认范围外（保留）", outside.ToString(System.Globalization.CultureInfo.InvariantCulture)),
             new AnalysisRowDto("缺少有效波长或热数据", (glasses.Count - allPoints.Length).ToString(System.Globalization.CultureInfo.InvariantCulture))
-        }).ToArray() };
+        }).ToArray()
+        };
     }
 
     private static AnalysisViewDto BuildInternalTransmission(

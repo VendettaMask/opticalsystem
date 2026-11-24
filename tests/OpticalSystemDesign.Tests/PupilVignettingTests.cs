@@ -110,7 +110,7 @@ public sealed class PupilVignettingTests
         Assert.Contains("VDXN -0.2", text); Assert.Contains("VDYN 0.4", text); Assert.Contains("VANN -37", text);
         var imported = OpticalFormatCatalog.Import(text, ".zmx");
         Assert.Equal(expected, PupilVignetting.FromField(imported.Fields[0]));
-        Assert.Equal(6, imported.ToSnapshot().SchemaVersion);
+        Assert.Equal(OpticSnapshotValidator.CurrentSchemaVersion, imported.ToSnapshot().SchemaVersion);
         var path = Path.Combine(Path.GetTempPath(), $"vignetting-{Guid.NewGuid():N}.staropt");
         try
         {

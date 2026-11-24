@@ -31,7 +31,9 @@ public sealed class NonSequentialNativeColorParityTests
     }
 
     [Theory]
-    [InlineData(-3)] [InlineData(0)] [InlineData(3)]
+    [InlineData(-3)]
+    [InlineData(0)]
+    [InlineData(3)]
     public void SharedPlaneJonesPhaseAndSelectedPowerMatchNativeSingleRayControls(double position)
     {
         using var data = JsonDocument.Parse(File.ReadAllText(NativeFile("ray-controls.json")));
@@ -42,9 +44,12 @@ public sealed class NonSequentialNativeColorParityTests
         var ex = new Complex(N("exr"), N("exi")); var ey = new Complex(N("eyr"), N("eyi"));
         var doc = NonSequentialColorFringesTests.Import().Document!; var source = doc.Objects[0];
         var physics = ((SourceParameters)source.Parameters).Physics!;
-        doc.Replace(source.Id, source with { Kind = NonSequentialObjectKind.SourceRay,
+        doc.Replace(source.Id, source with
+        {
+            Kind = NonSequentialObjectKind.SourceRay,
             LocalCoordinateSystem = new(new(0, position, -10), RotationZDegrees: 45),
-            Parameters = new SourceRayParameters { Physics = physics with { Spectrum = null } } });
+            Parameters = new SourceRayParameters { Physics = physics with { Spectrum = null } }
+        });
         var trace = new NonSequentialDocumentTracer().Trace(doc, new());
         var segments = trace.Branches.SelectMany(b => b.Segments).ToArray();
         Assert.Single(trace.Branches);

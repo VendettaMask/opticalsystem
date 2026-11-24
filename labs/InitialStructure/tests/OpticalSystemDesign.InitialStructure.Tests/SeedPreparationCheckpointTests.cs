@@ -12,19 +12,22 @@ public sealed class SeedPreparationCheckpointTests
     [Fact]
     public async Task StreamingEnvelopeKeepsLegacyReadbackAndDetectsChangedFilesEvenWithCachedMetadata()
     {
-        var state=SeedPreparationSearch.Create("codec-guard",Plan()) with{Revision=1};
-        var path=Path.Combine(Path.GetTempPath(),"preparation-codec-"+Guid.NewGuid().ToString("N"),"saved.preparation.json");
+        var state = SeedPreparationSearch.Create("codec-guard", Plan()) with { Revision = 1 };
+        var path = Path.Combine(Path.GetTempPath(), "preparation-codec-" + Guid.NewGuid().ToString("N"), "saved.preparation.json");
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        var settings=new JsonSerializerOptions{PropertyNamingPolicy=JsonNamingPolicy.CamelCase,
-            NumberHandling=System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
-            Converters={new System.Text.Json.Serialization.JsonStringEnumConverter(JsonNamingPolicy.CamelCase)}};
-        await File.WriteAllTextAsync(path,JsonSerializer.Serialize(new{checkpoint=state,sha256=ContentFingerprint.Compute(state)},settings));
-        var store=new SeedPreparationCheckpointStore();Assert.Equal(ContentFingerprint.Compute(state),ContentFingerprint.Compute(await store.LoadAsync(path)));
-        var second=state with{Revision=2,Consumed=new(){FunctionEvaluations=1}};await store.SaveAsync(second,path,1);
-        Assert.Contains("\"format\":2",await File.ReadAllTextAsync(path));
-        var modified=await File.ReadAllTextAsync(path);var timestamp=File.GetLastWriteTimeUtc(path);
-        await File.WriteAllTextAsync(path,modified.Replace("\"cursor\":0","\"cursor\":1"));File.SetLastWriteTimeUtc(path,timestamp);
-        await Assert.ThrowsAsync<InvalidDataException>(()=>store.SaveAsync(second with{Revision=3},path,2).AsTask());
+        var settings = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+            Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+        };
+        await File.WriteAllTextAsync(path, JsonSerializer.Serialize(new { checkpoint = state, sha256 = ContentFingerprint.Compute(state) }, settings));
+        var store = new SeedPreparationCheckpointStore(); Assert.Equal(ContentFingerprint.Compute(state), ContentFingerprint.Compute(await store.LoadAsync(path)));
+        var second = state with { Revision = 2, Consumed = new() { FunctionEvaluations = 1 } }; await store.SaveAsync(second, path, 1);
+        Assert.Contains("\"format\":2", await File.ReadAllTextAsync(path));
+        var modified = await File.ReadAllTextAsync(path); var timestamp = File.GetLastWriteTimeUtc(path);
+        await File.WriteAllTextAsync(path, modified.Replace("\"cursor\":0", "\"cursor\":1")); File.SetLastWriteTimeUtc(path, timestamp);
+        await Assert.ThrowsAsync<InvalidDataException>(() => store.SaveAsync(second with { Revision = 3 }, path, 2).AsTask());
     }
     [Theory]
     [InlineData(1)]

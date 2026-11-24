@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -15,6 +14,7 @@ using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -261,6 +261,7 @@ public sealed class ChromaticFocusOperandTests
     [InlineData(420, 0)]
     [InlineData(440, 1)]
     [InlineData(460, 2)]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void LongitudinalOperandMatchesCaptured123456PupilCurve(double nanometers, int column)
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

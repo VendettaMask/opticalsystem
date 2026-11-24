@@ -25,7 +25,8 @@ internal static class LightGlassMaterial
         foreach (var stop in stops) gradientStops.Add(new GradientStop(Color.Parse(stop.Color), stop.Offset));
         return new LinearGradientBrush
         {
-            StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative), EndPoint = end,
+            StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative),
+            EndPoint = end,
             GradientStops = gradientStops
         }.ToImmutable();
     }

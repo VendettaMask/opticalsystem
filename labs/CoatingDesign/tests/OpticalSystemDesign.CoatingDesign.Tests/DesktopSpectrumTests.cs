@@ -24,8 +24,11 @@ public sealed partial class DesktopTests
         try
         {
             var d = Examples.Create(DesignKind.HighReflector);
-            d = d with { Target = d.Target with { AngleDegrees = 45, Polarization = ThinFilmPolarization.S },
-                Layers = [new(d.HighId, 65), new(d.LowId, 95), new(d.HighId, 70)] };
+            d = d with
+            {
+                Target = d.Target with { AngleDegrees = 45, Polarization = ThinFilmPolarization.S },
+                Layers = [new(d.HighId, 65), new(d.LowId, 95), new(d.HighId, 70)]
+            };
             d = new DesignService().Evaluate(d); var path = Path.Combine(directory, "input.coating.json");
             await ExperimentStore.SaveAsync(d, path);
             using var host = new Host();

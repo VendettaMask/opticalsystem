@@ -364,12 +364,12 @@ public sealed class NonSequentialDocumentTests
 
         var conversion = application.NonSequential.ConvertFromSequential();
 
-        var assembly=Assert.IsType<OpticalSystemDesign.Application.Contracts.OpticalAssemblyParameters>(
-            application.NonSequential.GetDocument().Objects.Single(item=>item.Kind==ContractKind.OpticalAssembly).Parameters);
-        Assert.Equal(3,assembly.Assembly.Interfaces.Count);
-        Assert.DoesNotContain(conversion.Warnings,warning=>warning.Contains("跳过",StringComparison.Ordinal));
-        Assert.Equal("N-BK7",assembly.Assembly.Interfaces[1].MaterialBeforeName);
-        Assert.Equal("N-F2",assembly.Assembly.Interfaces[1].MaterialAfterName);
+        var assembly = Assert.IsType<OpticalSystemDesign.Application.Contracts.OpticalAssemblyParameters>(
+            application.NonSequential.GetDocument().Objects.Single(item => item.Kind == ContractKind.OpticalAssembly).Parameters);
+        Assert.Equal(3, assembly.Assembly.Interfaces.Count);
+        Assert.DoesNotContain(conversion.Warnings, warning => warning.Contains("跳过", StringComparison.Ordinal));
+        Assert.Equal("N-BK7", assembly.Assembly.Interfaces[1].MaterialBeforeName);
+        Assert.Equal("N-F2", assembly.Assembly.Interfaces[1].MaterialAfterName);
     }
 
     [Fact]

@@ -60,8 +60,11 @@ public sealed class StructureFeedbackTests
     public async Task FormalSearchRecordsBoundedFeedbackAndReopensItsEvidence()
     {
         var d = GeneralCoatingTests.Fixture(550, 1.45, 2.3, 0, 0, Core.Coatings.ThinFilmPolarization.Unpolarized);
-        d = d with { Target = d.Target with { MaximumLayers = 9, Structure = new(2) },
-            Settings = d.Settings with { MaximumIterations = 2, Search = new(1, 12, true) } };
+        d = d with
+        {
+            Target = d.Target with { MaximumLayers = 9, Structure = new(2) },
+            Settings = d.Settings with { MaximumIterations = 2, Search = new(1, 12, true) }
+        };
         var origin = new NarrowBandPrototype([1, 1, 1], [1, 1], true); var service = new DesignService();
         var layers = service.BuildNarrowBandPrototype(d, origin).Select(l => l with { ThicknessNm = l.ThicknessNm * 1.01 }).ToArray();
         d = d with { Layers = layers, Candidates = [new("saved actual fitted prescription", layers, 0, false) { OriginPrototype = origin }] };

@@ -98,8 +98,10 @@ public sealed class CameraSamplingTests
     }
 
     [Theory]
-    [InlineData(CameraBayerPattern.RGGB)] [InlineData(CameraBayerPattern.BGGR)]
-    [InlineData(CameraBayerPattern.GRBG)] [InlineData(CameraBayerPattern.GBRG)]
+    [InlineData(CameraBayerPattern.RGGB)]
+    [InlineData(CameraBayerPattern.BGGR)]
+    [InlineData(CameraBayerPattern.GRBG)]
+    [InlineData(CameraBayerPattern.GBRG)]
     public async Task OddRegionOriginsRetainOriginalCfaAndEverySavedBaselineCharge(CameraBayerPattern pattern)
     {
         using var app = WorkbenchApplication.Create(); var run = await Source(app.CameraImaging, pattern: pattern);

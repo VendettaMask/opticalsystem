@@ -1,7 +1,7 @@
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core.Scattering;
-using CoreModel = OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBsdf;
 using CoreKind = OpticalSystemDesign.Core.NonSequential.NonSequentialBsdfKind;
+using CoreModel = OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBsdf;
 
 namespace OpticalSystemDesign.Application.Services;
 

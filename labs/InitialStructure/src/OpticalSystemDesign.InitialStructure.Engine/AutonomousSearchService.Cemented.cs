@@ -15,7 +15,8 @@ public static partial class AutonomousSearchService
         OS = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
         Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString(),
         VectorWidth = System.Numerics.Vector<double>.Count,
-        Avx2 = System.Runtime.Intrinsics.X86.Avx2.IsSupported, Fma = System.Runtime.Intrinsics.X86.Fma.IsSupported,
+        Avx2 = System.Runtime.Intrinsics.X86.Avx2.IsSupported,
+        Fma = System.Runtime.Intrinsics.X86.Fma.IsSupported,
         AdvSimd = System.Runtime.Intrinsics.Arm.AdvSimd.IsSupported
     });
 

@@ -19,6 +19,30 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class LocalUiCatalogTests
 {
+    [Theory]
+    [InlineData("结构 自定义名称")]
+    [InlineData("结构 1号镜头")]
+    [InlineData("结构 A/B")]
+    [InlineData("Configuration My Lens")]
+    [InlineData("構成 自由名")]
+    public void ConfigurationTemplatesPreserveArbitraryNames(string name)
+    {
+        foreach (var language in new[] { UiLocalization.Chinese, UiLocalization.English, UiLocalization.Japanese })
+            Assert.Equal(name, UiLocalization.Text(name, language));
+    }
+
+    [Theory]
+    [InlineData("结构 1", "Configuration 1", "構成 1")]
+    [InlineData("结构 01*", "Configuration 01*", "構成 01*")]
+    [InlineData("结构 2/3", "Configuration 2/3", "構成 2/3")]
+    public void NumericConfigurationCaptionsStillTranslateAndRoundTrip(string chinese, string english, string japanese)
+    {
+        Assert.Equal(english, UiLocalization.Text(chinese, UiLocalization.English));
+        Assert.Equal(japanese, UiLocalization.Text(chinese, UiLocalization.Japanese));
+        Assert.Equal(chinese, UiLocalization.Text(english, UiLocalization.Chinese));
+        Assert.Equal(chinese, UiLocalization.Text(japanese, UiLocalization.Chinese));
+    }
+
     [Fact]
     public void BundledCatalogHasCompleteLanguagesAndPreservesSlotsNumbersUnitsLinksAndFormulas()
     {

@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -21,8 +21,12 @@ public sealed class TopologyProtocolPortabilityTests
         {
             foreach (var encoding in Encodings)
             {
-                var alternate = state with { Candidates = state.Candidates.Select(candidate => candidate with
-                    { Assessment = candidate.Assessment with { ProtocolFingerprint = encoding } }).ToImmutableArray(), Revision = 1 };
+                var alternate = state with
+                {
+                    Candidates = state.Candidates.Select(candidate => candidate with
+                    { Assessment = candidate.Assessment with { ProtocolFingerprint = encoding } }).ToImmutableArray(),
+                    Revision = 1
+                };
                 AutonomousSearchService.Validate(alternate);
                 var path = Path.Combine(root, encoding + ".autonomous.json");
                 var store = new AutonomousSearchCheckpointStore();
@@ -46,16 +50,19 @@ public sealed class TopologyProtocolPortabilityTests
         {
             Assert.True(TopologyValidator.MatchesProtocol(source, state.Plan.Targets, encoding));
             Assert.False(TopologyValidator.MatchesProtocol(source, state.Plan.Targets with
-                { MaximumRmsRadiusMillimeters = Math.BitIncrement(state.Plan.Targets.MaximumRmsRadiusMillimeters) }, encoding));
+            { MaximumRmsRadiusMillimeters = Math.BitIncrement(state.Plan.Targets.MaximumRmsRadiusMillimeters) }, encoding));
             Assert.False(TopologyValidator.MatchesProtocol(TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints with
-                { MinimumAirGapMillimeters = Math.BitIncrement(state.Plan.Constraints.MinimumAirGapMillimeters) }), state.Plan.Targets, encoding));
+            { MinimumAirGapMillimeters = Math.BitIncrement(state.Plan.Constraints.MinimumAirGapMillimeters) }), state.Plan.Targets, encoding));
             var fields = candidate.Topology.Fields.SetItem(1, candidate.Topology.Fields[1] with { YAngleDegrees = 13 });
             Assert.False(TopologyValidator.MatchesProtocol(TopologyCompiler.Compile(candidate.Topology with { Fields = fields },
                 state.Plan.Constraints), state.Plan.Targets, encoding));
         }
         Assert.False(TopologyValidator.MatchesProtocol(source, state.Plan.Targets, new string('0', 64)));
-        var tampered = state with { Candidates = state.Candidates.SetItem(0, candidate with
-            { Assessment = candidate.Assessment with { ProtocolFingerprint = new string('0', 64) } }) };
+        var tampered = state with
+        {
+            Candidates = state.Candidates.SetItem(0, candidate with
+            { Assessment = candidate.Assessment with { ProtocolFingerprint = new string('0', 64) } })
+        };
         using var trace = SequentialTraceMeasurement.Begin();
         Assert.Throws<InvalidDataException>(() => AutonomousSearchService.Validate(tampered));
         Assert.Equal(0, trace.RayCount);

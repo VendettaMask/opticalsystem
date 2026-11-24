@@ -11,7 +11,13 @@ public sealed class MultiLensEncircledEnergyTests
 {
     private static readonly Lazy<IReadOnlyDictionary<string, byte[]>> Fixture = new(LoadFixture);
 
-    public static IEnumerable<object[]> NativeCurves()
+    public static IEnumerable<object[]> NativeCurves() => AllNativeCurves().Where(row =>
+        !NumericalAcceptanceScope.IsRetired(Fixture.Value, (string)row[0]));
+
+    public static IEnumerable<object[]> RetiredNativeCurves() => AllNativeCurves().Where(row =>
+        NumericalAcceptanceScope.IsRetired(Fixture.Value, (string)row[0]));
+
+    private static IEnumerable<object[]> AllNativeCurves()
     {
         using var manifest = JsonDocument.Parse(Fixture.Value["manifest.json"]);
         foreach (var capture in manifest.RootElement.GetProperty("cases").EnumerateArray())
@@ -38,6 +44,12 @@ public sealed class MultiLensEncircledEnergyTests
     {
         "0014-n128", "0308-n128", "0360-n128", "0592-n128", "0852-n128"
     };
+
+    [Theory]
+    [MemberData(nameof(RetiredNativeCurves))]
+    [Trait("AcceptanceScope", "RetiredReference")]
+    public void RetiredLensCapturedCurves(string id, int series) =>
+        OriginalAndIndependentSpectralCurvesRetainTheOriginalEnergyTolerance(id, series);
 
     [Theory]
     [MemberData(nameof(NativeCurves))]

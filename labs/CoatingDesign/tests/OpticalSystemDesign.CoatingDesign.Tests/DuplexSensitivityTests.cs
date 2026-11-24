@@ -1,7 +1,7 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 

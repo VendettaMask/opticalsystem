@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.IO.Compression;
 using System.Security.Cryptography;
@@ -9,6 +8,7 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 using OpticalSystemDesign.ZemaxComparison.Normalization;
@@ -97,7 +97,7 @@ public sealed class AfocalCentroidEnergyPointwiseTests(ITestOutputHelper output)
         Assert.Equal("ClosedCumulative", physical.Values["ZeroRadiusPlotConvention"]);
         var direct = new EncircledEnergyAnalysis(optic, 32, "uniform", 401, request.Wavelength, "centroid",
             double.Parse(settings["MaximumDistanceMicrometers"], CultureInfo.InvariantCulture), false)
-            { ZemaxCompatibleOutput = true }.GenerateData();
+        { ZemaxCompatibleOutput = true }.GenerateData();
         var difference = native.PlotSeries.Zip(physical.PlotSeries, (a, b) => a.Points.Zip(b.Points, (x, y) => Math.Abs(x.Y - y.Y)).Max()).Max();
         Assert.True(difference > .1, "This physical counterexample must retain the distinct angular centroid.");
         for (var field = 0; field < physical.PlotSeries.Count; field++) Assert.Equal(direct.PlotSeries[field].Points, physical.PlotSeries[field].Points);
@@ -119,7 +119,8 @@ public sealed class AfocalCentroidEnergyPointwiseTests(ITestOutputHelper output)
             multiplyByDiffractionLimit: false).GenerateData();
         Assert.Equal(AnalysisOutcome.Success, physical.Outcome);
         var native = new EncircledEnergyAnalysis(optic, 32, "uniform", 100, 2,
-            multiplyByDiffractionLimit: false) { ZemaxCompatibleOutput = true, UseNativeAfocalReferenceRay = true };
+            multiplyByDiffractionLimit: false)
+        { ZemaxCompatibleOutput = true, UseNativeAfocalReferenceRay = true };
         Assert.Throws<AnalysisDataUnavailableException>(() => native.GenerateData());
     }
 }

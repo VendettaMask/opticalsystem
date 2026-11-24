@@ -9,7 +9,9 @@ public sealed class FirstOrderScalarContractTests
     private static readonly AnalysisComparisonEntry Entry = AnalysisComparisonRegistry.Get("First Order");
     private static readonly CanonicalAnalysisRequest Request = new()
     {
-        CanonicalAnalysisKey = "First Order", Apodization = "Uniform", WorkbenchSettings = []
+        CanonicalAnalysisKey = "First Order",
+        Apodization = "Uniform",
+        WorkbenchSettings = []
     };
 
     [Theory]

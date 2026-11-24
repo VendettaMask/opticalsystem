@@ -84,7 +84,7 @@ internal sealed class AutonomousDesktopSession(string directory)
                         Directory.CreateDirectory(reports);
                         if (!resume)
                         {
-                            var initial = SeedPreparationSearch.Create(id, plan,preparation.ColdStart is not null || preparation.Spc is not null) with { Revision = 1 };
+                            var initial = SeedPreparationSearch.Create(id, plan, preparation.ColdStart is not null || preparation.Spc is not null) with { Revision = 1 };
                             PreparationCheckpointPath = Path.Combine(reports, id + ".preparation.json");
                             await _preparationStore.SaveAsync(initial, PreparationCheckpointPath, 0);
                             _preparation = initial;
@@ -99,10 +99,10 @@ internal sealed class AutonomousDesktopSession(string directory)
                         PreparationReportPath = Path.Combine(reports, id + "-r" + prepared.Revision + ".seed-search.json");
                         // Cancellation stops computation; persistence retains the attempted fresh run and its actual costs.
                         await ParaxialSeedSearchFiles.SaveAsync(result, PreparationReportPath);
-                        if(prepareOnly || !prepared.ContinueIntoMain)
+                        if (prepareOnly || !prepared.ContinueIntoMain)
                         {
-                            PreparationPlanPath = Path.Combine(reports,id+".topology-plan.json");
-                            await AutonomousDesignFiles.SavePlanAsync(result.Seeds.IsEmpty?plan:plan with{Seeds=result.Seeds},PreparationPlanPath);
+                            PreparationPlanPath = Path.Combine(reports, id + ".topology-plan.json");
+                            await AutonomousDesignFiles.SavePlanAsync(result.Seeds.IsEmpty ? plan : plan with { Seeds = result.Seeds }, PreparationPlanPath);
                             return;
                         }
                         if (result.Seeds.IsEmpty || _cancellation.IsCancellationRequested) return;

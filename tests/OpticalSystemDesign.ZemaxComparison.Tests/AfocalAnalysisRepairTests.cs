@@ -3,9 +3,9 @@ using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apodization;
-using OpticalSystemDesign.ZemaxComparison.Workbench;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
+using OpticalSystemDesign.ZemaxComparison.Workbench;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;
 
@@ -69,7 +69,11 @@ public sealed class AfocalAnalysisRepairTests
         optic.ImageSpaceAfocal = afocal;
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("Huygens PSF", new Dictionary<string, string>
         {
-            ["PupilSampling"] = "8", ["ImageSampling"] = "8", ["ImageDeltaMicrometers"] = "0.05", ["WavelengthNumber"] = "1", ["FieldNumber"] = "1"
+            ["PupilSampling"] = "8",
+            ["ImageSampling"] = "8",
+            ["ImageDeltaMicrometers"] = "0.05",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1"
         });
         Assert.Equal(.05, Convert.ToDouble(data.Values[afocal ? "PixelPitchMilliradians" : "PixelPitchMicrometers"]), 12);
         Assert.All(data.PlotSeries, series => Assert.Equal(afocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer, series.XUnit));
@@ -81,8 +85,14 @@ public sealed class AfocalAnalysisRepairTests
         var optic = (await WorkbenchExecutor.Import(Path.Combine(Sources, "Afocal/Beam Expander.ZMX"))).ActiveOptic;
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("Huygens Through Focus MTF", new Dictionary<string, string>
         {
-            ["PupilSampling"] = "16", ["ImageSampling"] = "32", ["ImageDeltaMicrometers"] = "0.005", ["SpatialFrequency"] = "1.7188733853924696",
-            ["DeltaFocus"] = "0.01", ["Steps"] = "5", ["WavelengthNumber"] = "1", ["FieldNumber"] = "1"
+            ["PupilSampling"] = "16",
+            ["ImageSampling"] = "32",
+            ["ImageDeltaMicrometers"] = "0.005",
+            ["SpatialFrequency"] = "1.7188733853924696",
+            ["DeltaFocus"] = "0.01",
+            ["Steps"] = "5",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1"
         });
         var curve = data.PlotSeries[0];
         Assert.Equal(AnalysisAxisUnit.Diopter, curve.XUnit);
@@ -100,8 +110,15 @@ public sealed class AfocalAnalysisRepairTests
         var optic = (await WorkbenchExecutor.Import(Path.Combine(Sources, "Afocal/Beam Expander.ZMX"))).ActiveOptic;
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(key, new Dictionary<string, string>
         {
-            ["PupilSampling"] = "32", ["ImageSampling"] = "64", ["Sampling"] = "32", ["NumRays"] = "32", ["FieldDensity"] = "3",
-            ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["MaximumDistanceMicrometers"] = "0.1", ["Data"] = "spot"
+            ["PupilSampling"] = "32",
+            ["ImageSampling"] = "64",
+            ["Sampling"] = "32",
+            ["NumRays"] = "32",
+            ["FieldDensity"] = "3",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1",
+            ["MaximumDistanceMicrometers"] = "0.1",
+            ["Data"] = "spot"
         });
         Assert.NotEmpty(data.PlotSeries);
         Assert.All(data.PlotSeries, series => Assert.Equal(AnalysisAxisUnit.Milliradian, key == "RMS vs Field" ? series.YUnit : series.XUnit));

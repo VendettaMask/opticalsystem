@@ -20,8 +20,15 @@ public sealed partial class CameraImagingWindow : IProjectArchiveParticipant
         if (IsNsc)
         {
             var input = _nscInput ?? throw new InvalidOperationException("请先读取非序列探测器结果。");
-            request = request with { Width = input.Detector.PixelsX, Height = input.Detector.PixelsY,
-                NscDetector = input, SceneMode = CameraSceneMode.Uniform, MaterialScene = null, PixelSampling = null };
+            request = request with
+            {
+                Width = input.Detector.PixelsX,
+                Height = input.Detector.PixelsY,
+                NscDetector = input,
+                SceneMode = CameraSceneMode.Uniform,
+                MaterialScene = null,
+                PixelSampling = null
+            };
         }
         return request;
     }

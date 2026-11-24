@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
@@ -8,6 +7,7 @@ using OpticalSystemDesign.App;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

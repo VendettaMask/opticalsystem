@@ -24,12 +24,17 @@ public sealed partial class LensEditorPanel
     private readonly ComboBox _surfaceColor = new() { Name = "SurfaceColor", HorizontalAlignment = HorizontalAlignment.Stretch };
     private readonly TextBox _surfaceColorHex = new()
     {
-        Name = "SurfaceColorHex", PlaceholderText = "#RRGGBB", MaxLength = 7,
+        Name = "SurfaceColorHex",
+        PlaceholderText = "#RRGGBB",
+        MaxLength = 7,
         Classes = { ProductFonts.NumericClass }
     };
     private readonly Border _surfaceColorSwatch = new()
     {
-        Name = "SurfaceColorSwatch", Width = 20, Height = 20, BorderThickness = new Thickness(1),
+        Name = "SurfaceColorSwatch",
+        Width = 20,
+        Height = 20,
+        BorderThickness = new Thickness(1),
         VerticalAlignment = VerticalAlignment.Center
     };
     private readonly TextBlock _coordinatesSummary = PropertyNote("");
@@ -422,7 +427,8 @@ public sealed partial class LensEditorPanel
         };
         _surfaceColor.ItemsSource = choices.Select(choice => new ComboBoxItem
         {
-            Content = choice.Label, Tag = choice.Value
+            Content = choice.Label,
+            Tag = choice.Value
         }).ToArray();
         _surfaceColorSwatch.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var picker = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 6 };

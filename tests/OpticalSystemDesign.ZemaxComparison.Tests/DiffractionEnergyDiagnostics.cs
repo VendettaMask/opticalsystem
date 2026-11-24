@@ -39,12 +39,17 @@ internal static class DiffractionEnergyDiagnostics
                     var psf = (PsfResult)typeof(DiffractionEngine).GetMethod("ComputeFftPsfCore",
                         BindingFlags.Static | BindingFlags.NonPublic)!.Invoke(null, arguments)!;
                     var pupil = (Complex[,])arguments[16]!;
-                    controls.Add(new { ignoreOpd, interpolate, psf.SampleSpacingMicrometers,
+                    controls.Add(new
+                    {
+                        ignoreOpd,
+                        interpolate,
+                        psf.SampleSpacingMicrometers,
                         maximumDifferenceFromProduction = Enumerable.Range(0, size).SelectMany(y => Enumerable.Range(0, size)
                             .Select(x => Math.Abs(current.Values[y, x] - psf.Values[y, x]))).Max(),
                         psf = Enumerable.Range(0, size).Select(y => Enumerable.Range(0, size).Select(x => psf.Values[y, x]).ToArray()).ToArray(),
                         pupil = Enumerable.Range(0, pupil.GetLength(0)).SelectMany(y => Enumerable.Range(0, pupil.GetLength(1)).Select(x =>
-                            new { x, y, real = pupil[y, x].Real, imaginary = pupil[y, x].Imaginary })).ToArray() });
+                            new { x, y, real = pupil[y, x].Real, imaginary = pupil[y, x].Imaginary })).ToArray()
+                    });
                 }
             }
         }

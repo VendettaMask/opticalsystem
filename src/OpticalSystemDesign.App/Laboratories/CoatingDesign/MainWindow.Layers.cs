@@ -10,8 +10,8 @@ using Avalonia.Layout;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
-using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;
@@ -75,19 +75,32 @@ public sealed partial class MainWindow
         numberTheme.Setters.Add(new Setter(NameProperty, "CoatingLayerNumberCell"));
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("#", TextAlignment.Center), Binding = new Binding(nameof(LayerRow.Number)), IsReadOnly = true,
-            Width = new DataGridLength(52), CellTheme = numberTheme
+            Header = LayerHeader("#", TextAlignment.Center),
+            Binding = new Binding(nameof(LayerRow.Number)),
+            IsReadOnly = true,
+            Width = new DataGridLength(52),
+            CellTheme = numberTheme
         });
         table.Columns.Add(new DataGridTemplateColumn
         {
-            Header = "材料", IsReadOnly = true, MinWidth = 220,
+            Header = "材料",
+            IsReadOnly = true,
+            MinWidth = 220,
             ClipboardContentBinding = new Binding(nameof(LayerRow.MaterialName)),
             Width = new DataGridLength(1, DataGridLengthUnitType.Star),
             CellTheme = LayerCellTheme(HorizontalAlignment.Stretch),
             CellTemplate = new FuncDataTemplate<LayerRow>((_, _) =>
             {
-                var picker = UiLocalization.Preserve(new ComboBox { Name = "CoatingRowMaterial", ItemsSource = _rowMaterialIds, HorizontalAlignment = HorizontalAlignment.Stretch,
-                    HorizontalContentAlignment = HorizontalAlignment.Stretch, MinWidth = 0, Margin = new(0, 2), Padding = new(5, 1) });
+                var picker = UiLocalization.Preserve(new ComboBox
+                {
+                    Name = "CoatingRowMaterial",
+                    ItemsSource = _rowMaterialIds,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    MinWidth = 0,
+                    Margin = new(0, 2),
+                    Padding = new(5, 1)
+                });
                 picker.Bind(FontSizeProperty, new Binding(nameof(DataGrid.FontSize)) { Source = table });
                 picker.ItemTemplate = new FuncDataTemplate<string>((id, _) =>
                 {
@@ -109,15 +122,20 @@ public sealed partial class MainWindow
         });
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("d (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay },
-            Width = new DataGridLength(148), FontWeight = FontWeight.SemiBold, CellTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true)
+            Header = LayerHeader("d (nm)", TextAlignment.Right),
+            Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay },
+            Width = new DataGridLength(148),
+            FontWeight = FontWeight.SemiBold,
+            CellTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true)
         });
         var opticalTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true);
         opticalTheme.Setters.Add(new Setter(ToolTip.TipProperty, new Binding(nameof(LayerRow.OpticalThicknessHelp))));
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("OT", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.OpticalThicknessText)) { Mode = BindingMode.TwoWay },
-            Width = new DataGridLength(148), CellTheme = opticalTheme
+            Header = LayerHeader("OT", TextAlignment.Right),
+            Binding = new Binding(nameof(LayerRow.OpticalThicknessText)) { Mode = BindingMode.TwoWay },
+            Width = new DataGridLength(148),
+            CellTheme = opticalTheme
         });
         table.Columns.Add(new DataGridTextColumn
         { Header = LayerHeader("QW", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.QuarterWaveText)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(100), CellTheme = opticalTheme });
@@ -126,7 +144,8 @@ public sealed partial class MainWindow
         var rowToolsTheme = LayerCellTheme(HorizontalAlignment.Stretch, inset: false);
         table.Columns.Add(new DataGridTemplateColumn
         {
-            Header = "", Width = new DataGridLength(136),
+            Header = "",
+            Width = new DataGridLength(136),
             ClipboardContentBinding = new Binding(nameof(LayerRow.Variable)),
             CellTheme = rowToolsTheme,
             CellTemplate = new FuncDataTemplate<LayerRow>((_, _) =>
@@ -194,8 +213,11 @@ public sealed partial class MainWindow
 
     private static TextBlock LayerHeader(string text, TextAlignment alignment) => new()
     {
-        Text = text, TextAlignment = alignment, HorizontalAlignment = HorizontalAlignment.Stretch,
-        VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap
+        Text = text,
+        TextAlignment = alignment,
+        HorizontalAlignment = HorizontalAlignment.Stretch,
+        VerticalAlignment = VerticalAlignment.Center,
+        TextWrapping = TextWrapping.Wrap
     };
 
     private void RefreshLayerOpticalThickness()

@@ -49,6 +49,7 @@
 - [物方棋盘：预算内全幅逐源谱、线性交换与多 ROI 双方向 SFR](SCENE_SLANTED_EDGE_SFR.md)，原例 5000×3000/ROM 与独立对照尚未验收
 - [非序列工作流](NON_SEQUENTIAL_TRACING.md)、[会话/数据库与杂散光](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)、[光源](NONSEQUENTIAL_SOURCES.md)
 - [非序列文件导入](NONSEQUENTIAL_IMPORT.md)：现行映射、106 个示例的逐文件结果与资源需求。
+- [非序列场景工作区](NONSEQUENTIAL_WORKSPACE.md)：结构／光学／仿真导航、模型与表格联动、分组／选择集及批量编辑。
 - [光学装调](OPTICAL_ASSEMBLY_LAB.md)、[后续非序列路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
 
 ### 正在推进的计划

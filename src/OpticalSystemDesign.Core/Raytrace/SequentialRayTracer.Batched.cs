@@ -90,7 +90,8 @@ public sealed partial class SequentialRayTracer
                         cumulativeOpticalPaths[rayIndex],
                         stopBeforeInteraction: request.StopAtIncidentSurfaceIndex == surfaceIndex,
                         allowVirtualIntersection: allowReferenceBacktrack,
-                        sourceRay: bundle.Rays[rayIndex], phaseTrace: phaseTrace, floatingConicEdge: floatingConicEdge);
+                        sourceRay: bundle.Rays[rayIndex], phaseTrace: phaseTrace, floatingConicEdge: floatingConicEdge,
+                        recordCompoundInteractions: request.RecordCompoundInteractions && surfaceSlots[surfaceIndex] >= 0);
                     var slot = surfaceSlots[surfaceIndex];
                     if (slot >= 0)
                     {

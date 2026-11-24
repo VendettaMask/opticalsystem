@@ -13,12 +13,17 @@ public sealed partial class LensEditorPanel
     private readonly ComboBox _rowColor = new() { Name = "SurfaceRowColor" };
     private readonly TextBox _rowColorHex = new()
     {
-        Name = "SurfaceRowColorHex", PlaceholderText = "#RRGGBB", MaxLength = 7
+        Name = "SurfaceRowColorHex",
+        PlaceholderText = "#RRGGBB",
+        MaxLength = 7
     };
     private readonly Border _rowColorSwatch = new()
     {
-        Name = "SurfaceRowColorSwatch", Width = 20, Height = 20,
-        BorderThickness = new Thickness(1), VerticalAlignment = VerticalAlignment.Center
+        Name = "SurfaceRowColorSwatch",
+        Width = 20,
+        Height = 20,
+        BorderThickness = new Thickness(1),
+        VerticalAlignment = VerticalAlignment.Center
     };
 
     private Control BuildRowColorPicker()
@@ -33,7 +38,8 @@ public sealed partial class LensEditorPanel
         };
         _rowColor.ItemsSource = choices.Select(choice => new ComboBoxItem
         {
-            Content = choice.Label, Tag = choice.Value
+            Content = choice.Label,
+            Tag = choice.Value
         }).ToArray();
         _rowColorSwatch.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var preview = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 6 };

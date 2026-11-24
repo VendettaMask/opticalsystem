@@ -276,7 +276,7 @@ public sealed class LensConfigurationNavigationTests
                 Assert.Equal(UiLocalization.Text("已是第一个结构"), ToolTip.GetTip(Find<Button>(editor, "PreviousLensConfiguration")));
                 var revision = app.Events.Revision;
                 UiLocalization.Apply(UiLocalization.Chinese); Tick(window);
-                Assert.Equal("结构 1/3", position.Text);
+                Assert.Equal(theme == "Isekai" ? "Configuration 1/3" : "结构 1/3", position.Text);
                 AssertHeaderCentered(editor, window);
                 UiLocalization.Apply(language); Tick(window);
                 Assert.Equal(caption, position.Text);

@@ -4,8 +4,8 @@ using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
-using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Scattering;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.NonSequential;
 
@@ -192,8 +192,8 @@ public sealed partial class NonSequentialDocumentTracer
         var objects = document.Objects.Where(item => item.Enabled && !IsSource(item.Kind) && item.Kind != NonSequentialObjectKind.Null).ToArray();
         var hasWaveplates = objects.Any(item => item.Parameters.Waveplate is not null);
         var bsdfs = objects.Where(item => item.SurfaceBsdf is not null).ToDictionary(item => item.Id, item => item.SurfaceBsdf!.Create());
-        var opticalAssemblies = objects.Where(o=>o.Parameters is OpticalAssemblyParameters).ToArray();
-        var hasOpticalAssemblies=opticalAssemblies.Length>0;
+        var opticalAssemblies = objects.Where(o => o.Parameters is OpticalAssemblyParameters).ToArray();
+        var hasOpticalAssemblies = opticalAssemblies.Length > 0;
         var hasRefractiveSolids = objects.Any(item => Behavior(item) == NonSequentialSurfaceBehavior.Refractive
             && item.Kind is NonSequentialObjectKind.Sphere or NonSequentialObjectKind.Cylinder or NonSequentialObjectKind.Box
                 or NonSequentialObjectKind.StandardLens or NonSequentialObjectKind.Mesh);
@@ -250,8 +250,8 @@ public sealed partial class NonSequentialDocumentTracer
                     .Select(item => Intersect(document, item.Item, source.Ray))
                     .Where(hit => hit is { IsSolid: true, Entering: false })
                     .OrderBy(hit => hit!.Distance).ToArray();
-                var assemblyMedium=opticalAssemblies.Select(o=>((OpticalAssemblyParameters)o.Parameters).MediumAt(document.ToLocalPoint(o.Id,source.Ray.Origin))).FirstOrDefault(m=>m is not null);
-                if(initialInside.Length==0 && assemblyMedium is null && opticalAssemblies.Length>0)assemblyMedium=((OpticalAssemblyParameters)opticalAssemblies[0].Parameters).Ambient;
+                var assemblyMedium = opticalAssemblies.Select(o => ((OpticalAssemblyParameters)o.Parameters).MediumAt(document.ToLocalPoint(o.Id, source.Ray.Origin))).FirstOrDefault(m => m is not null);
+                if (initialInside.Length == 0 && assemblyMedium is null && opticalAssemblies.Length > 0) assemblyMedium = ((OpticalAssemblyParameters)opticalAssemblies[0].Parameters).Ambient;
                 sourcePower += source.Ray.Intensity;
                 launchedRays++;
                 if (request.Work is { } launchedWork) launchedWork.LaunchedRays++;
@@ -275,7 +275,7 @@ public sealed partial class NonSequentialDocumentTracer
                     new List<NonSequentialRaySegment>(),
                     0,
                     0,
-                    source.Ray.Intensity, OpticalMedium:initialInside.Length==0?assemblyMedium:null, Field:inputField));
+                    source.Ray.Intensity, OpticalMedium: initialInside.Length == 0 ? assemblyMedium : null, Field: inputField));
                 hasSource = sourceEnumerator.MoveNext();
             }
 
@@ -286,7 +286,7 @@ public sealed partial class NonSequentialDocumentTracer
             {
                 Checkpoint();
                 ComputationCancellation.ThrowIfCancellationRequested();
-                if(hasOpticalAssemblies && state.Segments.Count>=settings.MaximumSegmentsPerRay){termination=NonSequentialTerminationReason.MaximumSegments;truncatedPower+=state.Ray.Intensity;completed=true;break;}
+                if (hasOpticalAssemblies && state.Segments.Count >= settings.MaximumSegmentsPerRay) { termination = NonSequentialTerminationReason.MaximumSegments; truncatedPower += state.Ray.Intensity; completed = true; break; }
                 if (!state.Ray.CanTrace)
                 {
                     termination = NonSequentialTerminationReason.InvalidRay;
@@ -307,8 +307,11 @@ public sealed partial class NonSequentialDocumentTracer
                 {
                     var containing = (bvh?.Candidates(state.Ray) ?? []).Where(o => Behavior(o.Item) == NonSequentialSurfaceBehavior.Refractive)
                         .Select(o => Intersect(document, o.Item, state.Ray)).Where(h => h is { IsSolid: true, Entering: false }).OrderBy(h => h!.Distance).ToArray();
-                    state = state with { InsideObjects = containing.Select(h => h!.Item.Id).ToHashSet(),
-                        MaterialName = containing.Length > 0 ? SolidMaterial(containing[0]!.Item) : document.AmbientMaterial };
+                    state = state with
+                    {
+                        InsideObjects = containing.Select(h => h!.Item.Id).ToHashSet(),
+                        MaterialName = containing.Length > 0 ? SolidMaterial(containing[0]!.Item) : document.AmbientMaterial
+                    };
                 }
                 var hit = FindNearestHit(document, bvh, state.Ray);
                 if (hit is null)
@@ -324,12 +327,12 @@ public sealed partial class NonSequentialDocumentTracer
                 var path = state.PathLength + distance;
                 var opticalPath = state.OpticalPathLength
                     + distance * incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers);
-                if(hasOpticalAssemblies || fieldTracing)
+                if (hasOpticalAssemblies || fieldTracing)
                 {
-                    var attenuation=Propagation.HomogeneousPowerAttenuation.Evaluate(incidentMaterial.ExtinctionCoefficient(state.Ray.WavelengthNanometers),state.Ray.WavelengthNanometers,distance);
-                    var attenuated=state.Ray.Intensity*attenuation;
-                    absorbedPower+=state.Ray.Intensity-attenuated;
-                    state=state with{Ray=state.Ray with{Intensity=attenuated}};
+                    var attenuation = Propagation.HomogeneousPowerAttenuation.Evaluate(incidentMaterial.ExtinctionCoefficient(state.Ray.WavelengthNanometers), state.Ray.WavelengthNanometers, distance);
+                    var attenuated = state.Ray.Intensity * attenuation;
+                    absorbedPower += state.Ray.Intensity - attenuated;
+                    state = state with { Ray = state.Ray with { Intensity = attenuated } };
                 }
                 var incomingIntensity = state.Ray.Intensity;
                 if (state.Field is { } propagatingField)
@@ -358,10 +361,10 @@ public sealed partial class NonSequentialDocumentTracer
                     var detector = (DetectorRectangleParameters)hit.Item.Parameters;
                     if (!detector.FrontOnly || hit.LocalDirection.Z > 0)
                     {
-                        if(detector.IncidentSurface is { } port && !port.PassesAperture(hit.LocalPoint))
+                        if (detector.IncidentSurface is { } port && !port.PassesAperture(hit.LocalPoint))
                         {
-                            absorbedPower+=incomingIntensity;state.Segments.Add(Segment(state,hit,path,opticalPath,state.Ray.Direction,null));
-                            termination=NonSequentialTerminationReason.Absorbed;completed=true;break;
+                            absorbedPower += incomingIntensity; state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
+                            termination = NonSequentialTerminationReason.Absorbed; completed = true; break;
                         }
                         detectors[hit.Item.Id].Add(
                             hit.LocalPoint,
@@ -383,25 +386,25 @@ public sealed partial class NonSequentialDocumentTracer
                         {
                             Ray = state.Ray with { Origin = hit.WorldPoint + state.Ray.Direction * OriginOffset },
                             PendingDistance = fieldTracing ? OriginOffset : 0,
-                        PathLength = path,
+                            PathLength = path,
                             OpticalPathLength = opticalPath
                         };
                         continue;
                     }
                 }
 
-                if(hit.Item.Parameters is OpticalAssemblyParameters assembly)
+                if (hit.Item.Parameters is OpticalAssemblyParameters assembly)
                 {
-                    var boundary=ResolveAssemblyBoundary(assembly,hit);
-                    var wave=state.Ray.WavelengthNanometers;
-                    if(Math.Abs(incidentMaterial.RefractiveIndex(wave)-boundary.Incident.RefractiveIndex(wave))>1e-11)
+                    var boundary = ResolveAssemblyBoundary(assembly, hit);
+                    var wave = state.Ray.WavelengthNanometers;
+                    if (Math.Abs(incidentMaterial.RefractiveIndex(wave) - boundary.Incident.RefractiveIndex(wave)) > 1e-11)
                         throw new InvalidDataException($"复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face={hit.FaceNumber}, distance={hit.Distance:G17}, current={incidentMaterial.Name}, expected={boundary.Incident.Name}");
-                    if(boundary.Clipped)
+                    if (boundary.Clipped)
                     {
-                        absorbedPower+=incomingIntensity;state.Segments.Add(Segment(state,hit,path,opticalPath,state.Ray.Direction,null));
-                        termination=NonSequentialTerminationReason.Absorbed;completed=true;break;
+                        absorbedPower += incomingIntensity; state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
+                        termination = NonSequentialTerminationReason.Absorbed; completed = true; break;
                     }
-                    var response=AssemblyOptics(state.Ray,hit.WorldNormal,boundary);
+                    var response = AssemblyOptics(state.Ray, hit.WorldNormal, boundary);
                     NonSequentialFieldState? assemblyR = null, assemblyT = null;
                     if (state.Field is not null)
                     {
@@ -410,36 +413,43 @@ public sealed partial class NonSequentialDocumentTracer
                         assemblyR = fields.R; assemblyT = fields.T;
                         response = (response.Reflection, response.Transmission, fields.Reflection, fields.Transmission, response.Tir);
                     }
-                    var surviving=response.R+response.T;
-                    absorbedPower+=incomingIntensity*Math.Max(0,1-surviving);
-                    if(surviving==0){state.Segments.Add(Segment(state,hit,path,opticalPath,state.Ray.Direction,null));termination=NonSequentialTerminationReason.Absorbed;completed=true;break;}
-                    var reflectionKind=response.Tir?RayInteractionKind.TotalInternalReflection:RayInteractionKind.Reflected;
-                    if(splittingMode==NonSequentialSplittingMode.FullFresnel && response.R>0 && response.T>0)
+                    var surviving = response.R + response.T;
+                    absorbedPower += incomingIntensity * Math.Max(0, 1 - surviving);
+                    if (surviving == 0) { state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null)); termination = NonSequentialTerminationReason.Absorbed; completed = true; break; }
+                    var reflectionKind = response.Tir ? RayInteractionKind.TotalInternalReflection : RayInteractionKind.Reflected;
+                    if (splittingMode == NonSequentialSplittingMode.FullFresnel && response.R > 0 && response.T > 0)
                     {
-                        var prefix=state.Segments.ToArray();state.Segments.Add(Segment(state,hit,path,opticalPath,state.Ray.Direction,null));
-                        Emit(Complete(state,NonSequentialTerminationReason.Split));
-                        Enqueue(response.Reflection,incomingIntensity*response.R,boundary.Incident,reflectionKind,assemblyR);
-                        Enqueue(response.Transmission,incomingIntensity*response.T,boundary.Destination,RayInteractionKind.Transmitted,assemblyT);
-                        termination=NonSequentialTerminationReason.Split;completed=true;break;
-                        void Enqueue(Vector3D direction,double power,IMaterial medium,RayInteractionKind kind,NonSequentialFieldState? field)
+                        var prefix = state.Segments.ToArray(); state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
+                        Emit(Complete(state, NonSequentialTerminationReason.Split));
+                        Enqueue(response.Reflection, incomingIntensity * response.R, boundary.Incident, reflectionKind, assemblyR);
+                        Enqueue(response.Transmission, incomingIntensity * response.T, boundary.Destination, RayInteractionKind.Transmitted, assemblyT);
+                        termination = NonSequentialTerminationReason.Split; completed = true; break;
+                        void Enqueue(Vector3D direction, double power, IMaterial medium, RayInteractionKind kind, NonSequentialFieldState? field)
                         {
-                            if(power<settings.MinimumRelativeIntensity*state.InitialIntensity||queue.Count>=settings.MaximumActiveBranches){truncatedPower+=power;return;}
-                            var id=nextBranchId++;var list=prefix.ToList();list.Add(Segment(state,hit,path,opticalPath,direction,kind) with{BranchId=id,Intensity=power});
-                            queue.Enqueue(Advance(state with{Id=id,ParentId=state.Id,Level=state.Level+1,Segments=list},direction,power,medium,field));
+                            if (power < settings.MinimumRelativeIntensity * state.InitialIntensity || queue.Count >= settings.MaximumActiveBranches) { truncatedPower += power; return; }
+                            var id = nextBranchId++; var list = prefix.ToList(); list.Add(Segment(state, hit, path, opticalPath, direction, kind) with { BranchId = id, Intensity = power });
+                            queue.Enqueue(Advance(state with { Id = id, ParentId = state.Id, Level = state.Level + 1, Segments = list }, direction, power, medium, field));
                         }
                     }
-                    bool reflect=response.T==0 || (splittingMode==NonSequentialSplittingMode.SimpleStochastic && random.NextDouble()<response.R/surviving);
-                    var direction=reflect?response.Reflection:response.Transmission;var medium=reflect?boundary.Incident:boundary.Destination;
-                    var power=incomingIntensity*(splittingMode==NonSequentialSplittingMode.SimpleStochastic?surviving:reflect?response.R:response.T);
-                    if(splittingMode==NonSequentialSplittingMode.None && !reflect)truncatedPower+=incomingIntensity*response.R;
-                    state.Segments.Add(Segment(state,hit,path,opticalPath,direction,reflect?reflectionKind:RayInteractionKind.Transmitted));
-                    state=Advance(state,direction,power,medium,reflect?assemblyR:assemblyT);continue;
-                    BranchState Advance(BranchState previous,Vector3D direction,double power,IMaterial medium,NonSequentialFieldState? field)
+                    bool reflect = response.T == 0 || (splittingMode == NonSequentialSplittingMode.SimpleStochastic && random.NextDouble() < response.R / surviving);
+                    var direction = reflect ? response.Reflection : response.Transmission; var medium = reflect ? boundary.Incident : boundary.Destination;
+                    var power = incomingIntensity * (splittingMode == NonSequentialSplittingMode.SimpleStochastic ? surviving : reflect ? response.R : response.T);
+                    if (splittingMode == NonSequentialSplittingMode.None && !reflect) truncatedPower += incomingIntensity * response.R;
+                    state.Segments.Add(Segment(state, hit, path, opticalPath, direction, reflect ? reflectionKind : RayInteractionKind.Transmitted));
+                    state = Advance(state, direction, power, medium, reflect ? assemblyR : assemblyT); continue;
+                    BranchState Advance(BranchState previous, Vector3D direction, double power, IMaterial medium, NonSequentialFieldState? field)
                     {
-                        var epsilon=AssemblyOffset(hit);
-                        return previous with{Ray=previous.Ray with{Origin=hit.WorldPoint+direction*epsilon,Direction=direction,Intensity=power},
-                            Field=field,
-                            MaterialName=medium.Name,OpticalMedium=medium,PendingDistance=epsilon,PathLength=path,OpticalPathLength=opticalPath};
+                        var epsilon = AssemblyOffset(hit);
+                        return previous with
+                        {
+                            Ray = previous.Ray with { Origin = hit.WorldPoint + direction * epsilon, Direction = direction, Intensity = power },
+                            Field = field,
+                            MaterialName = medium.Name,
+                            OpticalMedium = medium,
+                            PendingDistance = epsilon,
+                            PathLength = path,
+                            OpticalPathLength = opticalPath
+                        };
                     }
                 }
 
@@ -508,14 +518,17 @@ public sealed partial class NonSequentialDocumentTracer
                         if (hit.IsSolid) { if (hit.Entering) scatteredInside.Add(hit.Item.Id); else scatteredInside.Remove(hit.Item.Id); }
                     }
                     state.Segments.Add(Segment(state, hit, path, opticalPath, sample.Direction, transmitted ? RayInteractionKind.DiffuseTransmission : RayInteractionKind.DiffuseReflection)
-                        with { Intensity = scatteredPower });
+                        with
+                    { Intensity = scatteredPower });
                     state = state with
                     {
                         Ray = state.Ray with { Origin = hit.WorldPoint + sample.Direction * OriginOffset, Direction = sample.Direction, Intensity = scatteredPower },
                         PendingDistance = 0,
-                        PathLength = path, OpticalPathLength = opticalPath,
-                        MaterialName = scatteredMaterial, InsideObjects = scatteredInside,
-                        OpticalMedium=hasOpticalAssemblies?(transmitted?materials.Resolve(scatteredMaterial):state.OpticalMedium):null
+                        PathLength = path,
+                        OpticalPathLength = opticalPath,
+                        MaterialName = scatteredMaterial,
+                        InsideObjects = scatteredInside,
+                        OpticalMedium = hasOpticalAssemblies ? (transmitted ? materials.Resolve(scatteredMaterial) : state.OpticalMedium) : null
                     };
                     continue;
                 }
@@ -603,8 +616,12 @@ public sealed partial class NonSequentialDocumentTracer
                     state.Segments.Add(Segment(state, hit, path, opticalPath, optical.Reflected, RayInteractionKind.TotalInternalReflection));
                     state = state with
                     {
-                        Ray = state.Ray with { Origin = hit.WorldPoint + optical.Reflected * OriginOffset, Direction = optical.Reflected,
-                            Intensity = state.Field is null ? incomingIntensity : incomingIntensity * optical.Reflectance },
+                        Ray = state.Ray with
+                        {
+                            Origin = hit.WorldPoint + optical.Reflected * OriginOffset,
+                            Direction = optical.Reflected,
+                            Intensity = state.Field is null ? incomingIntensity : incomingIntensity * optical.Reflectance
+                        },
                         Field = reflectedField,
                         PendingDistance = fieldTracing ? OriginOffset : 0,
                         PathLength = path,
@@ -634,10 +651,14 @@ public sealed partial class NonSequentialDocumentTracer
                     state.Segments.Add(Segment(state, hit, path, opticalPath, direction, interaction));
                     state = state with
                     {
-                        Ray = state.Ray with { Origin = hit.WorldPoint + direction * OriginOffset, Direction = direction,
-                            Intensity = state.Field is null ? incomingIntensity : incomingIntensity * survivingFraction },
+                        Ray = state.Ray with
+                        {
+                            Origin = hit.WorldPoint + direction * OriginOffset,
+                            Direction = direction,
+                            Intensity = state.Field is null ? incomingIntensity : incomingIntensity * survivingFraction
+                        },
                         MaterialName = simpleMaterial,
-                        OpticalMedium=hasOpticalAssemblies?(reflect?state.OpticalMedium:nextMaterial):null,
+                        OpticalMedium = hasOpticalAssemblies ? (reflect ? state.OpticalMedium : nextMaterial) : null,
                         InsideObjects = simpleInside,
                         Field = reflect ? reflectedField : transmittedField,
                         PendingDistance = fieldTracing ? OriginOffset : 0,
@@ -710,10 +731,10 @@ public sealed partial class NonSequentialDocumentTracer
                             childSegments,
                             path,
                             opticalPath,
-                            state.InitialIntensity, PendingDistance:fieldTracing?OriginOffset:0,
-                            OpticalMedium:hasOpticalAssemblies?(materialName==state.MaterialName?state.OpticalMedium:nextMaterial):null,
-                            Field:interaction==RayInteractionKind.Reflected?reflectedField:transmittedField,
-                            WaveplateEntryNormal:hit.WorldNormal));
+                            state.InitialIntensity, PendingDistance: fieldTracing ? OriginOffset : 0,
+                            OpticalMedium: hasOpticalAssemblies ? (materialName == state.MaterialName ? state.OpticalMedium : nextMaterial) : null,
+                            Field: interaction == RayInteractionKind.Reflected ? reflectedField : transmittedField,
+                            WaveplateEntryNormal: hit.WorldNormal));
                     }
                 }
 
@@ -736,12 +757,12 @@ public sealed partial class NonSequentialDocumentTracer
                         Intensity = transmittedIntensity
                     },
                     MaterialName = nextMaterialName,
-                    OpticalMedium=hasOpticalAssemblies?nextMaterial:null,
+                    OpticalMedium = hasOpticalAssemblies ? nextMaterial : null,
                     InsideObjects = insideObjects,
                     Field = transmittedField,
                     WaveplateEntryNormal = hit.WorldNormal,
                     PendingDistance = fieldTracing ? OriginOffset : 0,
-                        PathLength = path,
+                    PathLength = path,
                     OpticalPathLength = opticalPath
                 };
             }
@@ -981,7 +1002,7 @@ public sealed partial class NonSequentialDocumentTracer
             CylinderParameters cylinder => IntersectCylinder(origin, direction, cylinder.RadiusMillimeters, cylinder.LengthMillimeters),
             BoxParameters box => IntersectBox(origin, direction, box.WidthMillimeters, box.HeightMillimeters, box.LengthMillimeters),
             StandardLensParameters lens => IntersectLens(origin, direction, lens),
-            OpticalAssemblyParameters group => IntersectOpticalAssembly(origin,direction,group),
+            OpticalAssemblyParameters group => IntersectOpticalAssembly(origin, direction, group),
             MeshObjectParameters mesh => IntersectMesh(document.FindMeshAsset(mesh.MeshAssetId), origin, direction, mesh),
             _ => null
         };
@@ -1206,13 +1227,13 @@ public sealed partial class NonSequentialDocumentTracer
             state.Id,
             hit.Item.Id,
             hit.FaceNumber,
-            state.Ray.Origin-state.Ray.Direction*state.PendingDistance,
+            state.Ray.Origin - state.Ray.Direction * state.PendingDistance,
             hit.WorldPoint,
             outgoing,
             hit.WorldNormal,
             state.Ray.WavelengthNanometers,
             state.Ray.Intensity,
-            hit.Distance+state.PendingDistance,
+            hit.Distance + state.PendingDistance,
             path,
             opticalPath,
             interaction)
@@ -1641,8 +1662,8 @@ public sealed partial class NonSequentialDocumentTracer
     {
         public static BoundedObject Create(NonSequentialDocument document, NonSequentialObjectDefinition item)
         {
-            if(item.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true} assembly)
-                return FromLocalBounds(document,item,assembly.BoundsMinimum-new Vector3D(1e-10,1e-10,1e-10),assembly.BoundsMaximum+new Vector3D(1e-10,1e-10,1e-10));
+            if (item.Parameters is OpticalAssemblyParameters { HasExtendedSurfaces: true } assembly)
+                return FromLocalBounds(document, item, assembly.BoundsMinimum - new Vector3D(1e-10, 1e-10, 1e-10), assembly.BoundsMaximum + new Vector3D(1e-10, 1e-10, 1e-10));
             if (item.Parameters is MeshObjectParameters mesh)
             {
                 var asset = document.FindMeshAsset(mesh.MeshAssetId);
@@ -1657,7 +1678,7 @@ public sealed partial class NonSequentialDocumentTracer
                 CylinderParameters value => (value.RadiusMillimeters, value.RadiusMillimeters, -value.LengthMillimeters / 2, value.LengthMillimeters / 2),
                 BoxParameters value => (value.WidthMillimeters / 2, value.HeightMillimeters / 2, -value.LengthMillimeters / 2, value.LengthMillimeters / 2),
                 StandardLensParameters value => (value.SemiDiameterMillimeters, value.SemiDiameterMillimeters, -value.SemiDiameterMillimeters, value.CenterThicknessMillimeters + value.SemiDiameterMillimeters),
-                OpticalAssemblyParameters value => (value.MaximumRadius,value.MaximumRadius,value.MinimumZ-1e-10,value.MaximumZ+1e-10),
+                OpticalAssemblyParameters value => (value.MaximumRadius, value.MaximumRadius, value.MinimumZ - 1e-10, value.MaximumZ + 1e-10),
                 _ => (0.0, 0.0, 0.0, 0.0)
             };
             return FromLocalBounds(

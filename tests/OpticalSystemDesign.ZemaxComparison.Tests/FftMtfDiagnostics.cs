@@ -48,18 +48,33 @@ internal static class FftMtfDiagnostics
                 for (var axis = 0; axis < 2; axis++)
                 {
                     var template = actual.Series[2 * fi + axis];
-                    var curve = template with { X = resampled.Frequency.ToArray(),
-                        Y = (axis == 0 ? resampled.Tangential : resampled.Sagittal).ToArray() };
+                    var curve = template with
+                    {
+                        X = resampled.Frequency.ToArray(),
+                        Y = (axis == 0 ? resampled.Tangential : resampled.Sagittal).ToArray()
+                    };
                     var matched = ComparisonMetrics.Align(curve, expected.Series[2 * fi + axis], []);
                     comparisons.Add(new { template.Id, maximum = matched.Workbench.Zip(matched.Zemax, (a, b) => Math.Abs(a - b)).Max() });
                 }
-                rows.Add(new { fieldIndex = fi, comparisons, monochromatic = results.Select(r => new
-                    { r.w.Micrometers, r.w.Weight, r.mtf.Frequency,
+                rows.Add(new
+                {
+                    fieldIndex = fi,
+                    comparisons,
+                    monochromatic = results.Select(r => new
+                    {
+                        r.w.Micrometers,
+                        r.w.Weight,
+                        r.mtf.Frequency,
                         tangential = r.mtf.TangentialOtf!.Select(z => new { z.Real, z.Imaginary }).ToArray(),
-                        sagittal = r.mtf.SagittalOtf!.Select(z => new { z.Real, z.Imaginary }).ToArray() }).ToArray(),
-                    combined = new { combined.Frequency,
+                        sagittal = r.mtf.SagittalOtf!.Select(z => new { z.Real, z.Imaginary }).ToArray()
+                    }).ToArray(),
+                    combined = new
+                    {
+                        combined.Frequency,
                         tangential = combined.TangentialOtf!.Select(z => new { z.Real, z.Imaginary }).ToArray(),
-                        sagittal = combined.SagittalOtf!.Select(z => new { z.Real, z.Imaginary }).ToArray() } });
+                        sagittal = combined.SagittalOtf!.Select(z => new { z.Real, z.Imaginary }).ToArray()
+                    }
+                });
             }
             variants.Add(new { mode, rows });
         }

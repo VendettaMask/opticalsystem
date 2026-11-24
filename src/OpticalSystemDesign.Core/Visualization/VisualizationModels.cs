@@ -43,7 +43,7 @@ public sealed record Layout2DRaySegment(
     LayoutRaySegmentType SegmentType,
     LayoutRayInteractionType InteractionType,
     int? SourceSurfaceNumber,
-    int? TargetSurfaceNumber);
+    int? TargetSurfaceNumber, int? SourceFaceIndex = null, int? TargetFaceIndex = null);
 
 public sealed record Layout3DRaySegment(
     Layout3DPoint Start,
@@ -52,7 +52,7 @@ public sealed record Layout3DRaySegment(
     LayoutRaySegmentType SegmentType,
     LayoutRayInteractionType InteractionType,
     int? SourceSurfaceNumber,
-    int? TargetSurfaceNumber);
+    int? TargetSurfaceNumber, int? SourceFaceIndex = null, int? TargetFaceIndex = null);
 
 public sealed record Layout3DSurfaceFace(IReadOnlyList<Layout3DPoint> Points);
 
@@ -67,7 +67,7 @@ public sealed record Layout2DSurfaceCurve(
     bool IsReferencePlane,
     IReadOnlyList<Layout2DPoint> Points,
     string? SurfaceColor = null,
-    double Opacity = 1, bool HideEdges = false, bool HideSurface = false, LayoutLocalFrame? LocalFrame = null);
+    double Opacity = 1, bool HideEdges = false, bool HideSurface = false, LayoutLocalFrame? LocalFrame = null, IReadOnlyList<IReadOnlyList<Layout2DPoint>>? Contours = null);
 
 public sealed record Layout2DLensEdge(
     int FrontSurfaceNumber,
@@ -126,7 +126,7 @@ public sealed record Layout3DSurfacePrimitive(
     IReadOnlyList<Layout3DSurfaceFace> Faces,
     bool IsImageSurface = false,
     string? SurfaceColor = null,
-    double Opacity = 1, bool HideEdges = false, bool HideSurface = false, LayoutLocalFrame? LocalFrame = null);
+    double Opacity = 1, bool HideEdges = false, bool HideSurface = false, LayoutLocalFrame? LocalFrame = null, bool IsPolygonGroup = false);
 
 public sealed record Layout3DLensElement(
     int FrontSurfaceNumber,
@@ -207,7 +207,7 @@ public sealed partial class Layout2DBuilder
                     segment.SegmentType,
                     segment.InteractionType,
                     segment.SourceSurfaceNumber,
-                    segment.TargetSurfaceNumber)).ToArray()))
+                    segment.TargetSurfaceNumber, segment.SourceFaceIndex, segment.TargetFaceIndex)).ToArray()))
             .ToList();
         var extents = CalculateExtents(surfaces, rays);
 
@@ -271,6 +271,14 @@ public sealed partial class Layout2DBuilder
                 curves.Add(new(surface.Number, surface.Label, surface.IsStop, false, false,
                     ProjectedHull(planarFace.Rim), surface.SurfaceColor, surface.Drawing.Opacity,
                     surface.Drawing.HideEdges, surface.Drawing.HideSurface, BuildLocalFrame(surface)));
+                continue;
+            }
+            if (surface.Geometry is PolygonGroupGeometry polygon)
+            {
+                var contours = PolygonFaces(surface, polygon).Select(face => (IReadOnlyList<Layout2DPoint>)face.Points
+                    .Append(face.Points[0]).Select(point => new Layout2DPoint(point.Z, point.Y)).ToArray()).ToArray();
+                curves.Add(new(surface.Number, surface.Label, surface.IsStop, false, false, [], surface.SurfaceColor,
+                    surface.Drawing.Opacity, surface.Drawing.HideEdges, surface.Drawing.HideSurface, BuildLocalFrame(surface), contours));
                 continue;
             }
             curves.Add(new Layout2DSurfaceCurve(
@@ -402,6 +410,14 @@ public sealed partial class Layout2DBuilder
                     LocalFrame: BuildLocalFrame(surface)));
                 continue;
             }
+            if (surface.Geometry is PolygonGroupGeometry polygon)
+            {
+                primitives.Add(new(surface.Number, surface.Label, surface.IsStop, false, false, polygon.VolumeMaterial.Name,
+                    [], [], [], PolygonFaces(surface, polygon), SurfaceColor: surface.SurfaceColor,
+                    Opacity: surface.Drawing.Opacity, HideEdges: surface.Drawing.HideEdges, HideSurface: surface.Drawing.HideSurface,
+                    LocalFrame: BuildLocalFrame(surface), IsPolygonGroup: true));
+                continue;
+            }
             var semiDiameter = SurfaceExtent(surface);
             var samples = DrawingSamples(surface, surfaceSamples);
             var angularSamples = DrawingSamples(surface, rimSamples, odd: false);
@@ -484,13 +500,25 @@ public sealed partial class Layout2DBuilder
             }
         }
 
+        foreach (var surface in _optic.SurfaceGroup.Items.Where(surface => surface.Geometry is PolygonGroupGeometry))
+        {
+            var polygon = (PolygonGroupGeometry)surface.Geometry;
+            elements.Add(new(surface.Number, surface.Number, polygon.VolumeMaterial.Name,
+                polygon.VolumeMaterial is UnresolvedMaterial ? double.NaN : polygon.VolumeMaterial.RefractiveIndex(PrimaryWavelengthNanometers()), [], [],
+                PolygonFaces(surface, polygon), [], [], surface.Drawing.Opacity));
+        }
         return elements;
     }
+
+    private static IReadOnlyList<Layout3DSurfaceFace> PolygonFaces(OpticalSurface surface, PolygonGroupGeometry polygon) =>
+        polygon.Faces.Select(face => new Layout3DSurfaceFace(face.Vertices
+            .Select(vertex => ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(vertex))).ToArray())).ToArray();
 
     private IReadOnlyList<Layout3DRayPath> BuildRayPaths(bool includeDepth, LayoutBuildOptions options)
     {
         if (_optic.SurfaceGroup.Items.Any(surface => surface.MaterialBefore is UnresolvedMaterial
-                || surface.MaterialAfter is UnresolvedMaterial))
+                || surface.MaterialAfter is UnresolvedMaterial
+                || surface.Geometry is PolygonGroupGeometry { VolumeMaterial: UnresolvedMaterial }))
             return Array.Empty<Layout3DRayPath>();
 
         var specs = BuildViewerRays(includeDepth, options);
@@ -499,13 +527,15 @@ public sealed partial class Layout2DBuilder
             return Array.Empty<Layout3DRayPath>();
         }
 
-        var trace = _optic.SequentialRayTracer.Trace(new RealRayBundle(specs.Select(spec => spec.Ray)));
+        using var trace = _optic.SequentialRayTracer.Trace(new RealRayBundle(specs.Select(spec => spec.Ray)),
+            TraceRequest.FullHistory() with { RecordCompoundInteractions = _optic.SurfaceGroup.Items.Any(surface => surface.Geometry is PolygonGroupGeometry) });
         var paths = new List<Layout3DRayPath>();
         var imageSurfaceNumber = _optic.SurfaceGroup.Items[^1].Number;
 
-        for (var rayIndex = 0; rayIndex < trace.RayHistories.Count; rayIndex++)
+        for (var rayIndex = 0; rayIndex < trace.RayCount; rayIndex++)
         {
-            var history = trace.RayHistories[rayIndex];
+            IReadOnlyList<RayTraceSample> history = trace.GetRaySamples(rayIndex)
+                .Where(sample => sample.HasValue).Select(sample => sample!.Value.ToRayTraceSample()).ToArray();
             var points = new List<Layout3DPoint> { ToLayoutPoint(specs[rayIndex].Ray.Origin) };
             var samples = new List<RayTraceSample>();
             var vignetted = false;
@@ -539,15 +569,10 @@ public sealed partial class Layout2DBuilder
                 }
 
                 var segments = BuildRaySegments(specs[rayIndex].Ray, samples);
-                var range = SelectRayPointRange(points.Count, options);
-                points = points
-                    .Skip(range.FirstPoint)
-                    .Take((range.LastPoint - range.FirstPoint) + 1)
-                    .ToList();
-                segments = segments
-                    .Skip(range.FirstPoint)
-                    .Take(range.LastPoint - range.FirstPoint)
-                    .ToArray();
+                if (options.FirstSurface.HasValue || options.LastSurface.HasValue)
+                    segments = segments.Where(segment => segment.SourceSurfaceNumber >= (options.FirstSurface ?? 0)
+                        && segment.TargetSurfaceNumber <= (options.LastSurface ?? int.MaxValue)).ToArray();
+                points = segments.Count == 0 ? [] : new[] { segments[0].Start }.Concat(segments.Select(segment => segment.End)).ToList();
                 segments = ApplyRayDrawing(segments);
                 if (segments.Count == 0) continue;
                 if (points.Count < 2)
@@ -713,22 +738,6 @@ public sealed partial class Layout2DBuilder
         (!options.FirstSurface.HasValue || surfaceNumber >= options.FirstSurface.Value)
         && (!options.LastSurface.HasValue || surfaceNumber <= options.LastSurface.Value);
 
-    private static (int FirstPoint, int LastPoint) SelectRayPointRange(
-        int pointCount,
-        LayoutBuildOptions options)
-    {
-        if (!options.FirstSurface.HasValue && !options.LastSurface.HasValue)
-        {
-            return (0, pointCount - 1);
-        }
-
-        var firstSurface = Math.Max(0, options.FirstSurface ?? 0);
-        var lastSurface = Math.Max(firstSurface, options.LastSurface ?? int.MaxValue);
-        var firstPoint = Math.Clamp(firstSurface + 1, 1, pointCount - 1);
-        var lastPoint = Math.Clamp(lastSurface + 1, firstPoint, pointCount - 1);
-        return (firstPoint, lastPoint);
-    }
-
     internal IReadOnlyList<Layout3DRaySegment> BuildRaySegments(
         RealRay sourceRay,
         IReadOnlyList<RayTraceSample> history)
@@ -738,33 +747,29 @@ public sealed partial class Layout2DBuilder
             return Array.Empty<Layout3DRaySegment>();
         }
 
-        var segments = new List<Layout3DRaySegment>(history.Count)
+        var segments = new List<Layout3DRaySegment>(history.Count);
+        var position = sourceRay.Origin;
+        var direction = sourceRay.Direction;
+        int? surfaceNumber = null, faceIndex = null;
+        RayInteractionKind? kind = null;
+        void Add(Vector3D target, int targetSurface, int? targetFace, Vector3D outgoing, RayInteractionKind? interaction)
         {
-            new(
-                ToLayoutPoint(sourceRay.Origin),
-                ToLayoutPoint(history[0].Position),
-                ToLayoutDirection(sourceRay.Direction),
-                LayoutRaySegmentType.Incident,
-                LayoutRayInteractionType.None,
-                SourceSurfaceNumber: null,
-                TargetSurfaceNumber: history[0].SurfaceNumber)
-        };
-
-        for (var index = 1; index < history.Count; index++)
-        {
-            var source = history[index - 1];
-            var target = history[index];
-            var fromInfiniteObject = _optic.SurfaceGroup.Items.Count > 0
-                && source.SurfaceNumber == _optic.SurfaceGroup.Items[0].Number
+            var incident = surfaceNumber is null || surfaceNumber == _optic.SurfaceGroup.Items[0].Number
                 && ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items[0]);
-            segments.Add(new Layout3DRaySegment(
-                ToLayoutPoint(source.Position),
-                ToLayoutPoint(target.Position),
-                ToLayoutDirection(source.Direction),
-                fromInfiniteObject ? LayoutRaySegmentType.Incident : SegmentTypeFor(source.InteractionKind),
-                fromInfiniteObject ? LayoutRayInteractionType.None : InteractionTypeFor(source.SurfaceNumber),
-                source.SurfaceNumber,
-                target.SurfaceNumber));
+            segments.Add(new(ToLayoutPoint(position), ToLayoutPoint(target), ToLayoutDirection(direction),
+                incident ? LayoutRaySegmentType.Incident : SegmentTypeFor(kind),
+                incident ? LayoutRayInteractionType.None : kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection
+                    ? LayoutRayInteractionType.Reflective : InteractionTypeFor(surfaceNumber!.Value),
+                surfaceNumber, targetSurface, faceIndex, targetFace));
+            position = target; direction = outgoing; kind = interaction; surfaceNumber = targetSurface; faceIndex = targetFace;
+        }
+        foreach (var sample in history)
+        {
+            if (sample.CompoundInteractions is { } interactions)
+                foreach (var hit in interactions)
+                    Add(hit.Position, sample.SurfaceNumber, hit.FaceIndex, hit.Direction, hit.InteractionKind);
+            if (sample.CompoundInteractions is null || !sample.Vignetted)
+                Add(sample.Position, sample.SurfaceNumber, null, sample.Direction, sample.InteractionKind);
         }
 
         return segments;
@@ -1173,7 +1178,7 @@ public sealed partial class Layout2DBuilder
 
         foreach (var surface in surfaces)
         {
-            foreach (var point in surface.Points)
+            foreach (var point in surface.Contours?.SelectMany(contour => contour) ?? surface.Points)
             {
                 zValues.Add(point.Z);
                 yValues.Add(point.Y);

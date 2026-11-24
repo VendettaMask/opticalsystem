@@ -1,8 +1,8 @@
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Coordinates;
-using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
@@ -47,13 +47,13 @@ public sealed partial class OpticalSurface
         bool ignoreMaterialAbsorption = false,
         Func<RealRay, SurfaceInteractionContext, double>? surfacePhaseOpticalPath = null,
         bool useObjectConeIntersection = false,
-        FloatingConicEdge? floatingConicEdge = null)
+        FloatingConicEdge? floatingConicEdge = null, bool recordCompoundInteractions = false)
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
         var continuesMedium = InteractionModel is CoordinateReferenceInteractionModel;
         if (Geometry is OpticalSystemDesign.Core.Geometries.PolygonGroupGeometry group)
-            return group.Trace(this, ray, materialBefore, cumulativePathLength, cumulativeOpticalPathLength, ignoreMaterialAbsorption);
+            return group.Trace(this, ray, materialBefore, cumulativePathLength, cumulativeOpticalPathLength, ignoreMaterialAbsorption, recordCompoundInteractions);
         if (materialBefore is GradientIndexMaterial unlocated)
         {
             if (materialBeforeCoordinates is null)

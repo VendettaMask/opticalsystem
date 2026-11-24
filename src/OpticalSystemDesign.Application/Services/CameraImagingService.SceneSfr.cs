@@ -15,8 +15,13 @@ namespace OpticalSystemDesign.Application.Services;
 internal sealed partial class CameraImagingService
 {
     private const int MaximumSceneSfrBytes = 64 * 1024 * 1024;
-    private static readonly JsonSerializerOptions SceneSfrJson = new() { WriteIndented = true, MaxDepth = 40,
-        RespectRequiredConstructorParameters = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow };
+    private static readonly JsonSerializerOptions SceneSfrJson = new()
+    {
+        WriteIndented = true,
+        MaxDepth = 40,
+        RespectRequiredConstructorParameters = true,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
+    };
 
     public Task<CameraSceneSfrResult> SimulateSceneSlantedEdgeAsync(CameraSceneSfrRequest request, CancellationToken cancellationToken = default)
     {

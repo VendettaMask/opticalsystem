@@ -166,12 +166,17 @@ internal static class NonSequentialDetectorDisplay
 
     public static string DataLabel(NonSequentialDetectorDataType type) => type switch
     {
-        NonSequentialDetectorDataType.CoherentPower => "相干功率", NonSequentialDetectorDataType.RawCoherentPower => "未归一幅平方",
-        NonSequentialDetectorDataType.StokesI => "Stokes I", NonSequentialDetectorDataType.StokesQ => "Stokes Q",
-        NonSequentialDetectorDataType.StokesU => "Stokes U", NonSequentialDetectorDataType.StokesV => "Stokes V",
+        NonSequentialDetectorDataType.CoherentPower => "相干功率",
+        NonSequentialDetectorDataType.RawCoherentPower => "未归一幅平方",
+        NonSequentialDetectorDataType.StokesI => "Stokes I",
+        NonSequentialDetectorDataType.StokesQ => "Stokes Q",
+        NonSequentialDetectorDataType.StokesU => "Stokes U",
+        NonSequentialDetectorDataType.StokesV => "Stokes V",
         NonSequentialDetectorDataType.LongitudinalPower => "纵向功率",
-        NonSequentialDetectorDataType.FieldReal => "复场实部", NonSequentialDetectorDataType.FieldImaginary => "复场虚部",
-        NonSequentialDetectorDataType.FieldMagnitude => "复场幅值", NonSequentialDetectorDataType.FieldPhase => "相位",
+        NonSequentialDetectorDataType.FieldReal => "复场实部",
+        NonSequentialDetectorDataType.FieldImaginary => "复场虚部",
+        NonSequentialDetectorDataType.FieldMagnitude => "复场幅值",
+        NonSequentialDetectorDataType.FieldPhase => "相位",
         _ => type.ToString()
     };
 

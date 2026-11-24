@@ -32,8 +32,9 @@ internal sealed partial class NonSequentialDocumentService
         MutateTransactional(WorkspaceChangeCategory.NonSequential, () =>
         {
             var original = Runtime.CurrentNonSequentialDocument;
-            var updated = new CoreDocument(original.Name, original.Wavelengths, original.Objects, original.AmbientMaterial,
-                original.TraceSettings with { UsePolarization = usePolarization, CoherentDetection = coherentDetection }, original.MeshAssets);
+            var updated = original.Clone();
+            updated.TraceSettings = original.TraceSettings with { UsePolarization = usePolarization, CoherentDetection = coherentDetection };
+            updated.Validate();
             Runtime.ReplaceNonSequentialDocument(updated, "已更新非序列偏振与相干设置；已有追迹结果需重新计算。");
         });
 

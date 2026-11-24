@@ -1,13 +1,14 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class IncidentAngleVsImageHeightParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void AimedPupilRaysMatchTheZemaxReferenceValues()
     {
         var optic = LoadFixture("zemax-123456.ZMX");

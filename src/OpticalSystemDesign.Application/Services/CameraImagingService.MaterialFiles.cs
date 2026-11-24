@@ -1,5 +1,5 @@
-using System.Text.Json;
 using System.Buffers.Binary;
+using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.FileIO;

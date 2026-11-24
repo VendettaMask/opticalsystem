@@ -41,9 +41,20 @@ internal static class OpdReferenceDiagnostics
             return selected.Samples.Select(s => s.OpdWaves + selected.ImageRefractiveIndex
                 * shift * (1 - 1 / Dot(s.ImageDirection!.Value, direction)) / (wave.Micrometers * 1e-3)).ToArray();
         }
-        JsonFiles.Write(Path.Combine(directory, id + ".json"), new { id, request, actual, expected,
-            selectedDistance, primaryDistance, direction, selected, primaryReference,
-            primaryPupil = AtDistance(primaryDistance), chromaticPupil = AtDistance(selectedDistance) });
+        JsonFiles.Write(Path.Combine(directory, id + ".json"), new
+        {
+            id,
+            request,
+            actual,
+            expected,
+            selectedDistance,
+            primaryDistance,
+            direction,
+            selected,
+            primaryReference,
+            primaryPupil = AtDistance(primaryDistance),
+            chromaticPupil = AtDistance(selectedDistance)
+        });
     }
 
     private static double Dot(Vector3D a, Vector3D b) => a.X * b.X + a.Y * b.Y + a.Z * b.Z;

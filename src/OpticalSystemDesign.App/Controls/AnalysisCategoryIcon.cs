@@ -92,8 +92,12 @@ internal sealed class AnalysisCategoryIcon : Control
         var role = (string?)element.Attribute("class");
         (ink, filled) = role switch
         {
-            "structure" => (0, false), "signal" => (1, false), "secondary" => (2, false),
-            "signal-fill" => (1, true), "secondary-fill" => (2, true), null or "glyph" => (ink, filled),
+            "structure" => (0, false),
+            "signal" => (1, false),
+            "secondary" => (2, false),
+            "signal-fill" => (1, true),
+            "secondary-fill" => (2, true),
+            null or "glyph" => (ink, filled),
             _ => throw new InvalidOperationException($"Unsupported analysis SVG role: {role}")
         };
         opacity *= Number(element, "opacity", 1);
@@ -101,16 +105,25 @@ internal sealed class AnalysisCategoryIcon : Control
         switch (element.Name.LocalName)
         {
             case "title": case "style": return;
-            case "svg": case "g":
+            case "svg":
+            case "g":
                 foreach (var child in element.Elements()) Read(child, ink, filled, opacity, parts);
                 return;
             case "path": geometry = Geometry.Parse((string)element.Attribute("d")!); break;
             case "circle":
-                geometry = new EllipseGeometry { Center = new Point(Number(element, "cx"), Number(element, "cy")),
-                    RadiusX = Number(element, "r"), RadiusY = Number(element, "r") }; break;
+                geometry = new EllipseGeometry
+                {
+                    Center = new Point(Number(element, "cx"), Number(element, "cy")),
+                    RadiusX = Number(element, "r"),
+                    RadiusY = Number(element, "r")
+                }; break;
             case "ellipse":
-                geometry = new EllipseGeometry { Center = new Point(Number(element, "cx"), Number(element, "cy")),
-                    RadiusX = Number(element, "rx"), RadiusY = Number(element, "ry") }; break;
+                geometry = new EllipseGeometry
+                {
+                    Center = new Point(Number(element, "cx"), Number(element, "cy")),
+                    RadiusX = Number(element, "rx"),
+                    RadiusY = Number(element, "ry")
+                }; break;
             case "rect":
                 geometry = new RectangleGeometry(new Rect(Number(element, "x"), Number(element, "y"),
                     Number(element, "width"), Number(element, "height")), Number(element, "rx"),

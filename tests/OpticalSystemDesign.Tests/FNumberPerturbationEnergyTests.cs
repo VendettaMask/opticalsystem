@@ -20,6 +20,7 @@ public sealed class FNumberPerturbationEnergyTests
 
     [Theory]
     [MemberData(nameof(NativeCurves))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void AdjacentConeMomentsUseOneFourierGridAtCapturedSettings(string id, int series)
     {
         var files = Fixture.Value;

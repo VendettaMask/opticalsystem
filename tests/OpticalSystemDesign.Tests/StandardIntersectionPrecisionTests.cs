@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Numerics;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

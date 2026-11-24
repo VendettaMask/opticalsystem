@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 
 namespace OpticalSystemDesign.ZemaxComparison.Reporting;

@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 28;
+    public const int ProjectFormatVersion = 29;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,9 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            RequiresNonSequentialSampling(document.NonSequentialDocument) ? 28
+            document.NonSequentialDocument is { Organization: { } organization }
+                && (organization.Folders.Count > 0 || organization.SelectionSets.Count > 0) ? 29
+                : RequiresNonSequentialSampling(document.NonSequentialDocument) ? 28
                 : RequiresAdditionalSurfaceVariables(document.Configurations) ? 27
                 : RequiresNonSequentialColor(document.NonSequentialDocument) ? 26
                 : document.Configurations.Any(optic => optic.LensLengthUnit != Domain.LensLengthUnit.Millimeter) ? 25
@@ -62,8 +64,8 @@ public static class StarOptProjectStore
                 : document.Configurations.Any(optic => optic.SurfaceGroup.Items.Any(surface => surface.ShapeVariables.Count > 0))
                 || document.BrokenLinks?.Any(link => Services.SurfaceShapeParameters.IsShapeProperty(link.Property)) == true ? 23
                 : RequiresNonSequentialPhysics(document.NonSequentialDocument) ? 22
-                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}) == true ? 21
-                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}) == true ? 20
+                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters { HasExtendedSurfaces: true }) == true ? 21
+                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters { IncidentSurface: not null }) == true ? 20
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol) == true ? 19
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.LogInterpolationProtocol) == true ? 18
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.PolarSupportProtocol) == true ? 17
@@ -281,6 +283,8 @@ public static class StarOptProjectStore
         ValidateOperandPickups(project.OperandPickups, project.OperandVariables, project.OperandRows, configurations, project.BrokenLinks);
         var nonSequentialDocument = project.NonSequentialDocument
             ?? CreateDefaultNonSequentialDocument(configurations[project.ActiveConfigurationIndex]);
+        if (project.FormatVersion < 29 && (nonSequentialDocument.Organization.Folders.Count > 0 || nonSequentialDocument.Organization.SelectionSets.Count > 0))
+            throw new InvalidDataException("Scene folders and selection sets require STAROPT project version 29.");
         if (project.FormatVersion < 28 && RequiresNonSequentialSampling(nonSequentialDocument))
             throw new InvalidDataException("Waveplate reflection selection and Sobol source sampling require STAROPT project version 28.");
         if (project.FormatVersion < 26 && RequiresNonSequentialColor(nonSequentialDocument))
@@ -303,9 +307,9 @@ public static class StarOptProjectStore
             throw new InvalidDataException("Positive XYZ colour transfer requires STAROPT project version 16.");
         if (project.FormatVersion < 17 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.PolarSupportProtocol))
             throw new InvalidDataException("Measured polar support requires STAROPT project version 17.");
-        if (project.FormatVersion < 20 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}))
+        if (project.FormatVersion < 20 && nonSequentialDocument.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters { IncidentSurface: not null }))
             throw new InvalidDataException("Optical assemblies require project version 20.");
-        if (project.FormatVersion < 21 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}))
+        if (project.FormatVersion < 21 && nonSequentialDocument.Objects.Any(o => o.Parameters is OpticalAssemblyParameters { HasExtendedSurfaces: true }))
             throw new InvalidDataException("Aspheric/per-surface optical frames require project version 21.");
         if (project.FormatVersion < 22 && RequiresNonSequentialPhysics(nonSequentialDocument))
             throw new InvalidDataException("NSC polarization/coherent data require project version 22.");

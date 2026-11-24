@@ -14,8 +14,8 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using IsoSurfaceFormUnit = OpticalSystemDesign.Core.Tolerancing.IsoSurfaceFormUnit;
 using IsoSurfaceFormStatistics = OpticalSystemDesign.Core.Tolerancing.IsoSurfaceFormStatistics;
+using IsoSurfaceFormUnit = OpticalSystemDesign.Core.Tolerancing.IsoSurfaceFormUnit;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -127,14 +127,15 @@ public sealed class MtfTolerancingPanelTests
             }
             var options = TolerancingRunWindow.DefaultOptions() with
             {
-                Criterion = ToleranceCriterion.Mtf, MtfSettings = new(30, FieldLimits: [new(2, .2)]),
+                Criterion = ToleranceCriterion.Mtf,
+                MtfSettings = new(30, FieldLimits: [new(2, .2)]),
                 StageObjectives = [new(1, systemMerit ? ToleranceCriterion.SystemMerit : ToleranceCriterion.RmsSpotRadius),
                     new(2, ToleranceCriterion.Mtf, new(25, Method: ToleranceMtfMethod.Geometric))],
                 AdditionalCompensators = [new(1, ToleranceCompensatorKind.ElementDecenterX, -.05, .05, 2),
                     new(app.Prescription.GetSurfaces().Count - 2, ToleranceCompensatorKind.Thickness, -.2, .2, Stage: 2)]
             };
             var window = new TolerancingRunWindow(options, app.Prescription.GetFields(), app.Prescription.GetSurfaces(), app.Prescription.GetWavelengths())
-                { Width = 600, Height = 820 };
+            { Width = 600, Height = 820 };
             try
             {
                 window.Show();
@@ -172,12 +173,15 @@ public sealed class MtfTolerancingPanelTests
                 var study = panel.BuildStudyFile() with
                 {
                     Operands = [new(1, true, ToleranceOperandKind.Radius, 1, -.01, .01)],
-                    Criterion = draft.Criterion, MtfSettings = draft.MtfSettings, AdditionalCompensators = draft.AdditionalCompensators
+                    Criterion = draft.Criterion,
+                    MtfSettings = draft.MtfSettings,
+                    AdditionalCompensators = draft.AdditionalCompensators
                 };
                 Assert.Equal(systemMerit ? 9 : 8, study.SchemaVersion);
                 var serializer = new JsonSerializerOptions
                 {
-                    WriteIndented = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+                    WriteIndented = true,
+                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
                 };
                 var json = JsonSerializer.Serialize(study, serializer);
                 Assert.Equal(json, JsonSerializer.Serialize(panel.ParseStudyFile(json), serializer));
@@ -223,7 +227,7 @@ public sealed class MtfTolerancingPanelTests
                     });
                     var window = new TolerancingRunWindow(options, app.Prescription.GetFields(), surfaces,
                         app.Prescription.GetWavelengths(), captureMeritTable: app.Tolerancing.CaptureMeritTable)
-                        { Width = 480, Height = 820 };
+                    { Width = 480, Height = 820 };
                     try
                     {
                         var dialog = window.ShowDialog<TolerancingRunOptions?>(owner);
@@ -274,7 +278,8 @@ public sealed class MtfTolerancingPanelTests
                 Assert.Equal(10, study.SchemaVersion);
                 var serializer = new JsonSerializerOptions
                 {
-                    WriteIndented = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+                    WriteIndented = true,
+                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
                 };
                 var json = JsonSerializer.Serialize(study, serializer);
                 Assert.Equal(json, JsonSerializer.Serialize(panel.ParseStudyFile(json), serializer));
@@ -295,7 +300,7 @@ public sealed class MtfTolerancingPanelTests
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
             var owner = new Window { Width = 620, Height = 680 };
             var window = new ToleranceScriptImportWindow("two-stage.tsc", ToleranceScriptImportTests.Script, 8, [], null, _ => null)
-                { Width = 560, Height = 680 };
+            { Width = 560, Height = 680 };
             owner.Show();
             try
             {
@@ -365,7 +370,11 @@ public sealed class MtfTolerancingPanelTests
                 if (theme == "Light") CaptureFrame(window, "tolerance-results-empty-light-1080.png", directory);
                 var options = TolerancingRunWindow.DefaultOptions() with
                 {
-                    MonteCarloRuns = 3, Seed = 431, YieldLimit = .2, CompensationIterations = 3, MaxDegreeOfParallelism = 1,
+                    MonteCarloRuns = 3,
+                    Seed = 431,
+                    YieldLimit = .2,
+                    CompensationIterations = 3,
+                    MaxDegreeOfParallelism = 1,
                     AdditionalCompensators =
                     [
                         new(1, ToleranceCompensatorKind.ElementDecenterX, -.15, .15, 2),
@@ -431,8 +440,11 @@ public sealed class MtfTolerancingPanelTests
                 {
                     var sensitivityOnly = options with
                     {
-                        Mode = ToleranceAnalysisMode.InverseIncrement, InverseValue = .5,
-                        MonteCarloRuns = 0, CompensationIterations = 0, AdditionalCompensators = []
+                        Mode = ToleranceAnalysisMode.InverseIncrement,
+                        InverseValue = .5,
+                        MonteCarloRuns = 0,
+                        CompensationIterations = 0,
+                        AdditionalCompensators = []
                     };
                     Assert.True(await editor.RunAsync(sensitivityOnly), editor.ResultMessage);
                     Tick();
@@ -476,13 +488,14 @@ public sealed class MtfTolerancingPanelTests
                 [new(1, 1, surface, -.1, .1), new(1, 1, surface, -.2, .2, true, 2)]);
             var options = TolerancingRunWindow.DefaultOptions() with
             {
-                Criterion = ToleranceCriterion.Mtf, MtfSettings = new(30, SeparateFields: true),
+                Criterion = ToleranceCriterion.Mtf,
+                MtfSettings = new(30, SeparateFields: true),
                 ConfigurationSettings = settings,
                 AdditionalCompensators = [new(1, ToleranceCompensatorKind.DecenterX, -.05, .05, Configuration: 2)]
             };
             var window = new TolerancingRunWindow(options, app.Prescription.GetFields(), app.Prescription.GetSurfaces(),
                 app.Prescription.GetWavelengths(), app.MultiConfiguration.GetRows(), app.MultiConfiguration.GetOperandRows())
-                { Width = 640, Height = 800 };
+            { Width = 640, Height = 800 };
             try
             {
                 window.Show();
@@ -511,12 +524,15 @@ public sealed class MtfTolerancingPanelTests
                 var study = panel.BuildStudyFile() with
                 {
                     Operands = [new(1, true, ToleranceOperandKind.Radius, 1, -.01, .01)],
-                    Criterion = draft.Criterion, MtfSettings = draft.MtfSettings, AdditionalCompensators = draft.AdditionalCompensators
+                    Criterion = draft.Criterion,
+                    MtfSettings = draft.MtfSettings,
+                    AdditionalCompensators = draft.AdditionalCompensators
                 };
                 Assert.Equal(7, study.SchemaVersion);
                 var serializer = new JsonSerializerOptions
                 {
-                    WriteIndented = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+                    WriteIndented = true,
+                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
                 };
                 var json = JsonSerializer.Serialize(study, serializer);
                 var restored = panel.ParseStudyFile(json);

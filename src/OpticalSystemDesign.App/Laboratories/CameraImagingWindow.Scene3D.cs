@@ -32,7 +32,9 @@ public sealed partial class CameraImagingWindow
             catch (Exception ex) { _status.Text = "请补全三维参数后保存：" + ex.Message; return; }
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "保存三维相机场景", SuggestedFileName = "scene.camera-scene3d.json", DefaultExtension = "json",
+                Title = "保存三维相机场景",
+                SuggestedFileName = "scene.camera-scene3d.json",
+                DefaultExtension = "json",
                 FileTypeChoices = [new FilePickerFileType("三维相机场景") { Patterns = ["*.camera-scene3d.json"] }]
             });
             if (file is null || _closed) return;

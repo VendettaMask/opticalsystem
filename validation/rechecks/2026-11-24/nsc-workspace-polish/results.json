@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "date": "2026-11-24",
+  "scope": "Production NSC workspace visual refinement and selection-refresh regression",
+  "tests": {
+    "total": 76,
+    "passed": 74,
+    "failed": 0,
+    "skipped": 2,
+    "classes": [
+      "NonSequentialSceneWorkspaceTests",
+      "NonSequentialOrganizationTests",
+      "NonSequentialImportFlowTests",
+      "NonSequentialExampleTests",
+      "ViewerInteractionTests",
+      "Viewer3DGeometryTests",
+      "CameraBsdfWindowTests",
+      "MeasuredBsdfWindowTests",
+      "CommercialBsdfWindowTests",
+      "BinaryZemaxBsdfWindowTests"
+    ]
+  },
+  "skippedCases": [
+    "OpticalSystemDesign.Tests.Viewer3DGeometryTests.BothViewersKeepOnlyTheLowerLeftLabelledTriad",
+    "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway"
+  ],
+  "build": {
+    "configuration": "Default Release App/test dependency graph",
+    "warnings": 0,
+    "errors": 0
+  },
+  "localization": {
+    "translations": 4423,
+    "occurrences": 4053,
+    "missing": 0,
+    "errors": 0
+  },
+  "screenshots": "Actual production main window, offscreen",
+  "themes": [
+    "Light zh-CN 1760x1040 100%",
+    "Dark ja-JP 1200x950 150%",
+    "Isekai en-US 950x1100 200%",
+    "Lumen en-US 1540x1000 100%",
+    "Pixel zh-CN 1540x1000 100%"
+  ],
+  "behaviorChecks": [
+    "Ancestor-preserving search and lazy navigation",
+    "Shared model/tree/table selection",
+    "Model fitting fills the viewport and keeps all projected geometry in bounds",
+    "Usable property editor widths without right-edge clipping",
+    "View-settings ray toggle and add-object popup with undo",
+    "Batch fields, organization and file switches",
+    "Imported measured data retain selected object after asynchronous grid rebinding",
+    "Existing NSC import and BSDF/camera controls"
+  ],
+  "cameraChange": "FitObjectBounds workspace only; exact projected geometry sets an isotropic fit scale, cached during orbit",
+  "opticalCalculationsChanged": false,
+  "fullPrecisionMatrixRun": false,
+  "foregroundDesktopControlled": false,
+  "installerPublished": false,
+  "remotePushed": false,
+  "fixture": {
+    "path": "docs/assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-complex-demo.staropt",
+    "sha256": "3112336d0d333b8ef7431619702c9f739068449319f9a7cc0092feac8fb94178",
+    "objects": 432
+  },
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "sha256": "72dca96ec1b4f853327d01de9c1ad074e795deac6966ac926900c17fe9cd9cc3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.Workspace.cs",
+      "sha256": "369e5fa4183131f5afb094df862148eaa94f6b213d3e3246d17c5f5b30ae35a1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "sha256": "831dff95037c821fe2817bb94d6e7ec90c04da7336b2671e6c766a6275f8db0d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.ObjectSelection.cs",
+      "sha256": "32dbb7471262f2a81c61f144ca647cca7b8150c644d34d5ade57840bc2c26795"
+    },
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "df2c068557cc13e4dfe529103f93170f0d775975da3e48d9271bb79cf4493e62"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "523e68f936b5565c2edc7cfab0b4d526e43c5ff14d3eec0ba9a0d8ba51ac100f"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialSceneWorkspaceTests.cs",
+      "sha256": "e4acbee3e9328c992db6e1bb8f1707df17ca0fe27258c2d97abaff6817bbee43"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/MeasuredBsdfWindowTests.cs",
+      "sha256": "bcf8509837c4975ef9cd1eba585052539c8b27720a5c837248e78fdb94397aac"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build.log.gz",
+      "bytes": 618,
+      "sha256": "8a826840f6876d60ec052be41e625297604ad0efce46f0cd2f14bda7eff22347"
+    },
+    {
+      "path": "Dark-workspace.png",
+      "bytes": 682194,
+      "sha256": "5c7a9dd09ec360eb917e24951d183520e9b957f9174de5083abf43c5c1750e3c"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 17467,
+      "sha256": "ad144f54e8bf060d01c1852c4f11b781ee9d46173119971c24622a844b1a81e9"
+    },
+    {
+      "path": "Isekai-workspace.png",
+      "bytes": 2873324,
+      "sha256": "085e6fec69611735f7ec8610a39a304ef7fd2deb5b699927d2bc2f73a46ce749"
+    },
+    {
+      "path": "Light-batch.png",
+      "bytes": 363677,
+      "sha256": "0580e8d9d7c7a1c9d46551a19fde1ee66b9d8b55615f64095541c52769f20a66"
+    },
+    {
+      "path": "Light-isolated.png",
+      "bytes": 353775,
+      "sha256": "b74601d847ce5798ee3a8996d87c0bf9b81eefc367e046729066b1bc6c8eac5f"
+    },
+    {
+      "path": "Light-search.png",
+      "bytes": 450186,
+      "sha256": "8131ccbc57d3bf091f74a4f58d0c7a6ea22d3eb759d5c26f7b6896102c00eed9"
+    },
+    {
+      "path": "Light-workspace.png",
+      "bytes": 500816,
+      "sha256": "0cbe19a6c10239e75590d68eaa816c1919d0e46ec9e09c2b6b360b9eb45920e3"
+    },
+    {
+      "path": "localization.log.gz",
+      "bytes": 92,
+      "sha256": "a1649a815622ed87ac4638d493afbcfac3ac82bdfb754e0e761e8f152e4952a4"
+    },
+    {
+      "path": "Lumen-workspace.png",
+      "bytes": 427045,
+      "sha256": "d1b651414d304b763e98a90ef802df989bb11dde12d325ab698d42da97059360"
+    },
+    {
+      "path": "Pixel-workspace.png",
+      "bytes": 363804,
+      "sha256": "88ff8cd7769adf84a79ceb9d3579e93a70a2a63783ef57c81a48141e48023c98"
+    },
+    {
+      "path": "selection-refresh-initial.log.gz",
+      "bytes": 1193,
+      "sha256": "ed01cfbbaa95dcf0336e1bb11d7493c080ed0e2a9207aec02318062736957208"
+    }
+  ]
+}

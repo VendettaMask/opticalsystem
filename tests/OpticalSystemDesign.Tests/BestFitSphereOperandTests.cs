@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App.ViewModels;
@@ -13,6 +12,7 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -104,6 +104,7 @@ public sealed class BestFitSphereOperandTests(Xunit.Abstractions.ITestOutputHelp
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CommittedSphericalSagTableProvidesAFileSpecificReference()
     {
         var directory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

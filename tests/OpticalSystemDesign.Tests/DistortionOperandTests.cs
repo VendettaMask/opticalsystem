@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -15,6 +14,7 @@ using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -352,6 +352,7 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     [InlineData("DIMX")]
     [InlineData("FCGS")]
     [InlineData("FCGT")]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456ComparisonKeepsExplicitAccuracyAndResidualBudgets(string code)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

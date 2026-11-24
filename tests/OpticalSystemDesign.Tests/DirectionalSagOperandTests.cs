@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App.ViewModels;
@@ -15,6 +14,7 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;
@@ -290,6 +290,7 @@ public sealed class DirectionalSagOperandTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedSagTableValidatesOnlyItsZeroTiltSphericalCase()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.Application.Contracts;
@@ -18,6 +17,7 @@ using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -255,6 +255,7 @@ public sealed class IncidenceCardinalOperandTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CardinalDataMatchesExistingZemax123456CapturedSettings()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

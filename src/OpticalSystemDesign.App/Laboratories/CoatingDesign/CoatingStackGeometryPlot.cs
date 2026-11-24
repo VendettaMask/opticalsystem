@@ -158,7 +158,8 @@ internal sealed class CoatingStackGeometryPlot : Control
             Polygon(context, Mix(color, Colors.Black, substrate ? .12 : .25), side, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .3)), .6));
             var fill = new LinearGradientBrush
             {
-                StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative), EndPoint = new RelativePoint(1, .3, RelativeUnit.Relative),
+                StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative),
+                EndPoint = new RelativePoint(1, .3, RelativeUnit.Relative),
                 GradientStops = new GradientStops { new(Mix(color, Colors.White, .62), 0), new(Mix(color, Colors.White, .18), .15), new(color, .7), new(Mix(color, Colors.Black, .15), 1) }
             };
             context.DrawRectangle(fill, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .2)), .6), front);

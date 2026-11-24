@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;
@@ -30,8 +30,13 @@ public sealed class AfocalApertureResultTests(ITestOutputHelper output)
         var name = row.GetProperty("name").GetString()!;
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(name, new Dictionary<string, string>
         {
-            ["PupilSampling"] = row.GetProperty("n").GetInt32().ToString(), ["ImageSampling"] = "32", ["ImageDeltaMilliradians"] = ".02",
-            ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["UseCentroid"] = "False", ["MaximumFrequency"] = "10"
+            ["PupilSampling"] = row.GetProperty("n").GetInt32().ToString(),
+            ["ImageSampling"] = "32",
+            ["ImageDeltaMilliradians"] = ".02",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1",
+            ["UseCentroid"] = "False",
+            ["MaximumFrequency"] = "10"
         });
         Assert.Equal(AnalysisOutcome.Success, data.Outcome);
         var gates = row.GetProperty("gates").Deserialize<Dictionary<string, Tolerances>>(JsonFiles.Options)!;

@@ -13,8 +13,8 @@ using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
-using FullFieldAnalysis = OpticalSystemDesign.Core.Analysis.FullFieldAberrationAnalysis;
 using CoreSeriesKind = OpticalSystemDesign.Core.Analysis.AnalysisSeriesKind;
+using FullFieldAnalysis = OpticalSystemDesign.Core.Analysis.FullFieldAberrationAnalysis;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -53,7 +53,10 @@ public sealed class FullFieldHeatmapTests
         const string key = "Full Field Aberration";
         var settings = app.Analyses.MergeSettings(key, new Dictionary<string, string>
         {
-            ["XFieldSamples"] = "11", ["YFieldSamples"] = "11", ["PupilSampling"] = "16 x 16", ["MaximumTerm"] = "9"
+            ["XFieldSamples"] = "11",
+            ["YFieldSamples"] = "11",
+            ["PupilSampling"] = "16 x 16",
+            ["MaximumTerm"] = "9"
         });
         Assert.Equal("颜色图", settings["DisplayAs"]);
         var view = (await app.Analyses.RunAsync(new AnalysisRequestDto(Guid.NewGuid(), 1, key, settings))).View;

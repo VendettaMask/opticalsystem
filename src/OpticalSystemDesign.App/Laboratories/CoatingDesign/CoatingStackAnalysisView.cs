@@ -48,15 +48,24 @@ internal sealed class CoatingStackAnalysisView : UserControl, IDisposable
             try { _layers.SelectedIndex = number - 1; UpdateSelection(); }
             finally { _synchronizing = false; }
         };
-        _png.Content = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6,
-            Children = { new LocalIcon { IconName = "file-export-image", Width = 16, Height = 16 }, new TextBlock { Text = "PNG" } } };
+        _png.Content = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 6,
+            Children = { new LocalIcon { IconName = "file-export-image", Width = 16, Height = 16 }, new TextBlock { Text = "PNG" } }
+        };
         AutomationProperties.SetName(_png, "导出堆栈几何 PNG");
         var toolbar = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12, Margin = new Thickness(12, 8), Children = { _png, _selection } };
-        var tabs = new TabControl { Name = "CoatingStackAnalysisTabs", ItemsSource = new[]
+        var tabs = new TabControl
+        {
+            Name = "CoatingStackAnalysisTabs",
+            ItemsSource = new[]
         {
             new TabItem { Header = "绘图", Content = _drawing },
             new TabItem { Header = "膜层数据", Content = _layers }
-        }, SelectedIndex = 0 };
+        },
+            SelectedIndex = 0
+        };
         var root = new Grid { RowDefinitions = new("Auto,*,Auto") };
         root.Children.Add(toolbar); Grid.SetRow(tabs, 1); root.Children.Add(tabs);
         _error.Margin = new Thickness(12, 8); Grid.SetRow(_error, 2); root.Children.Add(_error);
@@ -67,8 +76,14 @@ internal sealed class CoatingStackAnalysisView : UserControl, IDisposable
             {
                 using var image = CaptureImage();
                 var storage = TopLevel.GetTopLevel(this)?.StorageProvider ?? throw new InvalidOperationException("请先打开堆栈几何面板。");
-                var file = await storage.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "导出堆栈几何", SuggestedFileName = "coating-stack.png",
-                    DefaultExtension = "png", ShowOverwritePrompt = true, FileTypeChoices = [new FilePickerFileType("PNG") { Patterns = ["*.png"] }] });
+                var file = await storage.SaveFilePickerAsync(new FilePickerSaveOptions
+                {
+                    Title = "导出堆栈几何",
+                    SuggestedFileName = "coating-stack.png",
+                    DefaultExtension = "png",
+                    ShowOverwritePrompt = true,
+                    FileTypeChoices = [new FilePickerFileType("PNG") { Patterns = ["*.png"] }]
+                });
                 if (file is not null) AnalysisPanel.SavePlotImage(image, file.Path.LocalPath);
             }
             catch (Exception error) { _error.Text = "导出失败：" + error.Message; }
@@ -88,8 +103,13 @@ internal sealed class CoatingStackAnalysisView : UserControl, IDisposable
         {
             _plot.SetSnapshot(snapshot); _layers.ItemsSource = snapshot.AllLayers.ToArray(); _layers.SelectedIndex = _plot.SelectedLayer - 1;
             var summary = new StackPanel { Spacing = 2, Margin = new Thickness(16, 8) };
-            void Line(string value, bool title = false) => summary.Children.Add(new TextBlock { Text = value, TextWrapping = TextWrapping.Wrap,
-                FontSize = title ? DisplayTypography.CardTitle : DisplayTypography.Caption, FontWeight = title ? FontWeight.SemiBold : FontWeight.Normal });
+            void Line(string value, bool title = false) => summary.Children.Add(new TextBlock
+            {
+                Text = value,
+                TextWrapping = TextWrapping.Wrap,
+                FontSize = title ? DisplayTypography.CardTitle : DisplayTypography.Caption,
+                FontWeight = title ? FontWeight.SemiBold : FontWeight.Normal
+            });
             Line(UiLocalization.Text("堆栈几何 · 竖直剖面"), true); Line(DateTimeOffset.Now.ToString("yyyy/MM/dd HH:mm:ss"));
             Line($"{snapshot.Layers.Count + snapshot.BackLayers.Count} {UiLocalization.Text("层")} · {UiLocalization.Text("膜层总厚度")} {snapshot.AllLayers.Sum(l => l.ThicknessNm):G8} nm · {UiLocalization.Text("基板")} {snapshot.SubstrateThicknessMm:G7} mm");
             Line($"{UiLocalization.Text("参考波长")} {snapshot.ReferenceWavelengthNm:G7} nm · {UiLocalization.Text("入射角")} {snapshot.AngleDegrees:G6}° · {UiLocalization.Text("编辑修订")} {snapshot.Revision}");

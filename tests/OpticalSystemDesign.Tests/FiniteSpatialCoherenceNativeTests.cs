@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -18,6 +18,7 @@ public sealed class FiniteSpatialCoherenceNativeTests
 
     [Theory]
     [MemberData(nameof(NativeCases))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void OriginalLensMatchesCompleteNativeFiniteImage(string name)
     {
         using var fixture = Fixture();

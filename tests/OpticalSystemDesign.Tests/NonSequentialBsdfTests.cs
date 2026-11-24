@@ -1,8 +1,8 @@
 using System.IO.Compression;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
@@ -23,7 +23,9 @@ public sealed class NonSequentialBsdfTests
     }
 
     [Theory]
-    [InlineData(0)] [InlineData(.25)] [InlineData(1)]
+    [InlineData(0)]
+    [InlineData(.25)]
+    [InlineData(1)]
     public void OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(double rho)
     {
         var scene = Scene(rho); var trace = new NonSequentialDocumentTracer().Trace(scene, Optic.CreateBlank().Materials);

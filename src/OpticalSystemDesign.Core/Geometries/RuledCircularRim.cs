@@ -32,7 +32,7 @@ internal sealed class RuledCircularRim(Vector3D centerA, Vector3D uA, Vector3D v
                 var tangent = (-uA * sine + vA * cosine) * (1 - fraction) + (-uB * sine + vB * cosine) * fraction;
                 var normal = Cross(tangent, generator); var length = normal.Length;
                 if (!double.IsFinite(length) || length <= 1e-15) throw new InvalidDataException("Ruled rim has a singular normal.");
-                nearest = (distance, start+generator*fraction, normal / length); maximumDistance = distance;
+                nearest = (distance, start + generator * fraction, normal / length); maximumDistance = distance;
             }
         }
         return nearest;

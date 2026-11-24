@@ -14,10 +14,10 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using GuideWindow = OpticalSystemDesign.App.MainWindow;
-using InitialWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
-using InitialSettings = OpticalSystemDesign.App.Laboratories.InitialStructure.LabDesktopSettings;
 using CoatingWindow = OpticalSystemDesign.App.Laboratories.CoatingDesign.MainWindow;
+using GuideWindow = OpticalSystemDesign.App.MainWindow;
+using InitialSettings = OpticalSystemDesign.App.Laboratories.InitialStructure.LabDesktopSettings;
+using InitialWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 
 namespace OpticalSystemDesign.Tests;
 

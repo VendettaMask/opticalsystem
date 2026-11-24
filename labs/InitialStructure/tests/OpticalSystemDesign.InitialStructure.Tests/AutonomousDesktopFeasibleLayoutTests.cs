@@ -16,8 +16,12 @@ public sealed partial class AutonomousDesktopTests
         await host.Dispatch(async () =>
         {
             var plan = Plan(); var locale = UiLocalization.CurrentLanguage;
-            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root,
-                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("feasible.topology-plan.json")) });
+            var window = new AutonomousTopologyWindow(new()
+            {
+                InitialPlan = plan,
+                RunDirectory = files.Root,
+                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("feasible.topology-plan.json"))
+            });
             try
             {
                 window.Show(); window.UpdateLayout();

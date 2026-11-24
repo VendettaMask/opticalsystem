@@ -13,7 +13,9 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SceneLinearBatchTests
 {
     [Theory]
-    [InlineData(1)] [InlineData(7)] [InlineData(16)]
+    [InlineData(1)]
+    [InlineData(7)]
+    [InlineData(16)]
     public void StripsRetainFullSensorCoordinatesPupilBoundsAndFullyVignettedRows(int rows)
     {
         var lens = SceneSlantedEdgeTests.FiniteConjugateLens();
@@ -48,7 +50,8 @@ public sealed class SceneLinearBatchTests
     }
 
     [Theory]
-    [InlineData(2)] [InlineData(3)]
+    [InlineData(2)]
+    [InlineData(3)]
     public void FiniteSourceShapeIntegratesRadianceAndKnownSpectralMomentsWithoutPhotonWeights(int order)
     {
         var q = SceneEmissionSpectrum.Integrate([new(400, 0), new(499, 0), new(500, 100), new(501, 0), new(800, 0)], 3, .6, order);

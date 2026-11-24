@@ -26,8 +26,12 @@ public sealed partial class AutonomousDesktopTests
             var plan = ColdDesktopPlan(version); var path = files.Path("cold.topology-plan.json");
             var language = UiLocalization.CurrentLanguage;
             using var rays = SequentialTraceMeasurement.Begin();
-            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root,
-                SavePicker = (_, _) => Task.FromResult<string?>(path) });
+            var window = new AutonomousTopologyWindow(new()
+            {
+                InitialPlan = plan,
+                RunDirectory = files.Root,
+                SavePicker = (_, _) => Task.FromResult<string?>(path)
+            });
             try
             {
                 window.Show(); window.UpdateLayout();
@@ -84,9 +88,19 @@ public sealed partial class AutonomousDesktopTests
     private static AutonomousSearchPlan ColdDesktopPlan(int version = 1)
     {
         var (plan, options) = StructureEvolutionTests.Specification();
-        options = options with { ColdStart = new() { Version = version }, Retrieval = null, Evolution = null, Competition = null, ImageScreening = null,
-            MaximumFunctionEvaluations = 600, MaximumEvaluationsPerStart = 600, MaximumTracedRays = 10000000, TimeLimit = TimeSpan.FromSeconds(600),
-            Generation = options.Generation! with { StopAfterElement = 0 } };
+        options = options with
+        {
+            ColdStart = new() { Version = version },
+            Retrieval = null,
+            Evolution = null,
+            Competition = null,
+            ImageScreening = null,
+            MaximumFunctionEvaluations = 600,
+            MaximumEvaluationsPerStart = 600,
+            MaximumTracedRays = 10000000,
+            TimeLimit = TimeSpan.FromSeconds(600),
+            Generation = options.Generation! with { StopAfterElement = 0 }
+        };
         return plan with { Options = plan.Options with { SeedPreparation = options } };
     }
 
@@ -99,8 +113,12 @@ public sealed partial class AutonomousDesktopTests
         {
             var plan = AutonomousDesignExamples.ThreeElement(); var path = files.Path("new-cold.topology-plan.json");
             using var rays = SequentialTraceMeasurement.Begin();
-            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root,
-                SavePicker = (_, _) => Task.FromResult<string?>(path) });
+            var window = new AutonomousTopologyWindow(new()
+            {
+                InitialPlan = plan,
+                RunDirectory = files.Root,
+                SavePicker = (_, _) => Task.FromResult<string?>(path)
+            });
             try
             {
                 window.Show(); window.UpdateLayout();

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -12,6 +11,7 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;
@@ -121,6 +121,7 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ProductPolZeroCurveRetainsOriginalCapturedRelativeIlluminationGate()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
@@ -162,6 +163,7 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     [InlineData("double-gauss-28-degree-field")]
     [InlineData("relay-lens")]
     [InlineData("even-asphere")]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void GeometricRayPowerMatchesExistingNativeUnpolarizedRayControls(string name)
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();

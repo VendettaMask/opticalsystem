@@ -349,8 +349,11 @@ public sealed partial class AutonomousDesktopTests
             var plan = Plan();
             plan = plan with { Options = plan.Options with { Expansion = new() } };
             var saved = 0;
-            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan,
-                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("reduction-" + saved++ + ".topology-plan.json")) });
+            var window = new AutonomousTopologyWindow(new()
+            {
+                InitialPlan = plan,
+                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("reduction-" + saved++ + ".topology-plan.json"))
+            });
             try
             {
                 window.Show(); window.UpdateLayout();

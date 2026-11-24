@@ -32,12 +32,12 @@ internal sealed class GamutXyzBsdfDistribution : IMeasuredBsdfDistribution
                 double Value(MeasuredBsdfPoint q) => definition.Transmission ? q.BtdfPerSteradian : q.BrdfPerSteradian;
                 var vx = Value(xs[Key(p)]); var vy = Value(p); var vz = Value(zs[Key(p)]);
                 if (!gamut.Contains(vx, vy, vz)) throw new InvalidDataException("Zemax XYZ 绝对通道节点在正值模型颜色域外；不能外推。");
-                var result = xyz.Calibration.PositiveModel is { } positive ? positive.Evaluate(vx, vy, vz) : xyz.Calibration.AbsoluteRbfModel!.Evaluate(vx,vy,vz);
+                var result = xyz.Calibration.PositiveModel is { } positive ? positive.Evaluate(vx, vy, vz) : xyz.Calibration.AbsoluteRbfModel!.Evaluate(vx, vy, vz);
                 if (result.Any(v => !double.IsFinite(v) || v < 0)) throw new InvalidDataException("XYZ 正值映射产生无效辐射度。");
                 return result;
             }).ToArray();
             _bands = _waves.Select((w, band) => ZemaxBsdfDistribution.FromAbsoluteNodes(ys.Select((p, i) => p with
-                { WavelengthNanometers = w, BrdfPerSteradian = definition.Transmission ? 0 : values[i][band], BtdfPerSteradian = definition.Transmission ? values[i][band] : 0 }).ToArray(), coordinates, definition)).ToArray();
+            { WavelengthNanometers = w, BrdfPerSteradian = definition.Transmission ? 0 : values[i][band], BtdfPerSteradian = definition.Transmission ? values[i][band] : 0 }).ToArray(), coordinates, definition)).ToArray();
             return;
         }
         var xt = xyz.XIntegrals.ToDictionary(t => (t.Side, t.SpecularThetaDegrees, t.SampleRotationDegrees));

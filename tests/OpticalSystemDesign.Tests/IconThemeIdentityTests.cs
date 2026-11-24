@@ -26,9 +26,9 @@ public sealed class IconThemeIdentityTests
         {
             var actual = new SortedDictionary<string, string>();
             foreach (var themeName in new[] { "Light", "Dark", "Pixel" })
-            foreach (var name in UsedNames())
-            foreach (var size in new[] { 18, 24, 32 })
-                actual[$"{themeName}/{name}/{size}"] = RenderHash(name, themeName, size);
+                foreach (var name in UsedNames())
+                    foreach (var size in new[] { 18, 24, 32 })
+                        actual[$"{themeName}/{name}/{size}"] = RenderHash(name, themeName, size);
             Assert.Equal(2025, actual.Count);
             var location = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ICON_IDENTITY_EVIDENCE_DIR");
             Assert.False(string.IsNullOrEmpty(location));
@@ -50,8 +50,13 @@ public sealed class IconThemeIdentityTests
     private static string RenderHash(string name, string themeName, int size)
     {
         var icon = new LocalIcon { IconName = name, Width = size, Height = size };
-        var scope = new ThemeVariantScope { RequestedThemeVariant = ThemeRegistry.FromSettings(themeName).RequestedVariant,
-            Width = size, Height = size, Child = icon };
+        var scope = new ThemeVariantScope
+        {
+            RequestedThemeVariant = ThemeRegistry.FromSettings(themeName).RequestedVariant,
+            Width = size,
+            Height = size,
+            Child = icon
+        };
         scope.Measure(new Size(size, size)); scope.Arrange(new Rect(0, 0, size, size));
         using var bitmap = new RenderTargetBitmap(new PixelSize(size, size)); bitmap.Render(scope);
         using var bytes = new MemoryStream(); bitmap.Save(bytes, PngBitmapEncoderOptions.Default);

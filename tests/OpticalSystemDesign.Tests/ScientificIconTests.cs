@@ -134,8 +134,14 @@ public sealed class ScientificIconTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, themeName);
             var theme = ThemeRegistry.FromSettings(themeName);
             var icon = new LocalIcon { IconName = "window-layout", Width = 64, Height = 64 };
-            var host = new Button { Content = icon, Background = new SolidColorBrush(theme.IconPalette.Signal),
-                Foreground = new SolidColorBrush(theme.Palette!.TextOnAccent), Width = 100, Height = 100 };
+            var host = new Button
+            {
+                Content = icon,
+                Background = new SolidColorBrush(theme.IconPalette.Signal),
+                Foreground = new SolidColorBrush(theme.Palette!.TextOnAccent),
+                Width = 100,
+                Height = 100
+            };
             var window = new Window { Width = 180, Height = 180, Content = host };
             try
             {
@@ -171,12 +177,21 @@ public sealed class ScientificIconTests
             {
                 var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
                 foreach (var size in new[] { 18, 24, 32 }) row.Children.Add(new LocalIcon { IconName = name, Width = size, Height = size });
-                var content = new StackPanel { Spacing = 10, Children =
-                    { row, new TextBlock { Text = name, FontSize = 11, Foreground = theme.IconPalette.Brushes[0] } } };
+                var content = new StackPanel
+                {
+                    Spacing = 10,
+                    Children =
+                    { row, new TextBlock { Text = name, FontSize = 11, Foreground = theme.IconPalette.Brushes[0] } }
+                };
                 cells.Children.Add(new Border { Width = 224, Height = 85, Padding = new Thickness(12), Child = content });
             }
-            var root = new StackPanel { Margin = new Thickness(20), Spacing = 12, Children =
-                { new TextBlock { Text = theme.DisplayName + "  —  18 / 24 / 32 DIP", FontSize = 20 }, cells } };
+            var root = new StackPanel
+            {
+                Margin = new Thickness(20),
+                Spacing = 12,
+                Children =
+                { new TextBlock { Text = theme.DisplayName + "  —  18 / 24 / 32 DIP", FontSize = 20 }, cells }
+            };
             var window = new Window { Width = 1160, Height = 740, Background = new SolidColorBrush(theme.Palette!.Surface), Content = root };
             try { window.Show(); Tick(window); Capture(window, $"atlas-{themeName}.png"); }
             finally { window.Close(); }
@@ -239,11 +254,11 @@ public sealed class ScientificIconTests
     private static bool HasColour(SKBitmap image, Color colour)
     {
         for (var y = 0; y < image.Height; y++)
-        for (var x = 0; x < image.Width; x++)
-        {
-            var p = image.GetPixel(x, y);
-            if (p.Alpha >= 250 && Math.Abs(p.Red - colour.R) <= 1 && Math.Abs(p.Green - colour.G) <= 1 && Math.Abs(p.Blue - colour.B) <= 1) return true;
-        }
+            for (var x = 0; x < image.Width; x++)
+            {
+                var p = image.GetPixel(x, y);
+                if (p.Alpha >= 250 && Math.Abs(p.Red - colour.R) <= 1 && Math.Abs(p.Green - colour.G) <= 1 && Math.Abs(p.Blue - colour.B) <= 1) return true;
+            }
         return false;
     }
 

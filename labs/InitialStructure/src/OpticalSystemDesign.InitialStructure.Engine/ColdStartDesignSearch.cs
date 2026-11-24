@@ -19,11 +19,25 @@ public static class ColdStartDesignSearch
         Validate(input, preparation, policy);
         var plan = ColdPlan(input);
         var descriptor = preparation.Generation!;
-        var identity = ContentFingerprint.Compute(new { Identity = "cold-back-focus-design-v" + policy.Version, plan, preparation, policy,
-            Final = "original-TopologyValidator-v2", Coordinates = "anchored-on-generated-layout; append-original-permitted-terms" });
+        var identity = ContentFingerprint.Compute(new
+        {
+            Identity = "cold-back-focus-design-v" + policy.Version,
+            plan,
+            preparation,
+            policy,
+            Final = "original-TopologyValidator-v2",
+            Coordinates = "anchored-on-generated-layout; append-original-permitted-terms"
+        });
         if (cancellationToken.IsCancellationRequested)
-            return new() { ProtocolFingerprint = identity, ColdPlan = plan, Preparation = preparation, Policy = policy,
-                StopReason = "Cancelled", Work = new() };
+            return new()
+            {
+                ProtocolFingerprint = identity,
+                ColdPlan = plan,
+                Preparation = preparation,
+                Policy = policy,
+                StopReason = "Cancelled",
+                Work = new()
+            };
         var clock = Stopwatch.StartNew();
         using var deadline = new CancellationTokenSource(preparation.TimeLimit);
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(deadline.Token, cancellationToken);
@@ -78,9 +92,15 @@ public static class ColdStartDesignSearch
                     {
                         matrices += construction.MatrixRequests; probes += construction.GeometryProbes;
                         constructions.Add(new(constructions.Count + 1, samplingMinimum, outcome,
-                            new() { FunctionEvaluations = functions - beforeFunctions, MatrixEvaluations = construction.MatrixRequests,
+                            new()
+                            {
+                                FunctionEvaluations = functions - beforeFunctions,
+                                MatrixEvaluations = construction.MatrixRequests,
                                 GeometryProbes = construction.GeometryProbes + (measured?.GeometryProbes ?? 0),
-                                ValidationEvaluations = measured is null ? 0 : 1, TracedRays = rays.RayCount - beforeRays, Elapsed = started.Elapsed }, proposal, measured));
+                                ValidationEvaluations = measured is null ? 0 : 1,
+                                TracedRays = rays.RayCount - beforeRays,
+                                Elapsed = started.Elapsed
+                            }, proposal, measured));
                     }
                     progress?.Invoke($"construction {constructions.Count}: {outcome}");
                 }
@@ -135,11 +155,21 @@ public static class ColdStartDesignSearch
                 var result = FixedTopologyOptimizer.Run(source, binding, plan.Targets, new()
                 {
                     GateCompensationVersion = policy.Version >= 3 ? 4 : policy.Version == 2 ? 3 : 2,
-                    MaximumUpdates = policy.Version >= 6 ? Math.Min(400, quota - 2) : quota - 2, MaximumFunctionEvaluations = quota,
-                    MaximumGradientEvaluations = gradientQuota, TimeLimit = TimeSpan.FromSeconds(Math.Min(seconds, remaining)),
-                    ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false,
-                    Sampling = new() { FieldsPerDirection = 3, PupilRings = rings, PupilArms = arms, ProfileRadialSamples = 64,
-                        IncludeBoundaryClearance = true, IncludeBoundaryMaximum = true }
+                    MaximumUpdates = policy.Version >= 6 ? Math.Min(400, quota - 2) : quota - 2,
+                    MaximumFunctionEvaluations = quota,
+                    MaximumGradientEvaluations = gradientQuota,
+                    TimeLimit = TimeSpan.FromSeconds(Math.Min(seconds, remaining)),
+                    ComputeMode = DesignComputeMode.Cpu,
+                    PerformFinalAssessment = false,
+                    Sampling = new()
+                    {
+                        FieldsPerDirection = 3,
+                        PupilRings = rings,
+                        PupilArms = arms,
+                        ProfileRadialSamples = 64,
+                        IncludeBoundaryClearance = true,
+                        IncludeBoundaryMaximum = true
+                    }
                 }, token);
                 functions += result.Work.FunctionEvaluations; gradients += result.Work.GradientEvaluations;
                 probes += result.Work.GeometryProbes; endpoint = result.Topology;
@@ -148,9 +178,11 @@ public static class ColdStartDesignSearch
                 phases.Add(new(name, result.Termination.ToString(), new()
                 {
                     FunctionEvaluations = result.Work.FunctionEvaluations + (assessment is null ? 0 : 1),
-                    GradientEvaluations = result.Work.GradientEvaluations, ValidationEvaluations = assessment is null ? 0 : 1,
+                    GradientEvaluations = result.Work.GradientEvaluations,
+                    ValidationEvaluations = assessment is null ? 0 : 1,
                     GeometryProbes = result.Work.GeometryProbes + (assessment?.GeometryProbes ?? 0),
-                    TracedRays = rays.RayCount - beforeRays, Elapsed = timer.Elapsed
+                    TracedRays = rays.RayCount - beforeRays,
+                    Elapsed = timer.Elapsed
                 }, variables, endpoint, assessment, result.Diagnostics));
                 progress?.Invoke(name + ": " + result.Termination + ", qualified=" + (assessment?.MeetsTargets == true));
             }
@@ -171,10 +203,25 @@ public static class ColdStartDesignSearch
         }
         ColdStartDesignResult Finish() => new()
         {
-            ProtocolFingerprint = identity, ColdPlan = plan, Preparation = preparation, Policy = policy, StopReason = reason,
-            Work = new() { FunctionEvaluations = functions, GradientEvaluations = gradients, ValidationEvaluations = validations,
-                MatrixEvaluations = matrices, GeometryProbes = probes, TracedRays = rays.RayCount, Elapsed = clock.Elapsed },
-            Construction = constructions.ToImmutableArray(), Phases = phases.ToImmutableArray(), Endpoint = endpoint, Assessment = assessment
+            ProtocolFingerprint = identity,
+            ColdPlan = plan,
+            Preparation = preparation,
+            Policy = policy,
+            StopReason = reason,
+            Work = new()
+            {
+                FunctionEvaluations = functions,
+                GradientEvaluations = gradients,
+                ValidationEvaluations = validations,
+                MatrixEvaluations = matrices,
+                GeometryProbes = probes,
+                TracedRays = rays.RayCount,
+                Elapsed = clock.Elapsed
+            },
+            Construction = constructions.ToImmutableArray(),
+            Phases = phases.ToImmutableArray(),
+            Endpoint = endpoint,
+            Assessment = assessment
         };
     }
 
@@ -182,8 +229,11 @@ public static class ColdStartDesignSearch
     {
         var origin = plan.Seeds[0];
         TopologyFace Plane(TopologyFace face) => face with { Profile = new() { Kind = TopologyProfileKind.Standard } };
-        return plan with { Seeds = [origin with { Name = "Cold specification envelope", Elements = origin.Elements.Select(e => e with
-            { Front = Plane(e.Front), Back = Plane(e.Back) }).ToImmutableArray() }] };
+        return plan with
+        {
+            Seeds = [origin with { Name = "Cold specification envelope", Elements = origin.Elements.Select(e => e with
+            { Front = Plane(e.Front), Back = Plane(e.Back) }).ToImmutableArray() }]
+        };
     }
 
     public static void Validate(AutonomousSearchPlan plan, ParaxialSeedSearchOptions preparation, ColdStartDesignOptions policy)

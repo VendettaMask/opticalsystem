@@ -88,7 +88,9 @@ public sealed class SystemMeritTolerancingTests
         {
             var mixed = await app.Tolerancing.RunAsync(request with
             {
-                Criterion = ToleranceCriterion.RmsSpotRadius, YieldLimit = 1, Mode = ToleranceAnalysisMode.SkipSensitivity
+                Criterion = ToleranceCriterion.RmsSpotRadius,
+                YieldLimit = 1,
+                Mode = ToleranceAnalysisMode.SkipSensitivity
             });
             var mixedTrial = Assert.Single(mixed.TrialRows);
             Assert.Equal(stage.Criterion, Assert.Single(mixedTrial.Stages!).Criterion, 12);

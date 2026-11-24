@@ -1,7 +1,7 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;
@@ -12,6 +12,7 @@ public sealed class ZemaxContrastLossParityTests
     public ZemaxContrastLossParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void MooreElliottLossMapsMatchCapturedZemax123456Settings()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

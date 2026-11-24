@@ -130,12 +130,12 @@ public sealed class VignettingDiagramAnalysis : BaseAnalysis
         var step = 1d / _rayDensity;
         var pupil = new List<PupilSample>();
         for (var row = -_rayDensity; row <= _rayDensity; row++)
-        for (var column = -_rayDensity; column <= _rayDensity; column++)
-        {
-            var x = column * step;
-            var y = row * step;
-            if (x * x + y * y <= 1) pupil.Add(new PupilSample(x, y, 1));
-        }
+            for (var column = -_rayDensity; column <= _rayDensity; column++)
+            {
+                var x = column * step;
+                var y = row * step;
+                if (x * x + y * y <= 1) pupil.Add(new PupilSample(x, y, 1));
+            }
 
         // Geometric acceptance counts rays equally, independent of pupil
         // illumination, field-editor compression and material transmission.

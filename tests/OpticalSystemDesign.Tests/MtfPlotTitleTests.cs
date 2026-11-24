@@ -94,8 +94,14 @@ public sealed class MtfPlotTitleTests
             var pupilSampling = analysis == "MTF" ? "256" : "32";
             var result = await app.Analyses.RunAsync(new(Guid.NewGuid(), 1, analysis, new Dictionary<string, string>
             {
-                ["Sampling"] = pupilSampling, ["PupilSampling"] = pupilSampling, ["ImageSampling"] = "32", ["NumRays"] = "32",
-                ["PlotPointCount"] = "32", ["WavelengthNumber"] = "1", ["FieldNumber"] = "0", ["MaximumFrequency"] = "100"
+                ["Sampling"] = pupilSampling,
+                ["PupilSampling"] = pupilSampling,
+                ["ImageSampling"] = "32",
+                ["NumRays"] = "32",
+                ["PlotPointCount"] = "32",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "0",
+                ["MaximumFrequency"] = "100"
             }));
             Assert.Equal(AnalysisOutcome.Success, result.View.Outcome);
             Assert.Equal(AnalysisPresentationKind.Mtf, result.View.PresentationKind);

@@ -54,8 +54,8 @@ internal sealed partial class CameraImagingService
                 Array.AsReadOnly(result.Sampling.Select(c => new CameraSfrSamplingComparison(c.Axis, SfrRequest(c.Requested, request),
                     c.Refined is null ? null : SfrFrame(c.Refined, request), c.MaximumImageDifference, c.MaximumSfrDifference,
                     c.MaximumMtfDifference, c.RelativeReadoutIntegralDifference, c.WithinCriteria, c.Message)
-                    { MaximumFullPupilMtfDifference = c.MaximumFullPupilMtfDifference }).ToArray()), result.SamplingConverged)
-                { SourceDocument = document };
+                { MaximumFullPupilMtfDifference = c.MaximumFullPupilMtfDifference }).ToArray()), result.SamplingConverged)
+            { SourceDocument = document };
         }, linked.Token).ConfigureAwait(false);
     }
 
@@ -63,7 +63,7 @@ internal sealed partial class CameraImagingService
         r.PixelPitchMicrometers, r.Width, r.Height, r.EdgeAngleDegrees, r.DarkLevel, r.BrightLevel, r.EdgeOffsetPixels,
         r.PupilSampling, r.ImageSamplesPerPixel, r.PsfRadiusPixels, new(r.RoiX, r.RoiY, r.RoiWidth, r.RoiHeight), r.EdgeHalfWindowPixels, r.UseLensWavelengths);
     private static CameraSfrRequest SfrRequest(SlantedEdgeSettings s, CameraSfrRequest r) => r with
-        { PupilSampling = s.PupilSampling, ImageSamplesPerPixel = s.ImageSamplesPerPixel, PsfRadiusPixels = s.PsfRadiusPixels };
+    { PupilSampling = s.PupilSampling, ImageSamplesPerPixel = s.ImageSamplesPerPixel, PsfRadiusPixels = s.PsfRadiusPixels };
     private static CameraSfrFrame SfrFrame(SlantedEdgeFrame f, CameraSfrRequest r) => new(SfrRequest(f.Settings, r),
         Array.AsReadOnly(f.Source.ToArray()), Array.AsReadOnly(f.LinearPixels.ToArray()),
         Array.AsReadOnly(f.Measurement.Curve.Select((p, i) => new CameraSfrPoint(p.CyclesPerPixel, p.CyclesPerMillimeter,
@@ -73,10 +73,13 @@ internal sealed partial class CameraImagingService
         f.Measurement.EdgeSlope, f.Measurement.EdgeIntercept, f.Measurement.EdgeFitRmsPixels, f.Measurement.Contrast,
         f.Measurement.Mtf50CyclesPerPixel, f.Measurement.Mtf10CyclesPerPixel, f.PsfSpacingMicrometers, f.PsfGridSize,
         f.RelativePsfReadoutIntegral, f.MaximumSfrReferenceDifference)
-        { MaximumSfrFullPupilDifference = f.MaximumSfrFullPupilDifference, MaximumWindowFullPupilDifference = f.MaximumWindowFullPupilDifference,
-            ReferenceWavelengthNanometers = f.ReferenceWavelengthNanometers,
-            Spectrum = f.Spectrum is null ? null : Array.AsReadOnly(f.Spectrum.Select(b => new CameraSfrSpectralBand(
-                b.WavelengthNumber, b.WavelengthNanometers, b.Weight, b.NormalizedWeight, b.IsPrimary)).ToArray()) };
+    {
+        MaximumSfrFullPupilDifference = f.MaximumSfrFullPupilDifference,
+        MaximumWindowFullPupilDifference = f.MaximumWindowFullPupilDifference,
+        ReferenceWavelengthNanometers = f.ReferenceWavelengthNanometers,
+        Spectrum = f.Spectrum is null ? null : Array.AsReadOnly(f.Spectrum.Select(b => new CameraSfrSpectralBand(
+            b.WavelengthNumber, b.WavelengthNanometers, b.Weight, b.NormalizedWeight, b.IsPrimary)).ToArray())
+    };
     private static string SfrHash(string text) => Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text)));
 
     public Task ExportSlantedEdgeAsync(CameraSfrResult result, string path, CancellationToken cancellationToken = default) => Task.Run(async () =>

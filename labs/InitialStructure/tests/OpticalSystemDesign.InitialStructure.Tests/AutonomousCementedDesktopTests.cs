@@ -18,8 +18,17 @@ public sealed partial class AutonomousDesktopTests
         await host.Dispatch(async () =>
         {
             var language = UiLocalization.CurrentLanguage; var plan = AutonomousCementedTests.Plan(); var path = files.Path("cemented.topology-plan.json");
-            plan = plan with { Options = plan.Options with { Expansion = plan.Options.Expansion! with { EnableInsertion = false,
-                Cemented = new() { MaximumGroupElements = 3, InitialThicknessMillimeters = 1.5, ThicknessMultipliers = [1, 3] } } } };
+            plan = plan with
+            {
+                Options = plan.Options with
+                {
+                    Expansion = plan.Options.Expansion! with
+                    {
+                        EnableInsertion = false,
+                        Cemented = new() { MaximumGroupElements = 3, InitialThicknessMillimeters = 1.5, ThicknessMultipliers = [1, 3] }
+                    }
+                }
+            };
             using var rays = SequentialTraceMeasurement.Begin();
             var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root, SavePicker = (_, _) => Task.FromResult<string?>(path) });
             try

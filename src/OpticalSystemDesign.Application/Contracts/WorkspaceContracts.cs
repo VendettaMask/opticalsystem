@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
-using OpticalSystemDesign.Core.Tolerancing;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.Application.Contracts;
 
@@ -331,12 +331,17 @@ public sealed record NonSequentialWavelengthDto(
     double Weight,
     bool IsPrimary);
 
+public sealed record NonSequentialSceneSettingsDto(
+    string Name, string AmbientMaterial, IReadOnlyList<NonSequentialWavelengthDto> Wavelengths,
+    NonSequentialTraceSettings TraceSettings);
+
 public sealed record NonSequentialDocumentDto(
     string Name,
     string AmbientMaterial,
     IReadOnlyList<NonSequentialWavelengthDto> Wavelengths,
     IReadOnlyList<NonSequentialObjectRowDto> Objects,
-    NonSequentialTraceSettings TraceSettings);
+    NonSequentialTraceSettings TraceSettings,
+    Core.NonSequential.NonSequentialOrganization? Organization = null);
 
 public sealed record NonSequentialObjectUpdateDto(
     Guid Id,
@@ -1472,7 +1477,7 @@ public sealed record SceneRaySegment2Dto(
     SceneRaySegmentType SegmentType,
     SceneRayInteractionType InteractionType,
     int? SourceSurfaceNumber,
-    int? TargetSurfaceNumber);
+    int? TargetSurfaceNumber, int? SourceFaceIndex = null, int? TargetFaceIndex = null);
 
 public sealed record SceneRaySegment3Dto(
     ScenePoint3Dto Start,
@@ -1481,7 +1486,7 @@ public sealed record SceneRaySegment3Dto(
     SceneRaySegmentType SegmentType,
     SceneRayInteractionType InteractionType,
     int? SourceSurfaceNumber,
-    int? TargetSurfaceNumber);
+    int? TargetSurfaceNumber, int? SourceFaceIndex = null, int? TargetFaceIndex = null);
 
 public sealed record SceneSurfaceFace3Dto(IReadOnlyList<ScenePoint3Dto> Points);
 
@@ -1508,7 +1513,7 @@ public sealed record SceneSurface2Dto(
     int ConfigurationNumber = 1,
     string? SurfaceColor = null,
     double Opacity = 1, bool HideEdges = false, bool HideSurface = false,
-    SceneLocalFrame2Dto? LocalFrame = null);
+    SceneLocalFrame2Dto? LocalFrame = null, IReadOnlyList<IReadOnlyList<ScenePoint2Dto>>? Contours = null);
 
 public sealed record SceneLensEdge2Dto(
     int FrontSurfaceNumber,
@@ -1562,7 +1567,7 @@ public sealed record SceneSurface3Dto(
     int ConfigurationNumber = 1,
     string? SurfaceColor = null,
     double Opacity = 1, bool HideEdges = false, bool HideSurface = false,
-    SceneLocalFrame3Dto? LocalFrame = null);
+    SceneLocalFrame3Dto? LocalFrame = null, bool IsPolygonGroup = false);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,

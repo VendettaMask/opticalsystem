@@ -157,19 +157,19 @@ public sealed class MainWindowTitleBarTests
                 var initialSize = window.Bounds.Size;
                 var themes = new[] { "Light", "Dark", "Lumen", "Isekai", "Pixel", "System" };
                 foreach (var from in themes)
-                foreach (var to in themes.Where(theme => theme != from))
-                {
-                    ThemeApplicationService.Apply(app, from);
-                    Tick(window);
-                    AssertManagedCaptionButtons(host, $"before {from} -> {to}");
-                    ThemeApplicationService.Apply(app, to);
-                    Tick(window);
-                    AssertManagedCaptionButtons(host, $"{state}: {from} -> {to}");
-                    Assert.Equal(initialSize, window.Bounds.Size);
-                    Assert.Equal(state, window.WindowState);
-                    if (state == WindowState.Normal && (from is "Light" or "Dark") && (to is "Light" or "Dark"))
-                        Capture(host, $"theme-switch-{from}-to-{to}");
-                }
+                    foreach (var to in themes.Where(theme => theme != from))
+                    {
+                        ThemeApplicationService.Apply(app, from);
+                        Tick(window);
+                        AssertManagedCaptionButtons(host, $"before {from} -> {to}");
+                        ThemeApplicationService.Apply(app, to);
+                        Tick(window);
+                        AssertManagedCaptionButtons(host, $"{state}: {from} -> {to}");
+                        Assert.Equal(initialSize, window.Bounds.Size);
+                        Assert.Equal(state, window.WindowState);
+                        if (state == WindowState.Normal && (from is "Light" or "Dark") && (to is "Light" or "Dark"))
+                            Capture(host, $"theme-switch-{from}-to-{to}");
+                    }
             }
             finally { window.Close(); }
         }, CancellationToken.None);

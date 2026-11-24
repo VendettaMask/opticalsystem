@@ -56,7 +56,8 @@ public sealed class SceneMultiRoiSfrWindowTests
     }
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SceneMultiRoiSfrWindowTests));

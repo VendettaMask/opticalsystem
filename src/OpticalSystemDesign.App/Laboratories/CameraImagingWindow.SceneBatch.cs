@@ -15,12 +15,22 @@ public sealed partial class CameraImagingWindow
 {
     private readonly Dictionary<string, CameraNumberInput> _sceneBatchNumbers = [];
     private readonly Dictionary<string, TextBlock> _sceneBatchLabels = [];
-    private readonly ComboBox _sceneBatchMode = new() { Name = "camera-scene-batch-mode", Width = 310,
-        ItemsSource = new[] { "当前镜头各波长分别生成", "原文三种源谱形状 · 当前镜头", "文件中的自定义源" }, SelectedIndex = 0 };
+    private readonly ComboBox _sceneBatchMode = new()
+    {
+        Name = "camera-scene-batch-mode",
+        Width = 310,
+        ItemsSource = new[] { "当前镜头各波长分别生成", "原文三种源谱形状 · 当前镜头", "文件中的自定义源" },
+        SelectedIndex = 0
+    };
     private readonly CheckBox _sceneBatchWeights = new() { Content = "将镜头权重作为物方源辐亮度倍率", IsChecked = true };
     private readonly CheckBox _sceneBatchFresnel = new() { Content = "裸界面 Fresnel 损失", IsChecked = true };
-    private readonly ComboBox _sceneBatchPupilSampling = new() { Name = "camera-scene-batch-pupil-sampling", Width = 310,
-        ItemsSource = new[] { "高斯同心环 · 旧实验", "面积分层圆盘" }, SelectedIndex = 1 };
+    private readonly ComboBox _sceneBatchPupilSampling = new()
+    {
+        Name = "camera-scene-batch-pupil-sampling",
+        Width = 310,
+        ItemsSource = new[] { "高斯同心环 · 旧实验", "面积分层圆盘" },
+        SelectedIndex = 1
+    };
     private readonly Button _sceneBatchRun = new() { Name = "camera-scene-batch-run", Content = "生成全幅线性实验" };
     private readonly Button _sceneBatchReplay = new() { Content = "按冻结条件另存复算" };
     private readonly Button _sceneBatchOpen = new() { Content = "打开全幅线性实验" };
@@ -47,8 +57,17 @@ public sealed partial class CameraImagingWindow
         var fields = new WrapPanel { Orientation = Orientation.Horizontal };
         void Number(string key, string label, decimal value, decimal min, decimal max, bool integer = false)
         {
-            var input = new CameraNumberInput { Name = "camera-scene-batch-" + key, Value = value, Minimum = min, Maximum = max,
-                Increment = integer ? 1 : .1m, IntegerOnly = integer, Width = 108, FormatString = "0.########" };
+            var input = new CameraNumberInput
+            {
+                Name = "camera-scene-batch-" + key,
+                Value = value,
+                Minimum = min,
+                Maximum = max,
+                Increment = integer ? 1 : .1m,
+                IntegerOnly = integer,
+                Width = 108,
+                FormatString = "0.########"
+            };
             AutomationProperties.SetName(input, label); _sceneBatchNumbers[key] = input;
             var caption = new TextBlock { Text = label }; _sceneBatchLabels[key] = caption;
             fields.Children.Add(new StackPanel { Spacing = 4, Margin = new(0, 0, 16, 10), Children = { caption, input } });
@@ -85,12 +104,18 @@ public sealed partial class CameraImagingWindow
         _sceneBatchReplay.Click += async (_, _) => await PickSceneBatchDestinationAsync(true);
         _sceneBatchOpen.Click += async (_, _) =>
         {
-            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "打开全幅线性实验",
-                FileTypeFilter = [new("全幅线性实验") { Patterns = ["*.scene-linear.zip"] }] });
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "打开全幅线性实验",
+                FileTypeFilter = [new("全幅线性实验") { Patterns = ["*.scene-linear.zip"] }]
+            });
             if (files.Count > 0) await OpenSceneBatchFromPathAsync(files[0].Path.LocalPath);
         };
         UpdateSceneBatchControls();
-        return Scroll(new StackPanel { Spacing = 12, Children =
+        return Scroll(new StackPanel
+        {
+            Spacing = 12,
+            Children =
         {
             new TextBlock { Text = "全幅线性成像与逐波段任务", FontWeight = FontWeight.Bold, FontSize = 18 },
             new TextBlock { Text = "同一冻结镜头、场景与完整传感器，分别生成各源谱的图像。浮点数据直接保存为功率和辐照度，附带同一标尺的 16 位线性 PNG。默认采样用于流程检查；正式 MTF 与收敛另行验证。", TextWrapping = TextWrapping.Wrap },
@@ -98,7 +123,8 @@ public sealed partial class CameraImagingWindow
             new TextBlock { Text = "瞳面采样方法" }, _sceneBatchPupilSampling, fields, _sceneBatchFresnel, _sceneBatchBudget,
             LaboratoryPresentation.Commands(_sceneBatchRun, _sceneBatchCancel, _sceneBatchOpen, _sceneBatchReplay),
             _sceneBatchProgress, _sceneBatchInfo, _sceneBatchTask, _sceneBatchPreview
-        } });
+        }
+        });
     }
 
     private static bool SceneBatchInteger(string key) => key is "columns" or "rows" or "width" or "height" or "pixels" or "rings" or "arms" or "order" or "strips";
@@ -168,8 +194,12 @@ public sealed partial class CameraImagingWindow
         var plan = replay ? _sceneBatchArtifact?.Manifest.Plan : _sceneBatchPrepared;
         if (plan is null || !plan.WithinBudget) return;
         var generation = _sceneBatchGeneration;
-        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "保存全幅线性实验", SuggestedFileName = "camera.scene-linear.zip",
-            FileTypeChoices = [new("全幅线性实验") { Patterns = ["*.scene-linear.zip"] }] });
+        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "保存全幅线性实验",
+            SuggestedFileName = "camera.scene-linear.zip",
+            FileTypeChoices = [new("全幅线性实验") { Patterns = ["*.scene-linear.zip"] }]
+        });
         if (file is not null && !_closed && generation == _sceneBatchGeneration) await RunSceneBatchPlanAsync(plan, file.Path.LocalPath, replay);
     }
 
