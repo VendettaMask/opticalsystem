@@ -61,6 +61,7 @@ FFT MTF Map|FftMtfMap
 Huygens Surface MTF|HuygensSurfaceMtf
 Geometric MTF Map|GeometricMtfMap
 Angle vs Image Height|IncidentAnglevsImageHeight|contract
+Telecentricity|
 Angle vs Image Height - Through Pupil|IncidentAnglevsImageHeight|contract
 Angle vs Image Height - Through Field|IncidentAnglevsImageHeight|contract
 Cardinal Points Data|CardinalPoints|contract
@@ -93,6 +94,11 @@ Light Source Analysis|LightSourceAnalysis|capability-audit
 Partially Coherent Image Analysis|PartiallyCoherentImageAnalysis|capability-audit
 Extended Diffraction Image Analysis|ExtendedDiffractionImageAnalysis|capability-audit
 Jones Pupil|PolarizationPupilMap|contract
+Polarization Ray Trace|PolarizationRayTrace
+Polarization Pupil Map|PolarizationPupilMap
+Polarization Transmission|Transmission
+Polarization Phase Aberration|PhaseAberration
+Transmission Fan|TransmissionFan
 Prescription Report|PrescriptionDataSettings|contract
 System Data Report|SystemData|contract
 Classified Data Report|
@@ -124,7 +130,7 @@ Classified Data Report|
         var keys = new AnalysisCatalog(new Optic()).Names;
         var defaultConfiguration = Configuration.ComparisonConfiguration.Load(Path.Combine(AppContext.BaseDirectory, "comparison-settings.json"));
         if (!rows.Keys.ToHashSet(StringComparer.Ordinal).SetEquals(keys))
-            throw new InvalidOperationException("Comparison registry must explicitly audit every Core canonical analysis");
+            throw new InvalidOperationException($"Comparison registry differs from Core. Missing: {string.Join(", ", keys.Except(rows.Keys))}. Obsolete: {string.Join(", ", rows.Keys.Except(keys))}.");
         return keys.Select(key =>
         {
             // Retired desktop keys remain explicit historical Core validation
@@ -135,7 +141,7 @@ Classified Data Report|
             var row = rows[key];
             var mapper = row.Length > 2 ? row[2] : "unimplemented";
             var id = string.IsNullOrWhiteSpace(row[1]) ? null : row[1];
-            var reason = id is null ? "No equivalent Zemax analysis with the same physical definition."
+            var reason = id is null ? "No equivalent native analysis with the same physical definition has been registered."
                 : mapper == "unimplemented" ? "ZOS-API analysis exists; explicit settings/result adapter is not implemented. No numerical claim."
                 : mapper == "spot-layout" ? "Capture explicitly configured native spot layout and inspect every result channel; numerical availability must be established at runtime."
                 : mapper == "spot" ? "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated."
@@ -153,7 +159,8 @@ Classified Data Report|
                 "Seidel Coefficients" or "Cardinal Points Data" or "Prescription Report" or "System Data Report" or "Classified Data Report" or "Single Ray Trace" => ResultKind.TextReport,
                 "Full Field Spot Diagram" or "Matrix Spot Diagram" or "Configuration Matrix Spot Diagram" or "Through Focus" or "Footprint Diagram" => ResultKind.Scatter,
                 "Image Simulation" or "Geometric Image Analysis" or "Geometric Bitmap Image Analysis" or "Light Source Analysis" or "Partially Coherent Image Analysis" or "Extended Diffraction Image Analysis" => ResultKind.Image,
-                "Jones Pupil" => ResultKind.ComplexField,
+                "Jones Pupil" or "Polarization Pupil Map" => ResultKind.ComplexField,
+                "Polarization Ray Trace" or "Polarization Transmission" => ResultKind.TextReport,
                 "RMS Field Map" or "Contrast Loss Map" or "Incoherent Irradiance" or "Foucault Analysis" or "Centroid Sphere Wavefront" or "Best Fit Sphere Wavefront"
                     or "FFT Surface MTF" or "FFT MTF Map" or "Huygens Surface MTF" or "Geometric MTF Map" => ResultKind.Grid2D,
                 _ => ResultKind.Series1D

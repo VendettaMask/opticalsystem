@@ -27,7 +27,12 @@ public static class CommercialLensCatalogStore
     public static CommercialLensCatalogDocument LoadDirectory(string libraryDirectory)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(libraryDirectory);
-        var catalogDirectory = Path.Combine(Path.GetFullPath(libraryDirectory), DirectoryName);
+        return LoadCatalogDirectory(Path.Combine(Path.GetFullPath(libraryDirectory), DirectoryName));
+    }
+
+    public static CommercialLensCatalogDocument LoadCatalogDirectory(string catalogDirectory)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(catalogDirectory);
         if (!Directory.Exists(catalogDirectory))
         {
             return EmptyCatalog();
@@ -79,10 +84,7 @@ public static class CommercialLensCatalogStore
             "Stock-lens manufacturer catalog");
         var catalog = JsonSerializer.Deserialize<CommercialLensCatalogDocument>(json, ReadOptions)
             ?? throw new InvalidDataException("Stock-lens manufacturer catalog is empty.");
-        if (catalog.Version != SupportedVersion || catalog.Entries is null)
-        {
-            throw new InvalidDataException("Stock-lens manufacturer catalog schema is unsupported.");
-        }
+        ValidateCatalog(catalog);
         return catalog;
     }
 
@@ -93,10 +95,7 @@ public static class CommercialLensCatalogStore
     {
         ArgumentNullException.ThrowIfNull(catalog);
         ArgumentException.ThrowIfNullOrWhiteSpace(outputDirectory);
-        if (catalog.Version != SupportedVersion || catalog.Entries is null)
-        {
-            throw new InvalidDataException("Stock-lens catalog schema is unsupported.");
-        }
+        ValidateCatalog(catalog);
 
         var fullOutputDirectory = Path.GetFullPath(outputDirectory);
         Directory.CreateDirectory(fullOutputDirectory);
@@ -168,6 +167,19 @@ public static class CommercialLensCatalogStore
     }
 
     private sealed record CatalogIndex(string Kind, string[] Files);
+
+    private static void ValidateCatalog(CommercialLensCatalogDocument catalog)
+    {
+        if (catalog.Version != SupportedVersion || catalog.Entries is null)
+            throw new InvalidDataException("Stock-lens catalog schema is unsupported.");
+        var ids = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var entry in catalog.Entries)
+        {
+            if (entry is null || string.IsNullOrWhiteSpace(entry.Id) || string.IsNullOrWhiteSpace(entry.Manufacturer)
+                || string.IsNullOrWhiteSpace(entry.PartNumber) || !ids.Add(entry.Id))
+                throw new InvalidDataException("Stock-lens catalog contains an incomplete or duplicate record.");
+        }
+    }
 
     private static string ManufacturerFileName(string manufacturer)
     {

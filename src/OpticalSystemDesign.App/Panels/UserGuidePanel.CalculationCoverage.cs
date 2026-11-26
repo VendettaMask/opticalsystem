@@ -20,7 +20,7 @@ public sealed partial class UserGuidePanel
         "RMS vs Field" or "RMS vs Wavelength" or "RMS vs Focus" or "RMS Field Map" or "RMS Wavefront vs Field" or "Through Focus" or
             "Fourier Through Focus MTF" or "Huygens Through Focus MTF" or "Geometric Through Focus MTF" or
             "Fourier MTF vs Field" or "Huygens MTF vs Field" or "Geometric MTF vs Field" or
-            "Angle vs Image Height" or "Angle vs Image Height - Through Pupil" or "Angle vs Image Height - Through Field" or
+            "Angle vs Image Height" or "Angle vs Image Height - Through Pupil" or "Angle vs Image Height - Through Field" or "Telecentricity" or
             "Centroid Sphere Wavefront" or "Best Fit Sphere Wavefront" => "scans-configurations",
         "Relative Illumination" or "Incoherent Irradiance" or "Radiant Intensity" => "illumination",
         "PSF" or "FFT PSF Cross Section" or "Huygens PSF" or "Huygens PSF Cross Section" or
@@ -30,7 +30,9 @@ public sealed partial class UserGuidePanel
         "Zernike Fringe" or "Zernike Standard" or "Zernike Annular" or "Zernike vs Field" => "zernike",
         "Image Simulation" or "Geometric Image Analysis" or "Geometric Bitmap Image Analysis" or "Light Source Analysis" or
             "Partially Coherent Image Analysis" or "Extended Diffraction Image Analysis" => "extended-imaging",
-        "Jones Pupil" => "polarization-coatings",
+        "Jones Pupil" or "Polarization Ray Trace" or "Polarization Pupil Map" or "Polarization Transmission"
+            or "Polarization Phase Aberration" or "Transmission Fan" or "Transmission vs. Wavelength"
+            or "Transmission vs. Angle" or "Reflection vs. Angle" or "Phase vs. Angle" => "polarization-coatings",
         "Prescription Report" or "Classified Data Report" => "pipeline",
         _ => null
     }) is { } topic ? "calculation-" + topic : null;

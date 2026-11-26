@@ -172,7 +172,9 @@ public sealed record SurfaceSnapshot(
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     IReadOnlyList<string>? BlockedVariableProperties = null,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
-    Coordinates.SequentialSurfacePlacement? Placement = null);
+    Coordinates.SequentialSurfacePlacement? Placement = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    string? ReferencedCoating = null);
 
 public sealed record CoordinateSystemSnapshot(
     double OriginX,

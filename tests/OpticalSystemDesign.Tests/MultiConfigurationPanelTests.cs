@@ -33,12 +33,11 @@ public sealed class MultiConfigurationPanelTests
         {
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create("cooke"); app.MultiConfiguration.Add();
-            using var panel = new MultiConfigurationPanel(app.Prescription, app.MultiConfiguration, app.Events);
+            using var panel = new MultiConfigurationPanel(app.MultiConfiguration, app.Events);
             var window = new Window { Content = panel, Width = width, Height = 760, Title = "多配置操作数" };
             try
             {
                 window.Show(); Tick();
-                var tabs = window.GetVisualDescendants().OfType<TabControl>().Single(); tabs.SelectedIndex = 1; Tick();
                 panel.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "ToggleMultiConfigurationProperties")
                     .RaiseEvent(new RoutedEventArgs(Avalonia.Controls.Button.ClickEvent)); Tick();
                 var grid = window.GetVisualDescendants().OfType<DataGrid>().Single(g => g.Name == "MultiConfigurationOperands");

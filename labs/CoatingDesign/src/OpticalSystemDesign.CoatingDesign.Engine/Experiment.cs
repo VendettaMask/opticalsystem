@@ -36,7 +36,11 @@ public sealed record CalculationSettings(int PreviewIntervals = 400, int Optimiz
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? DesignProtocolVersion { get; init; }
 }
-public sealed record FilmLayer(string MaterialId, double ThicknessNm, bool Variable = true);
+public sealed record FilmLayer(string MaterialId, double ThicknessNm, bool Variable = true)
+{
+    // Fixed coherent spacers in etalons can be millimetres thick.
+    public static double MaximumNm(bool variable) => variable ? 100_000 : 10_000_000;
+}
 public sealed record CoatingStackGeometry(string ExitMediumId, double SubstrateThicknessMm = 1, bool IncludeBackSurface = true)
 {
     public int Version { get; init; } = 1;
@@ -352,10 +356,10 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
             throw new InvalidDataException("堆栈出射介质缺失，或基板厚度不是正有限数值。");
         if (new[] { IncidentId, SubstrateId, LowId, HighId }.Any(id => !ids.Contains(id)) || Layers.Any(l => !ids.Contains(l.MaterialId)))
             throw new InvalidDataException("膜层或基板引用了缺失的材料。");
-        if (Layers.Length > 200 || Layers.Any(l => !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000))
-            throw new ArgumentException("膜层厚度必须大于零且不超过 100000 nm，膜层不能超过 200 层。");
+        if (Layers.Length > 200 || Layers.Any(l => !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > FilmLayer.MaximumNm(l.Variable)))
+            throw new ArgumentException("膜层厚度必须大于零，可变膜层上限为 0.1 mm，固定间隔层上限为 10 mm，每面最多 200 层。");
         if (BackLayers is { } rear && (rear.Length > 200 || rear.Any(l => l is null || !ids.Contains(l.MaterialId)
-            || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000)))
+            || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > FilmLayer.MaximumNm(l.Variable))))
             throw new ArgumentException("背面膜层引用、厚度或数量无效；每面最多200层。");
         var registry = new MaterialRegistry();
         foreach (var m in Materials)

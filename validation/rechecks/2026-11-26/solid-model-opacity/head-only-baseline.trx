@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="fd00cf00-7210-4486-88ac-04179d2ce21c" name="optics@LAPTOP-G4BBBCS0 2026-11-26 10:31:57" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-26T10:31:57.4376344+08:00" queuing="2026-11-26T10:31:57.4376348+08:00" start="2026-11-26T10:31:49.3111437+08:00" finish="2026-11-26T10:32:25.5151045+08:00" />
+  <TestSettings name="default" id="72df0a96-b4e5-4ba7-a9a3-e9ed24a023d7">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-26_10_31_57" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5e5feb23-9d40-4977-a9f9-24bdc0a49fa2" testId="9f12736e-d93d-1262-e8d5-236d6695e2a7" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: True, raysVisible: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.0814014" startTime="2026-11-26T10:32:18.8374491+08:00" endTime="2026-11-26T10:32:21.9188907+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e5feb23-9d40-4977-a9f9-24bdc0a49fa2" />
+    <UnitTestResult executionId="13290e1c-ebc1-4ea0-9a69-3dc1e533ab59" testId="8c611051-fdc6-5b48-e0e6-b0e1a458e89f" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: False, cutaway: False, highlighted: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3529901" startTime="2026-11-26T10:31:57.7209970+08:00" endTime="2026-11-26T10:31:58.0730845+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13290e1c-ebc1-4ea0-9a69-3dc1e533ab59">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   3200</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fbb91da2-4f4d-43c4-a748-071add32c4d1" testId="232a52bc-40d9-afa5-86e2-3afb7e2ad266" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Transparent, cutaway: True, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.3329015" startTime="2026-11-26T10:32:14.5041444+08:00" endTime="2026-11-26T10:32:18.8370960+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fbb91da2-4f4d-43c4-a748-071add32c4d1" />
+    <UnitTestResult executionId="23336c23-1d28-4aa8-88c8-baf56baab44e" testId="fd4132ca-97ca-9936-219b-dbd1555c48d0" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.2389361" startTime="2026-11-26T10:31:54.1690899+08:00" endTime="2026-11-26T10:31:57.4021763+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23336c23-1d28-4aa8-88c8-baf56baab44e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   3200</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d9e3940c-a23e-466d-b219-85e7746a2ccb" testId="a0e9a144-d2a8-877f-42e7-d9a7c4482c10" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.2725817" startTime="2026-11-26T10:32:11.2312996+08:00" endTime="2026-11-26T10:32:14.5038502+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9e3940c-a23e-466d-b219-85e7746a2ccb" />
+    <UnitTestResult executionId="978ea6db-0ddd-4b47-a011-2045f938d8ce" testId="397dc4b1-e342-8a30-5708-250054ccf919" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: True, highlighted: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3164307" startTime="2026-11-26T10:31:57.4219229+08:00" endTime="2026-11-26T10:31:57.7194839+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="978ea6db-0ddd-4b47-a011-2045f938d8ce">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   3200</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="01c7b7f0-1a2a-4a57-9045-a8807ba2904d" testId="4d0b0073-b736-e3c2-4ec6-c16e76b15fe7" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.7332026" startTime="2026-11-26T10:32:02.1852204+08:00" endTime="2026-11-26T10:32:07.9172268+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01c7b7f0-1a2a-4a57-9045-a8807ba2904d" />
+    <UnitTestResult executionId="1b7c2b01-2c47-4108-af14-52c9e486d60b" testId="74063fc8-48cf-ca78-e293-f46fc24030ad" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Wireframe, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.7961735" startTime="2026-11-26T10:31:58.3874444+08:00" endTime="2026-11-26T10:32:02.1840446+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b7c2b01-2c47-4108-af14-52c9e486d60b" />
+    <UnitTestResult executionId="3ce17ffa-0948-467e-b6e1-cae527877345" testId="66d36428-6a58-d6ae-f0af-996e0648920a" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.4565455" startTime="2026-11-26T10:32:21.9197340+08:00" endTime="2026-11-26T10:32:25.3757755+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ce17ffa-0948-467e-b6e1-cae527877345" />
+    <UnitTestResult executionId="aa412d35-36aa-4fcf-9a90-438b6da8e5c5" testId="9c7fe1ad-4195-876b-c49a-975faa63e1a9" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3090218" startTime="2026-11-26T10:31:58.0741918+08:00" endTime="2026-11-26T10:31:58.3827660+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa412d35-36aa-4fcf-9a90-438b6da8e5c5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   3200</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eef54076-d476-4567-b556-54b4087ffc55" testId="9284f2c2-fa49-cf42-721b-553264acff97" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Transparent, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.3134360" startTime="2026-11-26T10:32:07.9176685+08:00" endTime="2026-11-26T10:32:11.2308881+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eef54076-d476-4567-b556-54b4087ffc55" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="9c7fe1ad-4195-876b-c49a-975faa63e1a9">
+      <Execution id="aa412d35-36aa-4fcf-9a90-438b6da8e5c5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="a0e9a144-d2a8-877f-42e7-d9a7c4482c10">
+      <Execution id="d9e3940c-a23e-466d-b219-85e7746a2ccb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Transparent, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="9284f2c2-fa49-cf42-721b-553264acff97">
+      <Execution id="eef54076-d476-4567-b556-54b4087ffc55" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: False, cutaway: False, highlighted: False)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="8c611051-fdc6-5b48-e0e6-b0e1a458e89f">
+      <Execution id="13290e1c-ebc1-4ea0-9a69-3dc1e533ab59" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Transparent, cutaway: True, raysVisible: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="232a52bc-40d9-afa5-86e2-3afb7e2ad266">
+      <Execution id="fbb91da2-4f4d-43c4-a748-071add32c4d1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: True, raysVisible: False)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="9f12736e-d93d-1262-e8d5-236d6695e2a7">
+      <Execution id="5e5feb23-9d40-4977-a9f9-24bdc0a49fa2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: True, highlighted: False)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="397dc4b1-e342-8a30-5708-250054ccf919">
+      <Execution id="978ea6db-0ddd-4b47-a011-2045f938d8ce" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="4d0b0073-b736-e3c2-4ec6-c16e76b15fe7">
+      <Execution id="01c7b7f0-1a2a-4a57-9045-a8807ba2904d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Wireframe, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="74063fc8-48cf-ca78-e293-f46fc24030ad">
+      <Execution id="1b7c2b01-2c47-4108-af14-52c9e486d60b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="66d36428-6a58-d6ae-f0af-996e0648920a">
+      <Execution id="3ce17ffa-0948-467e-b6e1-cae527877345" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: False)" storage="d:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\opticalsystemdesign.tests.dll" id="fd4132ca-97ca-9936-219b-dbd1555c48d0">
+      <Execution id="23336c23-1d28-4aa8-88c8-baf56baab44e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\solid-model-opacity-20261126\baseline-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9f12736e-d93d-1262-e8d5-236d6695e2a7" executionId="5e5feb23-9d40-4977-a9f9-24bdc0a49fa2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c611051-fdc6-5b48-e0e6-b0e1a458e89f" executionId="13290e1c-ebc1-4ea0-9a69-3dc1e533ab59" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="232a52bc-40d9-afa5-86e2-3afb7e2ad266" executionId="fbb91da2-4f4d-43c4-a748-071add32c4d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd4132ca-97ca-9936-219b-dbd1555c48d0" executionId="23336c23-1d28-4aa8-88c8-baf56baab44e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0e9a144-d2a8-877f-42e7-d9a7c4482c10" executionId="d9e3940c-a23e-466d-b219-85e7746a2ccb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="397dc4b1-e342-8a30-5708-250054ccf919" executionId="978ea6db-0ddd-4b47-a011-2045f938d8ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d0b0073-b736-e3c2-4ec6-c16e76b15fe7" executionId="01c7b7f0-1a2a-4a57-9045-a8807ba2904d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74063fc8-48cf-ca78-e293-f46fc24030ad" executionId="1b7c2b01-2c47-4108-af14-52c9e486d60b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="66d36428-6a58-d6ae-f0af-996e0648920a" executionId="3ce17ffa-0948-467e-b6e1-cae527877345" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c7fe1ad-4195-876b-c49a-975faa63e1a9" executionId="aa412d35-36aa-4fcf-9a90-438b6da8e5c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9284f2c2-fa49-cf42-721b-553264acff97" executionId="eef54076-d476-4567-b556-54b4087ffc55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="11" executed="11" passed="7" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.15]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.99]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.03]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:06.31]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:06.31]       Expected: 0&#xD;
+[xUnit.net 00:00:06.31]       Actual:   3200&#xD;
+[xUnit.net 00:00:06.31]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.31]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(60,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.32]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.32]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.32]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(36,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted)&#xD;
+[xUnit.net 00:00:06.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.63]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:06.63]       Expected: 0&#xD;
+[xUnit.net 00:00:06.63]       Actual:   3200&#xD;
+[xUnit.net 00:00:06.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(60,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.63]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(36,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted)&#xD;
+[xUnit.net 00:00:06.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.98]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:06.98]       Expected: 0&#xD;
+[xUnit.net 00:00:06.98]       Actual:   3200&#xD;
+[xUnit.net 00:00:06.98]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.98]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(60,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.98]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.98]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.98]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.98]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.98]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.98]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(36,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted)&#xD;
+[xUnit.net 00:00:06.98]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.29]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:07.29]       Expected: 0&#xD;
+[xUnit.net 00:00:07.29]       Actual:   3200&#xD;
+[xUnit.net 00:00:07.29]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(60,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.29]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.29]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(36,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted)&#xD;
+[xUnit.net 00:00:07.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:34.29]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:31:57.4047666+08:00">
+        <Text>[xUnit.net 00:00:06.31]     OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:31:57.7202227+08:00">
+        <Text>[xUnit.net 00:00:06.63]     OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: True, highlighted: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:31:58.0735541+08:00">
+        <Text>[xUnit.net 00:00:06.98]     OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: False, cutaway: False, highlighted: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:31:58.3830910+08:00">
+        <Text>[xUnit.net 00:00:07.29]     OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

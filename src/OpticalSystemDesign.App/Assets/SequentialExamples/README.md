@@ -5,9 +5,11 @@
 Cooke/Tessar 示例入口。原文件夹、源文件字节和第三方来源保留；这些处方不是本项目原创。
 `index.json` 记录每个相对路径和 SHA-256，Git 属性禁止处方换行规范化。
 
-每个示例只列一份 ZMX。配对 ZOS 的处方可能不同，不以它替代 ZMX；ZOS、ZDA 缓存、
-CFG 分析配置和 XML 优化配置不作为额外示例提供。构建和发布将本目录复制至
-`Examples/Sequential`，打开示例不依赖用户安装 Zemax。
+打开示例时，软件读取示例的 ZMX 处方和 `workspaces.json` 中对应的窗口记录。
+后者由 95 个配套 ZDA 转换，按相对路径保存窗口、分组、选中页以及已识别的图像模拟设置。
+其中 93 个来源含停靠布局，另两个按保存的窗口顺序显示。尚未实现的窗口保留原名并说明状态。
+`Images/` 保存示例实际引用的六份原始 BMP 和 IMA 图像。构建和发布将这些文件复制至
+`Examples/Sequential/`。更新这些资源时运行 `python tools/build_sequential_example_workspaces.py <Samples/Sequential> --images <IMAFiles>`。
 
 中文菜单依次显示：无焦系统、双折射棱镜、衍射元件、梯度折射率系统、图像模拟、
 光学互连、制造、其他系统、物镜、光学检测、偏振、望远镜、倾斜系统与棱镜、变焦与扫描。

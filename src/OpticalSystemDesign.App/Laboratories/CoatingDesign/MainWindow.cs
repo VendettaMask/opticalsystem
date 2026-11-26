@@ -602,10 +602,22 @@ public sealed partial class MainWindow : Window
             path = files.FirstOrDefault()?.TryGetLocalPath();
         }
         if (path is null) return;
+        var json = await OpticalSystemDesign.Core.FileIO.BoundedFile.ReadAllTextAsync(path,
+            OpticalSystemDesign.Core.FileIO.BoundedFile.MaximumOpticalDocumentBytes, "镀膜实验");
+        var table = await Task.Run(() => CoatingResponseTable.Read(json));
+        if (table is not null)
+        {
+            var grid = new DataGrid { IsReadOnly = true, ItemsSource = table.Rows, AutoGenerateColumns = false };
+            foreach (var (label, property) in new[] { ("波长 (nm)", "WavelengthNm"), ("Rₛ", "Rs"), ("Rₚ", "Rp"), ("Tₛ", "Ts"), ("Tₚ", "Tp") })
+                grid.Columns.Add(new DataGridTextColumn { Header = label, Binding = new Binding(property), Width = new(1, DataGridLengthUnitType.Star) });
+            await new Window { Name = "CoatingResponseTableWindow", Title = $"{table.Name} · {table.AngleDegrees:G}°", Width = 580, Height = 480, Content = grid }
+                .ShowDialog(this);
+            return;
+        }
         if (!await ConfirmUnsavedChangesAsync("打开另一份镀膜实验")) return;
         _session.Invalidate(); _plot.SetExperiment(null); _summary.Text = "正在打开并重算材料快照…";
         var revision = ++_uiRevision;
-        var applied = await _session.RunAsync((_, token) => ExperimentStore.OpenAsync(path, token));
+        var applied = await _session.RunAsync((_, token) => ExperimentStore.OpenInputAsync(json, token));
         if (applied && revision == _uiRevision)
         { _historyCurrent = null; _undo.Clear(); _redo.Clear(); _historyKey = null; Load(_session.Current, markDirty: false); await _plot.PendingEvaluation; }
     }

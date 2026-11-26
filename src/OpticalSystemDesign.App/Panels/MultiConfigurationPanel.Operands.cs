@@ -5,14 +5,17 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Styling;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -23,8 +26,10 @@ public sealed partial class MultiConfigurationPanel
     { public override string ToString() => Label; }
     private sealed record OperandDisplay(MultiConfigurationOperandRowDto? Row, string Code, string[] Values, IReadOnlyList<double> NumericValues, int? ThicknessSurface = null)
     {
+        public int ColorIndex => OperandRowColors.Category(Binding?.Kind);
         public string Number => Row?.Number.ToString(CultureInfo.InvariantCulture) ?? "—";
-        public string Surface => (Row?.SurfaceNumber ?? ThicknessSurface)?.ToString(CultureInfo.InvariantCulture) ?? "—";
+        public string Surface => Row?.ParameterNumber is { } parameter ? $"{Row.SurfaceNumber}/{parameter}"
+            : (Row?.SurfaceNumber ?? ThicknessSurface)?.ToString(CultureInfo.InvariantCulture) ?? "—";
         public MultiConfigurationOperandBindingDto? Binding => Row is not null ? new(Row.Kind, Row.SurfaceNumber, Row.Parameter)
             : ThicknessSurface.HasValue ? new(MultiConfigurationParameterKind.Thickness, ThicknessSurface.Value) : null;
     }
@@ -33,6 +38,8 @@ public sealed partial class MultiConfigurationPanel
         Name = "MultiConfigurationOperands",
         AutoGenerateColumns = false,
         IsReadOnly = true,
+        HorizontalAlignment = HorizontalAlignment.Left,
+        ClipToBounds = true,
         GridLinesVisibility = DataGridGridLinesVisibility.All,
         HeadersVisibility = DataGridHeadersVisibility.Column,
         CanUserResizeColumns = true,
@@ -56,6 +63,8 @@ public sealed partial class MultiConfigurationPanel
     private readonly Border _operandProperties = new() { Name = "MultiConfigurationOperandProperties", IsVisible = false };
     private readonly List<Control> _operandEditControls = new();
     private readonly List<Control> _operandBindingControls = new();
+    private readonly List<Control> _operandNumericControls = new();
+    private Button? _applyOperandValue;
     private readonly List<(Border Cell, OperandDisplay Row, int Configuration)> _matrixCells = new();
     private Button? _previousMatrixConfiguration;
     private Button? _nextMatrixConfiguration;
@@ -70,7 +79,8 @@ public sealed partial class MultiConfigurationPanel
             new ParameterChoice(MultiConfigurationParameterKind.Thickness, "THIC · 厚度"),
             new ParameterChoice(MultiConfigurationParameterKind.Curvature, "CRVT · 曲率"),
             new ParameterChoice(MultiConfigurationParameterKind.Conic, "CONN · 圆锥系数"),
-            new ParameterChoice(MultiConfigurationParameterKind.SemiDiameter, "SDIA · 半口径")
+            new ParameterChoice(MultiConfigurationParameterKind.SemiDiameter, "SDIA · 半口径"),
+            new ParameterChoice(MultiConfigurationParameterKind.Material, "GLSS · 材料")
         };
         _operandKind.SelectedIndex = 0;
         AutomationProperties.SetName(_operandKind, "多配置行类型");
@@ -79,6 +89,7 @@ public sealed partial class MultiConfigurationPanel
         AutomationProperties.SetName(_operandValue, "多配置单元格值");
         AutomationProperties.SetHelpText(_operandGrid, "Op# 是这里的行号；每个配置列显示该绑定参数的实际数值。");
         _operandGrid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
+        _operandGrid.LayoutUpdated += OnOperandGridLayoutUpdated;
         _operandGrid.Styles.Add(new Style(s => s.OfType<DataGridColumnHeader>())
         {
             Setters = { new Setter(TemplatedControl.FontWeightProperty, FontWeight.Bold) }
@@ -116,16 +127,22 @@ public sealed partial class MultiConfigurationPanel
         editor.Children.Add(_operandValueLabel); editor.Children.Add(_operandValue);
         var apply = ActionButton("应用数值", "ApplyMultiConfigurationValue", () =>
         {
-            if (!double.TryParse(_operandValue.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) || !double.IsFinite(value))
-                throw new ArgumentException("请输入有限数值；曲率单位为 mm⁻¹，厚度和半口径为 mm。");
             var selected = _operandGrid.SelectedItem as OperandDisplay ?? throw new InvalidOperationException("请先选择多配置操作数行。");
             var configuration = PositiveInteger(_operandConfiguration.Text, "配置号");
             if (_editingBinding is null || _editingBinding != selected.Binding
                 || configuration != _editingConfiguration)
                 throw new InvalidOperationException("输入仍属于之前选择的单元格；请先还原输入，再编辑当前单元格。");
+            if (selected.Row?.Kind == MultiConfigurationParameterKind.Material)
+            {
+                _configurations.SetOperandTextValue(selected.Row.Number, configuration - 1, _operandValue.Text ?? string.Empty, _operandRevision);
+                return;
+            }
+            if (!double.TryParse(_operandValue.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) || !double.IsFinite(value))
+                throw new ArgumentException("请输入有限数值；曲率单位为 mm⁻¹，厚度和半口径为 mm。");
             if (selected.Row is not null) _configurations.SetOperandValue(selected.Row.Number, configuration - 1, value, _operandRevision);
             else if (selected.ThicknessSurface.HasValue) _configurations.SetThickness(configuration - 1, selected.ThicknessSurface.Value, value, _operandRevision);
         });
+        _applyOperandValue = apply;
         apply.Classes.Add("accent"); editor.Children.Add(apply);
         editor.Children.Add(ActionButton("还原输入", "ReloadMultiConfigurationValue", () => { _operandDraft = false; _pickupDraft = false; LoadOperandValue(); }));
         var variableBar = new WrapPanel { Orientation = Orientation.Horizontal };
@@ -133,9 +150,9 @@ public sealed partial class MultiConfigurationPanel
         variableBar.Children.Add(ActionButton("取消变量", "ClearMultiConfigurationVariable", () => SetCellVariable(false)));
         variableBar.Children.Add(new TextBlock { Text = "V = 联合变量；P = 拾取；其他配置无需先激活", VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap });
         _operandEditControls.AddRange(new Control[] { _operandConfiguration, _operandValue, apply });
-        _operandBindingControls.AddRange(variableBar.Children.OfType<Button>());
+        _operandNumericControls.AddRange(variableBar.Children.OfType<Button>());
         var pickup = BuildPickupEditor();
-        _operandBindingControls.AddRange(pickup.GetLogicalDescendants().OfType<Control>().Where(c => c is TextBox or Button));
+        _operandNumericControls.AddRange(pickup.GetLogicalDescendants().OfType<Control>().Where(c => c is TextBox or Button));
         var hint = new TextBlock
         {
             Text = "Op# 为可编辑操作数行号。APER 为只读系统孔径，请在系统选项中修改；它不占用 Op#，不改变拾取或评价函数行引用。",
@@ -149,6 +166,11 @@ public sealed partial class MultiConfigurationPanel
             Margin = new Thickness(4, 0, 4, 4)
         };
         _operandProperties.Child = new StackPanel { Children = { toolbar, editor, variableBar, pickup, hint, differencesHint } };
+        _operandMessage.Bind(IsVisibleProperty, new Binding(nameof(TextBlock.Text))
+        {
+            Source = _operandMessage,
+            Converter = StringConverters.IsNotNullOrEmpty
+        });
         var header = new StackPanel { Children = { BuildMatrixHeader(), _operandProperties } };
         var root = new DockPanel(); DockPanel.SetDock(header, Avalonia.Controls.Dock.Top); DockPanel.SetDock(_operandMessage, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(header); root.Children.Add(_operandMessage); root.Children.Add(_operandGrid);
@@ -211,14 +233,12 @@ public sealed partial class MultiConfigurationPanel
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = new TextBlock { Text = $"活动: {state.ActiveIndex + 1}/{state.Count}" }, Binding = new Binding(nameof(OperandDisplay.Code)), Width = new DataGridLength(110) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "表面", Binding = new Binding(nameof(OperandDisplay.Surface)), Width = new DataGridLength(74) });
         for (var i = 0; i < state.Count; i++) _operandGrid.Columns.Add(MatrixColumn(i, state.ActiveIndex));
-        var choices = (ParameterChoice[])_operandKind.ItemsSource!;
         var aperture = _configurations.GetApertureValues();
         var differences = _configurations.GetThicknessDifferences()
             .Where(row => !rows.Any(binding => binding.Kind == MultiConfigurationParameterKind.Thickness && binding.SurfaceNumber == row.SurfaceNumber))
             .Select(row => new OperandDisplay(null, "THIC", row.Values.Select(v => v.ToString("G12", CultureInfo.InvariantCulture)).ToArray(), row.Values, row.SurfaceNumber));
-        var display = rows.Select(row => new OperandDisplay(row, row.Parameter is { } parameter ? $"PRAM {parameter}"
-                : choices.Single(choice => choice.Kind == row.Kind).Label.Split(' ')[0],
-            row.Values.Select((value, index) => value.ToString("G12", CultureInfo.InvariantCulture) + (row.Pickups[index] is not null ? "  P" : row.Variables[index] ? "  V" : string.Empty)).ToArray(), row.Values))
+        var display = rows.Select(row => new OperandDisplay(row, OperandCode(row),
+            row.TextValues?.ToArray() ?? row.Values.Select((value, index) => value.ToString("G12", CultureInfo.InvariantCulture) + (row.Pickups[index] is not null ? "  P" : row.Variables[index] ? "  V" : string.Empty)).ToArray(), row.Values))
             .Concat(differences)
             .Prepend(new OperandDisplay(null, "APER", aperture.Select(v => v.ToString("G12", CultureInfo.InvariantCulture)).ToArray(), aperture)).ToArray();
         _operandRevision = _events.Revision;
@@ -230,6 +250,24 @@ public sealed partial class MultiConfigurationPanel
         _refreshingOperandTable = false;
         LoadOperandValue();
         RefreshMatrixHeader();
+        FitOperandGridToColumns();
+    }
+
+    private void OnOperandGridLayoutUpdated(object? sender, EventArgs args) => FitOperandGridToColumns();
+
+    private void FitOperandGridToColumns()
+    {
+        if (_disposed || _operandGrid.Columns.Count == 0) return;
+        var width = _operandGrid.Columns.Where(column => column.IsVisible).Sum(column =>
+            double.IsFinite(column.ActualWidth) && column.ActualWidth > 0 ? column.ActualWidth : column.Width.Value);
+        // Keep the real scrollbar when needed, without painting a filler column
+        // across the workspace. Narrow windows retain native horizontal scroll.
+        var scrollbar = _operandGrid.GetVisualDescendants().OfType<ScrollBar>()
+            .FirstOrDefault(bar => bar.Orientation == Orientation.Vertical && bar.IsVisible);
+        width = Math.Ceiling(width + _operandGrid.BorderThickness.Left + _operandGrid.BorderThickness.Right
+            + (scrollbar?.Bounds.Width ?? 0));
+        if (double.IsFinite(width) && Math.Abs(_operandGrid.MaxWidth - width) > .5)
+            _operandGrid.MaxWidth = Math.Max(1, width);
     }
 
     private void SetCellVariable(bool enabled)
@@ -250,7 +288,12 @@ public sealed partial class MultiConfigurationPanel
         foreach (var control in _operandEditControls) ControlAvailability.Set(control, editable, "APER 为只读系统孔径，请在系统选项中修改。");
         foreach (var control in _operandBindingControls) ControlAvailability.Set(control, selected.Row is not null,
             editable ? "厚度差异尚未登记为操作数行；可新增相同类型和表面号后设置变量或拾取。" : "APER 为只读系统孔径，请在系统选项中修改。");
-        if (!int.TryParse(_operandConfiguration.Text, out var number) || number < 1 || number > selected.NumericValues.Count)
+        foreach (var control in _operandNumericControls) ControlAvailability.Set(control,
+            selected.Row is not null && selected.Row.Kind != MultiConfigurationParameterKind.Material,
+            selected.Row?.Kind == MultiConfigurationParameterKind.Material ? "材料行使用材料名称编辑。" :
+            editable ? "厚度差异尚未登记为操作数行；可新增相同类型和表面号后设置变量或拾取。" : "APER 为只读系统孔径，请在系统选项中修改。");
+        _applyOperandValue!.Content = selected.Row?.Kind == MultiConfigurationParameterKind.Material ? "应用材料" : "应用数值";
+        if (!int.TryParse(_operandConfiguration.Text, out var number) || number < 1 || number > selected.Values.Length)
         {
             _editingBinding = null;
             _loadingOperand = true;
@@ -272,13 +315,27 @@ public sealed partial class MultiConfigurationPanel
             MultiConfigurationParameterKind.Thickness => "厚度（mm）",
             MultiConfigurationParameterKind.Curvature => "曲率（mm⁻¹）",
             MultiConfigurationParameterKind.Conic => "圆锥系数",
+            MultiConfigurationParameterKind.Material => "材料名称（空白为空气）",
+            MultiConfigurationParameterKind.ShapeCoefficient when selected.Row?.ParameterNumber is { } parameter => $"参数 {parameter}",
             MultiConfigurationParameterKind.ShapeCoefficient or MultiConfigurationParameterKind.GradientIndexCoefficient or MultiConfigurationParameterKind.ModelGlassCoefficient => $"系数 {selected.Binding.Parameter}",
             _ => "半口径（mm）"
         };
         _editingBinding = selected.Binding; _editingConfiguration = number;
         _loadingOperand = true;
-        _operandValue.Text = selected.NumericValues[number - 1].ToString("G17", CultureInfo.InvariantCulture);
+        _operandValue.Text = selected.Row?.TextValues is { } textValues ? textValues[number - 1]
+            : selected.NumericValues[number - 1].ToString("G17", CultureInfo.InvariantCulture);
         LoadPickupFields(selected.Row?.Pickups[number - 1]);
         _loadingOperand = false;
     }
+
+    private static string OperandCode(MultiConfigurationOperandRowDto row) => row.Kind switch
+    {
+        MultiConfigurationParameterKind.Thickness => "THIC",
+        MultiConfigurationParameterKind.Curvature => "CRVT",
+        MultiConfigurationParameterKind.Conic => "CONN",
+        MultiConfigurationParameterKind.SemiDiameter => "SDIA",
+        MultiConfigurationParameterKind.Material => "GLSS",
+        MultiConfigurationParameterKind.ModelGlassCoefficient => $"GLAS {row.Parameter}",
+        _ => row.ParameterNumber.HasValue ? "PRAM" : $"PRAM {row.Parameter}"
+    };
 }

@@ -346,9 +346,23 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var weights = wavelengths.Select(w => (weightScale > 0 ? Math.Max(0, w.Weight) / weightScale : 1)
             * Math.Pow(waveScale / w.Micrometers, 2)).ToArray();
         var totalWeight = weights.Sum();
-        var samples = Enumerable.Range(0, size).SelectMany(row => Enumerable.Range(0, size).Select(column =>
-            new EnergySample((column - size / 2d + 1) * pitch, (row - size / 2d + 1) * pitch,
-                results.Select((r, i) => weights[i] * r.Result.Values[(row + 1) % size, (column + 1) % size]).Sum() / totalWeight))).ToArray();
+        var samples = new EnergySample[checked(size * size)];
+        for (var row = 0; row < size; row++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var sourceRow = (row + 1) % size;
+            for (var column = 0; column < size; column++)
+            {
+                var sourceColumn = (column + 1) % size;
+                var power = 0d;
+                // Preserve spectral addition order without per-pixel LINQ
+                // enumerators, indexed selectors and captured closures.
+                for (var waveIndex = 0; waveIndex < results.Length; waveIndex++)
+                    power += weights[waveIndex] * results[waveIndex].Result.Values[sourceRow, sourceColumn];
+                samples[row * size + column] = new EnergySample((column - size / 2d + 1) * pitch,
+                    (row - size / 2d + 1) * pitch, power / totalWeight);
+            }
+        }
         if (samples.All(s => s.Weight == 0)) return null;
         var center = _reference.Equals("centroid", StringComparison.OrdinalIgnoreCase)
             ? EnergyCurveSupport.Centroid(samples) : (X: 0d, Y: 0d);

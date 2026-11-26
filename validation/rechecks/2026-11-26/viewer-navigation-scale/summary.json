@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-26",
+  "scope": "3D Layout lower view-preset toolbar follows Fit/100% drawing display scale",
+  "tests": [
+    {
+      "resultFile": "navigation-and-export.trx",
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "resultFile": "resize-and-solid-model.trx",
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "uniquePassed": 19,
+  "failed": 0,
+  "skipped": 0,
+  "defaultReleaseBuild": {
+    "succeeded": true,
+    "warnings": 0,
+    "errors": 0,
+    "log": "default-app-build.log"
+  },
+  "themes": [
+    "Light",
+    "Dark",
+    "Pixel",
+    "Lumen",
+    "Isekai"
+  ],
+  "languages": [
+    "zh-CN",
+    "en-US",
+    "ja-JP"
+  ],
+  "fitViewports": [
+    "778x560",
+    "420x420",
+    "1500x1000"
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "sha256": "C43DC91193C7E21393A4B39177665C81E6DC3F75A29333D8BAF69DCCE16317B7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "sha256": "D6A1A8F3B5939F266F8F9942E95825734DEA29A0DE9BE854C9EB5BD2F483E924"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs",
+      "sha256": "F216C8C5F92DCC72F062541BAF8714E54F705070E39D9DAEC73C393325003A55"
+    }
+  ],
+  "assemblies": [
+    {
+      "path": "local-data/viewer-navigation-scale-validation/OpticalSystemDesign.App.dll",
+      "sha256": "BCBE182EFCEBED830C24DAE3139B22AC62F6CB416D1CD75AA05ACE0E51A3C14C"
+    },
+    {
+      "path": "local-data/viewer-navigation-scale-validation/OpticalSystemDesign.Tests.dll",
+      "sha256": "92CA6183F9AFC4377A17E543055168FE8B9BFE163B8D16B876A1E01391948D5F"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "BCBE182EFCEBED830C24DAE3139B22AC62F6CB416D1CD75AA05ACE0E51A3C14C"
+    }
+  ],
+  "fullPrecisionMatrixRun": false,
+  "nativeDesktopControlled": false,
+  "nativeMultiMonitorDpiValidated": false,
+  "temporaryRuntimeRemoved": true,
+  "commands": [
+    "dotnet build src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-restore -m:1 -nr:false /p:UseSharedCompilation=false",
+    "dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore -m:1 -nr:false /p:UseSharedCompilation=false /p:OutDir=<isolated-runtime> --filter FullyQualifiedName~Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera|FullyQualifiedName~ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus",
+    "dotnet vstest <isolated-runtime>/OpticalSystemDesign.Tests.dll --TestCaseFilter:FullyQualifiedName~DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize|FullyQualifiedName~SolidModelAspectTests.NativeControlsStayReadableAndExportsExcludeSettingsAndFocus"
+  ]
+}

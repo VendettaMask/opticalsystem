@@ -1,0 +1,48 @@
+{
+  "RecordedUtc": "2026-11-26T02:50:48.2633338Z",
+  "BaseCommit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+  "Scope": "User correction: operand ROW colour across metadata and configurations; column tints withdrawn",
+  "Passed": 14,
+  "Failed": 0,
+  "Skipped": 0,
+  "FinalRun": "rows-final.trx",
+  "Identity": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/OperandRowColors.cs",
+      "SHA256": "E7AF76A67BA71C5EDDA230003BA96849B059BA64608577EA690D2181F0EBCA40"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/ThemeRegistry.cs",
+      "SHA256": "F2F957C9DA4C74A16ACC33453868066A31E2CCB6C988E4A1BC942D3141A29D90"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs",
+      "SHA256": "11179C673BC00E9609D81E7A0BD96EC07AE19876733CAD1B0E5ACC58BA55FF07"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Operands.cs",
+      "SHA256": "D0F47CCBB93616DB502A9F6470F300FC8575E0A9F36F88B0B52325834B9ED00E"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MultiConfigurationColorTests.cs",
+      "SHA256": "05F3E9A1A189CB8315754F397D782B4E25F412D6C47C2B105D3BAECF1BA8C56F"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MultiConfigurationMatrixTests.cs",
+      "SHA256": "11B07804C38C5E39B10AF1756AFF26C4F267A34C4821D0399F8A7D856E6CD395"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "SHA256": "247D739B19D720103DDACD9F1DB365D7F3F82DEE24B84478BFD77595C17358BA"
+    },
+    {
+      "Path": "local-data/operand-row-colors-validation/OpticalSystemDesign.App.dll",
+      "SHA256": "7B876D46824890FA38E1B40B461AB72E37161C13652AA20406BF8B6D57351444"
+    },
+    {
+      "Path": "local-data/operand-row-colors-validation/OpticalSystemDesign.Tests.dll",
+      "SHA256": "F0B17AFF5F8C76A16DCFCE1638351CBDE1F9C4364C51592E61C26694E8712A50"
+    }
+  ],
+  "Note": "Default product and isolated test build identities recorded separately. Other concurrent work preserved."
+}

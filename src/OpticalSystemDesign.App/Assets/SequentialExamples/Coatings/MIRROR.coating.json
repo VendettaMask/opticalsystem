@@ -1,0 +1,58 @@
+{
+  "SchemaVersion": 1,
+  "Id": "84d385e1-239b-5331-99b9-8a6c3d3c9360",
+  "Name": "MIRROR",
+  "ReferenceWavelengthNm": 550.0,
+  "Target": {
+    "Kind": "Antireflection",
+    "CenterNm": 550.0,
+    "MinimumNm": 522.5,
+    "MaximumNm": 577.5,
+    "MaximumLayers": 8
+  },
+  "Settings": {
+    "MinimumThicknessNm": 1,
+    "MaximumThicknessNm": 2000
+  },
+  "IncidentId": "AIR",
+  "SubstrateId": "ALUM",
+  "LowId": "AIR",
+  "HighId": "ALUM",
+  "Materials": [
+    {
+      "Id": "AIR",
+      "Name": "AIR",
+      "Source": "COATING.DAT / MATE AIR",
+      "MinimumNm": 1,
+      "MaximumNm": 1000000.0,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.0,
+          "extinction": -0.0
+        },
+        "Text": {
+          "name": "AIR"
+        }
+      }
+    },
+    {
+      "Id": "ALUM",
+      "Name": "ALUM",
+      "Source": "COATING.DAT / MATE ALUM",
+      "MinimumNm": 1,
+      "MaximumNm": 1000000.0,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 0.7,
+          "extinction": 7.0
+        },
+        "Text": {
+          "name": "ALUM"
+        }
+      }
+    }
+  ],
+  "Layers": []
+}

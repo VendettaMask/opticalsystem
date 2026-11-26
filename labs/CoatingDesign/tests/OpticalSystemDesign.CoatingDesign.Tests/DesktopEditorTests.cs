@@ -33,6 +33,40 @@ public sealed class LayerEditingTests
 public sealed partial class DesktopTests
 {
     [Fact]
+    public async Task NativeSampleDesignAndPowerSpectrumOpenFromTheLaboratory()
+    {
+        var directory = Path.Combine(AppContext.BaseDirectory, "Examples", "Sequential", "Coatings");
+        var file = Path.Combine(directory, "ETALON.coating.json");
+        using var host = new Host();
+        await host.Run(async () =>
+        {
+            var window = new MainWindow(new LaboratoryFileDialogs(Save: () => Task.FromResult<string?>(null),
+                Open: () => Task.FromResult<string?>(file), ExportDirectory: () => Task.FromResult<string?>(null))) { ChooseUnsavedChanges = DiscardChanges };
+            try
+            {
+                window.Show(); Tick(window); Click(window, "打开实验"); await window.PendingOperation; Tick(window);
+                var grid = WindowControls(window).OfType<DataGrid>().Single(t => t.Name == "CoatingLayerTable");
+                var layers = PhysicalRows(grid);
+                Assert.Equal(17, layers.Length);
+                Assert.Equal(5_000_000, layers[8].ToLayer().ThicknessNm);
+                file = Path.Combine(directory, "BLUENOTCH.coating.json");
+                Click(window, "打开实验");
+                using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                while (!window.OwnedWindows.Any(w => w.Name == "CoatingResponseTableWindow"))
+                {
+                    await Task.Delay(15, timeout.Token); Tick(window);
+                }
+                var spectrum = window.OwnedWindows.Single(w => w.Name == "CoatingResponseTableWindow");
+                var table = Assert.IsType<DataGrid>(spectrum.Content);
+                Assert.Equal(26, table.ItemsSource.Cast<CoatingPowerRow>().Count());
+                spectrum.Close(); await window.PendingOperation;
+                Assert.Equal(17, PhysicalRows(grid).Length);
+            }
+            finally { window.Close(); }
+        });
+    }
+
+    [Fact]
     public async Task InvalidTextAndNonContiguousMultiRowEditsHaveAtomicDesignHistory()
     {
         var directory = Path.Combine(Path.GetTempPath(), "layer-history-" + Guid.NewGuid()); Directory.CreateDirectory(directory);

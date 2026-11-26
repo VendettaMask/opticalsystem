@@ -38,6 +38,7 @@
         "type": "Project",
         "dependencies": {
           "OpticalSystemDesign.CameraImaging.Engine": "[1.0.4, )",
+          "OpticalSystemDesign.CoatingDesign.Engine": "[1.0.4, )",
           "OpticalSystemDesign.Core": "[1.0.4, )",
           "OpticalSystemDesign.OpticalAssembly.Engine": "[1.0.4, )",
           "SkiaSharp": "[3.119.4, )"
@@ -52,7 +53,6 @@
       "opticalsystemdesign.coatingdesign.engine": {
         "type": "Project",
         "dependencies": {
-          "OpticalSystemDesign.Application": "[1.0.4, )",
           "OpticalSystemDesign.Core": "[1.0.4, )"
         }
       },

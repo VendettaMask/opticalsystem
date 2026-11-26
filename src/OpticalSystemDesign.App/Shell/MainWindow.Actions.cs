@@ -249,7 +249,7 @@ public sealed partial class MainWindow
 
     private Task OpenNonSequentialLayoutAsync()
     {
-        _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+        _panels.OpenNonSequentialLayoutAnalysis();
         return Task.CompletedTask;
     }
 
@@ -282,10 +282,10 @@ public sealed partial class MainWindow
             if (files.Count == 0) return;
             path = files[0].Path.LocalPath;
         }
-        await new Panels.NonSequentialRayDatabaseWindow(
+        new Panels.NonSequentialRayDatabaseWindow(
             _application.NonSequentialAnalysis,
             path,
-            showPathAnalysis).ShowDialog(this);
+            showPathAnalysis).Show(this);
     }
 
     private async Task SwitchWorkbenchModeAsync(OpticalWorkbenchMode mode)

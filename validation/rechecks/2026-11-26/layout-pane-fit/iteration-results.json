@@ -1,0 +1,190 @@
+[
+  {
+    "source_run": "third",
+    "artifact": "iteration-1.trx.gz",
+    "accepted": false,
+    "counters": {
+      "total": "23",
+      "executed": "23",
+      "passed": "10",
+      "failed": "13",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "failures": [
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Isekai\")",
+        "message": "Drawing 11.400651465798045, 21.400651465798045, 977.1986970684039, 366.4495114006515 leaves horizontal gutters in 1000, 410."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Light\")",
+        "message": "Coloured ray width 677 does not fill 72% of drawing viewport 998.8523540087541."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+      }
+    ],
+    "raw_sha256": "7fe335d57c90c231f4ce76cf0f59682b406862b6d803d8a83f449039ee27b332"
+  },
+  {
+    "source_run": "fourth",
+    "artifact": "iteration-2.trx.gz",
+    "accepted": false,
+    "counters": {
+      "total": "23",
+      "executed": "23",
+      "passed": "19",
+      "failed": "4",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "failures": [
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+        "message": "Caption differs at 254359 pixels."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+        "message": "Caption differs at 254547 pixels."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Light\")",
+        "message": "Coloured ray width 12 does not fill 72% of drawing viewport 999.090909090909."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Isekai\")",
+        "message": "Assert.Equal() Failure: Values differ\r\nExpected: 255\r\nActual:   0"
+      }
+    ],
+    "raw_sha256": "9d4b23f42d049c1f4cf488a235b2cd2fdc584deefb8345bb786ab2575b5ce00d"
+  },
+  {
+    "source_run": "final",
+    "artifact": "iteration-3.trx.gz",
+    "accepted": false,
+    "counters": {
+      "total": "29",
+      "executed": "29",
+      "passed": "26",
+      "failed": "3",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "failures": [
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+        "message": "Caption differs at 3800 pixels."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+        "message": "Caption differs at 6508 pixels."
+      },
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+        "message": "Caption differs at 2982 pixels."
+      }
+    ],
+    "raw_sha256": "68c1e90218bd328e26f60dea0e1635572087500c93f45190ca647ed32fd892b6"
+  },
+  {
+    "source_run": "accepted",
+    "artifact": "iteration-4.trx.gz",
+    "accepted": false,
+    "counters": {
+      "total": "29",
+      "executed": "29",
+      "passed": "28",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "failures": [
+      {
+        "test": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+        "message": "Caption differs at 3847 pixels."
+      }
+    ],
+    "raw_sha256": "7ac7cf77e331f79e561ad2e7e220d70b7e974692579ccc310b9933a217183d82"
+  }
+]

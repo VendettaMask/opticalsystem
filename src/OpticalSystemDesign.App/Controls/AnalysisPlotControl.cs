@@ -803,14 +803,32 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             1,
             PlotOptions.DottedGrid ? new DashStyle(new[] { 1.0, 3.0 }, 0) : null);
         var divisions = UseHeatmapIntervals || SampledHeatmap ? 2 : 5;
+        var fieldNumbers = _sourceSeries.Count > 0 && _sourceSeries.All(series => series.XQuantity == AnalysisAxisQuantity.FieldNumber)
+            ? _sourceSeries.SelectMany(series => series.Points).Select(point => point.X)
+                .Where(value => double.IsFinite(value) && value >= xMin && value <= xMax)
+                .Distinct().Order().ToArray() : null;
+        // Field identifiers are discrete even after zooming or hiding curves.
+        // Bound label work for documents containing many configured fields.
+        if (fieldNumbers is { Length: > 20 })
+        {
+            var stride = (int)Math.Ceiling(fieldNumbers.Length / 20d);
+            fieldNumbers = fieldNumbers.Where((_, index) => index % stride == 0)
+                .Append(fieldNumbers[^1]).Distinct().ToArray();
+        }
         for (var index = 0; index <= divisions; index++)
         {
             var fraction = index / (double)divisions;
             var x = plot.Left + (plot.Width * fraction);
             var y = plot.Bottom - (plot.Height * fraction);
-            context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
+            if (fieldNumbers is null) context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
             context.DrawLine(gridPen, new Point(plot.Left, y), new Point(plot.Right, y));
         }
+        if (fieldNumbers is not null)
+            foreach (var number in fieldNumbers)
+            {
+                var x = FieldPosition(number);
+                context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
+            }
         _xTickLabelBounds.Clear();
         _yTickLabelBounds.Clear();
         if (PlotOptions.HideTickLabels) return;
@@ -830,8 +848,23 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 plot.Bottom + Math.Max(DisplayTypography.Scale(7), yText.Height / 2 + DisplayTypography.Scale(4)),
                 xText.Width, xText.Height);
             var yBounds = new Rect(plot.Left - yText.Width - 8, y - yText.Height / 2, yText.Width, yText.Height);
-            DrawTick(xText, xBounds, _xTickLabelBounds);
+            if (fieldNumbers is null) DrawTick(xText, xBounds, _xTickLabelBounds);
             DrawTick(yText, yBounds, _yTickLabelBounds);
+        }
+        if (fieldNumbers is not null)
+            foreach (var number in fieldNumbers)
+            {
+                var text = CreateText(number.ToString("0", CultureInfo.InvariantCulture), PlotTextSize,
+                    ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
+                DrawTick(text, new Rect(FieldPosition(number) - text.Width / 2,
+                    plot.Bottom + Math.Max(DisplayTypography.Scale(7), text.Height / 2 + DisplayTypography.Scale(4)),
+                    text.Width, text.Height), _xTickLabelBounds);
+            }
+
+        double FieldPosition(double number)
+        {
+            var fraction = (number - xMin) / (xMax - xMin);
+            return plot.Left + plot.Width * (PlotOptions.ReverseX ? 1 - fraction : fraction);
         }
 
         void DrawTick(FormattedText text, Rect bounds, List<Rect> occupied)

@@ -1628,10 +1628,12 @@ public sealed class AnalysisGuiContractTests
                 "MTF 曲线",
                 "RMS",
                 "圈入能量",
+                "偏振",
+                "表面镀膜",
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(74, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(84, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -1639,7 +1641,8 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(69, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(new[] { "透射光谱", "透射率随入射角", "反射率随入射角", "相位随入射角" }, MainWindow.AnalysisRibbonCommandsByMenu["表面镀膜"]);
+        Assert.Equal(80, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         var commandIds = MainWindow.AnalysisRibbonCommandIdsByMenu
             .SelectMany(menu => menu.Value)
             .ToArray();
@@ -1711,7 +1714,8 @@ public sealed class AnalysisGuiContractTests
                 "结构矩阵点列图",
                 "Y-Ybar",
                 "渐晕图",
-                "入射角 vs. 像高"
+                "入射角 vs. 像高",
+                "远心度"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(

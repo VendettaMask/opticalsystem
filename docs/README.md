@@ -1,6 +1,6 @@
 # 项目文档索引
 
-索引更新：2026-11-21。当前操作、计算定义、代码入口、三语应用内帮助与 PDF 按同一实现维护。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，历史通过数和旧命令保留在[历史索引](history/README.md)及各自证据中；专项通过不替代全部镜头或任意参数的精度验收。
+索引更新：2026-11-26。当前操作、计算定义、代码入口、三语应用内帮助与 PDF 按同一实现维护。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，历史通过数和旧命令保留在[历史索引](history/README.md)及各自证据中；专项通过不替代全部镜头或任意参数的精度验收。
 
 ## 从这里开始
 
@@ -18,6 +18,7 @@
 
 | 内容 | 当前说明与证据 |
 | --- | --- |
+| 物方与像方远心度 | [操作、定义与范围](TELECENTRICITY_ANALYSIS.md)、[实际页面和验证](../validation/rechecks/2026-11-26/telecentricity/README.md) |
 | 镜头倍率与单位 | [镜头缩放](USER_GUIDE.md#镜头缩放与长度单位)、[实现与专项验证](../validation/rechecks/2026-11-21/lens-scaling/README.md) |
 | 表面外观、隐藏与行色 | [表面属性](SURFACE_PROPERTIES_EDITOR.md)、[操作说明](USER_GUIDE.md#表面绘图属性) |
 | 玻璃公式、源系数与 Nd/Vd | [材料库](USER_GUIDE.md#材料库目录与参数)、[计算契约](COMPUTATION_GUIDE.md) |
@@ -26,6 +27,8 @@
 | 精度结论的适用范围 | [95 支复跑与专项处置](../validation/rechecks/2026-11-08/menu-all95-current-replay/README.md)、[数值验收规则](NUMERICAL_PARITY.md) |
 
 ## 当前指南与功能契约
+
+- [系统偏振分析](POLARIZATION_ANALYSES.md)：五项偏振分析、独立输入、光瞳积分和相位参考。
 
 ### 计算、工程与交付
 

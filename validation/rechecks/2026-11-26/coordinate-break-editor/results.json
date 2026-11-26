@@ -1,0 +1,284 @@
+{
+  "date": "2026-11-26",
+  "sourceCommit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+  "sourceDirty": true,
+  "scope": "Editable sequential coordinate breaks and compact two-column desktop form; targeted verification only.",
+  "relatedChecks": {
+    "unique": 328,
+    "passed": 328,
+    "failed": 0,
+    "newCoordinateCases": 20,
+    "mergeRule": "By exact test name, last execution wins; layout-complete replaces the six UI results in complete.",
+    "runs": [
+      {
+        "path": "complete.trx",
+        "sha256": "92a564a1e0e158308a2b71faa502a6329c9cfaa24abd5f386b281bf9cdcb5b51",
+        "counters": {
+          "total": "328",
+          "executed": "328",
+          "passed": "326",
+          "failed": "2",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      },
+      {
+        "path": "layout-complete.trx",
+        "sha256": "6c04dc5e7ec9f8b6d5a48df7cdf8356ac77aec9bdd766c349e41658754810554",
+        "counters": {
+          "total": "6",
+          "executed": "6",
+          "passed": "6",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      }
+    ]
+  },
+  "applicationReleaseBuild": {
+    "passed": true,
+    "warnings": 0,
+    "errors": 0,
+    "log": "build-final.log",
+    "sha256": "ee4749e841c55df4d72791c39b0c06a334c27eabfddf07c6860a8fa002977104"
+  },
+  "localization": {
+    "translations": 4575,
+    "occurrences": 4113,
+    "missing": 0,
+    "errors": 0
+  },
+  "internalImportControl": {
+    "Scope": "Internal import/trace invariants across the 95 menu examples; not new external optical certification.",
+    "Files": 95,
+    "Configurations": 115,
+    "RestoredCoordinateRows": 0,
+    "ValidControlRays": 317,
+    "UnavailableControlRays": 28,
+    "MaximumNumericDelta": 4.263256414560601e-14,
+    "PositionGuardMillimeters": 1e-08,
+    "DirectionGuard": 1e-10,
+    "Changes": [],
+    "Passed": true
+  },
+  "nativeRayCheck": {
+    "passed": true,
+    "cases": 8,
+    "rows": 72,
+    "report": "native-rays.json",
+    "coreAssemblySha256": "93f102ecf847afd753fd56d6f16eb8f8c3569eb97b348b9a93bb7957743f53f6"
+  },
+  "ui": {
+    "themes": [
+      "Light",
+      "Dark",
+      "Lumen",
+      "Isekai",
+      "Pixel"
+    ],
+    "languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "composedRasterScales": [
+      1,
+      1.5,
+      2
+    ],
+    "propertyBodyHeightDip": 300,
+    "columnCountAtNormalWidth": 2,
+    "narrowWidthDip": 800,
+    "nativeUserApplicationControlled": false
+  },
+  "sourceFiles": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coordinates/SequentialSurfacePlacement.cs",
+      "sha256": "1f78d0dc6a75f3eb1203cba33e961f7cc3dd9d67757ade5cf7418a83eae6be96"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coordinates/SequentialCoordinateEditing.cs",
+      "sha256": "117d6113446b115f79d3f5817fc1360b11d2494c04fcae2e4b6f6b87f2b7c24e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Domain/SurfaceGroup.cs",
+      "sha256": "fe5400a633e9463857e68f34cf40b0b7e5457656a8d23ae0f2c5d15a67611b10"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.cs",
+      "sha256": "dbf11eefc50890c1ef7ef7272fb9d72bbd327920b91c5e2f3f714b3ad73fb39a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "034d6f84ddb0728032a554869048758473ab6b0b54c7ce67934c3a6dd9eeb01f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.CoordinateVariables.cs",
+      "sha256": "3877932cc17f9bbc518110c17446c2a08172caed7fcb29a4a90c1ba771b2c79d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.Variables.cs",
+      "sha256": "9b2d20782496d374b9524050783b21dcf326952bf08c21acc1f711d61312ec4f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/OpticSnapshotMigration.cs",
+      "sha256": "9ce2132cb731e81fe3cb013f7c0c7c1d5656cd233bd84d80832304cf2ee17434"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "542ad95f64c66ee4c975cd987c121e85726dd9f109f09a33d14e403d32bf9a5f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "sha256": "cf235a0b34b53178ed2263a497f4ff120e20f66cdac614c4af7b3df704fef6f9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/CoordinateBreakContracts.cs",
+      "sha256": "742db3e111213e243977d50fa097477c2dc965ab9356d335ea8c34a7ad38f0a4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "sha256": "2e59b9e55c3704d262c9fb601309e0f81da5005e8bc3c7833982610b4d6b46e0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Coordinates.cs",
+      "sha256": "cf01f817acbe031d6dadfe579410a34664c610fa9cf92ccfe754702b49eeed3b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/PrescriptionService.Coordinates.cs",
+      "sha256": "777490000fc646589f4cde6b2e54334973646f700221b8ada102ab565a654d45"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.Coordinates.cs",
+      "sha256": "c15b65f13319600a06e4adfb31829f26f100e2015f80e194cd84c08a18ec69ed"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs",
+      "sha256": "637f10535a69970c859c8525d3c3fae7032c21312fa63883cf1373c13e081977"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.ContextMenu.cs",
+      "sha256": "82443bc5109dc98cc9a06d5932cd100b32998d39fa063d2f4341e2b15e343b5c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "sha256": "5d34ac239d1b6370ad881e010ad3975caa363d5b7dca508db1aa365eca6b2828"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.CoordinateEditing.cs",
+      "sha256": "be3776df6e6b285c3a2fe62ab53b4e627ceec0ea1cf84efba7efdb78b26c56a5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.SurfaceDrawing.cs",
+      "sha256": "889f41afb2ae0982064e0cd7f8d088d95b01b56eae769f9bd4ffa82673abe12c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/CoordinateBreakEditingTests.cs",
+      "sha256": "462320359041c490b75a252d61746ca5492eff843d3e2187082afe724a4645eb"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/CoordinateBreakPanelTests.cs",
+      "sha256": "7c573e5a1be92961778c483ebf8a4d49e5e0610e5826d8ecd27429548adba22c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LensSurfaceContextMenuTests.cs",
+      "sha256": "7e7c57356773c28d95e73d7c91033ba3867fefd1d15ec9d618d9c59239216a34"
+    }
+  ],
+  "rendered": [
+    {
+      "path": "rendered/Dark-en-US-1.0-narrow.png",
+      "sha256": "65377d674e674d537a8b7c6f2c2f7600c78c86855ae04d93e9ec815b90b7f0a2"
+    },
+    {
+      "path": "rendered/Dark-en-US-1.0.png",
+      "sha256": "e11fe036fd257ab3ca892ee5a336bb3443ae1c982070a44d07e5b13a3b028735"
+    },
+    {
+      "path": "rendered/Isekai-en-US-2.0-narrow.png",
+      "sha256": "460bc92ee6a9a2447b3ef5f25f63505c8d284b12612789b16c99848518f567d6"
+    },
+    {
+      "path": "rendered/Isekai-en-US-2.0.png",
+      "sha256": "4177a36707aafdc766f9cc66b3317b26bb6f8a6602aa6fed14e7019bb013e4c9"
+    },
+    {
+      "path": "rendered/Light-coordinate-properties.png",
+      "sha256": "318784e54bd4fcde1398008407b74c1525627315177176141fbc082766512606"
+    },
+    {
+      "path": "rendered/Light-zh-CN-1.0-narrow.png",
+      "sha256": "f7d89eccda27e0d7508c7594d52a3fce3a3cb2036129f52f87ead23b04352605"
+    },
+    {
+      "path": "rendered/Light-zh-CN-1.0.png",
+      "sha256": "d875de33f1e89743c77aad2cfafd87d2851bab30fabe5d7500348634b48d8ee3"
+    },
+    {
+      "path": "rendered/Lumen-ja-JP-1.0-narrow.png",
+      "sha256": "5e6b659f77b7be97e02d383fe0173594a519db47f041598379e594fde2681663"
+    },
+    {
+      "path": "rendered/Lumen-ja-JP-1.0.png",
+      "sha256": "0194922110bfa64aa8bae5f55ea386973375c758712ff00bf92bfe96852f1d6f"
+    },
+    {
+      "path": "rendered/Pixel-zh-CN-1.5-narrow.png",
+      "sha256": "0411a6ce54552784f1fb96d4ac62712e73384bb3154296a073c14ad645b6ecac"
+    },
+    {
+      "path": "rendered/Pixel-zh-CN-1.5.png",
+      "sha256": "2b4c280b6f4bdfef47a2d643589474b4cd027e140beb0de2c5e9e81649c52e91"
+    }
+  ],
+  "limitations": [
+    "No full 95-lens numerical analysis matrix or full suite was rerun.",
+    "No fresh external captures; the existing same-source Rochon records cover positions, energy directions and segment lengths only.",
+    "Current workspace includes unrelated changes; a same-source A/B control isolates the coordinate placement installation.",
+    "The older 2026-11-24 snapshot comparison remains failed for three models and is not reclassified as passed.",
+    "An earlier overbroad Snapshot-name filter was interrupted after including an excluded historical numerical case; its failure log is retained, and no excluded reference was tuned.",
+    "Legacy projects without original operation parameters retain a clearly identified stored-frame basis; unmapped parameter dependencies remain blocked.",
+    "Shared source files changed after this scoped record. Their earlier hashes are retained; later concurrent edits are not recertified by these results."
+  ],
+  "postRecordWorkspaceChanges": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "recordedSha256": "034d6f84ddb0728032a554869048758473ab6b0b54c7ce67934c3a6dd9eeb01f",
+      "currentSha256": "6a7bfb18e37ece7fa3375c99371e289a0d844af141c5698a57d44581a33890d7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "recordedSha256": "2e59b9e55c3704d262c9fb601309e0f81da5005e8bc3c7833982610b4d6b46e0",
+      "currentSha256": "b0d756d7d97862865dd19ba00014d08b384cf446de54a768f7140de1a8ed865b"
+    }
+  ],
+  "postRecordAssemblyCheck": {
+    "coreSha256": "7921d4dcdd4570669161075a2116922098bc9c1329ace35dbf53270977d5f9e7",
+    "matchesNativeRayCheck": false
+  },
+  "formatCheck": {
+    "passed": true,
+    "log": "format-check.log"
+  }
+}

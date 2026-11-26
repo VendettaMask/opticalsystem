@@ -1,7 +1,7 @@
-param([string]$EvidenceDirectory)
+param([string]$EvidenceDirectory, [string]$BeforePath, [string]$AfterPath)
 $ErrorActionPreference='Stop'
-$before=Get-Content (Join-Path $EvidenceDirectory 'before.json') -Raw | ConvertFrom-Json
-$after=Get-Content (Join-Path $EvidenceDirectory 'after.json') -Raw | ConvertFrom-Json
+$before=Get-Content $(if ($BeforePath) { $BeforePath } else { Join-Path $EvidenceDirectory 'before.json' }) -Raw | ConvertFrom-Json
+$after=Get-Content $(if ($AfterPath) { $AfterPath } else { Join-Path $EvidenceDirectory 'after.json' }) -Raw | ConvertFrom-Json
 $script:maximumNumericDelta=0.0
 function Equivalent($a,$b,[double]$tolerance) {
     if ($null -eq $a -or $null -eq $b) { return $null -eq $a -and $null -eq $b }

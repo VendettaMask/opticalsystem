@@ -3,9 +3,9 @@ using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Multiconfig;
 
-public enum MultiConfigurationOperandKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient }
+public enum MultiConfigurationOperandKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient, Material }
 
-/// <summary>One numeric editor row; values are owned by the corresponding configuration surfaces.</summary>
+/// <summary>One editor row; numeric or material values belong to the corresponding configuration surfaces.</summary>
 public sealed record MultiConfigurationOperand(MultiConfigurationOperandKind Kind, int SurfaceNumber,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string? Parameter = null)
 {
@@ -17,8 +17,12 @@ public sealed record MultiConfigurationOperand(MultiConfigurationOperandKind Kin
         MultiConfigurationOperandKind.SemiDiameter => "SDIA",
         MultiConfigurationOperandKind.ShapeCoefficient or MultiConfigurationOperandKind.GradientIndexCoefficient => "PRAM",
         MultiConfigurationOperandKind.ModelGlassCoefficient => "GLAS",
+        MultiConfigurationOperandKind.Material => "GLSS",
         _ => throw new ArgumentOutOfRangeException(nameof(kind))
     };
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public bool IsNumeric => Kind != MultiConfigurationOperandKind.Material;
 
     [System.Text.Json.Serialization.JsonIgnore]
     public string Property => Kind switch
@@ -30,18 +34,14 @@ public sealed record MultiConfigurationOperand(MultiConfigurationOperandKind Kin
         MultiConfigurationOperandKind.ShapeCoefficient => SurfaceShapeParameters.Property(Parameter!),
         MultiConfigurationOperandKind.GradientIndexCoefficient => GradientIndexParameters.Property(Parameter!),
         MultiConfigurationOperandKind.ModelGlassCoefficient => ModelGlassParameters.Property(Parameter!),
+        MultiConfigurationOperandKind.Material => "material",
         _ => throw new ArgumentOutOfRangeException(nameof(Kind))
     };
 
     public double Read(Optic optic)
     {
-        if (!Enum.IsDefined(Kind) || SurfaceNumber < 0 || SurfaceNumber == 0 && Kind != MultiConfigurationOperandKind.Thickness)
-            throw new ArgumentException("多配置行类型或表面号无效；物面仅支持有限物距。");
-        var surface = optic.SurfaceGroup.Items.SingleOrDefault(surface => surface.Number == SurfaceNumber)
-            ?? throw new ArgumentOutOfRangeException(nameof(SurfaceNumber), "多配置行引用的表面不存在。");
-        if (Kind is MultiConfigurationOperandKind.ShapeCoefficient or MultiConfigurationOperandKind.GradientIndexCoefficient or MultiConfigurationOperandKind.ModelGlassCoefficient
-            ? string.IsNullOrWhiteSpace(Parameter) : Parameter is not null)
-            throw new ArgumentException("多配置参数行必须保留其实际系数身份。");
+        if (!IsNumeric) throw new InvalidOperationException("材料行使用材料名称，请读取或编辑文本值。");
+        var surface = ValidateSurface(optic);
         var value = Kind switch
         {
             MultiConfigurationOperandKind.Thickness => surface.Thickness,
@@ -57,6 +57,24 @@ public sealed record MultiConfigurationOperand(MultiConfigurationOperandKind Kin
         return value;
     }
 
+    public string ReadText(Optic optic)
+    {
+        if (IsNumeric) throw new InvalidOperationException("数值行使用数值读取接口。");
+        return ValidateSurface(optic).Material;
+    }
+
+    private Domain.OpticalSurface ValidateSurface(Optic optic)
+    {
+        if (!Enum.IsDefined(Kind) || SurfaceNumber < 0 || SurfaceNumber == 0 && Kind != MultiConfigurationOperandKind.Thickness)
+            throw new ArgumentException("多配置行类型或表面号无效；物面仅支持有限物距。");
+        var surface = optic.SurfaceGroup.Items.SingleOrDefault(surface => surface.Number == SurfaceNumber)
+            ?? throw new ArgumentOutOfRangeException(nameof(SurfaceNumber), "多配置行引用的表面不存在。");
+        if (Kind is MultiConfigurationOperandKind.ShapeCoefficient or MultiConfigurationOperandKind.GradientIndexCoefficient or MultiConfigurationOperandKind.ModelGlassCoefficient
+            ? string.IsNullOrWhiteSpace(Parameter) : Parameter is not null)
+            throw new ArgumentException("多配置参数行必须保留其实际系数身份。");
+        return surface;
+    }
+
     public static void ValidateRows(IReadOnlyList<MultiConfigurationOperand>? rows, IReadOnlyList<Optic> configurations)
     {
         if (rows is null) return;
@@ -65,7 +83,8 @@ public sealed record MultiConfigurationOperand(MultiConfigurationOperandKind Kin
         foreach (var row in rows)
         {
             if (row is null) throw new ArgumentException("多配置操作数行不能为空。");
-            foreach (var optic in configurations) row.Read(optic);
+            foreach (var optic in configurations)
+                if (row.IsNumeric) row.Read(optic); else row.ReadText(optic);
         }
     }
 }

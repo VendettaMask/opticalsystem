@@ -2,6 +2,7 @@ using System.Globalization;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Input;
@@ -11,6 +12,7 @@ using Avalonia.Media;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -118,7 +120,7 @@ public sealed partial class MultiConfigurationPanel
         {
             Header = header,
             Tag = index,
-            Width = new DataGridLength(132),
+            Width = new DataGridLength(_configurations.GetNavigationState().Count <= 2 ? 176 : 132),
             IsReadOnly = true,
             CellTemplate = new FuncDataTemplate<OperandDisplay>((row, _) =>
             {
@@ -178,17 +180,32 @@ public sealed partial class MultiConfigurationPanel
 
     private void RefreshMatrixSelection()
     {
-        var active = _configurations.GetNavigationState().ActiveIndex;
         int.TryParse(_operandConfiguration.Text, out var editing);
         foreach (var (cell, _, index) in _matrixCells)
         {
             var row = cell.DataContext as OperandDisplay;
             var selected = ReferenceEquals(row, _operandGrid.SelectedItem) && index + 1 == editing;
             cell.BindThemeResource(Border.BackgroundProperty, selected ? ThemeResourceBindings.SelectionBackground
-                : index == active ? ThemeResourceBindings.RibbonTabHover
-                : row?.Binding is null ? ThemeResourceBindings.SubtleSurface : ThemeResourceBindings.WarningSurface);
+                : OperandRowColors.Background(row?.ColorIndex ?? -1));
             cell.BindThemeResource(Border.BorderBrushProperty, selected ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.Border);
             ((TextBlock)cell.Child!).BindThemeResource(TextBlock.ForegroundProperty, selected ? ThemeResourceBindings.SelectionForeground : ThemeResourceBindings.TextPrimary);
+        }
+        // Keep the original text columns (including clipboard and keyboard
+        // behaviour) and tint their actual native cell surfaces across the row.
+        foreach (var nativeRow in _operandGrid.GetVisualDescendants().OfType<DataGridRow>())
+        {
+            if (nativeRow.DataContext is not OperandDisplay row) continue;
+            var background = nativeRow.IsSelected ? ThemeResourceBindings.SelectionBackground
+                : OperandRowColors.Background(row.ColorIndex);
+            foreach (var column in _operandGrid.Columns.Take(3))
+            {
+                if (column.GetCellContent(nativeRow) is not { } content) continue;
+                if (content.GetVisualAncestors().OfType<DataGridCell>().FirstOrDefault() is { } nativeCell)
+                    nativeCell.BindThemeResource(TemplatedControl.BackgroundProperty, background);
+                if (content is TextBlock text)
+                    text.BindThemeResource(TextBlock.ForegroundProperty, nativeRow.IsSelected
+                        ? ThemeResourceBindings.SelectionForeground : ThemeResourceBindings.TextPrimary);
+            }
         }
     }
 }

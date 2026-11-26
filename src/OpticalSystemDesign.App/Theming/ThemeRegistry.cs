@@ -36,6 +36,7 @@ internal sealed record ThemeDefinition(
         var resources = Palette.ToResourceDictionary();
         Chrome.AddResources(resources);
         AccentApplicator(resources);
+        OperandRowColors.AddResources(resources, Palette.Surface);
 
         return resources;
     }

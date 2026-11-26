@@ -60,6 +60,20 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt,
         SceneDto? cardinalScene = null)
     {
+        if (view.TelecentricitySummary is not null)
+            view = view with
+            {
+                Series = view.Series.Select(series => series with
+                {
+                    Name = UiLocalization.Text(series.Name),
+                    LegendLabel = UiLocalization.Text(series.LegendLabel)
+                }).ToArray(),
+                Table = view.Table is null ? null : view.Table with
+                {
+                    Rows = view.Table.Rows.Select(row => (IReadOnlyList<string>)row
+                        .Select((value, index) => index == row.Count - 1 ? UiLocalization.Text(value) : value).ToArray()).ToArray()
+                }
+            };
         if (view.PresentationKind == AnalysisPresentationKind.TextReport)
             return BuildReportTextBox(view.ReportText);
 
@@ -1195,6 +1209,12 @@ public sealed partial class AnalysisPanel
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
     {
+        if (view.TelecentricitySummary is { } telecentricity)
+            return new CompactAnalysisSummary(view.Name,
+                $"{UiLocalization.Text("物方最大远心角 (°)")}: {NumericDisplayFormatter.Format(telecentricity.MaximumObjectAngleDegrees)}"
+                + Environment.NewLine
+                + $"{UiLocalization.Text("像方最大远心角 (°)")}: {NumericDisplayFormatter.Format(telecentricity.MaximumImageAngleDegrees)}");
+
         string Row(string metric) => FindRowText(view, metric, "—");
         string WithUnit(string metric, string unit) => Row(metric) is var value && value != "—" ? value + unit : "—";
 

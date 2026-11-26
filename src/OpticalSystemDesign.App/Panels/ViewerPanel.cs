@@ -180,7 +180,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             : Build3DWorkspace();
         if (UsesLayoutCaption)
         {
-            _diagramPage = new UniformDiagramPage(workspace, _summaryBar);
+            _diagramPage = new UniformDiagramPage(workspace, _summaryBar,
+                fitDrawingToViewport: dimension == SceneDimension.TwoDimensional);
         }
         else
         {
@@ -374,10 +375,17 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         };
         var sceneContent = SceneWithOverlay(_scene, topOverlay, presetToolbar, _staleLayoutBanner);
         sceneContent.Children.Remove(topOverlay);
-        sceneContent.Children.Remove(presetToolbar);
-        _diagramChrome = new Grid { Children = { topOverlay, presetToolbar } };
-        // Keep native-sized controls outside the scaled scientific source for
-        // both layouts and the solid model, including narrow/100% viewports.
+        _diagramChrome = new Grid { Children = { topOverlay } };
+        // Layout navigation belongs to the drawing's display scale. Keeping it
+        // in the source also scales its icons, spacing and pointer targets together.
+        // Solid Model retains its separate full-viewport, native-size controls.
+        var navigationHost = sceneContent;
+        if (_presentationMode == ViewerPresentationMode.SolidModel)
+        {
+            sceneContent.Children.Remove(presetToolbar);
+            ((Grid)_diagramChrome).Children.Add(presetToolbar);
+            navigationHost = (Grid)_diagramChrome;
+        }
         var toolbar = (Border)presetToolbar;
         var items = toolbar.Child;
         toolbar.Child = null;
@@ -389,8 +397,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         };
         toolbar.ClipToBounds = true;
         void ConstrainToolbar() => toolbar.MaxHeight = Math.Max(0,
-            _diagramChrome.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
-        _diagramChrome.SizeChanged += (_, _) => ConstrainToolbar();
+            navigationHost.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
+        navigationHost.SizeChanged += (_, _) => ConstrainToolbar();
         topOverlay.SizeChanged += (_, _) => ConstrainToolbar();
         if (_presentationMode != ViewerPresentationMode.SolidModel)
         {
@@ -886,6 +894,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         _scene.InvalidateVisual();
         _summary.Text = string.Empty;
         _summaryBar.Child = _summary;
+        _layoutCaptionFactory = null;
     }
 
     private void OnSurfaceSelectionChanged(object? sender, SurfaceSelectionChangedEventArgs args)
@@ -976,8 +985,12 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
                         + $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    "
                         + $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
                 if (UsesLayoutCaption)
-                    _summaryBar.Child = PlotCaption.ForLayoutScene(scene, DateTimeOffset.Now,
+                {
+                    var generatedAt = DateTimeOffset.Now;
+                    _layoutCaptionFactory = () => PlotCaption.ForLayoutScene(scene, generatedAt,
                         _scene.RayColorMode == OpticSceneRayColorMode.Configuration);
+                    _summaryBar.Child = _layoutCaptionFactory();
+                }
             });
         }
         catch (OperationCanceledException)

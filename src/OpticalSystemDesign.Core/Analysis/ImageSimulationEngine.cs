@@ -16,6 +16,7 @@ public sealed class ImageSimulationConfig
 {
     public ImageSimulationSourcePattern SourcePattern { get; init; } = ImageSimulationSourcePattern.ColorChart;
     public string SourceFile { get; init; } = string.Empty;
+    public int PreviewReduction { get; init; } = 1;
 
     public RgbImage? SourceImage { get; init; }
 
@@ -80,13 +81,18 @@ public sealed class ImageSimulationConfig
 
     public bool UsePolarization { get; init; }
 
+    public Func<string, SurfaceCoatingResponse>? ResolveCoating { get; init; }
+
     public bool ApplyFixedApertures { get; init; } = true;
 
     public bool CompressFrame { get; init; }
 
     public string OutputFile { get; init; } = string.Empty;
 
-    public IReadOnlyList<double> WavelengthsMicrometers { get; init; } = new[] { 0.65, 0.55, 0.45 };
+    public IReadOnlyList<double> WavelengthsMicrometers { get; init; } = RgbWavelengthsMicrometers;
+
+    public static IReadOnlyList<double> RgbWavelengthsMicrometers { get; } =
+        Array.AsReadOnly(new[] { 0.606, 0.535, 0.465 });
 
     public int PsfGridRows { get; init; } = 3;
 
@@ -211,6 +217,12 @@ public static partial class ImageSimulationEngine
                 config.FieldCenterX,
                 config.FieldCenterY);
         var output = new double[config.WavelengthsMicrometers.Count, prepared.GetLength(1), prepared.GetLength(2)];
+        var weights = config.UsePolarization
+            ? config.WavelengthsMicrometers.Select(wave => ImageIlluminationGrid(workingOptic,
+                ResolveWavelength(workingOptic, wave), halfFieldX, halfFieldY, Math.Clamp(config.NumRays, 5, 33),
+                config.FieldCenterX, config.FieldCenterY, true, config.UseRelativeIllumination, config.PsfGridRows, config.PsfGridColumns)).ToArray() : null;
+        // A single exposure preserves relative spectral transmission, including a completely dark band.
+        var exposure = weights?.Max(grid => grid.Cast<double>().Max()) ?? 1;
         var effectiveModes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var fallbackCount = 0;
         var correctionCount = 0;
@@ -222,6 +234,9 @@ public static partial class ImageSimulationEngine
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var wavelength = ResolveWavelength(workingOptic, config.WavelengthsMicrometers[channel]);
+            var fieldWeights = weights?[channel];
+            if (fieldWeights is not null && !fieldWeights.Cast<double>().Any(power => power > 0))
+                continue;
             if (partialCoherence)
             {
                 var kernel = DiffractionEngine.ComputeCoherentImageKernel(workingOptic,
@@ -235,7 +250,9 @@ public static partial class ImageSimulationEngine
                     config.CoherenceMethod == SpatialCoherenceMethod.FourierModes ? coherenceSampling : 0,
                     kernel.MaximumIntensityPixelPitchMillimeters));
                 var intensity = SliceChannel(oversampled, Math.Min(channel, source.Channels - 1));
-                if (config.UseRelativeIllumination)
+                if (fieldWeights is not null)
+                    ApplyIlluminationGrid(intensity, fieldWeights, exposure);
+                else if (config.UseRelativeIllumination)
                     ApplyRelativeIllumination(intensity, workingOptic, wavelength, halfFieldX, halfFieldY,
                         Math.Max(5, Math.Min(33, config.NumRays)), config.FieldCenterX, config.FieldCenterY, false);
                 var phase = sourcePhase is null ? null
@@ -258,26 +275,10 @@ public static partial class ImageSimulationEngine
                 coherentFourierGrid = Math.Max(coherentFourierGrid, kernel.FourierGridSize);
                 continue;
             }
-            var basis = GenerateBasis(
-                workingOptic,
-                wavelength,
-                config,
-                halfFieldX,
-                halfFieldY,
-                pixelPitch);
-            foreach (var mode in basis.EffectiveModes ?? Array.Empty<string>())
-            {
-                effectiveModes.Add(mode);
-            }
-
-            fallbackCount += basis.GeometricFallbackCount;
-            var coefficientMaps = ResizeCoefficientMaps(
-                basis.CoefficientGrid,
-                prepared.GetLength(1),
-                prepared.GetLength(2),
-                config.Padding);
             var sourceChannel = SliceChannel(oversampled, Math.Min(channel, source.Channels - 1));
-            if (config.UseRelativeIllumination)
+            if (fieldWeights is not null)
+                ApplyIlluminationGrid(sourceChannel, fieldWeights, exposure);
+            else if (config.UseRelativeIllumination)
             {
                 ApplyRelativeIllumination(
                     sourceChannel,
@@ -291,14 +292,42 @@ public static partial class ImageSimulationEngine
                     config.UsePolarization);
             }
 
-            var convolution = ConvolvePsfIntensity(
-                PadChannel(sourceChannel, config.Padding),
-                basis.EigenPsfs,
-                coefficientMaps,
-                basis.MeanPsf);
-            var blurred = convolution.Values;
-            correctionCount += convolution.CorrectedKernelCount;
-            maximumNegativeMass = Math.Max(maximumNegativeMass, convolution.MaximumNegativeMass);
+            var blurred = PadChannel(sourceChannel, config.Padding);
+            if (string.Equals(config.AberrationMode, "None", StringComparison.OrdinalIgnoreCase))
+            {
+                // The normalized delta PSF is the identity at every field and wavelength.
+                effectiveModes.Add("None");
+            }
+            else
+            {
+                var basis = GenerateBasis(
+                    workingOptic,
+                    wavelength,
+                    config,
+                    halfFieldX,
+                    halfFieldY,
+                    pixelPitch,
+                    fieldWeights);
+                foreach (var mode in basis.EffectiveModes ?? Array.Empty<string>())
+                {
+                    effectiveModes.Add(mode);
+                }
+
+                fallbackCount += basis.GeometricFallbackCount;
+                var coefficientMaps = ResizeCoefficientMaps(
+                    basis.CoefficientGrid,
+                    prepared.GetLength(1),
+                    prepared.GetLength(2),
+                    config.Padding);
+                var convolution = ConvolvePsfIntensity(
+                    blurred,
+                    basis.EigenPsfs,
+                    coefficientMaps,
+                    basis.MeanPsf);
+                blurred = convolution.Values;
+                correctionCount += convolution.CorrectedKernelCount;
+                maximumNegativeMass = Math.Max(maximumNegativeMass, convolution.MaximumNegativeMass);
+            }
             var distortionGrid = GenerateDistortionGrid(
                 workingOptic,
                 wavelength,
@@ -548,11 +577,26 @@ public static partial class ImageSimulationEngine
     private static Optic PrepareOptic(Optic optic, ImageSimulationConfig config, bool convertRealImageFields = true)
     {
         ArgumentNullException.ThrowIfNull(optic);
-        if (config.ApplyFixedApertures && (!convertRealImageFields || optic.FieldDefinition != FieldDefinitionKind.RealImageHeight))
+        if (!config.UsePolarization && config.ApplyFixedApertures && (!convertRealImageFields || optic.FieldDefinition != FieldDefinitionKind.RealImageHeight))
             return optic;
 
         // Keep runtime catalogs/backends, but never share trace cache entries with a changed analysis optic.
         var working = optic.CreateMeritEvaluationCopy();
+        if (config.UsePolarization)
+        {
+            var responses = new Dictionary<int, SurfaceCoatingResponse>();
+            var designs = new Dictionary<string, SurfaceCoatingResponse>(StringComparer.OrdinalIgnoreCase);
+            foreach (var surface in working.SurfaceGroup.Items.Skip(1).SkipLast(1))
+            {
+                if (surface.CoatingModel is not OpticalSystemDesign.Core.Coatings.NoneCoatingModel
+                    || surface.ReferencedCoating is not { } name) continue;
+                if (!designs.TryGetValue(name, out var response))
+                    designs[name] = response = config.ResolveCoating?.Invoke(name)
+                        ?? throw new AnalysisDataUnavailableException("Image Simulation", $"缺少表面 {surface.Number} 的镀膜设计 {name}。");
+                responses.Add(surface.Number, response);
+            }
+            working.SequentialRayTracer.ImageSimulationCoatings = responses;
+        }
         if (convertRealImageFields && working.FieldDefinition == FieldDefinitionKind.RealImageHeight)
             working.FieldDefinition = FieldDefinitionKind.ParaxialImageHeight;
         if (!config.ApplyFixedApertures)
@@ -563,13 +607,13 @@ public static partial class ImageSimulationEngine
         return working;
     }
 
-    private static PsfBasisResult GenerateBasis(
+    private static (double[,] Samples, string[] Modes, int Fallbacks) SamplePsfGrid(
         Optic optic,
         Wavelength wavelength,
         ImageSimulationConfig config,
         double halfFieldX,
         double halfFieldY,
-        double pixelPitchMillimeters)
+        double pixelPitchMillimeters, double[,]? fieldWeights = null)
     {
         var rows = config.PsfGridRows;
         var columns = config.PsfGridColumns;
@@ -598,6 +642,14 @@ public static partial class ImageSimulationEngine
                 var requestedMode = NormalizeAberrationMode(config.AberrationMode);
                 if (requestedMode == "Partially Coherent")
                     throw new AnalysisDataUnavailableException("EigenPSF Basis", "an intensity-only PCA basis cannot represent a complex coherent response; use image simulation's mutual-intensity path");
+                if (fieldWeights is not null && fieldWeights[row, column] <= 0)
+                {
+                    // No energy is assigned to this field. Keep a normalized kernel for interpolation.
+                    var center = (config.PsfSize - 1) / 2;
+                    psfs[sample, center * config.PsfSize + center] = 1;
+                    effectiveModes[sample++] = requestedMode;
+                    continue;
+                }
                 (double[,] Psf, double RmsRadiusMillimeters)? geometric = requestedMode is "Geometric" or "Diffraction"
                     ? ComputeGeometricPsf(
                         optic,
@@ -683,6 +735,23 @@ public static partial class ImageSimulationEngine
             }
         }
 
+        return (psfs, effectiveModes, fallbackCount);
+    }
+
+    private static PsfBasisResult GenerateBasis(
+        Optic optic,
+        Wavelength wavelength,
+        ImageSimulationConfig config,
+        double halfFieldX,
+        double halfFieldY,
+        double pixelPitchMillimeters, double[,]? fieldWeights = null)
+    {
+        var (psfs, effectiveModes, fallbackCount) = SamplePsfGrid(optic, wavelength, config, halfFieldX, halfFieldY, pixelPitchMillimeters, fieldWeights);
+        var rows = config.PsfGridRows;
+        var columns = config.PsfGridColumns;
+        var psfCount = psfs.GetLength(0);
+        var featureCount = psfs.GetLength(1);
+        int sample;
         var mean = new double[featureCount];
         for (var feature = 0; feature < featureCount; feature++)
         {
@@ -977,20 +1046,28 @@ public static partial class ImageSimulationEngine
         double fieldCenterY,
         bool usePolarization = false)
     {
-        IlluminationMetrics.RequireRelativeIllumination(optic);
-        const int gridSize = 9;
-        var fieldIndices = new int[gridSize, gridSize];
+        var grid = ImageIlluminationGrid(optic, wavelength, halfFieldX, halfFieldY, rayDensity,
+            fieldCenterX, fieldCenterY, usePolarization, relativeIllumination: true);
+        ApplyIlluminationGrid(source, grid, grid.Cast<double>().Max());
+    }
+
+    private static double[,] ImageIlluminationGrid(Optic optic, Wavelength wavelength,
+        double halfFieldX, double halfFieldY, int rayDensity, double fieldCenterX, double fieldCenterY,
+        bool usePolarization, bool relativeIllumination, int rows = 9, int columns = 9)
+    {
+        if (relativeIllumination) IlluminationMetrics.RequireRelativeIllumination(optic);
+        var fieldIndices = new int[rows, columns];
         var fields = new Dictionary<(double X, double Y), int>();
-        for (var row = 0; row < gridSize; row++)
+        for (var row = 0; row < rows; row++)
         {
             var maximumY = Math.Min(1, fieldCenterY + halfFieldY);
             var minimumY = Math.Max(-1, fieldCenterY - halfFieldY);
-            var hy = maximumY + ((minimumY - maximumY) * row / (gridSize - 1.0));
-            for (var column = 0; column < gridSize; column++)
+            var hy = maximumY + ((minimumY - maximumY) * (rows == 1 ? .5 : (double)row / (rows - 1)));
+            for (var column = 0; column < columns; column++)
             {
                 var minimumX = Math.Max(-1, fieldCenterX - halfFieldX);
                 var maximumX = Math.Min(1, fieldCenterX + halfFieldX);
-                var hx = minimumX + ((maximumX - minimumX) * column / (gridSize - 1.0));
+                var hx = minimumX + ((maximumX - minimumX) * (columns == 1 ? .5 : (double)column / (columns - 1)));
                 if (!fields.TryGetValue((hx, hy), out var index))
                 {
                     index = fields.Count;
@@ -1000,28 +1077,33 @@ public static partial class ImageSimulationEngine
             }
         }
 
-        var samples = IlluminationMetrics.EvaluateFields(optic,
-            fields.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToArray(), wavelength.Micrometers, rayDensity,
-            usePolarization: usePolarization);
-        var maximum = samples.Max(sample => sample.ProjectedCosineArea);
+        var ordered = fields.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToArray();
+        var powers = relativeIllumination
+            ? IlluminationMetrics.EvaluateFields(optic, ordered, wavelength.Micrometers, rayDensity,
+                usePolarization: usePolarization).Select(sample => sample.ProjectedCosineArea).ToArray()
+            : ordered.Select(field =>
+            {
+                var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.X, field.Y, 0, 0,
+                    wavelength.Micrometers, optic.RayAimingEnabled).Rays.Single();
+                var trace = optic.SequentialRayTracer.DiagnoseAperturesForPower(ray, stopAtIncidentImage: true, usePolarization: true);
+                return trace.InsideAllApertures ? trace.PolarizationWeightedIntensity ?? 0 : 0;
+            }).ToArray();
+        var grid = new double[rows, columns];
+        for (var row = 0; row < rows; row++)
+            for (var column = 0; column < columns; column++)
+                grid[row, column] = powers[fieldIndices[row, column]];
+        return grid;
+    }
 
-        if (maximum <= 0)
-        {
-            Array.Clear(source);
-            return;
-        }
-
-        var illumination = new double[gridSize, gridSize];
-        for (var row = 0; row < gridSize; row++)
-            for (var column = 0; column < gridSize; column++)
-                illumination[row, column] = samples[fieldIndices[row, column]].ProjectedCosineArea;
-
+    private static void ApplyIlluminationGrid(double[,] source, double[,] illumination, double maximum)
+    {
+        if (maximum <= 0) { Array.Clear(source); return; }
         for (var row = 0; row < source.GetLength(0); row++)
         {
-            var y = row * (gridSize - 1.0) / Math.Max(1, source.GetLength(0) - 1);
+            var y = row * (illumination.GetLength(0) - 1.0) / Math.Max(1, source.GetLength(0) - 1);
             for (var column = 0; column < source.GetLength(1); column++)
             {
-                var x = column * (gridSize - 1.0) / Math.Max(1, source.GetLength(1) - 1);
+                var x = column * (illumination.GetLength(1) - 1.0) / Math.Max(1, source.GetLength(1) - 1);
                 source[row, column] *= Bilinear(illumination, y, x) / maximum;
             }
         }
@@ -1390,7 +1472,7 @@ public static partial class ImageSimulationEngine
         return output;
     }
 
-    private static double[,,] ResizeRgb(double[,,] source, int height, int width)
+    internal static double[,,] ResizeRgb(double[,,] source, int height, int width)
     {
         height = Math.Max(1, height);
         width = Math.Max(1, width);
@@ -1552,55 +1634,47 @@ public static partial class ImageSimulationEngine
             vectors[index, index] = 1;
         }
 
-        for (var iteration = 0; iteration < 100 * size * size; iteration++)
+        // Cyclic Jacobi visits each pair once per sweep, avoiding a full pivot search at every rotation.
+        for (var sweep = 0; sweep < AnalysisResourceLimits.MaximumPsfEigenSweeps; sweep++)
         {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            var p = 0;
-            var q = 1;
-            var maximum = 0.0;
-            for (var row = 0; row < size; row++)
+            var rotated = false;
+            for (var p = 0; p < size; p++)
             {
-                for (var column = row + 1; column < size; column++)
+                ComputationCancellation.ThrowIfCancellationRequested();
+                for (var q = p + 1; q < size; q++)
                 {
-                    if (Math.Abs(matrix[row, column]) > maximum)
+                    if (Math.Abs(matrix[p, q]) <= 1e-14) continue;
+                    rotated = true;
+                    var angle = 0.5 * Math.Atan2(2 * matrix[p, q], matrix[q, q] - matrix[p, p]);
+                    var sine = Math.Sin(angle);
+                    var cosine = Math.Cos(angle);
+                    for (var index = 0; index < size; index++)
                     {
-                        maximum = Math.Abs(matrix[row, column]);
-                        p = row;
-                        q = column;
+                        if (index != p && index != q)
+                        {
+                            var left = matrix[index, p];
+                            var right = matrix[index, q];
+                            matrix[index, p] = matrix[p, index] = (cosine * left) - (sine * right);
+                            matrix[index, q] = matrix[q, index] = (sine * left) + (cosine * right);
+                        }
+
+                        var vectorP = vectors[index, p];
+                        var vectorQ = vectors[index, q];
+                        vectors[index, p] = (cosine * vectorP) - (sine * vectorQ);
+                        vectors[index, q] = (sine * vectorP) + (cosine * vectorQ);
                     }
+
+                    var app = matrix[p, p];
+                    var aqq = matrix[q, q];
+                    var apq = matrix[p, q];
+                    matrix[p, p] = (cosine * cosine * app) - (2 * sine * cosine * apq) + (sine * sine * aqq);
+                    matrix[q, q] = (sine * sine * app) + (2 * sine * cosine * apq) + (cosine * cosine * aqq);
+                    matrix[p, q] = matrix[q, p] = 0;
                 }
             }
-
-            if (maximum <= 1e-14)
-            {
-                break;
-            }
-
-            var angle = 0.5 * Math.Atan2(2 * matrix[p, q], matrix[q, q] - matrix[p, p]);
-            var sine = Math.Sin(angle);
-            var cosine = Math.Cos(angle);
-            for (var index = 0; index < size; index++)
-            {
-                if (index != p && index != q)
-                {
-                    var left = matrix[index, p];
-                    var right = matrix[index, q];
-                    matrix[index, p] = matrix[p, index] = (cosine * left) - (sine * right);
-                    matrix[index, q] = matrix[q, index] = (sine * left) + (cosine * right);
-                }
-
-                var vectorP = vectors[index, p];
-                var vectorQ = vectors[index, q];
-                vectors[index, p] = (cosine * vectorP) - (sine * vectorQ);
-                vectors[index, q] = (sine * vectorP) + (cosine * vectorQ);
-            }
-
-            var app = matrix[p, p];
-            var aqq = matrix[q, q];
-            var apq = matrix[p, q];
-            matrix[p, p] = (cosine * cosine * app) - (2 * sine * cosine * apq) + (sine * sine * aqq);
-            matrix[q, q] = (sine * sine * app) + (2 * sine * cosine * apq) + (cosine * cosine * aqq);
-            matrix[p, q] = matrix[q, p] = 0;
+            if (!rotated) break;
+            if (sweep == AnalysisResourceLimits.MaximumPsfEigenSweeps - 1)
+                throw new AnalysisDataUnavailableException("EigenPSF Basis", "the symmetric eigensolver did not converge");
         }
 
         var order = Enumerable.Range(0, size).OrderByDescending(index => matrix[index, index]).ToArray();

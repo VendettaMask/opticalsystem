@@ -28,7 +28,7 @@ public sealed class AfocalHuygensImageProjectionTests
         var result = (double[,])typeof(DiffractionEngine)
             .GetMethod("HuygensFarFieldSummation", BindingFlags.NonPublic | BindingFlags.Static)!
             .Invoke(null, [wavefront, new Wavelength { Micrometers = .55 }, 8, .03,
-                CoordinateSystem.Global, 8, false, null, 0d, (centerX, centerY), false])!;
+                CoordinateSystem.Global, 8, false, null, null, 0d, (centerX, centerY), false])!;
         var dx = -3.3 - chief.X / chief.Z * 1.1;
         var dy = -.4 - chief.Y / chief.Z * 1.1;
         var halfExtent = .61 * .55 * 6 / 4;

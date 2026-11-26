@@ -1,4 +1,5 @@
 using System.Numerics;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Coatings;
@@ -38,11 +39,14 @@ public sealed partial class SequentialRayTracer
     /// A coherent Jones state through the formal sequential surface engine. No aperture
     /// continuation or private trace cache. Coating power is applied exactly once.
     /// A positive-time field conjugates the n+ik coating solver response and uses -k.OPL.
+    /// The explicit bulk-absorption option uses real homogeneous interface indices and
+    /// the shared Beer-Lambert segment attenuation. Coherent-film amplitudes remain authoritative.
     /// </summary>
     public PolarizedRayTraceResult TracePolarized(RealRay sourceRay, JonesInputState input,
         int? targetSurfaceIndex = null, CoordinateSystem? inputCoordinates = null,
         HarmonicTimeConvention timeConvention = HarmonicTimeConvention.Positive,
-        bool includePropagationPhase = true, CancellationToken cancellationToken = default)
+        bool includePropagationPhase = true, CancellationToken cancellationToken = default,
+        bool useRealInterfaceIndicesForBulkAbsorption = false)
     {
         ArgumentNullException.ThrowIfNull(sourceRay);
         ArgumentNullException.ThrowIfNull(input);
@@ -83,7 +87,9 @@ public sealed partial class SequentialRayTracer
                 throw new InvalidOperationException($"偏振光线未有效到达表面 {surface.Number}，包括失交或孔径渐晕。");
             if (sample.InteractionKind is { } kind)
             {
-                var response = EvaluatePolarizationInterface(surface, sample, material, sourceRay.WavelengthNanometers, kind);
+                var response = EvaluatePolarizationInterface(surface, sample, material, sourceRay.WavelengthNanometers, kind,
+                    allowHomogeneousAbsorbingPower: useRealInterfaceIndicesForBulkAbsorption,
+                    useRealCoatingExteriorIndices: useRealInterfaceIndicesForBulkAbsorption);
                 var conjugate = timeConvention == HarmonicTimeConvention.Positive;
                 interfaceData = conjugate ? response.Data.Conjugate() : response.Data;
                 transport.Apply(response.Incoming, response.Outgoing, response.Normal,
@@ -119,12 +125,16 @@ public sealed partial class SequentialRayTracer
     private readonly record struct InterfaceJonesTransform(Vector3D Incoming, Vector3D Outgoing,
         Vector3D Normal, Complex S, Complex P, PolarizationInterfaceData Data);
 
-    private static InterfaceJonesTransform EvaluatePolarizationInterface(OpticalSurface surface,
+    // Set only on the private image-analysis optic. Strict electric-field callers keep their own contract.
+    internal IReadOnlyDictionary<int, SurfaceCoatingResponse>? ImageSimulationCoatings { get; set; }
+
+    private InterfaceJonesTransform EvaluatePolarizationInterface(OpticalSurface surface,
         RayTraceSampleValue sample, IMaterial incidentMaterial, double wavelength, RayInteractionKind kind,
-        bool allowHomogeneousAbsorbingPower = false)
+        bool allowHomogeneousAbsorbingPower = false, bool useRealCoatingExteriorIndices = false)
     {
+        var idealLens = ImageSimulationCoatings is not null && surface.InteractionModel is ParaxialLensInteractionModel;
         if (surface.ScatteringModel is not null
-            || surface.InteractionModel is not RefractiveReflectiveInteractionModel
+            || (!idealLens && surface.InteractionModel is not RefractiveReflectiveInteractionModel)
             || surface.Geometry is OpticalSystemDesign.Core.Geometries.IGratingGeometry
             || incidentMaterial.PropagationModel is not HomogeneousPropagationModel
             || surface.MaterialAfter.PropagationModel is not HomogeneousPropagationModel)
@@ -140,13 +150,47 @@ public sealed partial class SequentialRayTracer
             ?? throw new InvalidOperationException("Polarization transport requires traced incident direction metadata.");
         var normal = surface.CoordinateSystem.ToGlobalDirection(
             surface.Geometry.SurfaceNormal(surface.CoordinateSystem.ToLocalPoint(sample.Position)));
-        if (surface.CoatingModel is CoherentMultilayerCoating coherent)
+        var cosine = Math.Clamp(Math.Abs(VectorDot(incoming, normal) / (incoming.Length * normal.Length)), 0, 1);
+        if (idealLens)
+        {
+            if (n1 != n2 || kind != RayInteractionKind.Transmitted || surface.CoatingModel is not NoneCoatingModel
+                || surface.ReferencedCoating is not null)
+                throw new AnalysisDataUnavailableException("Image Simulation", "近轴面的单位功率模型要求两侧折射率相同，且未附加界面镀膜。");
+            // Transport the transverse basis by the rotation between ray directions. The
+            // ideal lens changes direction and OPL in the geometric tracer, with unit throughput.
+            var bend = incoming - sample.Direction;
+            return new(incoming, sample.Direction, bend.Length > 1e-12 ? bend : normal, 1, 1,
+                new(Amplitude(0, 1), Amplitude(0, 1)));
+        }
+
+        var design = ImageSimulationCoatings?.GetValueOrDefault(surface.Number);
+        var coherent = surface.CoatingModel as CoherentMultilayerCoating
+            ?? (surface.IsReflective ? null : design?.TransmissionStack);
+        if (design is not null && coherent is null)
+        {
+            if (design.Amplitude is not { } evaluate)
+                throw new AnalysisDataUnavailableException("Image Simulation", $"膜系 {design.Name} 仅提供功率数据，缺少单界面的偏振振幅或确定的相位约定。");
+            var reflection = kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection;
+            var angle = Math.Acos(cosine) * (180 / Math.PI);
+            var s = evaluate(wavelength, angle, ThinFilmPolarization.S);
+            var p = evaluate(wavelength, angle, ThinFilmPolarization.P);
+            var phaseSign = design.IsTabulated && !surface.IsReflective && n1 > n2 ? -1 : 1;
+            var ts = reflection ? s.Reflection * phaseSign : s.PowerTransmission;
+            var tp = reflection ? p.Reflection * phaseSign : p.PowerTransmission;
+            if (ts is null || tp is null)
+                throw new AnalysisDataUnavailableException("Image Simulation", $"膜系 {design.Name} 未定义当前基底中的透射电场。");
+            return new(incoming, sample.Direction, normal, ts.Value, tp.Value, new(s, p));
+        }
+
+        double InterfaceExtinction(IMaterial medium) => ImageSimulationCoatings is not null
+            && medium is CatalogGlassMaterial { ZemaxData: not null } ? 0 : medium.ExtinctionCoefficient(wavelength);
+        if (coherent is not null)
         {
             var response = coherent.EvaluateAmplitudes(new SurfaceInteractionContext(normal,
                 n1, n2,
                 wavelength, kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection,
-                surface.Geometry, incoming, incidentMaterial.ExtinctionCoefficient(wavelength),
-                surface.MaterialAfter.ExtinctionCoefficient(wavelength)));
+                surface.Geometry, incoming, useRealCoatingExteriorIndices ? 0 : InterfaceExtinction(incidentMaterial),
+                useRealCoatingExteriorIndices ? 0 : InterfaceExtinction(surface.MaterialAfter)));
             var reflection = kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection;
             var s = reflection ? response.S.Reflection : response.S.PowerTransmission
                 ?? throw new NotSupportedException("吸收基底中的透射复电场尚未支持。");
@@ -154,11 +198,10 @@ public sealed partial class SequentialRayTracer
                 ?? throw new NotSupportedException("吸收基底中的透射复电场尚未支持。");
             return new(incoming, sample.Direction, normal, s, p, new(response.S, response.P));
         }
-        var incidentExtinction = incidentMaterial.ExtinctionCoefficient(wavelength);
-        var transmittedExtinction = surface.MaterialAfter.ExtinctionCoefficient(wavelength);
+        var incidentExtinction = InterfaceExtinction(incidentMaterial);
+        var transmittedExtinction = InterfaceExtinction(surface.MaterialAfter);
         if ((incidentExtinction != 0 || transmittedExtinction != 0) && !allowHomogeneousAbsorbingPower)
             throw new NotSupportedException("Absorbing interface polarization requires complex-index electric-field transport, which is not implemented; homogeneous power is a separate explicit contract.");
-        var cosine = Math.Clamp(Math.Abs(VectorDot(incoming, normal) / (incoming.Length * normal.Length)), 0, 1);
         // Explicit scalar coatings already attenuate the ray. Their declared
         // non-polarizing response replaces bare-interface loss; never apply it twice.
         // A commanded mirror without a coating is an ideal reflector. TIR is

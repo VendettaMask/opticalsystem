@@ -184,18 +184,6 @@ public sealed partial class AnalysisPanel
         Margin = new Thickness(10, 0, 4, 0)
     };
 
-    private static Button CommandButton(string iconName, string text, double minWidth)
-    {
-        var button = new Button
-        {
-            Content = new LocalIconLabel(iconName, text),
-            MinWidth = minWidth
-        };
-        AutomationProperties.SetName(button, text);
-        StyleToolbarButton(button, iconOnly: false);
-        return button;
-    }
-
     private static Button IconButton(string iconName, string tooltip)
     {
         var button = new Button

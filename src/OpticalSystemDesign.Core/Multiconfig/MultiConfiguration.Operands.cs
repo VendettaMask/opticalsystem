@@ -44,6 +44,36 @@ public sealed partial class MultiConfiguration
         else SetOperandValueCore(oneBasedRow, configurationIndex, value);
     }
 
+    public void SetOperandTextValue(int oneBasedRow, int configurationIndex, string value)
+    {
+        if (oneBasedRow < 1 || oneBasedRow > _operandRows.Count) throw new ArgumentOutOfRangeException(nameof(oneBasedRow));
+        if (configurationIndex < 0 || configurationIndex >= Configurations.Count) throw new ArgumentOutOfRangeException(nameof(configurationIndex));
+        var row = _operandRows[oneBasedRow - 1];
+        if (row.Kind != MultiConfigurationOperandKind.Material) throw new ArgumentException("请选择材料行。");
+        var optic = Configurations[configurationIndex];
+        var surface = FindSurface(optic, row.SurfaceNumber);
+        if (surface.InteractionModel is Interactions.CoordinateReferenceInteractionModel)
+            throw new InvalidOperationException("坐标间断沿用入射介质，请编辑前一个光学表面的材料。");
+        var name = string.IsNullOrWhiteSpace(value) ? "Air" : value.Trim();
+        var mirror = name.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        if (mirror && surface.InteractionModel is Interactions.ParaxialLensInteractionModel)
+            throw new NotSupportedException("近轴面不支持镜面材料。");
+        // Resolve before changing either the interaction or the material snapshot.
+        var material = mirror ? surface.MaterialBefore.Clone()
+            : name.Equals(surface.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase) ? surface.MaterialAfter.Clone()
+            : optic.Materials.TryResolve(name, optic.GlassCatalogs, out var resolved) ? resolved
+            : throw new ArgumentException($"找不到材料：{name}");
+        surface.IsReflective = mirror;
+        surface.MaterialAfter = material;
+        surface.Material = mirror ? "MIRROR" : material.Name;
+        SynchronizeFollowingMedia(optic, row.SurfaceNumber);
+        DetachPropertyLink(configurationIndex, row.SurfaceNumber, "material");
+        if (configurationIndex == 0) PropagateBaseProperty(row.SurfaceNumber, "material");
+        foreach (var configuration in Configurations) configuration.SurfaceGroup.Renumber();
+        MultiConfigurationOperand.ValidateRows(_operandRows, Configurations);
+        ApplyOperandPickups();
+    }
+
     private void SetOperandValueCore(int oneBasedRow, int configurationIndex, double value)
     {
         if (oneBasedRow < 1 || oneBasedRow > _operandRows.Count) throw new ArgumentOutOfRangeException(nameof(oneBasedRow));

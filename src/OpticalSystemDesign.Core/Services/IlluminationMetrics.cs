@@ -301,7 +301,7 @@ public static partial class IlluminationMetrics
                 _nodes.Add((x, y), node);
                 return node;
             }
-            var diagnostic = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation,
+            var diagnostic = _optic.SequentialRayTracer.DiagnoseAperturesForPower(source, _cancellation,
                 stopAtIncidentImage: true, usePolarization: _usePolarization,
                 ignoreScalarTransmission: !_includeScalarTransmission);
             if (diagnostic.UnclippedImage is not { } image)

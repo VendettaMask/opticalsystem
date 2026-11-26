@@ -157,9 +157,11 @@ public partial class WorkbenchRuntime
 
     private static void ApplyGeometry(OpticalSurface surface, string geometryKind)
     {
-        if (surface.InteractionModel is CoordinateReferenceInteractionModel or BirefringentInteractionModel)
+        if (geometryKind == WorkbenchMapper.GeometryKind(surface)) return;
+        var specializedType = WorkbenchMapper.DiffractiveSurfaceType(surface) ?? WorkbenchMapper.GradientIndexSurfaceType(surface);
+        if (specializedType is not null || surface.InteractionModel is CoordinateReferenceInteractionModel or BirefringentInteractionModel)
         {
-            var identity = WorkbenchMapper.InteractionKind(surface);
+            var identity = specializedType ?? WorkbenchMapper.InteractionKind(surface);
             if (geometryKind == identity) return;
             if (CanonicalGeometryKind(geometryKind) != GeometryKind(surface.Geometry)
                 && !(CanonicalGeometryKind(geometryKind) == "Standard" && surface.Geometry is PlaneGeometry))
@@ -297,30 +299,34 @@ public partial class WorkbenchRuntime
         var isMirror = selectedMaterial.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
         if (isMirror && surface.InteractionModel is ParaxialLensInteractionModel)
             throw new NotSupportedException("反射近轴面的方向和 OPD 约定尚未支持，原近轴参数保持不变。");
-        surface.Material = isMirror ? "MIRROR" : selectedMaterial;
-        var retainedMaterial = !isMirror
-            && surface.MaterialAfter is (GradientIndexMaterial or AirMaterial { PressureAtmospheres: not 1 })
-            && string.Equals(surface.MaterialAfter.Name, selectedMaterial, StringComparison.OrdinalIgnoreCase)
-                ? surface.MaterialAfter : null;
-        surface.MaterialAfter = retainedMaterial ?? (isMirror
-            ? surface.MaterialBefore.Clone()
-            : CurrentOptic.Materials.TryResolve(selectedMaterial, CurrentOptic.GlassCatalogs, out var resolved)
-                ? resolved
-                : surface.MaterialAfter is UnresolvedMaterial missing
-                    && missing.Name.Equals(selectedMaterial, StringComparison.OrdinalIgnoreCase)
-                    ? missing
-                    : CurrentOptic.Materials.Resolve(selectedMaterial));
+        var material = ResolveEditedMaterial(surface, selectedMaterial, isMirror);
         SyncInteractionReflectivity(surface, isMirror);
-        // Update the adjoining incident medium, including intervening mirrors.
-        var index = CurrentOptic.SurfaceGroup.Items.IndexOf(surface);
-        for (var nextIndex = index + 1; nextIndex < CurrentOptic.SurfaceGroup.Items.Count; nextIndex++)
+        surface.MaterialAfter = material;
+        surface.Material = isMirror ? "MIRROR" : material.Name;
+        CurrentOptic.SurfaceGroup.SynchronizeFollowingMedia(surface.Number);
+    }
+
+    private IMaterial ResolveEditedMaterial(OpticalSurface surface, string selectedMaterial, bool isMirror)
+    {
+        if (surface.InteractionModel is CoordinateReferenceInteractionModel)
+            return selectedMaterial.Equals(surface.MaterialBefore.Name, StringComparison.OrdinalIgnoreCase)
+                ? surface.MaterialBefore.Clone()
+                : throw new NotSupportedException("坐标间断沿用入射介质。请在前一个光学表面修改材料。");
+        if (isMirror) return surface.MaterialBefore.Clone();
+        if (surface.MaterialAfter is GradientIndexMaterial or UniaxialMaterial or ModelGlassMaterial or AirMaterial { PressureAtmospheres: not 1 }
+            && selectedMaterial.Equals(surface.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase))
+            return surface.MaterialAfter;
+        if (surface.InteractionModel is BirefringentInteractionModel { IsExit: false }
+            && surface.MaterialAfter is UniaxialMaterial crystal)
         {
-            var next = CurrentOptic.SurfaceGroup.Items[nextIndex];
-            next.MaterialBefore = CurrentOptic.SurfaceGroup.Items[nextIndex - 1].MaterialAfter.Clone();
-            if (!next.IsReflective)
-                break;
-            next.MaterialAfter = next.MaterialBefore.Clone();
+            if (!CurrentOptic.Materials.TryResolve(selectedMaterial, CurrentOptic.GlassCatalogs, out var ordinary)
+                || !CurrentOptic.Materials.TryResolve(selectedMaterial + "-E", CurrentOptic.GlassCatalogs, out var extraordinary))
+                throw new NotSupportedException("双折射输入面需要具有寻常光和非寻常光色散数据的晶体材料。");
+            return new UniaxialMaterial(ordinary, extraordinary, crystal.Axis, crystal.TraceExtraordinary, crystal.ParaxialIgnore);
         }
+        if (CurrentOptic.Materials.TryResolve(selectedMaterial, CurrentOptic.GlassCatalogs, out var resolved)) return resolved;
+        if (surface.MaterialAfter is UnresolvedMaterial missing && missing.Name.Equals(selectedMaterial, StringComparison.OrdinalIgnoreCase)) return missing;
+        return CurrentOptic.Materials.Resolve(selectedMaterial);
     }
 
     private static void SyncInteractionForEditedGeometry(
@@ -335,7 +341,7 @@ public partial class WorkbenchRuntime
             return;
         }
 
-        if (surface.InteractionModel is DiffractiveInteractionModel)
+        if (surface.InteractionModel is DiffractiveInteractionModel { GrooveFrequencyLinesPerMillimeter: null })
         {
             surface.InteractionModel = new RefractiveReflectiveInteractionModel(isMirror);
             surface.IsReflective = isMirror;
@@ -357,16 +363,6 @@ public partial class WorkbenchRuntime
         if (isMirror && surface.InteractionModel is ParaxialLensInteractionModel)
             throw new NotSupportedException("反射近轴面的方向和 OPD 约定尚未支持，原近轴参数保持不变。");
         surface.IsReflective = isMirror;
-        surface.InteractionModel = surface.InteractionModel switch
-        {
-            ParaxialLensInteractionModel paraxial => paraxial,
-            ThinLensInteractionModel thinLens => new ThinLensInteractionModel(thinLens.FocalLength, isMirror),
-            DiffractiveInteractionModel diffractive when diffractive.GrooveFrequencyLinesPerMillimeter is double frequency =>
-                new DiffractiveInteractionModel(frequency, diffractive.Order ?? 1, isMirror),
-            DiffractiveInteractionModel => new DiffractiveInteractionModel(isMirror),
-            PhaseInteractionModel phase => new PhaseInteractionModel(phase.Profile.Clone(), isMirror),
-            _ => new RefractiveReflectiveInteractionModel(isMirror)
-        };
     }
 
     private static void ApplyCoating(OpticalSurface surface, string coatingKind)
@@ -400,6 +396,11 @@ public partial class WorkbenchRuntime
         interactionKind = CanonicalInteractionKind(interactionKind);
         if (interactionKind is "Diffractive" or "Reflective Diffractive")
         {
+            if (surface.InteractionModel is DiffractivePhaseInteractionModel or RuledGratingInteractionModel)
+            {
+                SyncInteractionReflectivity(surface, interactionKind == "Reflective Diffractive");
+                return;
+            }
             surface.Geometry = surface.Geometry switch
             {
                 IGratingGeometry grating => grating,
@@ -413,6 +414,11 @@ public partial class WorkbenchRuntime
                 _ when Math.Abs(surface.Radius) < 1e-9 => new PlaneGratingGeometry(1, 1, 0),
                 _ => new StandardGratingGeometry(surface.Radius, surface.Conic, 1, 1, 0)
             };
+        }
+        else if (surface.InteractionModel is CoordinateReferenceInteractionModel or BirefringentInteractionModel or ParaxialLensInteractionModel
+            && interactionKind == WorkbenchMapper.InteractionKind(surface))
+        {
+            return;
         }
         else
         {

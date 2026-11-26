@@ -24,12 +24,13 @@ public static class GradientIndexParameters
 
     public static void SetVariable(Optic optic, OpticalSurface surface, string parameter, bool enabled)
     {
+        var index = optic.SurfaceGroup.Items.IndexOf(surface);
+        if (index < 0) throw new ArgumentException("该表面不属于当前光学系统。", nameof(surface));
         var material = Require(surface);
         var variables = material.Variables.ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
         if (enabled) variables.TryAdd(parameter, DefaultVariableRange(material, parameter)); else variables.Remove(parameter);
         surface.MaterialAfter = new GradientIndexMaterial(material.Name, material.Profile, material.MaximumPathLength, material.IntegrationOptions, variables);
-        var index = optic.SurfaceGroup.Items.IndexOf(surface);
-        if (index + 1 < optic.SurfaceGroup.Items.Count) optic.SurfaceGroup.Items[index + 1].MaterialBefore = surface.MaterialAfter.Clone();
+        optic.SurfaceGroup.SynchronizeFollowingMedia(index);
         optic.InvalidateRayTraceCache();
     }
 
@@ -64,8 +65,7 @@ public static class GradientIndexParameters
         var replacement = new GradientIndexMaterial(material.Name, profile, material.MaximumPathLength, material.IntegrationOptions, material.Variables);
         optic.InvalidateRayTraceCache();
         surface.MaterialAfter = replacement;
-        if (index + 1 < optic.SurfaceGroup.Items.Count)
-            optic.SurfaceGroup.Items[index + 1].MaterialBefore = replacement.Clone();
+        optic.SurfaceGroup.SynchronizeFollowingMedia(index);
     }
 
     /// <summary>Independent variations that leave the scalar paraxial model's structural domain.</summary>

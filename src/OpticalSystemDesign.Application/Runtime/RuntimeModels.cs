@@ -41,6 +41,7 @@ public sealed record AnalysisView(
     public FoucaultSummaryDto? FoucaultSummary { get; init; }
     public PsfImageSummaryDto? PsfImageSummary { get; init; }
     public DiffractionEnergySummaryDto? DiffractionEnergySummary { get; init; }
+    public TelecentricitySummaryDto? TelecentricitySummary { get; init; }
 }
 
 public sealed record AnalysisRow(string Metric, string Value);

@@ -72,8 +72,18 @@ internal static class Program
 
     public static AppBuilder BuildAvaloniaApp()
     {
-        return AppBuilder.Configure<App>()
+        var settings = AppSettings.Load();
+        var builder = AppBuilder.Configure(() => new App { StartupSettings = settings })
             .UsePlatformDetect()
             .LogToTrace();
+        // Platform detection already prefers hardware with a software fallback.
+        if (settings.UseGpuAcceleration) return builder;
+        if (OperatingSystem.IsWindows())
+            return builder.With(new Win32PlatformOptions { RenderingMode = [Win32RenderingMode.Software] });
+        if (OperatingSystem.IsMacOS())
+            return builder.With(new AvaloniaNativePlatformOptions { RenderingMode = [AvaloniaNativeRenderingMode.Software] });
+        if (OperatingSystem.IsLinux())
+            return builder.With(new X11PlatformOptions { RenderingMode = [X11RenderingMode.Software] });
+        return builder;
     }
 }

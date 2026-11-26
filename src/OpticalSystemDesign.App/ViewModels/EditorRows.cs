@@ -47,11 +47,13 @@ public sealed class SurfaceEditorRow
                     : "普通面";
         ParaxialLens = source.ParaxialLens;
         Birefringent = source.Birefringent;
-        SurfaceType = source.IsCoordinateReference ? "坐标间断"
+        DiffractiveSurfaceType = source.DiffractiveSurfaceType;
+        GradientIndexSurfaceType = source.GradientIndexSurfaceType;
+        SurfaceType = source.IsCoordinateReference ? source.InteractionKind == "忽略面" ? "忽略面" : "坐标间断"
             : Birefringent is { } crystal ? crystal.IsExit ? "双折射输出" : "双折射输入"
             : ParaxialLens is { } paraxial
             ? paraxial.PowerXPerMillimeter == paraxial.PowerYPerMillimeter ? "近轴面" : "近轴 XY 面"
-            : SurfaceTypeForGeometry(GeometryKind);
+            : DiffractiveSurfaceType ?? GradientIndexSurfaceType ?? SurfaceTypeForGeometry(GeometryKind);
         GeometryComputable = source.GeometryComputable;
         Inspection = source.Inspection;
         GeometryDefinition = source.GeometryDefinition;
@@ -199,6 +201,8 @@ public sealed class SurfaceEditorRow
     public string SurfaceType { get; }
     public ParaxialLensSurfaceDto? ParaxialLens { get; }
     public BirefringentSurfaceDto? Birefringent { get; }
+    public string? DiffractiveSurfaceType { get; }
+    public string? GradientIndexSurfaceType { get; }
     public double ExtensionZone { get; private set; }
     public string ExtensionZoneDisplay
     {
@@ -256,7 +260,9 @@ public sealed class SurfaceEditorRow
         Drawing: Drawing,
         LensLengthUnit: LensLengthUnit,
         ParaxialLens: ParaxialLens,
-        Birefringent: Birefringent);
+        Birefringent: Birefringent,
+        DiffractiveSurfaceType: DiffractiveSurfaceType,
+        GradientIndexSurfaceType: GradientIndexSurfaceType);
 
     public override string ToString() => $"{Number}: {Label}";
 }

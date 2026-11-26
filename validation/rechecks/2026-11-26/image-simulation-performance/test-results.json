@@ -1,0 +1,82 @@
+[
+  {
+    "source": "image-performance.trx",
+    "artifact": "initial.trx.gz",
+    "accepted": false,
+    "counters": {
+      "total": "36",
+      "executed": "36",
+      "passed": "35",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "raw_sha256": "bbadf9dafac836eb2e934402d264b31f2c9873ca95d262abcbda38e7ccd86973",
+    "failures": [
+      {
+        "test": "OpticalSystemDesign.Tests.RadiometricParaxialTraceTests.PowerTraceChecksEveryPhysicalApertureAndCancellation",
+        "message": "Assert.False() Failure\r\nExpected: False\r\nActual:   True"
+      }
+    ]
+  },
+  {
+    "source": "image-performance-isolated.trx",
+    "artifact": "isolated.trx.gz",
+    "accepted": false,
+    "counters": {
+      "total": "36",
+      "executed": "36",
+      "passed": "36",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "raw_sha256": "f6dff4c1b6bfbaae114f1d0b3c3779056caaf1fe9f5d35ddc0f7f628f29e7d22",
+    "failures": []
+  },
+  {
+    "source": "image-performance-accepted.trx",
+    "artifact": "accepted.trx.gz",
+    "accepted": true,
+    "counters": {
+      "total": "36",
+      "executed": "36",
+      "passed": "36",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "raw_sha256": "b66b9c1329bcecb5d4a04371e66ab3e02ef22f1ffab18d4779e9d1a32bcae7a4",
+    "failures": []
+  }
+]

@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-11-26T16:20:24.894977+08:00",
+  "scope": "Image Simulation source preview and aberration=None blue-notch runtime; method review, not strict native pixel certification",
+  "source_preview_seconds": 0.1200674,
+  "baseline_unprofiled_seconds": 25.5135069,
+  "baseline_profiled_seconds": 30.5675057,
+  "fixed_profiled_seconds": 1.6187316,
+  "fixed_preview_seconds": 1.564348,
+  "fixed_full_seconds": 1.4465266,
+  "preview_size": [
+    77,
+    77
+  ],
+  "full_size": [
+    306,
+    306
+  ],
+  "preview_pixel_sha256_before": "D4AA4DB0E11F356E3748F07D01C5DBB1A59CA9C0CC017B950F9D54ED85A1E08F",
+  "preview_pixel_sha256_after": "D4AA4DB0E11F356E3748F07D01C5DBB1A59CA9C0CC017B950F9D54ED85A1E08F",
+  "preview_pixel_identity": true,
+  "physical_trace_requests_preview": 86272,
+  "physical_trace_requests_full": 86272,
+  "settings": {
+    "SourceImage": "彩色测试卡",
+    "SourceMode": "外部位图",
+    "SourceFile": "D:\\optical system design\\opticalsystem\\src/OpticalSystemDesign.App/Assets/SequentialExamples\\Images\\RGB_CIRCLES.BMP",
+    "PreviewReduction": "4",
+    "ImageWidth": "306",
+    "ImageHeight": "306",
+    "FieldHeight": "1.0",
+    "Oversampling": "无",
+    "SourceFlip": "无",
+    "GuardBand": "无",
+    "SourceRotation": "无",
+    "WavelengthNumber": "RGB",
+    "FieldNumber": "1 - On axis",
+    "NumRays": "32 x 32",
+    "PsfSize": "32 x 32",
+    "PsfGridColumns": "1",
+    "PsfGridRows": "1",
+    "UsePolarization": "true",
+    "AberrationMode": "无",
+    "ApplyFixedApertures": "true",
+    "RelativeIllumination": "true",
+    "DisplayAs": "仿真图",
+    "Reference": "主光线",
+    "ImageFlip": "无",
+    "PixelSize": "0.0",
+    "DetectorXPixels": "0",
+    "DetectorYPixels": "0",
+    "CompressFrame": "false",
+    "OutputFile": "",
+    "EigenPsfComponents": "3",
+    "DistortionGridSize": "9",
+    "DistortionPolynomialDegree": "5"
+  },
+  "rgb_maximum_preview": [
+    1,
+    0.9996581199835701,
+    0
+  ],
+  "rgb_maximum_full": [
+    1,
+    0.9996581199835701,
+    0
+  ],
+  "tests": {
+    "total": "36",
+    "executed": "36",
+    "passed": "36",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "normal_release_app_build": {
+    "success": true,
+    "errors": 0,
+    "warnings": 0,
+    "seconds": 26.35
+  },
+  "reference_review": {
+    "type": "published-method-and-setting-semantics",
+    "native_pixel_comparison": false,
+    "native_timing_comparison": false,
+    "user_clarification": "2026-11-26: reference installation is on another computer; compare calculation methods, strict native comparison not requested"
+  },
+  "transient_build_interference": {
+    "path": "Analysis/AnalysisGpuSession.cs",
+    "errors": [
+      "LoadFourierKernels unavailable while another task was editing",
+      "LoadConvolutionKernels unavailable while another task was editing",
+      "AnalysisGpuDevice.Fourier unavailable while another task was editing"
+    ],
+    "resolution": "Later normal Release App build succeeded with 0 warnings/errors; GPU files were not modified by this task."
+  },
+  "source_sha256": {
+    "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs": "43f7bd5ed3b44722ab2acc8e60f57431bde7fe3237fd6ab2ef59def2e7d0a17d",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs": "6b8dbdafc985a719d369f3fb90eabfd5c291094e3d2e4846542e19c112b0c3fd",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.Support.cs": "8d32084d9b71d8272d6632ff1d3374a0ae9f4f8d00afdb7af5f14cfe6e959386",
+    "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs": "46c6f318a32cda523268b3841b314b326367e96a046382e08527a0fe7fe4d108",
+    "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs": "7336b7478f02d5bfc51435ca3536477f09c6ef2193c865260e98b378143be24e",
+    "tests/OpticalSystemDesign.Tests/RadiometricParaxialTraceTests.cs": "b178a206162b7bd22314ffe9e38309405a2c9969b66592d9684ec6555fe5e384"
+  }
+}

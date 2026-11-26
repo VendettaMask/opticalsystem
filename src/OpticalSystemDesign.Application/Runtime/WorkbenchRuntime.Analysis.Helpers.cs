@@ -118,6 +118,17 @@ public partial class WorkbenchRuntime
         }
         var label = analysisKey switch
         {
+            "Telecentricity" => key switch
+            {
+                "FieldCount" => "视场数",
+                "WavelengthCount" => "波长数",
+                "WavelengthNumber" => "波长（0 为全部）",
+                "ValidChiefRayCount" => "有效主光线",
+                "InvalidChiefRayCount" => "无效主光线",
+                "MaximumObjectTelecentricityDegrees" => "物方最大远心角 (°)",
+                "MaximumImageTelecentricityDegrees" => "像方最大远心角 (°)",
+                _ => DisplayAnalysisKey(key)
+            },
             "Contrast Loss Map" => key switch
             {
                 "Frequency" => "空间频率",

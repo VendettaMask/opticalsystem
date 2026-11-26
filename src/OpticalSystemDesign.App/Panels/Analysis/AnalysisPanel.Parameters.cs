@@ -234,6 +234,23 @@ public sealed partial class AnalysisPanel
 
         _parameterPanel.Children.Add(BuildAutomaticTwoColumnSettings(descriptors));
         ConfigureRmsSamplingControls();
+        ConfigurePolarizationControls();
+    }
+
+    private void ConfigurePolarizationControls()
+    {
+        if (_parameterControls.GetValueOrDefault("UseSystemPolarization") is not CheckBox system) return;
+        void Update()
+        {
+            foreach (var key in new[] { "Jx", "Jy", "XPhase", "YPhase", "Unpolarized" })
+                if (_parameterControls.GetValueOrDefault(key) is Control input)
+                {
+                    input.IsEnabled = system.IsChecked != true;
+                    var help = system.IsChecked == true ? "使用系统选项中的偏振输入。" : null;
+                    ToolTip.SetTip(input, help); AutomationProperties.SetHelpText(input, help);
+                }
+        }
+        system.IsCheckedChanged += (_, _) => Update(); Update();
     }
 
     private void ConfigureRmsSamplingControls()
@@ -285,6 +302,7 @@ public sealed partial class AnalysisPanel
             keys.Take(split).ToArray(),
             keys.Skip(split).ToArray(),
             stackColumnsWhenNarrow: AnalysisKey == "Fourier MTF vs Field"
+                || _parameterControls.ContainsKey("UseSystemPolarization") || keys.Contains("UseSystemPolarization")
                 || WorkbenchAnalysisCatalog.PresentationKind(AnalysisKey) == AnalysisPresentationKind.MtfGrid);
     }
 
@@ -852,7 +870,7 @@ public sealed partial class AnalysisPanel
         }
     }
 
-    private Dictionary<string, string> CaptureParameterSettings()
+    internal Dictionary<string, string> CaptureParameterSettings()
     {
         var settings = new Dictionary<string, string>(_settings);
         foreach (var descriptor in _parameterDescriptors)
@@ -933,6 +951,8 @@ public sealed partial class AnalysisPanel
         {
             AnalysisParameterKind.Choice => ChoiceInput(descriptor, value),
             AnalysisParameterKind.Text => new TextBox { Text = value, MinWidth = 120 },
+            AnalysisParameterKind.File when descriptor.Key == "CoatingFile" =>
+                new FilePathInput(value, SelectCoatingFileAsync, "镀膜实验室设计文件"),
             AnalysisParameterKind.Boolean => BooleanInput(value),
             AnalysisParameterKind.File when descriptor.Key == "OutputFile" =>
                 new FilePathInput(value, SelectImageOutputFileAsync, "选择输出 PNG 或 BMP 无损图片"),
@@ -1043,6 +1063,38 @@ public sealed partial class AnalysisPanel
     private FilePathInput FileInput(string value) =>
         new(value, SelectImageFileAsync);
 
+    private async Task<string?> SelectCoatingFileAsync()
+    {
+        if (TopLevel.GetTopLevel(this) is not { } window) return null;
+        var files = await window.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = UiLocalization.Text("镀膜实验室设计文件"),
+            FileTypeFilter = [new FilePickerFileType(UiLocalization.Text("镀膜实验室设计文件")) { Patterns = ["*.coating.json"] }]
+        });
+        var path = files.FirstOrDefault()?.TryGetLocalPath();
+        if (path is null) return null;
+        try
+        {
+            var scan = await Task.Run(() => CoatingDesign.Engine.DesignService.ReadSurfaceSettings(path));
+            SetNumber("MinimumWavelengthNm", scan.Start);
+            SetNumber("MaximumWavelengthNm", scan.End);
+            SetNumber("IncidenceAngle", scan.Angle);
+            SetNumber("FixedWavelengthNm", scan.Center);
+        }
+        catch (Exception error) when (error is IOException or InvalidDataException or ArgumentException or UnauthorizedAccessException)
+        {
+            // Keep the selection so the analysis can display its file-specific diagnostic.
+        }
+        return path;
+
+        void SetNumber(string key, double value)
+        {
+            if (_parameterControls.TryGetValue(key, out var control) && control is NumericUpDown number
+                && value >= (double)number.Minimum && value <= (double)number.Maximum)
+                number.Value = (decimal)value;
+        }
+    }
+
     private async Task<string?> SelectImageFileAsync()
     {
         var topLevel = TopLevel.GetTopLevel(this);
@@ -1059,7 +1111,7 @@ public sealed partial class AnalysisPanel
             {
                 new FilePickerFileType("\u4F4D\u56FE")
                 {
-                    Patterns = new[] { "*.bmp", "*.png", "*.jpg", "*.jpeg" }
+                    Patterns = new[] { "*.bmp", "*.png", "*.jpg", "*.jpeg", "*.ima" }
                 }
             }
         });
@@ -1095,7 +1147,7 @@ public sealed partial class AnalysisPanel
         internal FilePathInput(
             string value,
             Func<Task<string?>> browse,
-            string placeholder = "选择 BMP、PNG 或 JPEG 图像")
+            string placeholder = "选择 BMP、PNG、JPEG 或 IMA 图像")
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto");
             Input = new TextBox

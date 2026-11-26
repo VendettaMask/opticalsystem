@@ -1,6 +1,5 @@
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.FileIO;
@@ -14,11 +13,6 @@ internal static class StockLensCatalogConverter
     private const int MaximumElementCount = 1_024;
     private const int MaximumRecordCount = 100_000;
     private const string ShapeCodes = "?EBPM";
-
-    private static readonly JsonSerializerOptions ReadOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
 
     private static readonly IReadOnlyDictionary<string, (string Manufacturer, string ProductUrl)> Catalogs =
         new Dictionary<string, (string Manufacturer, string ProductUrl)>(StringComparer.OrdinalIgnoreCase)
@@ -54,27 +48,11 @@ internal static class StockLensCatalogConverter
                 : Path.GetFullPath(seedCatalogPath);
         if (existingPath is not null && (File.Exists(existingPath) || Directory.Exists(existingPath)))
         {
-            var existingCatalogs = Directory.Exists(existingPath)
-                ? Directory.EnumerateFiles(existingPath, "*.json", SearchOption.TopDirectoryOnly)
-                    .Order(StringComparer.OrdinalIgnoreCase)
-                    .Select(CommercialLensCatalogStore.LoadFile)
-                    .ToArray()
-                : new[]
-                {
-                    JsonSerializer.Deserialize<CommercialLensCatalogDocument>(
-                        await BoundedFile.ReadAllTextAsync(
-                            existingPath,
-                            BoundedFile.MaximumCatalogBytes,
-                            "Commercial-lens seed catalog",
-                            cancellationToken).ConfigureAwait(false),
-                        ReadOptions) ?? throw new InvalidDataException("Commercial-lens seed catalog is empty.")
-                };
-            if (existingCatalogs.Any(existing => existing.Version != 1))
-            {
-                throw new InvalidDataException("A commercial-lens seed catalog has an unsupported version.");
-            }
-
-            foreach (var entry in existingCatalogs.SelectMany(existing => existing.Entries))
+            cancellationToken.ThrowIfCancellationRequested();
+            var seed = Directory.Exists(existingPath)
+                ? CommercialLensCatalogStore.LoadCatalogDirectory(existingPath)
+                : CommercialLensCatalogStore.LoadFile(existingPath);
+            foreach (var entry in seed.Entries)
             {
                 entries[CommercialKey(entry)] = entry;
             }

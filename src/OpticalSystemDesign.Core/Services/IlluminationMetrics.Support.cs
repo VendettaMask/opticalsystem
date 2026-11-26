@@ -11,7 +11,7 @@ public static partial class IlluminationMetrics
         private RayTraceSample PrepareFrame(bool nativeTiltedCoordinates = false)
         {
             var source = _generate(0, 0);
-            var chief = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation, stopAtIncidentImage: true,
+            var chief = _optic.SequentialRayTracer.DiagnoseAperturesForPower(source, _cancellation, stopAtIncidentImage: true,
                 ignoreScalarTransmission: !_includeScalarTransmission).UnclippedImage
                 ?? throw Unavailable("the geometric chief ray does not reach the image surface");
             var localHit = _image.CoordinateSystem.ToLocalPoint(chief.Position);

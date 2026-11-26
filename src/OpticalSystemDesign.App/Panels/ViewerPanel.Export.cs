@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -27,6 +28,7 @@ public sealed partial class ViewerPanel
     };
     private bool _isRefreshing;
     private bool _isExportingImage;
+    private Func<Control>? _layoutCaptionFactory;
 
     private void InitializeImageExport()
     {
@@ -187,38 +189,63 @@ public sealed partial class ViewerPanel
     private RenderTargetBitmap CaptureUniformViewerImage(double? scale)
     {
         _diagramPage!.ValidateForExport();
+        var independent2D = _dimension == SceneDimension.TwoDimensional;
+        var width = independent2D ? DiagramSheetLayout.Width : _diagramPage.Width;
         var page = new Grid
         {
-            Width = _diagramPage.Width,
+            Width = width,
             Height = UniformDiagramPage.SheetHeight,
+            UseLayoutRounding = false,
             RowDefinitions = new RowDefinitions($"{UniformDiagramPage.PlotHeight},{UniformDiagramPage.CaptionHeight}"),
             Background = _summaryBar.Background
         };
-        // Detached export grids have no compositor sorting pass. Put the paper
-        // before the scene as well as below it in Z, so rays cannot be covered.
-        ThemeDrawingSurface.AddPaper(page, _scene);
-        page.Children.Add(new SceneImageCanvas(_scene));
-        if (_staleLayoutBanner.IsVisible)
-            page.Children.Add(new Border
-            {
-                Background = _staleLayoutBanner.Background,
-                Padding = new Thickness(10, 5),
-                Margin = _staleLayoutBanner.Margin,
-                VerticalAlignment = VerticalAlignment.Top,
-                Child = CopyImageLabel(_staleLayoutMessage)
-            });
-        if (_summaryBar.IsVisible)
+        // Inherit live theme resources and typography without adding a visual,
+        // changing the live layout or moving the existing caption.
+        if (independent2D) ((ISetLogicalParent)page).SetParent(this);
+        try
         {
-            var caption = new CaptionImageCanvas(_summaryBar.Child!);
-            Grid.SetRow(caption, 1);
-            page.Children.Add(caption);
+            // Detached export grids have no compositor sorting pass. Put the paper
+            // before the scene as well as below it in Z, so rays cannot be covered.
+            ThemeDrawingSurface.AddPaper(page, _scene);
+            page.Children.Add(new SceneImageCanvas(_scene, independent2D));
+            if (_staleLayoutBanner.IsVisible)
+                page.Children.Add(new Border
+                {
+                    Background = _staleLayoutBanner.Background,
+                    Padding = new Thickness(10, 5),
+                    Margin = _staleLayoutBanner.Margin,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Child = CopyImageLabel(_staleLayoutMessage)
+                });
+            if (_summaryBar.IsVisible)
+            {
+                var caption = independent2D && _layoutCaptionFactory is not null
+                    ? _layoutCaptionFactory() : (Control)new CaptionImageCanvas(_summaryBar.Child!);
+                // Export-only controls never raise the window's Loaded hook.
+                // Translate before measuring so labels use the current language.
+                if (independent2D)
+                    foreach (var label in caption.GetLogicalDescendants().OfType<TextBlock>())
+                        label.Text = UiLocalization.Text(label.Text ?? string.Empty);
+                Grid.SetRow(caption, 1);
+                page.Children.Add(caption);
+                if (independent2D)
+                {
+                    caption.Measure(new Size(width, double.PositiveInfinity));
+                    if (caption.DesiredSize.Height > UniformDiagramPage.CaptionHeight + .5)
+                        throw new InvalidOperationException(UiLocalization.Text("当前内容超出统一图框，请减少同时显示的视场或子图，或减小文字后刷新。"));
+                }
+            }
+            // The 2D drawing projects the same scene/view state into the selected
+            // print frame. Neither the live canvas nor its pan/zoom is changed.
+            page.Measure(new Size(width, UniformDiagramPage.SheetHeight));
+            page.Arrange(new Rect(0, 0, width, UniformDiagramPage.SheetHeight));
+            return scale.HasValue ? ExportImageFrame.Capture(page, scale.Value, this)
+                : ExportImageFrame.CaptureConfigured(page, this);
         }
-        // Only composite the already laid-out scene and caption. Never remeasure,
-        // reparent, resize or replace the live drawing and its camera here.
-        page.Measure(new Size(_diagramPage.Width, _diagramPage.Height));
-        page.Arrange(new Rect(0, 0, _diagramPage.Width, _diagramPage.Height));
-        return scale.HasValue ? ExportImageFrame.Capture(page, scale.Value, this)
-            : ExportImageFrame.CaptureConfigured(page, this);
+        finally
+        {
+            if (independent2D) ((ISetLogicalParent)page).SetParent(null);
+        }
     }
 
     private static TextBlock CopyImageLabel(TextBlock source) => new()
@@ -234,14 +261,19 @@ public sealed partial class ViewerPanel
         VerticalAlignment = VerticalAlignment.Center
     };
 
-    private sealed class SceneImageCanvas(OpticSceneControl scene) : Control
+    private sealed class SceneImageCanvas(OpticSceneControl scene, bool independent2D = false) : Control
     {
         private Bitmap? _pixels;
         private double _scale;
         internal void Freeze(Bitmap pixels, double scale) { _pixels = pixels; _scale = scale; InvalidateVisual(); }
         public override void Render(DrawingContext context)
         {
-            if (_pixels is null) { scene.RenderImageContent(context); return; }
+            if (_pixels is null)
+            {
+                if (independent2D) scene.Render2DImageContent(context, Bounds.Size);
+                else scene.RenderImageContent(context);
+                return;
+            }
             using var options = context.PushRenderOptions(new RenderOptions
             { BitmapInterpolationMode = BitmapInterpolationMode.None, BitmapBlendingMode = BitmapBlendingMode.Source });
             context.DrawImage(_pixels, new Rect(0, 0, _pixels.PixelSize.Width / _scale, _pixels.PixelSize.Height / _scale));

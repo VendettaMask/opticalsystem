@@ -26,7 +26,7 @@ internal sealed class AnalysisCategoryIcon : Control
     private static readonly Lazy<IReadOnlyDictionary<string, IReadOnlyList<Part>>> Drawings = new(Load);
 
     internal string SemanticName { get; }
-    internal static bool Supports(string name) => Assets.ContainsKey(name);
+    internal static bool Supports(string name) => Assets.ContainsKey(name) || name is "polarization-settings" or "coating-stack";
 
     internal AnalysisCategoryIcon(string semanticName)
     {
@@ -44,6 +44,14 @@ internal sealed class AnalysisCategoryIcon : Control
         var scale = Math.Min(Bounds.Width, Bounds.Height) / 32;
         if (scale <= 0) return;
         var theme = ThemeRegistry.FromActualVariant(ActualThemeVariant);
+        if (SemanticName is "polarization-settings" or "coating-stack")
+        {
+            var palette = IsEffectivelyEnabled || theme.Palette is null ? theme.IconPalette
+                : ScientificIconPalette.Monochrome(theme.Palette.TextDisabled);
+            ScientificIconLibrary.Resolve(SemanticName, theme.SettingsValue).Artwork!
+                .Draw(context, Bounds, palette);
+            return;
+        }
         if (theme.SettingsValue is "Lumen" or "Isekai")
         {
             var palette = IsEffectivelyEnabled || theme.Palette is null ? theme.IconPalette

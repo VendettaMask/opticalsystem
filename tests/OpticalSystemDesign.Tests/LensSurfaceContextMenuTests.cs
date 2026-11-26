@@ -37,8 +37,10 @@ public sealed class LensSurfaceContextMenuTests
     [Theory]
     [InlineData(0, 3)] // Insert below surface 2.
     [InlineData(1, 2)] // Insert above surface 2.
-    [InlineData(2, 2)] // Delete surface 2 and select its neighbor.
-    public async Task RightClickOperatesOnClickedRowWithOnlyThreeCommands(int command, int selected)
+    [InlineData(2, 3)] // Coordinate break below surface 2.
+    [InlineData(3, 2)] // Coordinate break above surface 2.
+    [InlineData(4, 2)] // Delete surface 2 and select its neighbor.
+    public async Task RightClickOperatesOnClickedRowWithSurfaceAndCoordinateCommands(int command, int selected)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(LensSurfaceContextMenuTests));
         await session.Dispatch(() =>
@@ -61,7 +63,7 @@ public sealed class LensSurfaceContextMenuTests
                 Assert.Equal(2, Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).Number);
                 Assert.Equal(revision, app.Events.Revision); // Opening must not dirty unchanged cells.
                 var items = menu.Items.Cast<MenuItem>().ToArray();
-                Assert.Equal(new[] { "下插入", "上插入", "删除" }, items.Select(item => item.Header));
+                Assert.Equal(new[] { "下插入", "上插入", "下插入坐标间断", "上插入坐标间断", "删除" }, items.Select(item => item.Header));
                 Assert.All(items, item => Assert.True(item.IsEnabled));
                 Assert.DoesNotContain(panel.GetVisualDescendants().OfType<Button>(), button =>
                     button.Content is LocalIconLabel label && label.Children.OfType<TextBlock>()
@@ -78,10 +80,15 @@ public sealed class LensSurfaceContextMenuTests
                 Layout(window);
                 Assert.Equal(revision + 1, app.Events.Revision);
                 var rows = app.Prescription.GetSurfaces();
-                Assert.Equal(before.Count + (command == 2 ? -1 : 1), rows.Count);
+                Assert.Equal(before.Count + (command == 4 ? -1 : 1), rows.Count);
                 Assert.Equal(selected, Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).Number);
-                if (command == 2)
+                if (command == 4)
                     Assert.Equal(before[3].Radius, rows[2].Radius);
+                else if (command is 2 or 3)
+                {
+                    Assert.True(rows[selected].IsCoordinateReference);
+                    Assert.Equal(0, rows[selected].Thickness);
+                }
                 else
                     Assert.Equal(40, rows[selected].Radius);
                 Assert.False(menu.IsOpen);
@@ -106,10 +113,10 @@ public sealed class LensSurfaceContextMenuTests
                 var grid = panel.GetVisualDescendants().OfType<DataGrid>().Single();
                 var menu = Menu(panel);
                 RightClick(window, Row(grid, 0));
-                Assert.Equal(new[] { true, false, false }, menu.Items.Cast<MenuItem>().Select(item => item.IsEnabled));
+                Assert.Equal(new[] { true, false, true, false, false }, menu.Items.Cast<MenuItem>().Select(item => item.IsEnabled));
                 menu.Close();
                 RightClick(window, Row(grid, app.Prescription.GetSurfaces().Count - 1));
-                Assert.Equal(new[] { false, true, false }, menu.Items.Cast<MenuItem>().Select(item => item.IsEnabled));
+                Assert.Equal(new[] { false, true, false, true, false }, menu.Items.Cast<MenuItem>().Select(item => item.IsEnabled));
                 menu.Close();
                 RightClick(window, Row(grid, 2));
                 var insert = menu.Items.Cast<MenuItem>().First();

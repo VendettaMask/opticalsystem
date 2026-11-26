@@ -66,7 +66,8 @@ public enum AnalysisAxisQuantity
     ChromaticPower,
     ThermalOpticalPower,
     Transmission,
-    NormalizedField
+    NormalizedField,
+    FieldNumber
 }
 
 public enum AnalysisAxisUnit

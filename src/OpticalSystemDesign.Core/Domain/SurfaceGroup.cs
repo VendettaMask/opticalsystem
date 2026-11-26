@@ -46,6 +46,48 @@ public sealed class SurfaceGroup
         return InsertDefaultSurfaceCore(surfaceNumber);
     }
 
+    public OpticalSurface InsertCoordinateBreak(int surfaceNumber)
+    {
+        if (_owner is null || surfaceNumber <= 0 || surfaceNumber >= Items.Count)
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
+        SequentialCoordinateEditing.EnsurePlacements(_owner);
+        var previous = Items[surfaceNumber - 1];
+        var surface = new OpticalSurface
+        {
+            Label = "Coordinate Break",
+            Radius = double.PositiveInfinity,
+            Thickness = 0,
+            SemiDiameter = previous.SemiDiameter,
+            Material = previous.MaterialAfter.Name,
+            MaterialBefore = previous.MaterialAfter.Clone(),
+            MaterialAfter = previous.MaterialAfter.Clone(),
+            Geometry = new Geometries.PlaneGeometry(),
+            InteractionModel = new Interactions.CoordinateReferenceInteractionModel(),
+            Placement = SequentialSurfacePlacement.From(CoordinateSystem.Global, coordinateBreak: new(0, 0, 0, 0, 0, false))
+        };
+        RemapCoordinateReferencesForInsert(surfaceNumber);
+        Items.Insert(surfaceNumber, surface);
+        return surface;
+    }
+
+    public void SynchronizeFollowingMedia(int surfaceNumber)
+    {
+        for (var index = surfaceNumber + 1; index < Items.Count; index++)
+        {
+            var surface = Items[index];
+            surface.MaterialBefore = Items[index - 1].MaterialAfter.Clone();
+            if (!surface.IsReflective && surface.InteractionModel is not Interactions.CoordinateReferenceInteractionModel) break;
+            surface.MaterialAfter = surface.MaterialBefore.Clone();
+        }
+    }
+
+    private void RemapCoordinateReferencesForInsert(int number)
+    {
+        if (_owner is not null) SequentialCoordinateEditing.RemapMeritReferences(_owner, n => n >= number ? n + 1 : n);
+        SequentialCoordinateEditing.RemapReferences(Items, n => n >= number ? n + 1 : n);
+        if (_owner is not null && _owner.GlobalReferenceSurfaceNumber >= number) _owner.GlobalReferenceSurfaceNumber++;
+    }
+
     private OpticalSurface InsertDefaultSurfaceCore(int surfaceNumber)
     {
         var previous = surfaceNumber > 0 ? Items[surfaceNumber - 1] : Items.LastOrDefault();
@@ -61,6 +103,7 @@ public sealed class SurfaceGroup
         surface.InitializeFromLegacyProperties(0);
         if (Items.Any(item => item.Placement is not null))
             surface.Placement = SequentialSurfacePlacement.From(CoordinateSystem.Global);
+        RemapCoordinateReferencesForInsert(surfaceNumber);
         Items.Insert(surfaceNumber, surface);
         return surface;
     }
@@ -69,6 +112,11 @@ public sealed class SurfaceGroup
     {
         if (surface is not null && Items.Contains(surface))
         {
+            var number = Items.IndexOf(surface);
+            SequentialCoordinateEditing.ValidateRemoval(Items, number);
+            if (_owner is not null) SequentialCoordinateEditing.RemapMeritReferences(_owner, n => n > number ? n - 1 : n, number);
+            SequentialCoordinateEditing.RemapReferences(Items.Where(s => !ReferenceEquals(s, surface)), n => n > number ? n - 1 : n);
+            if (_owner is not null && _owner.GlobalReferenceSurfaceNumber > number) _owner.GlobalReferenceSurfaceNumber--;
             Items.Remove(surface);
         }
     }

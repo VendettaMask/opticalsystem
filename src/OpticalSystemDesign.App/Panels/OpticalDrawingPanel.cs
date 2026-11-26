@@ -102,7 +102,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         IMaterialCatalogService materials,
         IWorkspaceEventStream events,
         IVisualizationService visualization,
-        OpticalDrawingStandard drawingStandard = OpticalDrawingStandard.Iso10110)
+        OpticalDrawingStandard drawingStandard = OpticalDrawingStandard.Iso10110,
+        int? initialFrontSurface = null)
     {
         _prescription = prescription;
         _materials = materials;
@@ -228,7 +229,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             DrawingStandardChanged?.Invoke(this, EventArgs.Empty);
         };
         _events.Changed += OnWorkspaceChanged;
-        RefreshElements(preserveSelection: false);
+        RefreshElements(preserveSelection: false, initialFrontSurface: initialFrontSurface);
         UiLocalization.BindLanguage(this, RefreshLanguagePreview);
     }
 
@@ -421,7 +422,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Dispatcher.UIThread.Post(() => RefreshElements(preserveSelection: !args.FileSwitched));
     }
 
-    private void RefreshElements(bool preserveSelection)
+    private void RefreshElements(bool preserveSelection, int? initialFrontSurface = null)
     {
         if (_disposed)
         {
@@ -452,8 +453,10 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             .ToArray();
         _updating = true;
         _elementPicker.ItemsSource = choices;
-        _elementPicker.SelectedItem = choices.FirstOrDefault(choice =>
-            choice.DisplayName == previousChoice) ?? choices.FirstOrDefault();
+        _elementPicker.SelectedItem = choices.FirstOrDefault(choice => choice.DisplayName == previousChoice)
+            ?? choices.FirstOrDefault(choice => choice.Element is { IsCemented: false } element
+                && element.FrontSurface.Number == initialFrontSurface)
+            ?? choices[0];
         _updating = false;
         OnElementChanged();
     }

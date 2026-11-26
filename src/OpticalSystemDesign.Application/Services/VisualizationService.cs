@@ -311,7 +311,11 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
                 three.SelectMany(scene => scene.LensElements).ToArray(),
                 three.SelectMany(scene => scene.Rays).ToArray(),
                 three.Max(scene => scene.XExtent), three.Max(scene => scene.YExtent),
-                three.Min(scene => scene.ZMin), three.Max(scene => scene.ZMax)),
+                three.Min(scene => scene.ZMin), three.Max(scene => scene.ZMax))
+            {
+                FitBounds = EncloseScenePoints(three.Where(scene => scene.FitBounds is not null)
+                    .SelectMany(scene => new[] { scene.FitBounds!.Minimum, scene.FitBounds.Maximum }))
+            },
             summary with { EffectiveFocalLength = double.NaN, FNumber = double.NaN, TotalTrack = double.NaN },
             Configuration: new SceneConfigurationDto(0, scenes.Count, IncludesAll: true),
             ConfigurationSummaries: scenes.Select(scene => new SceneConfigurationSummaryDto(

@@ -35,6 +35,8 @@ public sealed class AppSettings
 
     public double FontSize { get; set; } = DefaultFontSize;
 
+    public bool UseGpuAcceleration { get; set; } = true;
+
     public string AnalysisColorMap { get; set; } = nameof(ScientificColorMap.Viridis);
 
     public string DiagramAspectRatio { get; set; } = DiagramSheetLayout.Automatic;
@@ -115,6 +117,7 @@ public sealed class AppSettings
         FontFamily = string.Empty;
         FontShape = "Regular";
         FontSize = DefaultFontSize;
+        UseGpuAcceleration = true;
         AnalysisColorMap = nameof(ScientificColorMap.Viridis);
         DiagramAspectRatio = DiagramSheetLayout.Automatic;
         ImageExportDpi = ImageExportResolution.DefaultDpi;

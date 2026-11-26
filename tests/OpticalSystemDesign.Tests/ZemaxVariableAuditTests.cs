@@ -241,14 +241,31 @@ public sealed class ZemaxVariableAuditTests
     }
 
     [Fact]
-    public async Task ModelGlassAndUnsupportedConfigurationVariablesKeepExplicitDiagnostics()
+    public void ModelGlassSolveAndItsPickupUseTheSpecifiedDispersion()
     {
-        var source = Source("STANDARD", "GLAS ___MODEL 3 0 1.6 60 .002 1 1 1 0 0")
+        var source = Source("STANDARD", "GLAS ___BLANK 1 0 1.61 57 .002 1 0 1 0 0")
+            .Replace("SURF 2", "SURF 2\nGLAS unused 2 1");
+        var imported = OpticalFormatCatalog.Import(source, ".zmx");
+        var model = Assert.IsType<ModelGlassMaterial>(imported.SurfaceGroup.Items[1].MaterialAfter);
+        var pickup = Assert.IsType<ModelGlassMaterial>(imported.SurfaceGroup.Items[2].MaterialAfter);
+        Assert.Equal(new[] { "nd", "dpgf" }, model.Variables);
+        Assert.Empty(pickup.Variables);
+        Assert.Equal(model.RefractiveIndex(480), pickup.RefractiveIndex(480));
+        var exported = OpticalFormatCatalog.Export(imported, ".zmx");
+        Assert.Contains("GLAS ___BLANK 1 0", exported);
+        var restored = OpticalFormatCatalog.Import(exported, ".zmx");
+        var copy = Assert.IsType<ModelGlassMaterial>(restored.SurfaceGroup.Items[1].MaterialAfter);
+        Assert.Equal(model.Variables, copy.Variables);
+        Assert.Equal(model.RefractiveIndex(650), copy.RefractiveIndex(650));
+    }
+
+    [Fact]
+    public async Task SubstituteGlassAndUnsupportedConfigurationVariablesKeepExplicitDiagnostics()
+    {
+        var source = Source("STANDARD", "GLAS N-BK7 3 0 1.6 60 .002 1 1 1 0 0")
             + "\nMNUM 1 1\nMIND 1 1 1.6 1 0 0 1 1 1 0 0\nAPER 0 1 2 1 0 0 1 2 1 0 0";
         var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
-        Assert.Contains(imported.ActiveOptic.ImportVariableWarnings, warning => warning.Contains("GLAS 7:", StringComparison.Ordinal));
-        Assert.Contains(imported.ActiveOptic.ImportVariableWarnings, warning => warning.Contains("GLAS 8:", StringComparison.Ordinal));
-        Assert.Contains(imported.ActiveOptic.ImportVariableWarnings, warning => warning.Contains("GLAS 9:", StringComparison.Ordinal));
+        Assert.Contains(imported.ActiveOptic.ImportVariableWarnings, warning => warning.Contains("GLAS 0:", StringComparison.Ordinal));
         Assert.Contains(imported.ActiveOptic.ImportVariableWarnings, warning => warning.Contains("MIND 0:", StringComparison.Ordinal));
         Assert.Contains(imported.ActiveOptic.ImportVariableWarnings, warning => warning.Contains("APER 0:", StringComparison.Ordinal));
         var restored = await RoundTrip(imported);

@@ -686,7 +686,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
         return surface.MaterialAfter switch
         {
-            Materials.ModelGlassMaterial model => $"  GLAS {model.Name} 3 0 {FormatDouble(model.Nd)} {FormatDouble(model.Vd)} {FormatDouble(model.DPgF)} {(model.VaryNd ? 1 : 0)} {(model.VaryVd ? 1 : 0)} {(model.VaryDPgF ? 1 : 0)} 0 0",
+            Materials.ModelGlassMaterial model => $"  GLAS {model.Name} 1 0 {FormatDouble(model.Nd)} {FormatDouble(model.Vd)} {FormatDouble(model.DPgF)} {(model.VaryNd ? 1 : 0)} {(model.VaryVd ? 1 : 0)} {(model.VaryDPgF ? 1 : 0)} 0 0",
             Materials.UniaxialMaterial crystal when crystal.Ordinary is Materials.CatalogGlassMaterial ordinary
                 && crystal.Extraordinary is Materials.CatalogGlassMaterial extraordinary
                 && ordinary.Manufacturer.Equals(extraordinary.Manufacturer, StringComparison.OrdinalIgnoreCase)
@@ -1069,7 +1069,7 @@ internal static class SequentialLensParser
                 Thickness,
                 NormalizeMaterial(Material),
                 string.IsNullOrWhiteSpace(Coating) ? "None" : Coating,
-                Math.Max(0.1, SemiDiameter),
+                Math.Max(0, SemiDiameter),
                 Conic,
                 IsStop,
                 IsReflective);

@@ -1,6 +1,6 @@
 # 分析入口与计算章节对应
 
-本表由当前分析目录和应用内章节映射生成，共 80 项；运行时定向检查另行核对全部描述符。它验证指南覆盖，不验证数值精度。公式见[数学附录](COMPUTATION_FORMULAS.md)，定义见[计算指南](COMPUTATION_GUIDE.md)。生成与复核方法见[文档维护](DOCUMENTATION_MAINTENANCE.md)。
+本表由当前分析目录和应用内章节映射生成，共 86 项；运行时定向检查另行核对全部描述符。它验证指南覆盖，不验证数值精度。公式见[数学附录](COMPUTATION_FORMULAS.md)，定义见[计算指南](COMPUTATION_GUIDE.md)。生成与复核方法见[文档维护](DOCUMENTATION_MAINTENANCE.md)。
 
 | 分析入口 | 计算章节 |
 | --- | --- |
@@ -48,6 +48,7 @@
 | 入射角 vs. 像高 (Angle vs Image Height) | 扫描、参考球与多结构比较 |
 | 入射角-像高（扫描瞳孔） (Angle vs Image Height - Through Pupil) | 扫描、参考球与多结构比较 |
 | 入射角-像高（扫描视场） (Angle vs Image Height - Through Field) | 扫描、参考球与多结构比较 |
+| 远心度 (Telecentricity) | 扫描、参考球与多结构比较 |
 | 基面数据 (Cardinal Points Data) | 一阶光学与焦距如何计算 |
 | 渐晕图 (Vignetting Diagram) | 光瞳采样、瞄准与渐晕 |
 | 相对照度 (Relative Illumination) | 相对照度与辐射度量 |
@@ -81,6 +82,11 @@
 | 部分相干图像分析 (Partially Coherent Image Analysis) | 几何、相干与部分相干图像 |
 | 扩展图像分析 (Extended Diffraction Image Analysis) | 几何、相干与部分相干图像 |
 | Jones 瞳 (Jones Pupil) | 偏振、Fresnel 与镀膜 |
+| 偏振光线追迹 (Polarization Ray Trace) | 偏振、Fresnel 与镀膜 |
+| 偏振光瞳图 (Polarization Pupil Map) | 偏振、Fresnel 与镀膜 |
+| 透过率计算 (Polarization Transmission) | 偏振、Fresnel 与镀膜 |
+| 偏振相位像差 (Polarization Phase Aberration) | 偏振、Fresnel 与镀膜 |
+| 透射光瞳像差图 (Transmission Fan) | 偏振、Fresnel 与镀膜 |
 | 表面数据报告 (Prescription Report) | 计算总览：从处方到结果 |
 | 系统数据报告 (System Data Report) | 一阶光学与焦距如何计算 |
 | 分类数据报告 (Classified Data Report) | 计算总览：从处方到结果 |

@@ -1033,3 +1033,47 @@ Fresnel 分裂	Fresnel splitting	Fresnel分岐
 寻常光	Ordinary Ray	常光線
 非寻常光	Extraordinary Ray	異常光線
 特殊面型使用独立交互模型，不能通过几何类型切换替换。	This surface uses a dedicated interaction model and cannot be replaced through the geometry selector.	この面は専用の相互作用モデルを使用するため、形状の切り替えでは置換できません。
+偏振光线追迹	Polarization Ray Trace	偏光光線追跡
+偏振光瞳图	Polarization Pupil Map	偏光瞳マップ
+透过率计算	Transmission	透過率計算
+偏振相位像差	Polarization Phase Aberration	偏光位相収差
+透射光瞳像差图	Transmission Fan	透過率ファン
+Polarization Ray Trace	Polarization Ray Trace	偏光光線追跡	偏振光线追迹
+Polarization Pupil Map	Polarization Pupil Map	偏光瞳マップ	偏振光瞳图
+Polarization Transmission	Transmission	透過率計算	透过率计算
+Polarization Phase Aberration	Polarization Phase Aberration	偏光位相収差	偏振相位像差
+Transmission Fan	Transmission Fan	透過率ファン	透射光瞳像差图
+使用系统偏振	Use system polarization	システムの偏光を使用
+使用系统选项中的偏振输入。	Uses the polarization input in System Options.	システム設定の偏光入力を使用します。
+X 相位 (°)	X phase (°)	X 位相 (°)
+Y 相位 (°)	Y phase (°)	Y 位相 (°)
+光瞳截面采样点数	Pupil fan samples	瞳断面サンプル数
+光瞳积分 (%)	Pupil-integrated (%)	瞳積分 (%)
+主光线相对 (%)	Chief relative (%)	主光線相対 (%)
+主光线累计 (%)	Chief cumulative (%)	主光線累積 (%)
+椭圆方位 (°)	Ellipse orientation (°)	楕円方位 (°)
+X 瞳截面	X pupil fan	X 瞳断面
+Y 瞳截面	Y pupil fan	Y 瞳断面
+瞳截面	Pupil fan	瞳断面
+瞳坐标	Pupil coordinate	瞳座標
+相位像差 (waves)	Phase aberration (waves)	位相収差 (waves)
+请选择单一视场和波长。	Select one field and wavelength.	視野と波長をそれぞれ 1 つ選択してください。
+没有到达所选表面的有效光线。	No valid rays reach the selected surface.	選択した面に到達する有効な光線がありません。
+偏振分析采样总数不能超过 1000000。	Polarization analysis is limited to 1000000 samples.	偏光解析のサンプル総数は 1000000 以下にしてください。
+界面与体吸收模型	Interface and bulk-absorption model	界面・体吸収モデル
+电场坐标系	Electric-field coordinates	電場座標系
+时间约定	Time convention	時間規約
+相位参考	Phase reference	位相基準
+光瞳透过率	Pupil transmission	瞳透過率
+椭圆投影	Ellipse projection	楕円投影
+计入体吸收	Include bulk absorption	体吸収を含む
+计入传播相位	Include propagation phase	伝搬位相を含む
+Surface local XYZ	Surface local XYZ	面局所 XYZ	表面局部 XYZ
+Real-index homogeneous interfaces with Beer-Lambert bulk absorption; coherent films use their complex amplitudes	Real-index interfaces, Beer-Lambert bulk absorption and complex film amplitudes	実屈折率界面・Beer-Lambert 体吸収・薄膜複素振幅	实折射率界面、Beer–Lambert 体吸收和膜层复振幅
+Chief ray, principal branch (-0.5, 0.5] waves; zero fields undefined	Chief ray; principal phase (-0.5, 0.5] waves; zero components undefined	主光線基準・位相主値 (-0.5, 0.5] 波・ゼロ成分は未定義	主光线参考，(-0.5, 0.5] 波主值；零电场分量未定义
+Local Ex/Ey; power includes Ex/Ey/Ez	Local Ex/Ey projection; power includes Ex/Ey/Ez	局所 Ex/Ey 投影・パワーは Ex/Ey/Ez	局部 Ex/Ey 投影；功率包含 Ex/Ey/Ez
+Uniform circular entrance-pupil grid; all launched power retained in denominator	Uniform circular pupil; all launched power retained in denominator	円形瞳の均等格子・全発射パワーを分母に保持	圆形入瞳均匀网格；分母保留全部发射功率
+GLSS · 材料	GLSS · Material	GLSS · 材質
+应用材料	Apply material	材質を適用
+材料名称（空白为空气）	Material name (blank for air)	材質名（空欄は空気）
+材料行使用材料名称编辑。	Edit material rows using material names.	材質行は材質名で編集します。

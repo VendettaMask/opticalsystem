@@ -203,9 +203,9 @@ public partial class WorkbenchRuntime
         {
             throw new ArgumentException("请选择另一个表面作为光阑，不能直接移除当前光阑。", nameof(isStop));
         }
-        if (semiDiameter.HasValue && (!double.IsFinite(semiDiameter.Value) || semiDiameter.Value < 0.1))
+        if (semiDiameter.HasValue && (!double.IsFinite(semiDiameter.Value) || semiDiameter.Value < 0))
         {
-            throw new ArgumentOutOfRangeException(nameof(semiDiameter), "净半径必须是至少 0.1 mm 的有限数值。");
+            throw new ArgumentOutOfRangeException(nameof(semiDiameter), "净半径必须是非负的有限数值。");
         }
 
         var normalizedColor = SurfaceDisplayColor.Normalize(surfaceColor);

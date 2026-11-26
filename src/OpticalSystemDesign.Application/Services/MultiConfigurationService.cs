@@ -71,10 +71,16 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
             var pickups = Runtime.GetMultiConfigurationPickups().ToDictionary(p => (p.ConfigurationIndex, p.Operand));
             var rowNumbers = context.OperandRows.Select((row, index) => (row, index)).ToDictionary(p => p.row, p => p.index + 1);
             return context.OperandRows.Select((row, index) => new MultiConfigurationOperandRowDto(index + 1,
-                (MultiConfigurationParameterKind)row.Kind, row.SurfaceNumber, context.Configurations.Select(row.Read).ToArray(),
+                (MultiConfigurationParameterKind)row.Kind, row.SurfaceNumber, row.IsNumeric ? context.Configurations.Select(row.Read).ToArray() : [],
                 context.Configurations.Select((_, configuration) => variables.Contains(new(configuration, row))).ToArray(),
                 context.Configurations.Select((_, configuration) => pickups.TryGetValue((configuration, row), out var pickup)
-                    ? new MultiConfigurationPickupDto(rowNumbers[pickup.SourceOperand], pickup.SourceConfigurationIndex, pickup.Scale, pickup.Offset) : null).ToArray(), row.Parameter)).ToArray();
+                    ? new MultiConfigurationPickupDto(rowNumbers[pickup.SourceOperand], pickup.SourceConfigurationIndex, pickup.Scale, pickup.Offset) : null).ToArray(), row.Parameter)
+                {
+                    TextValues = row.IsNumeric ? null : context.Configurations.Select(row.ReadText).ToArray(),
+                    ParameterNumber = row.Kind == MultiConfigurationOperandKind.ShapeCoefficient
+                        && row.Parameter is { Length: > 1 } parameter && parameter[0] is 'f' or 't'
+                        && int.TryParse(parameter.AsSpan(1), out var parameterIndex) ? parameterIndex + 1 : null
+                }).ToArray();
         }
     }
 
@@ -98,6 +104,13 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
         {
             if (expectedRevision != Workspace.Revision) throw new InvalidOperationException("工程已变化，请刷新多配置行表后重试。");
             Runtime.SetMultiConfigurationOperandVariable(oneBasedRow, configurationIndex, enabled);
+        });
+
+    public void SetOperandTextValue(int oneBasedRow, int configurationIndex, string value, long expectedRevision) =>
+        MutateTransactional(WorkspaceChangeCategory.Configuration, () =>
+        {
+            if (expectedRevision != Workspace.Revision) throw new InvalidOperationException("工程已变化，请刷新多配置行表后重试。");
+            Runtime.SetMultiConfigurationOperandTextValue(oneBasedRow, configurationIndex, value);
         });
 
     public void SetOperandPickup(int oneBasedRow, int configurationIndex, MultiConfigurationPickupDto? pickup, long expectedRevision) =>

@@ -1,0 +1,40 @@
+{
+  "RecordedUtc": "2026-11-26T03:04:37.1682705Z",
+  "BaseCommit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+  "Scope": "One fixed colour per operand type, independent of row position or configuration",
+  "Passed": 14,
+  "Failed": 0,
+  "Skipped": 0,
+  "Run": "types-final.trx",
+  "Identity": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/OperandRowColors.cs",
+      "SHA256": "97F11D282CCD92B5DB24E16B26F515C4AF6A724899D504EED6678AAB2E7A0E4F"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Operands.cs",
+      "SHA256": "DB7B07C437D47AD642FDA974A6509BD2E1B960051778F7D848E797954FC5DCCA"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs",
+      "SHA256": "11179C673BC00E9609D81E7A0BD96EC07AE19876733CAD1B0E5ACC58BA55FF07"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MultiConfigurationColorTests.cs",
+      "SHA256": "C9771CA81F58C40BF1D849F45DFF3A5D8B7D707AB42DDD431CB19034D58B5F41"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "SHA256": "0C00DE61921EB999B661B9495C08C048F1BB0F29C2F4EF6B006E76DBD5DAE3E1"
+    },
+    {
+      "Path": "local-data/operand-type-colors-validation/OpticalSystemDesign.App.dll",
+      "SHA256": "0C00DE61921EB999B661B9495C08C048F1BB0F29C2F4EF6B006E76DBD5DAE3E1"
+    },
+    {
+      "Path": "local-data/operand-type-colors-validation/OpticalSystemDesign.Tests.dll",
+      "SHA256": "1A89585F81F695238D38405B3233240775E77ADB8B687680A87B811B6527F942"
+    }
+  ],
+  "Note": "Concurrent work preserved; default product and isolated test build identities recorded separately."
+}

@@ -1,0 +1,74 @@
+{
+  "phase": "complete",
+  "seconds": 30.5675057,
+  "outcome": "Success",
+  "reason": null,
+  "report": "\u5206\u6790\uFF1A\u56FE\u50CF\u6A21\u62DF\r\n\u4EFF\u771F\u6D41\u7A0B\uFF1AEigenPSF spatially variable convolution (None) \u002B geometric distortion \u002B lateral color\r\n\u56FE\u50CF\u4EFF\u771F\u8BBE\u7F6E\uFF1ASource bitmap, orientation, field, wavelength, grid convolution, detector, display, and output settings\r\n\u6E90\u7C7B\u578B\uFF1AExternal bitmap\r\nPreviewReduction\uFF1A4\r\nSourcePattern\uFF1AColorChart\r\nSourceFile\uFF1AD:\\optical system design\\opticalsystem\\src/OpticalSystemDesign.App/Assets/SequentialExamples\\Images\\RGB_CIRCLES.BMP\r\n\u89C6\u573A\u9AD8\u5EA6\uFF1A1\r\n\u8FC7\u91C7\u6837\uFF1A1\r\n\u4FDD\u62A4\u5E26\uFF1A0\r\n\u7FFB\u8F6C\u4F4D\u56FE\uFF1A\u65E0\r\n\u65CB\u8F6C\u4F4D\u56FE (\u00B0)\uFF1A0\r\n\u7FFB\u8F6C\u56FE\u50CF\uFF1A\u65E0\r\n\u76F8\u5BF9\u7167\u5EA6\uFF1ATrue\r\n\u50CF\u5DEE\u6A21\u5F0F\uFF1ANone\r\n\u8BF7\u6C42\u50CF\u5DEE\u6A21\u5F0F\uFF1ANone\r\n\u53C2\u8003\uFF1Achief\r\n\u663E\u793A\u4E3A\uFF1A\u4EFF\u771F\u56FE\r\n\u89C6\u573A\u4E2D\u5FC3\uFF1A(0, 0)\r\n\u50CF\u7D20\u5927\u5C0F (mm)\uFF1A0\r\nX \u50CF\u7D20\uFF1A0\r\nY \u50CF\u7D20\uFF1A0\r\n\u4F7F\u7528\u504F\u632F\uFF1ATrue\r\n\u5E94\u7528\u56FA\u5B9A\u5B54\u5F84\uFF1ATrue\r\n\u538B\u7F29\u6846\u67B6\uFF1AFalse\r\n\u8F93\u51FA\u6587\u4EF6\uFF1A\r\n\u8F93\u51FA\u5F62\u72B6\uFF1A(1, 3, 77, 77)\r\n\u5B9E\u9645\u50CF\u5DEE\u6A21\u5F0F\uFF1ANone\r\n\u51E0\u4F55 PSF \u56DE\u9000\u6B21\u6570\uFF1A0\r\n\u5F3A\u5EA6 PSF \u4FEE\u6B63\u6B21\u6570\uFF1A0\r\nPSF \u91CD\u5EFA\u6700\u5927\u8D1F\u5F3A\u5EA6\u603B\u91CF\uFF1A0\r\n\u6CE2\u957F (\u00B5m)\uFF1A0.606, 0.535, 0.465\r\nPSF \u89C6\u573A\u7F51\u683C\uFF1A(1, 1)\r\nPSF \u5C3A\u5BF8\uFF1A32\r\n\u5149\u7EBF\u6570\uFF1A32\r\nEigenPSF \u5206\u91CF\u6570\uFF1A3\r\n\u7578\u53D8\u91C7\u6837\u7F51\u683C\uFF1A9\r\n\u7578\u53D8\u62DF\u5408\u9636\u6570\uFF1A5\r\n\u5E73\u5747\u7EDD\u5BF9\u53D8\u5316\uFF1A0.063\r\n\u6700\u5927\u8F93\u51FA\u503C\uFF1A1",
+  "samples": [
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceIncidentGeometry/Beam.Aim/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Integrand|1/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Simpson|2",
+      "Value": 669
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceIncidentGeometry/Beam.Aim/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Integrand|1/ParaxialPhaseTrace.Evaluate",
+      "Value": 134
+    },
+    {
+      "Key": "Simulate: \u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Integrand|1/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Simpson|2/ParaxialPhaseTrace.Evaluate/ParaxialLensInteractionModel.Interact",
+      "Value": 61
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceIncidentGeometry/Beam.\u003CAim\u003Eg__Evaluate|6_1/Beam.Aim/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Integrand|1",
+      "Value": 36
+    },
+    {
+      "Key": "Simulate: \u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Integrand|1/ParaxialPhaseTrace.Evaluate/ParaxialLensInteractionModel.Interact/OpticalSurface.TraceRayState",
+      "Value": 19
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.DiagnoseAperturesCore/Integrator.Sample/Integrator.Integrate/Integrator.Evaluate",
+      "Value": 17
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceIncidentGeometry/Beam.Aim/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eb__4/ParaxialPhaseTrace.Evaluate",
+      "Value": 9
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceIncidentGeometry/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eb__4/ParaxialPhaseTrace.Evaluate/ParaxialLensInteractionModel.Interact",
+      "Value": 7
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.DiagnoseAperturesCore/Integrator.Sample/Integrator.Evaluate/IlluminationMetrics.Evaluate",
+      "Value": 4
+    },
+    {
+      "Key": "Simulate: \u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Integrand|1/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eg__Simpson|2/ParaxialPhaseTrace.Evaluate/\u003C\u003Ec__DisplayClass28_0.\u003CTraceSequentialSurface\u003Eb__1",
+      "Value": 4
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceIncidentGeometry/Beam.\u003CAim\u003Eg__Evaluate|6_1/Beam.Aim/\u003C\u003Ec__DisplayClass5_0.\u003CEvaluate\u003Eb__4",
+      "Value": 2
+    },
+    {
+      "Key": "Simulate: ImageSimulationEngine.Simulate/ImageSimulationAnalysis.GenerateData/BaseAnalysis.GenerateData",
+      "Value": 2
+    },
+    {
+      "Key": "Simulate: ImageSimulationEngine.GenerateDistortionGrid/ImageSimulationEngine.Simulate/ImageSimulationAnalysis.GenerateData/BaseAnalysis.GenerateData",
+      "Value": 2
+    },
+    {
+      "Key": "Simulate: StopAimingSolver.Solve/RayGenerator.AimInfiniteRayAtStop/\u003C\u003Ec__DisplayClass17_0.\u003CCreatePupilRaySampler\u003Eb__0/Integrator.Sample",
+      "Value": 2
+    },
+    {
+      "Key": "Simulate: Integrator.Sample/Integrator.Integrate/Integrator.Evaluate/IlluminationMetrics.Evaluate",
+      "Value": 2
+    },
+    {
+      "Key": "Simulate: SequentialRayTracer.TraceSurfaceMajor/SequentialRayTracer.Trace/SequentialRayTracer.TraceGenericFinalSample/Optic.TraceGenericFinalSample",
+      "Value": 2
+    }
+  ],
+  "pixelsSha256": "D4AA4DB0E11F356E3748F07D01C5DBB1A59CA9C0CC017B950F9D54ED85A1E08F"
+}

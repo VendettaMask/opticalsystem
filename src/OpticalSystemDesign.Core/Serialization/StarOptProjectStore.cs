@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 29;
+    public const int ProjectFormatVersion = 31;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,9 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            document.NonSequentialDocument is { Organization: { } organization }
+            RequiresMaterialRowsOrZeroSemiDiameters(document) ? 31
+                : RequiresCoordinateReturns(document.Configurations) ? 30
+                : document.NonSequentialDocument is { Organization: { } organization }
                 && (organization.Folders.Count > 0 || organization.SelectionSets.Count > 0) ? 29
                 : RequiresNonSequentialSampling(document.NonSequentialDocument) ? 28
                 : RequiresAdditionalSurfaceVariables(document.Configurations) ? 27
@@ -261,6 +263,10 @@ public static class StarOptProjectStore
         var configurations = project.Configurations
             .Select(Optic.FromSnapshot)
             .ToArray();
+        if (project.FormatVersion < 31 && project.OperandRows?.Any(row => row.Kind == MultiConfigurationOperandKind.Material) == true)
+            throw new InvalidDataException("Material configuration rows require STAROPT project version 31.");
+        if (project.FormatVersion < 30 && RequiresCoordinateReturns(configurations))
+            throw new InvalidDataException("Coordinate frame returns require STAROPT project version 30.");
         if (project.FormatVersion < 27 && RequiresAdditionalSurfaceVariables(configurations, includeBoundaryFlags: false))
             throw new InvalidDataException("Additional surface variables and coordinate dependencies require STAROPT project version 27.");
         if (project.FormatVersion < 25 && configurations.Any(optic => optic.LensLengthUnit != Domain.LensLengthUnit.Millimeter))
@@ -334,6 +340,13 @@ public static class StarOptProjectStore
             project.BrokenLinks,
             nonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
     }
+
+    private static bool RequiresMaterialRowsOrZeroSemiDiameters(StarOptProjectDocument document) =>
+        document.OperandRows?.Any(row => row.Kind == MultiConfigurationOperandKind.Material) == true
+        || document.Configurations.Any(optic => optic.SurfaceGroup.Items.Any(surface => surface.SemiDiameter == 0));
+
+    private static bool RequiresCoordinateReturns(IReadOnlyList<Optic> configurations) => configurations.Any(optic =>
+        optic.SurfaceGroup.Items.Any(surface => surface.Placement?.Break?.Return is not null));
 
     private static bool RequiresAdditionalSurfaceVariables(IReadOnlyList<Optic> configurations, bool includeBoundaryFlags = true) => configurations.Any(optic =>
         optic.SurfaceGroup.Items.Any(surface => surface.Placement is not null || surface.ShapeVariables.Any(Services.SurfaceShapeParameters.IsAdditionalVariableName)

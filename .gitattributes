@@ -11,6 +11,7 @@ src/OpticalSystemDesign.App/Assets/Fonts/Typography/*-OFL.txt -text -whitespace
 validation/** -text whitespace=cr-at-eol
 # Bundled original prescriptions must retain the catalog's exact-byte hashes.
 src/OpticalSystemDesign.App/Assets/SequentialExamples/**/*.[zZ][mM][xX] -text -whitespace
+src/OpticalSystemDesign.App/Assets/SequentialExamples/Images/* -text -whitespace
 src/OpticalSystemDesign.App/Assets/NonSequentialExamples/**/*.[zZ][mM][xX] -text -whitespace
 src/OpticalSystemDesign.App/Assets/NonSequentialExamples/Objects/** -text -whitespace
 # Captured logs and reports keep their original bytes, including trailing spaces.

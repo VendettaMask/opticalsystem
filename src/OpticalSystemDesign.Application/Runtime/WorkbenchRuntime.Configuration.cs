@@ -36,6 +36,9 @@ public partial class WorkbenchRuntime
     public void SetMultiConfigurationOperandValue(int row, int configurationIndex, double value) =>
         MutateConfigurationOperands(candidate => candidate.SetOperandValue(row, configurationIndex, value));
 
+    public void SetMultiConfigurationOperandTextValue(int row, int configurationIndex, string value) =>
+        MutateConfigurationOperands(candidate => candidate.SetOperandTextValue(row, configurationIndex, value));
+
     public IReadOnlyList<MultiConfigurationVariable> GetMultiConfigurationVariables() => _multiConfiguration.OperandVariables.ToArray();
 
     public void SetMultiConfigurationOperandVariable(int row, int configurationIndex, bool enabled) =>

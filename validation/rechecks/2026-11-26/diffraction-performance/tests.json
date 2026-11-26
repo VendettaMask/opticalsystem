@@ -1,0 +1,54 @@
+{
+  "Total": 150,
+  "Passed": 141,
+  "Failed": 9,
+  "NewMtfProjectionTestsPassed": 8,
+  "FailuresConfirmedWithOriginalSources": [
+    {
+      "Case": "0308-all-waves/1",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "0308-all-waves/1: limit 1E-08, measured 0.0009228656967504179"
+    },
+    {
+      "Case": "0014-all-waves/1",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "0014-all-waves/1: limit 1E-08, measured 0.0007993713699919778"
+    },
+    {
+      "Case": "0014-all-waves/0",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "0014-all-waves/0: limit 1E-08, measured 0.0008000485931298632"
+    },
+    {
+      "Case": "Incoherent Irradiance status",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "Assert.Equal() Failure: Values differ\r\nExpected: Unavailable\r\nActual:   Success"
+    },
+    {
+      "Case": "isolate-w8/0",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "isolate-w8/0: limit 1E-08, measured 0.006512277176643927"
+    },
+    {
+      "Case": "apo-poly64/1",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "apo-poly64/1: limit 1E-08, measured 0.0007993713699919778"
+    },
+    {
+      "Case": "isolate-w8/1",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "isolate-w8/1: limit 1E-08, measured 0.006504698149101442"
+    },
+    {
+      "Case": "apo-poly64/0",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "apo-poly64/0: limit 1E-08, measured 0.0008000485931298632"
+    },
+    {
+      "Case": "0308-all-waves/0",
+      "BeforeAndAfterFailureIdentical": true,
+      "Error": "0308-all-waves/0: limit 1E-08, measured 0.0017338472916789511"
+    }
+  ],
+  "Scope": "Targeted functional and numerical regression; no full 95-lens acceptance matrix."
+}

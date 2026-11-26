@@ -7,7 +7,7 @@ using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Controls;
 
-/// <summary>The selected drawing sheet, shared by live, PNG and report rendering.</summary>
+/// <summary>The drawing sheet; 2D screen fitting can follow the viewport independently of the print aspect.</summary>
 internal sealed class UniformDiagramPage : Grid
 {
     internal const double SheetWidth = 1200;
@@ -20,12 +20,16 @@ internal sealed class UniformDiagramPage : Grid
     private readonly Control _caption;
     private readonly double _captionHeight;
     private readonly bool _fillViewportAspect;
+    private readonly bool _fitDrawingToViewport;
+    private bool _fitToViewport = true;
+    private double _frameInset;
     private readonly Border _overflow;
     private Size _viewport;
     private double _automaticWidth;
 
     internal UniformDiagramPage(Control plot, Control caption, bool preservePlotGeometry = false,
-        double captionHeight = CaptionHeight, IBrush? background = null, bool fillViewportAspect = false)
+        double captionHeight = CaptionHeight, IBrush? background = null, bool fillViewportAspect = false,
+        bool fitDrawingToViewport = false)
     {
         Name = "UniformDiagramPage";
         Width = DiagramSheetLayout.Width;
@@ -34,6 +38,7 @@ internal sealed class UniformDiagramPage : Grid
         VerticalAlignment = VerticalAlignment.Top;
         _captionHeight = captionHeight;
         _fillViewportAspect = fillViewportAspect;
+        _fitDrawingToViewport = fitDrawingToViewport;
         RowDefinitions = new RowDefinitions($"{SheetHeight - captionHeight},{captionHeight}");
         ClipToBounds = true;
         UseLayoutRounding = false;
@@ -73,6 +78,23 @@ internal sealed class UniformDiagramPage : Grid
 
     private void UpdateSheet()
     {
+        if (_fitDrawingToViewport)
+        {
+            // Screen fitting uses the available aspect, not the print sheet's
+            // aspect. Keep logical text/caption dimensions and isotropic drawing.
+            var aspect = _viewport.Height > 0 ? _viewport.Width / _viewport.Height : Width / Height;
+            var width = _fitToViewport ? Math.Clamp(Math.Max(SheetWidth, (SheetHeight + 2 * _frameInset) * aspect - 2 * _frameInset), SheetWidth, 7200)
+                : DiagramSheetLayout.Width;
+            var height = _fitToViewport ? Math.Clamp(Math.Max(SheetHeight, (SheetWidth + 2 * _frameInset) / aspect - 2 * _frameInset), SheetHeight, 7200)
+                : SheetHeight;
+            Width = width;
+            if (Height != height)
+            {
+                Height = height;
+                RowDefinitions[0].Height = new GridLength(height - _captionHeight);
+            }
+            return;
+        }
         if (DiagramSheetLayout.AspectRatio == DiagramSheetLayout.Automatic && _viewport.Width > 0 && _viewport.Height > 0)
         {
             _automaticWidth = _fillViewportAspect
@@ -87,11 +109,15 @@ internal sealed class UniformDiagramPage : Grid
         }
     }
 
-    internal void SetViewport(Size viewport)
+    internal bool FitsDrawingToViewport => _fitDrawingToViewport;
+
+    internal void SetViewport(Size viewport, bool fitToViewport = true, double frameInset = 0)
     {
         if (!double.IsFinite(viewport.Width) || !double.IsFinite(viewport.Height) || viewport.Width <= 0 || viewport.Height <= 0)
             return;
         _viewport = viewport;
+        _fitToViewport = fitToViewport;
+        _frameInset = Math.Max(0, frameInset);
         UpdateSheet();
     }
 
@@ -103,12 +129,12 @@ internal sealed class UniformDiagramPage : Grid
     {
         _plotHost.Measure(new Size(Width, double.PositiveInfinity));
         _caption.Measure(new Size(Width, double.PositiveInfinity));
-        HasOverflow = _plot.DesiredSize.Height > SheetHeight - _captionHeight + .5
+        HasOverflow = _plot.DesiredSize.Height > Height - _captionHeight + .5
             || ResponsiveAnalysisPlotHost.MinimumReadableWidth(_plot) > (_plotHost == _plot ? Width : SheetWidth) + .5
             || _caption.DesiredSize.Height > _captionHeight + .5;
         _overflow.IsVisible = HasOverflow;
-        base.MeasureOverride(new Size(Width, SheetHeight));
-        return new Size(Width, SheetHeight);
+        base.MeasureOverride(new Size(Width, Height));
+        return new Size(Width, Height);
     }
 
     internal void ValidateForExport()

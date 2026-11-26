@@ -27,7 +27,7 @@ public static class AnalysisConfigurationSelection
                 or "Fourier Through Focus MTF" or "Geometric Through Focus MTF"
                 or "Fourier MTF vs Field" or "Geometric MTF vs Field"
                 or "Angle vs Image Height" or "Angle vs Image Height - Through Pupil"
-                or "Angle vs Image Height - Through Field" or "Vignetting Diagram"
+                or "Angle vs Image Height - Through Field" or "Telecentricity" or "Vignetting Diagram"
                 or "Relative Illumination" or "Y-Ybar" or "FFT PSF Cross Section"
                 or "FFT Line Edge Spread" or "MTF" or "Geometric MTF" or "Sampled MTF"
                 => AnalysisConfigurationDisplay.Overlay,

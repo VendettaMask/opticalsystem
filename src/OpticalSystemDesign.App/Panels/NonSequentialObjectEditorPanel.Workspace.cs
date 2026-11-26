@@ -739,7 +739,7 @@ public sealed partial class NonSequentialObjectEditorPanel
         if (_analysis is null || TopLevel.GetTopLevel(this) is not Window owner) return;
         var path = _analysis.GetCurrentSession()?.RayDatabasePath;
         if (string.IsNullOrWhiteSpace(path)) { _summary.Text = UiLocalization.Text("分析尚未运行"); return; }
-        _ = new NonSequentialRayDatabaseWindow(_analysis, path, true).ShowDialog(owner);
+        new NonSequentialRayDatabaseWindow(_analysis, path, true).Show(owner);
     }
 
     private void BuildBatchProperties()

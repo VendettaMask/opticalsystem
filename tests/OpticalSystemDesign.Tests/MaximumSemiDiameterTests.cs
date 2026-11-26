@@ -129,11 +129,13 @@ public sealed class MaximumSemiDiameterTests
     [Fact]
     public async Task ImportedBiocularBoundaryRemainsAcceptedWithMaximumAcrossBothConfigurations()
     {
+        // The source prescription retains coordinate breaks at surfaces 1 and 3.
+        const int firstMaximumSurface = 4;
         var imported = await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(Path.Combine(
             AppContext.BaseDirectory, "Fixtures", "biocular", "Bi-ocular lens.ZMX"));
         foreach (var optic in imported.Configurations)
         {
-            Assert.True(optic.SurfaceGroup.Items[2].SemiDiameterMaximum);
+            Assert.True(optic.SurfaceGroup.Items[firstMaximumSurface].SemiDiameterMaximum);
             foreach (var model in new[] { optic, Optic.FromSnapshot(optic.ToSnapshot()) })
                 foreach (var wavelength in model.Wavelengths)
                 {
@@ -144,9 +146,9 @@ public sealed class MaximumSemiDiameterTests
                         var outside = ray with { Origin = ray.Origin + new Vector3D(-1e-6, 0, 0) };
                         var diagnostic = model.SequentialRayTracer.DiagnoseApertures(outside);
                         Assert.False(diagnostic.InsideAllApertures);
-                        Assert.Equal(2, diagnostic.FirstBlockedSurfaceIndex);
+                        Assert.Equal(firstMaximumSurface, diagnostic.FirstBlockedSurfaceIndex);
                     }
-                    Assert.True(Assert.IsType<CircularAperture>(model.SurfaceGroup.Items[2].PhysicalAperture).Contains(
+                    Assert.True(Assert.IsType<CircularAperture>(model.SurfaceGroup.Items[firstMaximumSurface].PhysicalAperture).Contains(
                         new Vector3D(0, 0, 0)));
                 }
         }

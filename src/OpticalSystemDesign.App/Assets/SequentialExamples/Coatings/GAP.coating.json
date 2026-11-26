@@ -1,0 +1,62 @@
+{
+  "SchemaVersion": 1,
+  "Id": "4d44e827-0720-575a-825f-9da849e38177",
+  "Name": "GAP",
+  "ReferenceWavelengthNm": 550.0,
+  "Target": {
+    "Kind": "Antireflection",
+    "CenterNm": 550.0,
+    "MinimumNm": 522.5,
+    "MaximumNm": 577.5,
+    "MaximumLayers": 8
+  },
+  "Settings": {
+    "MinimumThicknessNm": 1,
+    "MaximumThicknessNm": 2000
+  },
+  "IncidentId": "BK7",
+  "SubstrateId": "AIR",
+  "LowId": "BK7",
+  "HighId": "AIR",
+  "Materials": [
+    {
+      "Id": "BK7",
+      "Name": "BK7",
+      "Source": "SCHOTT / sequential glass catalog; real bulk index at the interface",
+      "MinimumNm": 310.0,
+      "MaximumNm": 2325.0,
+      "Model": {
+        "Kind": "sellmeier",
+        "Numbers": {
+          "b0": 1.03961212,
+          "c0": 0.00600069867,
+          "b1": 0.231792344,
+          "c1": 0.0200179144,
+          "b2": 1.01046945,
+          "c2": 103.560653
+        },
+        "Text": {
+          "name": "BK7"
+        }
+      }
+    },
+    {
+      "Id": "AIR",
+      "Name": "AIR",
+      "Source": "COATING.DAT / MATE AIR",
+      "MinimumNm": 1,
+      "MaximumNm": 1000000.0,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.0,
+          "extinction": -0.0
+        },
+        "Text": {
+          "name": "AIR"
+        }
+      }
+    }
+  ],
+  "Layers": []
+}

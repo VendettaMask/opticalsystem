@@ -1,0 +1,6 @@
+Get-Item: D:\optical system design\opticalsystem\scripts\verify-documentation.ps1:118
+Line |
+ 118 |  … $path; Category=$category; Bytes=(Get-Item -LiteralPath $path).Length …
+     |                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path 'local-data/operand-row-colors-validation/Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt' because it
+     | does not exist.

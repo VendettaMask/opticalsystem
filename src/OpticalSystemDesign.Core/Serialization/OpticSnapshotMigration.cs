@@ -6,6 +6,8 @@ internal static class OpticSnapshotMigration
 {
     public static OpticSnapshot Upgrade(OpticSnapshot snapshot)
     {
+        if (snapshot.SchemaVersion < 11 && snapshot.Surfaces?.Any(s => s?.Placement?.Break?.Return is not null) == true)
+            throw new InvalidDataException("Coordinate frame returns require snapshot schema 11.");
         if (snapshot.SchemaVersion is < OpticSnapshotValidator.MinimumSupportedSchemaVersion
             or > OpticSnapshotValidator.CurrentSchemaVersion)
         {

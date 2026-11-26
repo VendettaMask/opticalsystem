@@ -31,11 +31,11 @@ public sealed class MultiConfigurationPickupPanelTests
             using var app = WorkbenchApplication.Create("cooke"); app.MultiConfiguration.Add();
             app.MultiConfiguration.ReplaceOperandRows([new(MultiConfigurationParameterKind.Thickness, 3)], app.Events.Revision);
             app.MultiConfiguration.SetOperandValue(1, 0, 4, app.Events.Revision);
-            using var panel = new MultiConfigurationPanel(app.Prescription, app.MultiConfiguration, app.Events);
+            using var panel = new MultiConfigurationPanel(app.MultiConfiguration, app.Events);
             var window = new Window { Content = panel, Width = width, Height = 760, Title = "多配置拾取" };
             try
             {
-                window.Show(); Tick(); window.GetVisualDescendants().OfType<TabControl>().Single().SelectedIndex = 1; Tick();
+                window.Show(); Tick();
                 panel.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "ToggleMultiConfigurationProperties")
                     .RaiseEvent(new RoutedEventArgs(Avalonia.Controls.Button.ClickEvent)); Tick();
                 var expander = window.GetVisualDescendants().OfType<Expander>().Single(e => e.Name == "MultiConfigurationPickupEditor");

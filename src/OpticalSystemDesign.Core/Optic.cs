@@ -192,7 +192,7 @@ public sealed class Optic
         set => _state.GlobalReferenceSurfaceNumber = value;
     }
 
-    internal bool HasImportedSurfaceTiltDecenter
+    public bool HasImportedSurfaceTiltDecenter
     {
         get => _state.HasImportedSurfaceTiltDecenter;
         set => _state.HasImportedSurfaceTiltDecenter = value;
@@ -636,7 +636,8 @@ public sealed class Optic
                     surface.SurfaceColor,
                     surface.Drawing == SurfaceDrawingOptions.Default ? null : surface.Drawing,
                     surface.ShapeVariables.Count == 0 ? null : surface.ShapeVariables.ToArray(),
-                    surface.BlockedVariableProperties.Count == 0 ? null : surface.BlockedVariableProperties.ToArray(), surface.Placement))).ToList(),
+                    surface.BlockedVariableProperties.Count == 0 ? null : surface.BlockedVariableProperties.ToArray(),
+                    surface.Placement, surface.ReferencedCoating))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -826,6 +827,7 @@ public sealed class Optic
             opticalSurface.ShapeVariables = surface.ShapeVariables ?? Array.Empty<string>();
             opticalSurface.BlockedVariableProperties = surface.BlockedVariableProperties ?? Array.Empty<string>();
             opticalSurface.Placement = surface.Placement;
+            opticalSurface.RestoreCoatingReference(surface.ReferencedCoating);
             return opticalSurface;
         }));
         for (var index = 0; index < surfaceSnapshots.Count; index++)

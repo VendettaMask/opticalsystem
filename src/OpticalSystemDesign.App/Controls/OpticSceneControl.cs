@@ -524,6 +524,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
     public void FitView()
     {
         _objectFitScene = null;
+        _sequentialFitScene = null;
         _viewport.Reset();
         InvalidateVisual();
     }
@@ -531,6 +532,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
     public void SetViewPreset(OpticSceneViewPreset preset)
     {
         _objectFitScene = null;
+        _sequentialFitScene = null;
         (_yaw, _pitch) = PresetAngles(preset);
         _viewport.Reset();
         ViewOrientationChanged?.Invoke(this, EventArgs.Empty);
@@ -626,6 +628,15 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
 
     internal void RenderImageContent(DrawingContext context) => RenderContent(context, includeFocus: false);
 
+    internal void Render2DImageContent(DrawingContext context, Size size)
+    {
+        var bounds = new Rect(size);
+        if (ThemeDrawingSurface.Material(this) is { } material)
+            material.DrawPaper(context, bounds, scene: true);
+        else context.DrawRectangle(SceneBackgroundBrush(false, false), null, bounds);
+        if (Scene?.TwoDimensional is { } scene) Draw2D(context, scene, bounds);
+    }
+
     private void RenderContent(DrawingContext context, bool includeFocus)
     {
         if (ThemeDrawingSurface.Material(this) is { } material)
@@ -655,13 +666,13 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
 
         if (Scene.TwoDimensional is not null)
         {
-            Draw2D(context, Scene.TwoDimensional);
+            Draw2D(context, Scene.TwoDimensional, new Rect(Bounds.Size));
         }
 
         if (includeFocus) InteractiveCanvasFocus.Draw(context, this);
     }
 
-    private void Draw2D(DrawingContext context, Layout2DScene scene)
+    private void Draw2D(DrawingContext context, Layout2DScene scene, Rect bounds)
     {
         const double horizontalPadding = 28.0;
         var autoAnnotationCount = Annotations2D.Count(annotation =>
@@ -673,11 +684,11 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                                        annotation.Placement == OpticSceneAnnotationPlacement2D.Below)
                                    + (autoAnnotationCount / 2);
         var annotationPadding = CalculateAnnotationPadding(
-            Bounds.Height,
+            bounds.Height,
             aboveAnnotationCount,
             belowAnnotationCount);
-        var width = Math.Max(1, Bounds.Width - (horizontalPadding * 2));
-        var height = Math.Max(1, Bounds.Height - annotationPadding.Top - annotationPadding.Bottom);
+        var width = Math.Max(1, bounds.Width - (horizontalPadding * 2));
+        var height = Math.Max(1, bounds.Height - annotationPadding.Top - annotationPadding.Bottom);
         var centerX = horizontalPadding + (width / 2.0);
         var centerY = annotationPadding.Top + (height / 2.0);
         var annotationMinimum = Annotations2D.Select(annotation => annotation.Z).DefaultIfEmpty(scene.ZMin).Min();
@@ -695,10 +706,10 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
 
         double MapZ(double z) => _viewport.Apply(
             new Point(centerX + ((z - zCenter) * scale), centerY),
-            Bounds.Size).X;
+            bounds.Size).X;
         double MapY(double y) => _viewport.Apply(
             new Point(centerX, centerY - (y * scale * VerticalStretch)),
-            Bounds.Size).Y;
+            bounds.Size).Y;
 
         context.DrawLine(
             ThemePen(ThemeResourceBindings.SceneAxis, AxisPen),
@@ -713,10 +724,10 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         DrawLensEdges(context, scene.LensEdges, scene.Surfaces, MapZ, MapY);
         DrawSurfaces(context, scene.Surfaces, MapZ, MapY, HighlightedSurfaceNumber);
         DrawLocalFrames2D(context, scene.Surfaces, MapZ, MapY);
-        DrawAnnotations2D(context, Annotations2D, aperture, Bounds, MapZ, MapY);
+        DrawAnnotations2D(context, Annotations2D, aperture, bounds, MapZ, MapY);
         if (ShowScaleBar)
         {
-            DrawScaleBar(context, scale * _viewport.Zoom);
+            DrawScaleBar(context, scale * _viewport.Zoom, viewportSize: bounds.Size);
         }
     }
 
@@ -920,6 +931,14 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             // Keep the fitted camera scale stable while orbiting; refit is explicit.
             scale = _objectFitScale;
         }
+        else if (!FitObjectBounds && scene.Surfaces.All(surface => surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface)
+                 && SequentialFit(scene, width, height) is { } fit)
+        {
+            xCenter = fit.Center.X;
+            yCenter = fit.Center.Y;
+            zCenter = fit.Center.Z;
+            scale = fit.Scale;
+        }
 
         Point Project(Layout3DPoint point)
         {
@@ -937,6 +956,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         }
 
         var solidModelStyle = VisualStyle == OpticSceneVisualStyle.SolidModel;
+        var opaqueModel = solidModelStyle && RenderMode == OpticSceneRenderMode.Solid;
 
         context.DrawLine(
             solidModelStyle ? SolidAxisPen : AxisPen,
@@ -983,7 +1003,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                 _pitch);
         }
 
-        Draw3DLensElements(
+        if (!opaqueModel) Draw3DLensElements(
             context,
             scene.LensElements,
             scene.Surfaces,
@@ -992,6 +1012,18 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             CutawayEnabled,
             solidModelStyle,
             HighlightedSurfaceNumber);
+        else
+        {
+            // A surface outline can exist without a filled element cap. Keep
+            // those independent rims while opaque caps handle ordinary bodies.
+            var outlineOnly = scene.LensElements.Select(element => element with
+            {
+                FrontRim = element.FrontFaces.Count == 0 ? element.FrontRim : [],
+                BackRim = element.BackFaces.Count == 0 ? element.BackRim : []
+            }).Where(element => element.FrontRim.Count > 0 || element.BackRim.Count > 0).ToArray();
+            Draw3DLensElements(context, outlineOnly, scene.Surfaces, Project, false,
+                CutawayEnabled, solidModelStyle, HighlightedSurfaceNumber);
+        }
         var elementSurfaceNumbers = scene.LensElements
             .SelectMany(element => new[] { (element.ConfigurationNumber, element.FrontSurfaceNumber), (element.ConfigurationNumber, element.BackSurfaceNumber) })
             .ToHashSet();
@@ -1008,10 +1040,13 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             Depth,
             RenderMode,
             CutawayEnabled,
-            HighlightedSurfaceNumber);
+            HighlightedSurfaceNumber,
+            opaqueModel);
         Draw3DSurfaces(
             context,
             scene.Surfaces.Where(surface => surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface
+                && (!opaqueModel || !elementSurfaceNumbers.Contains((surface.ConfigurationNumber, surface.SurfaceNumber))
+                    || surface.SurfaceNumber == HighlightedSurfaceNumber)
                 && (surface.IsPolygonGroup || surface.SurfaceColor is not null || !elementSurfaceNumbers.Contains((surface.ConfigurationNumber, surface.SurfaceNumber))
                     || RenderMode == OpticSceneRenderMode.Wireframe)).ToArray(),
             Project,
@@ -1043,7 +1078,8 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         Func<Layout3DPoint, double> depth,
         OpticSceneRenderMode renderMode,
         bool cutawayEnabled,
-        int? highlightedSurfaceNumber)
+        int? highlightedSurfaceNumber,
+        bool opaqueModel)
     {
         var faces = surfaces.SelectMany(surface => surface.Faces.Select(face => new ObjectProjectedFace(
                 cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points,
@@ -1062,9 +1098,10 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                 context,
                 renderMode == OpticSceneRenderMode.Wireframe
                     ? Brushes.Transparent
-                    : highlighted
+                    : OpaqueFaceBrush(highlighted
                         ? SelectedSurfaceFaceBrush
                         : NonSequentialObjectBrush(face.Surface),
+                        opaqueModel && face.Surface.RenderRole == SceneSurfaceRenderRole.NonSequentialObject),
                 face.Points,
                 project,
                 highlighted ? SelectedSurfacePen : NonSequentialOutlinePen(face.Surface));
@@ -1350,6 +1387,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         double pitch)
     {
         var faces = new List<ProjectedFace>();
+        var opaque = solidModelStyle && !transparent;
         var viewDirection = ViewDirection(yaw, pitch);
         var surfacesByNumber = surfaces.ToDictionary(surface => (surface.ConfigurationNumber, surface.SurfaceNumber));
         var glassBySurface = elements
@@ -1391,7 +1429,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                     viewDirection,
                     cutawayEnabled,
                     transparent,
-                    depth, front?.Opacity ?? 1);
+                    depth, front?.Opacity ?? 1, opaque);
             }
 
             if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.BackSurfaceNumber))
@@ -1410,7 +1448,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                     viewDirection,
                     cutawayEnabled,
                     transparent,
-                    depth, back?.Opacity ?? 1);
+                    depth, back?.Opacity ?? 1, opaque);
             }
         }
 
@@ -1435,14 +1473,14 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                 AddProjectedFace(
                     faces,
                     cutawayEnabled ? ClipPolygonToCutaway(sideFace) : sideFace,
-                    GlassFaceBrush(
+                    OpaqueFaceBrush(GlassFaceBrush(
                         sideFace,
                         viewDirection,
                         glass.RefractiveIndex,
                         glass.ThicknessMillimeters,
                         isSideWall: true,
                         transparent,
-                        glass.Tint),
+                        glass.Tint), opaque),
                     depth, element.Opacity);
             }
         }
@@ -1455,9 +1493,9 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                         (element.ConfigurationNumber, element.FrontSurfaceNumber)) is { HideEdges: true }) continue;
                 foreach (var cap in CutawayCapsForRendering(element))
                     AddProjectedFace(faces, cap,
-                        GlassColorFor(element.Material) is { } tint
+                        OpaqueFaceBrush(GlassColorFor(element.Material) is { } tint
                             ? new SolidColorBrush(WithAlpha(tint, 170))
-                            : solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, depth, element.Opacity);
+                            : solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, opaque), depth, element.Opacity);
             }
         }
 
@@ -1534,7 +1572,8 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         bool cutawayEnabled,
         bool transparent,
         Func<Layout3DPoint, double> depth,
-        double opacity = 1)
+        double opacity = 1,
+        bool opaque = false)
     {
         foreach (var face in surfaceFaces)
         {
@@ -1542,7 +1581,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             AddProjectedFace(
                 projectedFaces,
                 points,
-                surfaceNumber == highlightedSurfaceNumber
+                OpaqueFaceBrush(surfaceNumber == highlightedSurfaceNumber
                     ? SelectedSurfaceFaceBrush
                     : GlassFaceBrush(
                         points,
@@ -1551,7 +1590,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                         glass.ThicknessMillimeters,
                         isSideWall: false,
                         transparent,
-                        glass.Tint),
+                        glass.Tint), opaque),
                 depth, opacity);
         }
     }
@@ -1594,6 +1633,13 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             (byte)Math.Clamp(Math.Round((126 + (highlight * 105)) * shade), 0, 255),
             (byte)Math.Clamp(Math.Round((190 + (highlight * 65)) * shade), 0, 255)), materialColor));
     }
+
+    // Render-mode opacity is a display choice, independent of optical transmission.
+    // Explicit per-surface drawing opacity is still applied by the caller.
+    private static IBrush OpaqueFaceBrush(IBrush brush, bool opaque) =>
+        opaque && brush is ISolidColorBrush solid
+            ? new SolidColorBrush(WithAlpha(solid.Color, 255), solid.Opacity)
+            : brush;
 
     private static Color TintGlass(Color shaded, Color? materialColor) => materialColor is { } tint
         ? Color.FromArgb(shaded.A, (byte)Math.Round(shaded.R * 0.25 + tint.R * 0.75),
@@ -1935,7 +1981,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             ? Math.Clamp(intensity / referenceIntensity, 0, 1)
             : 1;
 
-    private void DrawScaleBar(DrawingContext context, double pixelsPerUnit, bool darkBackground = false)
+    private void DrawScaleBar(DrawingContext context, double pixelsPerUnit, bool darkBackground = false, Size? viewportSize = null)
     {
         if (!double.IsFinite(pixelsPerUnit) || pixelsPerUnit <= 1e-9)
         {
@@ -1944,8 +1990,9 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
 
         var units = NiceScaleLength(120 / pixelsPerUnit);
         var width = units * pixelsPerUnit;
-        var centerX = Bounds.Width / 2.0;
-        var y = Math.Max(24, Bounds.Height - 24);
+        var size = viewportSize ?? Bounds.Size;
+        var centerX = size.Width / 2.0;
+        var y = Math.Max(24, size.Height - 24);
         var left = new Point(centerX - (width / 2.0), y);
         var right = new Point(centerX + (width / 2.0), y);
         var drawingInk = ThemeDrawingSurface.Material(this)?.Ink;

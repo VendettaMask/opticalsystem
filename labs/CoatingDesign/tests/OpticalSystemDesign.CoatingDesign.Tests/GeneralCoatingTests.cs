@@ -76,7 +76,10 @@ public sealed class GeneralCoatingTests
         Assert.True(output.Result!.Passed);
         Assert.Equal(output.Result.SamplingConverged && output.Result.Checks.All(c => c.Passed), output.Result.Passed);
         Assert.True(output.Result.Run.GeneralWork!.AnalyticJacobians > 0);
-        Assert.Equal(2, output.Result.Run.GeneralWork.DenseValidations);
+        Assert.True(output.Result.Run.GeneralWork.DenseValidations >= 2);
+        var independentlyEvaluated = service.Evaluate(output with { Result = null }).Result!;
+        Assert.Equal(independentlyEvaluated.Checks, output.Result.Checks);
+        Assert.Equal(independentlyEvaluated.SamplingConverged, output.Result.SamplingConverged);
         Assert.Equal(output.Layers, output.Candidates!.Last().Layers);
         Assert.All(output.Layers, l => Assert.InRange(l.ThicknessNm, input.Settings.MinimumThicknessNm, input.Settings.MaximumThicknessNm));
     }

@@ -75,7 +75,7 @@ public sealed partial class MultiConfiguration
             {
                 var source = cell with { Surface = valuePickup.SourceSurface };
                 rules.Add(cell, new(cell, [source], state => PickupManager.EvaluateValue(state[source], valuePickup.Scale, valuePickup.Offset,
-                    cell.Row.Property, value => double.IsFinite(value) && (cell.Kind != MultiConfigurationOperandKind.SemiDiameter || value >= .1))));
+                    cell.Row.Property, value => double.IsFinite(value) && (cell.Kind != MultiConfigurationOperandKind.SemiDiameter || value >= 0))));
                 continue;
             }
             if (cell.Configuration > 0 && !_brokenLinks.Contains((cell.Configuration, cell.Surface, cell.Row.Property)))
@@ -156,7 +156,7 @@ public sealed partial class MultiConfiguration
             case MultiConfigurationOperandKind.GradientIndexCoefficient: GradientIndexParameters.WriteStoredValue(surface, parameter!, value); break;
             case MultiConfigurationOperandKind.ModelGlassCoefficient: ModelGlassParameters.WriteStored(surface, parameter!, value); break;
             case MultiConfigurationOperandKind.SemiDiameter:
-                if (!double.IsFinite(value) || value < .1) throw new InvalidOperationException("半口径拾取结果必须不小于 0.1 mm。");
+                if (!double.IsFinite(value) || value < 0) throw new InvalidOperationException("半口径拾取结果必须是非负的有限数值。");
                 surface.SemiDiameter = value; break;
             default: throw new ArgumentOutOfRangeException(nameof(kind));
         }

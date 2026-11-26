@@ -81,8 +81,7 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
         var lower = Operand.Kind switch
         {
             MultiConfigurationOperandKind.Curvature => -extent,
-            // OpticalSurface currently enforces this minimum; never propose coordinates it would clamp.
-            MultiConfigurationOperandKind.SemiDiameter => .1,
+            MultiConfigurationOperandKind.SemiDiameter => 0,
             _ => initial - extent
         };
         var upper = Operand.Kind == MultiConfigurationOperandKind.Curvature ? extent : initial + extent;

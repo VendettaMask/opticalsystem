@@ -264,9 +264,11 @@ public sealed class ViewerImageExportTests
         await session.Dispatch(async () =>
         {
             var previousLanguage = UiLocalization.CurrentLanguage;
-            UiLocalization.Apply(language);
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            UiLocalization.Apply(language);
+            Assert.Equal(language, UiLocalization.CurrentLanguage);
             try
             {
                 var prefix = dimension == SceneDimension.TwoDimensional ? "2d" : "3d";
@@ -285,8 +287,9 @@ public sealed class ViewerImageExportTests
                 Assert.True(logo.Bounds.Width > 0 && logo.Bounds.Height > 0);
                 var regions = Assert.IsType<ResponsiveAnalysisFooterGrid>(footer.Child);
                 var sheet = Assert.Single(fixture.Viewer.GetVisualDescendants().OfType<UniformDiagramPage>());
-                Assert.Equal(new Size(1200, 900), sheet.Bounds.Size);
-                Assert.Equal(new Size(1200, 160), footer.Bounds.Size);
+                if (dimension == SceneDimension.ThreeDimensional)
+                    Assert.Equal(new Size(1200, 900), sheet.Bounds.Size);
+                Assert.Equal(new Size(sheet.Bounds.Width, 160), footer.Bounds.Size);
                 if (sheet.HasOverflow)
                 {
                     Assert.True(fontSize > 13);
@@ -303,13 +306,26 @@ public sealed class ViewerImageExportTests
                     Assert.InRange(point.Y + label.Bounds.Height, 0, footer.Bounds.Height + 1);
                 }
                 using var image = fixture.Viewer.CaptureViewerImage(1);
-                Assert.Equal((int)Math.Ceiling(fixture.Scene.Bounds.Height) + (int)Math.Ceiling(footer.Bounds.Height) + 2, image.PixelSize.Height);
+                Assert.Equal(dimension == SceneDimension.TwoDimensional ? 902
+                    : (int)Math.Ceiling(fixture.Scene.Bounds.Height) + (int)Math.Ceiling(footer.Bounds.Height) + 2, image.PixelSize.Height);
                 using var windowImage = new RenderTargetBitmap(new PixelSize(width, 900), new Vector(96, 96));
                 windowImage.Render(fixture.Window);
-                var captionWidth = (int)Math.Ceiling(footer.Bounds.Width);
-                var captionHeight = (int)Math.Ceiling(footer.Bounds.Height);
+                Control captionReference = footer;
+                if (dimension == SceneDimension.TwoDimensional)
+                {
+                    // Compare against the real themed caption at print size,
+                    // independently of the export caption's construction.
+                    var mode = fixture.Viewer.GetVisualDescendants().OfType<DiagramViewportModeButton>().Single();
+                    Assert.IsType<MenuFlyout>(mode.Flyout).Items.OfType<MenuItem>()
+                        .Single(item => AutomationProperties.GetName(item) == "原始大小（100%）")
+                        .RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                    Tick(fixture.Window);
+                }
+                var captionWidth = (int)Math.Ceiling(captionReference.Bounds.Width);
+                var captionHeight = (int)Math.Ceiling(captionReference.Bounds.Height);
                 using var liveCaption = new RenderTargetBitmap(new PixelSize(captionWidth, captionHeight), new Vector(96, 96));
-                liveCaption.Render(footer);
+                liveCaption.Render(captionReference);
+                Save(liveCaption, $"{prefix}-caption-reference-{theme}-{language}-{width}-font{fontSize}.png");
                 var captionLength = captionWidth * captionHeight * 4;
                 var captionPixels = Pixels(liveCaption);
                 var imagePixels = Pixels(image);
@@ -337,7 +353,7 @@ public sealed class ViewerImageExportTests
                 Assert.Equal(902, withoutCaption.PixelSize.Height);
                 ExportImageAssertions.HasCompleteBorder(withoutCaption);
             }
-            finally { DisplayTypography.Configure(new AppSettings()); UiLocalization.Apply(previousLanguage); }
+            finally { DisplayTypography.Configure(new AppSettings()); UiLocalization.Apply(previousLanguage); ImageExportResolution.Configure(new()); }
         }, CancellationToken.None);
     }
 
@@ -492,8 +508,10 @@ public sealed class ViewerImageExportTests
             var axes = fixture.Scene.OrientationAxesForRendering();
             using var image = fixture.Viewer.CaptureViewerImage(1.25);
             ExportImageAssertions.HasCompleteBorder(image);
-            Assert.Equal((int)Math.Ceiling((fixture.Scene.Bounds.Width + 2) * 1.25), image.PixelSize.Width);
-            Assert.True(image.PixelSize.Height > fixture.Scene.Bounds.Height * 1.25 + 2.5);
+            var exportWidth = dimension == SceneDimension.TwoDimensional && mode == ViewerPresentationMode.OpticalLayout
+                ? DiagramSheetLayout.Width : fixture.Scene.Bounds.Width;
+            Assert.Equal((int)Math.Ceiling((exportWidth + 2) * 1.25), image.PixelSize.Width);
+            Assert.True(image.PixelSize.Height > (dimension == SceneDimension.TwoDimensional ? 740 : fixture.Scene.Bounds.Height) * 1.25 + 2.5);
             Assert.Equal(axes, fixture.Scene.OrientationAxesForRendering());
             Save(image, $"{dimension}-{mode}-125percent.png");
         }, CancellationToken.None);
@@ -559,7 +577,8 @@ public sealed class ViewerImageExportTests
             int width = 840, int height = 620, string? source = null)
         {
             var app = WorkbenchApplication.Create();
-            await app.Documents.OpenAsync(source ?? ConfigurationMatrixAnalysisTests.ZoomPath());
+            await app.Documents.OpenAsync(source ?? SequentialExampleCatalog.Examples.Single(
+                item => item.RelativePath.Equals("Zoom systems/Zoom lens.zmx", StringComparison.OrdinalIgnoreCase)).FilePath);
             var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), dimension, mode);
             var fixture = new Fixture { App = app, Viewer = viewer, Window = new Window { Width = width, Height = height, Content = viewer } };
             try { fixture.Window.Show(); await fixture.WaitReady(); return fixture; }

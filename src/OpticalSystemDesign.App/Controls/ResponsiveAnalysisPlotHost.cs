@@ -113,7 +113,9 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
             if (Source is UniformDiagramPage sheet)
             {
                 var inset = _frame.DrawingInset;
-                sheet.SetViewport(new Size(Math.Max(0, _viewport.Width - 2 * inset), Math.Max(0, _viewport.Height - 2 * inset)));
+                sheet.SetViewport(sheet.FitsDrawingToViewport ? _viewport
+                    : new Size(Math.Max(0, _viewport.Width - 2 * inset), Math.Max(0, _viewport.Height - 2 * inset)),
+                    FitToViewport, inset);
                 _fit.Measure(FitToViewport ? _viewport : new Size(sheet.Width + 2 * inset, sheet.Height + 2 * inset));
                 return _fit.DesiredSize;
             }

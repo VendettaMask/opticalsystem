@@ -1,0 +1,44 @@
+{
+  "RecordedUtc": "2026-11-26T02:32:25.0575250Z",
+  "BaseCommit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+  "Scope": "Configuration column colours; concurrent work preserved",
+  "Passed": 14,
+  "Failed": 0,
+  "Skipped": 0,
+  "FinalRun": "colors-verified.trx",
+  "Identity": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/ConfigurationColumnColors.cs",
+      "SHA256": "69A25C5303B64EB59B47D86930F4AB999C2255BCF517899E952CED27322EBBDE"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/ThemeRegistry.cs",
+      "SHA256": "82AFE78F36A5789EE362E944C0CF060FDABF043F4D3B3BEBD359EFD6E918BE2A"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs",
+      "SHA256": "4D6885C4C86B9E8A3FB5CCFF9FFF3E5AC1448FA16BC0612661F7664A973AAAFD"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MultiConfigurationColorTests.cs",
+      "SHA256": "001F518CCE9FC79C496868B32A73E4FE948998241EB26B32E64314CF23A400B9"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "SHA256": "7400E6B23F4D4DB5AFAB8A30BE70CBCA70B5FAAE3ECBB5DF67B67BB201E339C7"
+    },
+    {
+      "Path": "local-data/configuration-colors-validation/OpticalSystemDesign.App.dll",
+      "SHA256": "7A340C8E2997B711C396F7403989A47F5A4101E4B467E3241BE1621870C3A9A5"
+    },
+    {
+      "Path": "local-data/configuration-colors-validation/OpticalSystemDesign.Tests.dll",
+      "SHA256": "DEE8F9C5399D502D2C4CF0EA041675FC477FE4C3BDF474286D81797440EE54FD"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Zoom systems/Zoom lens.zmx",
+      "SHA256": "7103AAF9130ACC1B94A864267348CE1DF6A7651910ADC07379A9321A4670ADC9"
+    }
+  ],
+  "Note": "Default product build and isolated test output belong to separately recorded builds. Duplicate using removed after successful run; no test behaviour changed."
+}

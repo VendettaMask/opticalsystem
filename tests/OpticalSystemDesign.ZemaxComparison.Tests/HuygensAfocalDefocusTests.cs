@@ -31,7 +31,7 @@ public sealed class HuygensAfocalDefocusTests
         var result = (double[,])typeof(DiffractionEngine)
             .GetMethod("HuygensFarFieldSummation", BindingFlags.NonPublic | BindingFlags.Static)!
             .Invoke(null, [wavefront, new Wavelength { Micrometers = .55 }, 8, .03,
-                CoordinateSystem.Global, 8, false, null, defocus, null, paraxial])!;
+                CoordinateSystem.Global, 8, false, null, null, defocus, null, paraxial])!;
         var radiusSquaredDifference = paraxial
             ? 4 * (.36 - .25 - .09)
             : (2.25 + .04) - (3.24 + .36);

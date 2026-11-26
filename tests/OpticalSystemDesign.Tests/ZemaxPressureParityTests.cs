@@ -122,6 +122,10 @@ public sealed class ZemaxPressureParityTests(ITestOutputHelper output)
         Assert.Equal(empty, vacuum.SurfaceGroup.Items[3].MaterialBefore.RefractiveIndex(550));
         Assert.Equal(1, vacuum.SurfaceGroup.Items[3].MaterialAfter.RefractiveIndex(550));
         Assert.Equal(empty, Optic.FromSnapshot(vacuum.ToSnapshot()).SurfaceGroup.Items[2].MaterialAfter.RefractiveIndex(550));
+        var linked = new OpticalSystemDesign.Core.Multiconfig.MultiConfiguration(imported.Configurations);
+        linked.PropagateBaseLinks();
+        Assert.Equal(half, linked.Configurations[1].SurfaceGroup.Items[2].MaterialAfter.RefractiveIndex(550));
+        Assert.Equal(half, linked.Configurations[1].SurfaceGroup.Items[3].MaterialBefore.RefractiveIndex(550));
         var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + StarOptProjectStore.Extension);
         try
         {

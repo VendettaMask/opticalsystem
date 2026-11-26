@@ -1,0 +1,94 @@
+{
+  "Framework": ".NET 10.0.8",
+  "Processors": 24,
+  "AfterRun": "after-quiet",
+  "Results": [
+    {
+      "Analysis": "Huygens PSF",
+      "BeforeMs": 4383.9667,
+      "AfterMs": 590.2422,
+      "SpeedRatio": 7.427403022013674,
+      "BeforeMedianAllocatedBytes": 13306976,
+      "AfterMedianAllocatedBytes": 13420608,
+      "DifferentNumericValues": 0,
+      "MaximumAbsoluteDifference": 0,
+      "LargestDifferences": [],
+      "StructuralDifferences": [],
+      "BeforeSha256": "55955CF0BEA9392C56AB2764AEDAE47D288AC6DAD4B7405353CA0EFD694117E8",
+      "AfterSha256": "55955CF0BEA9392C56AB2764AEDAE47D288AC6DAD4B7405353CA0EFD694117E8"
+    },
+    {
+      "Analysis": "PSF",
+      "BeforeMs": 283.0396,
+      "AfterMs": 278.0961,
+      "SpeedRatio": 1.0177762291524406,
+      "BeforeMedianAllocatedBytes": 111168152,
+      "AfterMedianAllocatedBytes": 111165136,
+      "DifferentNumericValues": 0,
+      "MaximumAbsoluteDifference": 0,
+      "LargestDifferences": [],
+      "StructuralDifferences": [],
+      "BeforeSha256": "EE080B0250DE3F0E7C10EFBB68EB92480581DFD9BDED0C27F7FC129993B6426F",
+      "AfterSha256": "EE080B0250DE3F0E7C10EFBB68EB92480581DFD9BDED0C27F7FC129993B6426F"
+    },
+    {
+      "Analysis": "MTF",
+      "BeforeMs": 1641.3485,
+      "AfterMs": 1433.272,
+      "SpeedRatio": 1.1451758633392686,
+      "BeforeMedianAllocatedBytes": 667261664,
+      "AfterMedianAllocatedBytes": 592040032,
+      "DifferentNumericValues": 3624,
+      "MaximumAbsoluteDifference": 3.5388358909926865e-16,
+      "LargestDifferences": [
+        [
+          3.5388358909926865e-16,
+          "/SeriesList/3/Points/225/Y",
+          0.005581066320613195,
+          0.005581066320612841
+        ],
+        [
+          3.5388358909926865e-16,
+          "/PlotSeries/3/Points/225/Y",
+          0.005581066320613195,
+          0.005581066320612841
+        ],
+        [
+          3.443426099813962e-16,
+          "/SeriesList/3/Points/223/Y",
+          0.00638860041348725,
+          0.006388600413486906
+        ],
+        [
+          3.443426099813962e-16,
+          "/PlotSeries/3/Points/223/Y",
+          0.00638860041348725,
+          0.006388600413486906
+        ],
+        [
+          3.3393426912553537e-16,
+          "/SeriesList/3/Points/229/Y",
+          0.003781571979689627,
+          0.003781571979689293
+        ]
+      ],
+      "StructuralDifferences": [],
+      "BeforeSha256": "76F3E99C21AFA6874E775165D556076F306C509F2FF7F4E609F2149E1C60E7C7",
+      "AfterSha256": "E558FCBA352F59F2CE885C5C3262016872736F162894058CF68286DFF14E335A"
+    },
+    {
+      "Analysis": "Diffraction Encircled Energy",
+      "BeforeMs": 1006.1514,
+      "AfterMs": 922.0187,
+      "SpeedRatio": 1.091248366220772,
+      "BeforeMedianAllocatedBytes": 617763352,
+      "AfterMedianAllocatedBytes": 399287696,
+      "DifferentNumericValues": 0,
+      "MaximumAbsoluteDifference": 0,
+      "LargestDifferences": [],
+      "StructuralDifferences": [],
+      "BeforeSha256": "32818AECE5FC0675D25BAF37386797DF23C1E79D3EDBA5C223CE9E406AF14451",
+      "AfterSha256": "32818AECE5FC0675D25BAF37386797DF23C1E79D3EDBA5C223CE9E406AF14451"
+    }
+  ]
+}

@@ -74,8 +74,18 @@ public sealed partial class WorkspaceDockFactory : Factory
                     MainLayoutId => "工作区",
                     _ => null
                 };
-            if (source is not null) dockable.Title = UiLocalization.Text(source);
+            if (source is not null) dockable.Title = LocalizeTitle(source);
         }
+    }
+
+    private static string LocalizeTitle(string title)
+    {
+        var localized = UiLocalization.Text(title);
+        if (localized != title) return localized;
+        var separator = title.LastIndexOf(' ');
+        return separator > 0 && int.TryParse(title.AsSpan(separator + 1),
+            System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out _)
+            ? UiLocalization.Text(title[..separator]) + title[separator..] : title;
     }
 
     public event EventHandler? LayoutChanged;
@@ -165,7 +175,9 @@ public sealed partial class WorkspaceDockFactory : Factory
         OnDockableDocked(split, operation);
     }
 
-    public override IRootDock CreateLayout()
+    public override IRootDock CreateLayout() => CreateLayout(null);
+
+    internal IRootDock CreateLayout(SequentialExampleWorkspace? sample)
     {
         _descriptors.Clear();
         _restoredActiveDocumentId = null;
@@ -180,21 +192,11 @@ public sealed partial class WorkspaceDockFactory : Factory
                 WorkspaceDocumentTypes.LensEditor,
                 "镜头数据");
         _descriptors[primaryDescriptor.Id] = primaryDescriptor;
-        var primaryDocument = CreateDocument(primaryDescriptor);
-        var documentDock = (DocumentDock)CreateDocumentDock();
-        documentDock.Id = DocumentDockId;
-        documentDock.Title = "文档";
-        documentDock.VisibleDockables = CreateList<IDockable>(primaryDocument);
-        if (_application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential)
-        {
-            var viewerDescriptor = new WorkspaceDocumentDescriptor(
-                Viewer2DDocumentId,
-                WorkspaceDocumentTypes.Viewer2D,
-                "二维视图");
-            _descriptors[viewerDescriptor.Id] = viewerDescriptor;
-            documentDock.VisibleDockables.Add(CreateDocument(viewerDescriptor));
-        }
-        documentDock.ActiveDockable = primaryDocument;
+        IDockable documentArea;
+        if (sample is null)
+            documentArea = CreateInitialDocuments(primaryDescriptor);
+        else
+            documentArea = CreateExampleDocuments(sample.Layout);
 
         var systemContent = CreateSystemToolContent();
         _content[SystemToolId] = systemContent;
@@ -232,11 +234,11 @@ public sealed partial class WorkspaceDockFactory : Factory
             Title = "工作区",
             Orientation = Orientation.Horizontal,
             VisibleDockables = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
-                ? CreateList<IDockable>(documentDock) : CreateList<IDockable>(
+                ? CreateList<IDockable>(documentArea) : CreateList<IDockable>(
                 toolDock,
                 new ProportionalDockSplitter(),
-                documentDock),
-            ActiveDockable = documentDock
+                documentArea),
+            ActiveDockable = documentArea
         };
         var root = new RootDock
         {
@@ -253,8 +255,24 @@ public sealed partial class WorkspaceDockFactory : Factory
             BottomPinnedDockables = CreateList<IDockable>()
         };
         RootLayout = root;
-        PrimaryDocumentDock = documentDock;
         return root;
+    }
+
+    private DocumentDock CreateInitialDocuments(WorkspaceDocumentDescriptor primary)
+    {
+        var dock = (DocumentDock)CreateDocumentDock();
+        dock.Id = DocumentDockId;
+        dock.Title = "文档";
+        dock.ActiveDockable = CreateDocument(primary);
+        dock.VisibleDockables = CreateList<IDockable>(dock.ActiveDockable);
+        if (_application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential)
+        {
+            var viewer = new WorkspaceDocumentDescriptor(Viewer2DDocumentId, WorkspaceDocumentTypes.Viewer2D, "二维视图");
+            _descriptors[viewer.Id] = viewer;
+            dock.VisibleDockables.Add(CreateDocument(viewer));
+        }
+        PrimaryDocumentDock = dock;
+        return dock;
     }
 
     public override void InitLayout(IDockable layout)
@@ -298,7 +316,7 @@ public sealed partial class WorkspaceDockFactory : Factory
             {
                 if (dockable is Document && _descriptors.TryGetValue(dockable.Id, out var descriptor)
                     && descriptor.TypeId is WorkspaceDocumentTypes.Analysis or WorkspaceDocumentTypes.OpticalDrawing)
-                    dockable.Title = UiLocalization.Text(descriptor.Title);
+                    dockable.Title = LocalizeTitle(descriptor.Title);
                 dockable.Context = ResolveContent(dockable.Id);
             }
         }
@@ -354,7 +372,7 @@ public sealed partial class WorkspaceDockFactory : Factory
             if (existing.Id == descriptor.Id && descriptor.TypeId != WorkspaceDocumentTypes.OpticalDrawing)
             {
                 _descriptors[descriptor.Id] = descriptor;
-                if (descriptor.TypeId == WorkspaceDocumentTypes.Analysis) existing.Title = UiLocalization.Text(descriptor.Title);
+                if (descriptor.TypeId == WorkspaceDocumentTypes.Analysis) existing.Title = LocalizeTitle(descriptor.Title);
             }
 
             SetActiveDockable(existing);
@@ -388,6 +406,7 @@ public sealed partial class WorkspaceDockFactory : Factory
         descriptor = NormalizeMaterialLibrary(descriptor);
         if (descriptor.TypeId == WorkspaceDocumentTypes.OpticalDrawing)
         {
+            if (descriptor.Id.StartsWith("sample-drawing:", StringComparison.Ordinal)) return descriptor;
             // Saved pages retain their dock IDs and standard; all use the same drawing editor.
             var settings = descriptor.Settings is null
                 ? new Dictionary<string, string>()
@@ -418,7 +437,8 @@ public sealed partial class WorkspaceDockFactory : Factory
     {
         var dockables = EnumerateDockables(layout).ToArray();
         var libraries = dockables.OfType<Document>()
-            .Where(document => Descriptor(document.Id)?.TypeId == typeId)
+            .Where(document => Descriptor(document.Id)?.TypeId == typeId
+                && !document.Id.StartsWith("sample-drawing:", StringComparison.Ordinal))
             .OrderByDescending(document => typeId == WorkspaceDocumentTypes.OpticalDrawing
                 && document.Id == _restoredActiveDocumentId)
             .ThenByDescending(document => typeId == WorkspaceDocumentTypes.OpticalDrawing
@@ -530,7 +550,7 @@ public sealed partial class WorkspaceDockFactory : Factory
                 {
                     AnalysisName = analysis.AnalysisName,
                     InstanceId = analysis.InstanceId,
-                    Settings = new Dictionary<string, string>(analysis.Settings),
+                    Settings = analysis.CaptureParameterSettings(),
                     IsLocked = analysis.IsLocked
                 },
                 ViewerPanel viewer => descriptor with { IsLocked = viewer.IsLocked },
@@ -681,7 +701,7 @@ public sealed partial class WorkspaceDockFactory : Factory
         {
             Id = descriptor.Id,
             DockGroup = DocumentDockGroup,
-            Title = UiLocalization.Text(descriptor.Title),
+            Title = LocalizeTitle(descriptor.Title),
             CanClose = descriptor.TypeId is not WorkspaceDocumentTypes.LensEditor
                 and not WorkspaceDocumentTypes.NonSequentialObjectEditor,
             CanFloat = true,
@@ -772,7 +792,8 @@ public sealed partial class WorkspaceDockFactory : Factory
                 _application.Materials,
                 _application.Events,
                 _application.Visualization,
-                OpticalDrawingStandardFrom(descriptor.Settings)),
+                OpticalDrawingStandardFrom(descriptor.Settings),
+                int.TryParse(descriptor.Settings?.GetValueOrDefault("FrontSurface"), out var frontSurface) ? frontSurface : null),
             WorkspaceDocumentTypes.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
             WorkspaceDocumentTypes.Tolerancing => new TolerancingPanel(
                 _application.Documents,
@@ -795,7 +816,13 @@ public sealed partial class WorkspaceDockFactory : Factory
                 () => TolerancingEditor().BuildYieldChartView()),
             WorkspaceDocumentTypes.UserGuide => new UserGuidePanel(_userGuideActions()),
             WorkspaceDocumentTypes.OperandHelp => new OperandHelpPanel(_application.Optimization),
-            WorkspaceDocumentTypes.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
+            WorkspaceDocumentTypes.MultiConfiguration => new MultiConfigurationPanel(_application.MultiConfiguration, _application.Events),
+            WorkspaceDocumentTypes.UnavailableSampleWindow => new TextBlock
+            {
+                Text = UiLocalization.Text("当前版本尚不支持此示例窗口。"),
+                Margin = new Thickness(16),
+                TextWrapping = TextWrapping.Wrap
+            },
             WorkspaceDocumentTypes.Analysis => new AnalysisPanel(
                 _application.Analyses,
                 _application.Visualization,
@@ -804,7 +831,8 @@ public sealed partial class WorkspaceDockFactory : Factory
                 _settings,
                 descriptor.AnalysisName ?? descriptor.Title,
                 descriptor.InstanceId,
-                descriptor.Settings),
+                descriptor.Settings,
+                rememberSettings: !descriptor.IsExampleWindow),
             _ => throw new InvalidDataException(
                 $"Unsupported workspace document type '{descriptor.TypeId}'.")
         };

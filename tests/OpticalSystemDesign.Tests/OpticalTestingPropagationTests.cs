@@ -133,23 +133,25 @@ public sealed class OpticalTestingPropagationTests
     {
         var imported = await Import("Twyman Green Interferometer");
         var first = imported.Configurations[0]; var second = imported.Configurations[1];
-        Assert.Equal("BK7", first.SurfaceGroup.Items[8].MaterialAfter.Name);
-        Assert.Equal("Air", second.SurfaceGroup.Items[8].MaterialAfter.Name);
-        Assert.Equal(0, second.SurfaceGroup.Items[7].Thickness);
+        // SURF 8 is the mirror. SURF 9 is the return face with a glass pickup from SURF 6.
+        Assert.True(first.SurfaceGroup.Items[8].IsReflective);
+        Assert.Equal("BK7", first.SurfaceGroup.Items[9].MaterialAfter.Name);
+        Assert.Equal("Air", second.SurfaceGroup.Items[9].MaterialAfter.Name);
         Assert.Equal(0, second.SurfaceGroup.Items[8].Thickness);
-        Assert.Equal(0, second.SurfaceGroup.Items[6].Radius);
-        Assert.Equal(0, second.SurfaceGroup.Items[8].Radius);
-        Assert.IsType<EvenAsphereGeometry>(second.SurfaceGroup.Items[9].Geometry);
+        Assert.Equal(0, second.SurfaceGroup.Items[9].Thickness);
+        Assert.Equal(0, second.SurfaceGroup.Items[7].Radius);
+        Assert.Equal(0, second.SurfaceGroup.Items[9].Radius);
+        Assert.IsType<EvenAsphereGeometry>(second.SurfaceGroup.Items[10].Geometry);
         var file = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".staropt");
         try
         {
             await StarOptProjectStore.SaveAsync(new(imported.Configurations.ToList(), 1), file);
             var restored = (await StarOptProjectStore.LoadAsync(file)).Configurations[1];
-            restored.SurfaceGroup.Items[5].Thickness = 2;
-            restored.SurfaceGroup.Items[6].Thickness = 1;
+            restored.SurfaceGroup.Items[6].Thickness = 2;
+            restored.SurfaceGroup.Items[7].Thickness = 1;
             restored.Pickups.ApplyAll();
-            Assert.Equal(-1, restored.SurfaceGroup.Items[7].Thickness);
-            Assert.Equal(-2, restored.SurfaceGroup.Items[8].Thickness);
+            Assert.Equal(-1, restored.SurfaceGroup.Items[8].Thickness);
+            Assert.Equal(-2, restored.SurfaceGroup.Items[9].Thickness);
         }
         finally { File.Delete(file); }
     }

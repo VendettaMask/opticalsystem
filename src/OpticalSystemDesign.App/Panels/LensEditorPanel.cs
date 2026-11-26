@@ -138,6 +138,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         });
         grid.Styles.Add(new MirrorRowStyles());
         grid.Styles.Add(new CoordinateReferenceRowStyles());
+        grid.Styles.Add(new ParaxialRowStyles());
         grid.Styles.Add(new CustomSurfaceRowStyles());
         grid.LoadingRow += (_, eventArgs) =>
         {
@@ -335,7 +336,8 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
         _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}";
         var canEditComponents = row.GeometryComputable;
-        var specialized = row.IsCoordinateReference || row.Birefringent is not null;
+        var specialized = row.IsCoordinateReference || row.Birefringent is not null
+            || row.DiffractiveSurfaceType is not null || row.GradientIndexSurfaceType is not null;
         _geometryPicker.IsEnabled = canEditComponents && row.ParaxialLens is null && !specialized;
         ToolTip.SetTip(_geometryPicker, specialized ? "特殊面型参数按导入值保留；此处只读。"
             : row.ParaxialLens is null ? null : "近轴参数按导入值保留；此处只读。");
@@ -363,6 +365,11 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
         try
         {
+            if (_activePropertyPage == SurfacePropertyPage.Coordinates)
+            {
+                ApplyCoordinateProperties(row);
+                return;
+            }
             if (!row.GeometryComputable || PhysicalPropertyInputs().SequenceEqual(_loadedPhysicalInputs))
             {
                 _prescription.UpdateSurfaceDrawingSettings(row.Number, SelectedDrawingOptions(), SelectedSurfaceColor());
@@ -388,7 +395,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         }
         catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
         {
-            _componentSummary.Text = $"未应用：{exception.Message}";
+            _componentSummary.Text = UiLocalization.Format("未应用：{0}", UiLocalization.Text(exception.Message));
         }
     }
 
@@ -577,9 +584,11 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
     private static void ApplyMaterialRowClass(DataGridRow dataGridRow, SurfaceEditorRow row)
     {
         var custom = !string.IsNullOrEmpty(row.Drawing.RowColor);
-        dataGridRow.Classes.Set("glass-material-row", !custom && row.HasOpticalMaterial && !row.IsCoordinateReference && !row.IsReflective);
+        var paraxial = row.ParaxialLens is not null && !row.IsCoordinateReference && !row.IsReflective;
+        dataGridRow.Classes.Set("glass-material-row", !custom && row.HasOpticalMaterial && !row.IsCoordinateReference && !row.IsReflective && !paraxial);
         dataGridRow.Classes.Set(MirrorRowStyles.RowClass, !custom && row.IsReflective && !row.IsCoordinateReference);
         dataGridRow.Classes.Set(CoordinateReferenceRowStyles.RowClass, !custom && row.IsCoordinateReference);
+        dataGridRow.Classes.Set(ParaxialRowStyles.RowClass, !custom && paraxial);
         dataGridRow.Classes.Set(CustomSurfaceRowStyles.RowClass, custom);
     }
 

@@ -159,7 +159,7 @@ internal sealed partial class CameraImagingService
             revision = Workspace.Revision; name = savedName ?? Runtime.CurrentOptic.Name;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
-        var snapshot = JsonSerializer.Serialize(optic.ToSnapshot(), LensJsonOptions);
+        var snapshot = inputs?.LensSnapshotJson ?? JsonSerializer.Serialize(optic.ToSnapshot(), LensJsonOptions);
         using (linked) return await Task.Run(() =>
         {
             using var scope = ComputationCancellation.Push(linked.Token);

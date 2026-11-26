@@ -64,7 +64,7 @@ public sealed class LayerRow : INotifyPropertyChanged
     {
         if (_invalidUnit is not null) throw new ArgumentException($"第 {Number} 层 {_invalidUnit} 输入无效：{_invalidText}。");
         var value = ThicknessText == _originalText ? _originalThickness : ParsePositive(ThicknessText);
-        if (value > 100000) throw new ArgumentException($"第 {Number} 层物理厚度不能超过100000 nm。");
+        if (value > FilmLayer.MaximumNm(Variable)) throw new ArgumentException($"第 {Number} 层物理厚度不能超过{FilmLayer.MaximumNm(Variable)} nm。");
         return new(MaterialId, value, Variable);
     }
     private double ParsePositive(string text)
@@ -90,7 +90,7 @@ public sealed class LayerRow : INotifyPropertyChanged
     }
     internal void SetPhysical(double value)
     {
-        if (!double.IsFinite(value) || value <= 0 || value > 100000) throw new ArgumentException("物理厚度必须大于零且不超过100000 nm。");
+        if (!double.IsFinite(value) || value <= 0 || value > FilmLayer.MaximumNm(Variable)) throw new ArgumentException("物理厚度超出当前膜层范围。");
         _originalThickness = value; _thickness = _originalText = NumericDisplayFormatter.Format(value); _invalidUnit = _invalidText = null;
         Notify(nameof(ThicknessText));
     }

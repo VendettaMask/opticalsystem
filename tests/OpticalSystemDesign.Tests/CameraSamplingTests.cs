@@ -38,6 +38,19 @@ public sealed class CameraSamplingTests
     }
 
     [Fact]
+    public async Task ArchivedLensRetainsItsSourceSnapshotWhenReusedWithAnImageTarget()
+    {
+        using var app = WorkbenchApplication.Create();
+        var archived = await app.CameraImaging.OpenExperimentAsync(Path.Combine(
+            AppContext.BaseDirectory, "Fixtures", "camera-scene-v8-frozen.zip"));
+        var request = new CameraImagingRequest(Source: CameraSource.ColorChart, Optics: CameraOptics.CurrentLens,
+            Aberration: CameraAberration.Geometric, Width: 4, Height: 4);
+        var replay = await app.CameraImaging.RecomputeAsync(archived.B, request);
+        Assert.NotNull(archived.B.Inputs!.LensSnapshotJson);
+        Assert.Equal(archived.B.Inputs.LensSnapshotJson, replay.Inputs!.LensSnapshotJson);
+    }
+
+    [Fact]
     public void PreparedFieldIsImmutableAndBitwiseIdenticalAtFixedPhysicalCoordinates()
     {
         var cells = Enumerable.Range(0, 15).Select(i => new ScalarHuygensCell(new((i % 5 - 2) * .1, (i / 5 - 1) * .1, 0),

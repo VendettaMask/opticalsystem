@@ -28,16 +28,8 @@ public static class ModelGlassParameters
         SynchronizeFollowingMedia(optic, surface.Number);
         optic.InvalidateRayTraceCache();
     }
-    public static void SynchronizeFollowingMedia(Optic optic, int surfaceNumber)
-    {
-        for (var index = surfaceNumber + 1; index < optic.SurfaceGroup.Items.Count; index++)
-        {
-            var surface = optic.SurfaceGroup.Items[index];
-            surface.MaterialBefore = optic.SurfaceGroup.Items[index - 1].MaterialAfter.Clone();
-            if (!surface.IsReflective && surface.InteractionModel is not Interactions.CoordinateReferenceInteractionModel) break;
-            surface.MaterialAfter = surface.MaterialBefore.Clone();
-        }
-    }
+    public static void SynchronizeFollowingMedia(Optic optic, int surfaceNumber) =>
+        optic.SurfaceGroup.SynchronizeFollowingMedia(surfaceNumber);
     public static void SetVariable(OpticalSurface surface, string key, bool enabled)
     {
         _ = Read(surface, key); var model = Require(surface);

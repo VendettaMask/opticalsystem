@@ -132,6 +132,10 @@ public sealed partial class UserGuidePanel
                 "RMS spot vs field uses Field Density plus one positions from zero to the maximum defined field in the chosen direction, not just Field Editor rows. Other scans use their own nodes. Focus scans change evaluation position in a copy. Angle/height scans through pupil and field have different horizontal variables. Matrices organize results without changing units.",
                 "視野別 RMS スポットは指定方向でゼロから最大視野まで Field Density に一を加えた節点を使い、視野表そのものではありません。他の走査は固有の節点設定に従います。離焦は副本の評価位置を変えます。瞳走査と視野走査の横軸を区別します。") with
             { Formula = "scan-grid" },
+            S("物方与像方远心度", "Object and image telecentricity", "物体側と像側のテレセントリシティ",
+                "远心度按当前定义的视场编号和所选波长分别追迹主光线，测量发射方向和像面交互前到达方向相对各自局部 Z 轴的夹角，以度表示，0° 为理想远心。物方虚线、像方实线；数据页保留带符号的 X/Y 投影角。波长 0 为全部，不做谱加权平均；最大值只覆盖有效采样点，遮挡或失败显示缺口而不是 0°。",
+                "Telecentricity traces chief rays at the defined field numbers and selected wavelengths. It measures launch and pre-interaction image-arrival directions against each local Z axis in degrees; 0° is ideal. Object curves are dashed and image curves solid; signed X/Y projections remain in the table. Wavelength 0 selects all without spectral averaging. Maxima cover valid samples only; blocked or failed rays leave gaps rather than 0°.",
+                "定義済み視野番号と選択波長ごとに主光線を追跡し、発射方向と像面相互作用前の到達方向を各局所 Z 軸に対して度で評価します。0° が理想です。物体側は破線、像側は実線で、符号付き X/Y 投影角は表に保持します。波長 0 は全波長で平均せず、最大値は有効点のみを対象とし、遮蔽や失敗は 0° ではなく欠損として示します。"),
             S("参考球与结构身份", "Reference spheres and configuration identity", "基準球と構成の識別",
                 "主光线球、质心球与最佳拟合球使用不同的参考中心/半径求 OPD。最佳拟合球的几何拟合不能等同于只减去一个平面。多结构曲线叠加保留每个结构的处方和结果身份；相干双束、偏振和 Huygens 多结构组合有专门支持范围，不能把普通多结构显示叠加解释成电场合成。",
                 "Chief-ray, centroid and best-fit spheres use different centers/radii for OPD. Sphere fitting is not merely plane removal. Configuration overlays retain each prescription/result identity. Coherent beams, polarization and Huygens combinations have specific support; ordinary overlays do not sum electric fields.",

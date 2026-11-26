@@ -20,13 +20,23 @@ public static class ExperimentStore
     public static async Task<Experiment> OpenAsync(string path, CancellationToken token = default)
     {
         var json = await BoundedFile.ReadAllTextAsync(path, BoundedFile.MaximumOpticalDocumentBytes, "镀膜实验", token);
+        return await OpenInputAsync(json, token);
+    }
+
+    public static async Task<Experiment> OpenInputAsync(string json, CancellationToken token = default)
+    {
+        var d = DecodeInput(json);
+        // Persisted results are evidence, never a trusted substitute for recalculation.
+        return d.Result is null ? d : await Task.Run(() => new DesignService().Evaluate(d, d.Result.Run, token: token), token);
+    }
+
+    internal static Experiment DecodeInput(string json)
+    {
         Experiment d;
         try { d = JsonSerializer.Deserialize<Experiment>(json, Experiment.JsonOptions) ?? throw new InvalidDataException("不是有效的镀膜实验文件。"); }
         catch (JsonException error) { throw new InvalidDataException("实验文件格式损坏或数值类型不正确，请使用有效的 .coating.json 文件。", error); }
         d.Validate(); CheckResult(d);
-        d = NormalizeFingerprints(d);
-        // Persisted results are evidence, never a trusted substitute for recalculation.
-        return d.Result is null ? d : await Task.Run(() => new DesignService().Evaluate(d, d.Result.Run, token: token), token);
+        return NormalizeFingerprints(d);
     }
 
     public static async Task ExportAsync(Experiment experiment, string directory, CancellationToken token = default)

@@ -50,12 +50,16 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     private CancellationTokenSource? _runCancellation;
     private AnalysisViewDto? _view;
     private long? _displayedSourceRevision;
+    private string? _displayedGpuDevice;
+    private string SyncedStatus => _displayedGpuDevice is null ? "已同步" : UiLocalization.Text("已同步") + " · GPU";
     private Dictionary<string, string> _settings;
     private int _generation;
     private bool _locked;
     private bool _isRunning;
     private bool _initialRunRequested;
     private bool _disposed;
+
+    private readonly bool _rememberSettings;
 
     public AnalysisPanel(
         IAnalysisService analyses,
@@ -65,13 +69,15 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         AppSettings appSettings,
         string analysisName,
         Guid? instanceId = null,
-        IReadOnlyDictionary<string, string>? initialSettings = null)
+        IReadOnlyDictionary<string, string>? initialSettings = null,
+        bool rememberSettings = true)
     {
         _analyses = analyses;
         _visualization = visualization;
         _documents = documents;
         _events = events;
         _appSettings = appSettings;
+        _rememberSettings = rememberSettings;
         AnalysisName = analysisName;
         AnalysisKey = analyses.CanonicalKey(analysisName);
         InstanceId = instanceId ?? Guid.NewGuid();
@@ -82,9 +88,9 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
 
         _syncButton = IconButton("action-recalculate", "同步当前设置并重新运行");
         _syncButton.Click += async (_, _) => await RunAsync();
-        var copyButton = CommandButton("clipboard-copy-text", "复制文本", 96);
+        var copyButton = IconButton("clipboard-copy-text", "复制文本");
         copyButton.Click += async (_, _) => await CopyReportAsync();
-        var exportButton = CommandButton("file-export-text", "导出文本", 96);
+        var exportButton = IconButton("file-export-text", "导出文本");
         exportButton.Click += async (_, _) => await ExportReportAsync();
         _exportImageButton = IconButton("file-export-image", "导出图片（PNG）");
         _exportImageButton.Name = "ExportAnalysisImage";
@@ -193,7 +199,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             }
             else
             {
-                _operationStatus.MarkSynced("已同步");
+                _operationStatus.MarkSynced(SyncedStatus);
             }
         }
     }
@@ -241,7 +247,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         try
         {
             _settings = CaptureParameterSettings();
-            settingsPersistenceWarning = SaveAnalysisSettings();
+            settingsPersistenceWarning = _rememberSettings ? SaveAnalysisSettings() : null;
         }
         catch (Exception exception)
         {
@@ -262,7 +268,8 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         try
         {
             var result = await _analyses.RunAsync(
-                new AnalysisRequestDto(InstanceId, generation, AnalysisKey, _settings),
+                new AnalysisRequestDto(InstanceId, generation, AnalysisKey, _settings)
+                    { UseGpuAcceleration = _appSettings.UseGpuAcceleration },
                 cancellationToken);
             var cardinalScene = result.ReferenceScene ?? (IsCardinalPointsView(result.View)
                 ? await _visualization.BuildSceneAsync(
@@ -303,6 +310,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                     DateTimeOffset.Now,
                     cardinalScene);
                 _displayedSourceRevision = result.SourceRevision;
+                _displayedGpuDevice = result.Provenance.GpuDeviceUsed;
                 if (_locked)
                 {
                     _operationStatus.MarkIdle("已锁定：保留当前结果");
@@ -310,7 +318,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 else
                 {
                     _operationStatus.MarkSynced(settingsPersistenceWarning is null
-                        ? "已同步"
+                        ? SyncedStatus
                         : $"已同步；设置未保存：{settingsPersistenceWarning}");
                 }
             });
