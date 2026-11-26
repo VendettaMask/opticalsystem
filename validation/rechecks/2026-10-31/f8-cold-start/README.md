@@ -1,5 +1,8 @@
 # F/8 cold-start paired study, 2026-10-31
 
+> 存储状态更新（2026-11-26）：部分过期执行副本已退役，保留原内容身份、对应源码及结果；当前文件集合不再提供这些历史运行环境的完整重放。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 Ten completed runs: candidate **1/5**, control **0/5**. This is a new cold study, not a continuation or a merge with the earlier fixed-layout or reduced-lens results. No DeepSeek, native desktop control, Git commit or publishing.
 
 - [Protocol](paired-v1/protocol.json), [source checksums](paired-v1/source-sha256.json), [runtime checksums](paired-v1/runtime-sha256.json), [source archive](paired-v1/source.zip).

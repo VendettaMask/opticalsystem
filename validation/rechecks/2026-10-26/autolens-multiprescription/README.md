@@ -1,5 +1,8 @@
 # AutoLens 多处方、全参数梯度与临界情况直接对照
 
+> 存储状态更新（2026-11-26）：大型历史派生 JSON 已无损压缩，原路径、原字节哈希及仓库外还原方法可查。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 本轮只做耗时短的固定输入验证，未恢复训练、未执行优化更新或完整精修。使用未修改的原版 e58 数值函数、相同处方/输入光线、双方 float64，C# 分别执行 CPU 与真实 CUDA。
 
 ## 结论
@@ -56,4 +59,4 @@ Python 直接调用原始追迹/损失/约束函数；CRA/弯折仅在采样边�
 
 另发现之前的处方评价工具仅导入机械/显示半口径，没有为原版设定实际物理口径。本轮已修正 `EndpointComparison.ImportOriginal`，逐行调用 Core 的口径设置函数，旧证据保留，修正后的已保存处方评价另存 `autolens-full-comparison/available-results-comparison/common-analysis-corrected-apertures`。已核实原版全部 13 个物理口径与 JSON 相同。对原先两份冻结处方、相同采样补算后，表内指标与逐视场 RMS/最大半径/80% 半径的变化均为 0，故此前那组光斑/采样有效率数字在这些样本下得到重新确认；这不代表缺漏可以忽略或对其他处方无影响。原报告及机器数据已加更正记录。此工具遗漏不与上表三处原版/Core 边界差异混为一谈。
 
-[机器汇总](summary.json) · [对照图](comparison.png) · [原版基线](upstream.json) · [C# 原始结果](csharp.json) · [稳定项归因原版](upstream-epsilon-diagnostic.json) · [归因对照](csharp-epsilon-diagnostic.json)
+[机器汇总](summary.json) · [对照图](comparison.png) · [原版基线](upstream.json) · [C# 原始结果](csharp.json.gz) · [稳定项归因原版](upstream-epsilon-diagnostic.json) · [归因对照](csharp-epsilon-diagnostic.json)

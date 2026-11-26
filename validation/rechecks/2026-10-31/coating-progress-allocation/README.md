@@ -1,5 +1,8 @@
 # 镀膜进展续算证据（2026-10-31）
 
+> 存储状态更新（2026-11-26）：大型历史派生 JSON 已无损压缩，原路径、原字节哈希及仓库外还原方法可查。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 本轮47规格，94份新优化；所有比较以最终测试Core及anchored-band-domain/1冷复算。178/178镀膜测试通过。完整结论、失败试探和剩余未达标项见[报告](../../../../docs/COATING_PROGRESS_ALLOCATION_2026-10-31.md)。
 
 - inputs逐字节复用上一阶段47份；baseline-source为本轮开始时Engine，control-source只把上一阶段旧额度控制的恢复上限改为N。

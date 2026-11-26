@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-26",
+  "status": "passed-for-scoped-staged-snapshot",
+  "scope": "Repository storage and exact-byte restoration; no optical calculation or numerical reclassification",
+  "compression": {
+    "valid": true,
+    "mode": "Verify",
+    "files": 68,
+    "originalBytes": 1505989549.0,
+    "storedBytes": 218183358.0,
+    "manifestSha256": "790a1088706e5e1eda5d799dd0c4a654b08b432795e4d40aebf108dbe50e21c1"
+  },
+  "fullExternalRestoration": {
+    "valid": true,
+    "mode": "Restore",
+    "files": 68,
+    "originalBytes": 1505989549.0,
+    "storedBytes": 218183358.0,
+    "manifestSha256": "790a1088706e5e1eda5d799dd0c4a654b08b432795e4d40aebf108dbe50e21c1"
+  },
+  "controls": {
+    "historicalCompression": {
+      "passed": 15,
+      "failed": 0
+    },
+    "existingAliases": {
+      "passed": 13,
+      "failed": 0
+    },
+    "existingStorage": {
+      "passed": 8,
+      "failed": 0
+    }
+  },
+  "frozenBefore": {
+    "source": "HEAD",
+    "commit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": []
+  },
+  "frozenCandidate": {
+    "source": "Index",
+    "commit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": []
+  },
+  "evidenceAliases": {
+    "groups": 3069,
+    "aliases": 10028,
+    "removedDuplicateBytes": 3161293712.0,
+    "scannedFiles": 23786,
+    "nonEmptyDuplicateGroups": 0,
+    "manifestSha256": "b84e33d4f6beb600da8bb25133a627ceba86970865df26a3dd85e98e8c3b51aa",
+    "valid": true
+  },
+  "snapshotScope": "Staged tracked-file view; unstaged and untracked feature work from other ongoing tasks excluded.",
+  "sharedWorkingTree": "The separate whole-working-tree scan encountered an in-progress UI documentation link and an untracked duplicate formatting log. Those files are not part of this commit; they were preserved.",
+  "temporaryFullRestorationRemoved": true,
+  "repositorySizeBeforeFinalSmallReceipts": {
+    "files": 35239,
+    "expandedBytes": 13653471080,
+    "beforeExpandedBytes": 15756817741,
+    "netReductionBytes": 2103346661,
+    "percentReduction": 13.348803645338808,
+    "description": "Staged file tree before final small verification receipts; LFS pointers counted by payload bytes."
+  },
+  "remoteCI": "Not asserted; local storage and documentation checks only.",
+  "numericalMatrixRun": false,
+  "toolSha256": {
+    "tools/validation/HistoricalEvidence.ps1": "a18ca7665cee95b2797cc751def7fdbc527b49dbbc149bee833070174a1ed84f",
+    "tools/validation/HistoricalEvidence.Tests.ps1": "9f8fdff4674ff626132363e5d7d833a03642c9a6c3a308f789b0d42bb8f64c12"
+  },
+  "documentation": {
+    "Documents": 2132,
+    "BrokenLinks": [],
+    "MarkdownFenceIssues": [],
+    "LocalOnlyLinks": [],
+    "GuideRepeatedParagraphs": [],
+    "LifecycleIssues": []
+  }
+}

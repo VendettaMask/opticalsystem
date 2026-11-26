@@ -1,5 +1,8 @@
 # 镀膜生成认证证据（2026-10-31）
 
+> 存储状态更新（2026-11-26）：大型历史派生 JSON 已无损压缩，原路径、原字节哈希及仓库外还原方法可查。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 本目录保存本轮基线、最终生成、独立复算与未采用试验；产品结论见[报告](../../../../docs/COATING_GENERATION_CERTIFICATION_2026-10-31.md)。Generate 0/6→2/6，旧完整Search已能通过同两组；98%真实高反无新增通过。
 
 - paired-generation.json：6组逐量、原门槛与预算守卫。reference-inputs为实际相同热起点，inputs保留61个原始输入。

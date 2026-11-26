@@ -86,6 +86,19 @@ CI 在三个系统上同时核对工作区与 HEAD 的原始字节。历史清�
 
 迁移表必须匹配固定字节哈希、原清单身份和逐项原 SHA-256，并存在于同一 Git 校验来源。内容或换行变化、文件缺失、目标冲突、越界或链接、旧路径重现均拒绝；不带迁移表仍按原路径检查并失败。`-Source Index` 仅认证所选索引，不能宣称 HEAD 或远端 CI 通过。新增表尚未提交时，HEAD 门禁也必须失败；临时索引的候选复验及回归记录见[本轮账本](validation/FROZEN_EVIDENCE_RELOCATION_REPAIR_2026-10-19.json)。
 
+## 历史验证文件的存储与还原
+
+验证目录保留当前测试输入、参考原件、源代码身份和独有的成功、失败及中断结果。新的临时程序、调试符号和整套运行包放在仓库外的工作目录或 CI 产物中；不要反复提交完整构建输出。现有受审查的二进制夹具和引用权威继续保留，新增必要二进制需明确其消费者及来源。
+
+大型历史派生 JSON 使用无损 gzip 存储，[逐文件清单](../validation/historical-compression.json)记录原路径、原长度、原 SHA-256 及压缩文件身份。它们不属于当前测试的直接输入，也不改变任何数值或验收分类。完整校验和按原目录还原到新的仓库外目录：
+
+```powershell
+./tools/validation/HistoricalEvidence.ps1
+./tools/validation/HistoricalEvidence.ps1 -Mode Restore -DestinationRoot ../historical-review -PathPrefix validation/rechecks/2026-10-31/initial-loss-round2
+```
+
+还原入口拒绝覆盖已有目录、写回仓库、路径越界、链接、容器损坏和原字节不匹配。使用旧诊断源码前，应从还原目录显式选择所需输入；不要将历史脚本当作当前默认验证命令。已退役的执行副本不由此入口重建，原身份和范围见[精简记录](../validation/rechecks/2026-11-26/repository-trim/README.md)。普通删除提交缩小最新文件集合，旧 Git 提交及远端旧大文件对象不会因此自动消失。
+
 ## 启动桌面应用
 
 Windows 使用 `Run-OpticalSystemDesign.cmd`，macOS 使用 `Run-OpticalSystemDesign.command`，或执行：

@@ -1,5 +1,8 @@
 # 修正训练积分低估，完成三片处方的剩余失光补偿
 
+> 存储状态更新（2026-11-26）：大型历史派生 JSON 已无损压缩，原路径、原字节哈希及仓库外还原方法可查。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 日期：2026-10-27。**这组三片接续修复已通过全部原验收门槛，35个视场的积分光线960/960、中心/边界光线99/99全部有效，21°剩余失光9→0。** 成功依次来自更准确的训练积分，以及第二片前后表面的有限轴向补偿；不能把收益全部归因于采样，也不能称为从四片起点一次预算内完成减片。
 
 [合格三片STAROPT](../topology-integrated-compensation/final-integration-tests/integrated-qualified.staropt)已重新导入并通过原完整验收。该次接续修复消耗1,077,444次实际追迹、14次完整梯度评价、约5.313秒，低于原200万追迹/100梯度/60秒总上限；初验和终验已包含在内。源准备、其他配对实验及独立回读审计分别记账。
@@ -49,7 +52,7 @@
 | 新9条处方，1×8 | 96 /96 | 51.895 | 9 | Stalled |
 | 新9条处方，4×16 | 46 /45 | 49.000 | 9 | 训练追迹配额 |
 
-最后一个未完成梯度请求仍计费。高精度保护了像质，但在这次有限预算/曲率变量中，继续迭代仍未消除9条。见[固定修复协议](../../../../labs/InitialStructure/benchmarks/autonomous-topology-v1/sampling-repair-20261027.json)和[4次全部记录](repair-runs/summary.json)。这不证明曲率空间全局无解。
+最后一个未完成梯度请求仍计费。高精度保护了像质，但在这次有限预算/曲率变量中，继续迭代仍未消除9条。见[固定修复协议](../../../../labs/InitialStructure/benchmarks/autonomous-topology-v1/sampling-repair-20261027.json)和[4次全部记录](repair-runs/summary.json.gz)。这不证明曲率空间全局无解。
 
 随后单独预先冻结原9条处方的**高精度曲率控制 vs 高精度加第二片位置补偿**两次对照，均4×16与同样总预算。新增的两个变量只是 `element-002` 前后轴向坐标，各在原值±0.25mm内，归一化尺度0.1mm；其他面轴向、光阑/像面/材料/口径/视场不动，原中心厚、边厚、气隙及所有正式门槛保持。既有Core位置参数先通过差分核对，再启动实验。厚度/间距作为补偿自由度的思路与[Ansys的厚度变量说明](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25202/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Set_All_Thickness_Variable.html)一致；本案例的有限范围与结果由实际Core计算验证。
 
@@ -58,7 +61,7 @@
 | 仅曲率 | 5 | 0 | 49.064 | 9 | 失败 |
 | **第二片有限位置补偿** | **5** | **2** | **48.999** | **0** | **通过** |
 
-见[事前冻结的补偿协议](../../../../labs/InitialStructure/benchmarks/autonomous-topology-v1/sampling-axial-compensation-20261027.json)及[2次对照](axial-runs/summary.json)。该比较明确扩大了两个位置变量，不能声称与只调采样完全同一变量空间；材料/口径/视场/验收从未放宽。
+见[事前冻结的补偿协议](../../../../labs/InitialStructure/benchmarks/autonomous-topology-v1/sampling-axial-compensation-20261027.json)及[2次对照](axial-runs/summary.json.gz)。该比较明确扩大了两个位置变量，不能声称与只调采样完全同一变量空间；材料/口径/视场/验收从未放宽。
 
 ## 合格三片的最终结果
 

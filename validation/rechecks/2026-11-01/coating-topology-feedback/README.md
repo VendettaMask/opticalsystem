@@ -1,5 +1,8 @@
 # 匹配后反馈与正式极值采样证据
 
+> 存储状态更新（2026-11-26）：大型历史派生 JSON 已无损压缩，原路径、原字节哈希及仓库外还原方法可查。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 正式修正为通用极值锚点、验收稳定性与结果元数据；结构反馈仍为离线实验。见[报告](../../../../docs/COATING_TOPOLOGY_FEEDBACK_2026-11-01.md)。
 
 - inputs/baseline-source：9个原实际起点、真实n/k及开始源码。*-feedback-final / *-prototype-final / *-control-final为采样/1下9+6+9个实际运行；较大旧N另2项。
