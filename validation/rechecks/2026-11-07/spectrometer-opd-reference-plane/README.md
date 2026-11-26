@@ -1,5 +1,8 @@
 # Sample Spectrometer 参考球出瞳平面修复
 
+> 重复资料整理（2026-11-26）：逐字相同的历史源码、脚本或项目文件只保留一份原件，原目录角色通过别名表保存；需要完整源码目录时先在仓库外还原。见[合并记录](../../2026-11-26/duplicate-consolidation/README.md)。结果和失败分类保持。
+
+
 Sample Spectrometer 的两处超容差来自非共轴光阑方向笔的轴向定位。真实方向笔在像面 X、Y 都有变化。旧球面用 Y 分量的交点，得到 0.092907754976 mm。新球面用同一方向笔的两个横向分量求最窄截面，得到 0.092751627120 mm。独立原生 EXPP 为 0.092752357417 mm，且用两场三波长的实际像面位置、方向和相位光程逐点反算得到同一原生平面。产品计算采用真实旁基光线与本地光学处方。 [相位分解](phase-split.json) [原生 EXPP 与光程读数](spectrometer-controls.zip) [OpticStudio 出瞳位置](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/opticstudio_user_guide/OpticStudio_Help/topics/Exit_Pupil_Position.html)
 
 同处方六组逐面 OPTH 含光栅相位。它与实际几何光程加处方光栅相位的最大差为 4.01×10⁻¹⁵ mm。修复保留各波长的真实主光线球心，并保留标量出瞳报告及 MEMS 不连续方向笔的既有定义。 [OpticStudio OPTH](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/opticstudio_user_guide/OpticStudio_Help/topics/Constraints_on_Real_Ray_Data.html) [OpticStudio 球面参考](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Exit_Pupil.html)

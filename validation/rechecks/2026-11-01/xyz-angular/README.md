@@ -1,5 +1,8 @@
 # 实测角表与 BTDF 链路证据
 
+> 重复资料整理（2026-11-26）：逐字相同的历史源码、脚本或项目文件只保留一份原件，原目录角色通过别名表保存；需要完整源码目录时先在仓库外还原。见[合并记录](../../2026-11-26/duplicate-consolidation/README.md)。结果和失败分类保持。
+
+
 2026-11-01。**剩余三种XYZ校准仍失败，新增正式批准为0**。已验证13组有限范围的实测角表链路，不用该链路通过替代校准或全角域商业认证。[实现与准确范围](../../../../docs/XYZ_MEASURED_ANGULAR_2026-11-01.md)
 
 - 最终入口：[汇总](final-verification-summary.json)、[执行身份](final-run-integrity.json)、[独立执行脚本](run-isolated.ps1)、[最终TRX](isolated-final-focused.trx)、[最终测试日志](test-isolated-final-focused.log)。该过滤范围预期307项，最终实际计数由TRX读取；不是全仓测试。

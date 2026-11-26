@@ -90,6 +90,14 @@ CI 在三个系统上同时核对工作区与 HEAD 的原始字节。历史清�
 
 验证目录保留当前测试输入、参考原件、源代码身份和独有的成功、失败及中断结果。新的临时程序、调试符号和整套运行包放在仓库外的工作目录或 CI 产物中；不要反复提交完整构建输出。现有受审查的二进制夹具和引用权威继续保留，新增必要二进制需明确其消费者及来源。
 
+逐字相同的历史源码、脚本和项目文件也只保留一份不可变原件，[资料别名表](../validation/evidence-aliases.json)保留每个原路径、原 SHA-256 和执行权限。当前产品源码及测试输入保持原位；不要以会继续修改的产品源文件替代历史原件。需要查看原目录时，在仓库外生成对应的历史资料视图：
+
+```powershell
+./tools/validation/EvidenceAliases.ps1 -Mode Materialize -PathPrefix validation/rechecks/2026-10-31/coating-basin-restoration/baseline-source -DestinationRoot ../historical-source-review
+```
+
+这只还原保留的资料和源码，不表示旧执行环境仍然齐备；逐份字节核对与范围见[重复内容合并记录](../validation/rechecks/2026-11-26/duplicate-consolidation/README.md)。
+
 大型历史派生 JSON 使用无损 gzip 存储，[逐文件清单](../validation/historical-compression.json)记录原路径、原长度、原 SHA-256 及压缩文件身份。它们不属于当前测试的直接输入，也不改变任何数值或验收分类。完整校验和按原目录还原到新的仓库外目录：
 
 ```powershell

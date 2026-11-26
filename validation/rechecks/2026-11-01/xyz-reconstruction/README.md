@@ -1,5 +1,8 @@
 # Full-incidence log interpolation and absolute XYZ reconstruction
 
+> 重复资料整理（2026-11-26）：逐字相同的历史源码、脚本或项目文件只保留一份原件，原目录角色通过别名表保存；需要完整源码目录时先在仓库外还原。见[合并记录](../../2026-11-26/duplicate-consolidation/README.md)。结果和失败分类保持。
+
+
 2026-11-01. Product changes and detailed limits: [report](../../../../docs/XYZ_LOG_RECONSTRUCTION_2026-11-01.md).
 
 The current result is **two of the remaining three XYZ calibrations passing the original development holdout gates**. Mystic and Cayman qualify; Blue Acrylic remains rejected. This phase does not complete the entire requested XYZ goal or commercial certification.
