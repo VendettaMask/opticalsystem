@@ -15,6 +15,8 @@
 
 项目增加或调整 `ProjectReference` 时也必须同步受影响的 `packages.lock.json`：在维护端执行 `dotnet restore OpticalSystemDesign.slnx --force-evaluate`，检查差异，再以 `dotnet restore OpticalSystemDesign.slnx --locked-mode` 和完整 Release 构建复验后提交。不要在云发布流程中关闭锁定还原。2026-10-27 首次发布因 Persistence → Engine 引用未同步而被此门禁阻断，修复范围见[阶段记录](../validation/rechecks/2026-10-27/cloud-release/README.md)；当前实际交付结果以[状态页](CURRENT_STATUS.md)为准。
 
+2026-11-27 的仅打包任务发现 Comparison 工具、Comparison 测试和 InitialStructure 测试遗漏 Application → CoatingDesign.Engine 的依赖图更新，均在 `NU1004` 处停止。完整解决方案重新求值后同步五份锁文件；固定源码的仅打包分支需要指向修复后的提交再触发。[失败原因、范围和验证回执](../validation/rechecks/2026-11-27/cloud-package/README.md)。
+
 Windows EXE 文件名末尾显示本次实际构建源码的八位小写提交短码，例如 `OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-6edad153.exe`，发布标题也显示同一短码。打包记录、签名中的完整源码和文件名短码必须一致；每次源码变更会产生不同的 EXE 下载地址，测试标签与发布页地址保持不动。分平台源码仍以正文逐项记录为准，更新 Windows 不代表同时重建 Mac。
 
 新客户端同时识别带短码和原有无短码的文件名；原有客户端的文件名规则不会自动改变，需要从发布页手动覆盖更新一次，之后可正常使用在线更新。新名称也须通过原有公钥、完整大小/SHA-256、架构、版本和构建编号校验，不以短码代替签名。
