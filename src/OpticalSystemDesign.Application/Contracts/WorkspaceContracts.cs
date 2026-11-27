@@ -1806,7 +1806,8 @@ public enum OptimizationVariableKind
     PhaseCoefficient,
     SurfaceParameter,
     ObjectDistance,
-    ModelGlassCoefficient
+    ModelGlassCoefficient,
+    FieldX, FieldY, FieldWeight, Wavelength, WavelengthWeight
 }
 
 public sealed record OptimizationVariableResultDto(
@@ -2099,11 +2100,12 @@ public sealed record MultiConfigurationRowDto(
     public int Number => Index + 1;
 }
 
-public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient, Material }
+public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient, Material, FieldX, FieldY, FieldWeight, Wavelength, WavelengthWeight }
 public sealed record MultiConfigurationOperandRowDto(int Number, MultiConfigurationParameterKind Kind, int SurfaceNumber, IReadOnlyList<double> Values, IReadOnlyList<bool> Variables, IReadOnlyList<MultiConfigurationPickupDto?> Pickups, string? Parameter = null)
 {
     public IReadOnlyList<string>? TextValues { get; init; }
     public int? ParameterNumber { get; init; }
+    public IReadOnlyList<string>? Units { get; init; }
 }
 public sealed record MultiConfigurationPickupDto(int SourceRow, int SourceConfigurationIndex, double Scale = 1, double Offset = 0);
 public sealed record MultiConfigurationOperandBindingDto(MultiConfigurationParameterKind Kind, int SurfaceNumber, string? Parameter = null);

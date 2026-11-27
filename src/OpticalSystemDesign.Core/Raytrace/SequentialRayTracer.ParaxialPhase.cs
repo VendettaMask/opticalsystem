@@ -41,6 +41,7 @@ public sealed partial class SequentialRayTracer
     private sealed class ParaxialPhaseTrace(SequentialRayTracer owner)
     {
         private readonly ConcurrentDictionary<BeamKey, Lazy<Chief>> _chiefs = new();
+        private readonly ConcurrentDictionary<int, bool> _planeWavePrefixes = new();
         private readonly record struct BeamKey(int Surface, Vector3D Source, double Wavelength, bool Infinite);
         private sealed record Chief(Vector3D Position, Vector3D Direction);
 
@@ -49,7 +50,9 @@ public sealed partial class SequentialRayTracer
             source = source.Normalize();
             var surface = owner._optic.SurfaceGroup.Items[surfaceIndex];
             var model = (ParaxialLensInteractionModel)surface.InteractionModel;
-            if (model.OpdMode == 0 && !ParaxialPhaseRules.IsPlaneWavePrefix(owner._optic.SurfaceGroup.Items.Take(surfaceIndex).ToArray()))
+            var planeWavePrefix = _planeWavePrefixes.GetOrAdd(surfaceIndex,
+                index => ParaxialPhaseRules.IsPlaneWavePrefix(owner._optic.SurfaceGroup.Items.Take(index).ToArray()));
+            if (model.OpdMode == 0 && !planeWavePrefix)
                 throw new NotSupportedException("模式 0 目前只验证了平面均匀介质链保持的准直光束；不能代替有限共轭或有像差的旁轴共轭计算。");
             var objectSurface = owner._optic.SurfaceGroup.Items[0];
             var infinite = ObjectConjugate.IsInfinite(objectSurface);
@@ -101,7 +104,11 @@ public sealed partial class SequentialRayTracer
                 if (values.TryGetValue(t, out var value)) return value;
                 ComputationCancellation.ThrowIfCancellationRequested();
                 var position = chief.Position + t * delta;
-                var incident = model.OpdMode is 0 or 2 ? chief.Direction
+                // A plane wave through homogeneous plane interfaces has the
+                // same direction at every point of the integration segment.
+                // Retain the original quadrature and full lens phase, omitting
+                // only the redundant inverse aiming of that constant direction.
+                var incident = model.OpdMode is 0 or 2 || planeWavePrefix ? chief.Direction
                     : surface.CoordinateSystem.ToLocalDirection(beam.Aim(surfaceIndex, position.X, position.Y).Sample.Direction);
                 var outgoing = model.Outgoing(incident, position, context.RefractiveIndexBefore, context.RefractiveIndexAfter);
                 value = (context.RefractiveIndexAfter * outgoing.X - context.RefractiveIndexBefore * incident.X) * delta.X

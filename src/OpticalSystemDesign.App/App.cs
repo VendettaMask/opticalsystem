@@ -780,6 +780,7 @@ public sealed class App : Avalonia.Application
             desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
             splash.Close();
             mainWindow.Activate();
+            System.Diagnostics.Trace.TraceInformation("Main window ready.");
             if ((Current as App)?.StartupSettings?.UseGpuAcceleration == true)
                 _ = Task.Run(() => OpticalSystemDesign.Core.Analysis.AnalysisGpuSession.AvailableDevice);
             await mainWindow.StartDocumentRecoveryAsync();
@@ -787,6 +788,7 @@ public sealed class App : Avalonia.Application
         catch (Exception exception)
         {
             var diagnosticsPath = WriteStartupFailureLog(exception);
+            System.Diagnostics.Trace.TraceError($"Main window startup failed: {exception}");
             if (splashClosed)
             {
                 desktop.Shutdown(-1);

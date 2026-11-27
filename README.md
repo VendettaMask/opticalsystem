@@ -162,7 +162,7 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
 dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-build
 ```
 
-You can also build and launch the application with [Run-OpticalSystemDesign.cmd](Run-OpticalSystemDesign.cmd) on Windows or [Run-OpticalSystemDesign.command](Run-OpticalSystemDesign.command) on macOS.
+You can also build and launch the application with [Run-OpticalSystemDesign.cmd](Run-OpticalSystemDesign.cmd) on Windows (Release configuration) or [Run-OpticalSystemDesign.command](Run-OpticalSystemDesign.command) on macOS.
 
 ## Developer quick start
 

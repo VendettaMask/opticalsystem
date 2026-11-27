@@ -141,7 +141,10 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
-        return RunAnalysisWorkerAsync(
+        var started = System.Diagnostics.Stopwatch.GetTimestamp();
+        var operation = $"Analysis {request.AnalysisKey} instance={request.InstanceId:N} run={request.Generation} revision={sourceRevision}";
+        System.Diagnostics.Trace.TraceInformation($"{operation} started. GPU preference={(request.UseGpuAcceleration ? "automatic" : "off")}");
+        var worker = RunAnalysisWorkerAsync(
             snapshot,
             nonSequentialSnapshot,
             configurationSnapshot,
@@ -150,6 +153,32 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
             request,
             linked,
             _nonSequentialAnalysisSession);
+        return LogAnalysisCompletionAsync(worker, operation, started);
+    }
+
+    private static async Task<AnalysisResultDto> LogAnalysisCompletionAsync(Task<AnalysisResultDto> worker, string operation, long started)
+    {
+        try
+        {
+            var result = await worker.ConfigureAwait(false);
+            var elapsed = System.Diagnostics.Stopwatch.GetElapsedTime(started).TotalMilliseconds;
+            var message = $"{operation} {result.View.Outcome} in {elapsed:F0} ms. Device={result.Provenance.GpuDeviceUsed ?? "CPU"}";
+            if (result.View.Outcome == Contracts.AnalysisOutcome.Success)
+                System.Diagnostics.Trace.TraceInformation(message);
+            else
+                System.Diagnostics.Trace.TraceWarning($"{message}. {result.View.OutcomeReason}");
+            return result;
+        }
+        catch (OperationCanceledException)
+        {
+            System.Diagnostics.Trace.TraceInformation($"{operation} cancelled.");
+            throw;
+        }
+        catch (Exception error)
+        {
+            System.Diagnostics.Trace.TraceError($"{operation} failed. {error}");
+            throw;
+        }
     }
 
     private void EnsureAvailable(string analysisName)

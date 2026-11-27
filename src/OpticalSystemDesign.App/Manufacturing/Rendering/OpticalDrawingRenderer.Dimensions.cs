@@ -36,16 +36,48 @@ internal static partial class OpticalDrawingRendererCore
             component.BackSurface,
             frontVertexZ,
             backVertexZ);
+        return BuildProfile(component, frontVertexZ, surfaceSamples, profileSemiDiameter,
+            ManufacturingSurfaceExtent(component.FrontSurface), ManufacturingSurfaceExtent(component.BackSurface));
+    }
+
+    // Model-space geometry uses nominal mechanical extents, including very small lenses.
+    // Page rendering can cap the illustrated aperture to keep its schematic well behaved.
+    internal static ManufacturingComponentProfile BuildCadProfile(OpticalElementDefinition component, double frontZ)
+    {
+        OpticalManufacturingModel.EnsureDrawingCenterThickness(component);
+        var front = component.FrontSurface;
+        var back = component.BackSurface;
+        var frontExtent = front.MechanicalSemiDiameter ?? front.SemiDiameter;
+        var backExtent = back.MechanicalSemiDiameter ?? back.SemiDiameter;
+        var extent = Math.Max(frontExtent, backExtent);
+        if (!(frontExtent > 0 && backExtent > 0 && double.IsFinite(extent))
+            || frontExtent > ManufacturingGeometryService.MaximumRadius(front)
+            || backExtent > ManufacturingGeometryService.MaximumRadius(back))
+            throw InvalidDiameter();
+
+        var profile = BuildProfile(component, frontZ, ManufacturingSurfaceSamples, extent, frontExtent, backExtent);
+        // Check both sets of vertices, including the ends of unequal-aperture shoulders.
+        foreach (var point in profile.Boundary)
+        {
+            var frontSag = ManufacturingSag(front, Math.Clamp(point.Y, -frontExtent, frontExtent));
+            var backSag = ManufacturingSag(back, Math.Clamp(point.Y, -backExtent, backExtent));
+            if (component.CenterThickness + backSag - frontSag < 0)
+                throw InvalidDiameter();
+        }
+        return profile;
+
+        InvalidDataException InvalidDiameter() => new(UiLocalization.Format(
+            "元件 {0} 的机械外径超出可用轮廓。", component.ElementNumber));
+    }
+
+    private static ManufacturingComponentProfile BuildProfile(OpticalElementDefinition component, double frontVertexZ,
+        int surfaceSamples, double profileSemiDiameter, double frontExtent, double backExtent)
+    {
+        var backVertexZ = frontVertexZ + component.CenterThickness;
         var front = BuildExtendedManufacturingSurfaceCurve(
-            component.FrontSurface,
-            frontVertexZ,
-            surfaceSamples,
-            profileSemiDiameter);
+            component.FrontSurface, frontVertexZ, surfaceSamples, frontExtent, profileSemiDiameter);
         var back = BuildExtendedManufacturingSurfaceCurve(
-            component.BackSurface,
-            backVertexZ,
-            surfaceSamples,
-            profileSemiDiameter);
+            component.BackSurface, backVertexZ, surfaceSamples, backExtent, profileSemiDiameter);
         var boundary = new List<ManufacturingProfilePoint>(front.Count + back.Count);
         boundary.AddRange(front);
         for (var pointIndex = back.Count - 1; pointIndex >= 0; pointIndex--)
@@ -67,9 +99,9 @@ internal static partial class OpticalDrawingRendererCore
         SurfaceRowDto surface,
         double vertexZ,
         int surfaceSamples,
+        double surfaceExtent,
         double targetExtent)
     {
-        var surfaceExtent = ManufacturingSurfaceExtent(surface);
         var points = BuildManufacturingSurfaceCurvePoints(
             surface,
             vertexZ,

@@ -80,11 +80,16 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
         this.name = name; this.requested = requested; this.create = create; this.options = options;
     }
     public override string Name => name;
+    /// <summary>Return an already phase-resolved requested result unchanged;
+    /// otherwise reuse that same trial as the start of adaptive validation.</summary>
+    public bool RecoverOnlyIfRequired { get; init; }
     public static bool CanValidateSource(Optic optic) => PupilSourceIdentity.Capture(optic) is not null;
 
     public override AnalysisData GenerateData()
     {
         if (options.Mode == FourierSamplingMode.Fixed) return create(requested).GenerateData();
+        if (RecoverOnlyIfRequired && options.Mode != FourierSamplingMode.Adaptive)
+            throw new InvalidOperationException("Automatic phase recovery requires adaptive validation.");
         var steps = new List<FourierValidationStep>();
         var source = PupilSourceIdentity.Capture(Optic)?.Fingerprint;
         var work = 0L;
@@ -108,6 +113,7 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
         var physicalSamplingEstimate = 0d;
         var normalizedPupilEstimate = 0d;
         var retryWithPhysicalWindow = false;
+        FftPupilSampling? requestedPhase = null;
         if (source is null) return Unavailable("The optical source cannot be identified losslessly for Fourier validation.");
         // Energy evaluates an ideal pupil for the first field only. Count its
         // actual spectral source grids, retaining the same total work limit.
@@ -276,7 +282,11 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 // ideal scalar pupils and all defined fields/wavelengths. It is
                 // explicitly not a claim about the tracer's private interpolation work.
                 var nextWork = checked((energySources ?? 2L * sourceCount) * n * n);
-                if (nextWork > options.MaximumNominalPupilCells - work)
+                var automaticRequested = RecoverOnlyIfRequired && n == requested && !densePhysicalPupil && !physicalPsfWindow;
+                // The ordinary requested evaluation predates recovery and its
+                // budget. Resolved results keep that API; unresolved results
+                // still account this trial before any further work is started.
+                if (!automaticRequested && nextWork > options.MaximumNominalPupilCells - work)
                     return Unavailable("The total declared Fourier pupil-cell budget was exhausted.");
                 work += nextWork;
                 var phase = new List<FftPupilSampling>(); AnalysisData data;
@@ -355,6 +365,17 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 }
                 if (PupilSourceIdentity.Capture(Optic)?.Fingerprint != source)
                     return Unavailable("The optical source changed during Fourier validation.");
+                if (automaticRequested)
+                {
+                    if (data.Outcome != AnalysisOutcome.Success) return data;
+                    requestedPhase = phase.FirstOrDefault(p => p.Status != FftPhaseSamplingStatus.ResolvedAtNodes);
+                    if (requestedPhase is null) return data;
+                    if (requestedPhase.Status != FftPhaseSamplingStatus.UndersampledPhase
+                        || !double.IsFinite(requestedPhase.MaximumStepWaves))
+                        throw new FftPupilSamplingException(Name, requestedPhase);
+                    if (work > options.MaximumNominalPupilCells)
+                        return Unavailable("The total declared Fourier pupil-cell budget was exhausted.");
+                }
                 if (data.Outcome == AnalysisOutcome.NotApplicable) return data;
                 if (data.Outcome != AnalysisOutcome.Success) return Unavailable(data.OutcomeReason ?? "Fourier result unavailable");
                 if (data.Values.GetValueOrDefault("Normalized") is true || data.Values.GetValueOrDefault("UsePolarization") is true
@@ -440,6 +461,7 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                     RequestedMaximumAbsoluteDeviation = requestedError?.Max
                 }
             };
+            if (requestedPhase is not null) values["RequestedPupilPhaseSampling"] = requestedPhase;
             return data with { Values = values };
         }
         AnalysisData Unavailable(string reason) => Attach(AnalysisData.Unavailable(Name, reason), false, 0, reason);

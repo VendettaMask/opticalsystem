@@ -612,6 +612,12 @@
     "Japanese": "FFT 線／エッジ広がり"
   },
   {
+    "Source": "FLWT · 视场权重",
+    "Chinese": "FLWT · 视场权重",
+    "English": "FLWT · Field weight",
+    "Japanese": "FLWT · 視野の重み"
+  },
+  {
     "Source": "FULL · 逐形式完整优化",
     "Chinese": "FULL · 逐形式完整优化",
     "English": "FULL · Optimize every form",
@@ -1728,6 +1734,18 @@
     "Japanese": "W(ρ, θ) = Σ c_j Z_j(ρ, θ)。ρ は正規化瞳半径、θ は方位角、係数の単位は波です。"
   },
   {
+    "Source": "WAVE · 波长（µm）",
+    "Chinese": "WAVE · 波长（µm）",
+    "English": "WAVE · Wavelength (µm)",
+    "Japanese": "WAVE · 波長 (µm)"
+  },
+  {
+    "Source": "WLWT · 波长权重",
+    "Chinese": "WLWT · 波长权重",
+    "English": "WLWT · Wavelength weight",
+    "Japanese": "WLWT · 波長の重み"
+  },
+  {
     "Source": "White Specular 基准波长 (nm)",
     "Chinese": "White Specular 基准波长 (nm)",
     "English": "White Specular base wavelength (nm)",
@@ -1906,6 +1924,12 @@
     "Chinese": "X-线性",
     "English": "X-Linear",
     "Japanese": "X-線形"
+  },
+  {
+    "Source": "XFIE · 视场 X",
+    "Chinese": "XFIE · 视场 X",
+    "English": "XFIE · Field X",
+    "Japanese": "XFIE · X 視野"
   },
   {
     "Source": "XYZ 辐射度校准",
@@ -2122,6 +2146,12 @@
     "Chinese": "Y-线性",
     "English": "Y-Linear",
     "Japanese": "Y-線形"
+  },
+  {
+    "Source": "YFIE · 视场 Y",
+    "Chinese": "YFIE · 视场 Y",
+    "English": "YFIE · Field Y",
+    "Japanese": "YFIE · Y 視野"
   },
   {
     "Source": "Y视场",
@@ -5562,6 +5592,12 @@
     "Japanese": "素子 {0}"
   },
   {
+    "Source": "元件 {0} 的机械外径超出可用轮廓。",
+    "Chinese": "元件 {0} 的机械外径超出可用轮廓。",
+    "English": "The mechanical diameter of element {0} exceeds its valid profile.",
+    "Japanese": "素子 {0} の機械外径が有効な輪郭の範囲を超えています。"
+  },
+  {
     "Source": "元件{0}的机械口径超出可用面型或出现表面相交，不能裁切轮廓后仍按原直径出老国标图。",
     "Chinese": "元件{0}的机械口径超出可用面型或出现表面相交，不能裁切轮廓后仍按原直径出老国标图。",
     "English": "Element {0} has a mechanical aperture outside the valid surface domain or intersecting surfaces. The legacy GB drawing cannot clip the profile while retaining its original diameter.",
@@ -7416,6 +7452,12 @@
     "Japanese": "解析波長 (µm)"
   },
   {
+    "Source": "分析计算从下次运行起生效，窗口绘图在重启后生效。",
+    "Chinese": "分析计算从下次运行起生效，窗口绘图在重启后生效。",
+    "English": "Applies to the next analysis run. Restart to apply the rendering change.",
+    "Japanese": "次回の解析から適用します。描画への反映には再起動が必要です。"
+  },
+  {
     "Source": "分析设置",
     "Chinese": "分析设置",
     "English": "Analysis Settings",
@@ -7546,6 +7588,12 @@
     "Chinese": "删除",
     "English": "Delete",
     "Japanese": "削除"
+  },
+  {
+    "Source": "删除会改变多配置操作数引用的编号，请先移除相关行。",
+    "Chinese": "删除会改变多配置操作数引用的编号，请先移除相关行。",
+    "English": "Deletion would change an index referenced by a configuration operand. Remove the related rows first.",
+    "Japanese": "削除すると構成オペランドが参照する番号が変わります。先に関連する行を削除してください。"
   },
   {
     "Source": "删除分组",
@@ -10296,6 +10344,12 @@
     "Japanese": "複数構成の公差解析"
   },
   {
+    "Source": "多配置行必须引用有效的一基视场号或波长号，且不能附带表面参数。",
+    "Chinese": "多配置行必须引用有效的一基视场号或波长号，且不能附带表面参数。",
+    "English": "The row must reference an existing one-based field or wavelength index and cannot include a surface parameter.",
+    "Japanese": "行には有効な1始まりの視野番号または波長番号を指定し、面パラメータを含めることはできません。"
+  },
+  {
     "Source": "多配置行类型",
     "Chinese": "多配置行类型",
     "English": "Configuration Operand Type",
@@ -11272,6 +11326,12 @@
     "Chinese": "导出 DPI",
     "English": "Export DPI",
     "Japanese": "書き出し DPI"
+  },
+  {
+    "Source": "导出 DXF",
+    "Chinese": "导出 DXF",
+    "English": "Export DXF",
+    "Japanese": "DXF を出力"
   },
   {
     "Source": "导出 PDF",
@@ -15492,6 +15552,12 @@
     "Japanese": "公差サンプルを保存できませんでした：{0}"
   },
   {
+    "Source": "无法写入 DXF 图纸。",
+    "Chinese": "无法写入 DXF 图纸。",
+    "English": "Could not write the DXF drawing.",
+    "Japanese": "DXF 図面を書き込めません。"
+  },
+  {
     "Source": "无法准备更新，未执行安装。",
     "Chinese": "无法准备更新，未执行安装。",
     "English": "Unable to prepare the update. Nothing was installed.",
@@ -18750,6 +18816,12 @@
     "Japanese": "作図可能なガラス要素がありません"
   },
   {
+    "Source": "没有可导出的镜片轮廓。",
+    "Chinese": "没有可导出的镜片轮廓。",
+    "English": "No lens outline is available to export.",
+    "Japanese": "出力できるレンズ輪郭がありません。"
+  },
+  {
     "Source": "没有可显示的评估结论",
     "Chinese": "没有可显示的评估结论",
     "English": "No assessment findings to display",
@@ -18952,6 +19024,12 @@
     "Chinese": "波长序号（0=主波长）",
     "English": "Wavelength index (0=primary)",
     "Japanese": "波長番号 (0=主波長)"
+  },
+  {
+    "Source": "波长必须至少为 0.001 µm，权重不能为负数，所有值必须有限。",
+    "Chinese": "波长必须至少为 0.001 µm，权重不能为负数，所有值必须有限。",
+    "English": "Wavelength must be at least 0.001 µm, weights must be non-negative, and all values must be finite.",
+    "Japanese": "波長は 0.001 µm 以上、重みは非負、すべての値は有限値である必要があります。"
   },
   {
     "Source": "波长数",
@@ -19824,6 +19902,12 @@
     "Japanese": "物体面"
   },
   {
+    "Source": "物面多配置行仅支持有限物距。",
+    "Chinese": "物面多配置行仅支持有限物距。",
+    "English": "Object-surface configuration rows require a finite object distance.",
+    "Japanese": "物体面の構成行では有限の物体距離が必要です。"
+  },
+  {
     "Source": "物面或未支持的面型不能编辑物理膜层。",
     "Chinese": "物面或未支持的面型不能编辑物理膜层。",
     "English": "Physical layers cannot be edited on the object surface or unsupported surface types.",
@@ -20650,6 +20734,12 @@
     "Chinese": "矩阵点列图",
     "English": "Matrix Spot Diagram",
     "Japanese": "マトリクススポット図"
+  },
+  {
+    "Source": "硬件加速",
+    "Chinese": "硬件加速",
+    "English": "Hardware Acceleration",
+    "Japanese": "ハードウェア アクセラレーション"
   },
   {
     "Source": "确定",
@@ -22212,6 +22302,12 @@
     "Japanese": "自動最適化"
   },
   {
+    "Source": "自动使用 GPU",
+    "Chinese": "自动使用 GPU",
+    "English": "Use GPU automatically",
+    "Japanese": "GPU を自動使用"
+  },
+  {
     "Source": "自动写入报告附件",
     "Chinese": "自动写入报告附件",
     "English": "Saved automatically with report assets",
@@ -22828,6 +22924,12 @@
     "Chinese": "表面 {0}：{1}\n当前净半径：{2} {3}\n机械半直径：{4} {5}",
     "English": "Surface {0}: {1}\nCurrent clear radius: {2} {3}\nMechanical semi-diameter: {4} {5}",
     "Japanese": "面 {0}：{1}\n現在の有効半径：{2} {3}\n機械半径：{4} {5}"
+  },
+  {
+    "Source": "表面/编号",
+    "Chinese": "表面/编号",
+    "English": "Index",
+    "Japanese": "面/番号"
   },
   {
     "Source": "表面{0}含非居中圆形孔径，当前老国标透镜图不能将其简化为圆形D0。",
@@ -23472,6 +23574,12 @@
     "Japanese": "SFRを計算"
   },
   {
+    "Source": "计算与绘图",
+    "Chinese": "计算与绘图",
+    "English": "Compute and rendering",
+    "Japanese": "計算と描画"
+  },
+  {
     "Source": "计算值",
     "Chinese": "计算值",
     "English": "Calculated value",
@@ -23986,6 +24094,12 @@
     "Chinese": "试验筛选",
     "English": "Trial filter",
     "Japanese": "試行フィルター"
+  },
+  {
+    "Source": "该参数由多配置拾取控制，请先移除拾取。",
+    "Chinese": "该参数由多配置拾取控制，请先移除拾取。",
+    "English": "This parameter is controlled by a configuration pickup. Remove the pickup first.",
+    "Japanese": "このパラメータは構成ピックアップで制御されています。先にピックアップを解除してください。"
   },
   {
     "Source": "该参数由拾取或求解控制。",
@@ -26374,6 +26488,12 @@
     "Chinese": "镜片直径随光线自动调整",
     "English": "Size lens diameters from actual rays",
     "Japanese": "実際の光線に合わせてレンズ径を調整"
+  },
+  {
+    "Source": "镜片轮廓包含无效坐标。",
+    "Chinese": "镜片轮廓包含无效坐标。",
+    "English": "The lens outline contains invalid coordinates.",
+    "Japanese": "レンズ輪郭に無効な座標があります。"
   },
   {
     "Source": "镜组 X 倾斜 (°)",

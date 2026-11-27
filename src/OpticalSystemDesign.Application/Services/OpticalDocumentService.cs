@@ -132,19 +132,28 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
             documentGeneration = Workspace.DocumentGeneration;
         }
         using var lifetime = linked;
-        var (document, source) = await read(linked.Token).ConfigureAwait(false);
-        linked.Token.ThrowIfCancellationRequested();
-        Workspace.ReplaceDocument(
-            WorkspaceChangeCategory.Document,
-            () => Runtime.ApplyLoadedDocument(document, source),
-            documentPath,
-            cancellationToken,
-            validateBeforeReplace: () =>
-            {
-                linked.Token.ThrowIfCancellationRequested();
-                if (sourceRevision != Workspace.Revision || documentGeneration != Workspace.DocumentGeneration)
-                    throw new OperationCanceledException("打开期间文档已变化，旧打开请求已取消。", linked.Token);
-            });
+        try
+        {
+            var (document, source) = await read(linked.Token).ConfigureAwait(false);
+            linked.Token.ThrowIfCancellationRequested();
+            Workspace.ReplaceDocument(
+                WorkspaceChangeCategory.Document,
+                () => Runtime.ApplyLoadedDocument(document, source),
+                documentPath,
+                cancellationToken,
+                validateBeforeReplace: () =>
+                {
+                    linked.Token.ThrowIfCancellationRequested();
+                    if (sourceRevision != Workspace.Revision || documentGeneration != Workspace.DocumentGeneration)
+                        throw new OperationCanceledException("打开期间文档已变化，旧打开请求已取消。", linked.Token);
+                });
+            System.Diagnostics.Trace.TraceInformation($"Document opened: {Path.GetFileName(source)}");
+        }
+        catch (Exception error) when (error is not OperationCanceledException)
+        {
+            System.Diagnostics.Trace.TraceError($"Document open failed: {Path.GetFileName(documentPath)}. {error}");
+            throw;
+        }
     }
 
     public Task SaveAsync(string path, CancellationToken cancellationToken = default)
@@ -190,6 +199,7 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
             await predecessor.ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
             await _saveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
+            System.Diagnostics.Trace.TraceInformation($"Document saved: {Path.GetFileName(fullPath)} revision={sourceRevision}");
             cancellationToken.ThrowIfCancellationRequested();
             lock (Gate)
             {
@@ -204,6 +214,11 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
                     fullPath,
                     includesCurrentRevision: sourceRevision == Workspace.Revision);
             }
+        }
+        catch (Exception error) when (error is not OperationCanceledException)
+        {
+            System.Diagnostics.Trace.TraceError($"Document save failed: {Path.GetFileName(fullPath)}. {error}");
+            throw;
         }
         finally
         {

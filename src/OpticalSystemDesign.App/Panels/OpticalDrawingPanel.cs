@@ -134,7 +134,10 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         var update = CommandButton("action-recalculate", "更新预览", 104);
         update.Click += (_, _) => UpdatePreview();
         var export = CommandButton("file-export-report", "导出 PDF", 104);
-        export.Click += async (_, _) => await ExportPdfAsync();
+        export.Click += async (_, _) => await ExportDrawingAsync(dxf: false);
+        var exportDxf = CommandButton("file-export-cad", "导出 DXF", 104);
+        exportDxf.Name = "ExportDrawingDxf";
+        exportDxf.Click += async (_, _) => await ExportDrawingAsync(dxf: true);
         var zoomOut = IconButton("action-zoom-out", "缩小");
         zoomOut.Click += (_, _) => _preview.ZoomOut();
         var resetView = IconButton("action-fit-view", "适合窗口");
@@ -168,6 +171,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                     _pageSize,
                     update,
                     export,
+                    exportDxf,
                     zoomOut,
                     resetView,
                     zoomIn,
@@ -643,88 +647,62 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         }
     }
 
-    private async Task ExportPdfAsync()
+    private async Task ExportDrawingAsync(bool dxf)
     {
         try
         {
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is null)
+                return;
+
+            string number, name;
+            Action<string> write;
             if (_elementPicker.SelectedItem is ElementChoice { Element: null })
             {
-                await ExportSystemPdfAsync();
-                return;
-            }
+                var scene = await _visualization.BuildSceneAsync(new VisualizationRequestDto(
+                    SceneDimension.TwoDimensional, IncludeAllWavelengths: false, RayCount: 1));
+                if (scene.TwoDimensional is null)
+                    return;
 
-            var sheet = CreateSheet();
-            var topLevel = TopLevel.GetTopLevel(this);
-            if (sheet is null || topLevel is null)
+                var sheet = CreateSystemSheet(scene.TwoDimensional);
+                (number, name) = (sheet.DrawingNumber, sheet.PartName);
+                write = dxf ? path => OpticalDrawingDxf.Export(path, sheet)
+                            : path => OpticalDrawingRenderer.ExportSystemPdf(path, sheet);
+            }
+            else
             {
-                return;
+                var sheet = CreateSheet();
+                if (sheet is null)
+                    return;
+
+                (number, name) = (sheet.DrawingNumber, sheet.PartName);
+                write = dxf ? path => OpticalDrawingDxf.Export(path, sheet)
+                            : path => OpticalDrawingRenderer.ExportPdf(path, sheet);
             }
 
+            var extension = dxf ? "dxf" : "pdf";
             var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = $"导出 {OpticalDrawingRenderer.StandardDesignation(_drawingStandard)} PDF",
-                SuggestedFileName = $"{SafeFileName(sheet.DrawingNumber)}-{SafeFileName(sheet.PartName)}.pdf",
-                FileTypeChoices = new[]
+                Title = UiLocalization.Text(dxf ? "导出 DXF" : "导出 PDF"),
+                SuggestedFileName = $"{SafeFileName(number)}-{SafeFileName(name)}.{extension}",
+                DefaultExtension = extension,
+                ShowOverwritePrompt = true,
+                FileTypeChoices = [new FilePickerFileType(extension.ToUpperInvariant())
                 {
-                    new FilePickerFileType("PDF 图纸")
-                    {
-                        Patterns = new[] { "*.pdf" },
-                        MimeTypes = new[] { "application/pdf" }
-                    }
-                }
+                    Patterns = [$"*.{extension}"],
+                    MimeTypes = [dxf ? "image/vnd.dxf" : "application/pdf"]
+                }]
             });
             if (file is null)
-            {
                 return;
-            }
 
-            OpticalDrawingRenderer.ExportPdf(file.Path.LocalPath, sheet);
-            _status.Text = $"PDF 已导出：{file.Name}";
+            write(file.Path.LocalPath);
+            _status.Text = UiLocalization.Format("已导出：{0}", file.Name);
         }
         catch (Exception exception)
         {
-            _status.Text = $"导出失败：{exception.Message}";
+            _status.Text = UiLocalization.Format("导出失败：{0}", exception.Message);
         }
-    }
-
-    private async Task ExportSystemPdfAsync()
-    {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel is null)
-        {
-            return;
-        }
-
-        var scene = await _visualization.BuildSceneAsync(new VisualizationRequestDto(
-            SceneDimension.TwoDimensional,
-            IncludeAllWavelengths: false,
-            RayCount: 1));
-        if (scene.TwoDimensional is null)
-        {
-            return;
-        }
-
-        var sheet = CreateSystemSheet(scene.TwoDimensional);
-        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
-        {
-            Title = "\u5bfc\u51fa\u955c\u5934\u603b\u4f53\u5e03\u5c40\u56fe",
-            SuggestedFileName = $"{SafeFileName(sheet.DrawingNumber)}-{SafeFileName(sheet.PartName)}.pdf",
-            FileTypeChoices = new[]
-            {
-                new FilePickerFileType("PDF")
-                {
-                    Patterns = new[] { "*.pdf" },
-                    MimeTypes = new[] { "application/pdf" }
-                }
-            }
-        });
-        if (file is null)
-        {
-            return;
-        }
-
-        OpticalDrawingRenderer.ExportSystemPdf(file.Path.LocalPath, sheet);
-        _status.Text = $"PDF \u5df2\u5bfc\u51fa: {file.Name}";
     }
 
     private async Task ImportLogoAsync()

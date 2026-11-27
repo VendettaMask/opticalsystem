@@ -30,6 +30,23 @@ public partial class WorkbenchRuntime
 
     public IReadOnlyList<MultiConfigurationOperand> GetMultiConfigurationOperands() => _multiConfiguration.OperandRows.ToArray();
 
+    public void EnsureSystemOperandEditAllowed(MultiConfigurationOperandKind kind, int oneBasedTarget, double value)
+    {
+        var row = new MultiConfigurationOperand(kind, oneBasedTarget);
+        if (!_multiConfiguration.OperandRows.Contains(row)) return;
+        row.ValidateSystemValue(CurrentOptic, value);
+        if (_multiConfiguration.IsOperandPickupTarget(_activeConfigurationIndex, oneBasedTarget, row.Property)
+            && row.Read(CurrentOptic) != value)
+            throw new InvalidOperationException("该参数由多配置拾取控制，请先移除拾取。");
+    }
+
+    private void EnsureSystemTargetRemovalAllowed(int oneBasedTarget, bool wavelength)
+    {
+        if (_multiConfiguration.OperandRows.Any(row => row.IsSystemParameter && row.SurfaceNumber >= oneBasedTarget
+            && (row.Kind is MultiConfigurationOperandKind.Wavelength or MultiConfigurationOperandKind.WavelengthWeight) == wavelength))
+            throw new InvalidOperationException("删除会改变多配置操作数引用的编号，请先移除相关行。");
+    }
+
     public void ReplaceMultiConfigurationOperands(IReadOnlyList<MultiConfigurationOperand> rows) =>
         MutateConfigurationOperands(candidate => candidate.ReplaceOperandRows(rows));
 

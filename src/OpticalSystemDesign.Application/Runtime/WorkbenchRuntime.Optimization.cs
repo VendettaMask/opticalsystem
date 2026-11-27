@@ -107,6 +107,21 @@ public partial class WorkbenchRuntime
     public IReadOnlyList<OptimizationVariableResultDto> GetMarkedOptimizationVariables() => MarkedOptimizationBindings().Select(binding =>
     {
         var optic = binding.ConfigurationIndex == _activeConfigurationIndex ? CurrentOptic : _multiConfiguration.Configurations[binding.ConfigurationIndex];
+        if (binding.Operand is { IsSystemParameter: true } systemRow)
+        {
+            var scalar = systemRow.Read(optic);
+            var systemKind = systemRow.Kind switch
+            {
+                MultiConfigurationOperandKind.FieldX => OptimizationVariableKind.FieldX,
+                MultiConfigurationOperandKind.FieldY => OptimizationVariableKind.FieldY,
+                MultiConfigurationOperandKind.FieldWeight => OptimizationVariableKind.FieldWeight,
+                MultiConfigurationOperandKind.Wavelength => OptimizationVariableKind.Wavelength,
+                _ => OptimizationVariableKind.WavelengthWeight
+            };
+            return new OptimizationVariableResultDto(systemRow.SurfaceNumber, systemKind,
+                $"配置 {binding.ConfigurationIndex + 1} {MultiConfigurationOperand.Code(systemRow.Kind)} {systemRow.SurfaceNumber}",
+                scalar, scalar, binding.ConfigurationIndex);
+        }
         var surface = optic.SurfaceGroup.Items.Single(s => s.Number == binding.SurfaceNumber);
         var kind = binding.ModelParameter is not null ? OptimizationVariableKind.ModelGlassCoefficient : binding.ShapeParameter is { } shape ? ShapeVariableKind(shape)
             : binding.GradientParameter is not null ? OptimizationVariableKind.GradientIndexCoefficient : binding.Layer > 0 ? binding.Parameter switch
@@ -145,6 +160,7 @@ public partial class WorkbenchRuntime
         if (bindings.Count == 0) throw new InvalidOperationException("请先设置至少一个优化变量（表面、GRIN 系数、物理膜层或多配置单元格）。");
         foreach (var binding in bindings.Where(binding => binding.Layer == 0))
         {
+            if (binding.Operand?.IsSystemParameter == true) continue;
             var optic = binding.ConfigurationIndex == _activeConfigurationIndex ? CurrentOptic : _multiConfiguration.Configurations[binding.ConfigurationIndex];
             if (optic.SurfaceGroup.Items.Single(surface => surface.Number == binding.SurfaceNumber).BlockedVariableProperties.Contains(binding.Property))
                 throw new NotSupportedException("该变量关联尚未映射的参数拾取，不能把固定的导入拾取值用于优化。请检查变量导入诊断。");
@@ -158,13 +174,18 @@ public partial class WorkbenchRuntime
             MultiConfigurationVariable.Validate(_multiConfiguration.OperandVariables, _multiConfiguration.OperandRows, _multiConfiguration.Configurations);
             foreach (var configuration in bindings.Select(b => b.ConfigurationIndex).Distinct())
                 OpticCapabilityPreflight.EnsureSupported(_multiConfiguration.Configurations[configuration], OpticCapabilityOperation.Optimization, optimizerName);
-            foreach (var binding in bindings.Where(b => b.Layer == 0))
+            foreach (var binding in bindings.Where(b => b.Layer == 0 && b.Operand?.IsSystemParameter != true))
                 _multiConfiguration.DetachPropertyLink(binding.ConfigurationIndex, binding.SurfaceNumber, binding.Property);
             void Changed() => SynchronizeOptimizationState(_multiConfiguration, bindings, _activeConfigurationIndex);
             var problem = CurrentOptic.CreateOptimizationProblem();
             foreach (var binding in bindings)
             {
                 var optic = _multiConfiguration.Configurations[binding.ConfigurationIndex];
+                if (binding.Operand is { IsSystemParameter: true } systemRow)
+                {
+                    problem.AddVariable(new MultiConfigurationVariable(binding.ConfigurationIndex, systemRow).Create(optic, Changed));
+                    continue;
+                }
                 var surface = optic.SurfaceGroup.Items.Single(s => s.Number == binding.SurfaceNumber);
                 if (binding.Operand is { } row)
                     problem.AddVariable(new MultiConfigurationVariable(binding.ConfigurationIndex, row).Create(optic, Changed));
@@ -216,7 +237,7 @@ public partial class WorkbenchRuntime
     {
         if (configurations.OperandPickups.Count > 0) { configurations.ApplyOperandPickups(); return; }
         foreach (var optic in configurations.Configurations) { optic.Pickups.ApplyAll(); optic.SurfaceGroup.Renumber(); }
-        foreach (var binding in bindings.Where(b => b.Layer == 0 && (b.ConfigurationIndex < 0 ? activeIndex : b.ConfigurationIndex) == 0))
+        foreach (var binding in bindings.Where(b => b.Layer == 0 && b.Operand?.IsSystemParameter != true && (b.ConfigurationIndex < 0 ? activeIndex : b.ConfigurationIndex) == 0))
         {
             configurations.PropagateBaseProperty(binding.SurfaceNumber, binding.Property);
             var optic = configurations.Configurations[0];
@@ -261,6 +282,11 @@ public partial class WorkbenchRuntime
             {
                 var binding = bindings[index];
                 var optic = configurations.Configurations[binding.ConfigurationIndex < 0 ? activeIndex : binding.ConfigurationIndex];
+                if (binding.Operand is { IsSystemParameter: true } systemRow)
+                {
+                    MultiConfigurationVariable.Write(systemRow, optic, values[index]);
+                    continue;
+                }
                 var surface = optic.SurfaceGroup.Items.First(item => item.Number == binding.SurfaceNumber);
                 if (binding.Operand is { } row)
                     MultiConfigurationVariable.Write(row, optic, values[index]);

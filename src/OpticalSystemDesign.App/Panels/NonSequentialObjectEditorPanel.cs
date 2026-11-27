@@ -15,6 +15,7 @@ public sealed partial class NonSequentialObjectEditorPanel : UserControl, IDispo
 {
     private readonly INonSequentialDocumentService _service;
     private readonly IWorkspaceEventStream _events;
+    private readonly AppSettings? _appSettings;
     private readonly DataGrid _grid;
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap, MaxWidth = 520 };
     private readonly ComboBox _addKind = new() { MinWidth = 145 };
@@ -47,10 +48,12 @@ public sealed partial class NonSequentialObjectEditorPanel : UserControl, IDispo
         IWorkspaceEventStream events,
         IVisualizationService? visualization = null,
         INonSequentialAnalysisService? analysis = null,
-        IOpticalDocumentService? documents = null)
+        IOpticalDocumentService? documents = null,
+        AppSettings? appSettings = null)
     {
         _service = service;
         _events = events;
+        _appSettings = appSettings;
         _visualization = visualization;
         _analysis = analysis;
         _documents = documents;

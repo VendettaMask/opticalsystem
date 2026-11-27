@@ -127,6 +127,9 @@ public static class LensScaler
 
     public static double OperandMultiplier(Optic optic, MultiConfigurationOperand operand, double factor, int first, int last)
     {
+        if (operand.IsSystemParameter)
+            return operand.Kind is MultiConfigurationOperandKind.FieldX or MultiConfigurationOperandKind.FieldY
+                && optic.FieldDefinition != FieldDefinitionKind.Angle && first == 0 && last == optic.SurfaceGroup.Items[^1].Number ? factor : 1;
         if (operand.SurfaceNumber < first || operand.SurfaceNumber > last) return 1;
         var power = operand.Kind switch
         {

@@ -23,12 +23,14 @@ namespace OpticalSystemDesign.App.Panels;
 public sealed partial class MultiConfigurationPanel
 {
     private sealed record ParameterChoice(MultiConfigurationParameterKind Kind, string Label)
-    { public override string ToString() => Label; }
+    { public override string ToString() => UiLocalization.Text(Label); }
     private sealed record OperandDisplay(MultiConfigurationOperandRowDto? Row, string Code, string[] Values, IReadOnlyList<double> NumericValues, int? ThicknessSurface = null)
     {
         public int ColorIndex => OperandRowColors.Category(Binding?.Kind);
         public string Number => Row?.Number.ToString(CultureInfo.InvariantCulture) ?? "—";
-        public string Surface => Row?.ParameterNumber is { } parameter ? $"{Row.SurfaceNumber}/{parameter}"
+        public string Surface => Row?.Kind is MultiConfigurationParameterKind.FieldX or MultiConfigurationParameterKind.FieldY or MultiConfigurationParameterKind.FieldWeight
+            ? $"F{Row.SurfaceNumber}" : Row?.Kind is MultiConfigurationParameterKind.Wavelength or MultiConfigurationParameterKind.WavelengthWeight
+            ? $"λ{Row.SurfaceNumber}" : Row?.ParameterNumber is { } parameter ? $"{Row.SurfaceNumber}/{parameter}"
             : (Row?.SurfaceNumber ?? ThicknessSurface)?.ToString(CultureInfo.InvariantCulture) ?? "—";
         public MultiConfigurationOperandBindingDto? Binding => Row is not null ? new(Row.Kind, Row.SurfaceNumber, Row.Parameter)
             : ThicknessSurface.HasValue ? new(MultiConfigurationParameterKind.Thickness, ThicknessSurface.Value) : null;
@@ -47,10 +49,10 @@ public sealed partial class MultiConfigurationPanel
         RowHeight = UiDensity.CompactTableRowHeight,
         ColumnHeaderHeight = UiDensity.TableHeaderHeight
     };
-    private readonly ComboBox _operandKind = new() { MinWidth = 150 };
-    private readonly TextBox _operandSurface = new() { Text = "1", Width = 64 };
-    private readonly TextBox _operandConfiguration = new() { Text = "1", Width = 64 };
-    private readonly TextBox _operandValue = new() { Width = 130 };
+    private readonly ComboBox _operandKind = new() { Name = "MultiConfigurationOperandKind", MinWidth = 150 };
+    private readonly TextBox _operandSurface = new() { Name = "MultiConfigurationOperandTarget", Text = "1", Width = 64 };
+    private readonly TextBox _operandConfiguration = new() { Name = "MultiConfigurationOperandConfiguration", Text = "1", Width = 64 };
+    private readonly TextBox _operandValue = new() { Name = "MultiConfigurationOperandValue", Width = 130 };
     private readonly TextBlock _operandValueLabel = Label("值");
     private readonly TextBlock _operandMessage = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 6, 0, 6) };
     private long _operandRevision;
@@ -80,7 +82,12 @@ public sealed partial class MultiConfigurationPanel
             new ParameterChoice(MultiConfigurationParameterKind.Curvature, "CRVT · 曲率"),
             new ParameterChoice(MultiConfigurationParameterKind.Conic, "CONN · 圆锥系数"),
             new ParameterChoice(MultiConfigurationParameterKind.SemiDiameter, "SDIA · 半口径"),
-            new ParameterChoice(MultiConfigurationParameterKind.Material, "GLSS · 材料")
+            new ParameterChoice(MultiConfigurationParameterKind.Material, "GLSS · 材料"),
+            new ParameterChoice(MultiConfigurationParameterKind.FieldX, "XFIE · 视场 X"),
+            new ParameterChoice(MultiConfigurationParameterKind.FieldY, "YFIE · 视场 Y"),
+            new ParameterChoice(MultiConfigurationParameterKind.FieldWeight, "FLWT · 视场权重"),
+            new ParameterChoice(MultiConfigurationParameterKind.Wavelength, "WAVE · 波长（µm）"),
+            new ParameterChoice(MultiConfigurationParameterKind.WavelengthWeight, "WLWT · 波长权重")
         };
         _operandKind.SelectedIndex = 0;
         AutomationProperties.SetName(_operandKind, "多配置行类型");
@@ -106,7 +113,7 @@ public sealed partial class MultiConfigurationPanel
         { if (args.Property == TextBox.TextProperty && !_loadingOperand) _operandDraft = true; };
         var toolbar = new WrapPanel { Orientation = Orientation.Horizontal };
         toolbar.Children.Add(Label("类型")); toolbar.Children.Add(_operandKind);
-        toolbar.Children.Add(Label("表面")); toolbar.Children.Add(_operandSurface);
+        toolbar.Children.Add(Label("表面/编号")); toolbar.Children.Add(_operandSurface);
         toolbar.Children.Add(ActionButton("新增行", "AddMultiConfigurationOperand", () =>
         {
             if (_operandKind.SelectedItem is not ParameterChoice choice) throw new InvalidOperationException("请选择行类型。");
@@ -231,7 +238,8 @@ public sealed partial class MultiConfigurationPanel
         _operandGrid.Columns.Clear();
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "Op#", Binding = new Binding(nameof(OperandDisplay.Number)), Width = new DataGridLength(52) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = new TextBlock { Text = $"活动: {state.ActiveIndex + 1}/{state.Count}" }, Binding = new Binding(nameof(OperandDisplay.Code)), Width = new DataGridLength(110) });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "表面", Binding = new Binding(nameof(OperandDisplay.Surface)), Width = new DataGridLength(74) });
+        var hasSystemRows = rows.Any(row => row.Units is not null);
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = hasSystemRows ? "表面/编号" : "表面", Binding = new Binding(nameof(OperandDisplay.Surface)), Width = new DataGridLength(74) });
         for (var i = 0; i < state.Count; i++) _operandGrid.Columns.Add(MatrixColumn(i, state.ActiveIndex));
         var aperture = _configurations.GetApertureValues();
         var differences = _configurations.GetThicknessDifferences()
@@ -316,10 +324,17 @@ public sealed partial class MultiConfigurationPanel
             MultiConfigurationParameterKind.Curvature => "曲率（mm⁻¹）",
             MultiConfigurationParameterKind.Conic => "圆锥系数",
             MultiConfigurationParameterKind.Material => "材料名称（空白为空气）",
+            MultiConfigurationParameterKind.FieldX => "XFIE",
+            MultiConfigurationParameterKind.FieldY => "YFIE",
+            MultiConfigurationParameterKind.FieldWeight => "FLWT",
+            MultiConfigurationParameterKind.Wavelength => "WAVE",
+            MultiConfigurationParameterKind.WavelengthWeight => "WLWT",
             MultiConfigurationParameterKind.ShapeCoefficient when selected.Row?.ParameterNumber is { } parameter => $"参数 {parameter}",
             MultiConfigurationParameterKind.ShapeCoefficient or MultiConfigurationParameterKind.GradientIndexCoefficient or MultiConfigurationParameterKind.ModelGlassCoefficient => $"系数 {selected.Binding.Parameter}",
             _ => "半口径（mm）"
         };
+        if (selected.Row?.Units is { } units && !string.IsNullOrEmpty(units[number - 1]))
+            _operandValueLabel.Text += $" ({units[number - 1]})";
         _editingBinding = selected.Binding; _editingConfiguration = number;
         _loadingOperand = true;
         _operandValue.Text = selected.Row?.TextValues is { } textValues ? textValues[number - 1]
@@ -335,6 +350,11 @@ public sealed partial class MultiConfigurationPanel
         MultiConfigurationParameterKind.Conic => "CONN",
         MultiConfigurationParameterKind.SemiDiameter => "SDIA",
         MultiConfigurationParameterKind.Material => "GLSS",
+        MultiConfigurationParameterKind.FieldX => "XFIE",
+        MultiConfigurationParameterKind.FieldY => "YFIE",
+        MultiConfigurationParameterKind.FieldWeight => "FLWT",
+        MultiConfigurationParameterKind.Wavelength => "WAVE",
+        MultiConfigurationParameterKind.WavelengthWeight => "WLWT",
         MultiConfigurationParameterKind.ModelGlassCoefficient => $"GLAS {row.Parameter}",
         _ => row.ParameterNumber.HasValue ? "PRAM" : $"PRAM {row.Parameter}"
     };

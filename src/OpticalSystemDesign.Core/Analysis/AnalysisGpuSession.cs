@@ -13,6 +13,7 @@ public sealed class AnalysisGpuSession : IDisposable
     private static readonly Lazy<AnalysisGpuDevice?> Hardware = new(AnalysisGpuDevice.Detect);
     private readonly AnalysisGpuSession? _previous = Active.Value;
     private string? _usedDevice;
+    private int _reportedMemoryLimit;
     public string? UsedDevice => Volatile.Read(ref _usedDevice);
     public static string? AvailableDevice => Hardware.Value?.AvailableName;
     internal static AnalysisGpuSession? Current => Active.Value;
@@ -23,7 +24,14 @@ public sealed class AnalysisGpuSession : IDisposable
     internal bool TryExecute(long bytes, Action<AnalysisGpuDevice> calculate)
     {
         ComputationCancellation.ThrowIfCancellationRequested();
-        if (Hardware.Value is not { } device || !device.TryExecute(bytes, calculate)) return false;
+        if (Hardware.Value is not { } device) return false;
+        if (bytes > device.MaximumWorkBytes)
+        {
+            if (Interlocked.Exchange(ref _reportedMemoryLimit, 1) == 0)
+                System.Diagnostics.Trace.TraceInformation($"GPU memory limit on {device.Name}: requested {bytes} bytes, budget {device.MaximumWorkBytes}. Using CPU.");
+            return false;
+        }
+        if (!device.TryExecute(calculate)) return false;
         Volatile.Write(ref _usedDevice, device.Name);
         return true;
     }
@@ -73,10 +81,14 @@ internal sealed partial class AnalysisGpuDevice
                         impulse[0, 0] = 1;
                         device.Fourier(impulse);
                         if (impulse.Cast<System.Numerics.Complex>().Any(value => value != System.Numerics.Complex.One))
+                        {
+                            System.Diagnostics.Trace.TraceWarning($"GPU self-test failed: {candidate.Name}");
                             continue;
+                        }
                         AppDomain.CurrentDomain.ProcessExit += (_, _) => device.Shutdown();
                         accelerator = null;
                         context = null;
+                        System.Diagnostics.Trace.TraceInformation($"GPU ready: {device.Name}");
                         return device;
                     }
                     catch (Exception error) when (DriverInitializationError(error))
@@ -92,6 +104,7 @@ internal sealed partial class AnalysisGpuDevice
             }
             finally { context?.Dispose(); }
         }
+        System.Diagnostics.Trace.TraceInformation("GPU detection: no compatible compute device. Using CPU.");
         return null;
     }
 
@@ -106,9 +119,11 @@ internal sealed partial class AnalysisGpuDevice
         finally { _gate.Release(); }
     }
 
-    internal bool TryExecute(long bytes, Action<AnalysisGpuDevice> calculate)
+    internal long MaximumWorkBytes => Math.Min(256L << 20, _accelerator.MemorySize / 4);
+
+    internal bool TryExecute(Action<AnalysisGpuDevice> calculate)
     {
-        if (_failed || bytes > Math.Min(256L << 20, _accelerator.MemorySize / 4)) return false;
+        if (_failed) return false;
         _gate.Wait(ComputationCancellation.Current);
         try
         {
@@ -116,10 +131,15 @@ internal sealed partial class AnalysisGpuDevice
             calculate(this);
             return true;
         }
-        catch (OutOfMemoryException) { return false; }
+        catch (OutOfMemoryException)
+        {
+            System.Diagnostics.Trace.TraceWarning($"GPU allocation failed on {Name}. Retrying on CPU.");
+            return false;
+        }
         catch (Exception error) when (error is CudaException or CLException)
         {
             _failed = true;
+            System.Diagnostics.Trace.TraceWarning($"GPU driver failure on {Name}. Using CPU. {error}");
             return false;
         }
         finally { _gate.Release(); }

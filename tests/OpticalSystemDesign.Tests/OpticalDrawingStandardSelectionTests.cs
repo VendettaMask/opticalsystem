@@ -1,7 +1,10 @@
 using System.Reflection;
 using System.Text.Json;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform.Storage;
+using Avalonia.VisualTree;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using Dock.Model.Mvvm.Core;
@@ -15,6 +18,52 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class OpticalDrawingStandardSelectionTests
 {
+    [Fact]
+    public async Task DxfButtonExportsCurrentEditsAndHandlesCancel()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var app = WorkbenchApplication.Create("tessar");
+            using var panel = new OpticalDrawingPanel(app.Prescription, app.Materials, app.Events, app.Visualization);
+            var window = new Window { Content = panel };
+            var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.dxf");
+            try
+            {
+                window.Show();
+                Field<ComboBox>(panel, "_elementPicker").SelectedIndex = 1;
+                Field<TextBox>(panel, "_drawingNumber").Text = "CAD-123";
+                Field<TextBox>(panel, "_partName").Text = "DXF lens";
+                var file = DispatchProxy.Create<IStorageFile, AnalysisImageExportTests.StorageProxy>();
+                ((AnalysisImageExportTests.StorageProxy)(object)file).Handler = m => m.Name switch
+                {
+                    "get_Path" => new Uri(path), "get_Name" => Path.GetFileName(path), _ => null
+                };
+                var cancel = true;
+                FilePickerSaveOptions? options = null;
+                var provider = DispatchProxy.Create<IStorageProvider, AnalysisImageExportTests.StorageProxy>();
+                var proxy = (AnalysisImageExportTests.StorageProxy)(object)provider;
+                proxy.Handler = _ => Task.FromResult<IStorageFile?>(cancel ? null : file);
+                proxy.Arguments = args => options = Assert.IsType<FilePickerSaveOptions>(Assert.Single(args!));
+                typeof(TopLevel).GetField("_storageProvider", BindingFlags.Instance | BindingFlags.NonPublic)!
+                    .SetValue(window, provider);
+
+                var button = panel.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "ExportDrawingDxf");
+                button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.False(File.Exists(path));
+                Assert.NotNull(options);
+                Assert.Equal("dxf", options.DefaultExtension);
+                Assert.Equal("CAD-123-DXF lens.dxf", options.SuggestedFileName);
+                cancel = false;
+                button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                var doc = netDxf.DxfDocument.Load(path);
+                Assert.Contains(doc.Entities.Texts, t => t.Value.Contains("CAD-123", StringComparison.Ordinal));
+                Assert.Contains(doc.Entities.Texts, t => t.Value == "DXF lens");
+            }
+            finally { window.Close(); File.Delete(path); }
+        }, CancellationToken.None);
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]

@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 31;
+    public const int ProjectFormatVersion = 32;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,8 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            RequiresMaterialRowsOrZeroSemiDiameters(document) ? 31
+            document.OperandRows?.Any(row => row.IsSystemParameter) == true ? 32
+                : RequiresMaterialRowsOrZeroSemiDiameters(document) ? 31
                 : RequiresCoordinateReturns(document.Configurations) ? 30
                 : document.NonSequentialDocument is { Organization: { } organization }
                 && (organization.Folders.Count > 0 || organization.SelectionSets.Count > 0) ? 29
@@ -263,6 +264,8 @@ public static class StarOptProjectStore
         var configurations = project.Configurations
             .Select(Optic.FromSnapshot)
             .ToArray();
+        if (project.FormatVersion < 32 && project.OperandRows?.Any(row => row.IsSystemParameter) == true)
+            throw new InvalidDataException("Field and wavelength configuration rows require STAROPT project version 32.");
         if (project.FormatVersion < 31 && project.OperandRows?.Any(row => row.Kind == MultiConfigurationOperandKind.Material) == true)
             throw new InvalidDataException("Material configuration rows require STAROPT project version 31.");
         if (project.FormatVersion < 30 && RequiresCoordinateReturns(configurations))

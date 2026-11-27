@@ -5,6 +5,7 @@ internal static partial class UiLocalization
     private static void AddSurfaceDrawingTexts(Action<string, string, string> add)
     {
         AddCoordinateEditingTexts(add);
+        AddMultiConfigurationSystemTexts(add);
         add("近轴面", "Paraxial", "近軸面");
         add("忽略面", "Ignored Surface", "無視面");
         add("二元面 2", "Binary 2", "バイナリ面 2");

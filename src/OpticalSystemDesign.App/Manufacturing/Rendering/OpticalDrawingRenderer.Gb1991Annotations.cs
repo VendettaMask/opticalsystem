@@ -11,7 +11,7 @@ internal static partial class OpticalDrawingRendererCore
     internal static string Gb1991RadiusDimensionText(double radius) =>
         Math.Abs(radius) < 1e-12 || !double.IsFinite(radius) ? "R∞" : "R" + Math.Abs(radius).ToString("G12", CultureInfo.InvariantCulture);
 
-    private static string Gb1991RadiusIndication(SurfaceRowDto surface) =>
+    internal static string Gb1991RadiusIndication(SurfaceRowDto surface) =>
         (IsGb1991Asphere(surface) ? UiLocalization.Text("基底") : "") + Gb1991RadiusDimensionText(surface.Radius);
 
     private static bool IsGb1991Asphere(SurfaceRowDto surface) =>

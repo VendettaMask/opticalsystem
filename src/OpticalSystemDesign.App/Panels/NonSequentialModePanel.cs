@@ -40,7 +40,7 @@ public sealed class NonSequentialModePanel : UserControl, IDisposable, IDisplayS
     private long _baselineRevision;
     private bool _loading, _dirty, _disposed;
 
-    public NonSequentialModePanel(INonSequentialDocumentService service, IWorkspaceEventStream events)
+    public NonSequentialModePanel(INonSequentialDocumentService service, IWorkspaceEventStream events, AppSettings? settings = null)
     {
         _service = service; _events = events;
         Name = "nsc-scene-settings";
@@ -87,6 +87,8 @@ public sealed class NonSequentialModePanel : UserControl, IDisposable, IDisplayS
             SystemPropertiesPanel.Section("追迹限值", "settings-general", limits, true)
         }
         };
+        if (settings is not null)
+            body.Children.Add(SystemPropertiesPanel.Section("高级", "settings-general", SystemPropertiesPanel.BuildAdvancedSection(settings)));
         foreach (var text in new[] { _counts, _waveSummary })
         { text.FontSize = DisplayTypography.BodySmall; text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary); }
         var footer = new StackPanel { Margin = new Thickness(10, 5), Spacing = 5, Children = { _status } };

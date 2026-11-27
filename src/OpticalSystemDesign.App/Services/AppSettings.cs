@@ -36,6 +36,21 @@ public sealed class AppSettings
     public double FontSize { get; set; } = DefaultFontSize;
 
     public bool UseGpuAcceleration { get; set; } = true;
+    internal event EventHandler? GpuAccelerationChanged;
+
+    internal bool TrySetGpuAcceleration(bool enabled, out string? error)
+    {
+        var previous = UseGpuAcceleration;
+        UseGpuAcceleration = enabled;
+        if (!TrySave(out error))
+        {
+            UseGpuAcceleration = previous;
+            return false;
+        }
+
+        GpuAccelerationChanged?.Invoke(this, EventArgs.Empty);
+        return true;
+    }
 
     public string AnalysisColorMap { get; set; } = nameof(ScientificColorMap.Viridis);
 
@@ -117,7 +132,6 @@ public sealed class AppSettings
         FontFamily = string.Empty;
         FontShape = "Regular";
         FontSize = DefaultFontSize;
-        UseGpuAcceleration = true;
         AnalysisColorMap = nameof(ScientificColorMap.Viridis);
         DiagramAspectRatio = DiagramSheetLayout.Automatic;
         ImageExportDpi = ImageExportResolution.DefaultDpi;

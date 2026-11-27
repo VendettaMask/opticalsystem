@@ -12,7 +12,8 @@ internal static class OperandRowColors
     private static readonly Color[] Hues =
     [
         Color.Parse("#4285D4"), Color.Parse("#369B68"), Color.Parse("#9762C5"), Color.Parse("#CD873C"),
-        Color.Parse("#BC6187"), Color.Parse("#279BA7"), Color.Parse("#8C963E"), Color.Parse("#AB7351")
+        Color.Parse("#BC6187"), Color.Parse("#279BA7"), Color.Parse("#8C963E"), Color.Parse("#AB7351"),
+        Color.Parse("#6277AA"), Color.Parse("#8E759B"), Color.Parse("#397F83"), Color.Parse("#A06C69")
     ];
 
     internal static string Background(int index) => index < 0 ? ThemeResourceBindings.Surface
@@ -27,6 +28,11 @@ internal static class OperandRowColors
         MultiConfigurationParameterKind.Material => 4,
         MultiConfigurationParameterKind.ShapeCoefficient or MultiConfigurationParameterKind.GradientIndexCoefficient => 5,
         MultiConfigurationParameterKind.ModelGlassCoefficient => 6,
+        MultiConfigurationParameterKind.FieldX => 7,
+        MultiConfigurationParameterKind.FieldY => 8,
+        MultiConfigurationParameterKind.FieldWeight => 9,
+        MultiConfigurationParameterKind.Wavelength => 10,
+        MultiConfigurationParameterKind.WavelengthWeight => 11,
         _ => -1
     };
 

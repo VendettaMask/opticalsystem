@@ -579,7 +579,7 @@ public sealed class ManufacturingDrawingTests
         }
     }
 
-    private static OpticalDrawingSheet Sheet(OpticalDrawingElementDefinition element) => new(
+    internal static OpticalDrawingSheet Sheet(OpticalDrawingElementDefinition element) => new(
         element,
         OpticalDrawingPageSize.A4,
         "OPT-TEST-001",
@@ -602,7 +602,7 @@ public sealed class ManufacturingDrawingTests
         "2 × 0.1",
         "2；2");
 
-    private static SurfaceRowDto Surface(
+    internal static SurfaceRowDto Surface(
         int number,
         string label,
         string material,

@@ -142,7 +142,7 @@ public sealed partial class MultiConfiguration
     public void RemoveSurface(int surfaceNumber)
     {
         ValidateCompatibleSurfaceStructures();
-        if (_operandRows.Any(row => row.SurfaceNumber == surfaceNumber))
+        if (_operandRows.Any(row => !row.IsSystemParameter && row.SurfaceNumber == surfaceNumber))
             throw new InvalidOperationException("该表面正被多配置操作数行引用，请先移除行引用。");
         var surfaceCount = Configurations[0].SurfaceGroup.Items.Count;
         if (surfaceCount <= 2 || surfaceNumber <= 0 || surfaceNumber >= surfaceCount - 1)
@@ -458,6 +458,7 @@ public sealed partial class MultiConfiguration
     private static string NormalizeProperty(string property)
     {
         var normalized = property?.Trim().ToLowerInvariant();
+        if (normalized is "system:xfie" or "system:yfie" or "system:flwt" or "system:wave" or "system:wlwt") return normalized;
         if (SurfaceShapeParameters.IsShapeProperty(normalized) || GradientIndexParameters.IsGradientProperty(normalized) || ModelGlassParameters.IsProperty(normalized)) return normalized!;
         return normalized is "radius" or "thickness" or "semidiameter" or "conic" or "material"
             ? normalized == "semidiameter" ? "semiDiameter" : normalized

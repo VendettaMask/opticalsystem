@@ -31,8 +31,6 @@ public sealed class DisplaySettingsWindow : Window
     private readonly NumericUpDown _fontSize = Number(9, 32, 1);
     private readonly ComboBox _analysisColorMap = new() { Name = "AnalysisColorMap", MinWidth = 230 };
     private readonly ComboBox _diagramAspect = new() { Name = "DiagramAspectRatio", MinWidth = 230 };
-    private readonly CheckBox _gpu = new() { Name = "UseGpuAcceleration", Content = "自动使用 GPU" };
-    private readonly TextBlock _gpuDevice = new() { Name = "DetectedAnalysisGpu", TextWrapping = TextWrapping.Wrap };
     private readonly Border _colorMapPreview = new() { Height = 18, Margin = new Thickness(130, 0, 0, 0) };
     private readonly ComboBox _imageExportPreset = new() { Name = "ImageExportPreset", MinWidth = 230 };
     private readonly NumericUpDown _imageExportDpi = Number((decimal)ImageExportResolution.MinimumDpi,
@@ -85,9 +83,6 @@ public sealed class DisplaySettingsWindow : Window
         _validation.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextError);
 
         _decimalPlaces.Value = settings.DecimalPlaces;
-        _gpu.IsChecked = settings.UseGpuAcceleration;
-        Opened += async (_, _) => await UpdateGpuDeviceAsync();
-        _gpu.IsCheckedChanged += async (_, _) => { if (IsVisible) await UpdateGpuDeviceAsync(); };
         _upperExponent.Value = settings.UpperScientificExponent;
         _lowerExponent.Value = settings.LowerScientificExponent;
         _fontSize.Value = (decimal)settings.FontSize;
@@ -215,7 +210,7 @@ public sealed class DisplaySettingsWindow : Window
             VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
             Content = new Grid
             {
-                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
                 Margin = new Thickness(22),
                 RowSpacing = 14,
                 Children =
@@ -238,9 +233,6 @@ public sealed class DisplaySettingsWindow : Window
                     At(Section("分析图配色",
                         SettingRow("数值色图", _analysisColorMap, "用于二维伪彩色与三维曲面；保留灰度显示。", wrapHint: true),
                         _colorMapPreview), 3),
-                    At(Section("硬件加速",
-                        SettingRow("计算与绘图", _gpu, "分析计算从下次运行起生效，窗口绘图在重启后生效。", wrapHint: true),
-                        SettingRow("计算设备", _gpuDevice)), 4),
                     At(Section("图像导出",
                         SettingRow("绘图版式", _diagramAspect, "自动按绘图区可用空间选择；仅调整版式，不重新计算数据。", wrapHint: true),
                         SettingRow("分辨率预设", _imageExportPreset),
@@ -249,7 +241,7 @@ public sealed class DisplaySettingsWindow : Window
                         SettingRow("原图比例", _imageExportAspect, "锁定时完整图框等比居中，不足处留白。", wrapHint: true),
                         SettingRow("DPI 预设", _imageExportDpiPreset),
                         SettingRow("导出 DPI", _imageExportDpi, "DPI 用于打印尺寸，不改变所选像素数。", wrapHint: true),
-                        _imageExportPixels), 5),
+                        _imageExportPixels), 4),
                     At(PreviewBox(new Border
                     {
                         BorderThickness = new Thickness(1),
@@ -265,7 +257,7 @@ public sealed class DisplaySettingsWindow : Window
                                 _validation
                             }
                         }
-                    }), 6),
+                    }), 5),
                     At(new Grid
                     {
                         ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto,Auto"),
@@ -276,7 +268,7 @@ public sealed class DisplaySettingsWindow : Window
                             InColumn(cancel, 2),
                             InColumn(_save, 3)
                         }
-                    }, 7)
+                    }, 6)
                 }
             }
         };
@@ -286,15 +278,6 @@ public sealed class DisplaySettingsWindow : Window
         UpdateThemeSample();
         UpdateColorMapPreview();
         UpdatePreview();
-    }
-
-    private async Task UpdateGpuDeviceAsync()
-    {
-        if (_gpu.IsChecked != true) { _gpuDevice.Text = "CPU"; return; }
-        _gpuDevice.Text = UiLocalization.Text("正在检测 GPU…");
-        var device = await Task.Run(() => OpticalSystemDesign.Core.Analysis.AnalysisGpuSession.AvailableDevice);
-        if (_gpu.IsChecked == true)
-            _gpuDevice.Text = device ?? UiLocalization.Text("GPU 不可用，自动模式使用 CPU。");
     }
 
     private void Save(AppSettings settings)
@@ -317,10 +300,8 @@ public sealed class DisplaySettingsWindow : Window
             settings.ImageExportDpi,
             settings.ImageExportPixelHeight,
             settings.ImageExportPixelWidth,
-            settings.ImageExportPreserveAspectRatio,
-            settings.UseGpuAcceleration);
+            settings.ImageExportPreserveAspectRatio);
         settings.DecimalPlaces = options.DecimalPlaces;
-        settings.UseGpuAcceleration = _gpu.IsChecked == true;
         settings.Theme = SelectedTheme();
         settings.UpperScientificExponent = options.UpperScientificExponent;
         settings.LowerScientificExponent = options.LowerScientificExponent;
@@ -357,13 +338,11 @@ public sealed class DisplaySettingsWindow : Window
         double ImageExportDpi,
         int ImageExportPixelHeight,
         int ImageExportPixelWidth,
-        bool ImageExportPreserveAspectRatio,
-        bool UseGpuAcceleration)
+        bool ImageExportPreserveAspectRatio)
     {
         public void Restore(AppSettings settings)
         {
             settings.DecimalPlaces = DecimalPlaces;
-            settings.UseGpuAcceleration = UseGpuAcceleration;
             settings.Theme = Theme;
             settings.UpperScientificExponent = UpperScientificExponent;
             settings.LowerScientificExponent = LowerScientificExponent;
@@ -381,7 +360,6 @@ public sealed class DisplaySettingsWindow : Window
 
     private void ResetControls()
     {
-        _gpu.IsChecked = true;
         _decimalPlaces.Value = AppSettings.DefaultDecimalPlaces;
         _upperExponent.Value = AppSettings.DefaultUpperScientificExponent;
         _lowerExponent.Value = AppSettings.DefaultLowerScientificExponent;

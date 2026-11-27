@@ -22,7 +22,7 @@ public sealed class AnalysisGpuTests(ITestOutputHelper log)
         settings.Save(path);
         Assert.False(AppSettings.Load(path).UseGpuAcceleration);
         settings.ResetDisplaySettings();
-        Assert.True(settings.UseGpuAcceleration);
+        Assert.False(settings.UseGpuAcceleration);
     }
 
     [CudaFact]

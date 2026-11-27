@@ -715,7 +715,7 @@ public sealed partial class NonSequentialObjectEditorPanel
     private void OpenSceneSettings()
     {
         if (TopLevel.GetTopLevel(this) is not Window owner) return;
-        var panel = new NonSequentialModePanel(_service, _events);
+        var panel = new NonSequentialModePanel(_service, _events, _appSettings);
         var window = new Window { Title = "场景设置", Width = 390, Height = 900, MinWidth = 320, MinHeight = 500,
             WindowStartupLocation = WindowStartupLocation.CenterOwner, Content = panel };
         window.Closed += (_, _) => panel.Dispose(); ThemeChrome.ApplyDialogDecoration(window);

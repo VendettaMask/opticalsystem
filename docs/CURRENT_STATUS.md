@@ -1,10 +1,34 @@
 # 当前实现与验证状态
 
+## 2026-11-27 操作数接通第一批：多结构视场与波长
+
+XFIE／YFIE／FLWT／WAVE／WLWT 已接通真实系统数据、ZMX 固定值及变量导入、桌面行编辑、跨结构独立值、仿射拾取、联合 DLS、撤销／重做与原生保存。视场和波长引用与表面身份分开，插入表面不改变目标；普通系统编辑同步拾取并保护目标，删除会破坏引用时拒绝。波长为 µm，视场显示各结构的 °／mm 单位。含新行按需写 STAROPT v32，低版本夹带新行明确拒绝；APER 仍为只读摘要。
+
+**210 项不同的定向检查通过，0 跳过**；最终 28 项新功能／五主题三语离屏复验全部通过，已包含在 210 项中。覆盖实际优化、非法值回滚、保存重开、格式版本保护、编号、旧变量／拾取／表格和镜头缩放。默认 Release 主程序构建通过，0 警告／错误；本地化检查零缺失、零错误。首轮编译中断与中间失败原样保留，未运行完整光学精度矩阵或新增商业软件原生捕获。[实际画面与原始结果](../validation/rechecks/2026-11-27/mce-system-operands/README.md) · [实现及边界](MULTI_CONFIGURATION_SYSTEM_OPERANDS.md) · [后续批次](OPERAND_COMPATIBILITY_PLAN.md)。本批没有把评价函数的 42 项兼容保留升级为可执行。
+
+## 2026-11-27 光学图纸 DXF 导出
+
+单片、胶合件及总体布局可直接导出毫米模型空间 DXF。Windows Release 构建和 39 项图纸定向测试通过，覆盖真实按钮的保存与取消、编辑参数、闭合轮廓、原生尺寸、公差、中文图签、微型非球面及原有 PDF。独立读取器 ezdxf 1.4.5 回读 6 份样图，A4/A3 样片均量得外径 25 mm、中心厚度 6 mm 和球面半径 60/45 mm，总体布局空气间隔为 0.2054/0.2243 mm。ezdxf 审计会校正 netDxf 输出的一个未使用的栅格设置对象的所有者引用；轮廓与尺寸对象无需修复。验证在后台进行。[使用说明](MANUFACTURING_DRAWINGS.md#cad-图纸dxf) · [几何与文件回归](../tests/OpticalSystemDesign.Tests/OpticalDrawingDxfTests.cs) · [图纸入口回归](../tests/OpticalSystemDesign.Tests/OpticalDrawingStandardSelectionTests.cs)
+
+## 2026-11-27 FFT MTF 共享链路通用性能修复
+
+共享 Core 减少能力检查和标量运输分配，复用不可变坐标矩阵与精确瞄准的光瞳发射结果；近轴相位仅在已证明的平面波条件下复用入射方向，普通 MTF 自动恢复只求一次原档。缓存覆盖完整光学身份/节点权重并保持容量、失效和取消边界，未按镜头名称设置分支。Windows 普通启动脚本统一使用 Release。通用规则已写入[性能规范](RAY_TRACING_PERFORMANCE.md)。
+
+六组同输入四轮复测，36,000 个曲线点的频率轴/单位/状态一致，最大 MTF 差约 2.22e-16；本机 100° 广角重复请求中位数 6.689→0.262 s，近轴面示例首次 3.247→0.391 s。普通折射镜头重复请求约 0.7–0.8 s，没有稳定提速；自动加密未收敛项如实保留。**195/195 定向检查通过，含真实 CUDA 三项，0 失败/跳过**；正常 Release 主程序构建零警告/错误，实际主程序 Core/Application 输出已参与复测。没有运行全量光学矩阵或控制用户窗口。见[各组完整计时、数值、适用边界与回执](../validation/rechecks/2026-11-27/fft-mtf-general-optimization/README.md)。
+
+## 2026-11-27 系统选项中的 GPU 开关
+
+顺序模式的“系统选项 → 高级”在“计算后端”下方提供“自动使用 GPU”。非顺序模式的“场景设置 → 高级”共用该设置。切换后立即保存，分析在下次运行时读取该选项，窗口绘图在重启后应用。Release 主程序构建通过，30 项定向测试全部通过，覆盖同一 PSF 窗口切换前后的实际计算设备、设置重新加载、保存失败回滚和窄侧栏布局。[侧栏交互测试](../tests/OpticalSystemDesign.Tests/CompactSidebarTests.cs) · [GPU 计算验证](../tests/OpticalSystemDesign.Tests/AnalysisGpuTests.cs)
+
 ## 2026-11-27 云端打包依赖锁修复
 
 三平台仅打包任务 45925161856 在锁定还原阶段因 NU1004 失败。同步五份依赖锁后，使用源码 `de9986dc` 的三平台重试均已通过还原与编译。[依赖锁修复记录](../validation/rechecks/2026-11-27/cloud-package/README.md)
 
 重试时，Windows x64、Windows ARM64 和 Apple Silicon 均在同一项发布检查失败，安装包生成步骤均被跳过。旧断言禁止主测试使用任何筛选，与 95 个示例的验收策略冲突。本地已修正检查，要求主测试和离线比较均仅排除登记退役的历史对照。Windows 本地运行两组发布检查的并集，241 项全部通过，验收范围脚本及其 10 项控制检查通过。远端任务记录对应修复前的源码。[三平台打包记录](https://github.com/VendettaMask/opticalsystem/actions/runs/45926622859) · [当前验收范围](../validation/acceptance-policy.json) · [发布检查](../tests/OpticalSystemDesign.Tests/CloudReleaseTests.cs)
+
+## 2026-11-27 FFT MTF 通用性能定位
+
+真实 AnalysisService 入口的代表性实测定位到光阑瞄准、近轴面相位积分、按需加密多档重算和中间分配。100° 广角默认 64 采样首次约 10.867 s，再次仍为 11.553 s；蓝色陷波 64 采样首次约 2.687 s，约 437.6 万次实际追迹请求。512² 单次共享 Core FFT 的三轮中位数约 CPU 10.232 ms／CUDA 2.673 ms。启动脚本还默认运行 Debug。本轮仅新增诊断与证据，未改变产品算法、采样或精度门槛；自动加密未收敛和取消结果如实保留，不计为成功验收。见[设置、计时、栈与优化次序](../validation/rechecks/2026-11-27/fft-mtf-performance/README.md)。
 
 ## 2026-11-26 悬停提示文字完整显示
 

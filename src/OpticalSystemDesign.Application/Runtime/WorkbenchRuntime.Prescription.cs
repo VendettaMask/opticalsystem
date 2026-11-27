@@ -102,6 +102,7 @@ public partial class WorkbenchRuntime
     public void CommitSystemEdit(object? editedItem = null)
     {
         SetPrimaryWavelengthGuard(editedItem as Wavelength);
+        SynchronizeConfigurationPickups();
         SetStatus("系统属性已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -338,6 +339,7 @@ public partial class WorkbenchRuntime
             return;
         }
 
+        EnsureSystemTargetRemovalAllowed(Fields.IndexOf(field) + 1, false);
         CaptureCurrentState();
         Fields.Remove(field);
         SetStatus("已删除视场。");
@@ -372,6 +374,7 @@ public partial class WorkbenchRuntime
             return;
         }
 
+        EnsureSystemTargetRemovalAllowed(Wavelengths.IndexOf(wavelength) + 1, true);
         CaptureCurrentState();
         Wavelengths.Remove(wavelength);
         SetPrimaryWavelengthGuard();

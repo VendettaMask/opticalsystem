@@ -81,7 +81,8 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
     public SystemPropertiesPanel(
         IPrescriptionService prescription,
         IMaterialCatalogService materials,
-        IWorkspaceEventStream events)
+        IWorkspaceEventStream events,
+        AppSettings? settings = null)
     {
         _prescription = prescription;
         _materials = materials;
@@ -109,7 +110,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
                 Section("偏振", "polarization-settings", BuildPolarizationSection()),
                 Section("材料库", "materials-library", BuildMaterialLibrarySection()),
                 Section("环境", "environment-settings", BuildEnvironmentSection()),
-                Section("高级", "settings-general", BuildAdvancedSection())
+                Section("高级", "settings-general", BuildAdvancedSection(settings ?? AppSettings.Load(), _backendPicker))
             }
         };
         sections.Classes.Add("system-property-sections");
@@ -472,10 +473,52 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
             && selectedIndex < current.Count - 1;
     }
 
-    private Control BuildAdvancedSection()
+    internal static Control BuildAdvancedSection(AppSettings settings, ComboBox? backendPicker = null)
     {
-        _backendPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
-        return Form(("计算后端", _backendPicker));
+        var toggle = new CheckBox
+        {
+            Name = "UseGpuAcceleration", Content = "自动使用 GPU", IsChecked = settings.UseGpuAcceleration
+        };
+        ToolTip.SetTip(toggle, UiLocalization.Text("分析计算从下次运行起生效，窗口绘图在重启后生效。"));
+        var device = new TextBlock { Name = "DetectedAnalysisGpu", TextWrapping = TextWrapping.Wrap };
+        var error = new TextBlock { IsVisible = false, TextWrapping = TextWrapping.Wrap };
+        var form = Form(("硬件加速", toggle), ("计算设备", device), ("", error));
+        if (backendPicker is not null)
+            form.Children.Insert(0, LabeledRow("计算后端", backendPicker));
+
+        async void RefreshGpuSettings(object? sender, EventArgs args)
+        {
+            error.IsVisible = false;
+            toggle.IsChecked = settings.UseGpuAcceleration;
+            if (!settings.UseGpuAcceleration)
+            {
+                device.Text = "CPU";
+                return;
+            }
+
+            device.Text = UiLocalization.Text("正在检测 GPU…");
+            var name = await Task.Run(() => OpticalSystemDesign.Core.Analysis.AnalysisGpuSession.AvailableDevice);
+            if (settings.UseGpuAcceleration)
+                device.Text = name ?? UiLocalization.Text("GPU 不可用，自动模式使用 CPU。");
+        }
+
+        form.Loaded += (_, _) =>
+        {
+            settings.GpuAccelerationChanged += RefreshGpuSettings;
+            RefreshGpuSettings(null, EventArgs.Empty);
+        };
+        form.Unloaded += (_, _) => settings.GpuAccelerationChanged -= RefreshGpuSettings;
+        toggle.IsCheckedChanged += (_, _) =>
+        {
+            var enabled = toggle.IsChecked == true;
+            if (enabled != settings.UseGpuAcceleration && !settings.TrySetGpuAcceleration(enabled, out var reason))
+            {
+                toggle.IsChecked = settings.UseGpuAcceleration;
+                error.Text = UiLocalization.Text("保存设置失败：") + reason;
+                error.IsVisible = true;
+            }
+        };
+        return form;
     }
 
     private static StackPanel Form(params (string Label, Control Input)[] rows)

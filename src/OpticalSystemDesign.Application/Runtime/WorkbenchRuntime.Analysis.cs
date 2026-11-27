@@ -138,6 +138,14 @@ public partial class WorkbenchRuntime
                 return AnalysisData.Unavailable(canonicalName, "This optical source cannot be identified losslessly for Fourier validation.");
             analysis = CreateFourierValidation(pupilSamplingKey, requested, mode, SettingInt("FourierMaximumSampling", 1024));
         }
+        if (automatic && canonicalName == "MTF" && FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
+        {
+            var requested = SettingInt(pupilSamplingKey, SettingInt("NumRays", 64));
+            var limit = DefaultFourierRecoveryLimit(canonicalName);
+            var maximum = Math.Min(limit, SettingInt("FourierMaximumSampling", limit));
+            if (requested < maximum)
+                analysis = CreateFourierValidation(pupilSamplingKey, requested, FourierSamplingMode.Adaptive, maximum, recoveryOnly: true);
+        }
         using var fftSamplingScope = FftPupilSampling.RequireResolvedResults();
         AnalysisData data;
         try { data = analysis.GenerateData(cancellationToken); }
@@ -185,17 +193,20 @@ public partial class WorkbenchRuntime
         int SettingInt(string key, int fallback) => settings.TryGetValue(key, out var text)
             && int.TryParse(text.Split(' ', 'x', '×')[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
 
-        FourierResultValidationAnalysis CreateFourierValidation(string samplingKey, int requested, FourierSamplingMode mode, int maximum)
+        FourierResultValidationAnalysis CreateFourierValidation(string samplingKey, int requested, FourierSamplingMode mode, int maximum,
+            bool recoveryOnly = false)
         {
             var accuracy = settings.TryGetValue("FourierRelativeAccuracy", out var text)
                 && double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : .001;
-            var validationOptic = CurrentOptic.Clone();
+            // Automatic MTF starts with the same frozen computation optic,
+            // preserving its ray-cache binding and completed requested trial.
+            var validationOptic = recoveryOnly ? CurrentOptic : CurrentOptic.Clone();
             var validationRuntime = new WorkbenchRuntime(validationOptic);
             return new FourierResultValidationAnalysis(validationOptic, canonicalName, requested, n =>
             {
                 var refined = new Dictionary<string, string>(settings) { [samplingKey] = n.ToString(CultureInfo.InvariantCulture) };
                 return validationRuntime.CreateAnalysis(canonicalName, refined);
-            }, new(mode, maximum, accuracy));
+            }, new(mode, maximum, accuracy)) { RecoverOnlyIfRequired = recoveryOnly };
         }
     }
 

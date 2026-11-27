@@ -20,6 +20,92 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class CompactSidebarTests
 {
+    [Fact]
+    public async Task AdvancedGpuSwitchPersistsAcrossModesWithoutEditingThePrescription()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CompactSidebarTests));
+        await session.Dispatch(async () =>
+        {
+            using var directory = new ReportTestDirectory();
+            const string directoryKey = "OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY";
+            var previousDirectory = Environment.GetEnvironmentVariable(directoryKey);
+            var settings = new AppSettings { UseGpuAcceleration = false };
+            using var app = WorkbenchApplication.Create("cooke");
+            using var sequential = new SystemPropertiesPanel(app.Prescription, app.Materials, app.Events, settings);
+            using var scene = new NonSequentialModePanel(app.NonSequential, app.Events, settings);
+            using var psf = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events, settings, "PSF",
+                initialSettings: new Dictionary<string, string> { ["Sampling"] = "64 x 64", ["Display"] = "128 x 128" },
+                rememberSettings: false);
+            var analysisWindow = new Window { Content = psf };
+            var window = new Window { Width = 560, Height = 700, Content = new Grid
+                { ColumnDefinitions = new("*,*"), Children = { sequential, scene } } };
+            Grid.SetColumn(scene, 1);
+            try
+            {
+                Environment.SetEnvironmentVariable(directoryKey, directory.Path);
+                window.Show(); Tick(window);
+                static Border ExpandAdvanced(Control panel)
+                {
+                    var header = panel.GetVisualDescendants().OfType<Button>().Single(button =>
+                        button.Classes.Contains("system-section-header") && button.GetVisualDescendants().OfType<TextBlock>()
+                            .Any(text => text.Text == UiLocalization.Text("高级")));
+                    header.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    return header.GetVisualAncestors().OfType<Border>().First(border => border.Classes.Contains("system-property-section"));
+                }
+                var advanced = ExpandAdvanced(sequential);
+                var sceneAdvanced = ExpandAdvanced(scene);
+                Tick(window);
+                var toggle = advanced.GetVisualDescendants().OfType<CheckBox>().Single();
+                var otherToggle = sceneAdvanced.GetVisualDescendants().OfType<CheckBox>().Single();
+                var device = advanced.GetVisualDescendants().OfType<TextBlock>().Single(text => text.Name == "DetectedAnalysisGpu");
+                Assert.True(toggle.IsEffectivelyVisible);
+                Assert.Equal("UseGpuAcceleration", toggle.Name);
+                var backend = advanced.GetVisualDescendants().OfType<ComboBox>().Single();
+                Assert.True(backend.TranslatePoint(default, advanced)!.Value.Y < toggle.TranslatePoint(default, advanced)!.Value.Y);
+                Assert.False(toggle.IsChecked);
+                Assert.Equal("CPU", device.Text);
+                var revision = app.Events.Revision;
+                var firstRun = psf.RunForGuiCaptureAsync();
+                analysisWindow.Show();
+                Assert.True(await firstRun);
+                var status = psf.GetVisualDescendants().OfType<OperationStatusBar>().Single();
+                string? RunStatus() => ((TextBlock)status.Children[0]).Text;
+                Assert.Equal(UiLocalization.Text("已同步"), RunStatus());
+                toggle.IsChecked = true;
+                Assert.True(otherToggle.IsChecked);
+                Assert.True(settings.UseGpuAcceleration);
+                Assert.True(AppSettings.Load().UseGpuAcceleration);
+                var detected = await Task.Run(() => OpticalSystemDesign.Core.Analysis.AnalysisGpuSession.AvailableDevice);
+                var expected = detected ?? UiLocalization.Text("GPU 不可用，自动模式使用 CPU。");
+                for (var attempt = 0; attempt < 50 && device.Text != expected; attempt++)
+                    await Task.Delay(10);
+                Assert.Equal(expected, device.Text);
+                Assert.True(await psf.RunForGuiCaptureAsync());
+                Assert.Equal(UiLocalization.Text("已同步") + (detected is null ? "" : " · GPU"), RunStatus());
+                otherToggle.IsChecked = false;
+                Assert.False(toggle.IsChecked);
+                Assert.Equal("CPU", device.Text);
+                Assert.False(AppSettings.Load().UseGpuAcceleration);
+
+                var blocker = Path.Combine(directory.Path, "blocked");
+                File.WriteAllText(blocker, "file");
+                Environment.SetEnvironmentVariable(directoryKey, blocker);
+                toggle.IsChecked = true;
+                Assert.False(toggle.IsChecked);
+                Assert.False(settings.UseGpuAcceleration);
+                Assert.Contains(advanced.GetVisualDescendants().OfType<TextBlock>(), text =>
+                    text.IsVisible && text.Text?.StartsWith(UiLocalization.Text("保存设置失败：")) == true);
+                Assert.Equal(revision, app.Events.Revision);
+            }
+            finally
+            {
+                analysisWindow.Close();
+                window.Close();
+                Environment.SetEnvironmentVariable(directoryKey, previousDirectory);
+            }
+        }, CancellationToken.None);
+    }
+
     [Theory]
     [InlineData("Light", 240, 13)]
     [InlineData("Light", 280, 18)]

@@ -59,11 +59,21 @@ internal static partial class ZemaxZmxReader
         var rows = new List<MultiConfigurationOperand>();
         var variables = new List<MultiConfigurationVariable>();
         var links = new HashSet<MultiConfigurationLinkOverride>();
-        foreach (var group in document.ConfigurationOperands.Where(operand => operand.Command is "THIC" or "CRVT" or "CONN" or "SDIA" or "PRAM" or "EDVA" or "GLSS")
+        foreach (var group in document.ConfigurationOperands.Where(operand => operand.Command is "THIC" or "CRVT" or "CONN" or "SDIA" or "PRAM" or "EDVA" or "GLSS"
+                     or "XFIE" or "YFIE" or "FLWT" or "WAVE" or "WLWT")
                      .GroupBy(operand => (operand.Command, operand.Target, operand.AuxiliaryIndex)))
         {
-            var surface = sourceSurfaceNumbers[0].ToList().IndexOf(group.Key.Target);
-            var source = document.Surfaces.First(item => item.Number == group.Key.Target);
+            var systemKind = group.Key.Command switch
+            {
+                "XFIE" => (MultiConfigurationOperandKind?)MultiConfigurationOperandKind.FieldX,
+                "YFIE" => MultiConfigurationOperandKind.FieldY,
+                "FLWT" => MultiConfigurationOperandKind.FieldWeight,
+                "WAVE" => MultiConfigurationOperandKind.Wavelength,
+                "WLWT" => MultiConfigurationOperandKind.WavelengthWeight,
+                _ => null
+            };
+            var surface = systemKind.HasValue ? group.Key.Target : sourceSurfaceNumbers[0].ToList().IndexOf(group.Key.Target);
+            var source = document.Surfaces.FirstOrDefault(item => item.Number == group.Key.Target) ?? document.Surfaces[0];
             MultiConfigurationOperand? row = group.Key.Command switch
             {
                 "THIC" => new(MultiConfigurationOperandKind.Thickness, surface),
@@ -71,17 +81,21 @@ internal static partial class ZemaxZmxReader
                 "CONN" => new(MultiConfigurationOperandKind.Conic, surface),
                 "SDIA" => new(MultiConfigurationOperandKind.SemiDiameter, surface),
                 "GLSS" => new(MultiConfigurationOperandKind.Material, surface),
+                _ when systemKind.HasValue => new(systemKind.Value, surface),
                 _ => VariableParameterBinding(source.Type, group.Key.AuxiliaryIndex + 1, group.Key.Command == "EDVA") is { } binding
                     ? new(binding.Kind, surface, binding.Parameter) : null
             };
+            if (row?.IsSystemParameter == true)
+                foreach (var optic in configurations) _ = row.Read(optic);
             try
             {
                 if (surface < 0 || surface == 0 && group.Key.Command != "THIC"
-                    || sourceSurfaceNumbers.Any(numbers => numbers.ToList().IndexOf(group.Key.Target) != surface) || row is null)
+                    || !systemKind.HasValue && sourceSurfaceNumbers.Any(numbers => numbers.ToList().IndexOf(group.Key.Target) != surface) || row is null)
                     throw new NotSupportedException("parameter or surface has no supported optimization binding");
                 foreach (var optic in configurations)
                 {
                     if (row.IsNumeric) _ = row.Read(optic); else _ = row.ReadText(optic);
+                    if (row.IsSystemParameter) continue;
                     if (row.Parameter is { Length: > 0 } key && key[0] == 'f' && !SupportsCoordinateVariable(document, source.Number))
                         throw new NotSupportedException("coordinate variable requires updating a downstream chief-ray solve");
                     if (!SupportsImportedBaseVariable(optic.SurfaceGroup.Items[surface], row.Kind))
@@ -95,7 +109,7 @@ internal static partial class ZemaxZmxReader
                 continue;
             }
             if (!rows.Contains(row)) rows.Add(row);
-            foreach (var operand in group.Where(operand => operand.ConfigurationIndex > 0))
+            foreach (var operand in group.Where(operand => operand.ConfigurationIndex > 0 && !row!.IsSystemParameter))
                 links.Add(new(operand.ConfigurationIndex, surface, row!.Property));
             foreach (var operand in group.Where(operand => operand.SolveCode == 1 && row!.IsNumeric))
                 variables.Add(new MultiConfigurationVariable(operand.ConfigurationIndex, row!));
@@ -107,7 +121,7 @@ internal static partial class ZemaxZmxReader
             }
         }
         foreach (var operand in document.ConfigurationOperands.Where(operand => operand.SolveCode == 1
-                     && operand.Command is not ("THIC" or "CRVT" or "CONN" or "SDIA" or "PRAM" or "EDVA")))
+                     && operand.Command is not ("THIC" or "CRVT" or "CONN" or "SDIA" or "PRAM" or "EDVA" or "XFIE" or "YFIE" or "FLWT" or "WAVE" or "WLWT")))
         {
             var source = document.Surfaces.FirstOrDefault(surface => surface.Number == operand.Target) ?? document.Surfaces[0];
             ImportVariableWarning(configurations[operand.ConfigurationIndex], source, operand.Command, operand.AuxiliaryIndex + 1,
@@ -771,6 +785,7 @@ internal static partial class ZemaxZmxReader
                 case "APDY":
                 case "XFIE":
                 case "YFIE":
+                case "FLWT":
                 case "WAVE":
                 case "WLWT":
                 case "GLSS":
@@ -1941,7 +1956,7 @@ internal static partial class ZemaxZmxReader
                         : $"Field {index + 1}",
                 X = field.X,
                 Y = field.Y,
-                Weight = field.Weight,
+                Weight = document.ConfigurationDouble("FLWT", index + 1, configurationIndex) ?? field.Weight,
                 VignetteFactorX = field.VignetteX,
                 VignetteFactorY = field.VignetteY,
                 VignetteDecenterX = field.VignetteDecenterX,
@@ -2339,6 +2354,13 @@ internal static partial class ZemaxZmxReader
         }
 
         var value = RequiredToken(tokens, 3, command).Trim('"');
+        if (command is "XFIE" or "YFIE" or "FLWT" or "WAVE" or "WLWT")
+        {
+            var scalar = RequiredDouble(tokens, 3, command);
+            if (target < 1 || !double.IsFinite(scalar) || command == "WAVE" && scalar < .001
+                || command is "FLWT" or "WLWT" && scalar < 0)
+                throw new InvalidDataException($"Zemax {command} requires a valid positive field/wavelength index and finite value; wavelength >= 0.001 µm, weights >= 0.");
+        }
         var auxiliaryIndex = command is "PRAM" or "EDVA"
             && tokens.Count > 5
             ? RequiredInt(tokens, 5, command) - 1

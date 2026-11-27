@@ -77,6 +77,13 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
                     ? new MultiConfigurationPickupDto(rowNumbers[pickup.SourceOperand], pickup.SourceConfigurationIndex, pickup.Scale, pickup.Offset) : null).ToArray(), row.Parameter)
                 {
                     TextValues = row.IsNumeric ? null : context.Configurations.Select(row.ReadText).ToArray(),
+                    Units = row.IsSystemParameter ? context.Configurations.Select(optic => row.Kind switch
+                    {
+                        MultiConfigurationOperandKind.Wavelength => "µm",
+                        MultiConfigurationOperandKind.FieldX or MultiConfigurationOperandKind.FieldY =>
+                            optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm",
+                        _ => ""
+                    }).ToArray() : null,
                     ParameterNumber = row.Kind == MultiConfigurationOperandKind.ShapeCoefficient
                         && row.Parameter is { Length: > 1 } parameter && parameter[0] is 'f' or 't'
                         && int.TryParse(parameter.AsSpan(1), out var parameterIndex) ? parameterIndex + 1 : null

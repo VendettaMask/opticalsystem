@@ -15,6 +15,11 @@ internal static class Program
             return;
         }
         var productId = WindowsInstallationLifetime.ProductId;
+        // Installation verification and maintenance commands do not write to the user's profile.
+        var maintenance = args.Contains("--verify-installation", StringComparer.Ordinal)
+            || args.Contains("--register-file-associations", StringComparer.OrdinalIgnoreCase)
+            || args.FirstOrDefault() is "--batch-coating-examples" or "--batch-coating-daily-examples";
+        using var log = maintenance ? null : RuntimeFileLog.Start();
         WindowsInstallationLifetime installationLifetime;
         try
         {
@@ -36,6 +41,7 @@ internal static class Program
             or System.Text.Json.JsonException or System.Security.SecurityException or KeyNotFoundException
             or TypeLoadException or System.Reflection.ReflectionTypeLoadException or BadImageFormatException)
         {
+            System.Diagnostics.Trace.TraceError($"Startup blocked: {exception}");
             if (args.Contains("--verify-installation", StringComparer.Ordinal))
                 Console.Error.WriteLine(exception.Message);
             else WindowsInstallationLifetime.ShowBlockedStartup(exception.Message);
@@ -62,7 +68,7 @@ internal static class Program
             return;
         }
 
-        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        Environment.ExitCode = BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
     // Keep module resolution inside the guarded startup call, not Main's JIT compilation.
@@ -73,6 +79,7 @@ internal static class Program
     public static AppBuilder BuildAvaloniaApp()
     {
         var settings = AppSettings.Load();
+        System.Diagnostics.Trace.TraceInformation($"Desktop graphics preference: {(settings.UseGpuAcceleration ? "automatic" : "software")}");
         var builder = AppBuilder.Configure(() => new App { StartupSettings = settings })
             .UsePlatformDetect()
             .LogToTrace();

@@ -744,7 +744,7 @@ public sealed partial class WorkspaceDockFactory : Factory
                 _application.MultiConfiguration),
             WorkspaceDocumentTypes.NonSequentialObjectEditor => new NonSequentialObjectEditorPanel(
                 _application.NonSequential,
-                _application.Events, _application.Visualization, _application.NonSequentialAnalysis, _application.Documents),
+                _application.Events, _application.Visualization, _application.NonSequentialAnalysis, _application.Documents, _settings),
             WorkspaceDocumentTypes.Viewer2D => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,
@@ -933,7 +933,8 @@ public sealed partial class WorkspaceDockFactory : Factory
         {
             var nonSequentialPanel = new NonSequentialModePanel(
                 _application.NonSequential,
-                _application.Events);
+                _application.Events,
+                _settings);
             DisplayTypography.Apply(nonSequentialPanel);
             return nonSequentialPanel;
         }
@@ -941,7 +942,8 @@ public sealed partial class WorkspaceDockFactory : Factory
         var panel = new SystemPropertiesPanel(
             _application.Prescription,
             _application.Materials,
-            _application.Events);
+            _application.Events,
+            _settings);
         DisplayTypography.Apply(panel);
         return panel;
     }

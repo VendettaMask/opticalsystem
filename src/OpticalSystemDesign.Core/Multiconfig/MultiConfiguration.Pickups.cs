@@ -41,6 +41,7 @@ public sealed partial class MultiConfiguration
 
     private void PinPickupTarget(MultiConfigurationPickup pickup)
     {
+        if (pickup.Operand.IsSystemParameter) return;
         DetachPropertyLink(pickup.ConfigurationIndex, pickup.Operand.SurfaceNumber, pickup.Operand.Property);
         var surface = FindSurface(Configurations[pickup.ConfigurationIndex], pickup.Operand.SurfaceNumber);
         if (pickup.Operand.Kind == MultiConfigurationOperandKind.Curvature) surface.RadiusVariable = false;

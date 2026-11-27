@@ -57,17 +57,14 @@ public sealed class AnalysisFrameDpiTests
         {
             using var directory = new ReportTestDirectory();
             var previous = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY");
-            var settings = new AppSettings { Theme = theme };
+            var settings = new AppSettings { Theme = theme, UseGpuAcceleration = false };
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             UiLocalization.InstallGlobalHooks(); UiLocalization.Apply(language);
             var window = new DisplaySettingsWindow(settings) { Height = 840 };
             try
             {
                 window.Show(); Tick(window);
-                var gpu = window.GetVisualDescendants().OfType<CheckBox>().Single(c => c.Name == "UseGpuAcceleration");
-                Assert.True(gpu.IsChecked);
-                gpu.IsChecked = false;
-                Assert.Equal("CPU", window.GetVisualDescendants().OfType<TextBlock>().Single(c => c.Name == "DetectedAnalysisGpu").Text);
+                Assert.DoesNotContain(window.GetVisualDescendants().OfType<CheckBox>(), c => c.Name == "UseGpuAcceleration");
                 var preset = window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "ImageExportPreset");
                 var dpi = window.GetVisualDescendants().OfType<NumericUpDown>().Single(c => c.Name == "ImageExportDpi");
                 var height = window.GetVisualDescendants().OfType<NumericUpDown>().Single(c => c.Name == "ImageExportHeight");
@@ -96,7 +93,7 @@ public sealed class AnalysisFrameDpiTests
                 save.RaiseEvent(new RoutedEventArgs(Button.ClickEvent)); Tick(window);
                 Assert.True(window.IsVisible); Assert.Equal(1080, settings.ImageExportPixelHeight); Assert.Equal(150, settings.ImageExportDpi);
                 Assert.Equal(1920, settings.ImageExportPixelWidth); Assert.True(settings.ImageExportPreserveAspectRatio);
-                Assert.True(settings.UseGpuAcceleration);
+                Assert.False(settings.UseGpuAcceleration);
                 ((TextBlock)typeof(DisplaySettingsWindow).GetField("_imageExportPixels", Private)!.GetValue(window)!).BringIntoView(); Tick(window);
                 using var preview = window.CaptureRenderedFrame()!; Capture(preview, $"settings-{language}-{theme}.png");
                 Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", directory.Path);

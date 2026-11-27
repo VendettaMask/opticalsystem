@@ -1,6 +1,6 @@
 # 项目文档索引
 
-索引更新：2026-11-26。当前操作、计算定义、代码入口、三语应用内帮助与 PDF 按同一实现维护。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，历史通过数和旧命令保留在[历史索引](history/README.md)及各自证据中；专项通过不替代全部镜头或任意参数的精度验收。
+索引更新：2026-11-27。当前操作、计算定义、代码入口、三语应用内帮助与 PDF 按同一实现维护。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，历史通过数和旧命令保留在[历史索引](history/README.md)及各自证据中；专项通过不替代全部镜头或任意参数的精度验收。
 
 ## 从这里开始
 
@@ -11,6 +11,7 @@
 | 构建、测试与安装 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装/恢复](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[云发布](GITHUB_CLOUD_RELEASE.md)、[Mac OTA](MAC_OTA.md) |
 | 核对精度与未关闭问题 | [数值验收规则](NUMERICAL_PARITY.md)、[问题清单](OPEN_ISSUES_2026-10-08.md)、[95 示例分类交接](EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md) |
 | 维护实现 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
+| 接通操作数 | [分批计划](OPERAND_COMPATIBILITY_PLAN.md)、[视场／波长多配置行](MULTI_CONFIGURATION_SYSTEM_OPERANDS.md)、[评价函数支持](ZEMAX_OPERAND_SUPPORT.md) |
 | 设计与改进界面 | [全项目设计语言与工作方法](UI_DESIGN_SPEC.md#全项目设计语言与工作方法)、[走查与确认记录](UI_DESIGN_REVIEW.md)、[主题包规范](THEME_PACKAGES.md)、[图标语义](ICON_SEMANTIC_DESIGN.md) |
 | 维护文档 | [文档生命周期与检查](DOCUMENTATION_MAINTENANCE.md)、[历史报告索引](history/README.md) |
 

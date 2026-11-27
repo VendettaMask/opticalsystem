@@ -305,17 +305,27 @@ public sealed partial class OpticalSurface
 
     private static RayState Propagate(RayState ray, IPropagationModel propagation, double distance)
     {
-        return RayState.FromRealRay(propagation.Propagate(ray.ToRealRay(), distance));
+        return propagation is HomogeneousPropagationModel homogeneous
+            ? homogeneous.Propagate(ray, distance)
+            : RayState.FromRealRay(propagation.Propagate(ray.ToRealRay(), distance));
     }
 
     private RayStateInteractionResult Interact(RayState ray, SurfaceInteractionStateContext context)
     {
+        if (InteractionModel is RefractiveReflectiveInteractionModel refractive)
+        {
+            var value = refractive.InteractDirection(ray.Direction, context.SurfaceNormal,
+                context.RefractiveIndexBefore, context.RefractiveIndexAfter, context.Geometry,
+                context.IsReflective, context.IncidenceCosineSquared);
+            return new(ray with { Direction = value.Direction }, value.Kind);
+        }
         var result = InteractionModel.Interact(ray.ToRealRay(), context.ToPublic());
         return new RayStateInteractionResult(RayState.FromRealRay(result.Ray), result.Kind);
     }
 
     private RayState ApplyCoating(RayState ray, SurfaceInteractionStateContext context)
     {
+        if (CoatingModel is OpticalSystemDesign.Core.Coatings.NoneCoatingModel) return ray;
         return RayState.FromRealRay(CoatingModel.Apply(ray.ToRealRay(), context.ToPublic()));
     }
 
