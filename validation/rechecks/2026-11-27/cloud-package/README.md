@@ -13,3 +13,5 @@
 已用 `dotnet restore OpticalSystemDesign.slnx --locked-mode` 验证修复；完整 Release 构建采用云端同样的 `/m:1 /nr:false -p:ContinuousIntegrationBuild=true` 参数。具体命令和结果见[验证账目](verification.json)，三平台原始失败与本地验证回执见[归档](evidence.zip)。本地构建工作区还包含其他正在进行的修改，云端重试将只检出本次锁文件修复提交，云端结果单独判定。
 
 原流程对产品源码使用固定提交检出，仅生成三平台自包含安装包并存入 Actions 30 天。重试需要更新该固定源码提交并启动新任务；直接重跑旧任务仍会使用旧锁文件。
+
+后续 `155456f8` 的仅打包任务 45929502122 已完成三平台工件，但不更新公开 Release 或 OTA。用户随后要求交付当前代码，已改用主分支普通发布流程，以 `92e0183d` 完成三平台公开测试发布和 Windows／Mac OTA 验证；见[独立交付回执](../public-release/README.md)。本页仍保留原依赖锁失败与修复的阶段范围。

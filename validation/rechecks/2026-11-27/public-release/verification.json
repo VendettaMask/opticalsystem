@@ -1,0 +1,558 @@
+{
+  "verifiedAtUtc": "2026-11-27T05:11:18.950788+00:00",
+  "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+  "runId": 45940664796,
+  "runUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/45940664796",
+  "releaseTag": "v1.0.4-test.20261127",
+  "releaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+  "prerelease": true,
+  "jobs": [
+    {
+      "name": "plan",
+      "conclusion": "success"
+    },
+    {
+      "name": "package (win-x64)",
+      "conclusion": "success"
+    },
+    {
+      "name": "package (osx-arm64)",
+      "conclusion": "success"
+    },
+    {
+      "name": "package (win-arm64)",
+      "conclusion": "success"
+    },
+    {
+      "name": "publish",
+      "conclusion": "success"
+    }
+  ],
+  "assets": [
+    {
+      "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-92e0183d.exe",
+      "size": 376907548,
+      "digest": "sha256:42104a511bd0fe38bb8f76cbde7b8c4e9c25da819c497a2f944249ead2b03a0e",
+      "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261127/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-92e0183d.exe"
+    },
+    {
+      "name": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-92e0183d.exe",
+      "size": 386489891,
+      "digest": "sha256:4de65eaf572d6ae4d020e2fbaa2c0c8072e531fd4dc8d19f346629ccc45675e2",
+      "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261127/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-92e0183d.exe"
+    },
+    {
+      "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+      "size": 159681553,
+      "digest": "sha256:143c4157e73dacecb6742639306492ae9dec71ecc4c709b1281ec5c2937345a4",
+      "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261127/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+    }
+  ],
+  "macOta": {
+    "FeedSignatureVerified": true,
+    "Feed": "https://raw.githubusercontent.com/VendettaMask/opticalsystem/main/updates/macos/appcast.xml",
+    "FeedCommit": "ff432dac21085440c1d6e67f9d9c8a41ca507934",
+    "BundleVersion": "1.57.1",
+    "FeedSha256": "d2557f1942b464bd1815f62edf2cd766e873e63bca4cc7c3b5b8e9e46b61ff60",
+    "ArchiveSignatureVerified": true,
+    "SourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+    "ArchiveSha256": "143c4157e73dacecb6742639306492ae9dec71ecc4c709b1281ec5c2937345a4",
+    "Archive": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "PublicKey": "X7XWrFoGozehnhldAQUxuWhHpWZba2OkdRDVXDTNzNk=",
+    "Published": true
+  },
+  "macFeedApiAndRawBytesMatchSignedReceipt": true,
+  "macPublicFeedIndependentEd25519Verification": true,
+  "publicUnauthenticatedDownloads": [
+    {
+      "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-92e0183d.exe",
+      "status": 200,
+      "contentLength": 376907548
+    },
+    {
+      "name": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-92e0183d.exe",
+      "status": 200,
+      "contentLength": 386489891
+    },
+    {
+      "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+      "status": 200,
+      "contentLength": 159681553
+    }
+  ],
+  "ciIsAnIndependentGate": true,
+  "windowsOtaClient": {
+    "method": "Actual product GitHubReleaseUpdateService.ParseReleases, embedded public-key verification; public unauthenticated Releases response",
+    "installedVersion": "1.0.4",
+    "results": [
+      {
+        "installedVersion": "1.0.4",
+        "installedSequence": 0,
+        "checks": [
+          {
+            "runtime": "win-x64",
+            "status": "UpdateAvailable",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-92e0183d.exe",
+            "signedOtaVerified": true,
+            "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+            "buildSequence": 45940664796,
+            "size": 376907548,
+            "sha256": "42104a511bd0fe38bb8f76cbde7b8c4e9c25da819c497a2f944249ead2b03a0e",
+            "tag": "v1.0.4-test.20261127"
+          },
+          {
+            "runtime": "win-arm64",
+            "status": "UpdateAvailable",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-92e0183d.exe",
+            "signedOtaVerified": true,
+            "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+            "buildSequence": 45940664796,
+            "size": 386489891,
+            "sha256": "4de65eaf572d6ae4d020e2fbaa2c0c8072e531fd4dc8d19f346629ccc45675e2",
+            "tag": "v1.0.4-test.20261127"
+          }
+        ]
+      },
+      {
+        "installedVersion": "1.0.4",
+        "installedSequence": 44899481135,
+        "checks": [
+          {
+            "runtime": "win-x64",
+            "status": "UpdateAvailable",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-92e0183d.exe",
+            "signedOtaVerified": true,
+            "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+            "buildSequence": 45940664796,
+            "size": 376907548,
+            "sha256": "42104a511bd0fe38bb8f76cbde7b8c4e9c25da819c497a2f944249ead2b03a0e",
+            "tag": "v1.0.4-test.20261127"
+          },
+          {
+            "runtime": "win-arm64",
+            "status": "UpdateAvailable",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-92e0183d.exe",
+            "signedOtaVerified": true,
+            "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+            "buildSequence": 45940664796,
+            "size": 386489891,
+            "sha256": "4de65eaf572d6ae4d020e2fbaa2c0c8072e531fd4dc8d19f346629ccc45675e2",
+            "tag": "v1.0.4-test.20261127"
+          }
+        ]
+      },
+      {
+        "installedVersion": "1.0.4",
+        "installedSequence": 45929502122,
+        "checks": [
+          {
+            "runtime": "win-x64",
+            "status": "UpdateAvailable",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-92e0183d.exe",
+            "signedOtaVerified": true,
+            "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+            "buildSequence": 45940664796,
+            "size": 376907548,
+            "sha256": "42104a511bd0fe38bb8f76cbde7b8c4e9c25da819c497a2f944249ead2b03a0e",
+            "tag": "v1.0.4-test.20261127"
+          },
+          {
+            "runtime": "win-arm64",
+            "status": "UpdateAvailable",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-92e0183d.exe",
+            "signedOtaVerified": true,
+            "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+            "buildSequence": 45940664796,
+            "size": 386489891,
+            "sha256": "4de65eaf572d6ae4d020e2fbaa2c0c8072e531fd4dc8d19f346629ccc45675e2",
+            "tag": "v1.0.4-test.20261127"
+          }
+        ]
+      },
+      {
+        "installedVersion": "1.0.4",
+        "installedSequence": 45940664796,
+        "checks": [
+          {
+            "runtime": "win-x64",
+            "status": "UpToDate",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": null,
+            "signedOtaVerified": false,
+            "sourceCommit": null,
+            "buildSequence": null,
+            "size": null,
+            "sha256": null,
+            "tag": null
+          },
+          {
+            "runtime": "win-arm64",
+            "status": "UpToDate",
+            "version": "1.0.4-test.20261127",
+            "page": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+            "installer": null,
+            "signedOtaVerified": false,
+            "sourceCommit": null,
+            "buildSequence": null,
+            "size": null,
+            "sha256": null,
+            "tag": null
+          }
+        ]
+      }
+    ],
+    "combinations": 8,
+    "uiStarted": false,
+    "installationPerformed": false,
+    "upToDateOtaFieldNote": "UpToDate returns no attached OTA package; its signedOtaVerified=false is not a signature failure."
+  },
+  "cloudReleaseChecks": [
+    {
+      "runtime": "win-x64",
+      "host": "Windows x64",
+      "releaseChecksPassed": 237,
+      "releaseChecksFailed": 0,
+      "releaseChecksSkipped": 0,
+      "packagedOtaHelperChecksPassed": 8,
+      "jobId": 140315064361
+    },
+    {
+      "runtime": "win-arm64",
+      "host": "Windows x64 cross-build",
+      "releaseChecksPassed": 237,
+      "releaseChecksFailed": 0,
+      "releaseChecksSkipped": 0,
+      "nativeArm64InstallationValidated": false,
+      "jobId": 140315064449
+    },
+    {
+      "runtime": "osx-arm64",
+      "host": "Apple Silicon Mac",
+      "releaseChecksPassed": 153,
+      "releaseChecksFailed": 0,
+      "releaseChecksSkipped": 0,
+      "nativeUpdateCases": [
+        "cancel-download",
+        "cancel-ready",
+        "tampered-archive",
+        "apply"
+      ],
+      "productGuiStarted": false,
+      "jobId": 140315064404
+    }
+  ],
+  "cloudReceiptArtifact": {
+    "id": 15173657223,
+    "name": "cloud-release-receipt",
+    "size_in_bytes": 4515,
+    "digest": "sha256:9a6e3475266ad3619d29dc410ea3d8e13ced0bb871b4ec252ef575e9b2f0dc9d",
+    "created_at": "2026-11-27T05:06:06Z",
+    "workflow_run": {
+      "id": 45940664796,
+      "repository_id": 1296413213,
+      "head_repository_id": 1296413213,
+      "head_branch": "main",
+      "head_sha": "92e0183d4f689d44a0c3ce07c7295ad7de743468"
+    }
+  },
+  "publicNotes": {
+    "releaseId": 460188805,
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127",
+    "updatedAt": "2026-11-27T05:06:39Z",
+    "otaMarkersPreserved": 2,
+    "bodySha256": "23e19b27d301003040664fd458498052099d2f7aec04b6b42c15bc8c35fa4f3e"
+  },
+  "queueCleanup": {
+    "obsoleteCiCancellation": {
+      "reason": "Superseded CI runs released ahead of current-source public release; current main CI and every release workflow preserved. Cancelled runs are not passes.",
+      "atUtc": "2026-11-27T04:50:43.017844+00:00",
+      "runs": [
+        {
+          "id": 45929502011,
+          "head": "3fc116a3a8fe99034583dd699d88ffc54a44e853",
+          "previousStatus": "queued",
+          "cancelStatus": 202,
+          "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/45929502011"
+        },
+        {
+          "id": 45928839987,
+          "head": "155456f84694ef2c26e9ecce41a95e60a3596a7b",
+          "previousStatus": "queued",
+          "cancelStatus": 202,
+          "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/45928839987"
+        },
+        {
+          "id": 45926622054,
+          "head": "e7433df0870ab49692eab867825a70c91173c524",
+          "previousStatus": "queued",
+          "cancelStatus": 202,
+          "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/45926622054"
+        },
+        {
+          "id": 45926620087,
+          "head": "de9986dcf4a57c2bf08d1c64305a4961c04f2228",
+          "previousStatus": "in_progress",
+          "cancelStatus": 202,
+          "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/45926620087"
+        },
+        {
+          "id": 45926558302,
+          "head": "de9986dcf4a57c2bf08d1c64305a4961c04f2228",
+          "previousStatus": "in_progress",
+          "cancelStatus": 202,
+          "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/45926558302"
+        }
+      ]
+    },
+    "duplicateTagReleaseCancellation": {
+      "id": 45942865581,
+      "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+      "tag": "v1.0.4-test.20261127",
+      "preservedRunId": 45940664796,
+      "reason": "Tag-created push duplicates the active authorized all-platform release.",
+      "cancelRequestedAtUtc": "2026-11-27T04:57:49.412115+00:00"
+    },
+    "currentSourceBranchCiPreserved": 45929866839,
+    "cancelledRunsAreNotPasses": true
+  },
+  "rawFeedCacheObservationBeforeFinalPass": {
+    "headers": {
+      "Date": "Fri, 27 Nov 2026 05:09:02 GMT",
+      "Cache-Control": "max-age=300",
+      "Age": null,
+      "X-Cache": "HIT",
+      "X-Cache-Hits": "1",
+      "Expires": "Fri, 27 Nov 2026 05:14:02 GMT",
+      "ETag": "\"85225e2f1a8db46d915bc4e05f25ef06244d88553ab236108c0b6d491cd16fbb\""
+    },
+    "sha256": "843b29103e858eb1765e60cd290d58ba49a90283d3e9d14e9c4d8501f587d56a",
+    "versions": [
+      "1.53.1"
+    ]
+  },
+  "scope": {
+    "publicTestRelease": true,
+    "fullCiCertifiedByRelease": false,
+    "fullOpticalPrecisionMatrixRerun": false,
+    "maintainerDesktopControlled": false,
+    "maintainerInstallationPerformed": false,
+    "windowsAuthenticodeSigned": false,
+    "macDeveloperIdSigned": false,
+    "macNotarized": false,
+    "localInstallersRedownloadedForAudit": false,
+    "packageIntegrityAuthority": "Cloud package hash + actual uploaded GitHub asset digest, compared with signed metadata; unauthenticated HEAD verifies public URL and size."
+  },
+  "independentCiSnapshot": {
+    "runId": 45929866839,
+    "sourceCommit": "92e0183d4f689d44a0c3ce07c7295ad7de743468",
+    "runUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/45929866839",
+    "statusIsSnapshotNotFinal": true,
+    "jobs": [
+      {
+        "id": 140279753028,
+        "name": "Build main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753219,
+        "name": "Documentation (ubuntu-22.04)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753249,
+        "name": "Built-in module tests (macos-latest, survey-second)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753278,
+        "name": "Main tests (windows)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753354,
+        "name": "Performance smoke",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753361,
+        "name": "Documentation (windows-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753368,
+        "name": "Main tests (macos)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 140279753377,
+        "name": "Documentation (macos-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753389,
+        "name": "Built-in module tests (windows-latest, survey-first)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753398,
+        "name": "Local UI catalog (ubuntu-22.04)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753404,
+        "name": "Main tests (linux)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 140279753411,
+        "name": "Generate STEP fixtures",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753424,
+        "name": "Built-in module tests (windows-latest, contracts)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753432,
+        "name": "Built-in module tests (macos-latest, survey-first)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753462,
+        "name": "Frozen evidence (ubuntu-22.04)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753468,
+        "name": "Local UI catalog (windows-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753480,
+        "name": "Repository quality",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753512,
+        "name": "Local UI catalog (macos-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753514,
+        "name": "Frozen evidence (macos-latest)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753538,
+        "name": "Built-in module tests (macos-latest, contracts)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 140279753548,
+        "name": "Built-in module tests (windows-latest, survey-second)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753550,
+        "name": "Dependency vulnerability audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753553,
+        "name": "Frozen evidence (windows-latest)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753555,
+        "name": "Built-in module tests (ubuntu-22.04, contracts)",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 140279753605,
+        "name": "Built-in module tests (ubuntu-22.04, survey-second)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140279753659,
+        "name": "Built-in module tests (ubuntu-22.04, survey-first)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 140302656863,
+        "name": "STEP OpenCascade validation",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "windowsMainTests": {
+      "total": 9067,
+      "passed": 8861,
+      "failed": 176,
+      "skipped": 30
+    },
+    "windowsOfflineComparisonTests": {
+      "total": 737,
+      "passed": 322,
+      "failed": 415,
+      "skipped": 0
+    },
+    "diagnosticsInspected": {
+      "offlineComparison": "Comparison registry is missing four coating analyses; at least one reference path is also absent. This is not a complete classification of every failure.",
+      "repositoryQuality": "Formatting and imports-order checks failed.",
+      "frozenEvidence": "Unmapped duplicate evidence in localization/format logs and one pair of screenshots."
+    },
+    "publicationDoesNotCertifyThisRun": true,
+    "retrievedOn": "2026-11-27"
+  },
+  "documentationCheck": {
+    "command": "./scripts/verify-documentation.ps1 -Strict -OutputPath .tmp/release-current-20261127/documentation-audit.json",
+    "exitCode": 0,
+    "documents": 2165,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphGroups": 0,
+    "thisIsNotAProductTestCount": true
+  }
+}

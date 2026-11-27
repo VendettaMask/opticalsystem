@@ -1,5 +1,11 @@
 # 当前实现与验证状态
 
+## 2026-11-27 当前源码三平台公开发布与 OTA
+
+源码 `92e0183d` 已通过[云端完整发布 45940664796](https://github.com/VendettaMask/opticalsystem/actions/runs/45940664796)，[公开测试版 v1.0.4-test.20261127](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127)提供 Windows x64、Windows ARM64 与 Apple Silicon 安装包。三份公开下载均无需认证、HTTP 200、长度及服务端 SHA-256 与云端记录一致。两个 Windows 任务各通过 237 项发布检查，x64 另通过 8 项实际包 OTA 检查；Mac 通过 153 项发布检查及四种原生更新情形。重复执行不累计为不同用例。
+
+Windows 实际产品解析器对旧构建均能发现今天的签名更新，安装今天构建后返回已是最新版。Mac 公开更新源已刷新到 `1.57.1`，与云端签名回执逐字节一致，并以固定公钥独立验签通过。产品版本仍为 `1.0.4`，测试通道需启用“包含测试版”。旧的仅打包任务未执行公开发布，不能作为 OTA 已更新的依据。本次未重跑完整光学矩阵；独立普通 CI 45929866839 查询时已有 7 个失败任务、3 个仍在运行，Windows 主测试 176 失败、离线比较 415 失败，另有模块契约、格式和重复证据问题，均未宣称通过。Windows ARM64 为交叉构建，产品 GUI 与维护者本机安装未验收。签名状态仍为 Windows 未作 Authenticode 签名、Mac ad-hoc 且未公证。[交付回执与边界](../validation/rechecks/2026-11-27/public-release/README.md) · [云端操作说明](GITHUB_CLOUD_RELEASE.md)。
+
 ## 2026-11-27 操作数接通第一批：多结构视场与波长
 
 XFIE／YFIE／FLWT／WAVE／WLWT 已接通真实系统数据、ZMX 固定值及变量导入、桌面行编辑、跨结构独立值、仿射拾取、联合 DLS、撤销／重做与原生保存。视场和波长引用与表面身份分开，插入表面不改变目标；普通系统编辑同步拾取并保护目标，删除会破坏引用时拒绝。波长为 µm，视场显示各结构的 °／mm 单位。含新行按需写 STAROPT v32，低版本夹带新行明确拒绝；APER 仍为只读摘要。
