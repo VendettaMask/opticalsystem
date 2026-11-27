@@ -182,7 +182,7 @@ jobs:
           /m:1 /nr:false
 
       - name: Test portable Zemax comparison (no licensed application)
-        if: ${{ always() }}
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: >-
           dotnet test
           ${{ env.COMPARISON_TEST_PROJECT }}
@@ -194,9 +194,8 @@ jobs:
           --blame-hang --blame-hang-timeout 30m
           /m:1 /nr:false
 
-      # The full main test assembly above covers layout, typography, legends,
-      # viewers, update panels and workspace persistence. Keep real rendering
-      # and native navigation in separate processes, independently of publishing.
+      # Both test projects exclude only retired reference comparisons. Current UI
+      # contracts run above; native navigation and real rendering also run in isolation.
       - name: Verify lens navigation in isolated native processes
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         shell: pwsh

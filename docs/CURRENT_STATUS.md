@@ -2,7 +2,9 @@
 
 ## 2026-11-27 云端打包依赖锁修复
 
-三平台仅打包任务 45925161856 在锁定还原阶段因 NU1004 失败，未生成安装包。已重新求值完整解决方案并同步五份依赖锁，补齐 Application → CoatingDesign.Engine 及相应传递依赖；完整锁定还原和云端参数的 Release 构建通过。重试将固定到锁文件修复提交，云端构建及安装包结果单独记录。[失败、修复范围和验证回执](../validation/rechecks/2026-11-27/cloud-package/README.md)。
+三平台仅打包任务 45925161856 在锁定还原阶段因 NU1004 失败。同步五份依赖锁后，使用源码 `de9986dc` 的三平台重试均已通过还原与编译。[依赖锁修复记录](../validation/rechecks/2026-11-27/cloud-package/README.md)
+
+重试时，Windows x64、Windows ARM64 和 Apple Silicon 均在同一项发布检查失败，安装包生成步骤均被跳过。旧断言禁止主测试使用任何筛选，与 95 个示例的验收策略冲突。本地已修正检查，要求主测试和离线比较均仅排除登记退役的历史对照。Windows 本地运行两组发布检查的并集，241 项全部通过，验收范围脚本及其 10 项控制检查通过。远端任务记录对应修复前的源码。[三平台打包记录](https://github.com/VendettaMask/opticalsystem/actions/runs/45926622859) · [当前验收范围](../validation/acceptance-policy.json) · [发布检查](../tests/OpticalSystemDesign.Tests/CloudReleaseTests.cs)
 
 ## 2026-11-26 悬停提示文字完整显示
 

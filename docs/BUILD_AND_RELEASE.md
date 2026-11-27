@@ -41,7 +41,7 @@ dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c 
 日常修改默认只运行与改动行为及已观察退化直接相关的筛选；只有明确风险或用户要求才扩大范围。以下完整解决方案命令用于需要全量验证时，不要求每次修改都执行。各次实际范围见[当前状态](CURRENT_STATUS.md)。
 
 ```powershell
-dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr:false
+dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore --filter 'AcceptanceScope!=RetiredReference' /m:1 /nr:false
 dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore
 dotnet test labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj -c Release --no-build --no-restore
 ```
@@ -50,7 +50,9 @@ dotnet test labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Opt
 
 CI 使用同一根解决方案，以统一的 `CONFIGURATION=Release` 编译和运行主测试、模块测试、比较工具离线测试及性能冒烟，避免默认 Debug 的计算耗时污染有界契约检查。主测试和比较工具的单测试无进展诊断阈值均为 30 分钟。比较工具显式包含与 SkiaSharp 同版本的 Linux 原生资产；三个系统仍由各自的 CI 任务验证。最新流程与阈值以 [.github/workflows/ci.yml](../.github/workflows/ci.yml) 为准，真实 Zemax 捕获仍需对应许可和运行时。
 
-初始结构 CI 在每个平台分为普通契约、前六个调查案例、后六个调查案例三组。`scripts/test-initial-structure-partition.ps1` 从原测试数据生成筛选器，并核对每个调查案例的实际 TRX 结果；12 个原案例必须恰好各运行一次，不删除调查、不缩减评价或时间预算。单案例冻结预算为 30 分钟，因此模块无进展诊断阈值为 35 分钟，调查分组任务上限为 240 分钟；主测试无进展阈值为 30 分钟。比较工具测试即使主测试失败也独立执行。分组只解决执行安排，不代表长调查已通过。
+主测试和离线比较都使用 `AcceptanceScope!=RetiredReference`，仅排除已登记退役的历史对照。95 个菜单示例的数值验收、通用物理和界面回归均保留在当前测试范围内。构建成功后，即使主测试失败，离线比较仍会执行并生成独立的 TRX。发布检查核对两个测试入口使用的筛选条件。[验收范围与退役登记](../validation/acceptance-policy.json)
+
+初始结构 CI 在每个平台分为普通契约、前六个调查案例、后六个调查案例三组。`scripts/test-initial-structure-partition.ps1` 从原测试数据生成筛选器，并核对每个调查案例的实际 TRX 结果；12 个原案例必须恰好各运行一次，不删除调查、不缩减评价或时间预算。单案例冻结预算为 30 分钟，因此模块无进展诊断阈值为 35 分钟，调查分组任务上限为 240 分钟；主测试无进展阈值为 30 分钟。分组只解决执行安排，不代表长调查已通过。
 
 普通契约分组仅允许结果核对脚本中逐名列出的五个显式 CUDA 硬件测试报告 `NotExecuted`，并单独记录为跳过；失败、中止、空结果、普通测试跳过和调查分组跳过仍拒绝。界面测试的隔离会话使用真实 Skia 几何/绘图后端，以验证圆角裁剪命中和位图；涉及异步布局的 UI 对象在同一隔离 UI 线程创建、等待及释放。运行配置、采样或测试夹具有意调整时，必须保留冻结参考、严格数值门槛和原始失败记录。2026-10-26 的修复边界见 [CI 排查报告](CI_REPAIR_2026-10-26.md)。
 
