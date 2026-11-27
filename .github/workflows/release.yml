@@ -1,12 +1,15 @@
 name: Desktop build and publish
+run-name: Desktop packages from 155456f8
 
 on:
+  push:
+    branches: [codex/package-only-155456f8-20261127]
   workflow_dispatch:
     inputs:
       release_tag:
         description: Existing release tag to update (the tag is not moved)
         required: true
-        default: v1.0.4-test.20261019
+        default: v1.0.4-test.20261127
       runtime:
         description: Desktop platform (Mac supports Apple Silicon only)
         type: choice
@@ -20,14 +23,12 @@ on:
         description: Run essential release checks without packaging or publishing
         type: boolean
         default: false
-  push:
-    tags: ['v*']
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-${{ inputs.release_tag || github.ref_name }}
+  group: package-only-155456f8-${{ inputs.release_tag || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -39,6 +40,9 @@ jobs:
       test_package: ${{ steps.plan.outputs.test_package }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 155456f84694ef2c26e9ecce41a95e60a3596a7b
+          persist-credentials: false
       - id: plan
         name: Validate version, tag and architecture
         shell: pwsh
@@ -47,7 +51,7 @@ jobs:
           REQUESTED_RUNTIME: ${{ inputs.runtime }}
         run: |
           $version = ./scripts/get-product-version.ps1
-          $tag = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { $env:REQUESTED_TAG } else { $env:GITHUB_REF_NAME }
+          $tag = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { $env:REQUESTED_TAG } else { 'v1.0.4-test.20261127' }
           $test = $tag -cmatch ('^v' + [regex]::Escape($version) + '-test\.[0-9]{8}$')
           if (-not $test -and $tag -cne "v$version") { throw 'Tag and ProductVersion.props differ.' }
           $runtimes = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch' -and $env:REQUESTED_RUNTIME -ne 'all') { @($env:REQUESTED_RUNTIME) } else { @('win-x64', 'win-arm64', 'osx-arm64') }
@@ -66,6 +70,9 @@ jobs:
         runtime: ${{ fromJSON(needs.plan.outputs.runtimes) }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 155456f84694ef2c26e9ecce41a95e60a3596a7b
+          persist-credentials: false
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
         with:
           global-json-file: global.json
@@ -152,60 +159,5 @@ jobs:
           path: |
             artifacts/cloud-verification
             artifacts/cloud-package-verification/*.json
-          if-no-files-found: warn
-          retention-days: 30
-
-  publish:
-    if: ${{ !inputs.validation_only }}
-    needs: [plan, package]
-    runs-on: macos-15
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
-        with:
-          pattern: cloud-package-*
-          path: distribution
-          merge-multiple: true
-      - name: Prepare signed Mac archive and appcast before release mutation
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
-          OPTICAL_OTA_ENCRYPTED_BACKUP: ${{ secrets.OPTICAL_OTA_ENCRYPTED_BACKUP }}
-          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
-          RELEASE_TAG: ${{ needs.plan.outputs.tag }}
-        run: |
-          if (-not (Test-Path distribution/release-osx-arm64.json)) { return }
-          [void][IO.Directory]::CreateDirectory('distribution/release-evidence')
-          $headers = @{ Authorization = "Bearer $env:GH_TOKEN"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'OpticalSystemDesign-MacOTA' }
-          $base = Invoke-RestMethod -Uri 'https://api.github.com/repos/VendettaMask/opticalsystem/contents/updates/macos/appcast.xml?ref=main' -Headers $headers
-          @{ sha = $base.sha } | ConvertTo-Json | Set-Content distribution/release-evidence/macos-feed-base.json -Encoding utf8
-          $feed = Join-Path $env:RUNNER_TEMP 'macos-feed-before.xml'
-          [IO.File]::WriteAllBytes($feed, [Convert]::FromBase64String($base.content))
-          ./scripts/prepare-macos-ota-release.ps1 -DistributionDirectory distribution -Tag $env:RELEASE_TAG -ExistingFeed $feed -OutputDirectory distribution/release-evidence
-      - name: Verify and publish EXE and Apple Silicon DMG installers
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
-          OPTICAL_OTA_ENCRYPTED_BACKUP: ${{ secrets.OPTICAL_OTA_ENCRYPTED_BACKUP }}
-          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
-          RELEASE_TAG: ${{ needs.plan.outputs.tag }}
-          REPLACE_EXISTING: ${{ inputs.replace_existing || false }}
-        run: |
-          ./scripts/publish-github-exe.ps1 -Repository $env:GITHUB_REPOSITORY -Tag $env:RELEASE_TAG -DistributionDirectory distribution -ReplaceExisting:($env:REPLACE_EXISTING -eq 'true') -NotesFile packaging/windows/RELEASE_NOTES.md
-      - name: Activate signed Mac OTA feed after published archive verification
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: ./scripts/publish-macos-appcast.ps1 -DistributionDirectory distribution
-      - name: Retain replacement receipts and previous assets inside Actions
-        if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: cloud-release-receipt
-          path: distribution/release-evidence
           if-no-files-found: warn
           retention-days: 30
