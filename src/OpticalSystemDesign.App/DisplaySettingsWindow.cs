@@ -30,6 +30,7 @@ public sealed class DisplaySettingsWindow : Window
     private readonly ComboBox _fontShape = new() { MinWidth = 150 };
     private readonly NumericUpDown _fontSize = Number(9, 32, 1);
     private readonly ComboBox _analysisColorMap = new() { Name = "AnalysisColorMap", MinWidth = 230 };
+    private readonly ComboBox _diagramScale = new() { Name = "DiagramDisplayScale", MinWidth = 230 };
     private readonly ComboBox _diagramAspect = new() { Name = "DiagramAspectRatio", MinWidth = 230 };
     private readonly Border _colorMapPreview = new() { Height = 18, Margin = new Thickness(130, 0, 0, 0) };
     private readonly ComboBox _imageExportPreset = new() { Name = "ImageExportPreset", MinWidth = 230 };
@@ -95,6 +96,9 @@ public sealed class DisplaySettingsWindow : Window
         });
         _analysisColorMap.SelectedItem = ScientificColorMaps.Parse(settings.AnalysisColorMap);
         _analysisColorMap.SelectionChanged += (_, _) => UpdateColorMapPreview();
+        _diagramScale.ItemsSource = new[] { "适应窗口", "原始大小（100%）" };
+        UiLocalization.BindChoices(_diagramScale);
+        _diagramScale.SelectedIndex = settings.FitDiagramsToWindow ? 0 : 1;
         _diagramAspect.ItemsSource = new[] { DiagramSheetLayout.Automatic, DiagramSheetLayout.Wide, DiagramSheetLayout.Standard };
         _diagramAspect.ItemTemplate = new FuncDataTemplate<string>((aspect, _) =>
         {
@@ -230,11 +234,12 @@ public sealed class DisplaySettingsWindow : Window
                         SettingRow("字形", _fontShape),
                         SettingRow("大小", _fontSize, "单位：DIP"),
                         _fontLockHint), 2),
-                    At(Section("分析图配色",
+                    At(Section("绘图显示",
+                        SettingRow("图纸显示比例", _diagramScale),
+                        SettingRow("绘图版式", _diagramAspect, "自动按绘图区可用空间选择；仅调整版式，不重新计算数据。", wrapHint: true),
                         SettingRow("数值色图", _analysisColorMap, "用于二维伪彩色与三维曲面；保留灰度显示。", wrapHint: true),
                         _colorMapPreview), 3),
                     At(Section("图像导出",
-                        SettingRow("绘图版式", _diagramAspect, "自动按绘图区可用空间选择；仅调整版式，不重新计算数据。", wrapHint: true),
                         SettingRow("分辨率预设", _imageExportPreset),
                         SettingRow("像素宽度", _imageExportWidth),
                         SettingRow("像素高度", _imageExportHeight),
@@ -297,6 +302,7 @@ public sealed class DisplaySettingsWindow : Window
             settings.FontSize,
             settings.AnalysisColorMap,
             settings.DiagramAspectRatio,
+            settings.FitDiagramsToWindow,
             settings.ImageExportDpi,
             settings.ImageExportPixelHeight,
             settings.ImageExportPixelWidth,
@@ -309,6 +315,7 @@ public sealed class DisplaySettingsWindow : Window
         settings.FontShape = SelectedFontShape();
         settings.FontSize = (double)(_fontSize.Value ?? (decimal)AppSettings.DefaultFontSize);
         settings.AnalysisColorMap = SelectedColorMap().ToString();
+        settings.FitDiagramsToWindow = _diagramScale.SelectedIndex == 0;
         settings.DiagramAspectRatio = DiagramSheetLayout.Normalize(_diagramAspect.SelectedItem as string);
         settings.ImageExportDpi = (double)(_imageExportDpi.Value ?? (decimal)ImageExportResolution.DefaultDpi);
         settings.ImageExportPixelHeight = (int)(_imageExportHeight.Value ?? ImageExportResolution.DefaultPixelHeight);
@@ -335,6 +342,7 @@ public sealed class DisplaySettingsWindow : Window
         double FontSize,
         string AnalysisColorMap,
         string DiagramAspectRatio,
+        bool FitDiagramsToWindow,
         double ImageExportDpi,
         int ImageExportPixelHeight,
         int ImageExportPixelWidth,
@@ -351,6 +359,7 @@ public sealed class DisplaySettingsWindow : Window
             settings.FontSize = FontSize;
             settings.AnalysisColorMap = AnalysisColorMap;
             settings.DiagramAspectRatio = DiagramAspectRatio;
+            settings.FitDiagramsToWindow = FitDiagramsToWindow;
             settings.ImageExportDpi = ImageExportDpi;
             settings.ImageExportPixelHeight = ImageExportPixelHeight;
             settings.ImageExportPixelWidth = ImageExportPixelWidth;
@@ -368,6 +377,7 @@ public sealed class DisplaySettingsWindow : Window
         _fontShape.SelectedIndex = 0;
         _fontSize.Value = (decimal)AppSettings.DefaultFontSize;
         _analysisColorMap.SelectedItem = ScientificColorMap.Viridis;
+        _diagramScale.SelectedIndex = 0;
         _diagramAspect.SelectedItem = DiagramSheetLayout.Automatic;
         _imageExportDpi.Value = (decimal)ImageExportResolution.DefaultDpi;
         _imageExportHeight.Value = ImageExportResolution.DefaultPixelHeight;

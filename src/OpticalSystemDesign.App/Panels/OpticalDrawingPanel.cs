@@ -77,13 +77,6 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         HorizontalAlignment = HorizontalAlignment.Left
     };
     private readonly DrawingPreviewControl _preview = new();
-    private readonly TextBlock _zoomStatus = new()
-    {
-        Text = "100%",
-        Width = 48,
-        TextAlignment = TextAlignment.Center,
-        VerticalAlignment = VerticalAlignment.Center
-    };
     private readonly TextBlock _status = new()
     {
         VerticalAlignment = VerticalAlignment.Center
@@ -120,7 +113,6 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         _standardPicker.SelectedItem = standards.Single(choice => choice.Standard == _drawingStandard);
         Avalonia.Automation.AutomationProperties.SetName(_standardPicker, "制图标准");
         _logoStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
-        _zoomStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _status.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _pageSize.ItemsSource = new[] { "A4 竖向", "A3 竖向" };
         UiLocalization.BindChoices(_pageSize);
@@ -140,12 +132,10 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         exportDxf.Click += async (_, _) => await ExportDrawingAsync(dxf: true);
         var zoomOut = IconButton("action-zoom-out", "缩小");
         zoomOut.Click += (_, _) => _preview.ZoomOut();
-        var resetView = IconButton("action-fit-view", "适合窗口");
+        var resetView = IconButton("action-reset-view", "重置视图");
         resetView.Click += (_, _) => _preview.ResetView();
         var zoomIn = IconButton("action-zoom-in", "放大");
         zoomIn.Click += (_, _) => _preview.ZoomIn();
-        _preview.ViewChanged += (_, _) =>
-            _zoomStatus.Text = $"{Math.Round(_preview.Zoom * 100):0}%";
 
         var toolbar = new Border
         {
@@ -175,7 +165,6 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                     zoomOut,
                     resetView,
                     zoomIn,
-                    _zoomStatus,
                     _status
                 }
             }

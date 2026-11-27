@@ -608,7 +608,10 @@ public sealed class Viewer3DGeometryTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
             using var app = WorkbenchApplication.Create();
-            await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+            var lensPath = mode == ViewerPresentationMode.SolidModel
+                ? Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src/OpticalSystemDesign.App/Assets/SequentialExamples/Afocal/Binocular_System.ZMX")
+                : ConfigurationMatrixAnalysisTests.ZoomPath();
+            await app.Documents.OpenAsync(lensPath);
             using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
                 SceneDimension.ThreeDimensional, mode);
             var namePrefix = mode == ViewerPresentationMode.SolidModel ? "SolidModel" : "Viewer3D";
@@ -623,6 +626,50 @@ public sealed class Viewer3DGeometryTests
                 var originalScene = scene.Scene;
                 var revision = app.Events.Revision;
                 var toolbar = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == $"{namePrefix}ViewPresets");
+                if (mode == ViewerPresentationMode.SolidModel)
+                {
+                    var viewMenu = viewer.GetVisualDescendants().OfType<DropDownButton>().Single(b => b.Name == "SolidModelViewMenu");
+                    var host = viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>().Single();
+                    var headerCommands = viewer.GetVisualDescendants().OfType<Control>().Where(c =>
+                        c.Name is "ViewerSynchronizeButton" or "ExportViewerImage" or "Viewer3DCutaway" or "Viewer3DShowRays" or "Viewer3DRenderMode").ToArray();
+                    Assert.Equal(5, headerCommands.Length);
+                    foreach (var size in new[] { new Size(width, 700), new Size(370, 285), new Size(920, 320) })
+                    {
+                        window.Width = size.Width; window.Height = size.Height; Tick(window); Tick(window);
+                        var plot = VisualBounds(host);
+                        foreach (var cmd in headerCommands)
+                        {
+                            var bounds = VisualBounds(cmd);
+                            Assert.InRange(bounds.Left, 0, window.Width);
+                            Assert.InRange(bounds.Right, bounds.Left, window.Width);
+                            Assert.True(bounds.Bottom <= plot.Top + 1);
+                        }
+                        if (!viewMenu.IsEffectivelyVisible) continue;
+                        Assert.False(toolbar.IsEffectivelyVisible);
+                        Assert.Same(scene, window.InputHitTest(VisualBounds(scene).Center));
+                        if (size.Width == 370)
+                        {
+                            scene.SetViewPreset(OpticSceneViewPreset.Isometric); Tick(window);
+                            Capture(window, $"{capturePrefix}-compact.png");
+                        }
+                        var menu = Assert.IsType<MenuFlyout>(viewMenu.Flyout);
+                        menu.ShowAt(viewMenu); Tick(window);
+                        Assert.True(menu.IsOpen);
+                        var entries = menu.Items.Cast<MenuItem>().ToArray();
+                        Assert.Equal(8, entries.Length);
+                        var frontItem = entries.Single(item => item.Header?.ToString() == UiLocalization.Text("前视图"));
+                        frontItem.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                        Assert.Equal(OpticSceneViewPreset.Front, scene.ActiveViewPreset);
+                        entries[0].RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                        Assert.Equal(OpticSceneViewPreset.Front, scene.ActiveViewPreset);
+                        menu.Hide(); Tick(window);
+                    }
+                    window.Width = Math.Max(width, 900); window.Height = 700; Tick(window); Tick(window);
+                    Assert.False(viewMenu.IsEffectivelyVisible);
+                    Assert.True(toolbar.IsEffectivelyVisible);
+                    Assert.Equal(OpticSceneViewPreset.Front, scene.ActiveViewPreset);
+                    scene.SetViewPreset(OpticSceneViewPreset.Isometric);
+                }
                 var buttons = toolbar.GetVisualDescendants().OfType<ToggleButton>().ToArray();
                 Assert.Equal(7, buttons.Length);
                 AssertSelected(OpticSceneViewPreset.Isometric);
@@ -675,25 +722,17 @@ public sealed class Viewer3DGeometryTests
                         Capture(window, $"{capturePrefix}-fit-{size.Width}x{size.Height}.png");
                     }
                     window.Width = width; window.Height = 700; Tick(window); Tick(window);
-                    var scaleControl = viewer.GetVisualDescendants().OfType<DiagramViewportModeButton>().Single();
-                    var menu = Assert.IsType<MenuFlyout>(scaleControl.Flyout);
-                    SelectMode("原始大小（100%）");
+                    DiagramSheetLayout.SetViewportScale(false); Tick(window); Tick(window);
                     Assert.False(host.FitToViewport);
                     Assert.Equal(1, toolbar.TransformToVisual(viewer)!.Value.M11, 6);
                     var frontButton = buttons.Single(item => item.Name == "Viewer3DViewFront");
                     await Click(frontButton); AssertSelected(OpticSceneViewPreset.Front);
                     Capture(window, $"{capturePrefix}-actual-size.png");
-                    SelectMode("适应窗口");
+                    DiagramSheetLayout.SetViewportScale(true); Tick(window); Tick(window);
                     Assert.True(host.FitToViewport);
                     Assert.Equal(host.ContentScale, toolbar.TransformToVisual(viewer)!.Value.M11, 6);
                     await Click(buttons.Single(item => item.Name == "Viewer3DViewIsometric"));
 
-                    void SelectMode(string name)
-                    {
-                        menu.Items.OfType<MenuItem>().Single(item => AutomationProperties.GetName(item) == name)
-                            .RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
-                        Tick(window); Tick(window);
-                    }
                 }
                 foreach (var preset in Enum.GetValues<OpticSceneViewPreset>())
                 {

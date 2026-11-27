@@ -256,6 +256,10 @@ public sealed class DiagramAspectRatioTests
                 window.Show(); Tick(window);
                 var ratio = window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "DiagramAspectRatio");
                 var width = window.GetVisualDescendants().OfType<NumericUpDown>().Single(c => c.Name == "ImageExportWidth");
+                var scale = window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "DiagramDisplayScale");
+                Assert.Equal(0, scale.SelectedIndex);
+                scale.SelectedIndex = 1;
+                Assert.True(DiagramSheetLayout.FitToWindow);
                 Assert.Equal("Auto", ratio.SelectedItem);
                 Assert.Equal(new[] { "Auto", "16:9", "4:3" }, ratio.ItemsSource!.Cast<string>());
                 ratio.SelectedItem = "16:9"; Assert.Equal(1920, width.Value);
@@ -265,13 +269,21 @@ public sealed class DiagramAspectRatioTests
                 var save = (Button)typeof(DisplaySettingsWindow).GetField("_save", Private)!.GetValue(window)!;
                 save.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Assert.Equal("Auto", settings.DiagramAspectRatio); Assert.True(window.IsVisible);
+                Assert.True(settings.FitDiagramsToWindow);
+                Assert.True(DiagramSheetLayout.FitToWindow);
                 ratio.SelectedItem = "4:3"; Assert.Equal(1440, width.Value);
                 ratio.SelectedItem = "Auto"; Assert.Equal(1440, width.Value);
                 Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", directory.Path);
                 save.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                Assert.Equal("Auto", AppSettings.Load(Path.Combine(directory.Path, "settings.json")).DiagramAspectRatio);
+                var loaded = AppSettings.Load(Path.Combine(directory.Path, "settings.json"));
+                Assert.Equal("Auto", loaded.DiagramAspectRatio);
+                Assert.False(loaded.FitDiagramsToWindow);
+                ImageExportResolution.Configure(loaded);
+                Assert.False(new ResponsiveAnalysisPlotHost().FitToViewport);
+                loaded.ResetDisplaySettings();
+                Assert.True(loaded.FitDiagramsToWindow);
             }
-            finally { window.Close(); Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", previous); }
+            finally { window.Close(); ImageExportResolution.Configure(new()); Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", previous); }
         }, CancellationToken.None);
     }
 

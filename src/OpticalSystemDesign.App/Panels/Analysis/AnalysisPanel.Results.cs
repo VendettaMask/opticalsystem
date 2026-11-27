@@ -32,6 +32,9 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt,
         SceneDto? cardinalScene = null)
     {
+        var presentationStarted = System.Diagnostics.Stopwatch.GetTimestamp();
+        var presentationContext = $"Analysis {AnalysisKey} instance={InstanceId:N} presentation";
+        System.Diagnostics.Trace.TraceInformation($"{presentationContext} started. Kind={view.PresentationKind} Points={view.Series.Sum(series => series.Points.Count)} Rows={view.Table?.Rows.Count ?? view.Rows.Count}");
         if (view.Outcome == AnalysisOutcome.Success &&
             (view.PresentationKind == AnalysisPresentationKind.YYbar || AnalysisKey == "Angle vs Image Height"))
         {
@@ -52,6 +55,7 @@ public sealed partial class AnalysisPanel
             tabs.SelectionChanged += (_, _) => UpdateImageExportButton();
         }
         UpdateImageExportButton();
+        System.Diagnostics.Trace.TraceInformation($"{presentationContext} completed in {System.Diagnostics.Stopwatch.GetElapsedTime(presentationStarted).TotalMilliseconds:F0} ms.");
     }
 
     private static Control BuildResultContent(

@@ -33,7 +33,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
     private readonly OpticSceneControl _scene;
     private readonly UniformDiagramPage? _diagramPage;
     private Control? _diagramChrome;
-    private readonly DiagramViewportModeButton _diagramModeButton = new("ViewerDiagramViewMode");
+    private WrapPanel? _solidModelCommands;
     private readonly Dictionary<OpticSceneViewPreset, ToggleButton> _viewPresetButtons = new();
     private readonly WrapPanel _glassLegendItems = new() { Orientation = Orientation.Horizontal };
     private readonly Border _glassLegend = new() { Name = "Viewer3DGlassLegend", IsVisible = false };
@@ -209,17 +209,36 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         var host = new ResponsiveAnalysisPlotHost { Name = "ViewerDiagramScroll", Child = _diagramPage };
         if (_presentationMode == ViewerPresentationMode.SolidModel)
             host.Background = OpticSceneControl.SolidModelBackgroundBrush;
-        _diagramModeButton.BindHost(host);
-        _diagramModeButton.Height = 28;
-        _diagramModeButton.Margin = new Thickness(8, 4);
-        _diagramModeButton.HorizontalAlignment = HorizontalAlignment.Right;
-        DockPanel.SetDock(_diagramModeButton, Avalonia.Controls.Dock.Top);
-        var root = new DockPanel { Children = { _diagramModeButton } };
         var viewport = new Grid { ClipToBounds = true, Children = { host } };
         if (_diagramChrome is { } chrome)
             viewport.Children.Add(new DiagramOverlayPresenter(_scene, constrainToViewport: _dimension == SceneDimension.TwoDimensional)
             { Child = chrome, ClipToBounds = true });
-        root.Children.Add(viewport);
+        if (_solidModelCommands is not { } commands) return viewport;
+
+        var details = new StackPanel { HorizontalAlignment = HorizontalAlignment.Left };
+        var views = BuildSolidModelViewMenu();
+        var presets = _diagramChrome!;
+        SizeChanged += (_, e) =>
+        {
+            var compact = e.NewSize.Width < 720 || e.NewSize.Height < 400;
+            views.IsVisible = compact;
+            presets.IsVisible = !compact;
+        };
+        var header = new ViewerToolbarLayout
+        {
+            Name = "SolidModelHeader",
+            Margin = new Thickness(6, 2),
+            Children = { BuildSettingsOverlay(details, views), commands }
+        };
+        viewport.Children.Add(new ScrollViewer
+        {
+            HorizontalAlignment = HorizontalAlignment.Left,
+            VerticalAlignment = VerticalAlignment.Top,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            Content = details
+        });
+        DockPanel.SetDock(header, Avalonia.Controls.Dock.Top);
+        var root = new DockPanel { Children = { header, viewport } };
         return root;
     }
 
@@ -350,43 +369,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             };
         };
 
-        var topToolbar = Toolbar(
-            new Control[]
-            {
-                new TextBlock
-                {
-                    Text = _presentationMode == ViewerPresentationMode.SolidModel ? "实体模型" : "三维布局",
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center
-                },
-                _prepareLayoutRays,
-                _showStaleLayoutRays,
-                cutaway,
-                showRays,
-                renderMode
-            },
-            HorizontalAlignment.Right);
-
-        var presetToolbar = BuildViewPresetToolbar();
-        var topOverlay = new ViewerToolbarLayout
-        {
-            VerticalAlignment = VerticalAlignment.Top,
-            Children = { BuildSettingsOverlay(), topToolbar }
-        };
-        var sceneContent = SceneWithOverlay(_scene, topOverlay, presetToolbar, _staleLayoutBanner);
-        sceneContent.Children.Remove(topOverlay);
-        _diagramChrome = new Grid { Children = { topOverlay } };
-        // Layout navigation belongs to the drawing's display scale. Keeping it
-        // in the source also scales its icons, spacing and pointer targets together.
-        // Solid Model retains its separate full-viewport, native-size controls.
-        var navigationHost = sceneContent;
-        if (_presentationMode == ViewerPresentationMode.SolidModel)
-        {
-            sceneContent.Children.Remove(presetToolbar);
-            ((Grid)_diagramChrome).Children.Add(presetToolbar);
-            navigationHost = (Grid)_diagramChrome;
-        }
-        var toolbar = (Border)presetToolbar;
+        var toolbar = BuildViewPresetToolbar();
         var items = toolbar.Child;
         toolbar.Child = null;
         toolbar.Child = new ScrollViewer
@@ -396,15 +379,30 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             VerticalScrollBarVisibility = ScrollBarVisibility.Auto
         };
         toolbar.ClipToBounds = true;
-        void ConstrainToolbar() => toolbar.MaxHeight = Math.Max(0,
-            navigationHost.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
-        navigationHost.SizeChanged += (_, _) => ConstrainToolbar();
-        topOverlay.SizeChanged += (_, _) => ConstrainToolbar();
+        var sceneContent = SceneWithOverlay(_scene, _staleLayoutBanner);
         if (_presentationMode != ViewerPresentationMode.SolidModel)
         {
+            var title = new TextBlock { Text = "三维布局", FontWeight = FontWeight.SemiBold, VerticalAlignment = VerticalAlignment.Center };
+            var topOverlay = new ViewerToolbarLayout
+            {
+                VerticalAlignment = VerticalAlignment.Top,
+                Children = { BuildSettingsOverlay(), Toolbar([title, _prepareLayoutRays, _showStaleLayoutRays, cutaway, showRays, renderMode], HorizontalAlignment.Right) }
+            };
+            _diagramChrome = new Grid { Children = { topOverlay } };
+            sceneContent.Children.Insert(1, toolbar);
+            void ConstrainToolbar() => toolbar.MaxHeight = Math.Max(0,
+                sceneContent.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
+            sceneContent.SizeChanged += (_, _) => ConstrainToolbar();
+            topOverlay.SizeChanged += (_, _) => ConstrainToolbar();
             return ThemeChrome.WrapWithDecoration(sceneContent, ThemeChromeRole.Viewport);
         }
 
+        _diagramChrome = new Grid { Children = { toolbar } };
+        _solidModelCommands = new WrapPanel
+        {
+            ItemSpacing = 6, Orientation = Orientation.Horizontal,
+            Children = { _prepareLayoutRays, _showStaleLayoutRays, cutaway, showRays, renderMode }
+        };
         var workspace = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
         workspace.Children.Add(sceneContent);
         _glassLegend.Padding = new Thickness(10, 4);
@@ -464,7 +462,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         _glassLegend.IsVisible = _glassLegendItems.Children.Count > 0;
     }
 
-    private Control BuildSettingsOverlay()
+    private Control BuildSettingsOverlay(Panel? detailsHost = null, DropDownButton? views = null)
     {
         var settingsContent = BuildSettingsContent();
         settingsContent.IsVisible = false;
@@ -481,12 +479,12 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             QueueRefresh(TimeSpan.Zero);
         };
 
-        var header = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 3,
-            Children = { toggle, synchronize, _exportImageButton }
-        };
+        Panel header = detailsHost is null
+            ? new StackPanel { Orientation = Orientation.Horizontal, Spacing = 3 }
+            : new WrapPanel { Orientation = Orientation.Horizontal, ItemSpacing = 3 };
+        header.Children.Add(toggle);
+        header.Children.Add(synchronize);
+        header.Children.Add(_exportImageButton);
         AutomationProperties.SetName(_configurationPicker, "结构");
         ToolTip.SetTip(_configurationPicker, _dimension == SceneDimension.TwoDimensional
             ? "选择二维图显示的结构" : "选择三维图显示的结构");
@@ -504,6 +502,16 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             QueueRefresh(TimeSpan.Zero);
         };
         header.Children.Add(_configurationPicker);
+        if (detailsHost is not null)
+        {
+            if (views is not null) header.Children.Add(views);
+            var form = SettingsPanelChrome.CreateCard(settingsContent, new Thickness(6), HorizontalAlignment.Left);
+            form.Bind(IsVisibleProperty, settingsContent.GetObservable(IsVisibleProperty));
+            detailsHost.Children.Add(form);
+            detailsHost.Children.Add(_imageExportFeedback);
+            header.VerticalAlignment = VerticalAlignment.Center;
+            return header;
+        }
         var container = new StackPanel { Children = { header, settingsContent, _imageExportFeedback } };
         var card = SettingsPanelChrome.CreateCard(
             container,
@@ -767,7 +775,42 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         QueueRefresh(TimeSpan.Zero);
     }
 
-    private Control BuildViewPresetToolbar()
+    private static readonly (ViewCubeFace Face, string Title, OpticSceneViewPreset Preset)[] ViewPresets =
+    [
+        (ViewCubeFace.Front, "前视图", OpticSceneViewPreset.Front),
+        (ViewCubeFace.Back, "后视图", OpticSceneViewPreset.Back),
+        (ViewCubeFace.Left, "左视图", OpticSceneViewPreset.Left),
+        (ViewCubeFace.Right, "右视图", OpticSceneViewPreset.Right),
+        (ViewCubeFace.Top, "俯视图", OpticSceneViewPreset.Top),
+        (ViewCubeFace.Bottom, "仰视图", OpticSceneViewPreset.Bottom),
+        (ViewCubeFace.Isometric, "等轴测视图", OpticSceneViewPreset.Isometric)
+    ];
+
+    private DropDownButton BuildSolidModelViewMenu()
+    {
+        var menu = new MenuFlyout();
+        var fit = new MenuItem { Header = "重新取景" };
+        fit.Click += (_, _) => _scene.FitView();
+        menu.Items.Add(fit);
+        foreach (var (_, title, preset) in ViewPresets)
+        {
+            var item = UiLocalization.Preserve(new MenuItem { ToggleType = MenuItemToggleType.Radio });
+            item.Click += (_, _) => _scene.SetViewPreset(preset);
+            menu.Opening += (_, _) =>
+            {
+                item.Header = UiLocalization.Text(title);
+                item.IsChecked = _scene.ActiveViewPreset == preset;
+            };
+            menu.Items.Add(item);
+        }
+        return new DropDownButton
+        {
+            Name = "SolidModelViewMenu", Content = "视图", Flyout = menu,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+    }
+
+    private Border BuildViewPresetToolbar()
     {
         var namePrefix = _presentationMode == ViewerPresentationMode.SolidModel ? "SolidModel" : "Viewer3D";
         var items = new WrapPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
@@ -781,22 +824,13 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             Height = double.NaN,
             Margin = new Thickness(3),
             Padding = new Thickness(8, 4),
-            Content = CaptionedIcon(fitIcon, "适配")
+            Content = CaptionedIcon(fitIcon, "重新取景")
         };
-        AutomationProperties.SetName(fit, UiLocalization.Text("适配窗口"));
-        ToolTip.SetTip(fit, UiLocalization.Text("适配窗口"));
+        AutomationProperties.SetName(fit, UiLocalization.Text("重新取景"));
+        ToolTip.SetTip(fit, UiLocalization.Text("重新取景"));
         fit.Click += (_, _) => _scene.FitView();
         items.Children.Add(fit);
-        foreach (var (face, title, preset) in new[]
-        {
-            (ViewCubeFace.Front, "前视图", OpticSceneViewPreset.Front),
-            (ViewCubeFace.Back, "后视图", OpticSceneViewPreset.Back),
-            (ViewCubeFace.Left, "左视图", OpticSceneViewPreset.Left),
-            (ViewCubeFace.Right, "右视图", OpticSceneViewPreset.Right),
-            (ViewCubeFace.Top, "俯视图", OpticSceneViewPreset.Top),
-            (ViewCubeFace.Bottom, "仰视图", OpticSceneViewPreset.Bottom),
-            (ViewCubeFace.Isometric, "等轴测视图", OpticSceneViewPreset.Isometric)
-        })
+        foreach (var (face, title, preset) in ViewPresets)
         {
             var button = new ToggleButton
             {

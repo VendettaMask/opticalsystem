@@ -315,10 +315,7 @@ public sealed class ViewerImageExportTests
                 {
                     // Compare against the real themed caption at print size,
                     // independently of the export caption's construction.
-                    var mode = fixture.Viewer.GetVisualDescendants().OfType<DiagramViewportModeButton>().Single();
-                    Assert.IsType<MenuFlyout>(mode.Flyout).Items.OfType<MenuItem>()
-                        .Single(item => AutomationProperties.GetName(item) == "原始大小（100%）")
-                        .RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                    DiagramSheetLayout.SetViewportScale(false);
                     Tick(fixture.Window);
                 }
                 var captionWidth = (int)Math.Ceiling(captionReference.Bounds.Width);

@@ -1,6 +1,7 @@
 using System.Buffers.Binary;
 using Avalonia;
 using Avalonia.Headless;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -314,15 +315,8 @@ public sealed class ImageFileRepairTests
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class BitmapViewerFileRepairTests
 {
-    private static bool UseRealDecoding => Environment.GetEnvironmentVariable("OPTICALSYSTEMDESIGN_IMAGE_FILE_DECODE_TESTS") == "1";
-
-    public static AppBuilder BuildAvaloniaApp()
-    {
-        // Run real decoding separately: Avalonia's cached typefaces cannot mix Skia and placeholder renderers.
-        var builder = AppBuilder.Configure<HeadlessTestApplication>();
-        if (UseRealDecoding) builder.UseSkia();
-        return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = !UseRealDecoding });
-    }
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<HeadlessTestApplication>()
+        .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
     [Theory]
     [InlineData("png")]
@@ -341,11 +335,17 @@ public sealed class BitmapViewerFileRepairTests
             {
                 window.Show();
                 var images = Avalonia.VisualTree.VisualExtensions.GetVisualDescendants(window).OfType<Avalonia.Controls.Image>();
-                var bitmap = Assert.IsType<Avalonia.Media.Imaging.Bitmap>(Assert.Single(images).Source);
-                Assert.Equal(UseRealDecoding ? new PixelSize(3, 2) : new PixelSize(1, 1), bitmap.PixelSize);
+                var image = Assert.Single(images);
+                var bitmap = Assert.IsType<Avalonia.Media.Imaging.Bitmap>(image.Source);
+                DiagramSheetLayout.SetViewportScale(false);
+                Assert.Equal(bitmap.PixelSize.Width, image.Width);
+                Assert.Equal(bitmap.PixelSize.Height, image.Height);
+                DiagramSheetLayout.SetViewportScale(true);
+                Assert.True(double.IsNaN(image.Width));
+                Assert.Equal(new PixelSize(3, 2), bitmap.PixelSize);
                 using var exclusive = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             }
-            finally { window.Close(); }
+            finally { window.Close(); DiagramSheetLayout.SetViewportScale(true); }
         }, CancellationToken.None);
     }
 

@@ -96,7 +96,7 @@ internal sealed class ImageFileViewerWindow : Window
 
         var imageCanvas = new Border
         {
-            Child = _image
+            Child = DiagramSheetLayout.CreateBitmapViewport(_image)
         };
         imageCanvas.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.PlotBackground);
 

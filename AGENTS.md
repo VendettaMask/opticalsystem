@@ -126,7 +126,7 @@
 
 - User-approved analysis toolbar artwork (2026-11-02): implement the approved nine scientific SVG category icons from the preview, using the actual editable 32×32 vector sources, neutral structural strokes and blue/cyan analysis marks with the approved light/dark palettes. Keep compact icon-left/text-right dropdowns, one chevron and the existing category order, commands, separators, localization and keyboard access. This is a deliberate category-artwork exception to the generic theme icon-pack rule; do not replace unrelated icons or optical calculations. Validate rendering and menus off-screen without restarting the user's app.
 
-- User viewport correction (2026-11-02): ordinary analysis windows and 2D/3D optical-layout views default to fitting the complete original sheet into the current pane, for both normal and maximized windows. Provide an actual-size (100%) scroll mode. Use one shared display-scale host and remove competing viewport/1:1 constraints. This supersedes the earlier UI-only "always 1:1 with scrolling" rule; preserve the original 1200×900 drawing, configured logical typography, subplot geometry, data, interactive plot/camera state and full-resolution PNG/report output. Validate resizing and pointer interaction off-screen.
+- User viewport correction (2026-11-02): ordinary analysis windows and 2D/3D optical-layout views default to fitting the complete original sheet into the current pane, for both normal and maximized windows. Provide an actual-size (100%) scroll mode. Select fit or actual size once in Settings → Format and Font for all drawing windows, including open and future views. Use one shared display-scale host and remove competing viewport/1:1 constraints. This supersedes the earlier UI-only "always 1:1 with scrolling" rule; preserve the original 1200×900 drawing, configured logical typography, subplot geometry, data, interactive plot/camera state and full-resolution PNG/report output. Validate resizing and pointer interaction off-screen.
 
 - User coating workflow decision (2026-11-02): prioritize independent reference wavelength λ₀, bounded stack formula preview/application, full-material film clipboard and per-window abnormal-exit recovery, plus versioned duplex analytic thickness derivatives with restoration/quality stages. Physical thickness and real n/k remain authoritative; preserve legacy fingerprints/protocols and original dense acceptance. Draft recovery must retain raw invalid edits, avoid live sessions through exclusive leases and never overwrite the original experiment. Record actual stage and physical-query costs, do not claim same iteration limits mean equal total work, and validate only in the background.
 
@@ -243,6 +243,8 @@
 - A change is not complete until code, tests, documentation, and the reported verification result agree.
 
 ## Desktop build output locking
+
+- User preference (2026-11-27): use the normal project build output for verification.
 
 - User clarification (2026-10-28): perform validation independently in the background without occupying the user's desktop. The earlier native-acceptance request is not permission to launch or control foreground windows. Use headless/off-screen tests and retain native interaction as unverified unless the user later explicitly authorizes an independent desktop session.
 

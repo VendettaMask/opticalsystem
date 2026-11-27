@@ -19,7 +19,6 @@ internal sealed class TopologyStructurePlot : Control
     internal double Zoom { get; private set; } = 1;
     internal Vector Pan { get; private set; }
     private Point? _drag;
-    internal event Action? NavigationChanged;
 
     public TopologyStructurePlot()
     {
@@ -28,14 +27,14 @@ internal sealed class TopologyStructurePlot : Control
         ActualThemeVariantChanged += (_, _) => InvalidateVisual();
     }
     internal void SetScene(TopologyStructureScene? data) { Data = data; Fit(); }
-    internal void Fit() { Zoom = 1; Pan = default; InvalidateVisual(); NavigationChanged?.Invoke(); }
+    internal void Fit() { Zoom = 1; Pan = default; InvalidateVisual(); }
     internal void ZoomBy(double ratio, Point? anchor = null)
     {
         if (Data is null) return;
         var next = Math.Clamp(Zoom * ratio, .25, 32); ratio = next / Zoom;
         var point = anchor ?? PlotBounds.Center; var relative = point - PlotBounds.Center;
         Pan = relative - (relative - Pan) * ratio; Zoom = next;
-        InvalidateVisual(); NavigationChanged?.Invoke();
+        InvalidateVisual();
     }
     private Rect PlotBounds => new(56, 24, Math.Max(1, Bounds.Width - 72), Math.Max(1, Bounds.Height - 68));
     internal void PanBy(Vector delta) { if (Data is null) return; Pan += delta; InvalidateVisual(); }

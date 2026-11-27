@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -22,6 +22,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
         HorizontalContentAlignment = HorizontalAlignment.Stretch;
         VerticalContentAlignment = VerticalAlignment.Stretch;
         Content = _page;
+        DiagramSheetLayout.BindViewportScale(this, fit => FitToViewport = fit);
     }
 
     protected override Type StyleKeyOverride => typeof(ScrollViewer);

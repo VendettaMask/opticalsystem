@@ -289,8 +289,9 @@ public sealed partial class ViewerPanel
             throw new InvalidOperationException(UiLocalization.Text("导出图片超过尺寸上限，请降低导出像素尺寸或减少同时显示的内容"));
         var size = new PixelSize((int)width, (int)height);
         var dpi = new Vector(96 * scale, 96 * scale);
+        // Clip on the raster boundary so fractional live heights preserve edge antialiasing.
         var source = new SceneImageCanvas(_scene)
-        { Width = _scene.Bounds.Width, Height = _scene.Bounds.Height, UseLayoutRounding = false };
+        { Width = size.Width / scale, Height = size.Height / scale, UseLayoutRounding = false };
         source.Measure(new Size(source.Width, source.Height));
         source.Arrange(new Rect(0, 0, source.Width, source.Height));
         using var bitmap = new RenderTargetBitmap(size, dpi);

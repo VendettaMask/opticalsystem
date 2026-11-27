@@ -54,6 +54,8 @@ public sealed class AppSettings
 
     public string AnalysisColorMap { get; set; } = nameof(ScientificColorMap.Viridis);
 
+    public bool FitDiagramsToWindow { get; set; } = true;
+
     public string DiagramAspectRatio { get; set; } = DiagramSheetLayout.Automatic;
 
     public double ImageExportDpi { get; set; } = ImageExportResolution.DefaultDpi;
@@ -134,6 +136,7 @@ public sealed class AppSettings
         FontSize = DefaultFontSize;
         AnalysisColorMap = nameof(ScientificColorMap.Viridis);
         DiagramAspectRatio = DiagramSheetLayout.Automatic;
+        FitDiagramsToWindow = true;
         ImageExportDpi = ImageExportResolution.DefaultDpi;
         ImageExportPixelHeight = ImageExportResolution.DefaultPixelHeight;
         ImageExportPixelWidth = ImageExportResolution.DefaultPixelWidth;

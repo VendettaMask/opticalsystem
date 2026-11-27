@@ -49,7 +49,7 @@ public sealed class DiagramViewportFitTests
                 var sheet = Assert.IsType<UniformDiagramPage>(page.Child);
                 var source = app.Documents.GetRecoveryState();
                 var series = sheet.GetVisualDescendants().OfType<AnalysisPlotControl>().Single().Series;
-                var control = panel.GetVisualDescendants().OfType<DiagramViewportModeButton>().Single();
+                Assert.DoesNotContain(panel.GetVisualDescendants().OfType<Button>(), b => b.Name == "AnalysisDiagramViewMode");
                 using var reference = panel.CapturePlotImage(); var pixels = PixelHash(reference);
                 foreach (var size in new[] { (1600, 1000), (520, 360), (1900, 1150), (800, 600) })
                 {
@@ -62,17 +62,17 @@ public sealed class DiagramViewportFitTests
                     Assert.Equal(pixels, PixelHash(image));
                     Capture(window, $"analysis-fit-{size.Item1}x{size.Item2}");
                 }
-                SelectMode(control, "原始大小（100%）"); Render(window);
+                DiagramSheetLayout.SetViewportScale(false); Render(window);
                 Assert.False(page.FitToViewport); Assert.Equal(1, page.ContentScale);
                 Assert.True(page.Extent.Width > page.Viewport.Width);
                 panel.PresentResult(view, app.Documents.GetSnapshot(), generatedAt); Render(window);
                 page = panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>().Single();
-                Assert.False(page.FitToViewport); Assert.False(control.IsFitToViewport);
-                SelectMode(control, "适应窗口"); Render(window); AssertContained(page);
+                Assert.False(page.FitToViewport);
+                DiagramSheetLayout.SetViewportScale(true); Render(window); AssertContained(page);
                 using var restored = panel.CapturePlotImage();
                 Assert.Equal(pixels, PixelHash(restored));
             }
-            finally { window.Close(); }
+            finally { window.Close(); DiagramSheetLayout.SetViewportScale(true); }
         }, CancellationToken.None);
     }
 
@@ -116,12 +116,12 @@ public sealed class DiagramViewportFitTests
                     Assert.Equal(pixels, PixelHash(image));
                     Capture(window, $"layout-{dimension}-{size.Item1}x{size.Item2}");
                 }
-                var control = viewer.GetVisualDescendants().OfType<DiagramViewportModeButton>().Single();
-                SelectMode(control, "原始大小（100%）"); Render(window);
+                Assert.DoesNotContain(viewer.GetVisualDescendants().OfType<Button>(), b => b.Name == "ViewerDiagramViewMode");
+                DiagramSheetLayout.SetViewportScale(false); Render(window);
                 Assert.Equal(1, host.ContentScale); Assert.True(host.Extent.Width > host.Viewport.Width);
-                SelectMode(control, "适应窗口"); Render(window); AssertContained(host, dimension == SceneDimension.TwoDimensional);
+                DiagramSheetLayout.SetViewportScale(true); Render(window); AssertContained(host, dimension == SceneDimension.TwoDimensional);
             }
-            finally { window.Close(); }
+            finally { window.Close(); DiagramSheetLayout.SetViewportScale(true); }
         }, CancellationToken.None);
     }
 
@@ -154,7 +154,7 @@ public sealed class DiagramViewportFitTests
                 }
                 var scene = viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single();
                 var host = viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>().Single();
-                var mode = viewer.GetVisualDescendants().OfType<DiagramViewportModeButton>().Single();
+                Assert.DoesNotContain(viewer.GetVisualDescendants().OfType<Button>(), b => b.Name == "ViewerDiagramViewMode");
                 var source = scene.Scene; Assert.NotNull(source);
                 var document = app.Documents.GetRecoveryState();
                 scene.RayColorMode = OpticSceneRayColorMode.Wavelength;
@@ -184,9 +184,9 @@ public sealed class DiagramViewportFitTests
                 Assert.True(view.Zoom > 1); Assert.NotEqual(default, view.Pan);
                 using var moved = viewer.CaptureViewerImage(1); var movedPixels = PixelHash(moved);
                 Assert.NotEqual(pixels, movedPixels);
-                SelectMode(mode, "原始大小（100%）"); Render(window);
+                DiagramSheetLayout.SetViewportScale(false); Render(window);
                 Assert.Equal(new Size(1200, 900), host.Child!.Bounds.Size); Assert.Equal(1, host.ContentScale);
-                SelectMode(mode, "适应窗口"); window.Width = 1500; Render(window);
+                DiagramSheetLayout.SetViewportScale(true); window.Width = 1500; Render(window);
                 AssertContained(host, fillsViewport: true);
                 Assert.Equal(view, (viewport.Zoom, viewport.Pan));
                 using var after = viewer.CaptureViewerImage(1); Assert.Equal(movedPixels, PixelHash(after));
@@ -241,10 +241,6 @@ public sealed class DiagramViewportFitTests
         Assert.InRange(Math.Abs(bounds.Center.X - host.Viewport.Width / 2), 0, 1);
         Assert.InRange(Math.Abs(bounds.Center.Y - host.Viewport.Height / 2), 0, 1);
     }
-    private static void SelectMode(DiagramViewportModeButton button, string label) =>
-        Assert.IsType<MenuFlyout>(button.Flyout).Items.OfType<MenuItem>()
-            .Single(i => Avalonia.Automation.AutomationProperties.GetName(i) == label)
-            .RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
     private static void Render(Window window)
     {
         window.UpdateLayout(); Dispatcher.UIThread.RunJobs(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
