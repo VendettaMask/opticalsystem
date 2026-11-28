@@ -49,17 +49,17 @@ if not "%ERRORLEVEL%"=="0" goto restore_failed
 
 echo.
 echo [2/4] Cleaning previous build outputs...
-"%DOTNET_EXE%" clean "%PROJECT%" --nologo --verbosity minimal
+"%DOTNET_EXE%" clean "%PROJECT%" --configuration Release --nologo --verbosity minimal
 if not "%ERRORLEVEL%"=="0" goto clean_failed
 
 echo.
 echo [3/4] Rebuilding the application...
-"%DOTNET_EXE%" build "%PROJECT%" --no-restore --nologo --verbosity minimal
+"%DOTNET_EXE%" build "%PROJECT%" --configuration Release --no-restore --nologo --verbosity minimal
 if not "%ERRORLEVEL%"=="0" goto build_failed
 
 echo.
 echo [4/4] Starting the rebuilt application...
-"%DOTNET_EXE%" run --project "%PROJECT%" --no-build
+"%DOTNET_EXE%" run --project "%PROJECT%" --configuration Release --no-build
 set "EXITCODE=%ERRORLEVEL%"
 goto report
 

@@ -32,6 +32,9 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt,
         SceneDto? cardinalScene = null)
     {
+        var presentationStarted = System.Diagnostics.Stopwatch.GetTimestamp();
+        var presentationContext = $"Analysis {AnalysisKey} instance={InstanceId:N} presentation";
+        System.Diagnostics.Trace.TraceInformation($"{presentationContext} started. Kind={view.PresentationKind} Points={view.Series.Sum(series => series.Points.Count)} Rows={view.Table?.Rows.Count ?? view.Rows.Count}");
         if (view.Outcome == AnalysisOutcome.Success &&
             (view.PresentationKind == AnalysisPresentationKind.YYbar || AnalysisKey == "Angle vs Image Height"))
         {
@@ -52,6 +55,7 @@ public sealed partial class AnalysisPanel
             tabs.SelectionChanged += (_, _) => UpdateImageExportButton();
         }
         UpdateImageExportButton();
+        System.Diagnostics.Trace.TraceInformation($"{presentationContext} completed in {System.Diagnostics.Stopwatch.GetElapsedTime(presentationStarted).TotalMilliseconds:F0} ms.");
     }
 
     private static Control BuildResultContent(
@@ -60,6 +64,20 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt,
         SceneDto? cardinalScene = null)
     {
+        if (view.TelecentricitySummary is not null)
+            view = view with
+            {
+                Series = view.Series.Select(series => series with
+                {
+                    Name = UiLocalization.Text(series.Name),
+                    LegendLabel = UiLocalization.Text(series.LegendLabel)
+                }).ToArray(),
+                Table = view.Table is null ? null : view.Table with
+                {
+                    Rows = view.Table.Rows.Select(row => (IReadOnlyList<string>)row
+                        .Select((value, index) => index == row.Count - 1 ? UiLocalization.Text(value) : value).ToArray()).ToArray()
+                }
+            };
         if (view.PresentationKind == AnalysisPresentationKind.TextReport)
             return BuildReportTextBox(view.ReportText);
 
@@ -1195,6 +1213,12 @@ public sealed partial class AnalysisPanel
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
     {
+        if (view.TelecentricitySummary is { } telecentricity)
+            return new CompactAnalysisSummary(view.Name,
+                $"{UiLocalization.Text("物方最大远心角 (°)")}: {NumericDisplayFormatter.Format(telecentricity.MaximumObjectAngleDegrees)}"
+                + Environment.NewLine
+                + $"{UiLocalization.Text("像方最大远心角 (°)")}: {NumericDisplayFormatter.Format(telecentricity.MaximumImageAngleDegrees)}");
+
         string Row(string metric) => FindRowText(view, metric, "—");
         string WithUnit(string metric, string unit) => Row(metric) is var value && value != "—" ? value + unit : "—";
 

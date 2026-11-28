@@ -7,6 +7,10 @@ namespace OpticalSystemDesign.Core.Coordinates;
 /// <summary>A native coordinate operation, separate from a surface's computed world pose.</summary>
 public sealed record CoordinateBreakParameters(double X, double Y, double TiltX, double TiltY, double TiltZ, bool TiltFirst)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public CoordinateFrameReturn? Return { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public string? EditingRestriction { get; init; }
     private IReadOnlyList<CoordinateChiefRaySolve> _chiefRaySolves = Array.Empty<CoordinateChiefRaySolve>();
     private IReadOnlyList<CoordinateParameterPickup> _pickups = Array.Empty<CoordinateParameterPickup>();
     public IReadOnlyList<CoordinateChiefRaySolve> ChiefRaySolves { get => _chiefRaySolves; init => _chiefRaySolves = Array.AsReadOnly(value.ToArray()); }
@@ -71,6 +75,13 @@ public sealed record SequentialSurfacePlacement(double X, double Y, double Z, do
             var operation = placement.Break;
             if (operation is not null)
             {
+                if (operation.Return is { } frameReturn)
+                {
+                    if (frameReturn.SurfaceNumber < 0 || frameReturn.SurfaceNumber >= index || !Enum.IsDefined(frameReturn.Mode))
+                        throw new InvalidOperationException("坐标返回必须引用前面的表面。");
+                    var target = surfaces[frameReturn.SurfaceNumber].CoordinateSystem;
+                    incoming = target with { Origin = frameReturn.Mode == CoordinateReturnMode.Orientation ? incoming.Origin : target.Origin };
+                }
                 foreach (var pickup in operation.Pickups)
                 {
                     if (pickup.SourceSurface < 0 || pickup.SourceSurface >= index || surfaces[pickup.SourceSurface].Placement?.Break is not { } source)
@@ -88,3 +99,6 @@ public sealed record SequentialSurfacePlacement(double X, double Y, double Z, do
         }
     }
 }
+
+public enum CoordinateReturnMode { Orientation, PositionAndOrientation }
+public sealed record CoordinateFrameReturn(int SurfaceNumber, CoordinateReturnMode Mode);

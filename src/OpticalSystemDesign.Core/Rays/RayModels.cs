@@ -72,6 +72,10 @@ public sealed record RayTraceSample(
 
 public sealed class RealRayBundle
 {
+    private RealRayBundle(List<RealRay> normalizedRays) => Rays = normalizedRays;
+
+    internal static RealRayBundle CopyNormalized(IReadOnlyList<RealRay> rays) => new(rays.ToList());
+
     public RealRayBundle(IEnumerable<RealRay> rays)
     {
         Rays = rays.Select(ray => ray.Normalize()).ToList();

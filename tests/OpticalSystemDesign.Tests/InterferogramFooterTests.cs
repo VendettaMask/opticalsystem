@@ -99,11 +99,10 @@ public sealed class InterferogramFooterTests
                     Assert.InRange(host.ContentScale, double.Epsilon, width / UniformDiagramPage.SheetWidth);
                 var grid = Assert.IsAssignableFrom<Grid>(footer.Child);
                 Assert.Equal(132, grid.MinHeight);
-                var left = Assert.IsType<StackPanel>(grid.Children[0]);
-                Assert.Equal(3, left.Children.Count);
-                Assert.Equal("干涉图", Assert.IsType<TextBlock>(left.Children[0]).Text);
-                Assert.Equal("2026/9/4", Assert.IsType<TextBlock>(left.Children[1]).Text);
-                var summary = Assert.IsType<TextBlock>(left.Children[2]);
+                var labels = SummaryLabels(footer);
+                Assert.Equal("干涉图", labels[0].Text);
+                Assert.Equal("2026/9/4", labels[1].Text);
+                var summary = labels[2];
                 Assert.Equal(new[]
                 {
                     "0.5876 µm 对于 -15.00 mm",
@@ -159,8 +158,16 @@ public sealed class InterferogramFooterTests
             Assert.Contains("面：5", Summary(tilted));
         }, CancellationToken.None);
 
-        static string Summary(AnalysisViewDto value) => Assert.IsType<TextBlock>(
-            Assert.IsType<StackPanel>(Assert.IsAssignableFrom<Grid>(BuildFooter(value).Child).Children[0]).Children[2]).Text!;
+        static string Summary(AnalysisViewDto value) => SummaryLabels(BuildFooter(value))[2].Text!;
+    }
+
+    private static TextBlock[] SummaryLabels(Border footer)
+    {
+        var grid = Assert.IsAssignableFrom<Grid>(footer.Child);
+        var region = Assert.Single(grid.Children, child => Grid.GetRow(child) == 0 && Grid.GetColumn(child) == 0);
+        var labels = region.GetVisualDescendants().OfType<TextBlock>().ToArray();
+        Assert.Equal(3, labels.Length);
+        return labels;
     }
 
     private static AnalysisViewDto CreateView(Optic optic)

@@ -1,5 +1,11 @@
 # 镀膜约束续算与预处理证据
 
+> 重复资料整理（2026-11-26）：逐字相同的历史源码、脚本或项目文件只保留一份原件，原目录角色通过别名表保存；需要完整源码目录时先在仓库外还原。见[合并记录](../../2026-11-26/duplicate-consolidation/README.md)。结果和失败分类保持。
+
+
+> 存储状态更新（2026-11-26）：大型历史派生 JSON 已无损压缩，原路径、原字节哈希及仓库外还原方法可查。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 本轮对应[专项报告](../../../../docs/COATING_CONSTRAINED_CONTINUATION_2026-10-31.md)。原[权衡修复证据](../coating-tradeoff-repair/README.md)及其数值保持；本轮机器结果见[三臂汇总](paired-results.json)、[完整性](integrity.json)、[参考复验](reference-comparison.json)、[实际损失分解](physical-loss-witnesses.json)和[封存清单](final-manifest.json)。
 
 ## 输入、对照与物理边界

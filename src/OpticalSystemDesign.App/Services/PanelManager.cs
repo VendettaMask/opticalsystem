@@ -91,7 +91,8 @@ public sealed partial class PanelManager : IDisposable
         cancellationToken.ThrowIfCancellationRequested();
         // The sequential constructor already created the two initial documents.
         // Do not instantiate analysis/3D pages from the previous session at startup.
-        if (_application.Modes.CurrentMode != OpticalWorkbenchMode.Sequential)
+        if (_application.Modes.CurrentMode != OpticalWorkbenchMode.Sequential
+            || SequentialExampleWorkspace.ForDocument(_application.Documents.CurrentPath) is not null)
         {
             await RestoreCurrentSessionAsync(cancellationToken);
         }
@@ -150,6 +151,9 @@ public sealed partial class PanelManager : IDisposable
         }
     }
 
+    public void OpenNonSequentialLayoutAnalysis() =>
+        OpenAnalysisInstance(new("document:viewer-3d", WorkspaceDocumentTypes.Viewer3D, "三维视图"));
+
     public void ShowSolidModel()
     {
         OpenStable("document:solid-model", WorkspaceDocumentTypes.SolidModel, "实体模型");
@@ -157,10 +161,10 @@ public sealed partial class PanelManager : IDisposable
 
     public void ShowNonSequentialDetectorViewer()
     {
-        OpenStable(
+        OpenAnalysisInstance(new(
             WorkspaceDockFactory.NonSequentialDetectorViewerDocumentId,
             WorkspaceDocumentTypes.NonSequentialDetectorViewer,
-            "探测器查看器");
+            "探测器查看器"));
     }
 
     public void ShowTolerancingDataViewer() =>
@@ -239,7 +243,7 @@ public sealed partial class PanelManager : IDisposable
 
     public void ShowMaterialAnalysis(MaterialAnalysisKind kind)
     {
-        Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+        OpenAnalysisInstance(new(
             $"document:material-analysis:{kind}",
             WorkspaceDocumentTypes.MaterialAnalysis,
             MaterialAnalysisPanel.Title(kind),
@@ -269,12 +273,11 @@ public sealed partial class PanelManager : IDisposable
     public void ShowAnalysis(string analysisName)
     {
         var canonical = _application.Analyses.CanonicalKey(analysisName);
-        Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+        OpenAnalysisInstance(new(
             $"analysis:{canonical}",
             WorkspaceDocumentTypes.Analysis,
             WorkbenchAnalysisCatalog.DisplayName(canonical),
-            analysisName,
-            StableAnalysisGuid(canonical)));
+            analysisName));
     }
 
     public void CloneActiveAnalysis()
@@ -285,13 +288,13 @@ public sealed partial class PanelManager : IDisposable
             return;
         }
 
-        var instanceId = Guid.NewGuid();
-        Factory.OpenDocument(descriptor with
+        if (active.Context is not AnalysisPanel source) return;
+        OpenAnalysisInstance(descriptor with
         {
-            Id = $"analysis:{_application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title)}:{instanceId:N}",
+            Id = $"analysis:{source.AnalysisKey}",
             Title = $"{descriptor.Title}（副本）",
-            InstanceId = instanceId,
-            Settings = descriptor.Settings is null ? null : new Dictionary<string, string>(descriptor.Settings)
+            Settings = source.CaptureParameterSettings(),
+            IsLocked = source.IsLocked
         });
     }
 
@@ -492,9 +495,8 @@ public sealed partial class PanelManager : IDisposable
             if (_disposed) return;
             if (_application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential)
             {
-                // Automatic file opening starts with the initial workspace. Saved
-                // defaults and slots remain available through explicit load commands.
-                ResetLayout();
+                var sample = SequentialExampleWorkspace.ForDocument(_application.Documents.CurrentPath);
+                ReplaceLayout(Factory.CreateLayout(sample), disposePrevious: false);
                 return;
             }
             var path = _application.Documents.CurrentPath;
@@ -934,10 +936,21 @@ public sealed partial class PanelManager : IDisposable
         _saveTimer.Start();
     }
 
-    private static Guid StableAnalysisGuid(string canonical)
+    private void OpenAnalysisInstance(WorkspaceDocumentDescriptor template)
     {
-        var bytes = System.Security.Cryptography.MD5.HashData(System.Text.Encoding.UTF8.GetBytes(canonical));
-        return new Guid(bytes);
+        var instanceId = Guid.NewGuid();
+        var id = Factory.Descriptor(template.Id) is null ? template.Id : $"{template.Id}:{instanceId:N}";
+        var titles = Factory.Descriptors.Where(document => document.TypeId == template.TypeId)
+            .Select(document => document.Title).ToHashSet(StringComparer.Ordinal);
+        var title = template.Title;
+        if (titles.Contains(title) || titles.Contains($"{title} 1"))
+        {
+            var number = 2;
+            while (titles.Contains($"{template.Title} {number}")) number++;
+            title = $"{template.Title} {number}";
+        }
+
+        Factory.OpenDocument(template with { Id = id, Title = title, InstanceId = instanceId });
     }
 }
 

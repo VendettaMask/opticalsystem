@@ -96,7 +96,15 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
         if (applicable is not null && applicable.TryGetValue(AnalysisConfigurationSelection.Key, out var selection)
             && available?.Choices?.Contains(selection, StringComparer.Ordinal) != true)
             applicable[AnalysisConfigurationSelection.Key] = AnalysisConfigurationSelection.Current;
-        var merged = GetParameters(analysisName, applicable).ToDictionary(parameter => parameter.Key, parameter => parameter.DefaultValue);
+        var parameters = GetParameters(analysisName, applicable);
+        if (CanonicalKey(analysisName) == "Image Simulation" && applicable?.TryGetValue("FieldNumber", out var field) == true
+            && int.TryParse(field, out var number))
+        {
+            var choices = parameters.First(p => p.Key == "FieldNumber").Choices;
+            if (choices is not null && number >= 1 && number <= choices.Count)
+                applicable["FieldNumber"] = choices[number - 1];
+        }
+        var merged = parameters.ToDictionary(parameter => parameter.Key, parameter => parameter.DefaultValue);
         if (applicable is not null)
             foreach (var item in applicable)
                 if (merged.ContainsKey(item.Key)) merged[item.Key] = item.Value;
@@ -133,7 +141,10 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
-        return RunAnalysisWorkerAsync(
+        var started = System.Diagnostics.Stopwatch.GetTimestamp();
+        var operation = $"Analysis {request.AnalysisKey} instance={request.InstanceId:N} run={request.Generation} revision={sourceRevision}";
+        System.Diagnostics.Trace.TraceInformation($"{operation} started. GPU preference={(request.UseGpuAcceleration ? "automatic" : "off")}");
+        var worker = RunAnalysisWorkerAsync(
             snapshot,
             nonSequentialSnapshot,
             configurationSnapshot,
@@ -142,6 +153,32 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
             request,
             linked,
             _nonSequentialAnalysisSession);
+        return LogAnalysisCompletionAsync(worker, operation, started);
+    }
+
+    private static async Task<AnalysisResultDto> LogAnalysisCompletionAsync(Task<AnalysisResultDto> worker, string operation, long started)
+    {
+        try
+        {
+            var result = await worker.ConfigureAwait(false);
+            var elapsed = System.Diagnostics.Stopwatch.GetElapsedTime(started).TotalMilliseconds;
+            var message = $"{operation} {result.View.Outcome} in {elapsed:F0} ms. Device={result.Provenance.GpuDeviceUsed ?? "CPU"}";
+            if (result.View.Outcome == Contracts.AnalysisOutcome.Success)
+                System.Diagnostics.Trace.TraceInformation(message);
+            else
+                System.Diagnostics.Trace.TraceWarning($"{message}. {result.View.OutcomeReason}");
+            return result;
+        }
+        catch (OperationCanceledException)
+        {
+            System.Diagnostics.Trace.TraceInformation($"{operation} cancelled.");
+            throw;
+        }
+        catch (Exception error)
+        {
+            System.Diagnostics.Trace.TraceError($"{operation} failed. {error}");
+            throw;
+        }
     }
 
     private void EnsureAvailable(string analysisName)
@@ -171,6 +208,7 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
             {
                 linked.Token.ThrowIfCancellationRequested();
                 var canonicalAnalysisKey = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey);
+                using var gpu = new AnalysisGpuSession(request.UseGpuAcceleration);
                 var selection = AnalysisConfigurationSelection.Read(canonicalAnalysisKey, request.Settings);
                 var count = configurationSnapshot?.Configurations.Count ?? 1;
                 var activeIndex = configurationSnapshot?.ActiveConfigurationIndex ?? 0;
@@ -183,6 +221,7 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
                     && canonicalAnalysisKey == "Configuration Matrix Spot Diagram" && configurationSnapshot is not null
                     ? WorkbenchRuntime.CreateComputationRuntime(configurationSnapshot)
                     : new WorkbenchRuntime(selectedOptic, nonSequentialSnapshot);
+                parameterWorker.AnalysisDocumentPath = sourceDocument.Path;
                 var normalizedSettings = NormalizeAnalysisSettings(
                     parameterWorker,
                     canonicalAnalysisKey,
@@ -247,7 +286,8 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
                     new AnalysisExecutionProvenanceDto(
                         canonicalAnalysisKey,
                         CreateRequestFingerprint(canonicalAnalysisKey, fingerprintSettings),
-                        "Application.WorkbenchRuntime.BuildAnalysisView/v1"), summary, scene);
+                        "Application.WorkbenchRuntime.BuildAnalysisView/v1")
+                    { GpuDeviceUsed = gpu.UsedDevice }, summary, scene);
             }, linked.Token).ConfigureAwait(false);
         }
     }

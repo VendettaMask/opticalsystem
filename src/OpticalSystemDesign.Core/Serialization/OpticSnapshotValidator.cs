@@ -10,7 +10,7 @@ namespace OpticalSystemDesign.Core.Serialization;
 public static class OpticSnapshotValidator
 {
     public const int MinimumSupportedSchemaVersion = 1;
-    public const int CurrentSchemaVersion = 10;
+    public const int CurrentSchemaVersion = 11;
 
     private const int MaximumTopLevelItemCount = 100_000;
     private const int MaximumComponentNumberCount = 1_000_000;
@@ -264,6 +264,21 @@ public static class OpticSnapshotValidator
                 if (placement.Break is { } operation && (surface.Components?.InteractionKind != "coordinate_reference"
                     || new[] { operation.X, operation.Y, operation.TiltX, operation.TiltY, operation.TiltZ }.Any(value => !double.IsFinite(value))))
                     Invalid($"$.surfaces[{index}].placement.break", "invalid coordinate operation");
+                if (placement.Break?.Return is { } frameReturn && (snapshot.SchemaVersion < 11 || frameReturn.SurfaceNumber < 0
+                    || frameReturn.SurfaceNumber >= index || !Enum.IsDefined(frameReturn.Mode)))
+                    Invalid($"$.surfaces[{index}].placement.break.return", "coordinate return requires an earlier surface and schema 11");
+                if (placement.Break is { } dependency)
+                {
+                    if (dependency.Pickups.Any(p => p.Parameter is < 0 or > 4 || p.SourceParameter is < 0 or > 4
+                        || p.SourceSurface < 0 || p.SourceSurface >= index || snapshot.Surfaces[p.SourceSurface].Placement?.Break is null
+                        || !double.IsFinite(p.Scale) || !double.IsFinite(p.Offset))
+                        || dependency.Pickups.Select(p => p.Parameter).Distinct().Count() != dependency.Pickups.Count
+                        || dependency.ChiefRaySolves.Any(s => s.Parameter is < 0 or > 3 || s.FieldNumber < 1 || s.FieldNumber > snapshot.Fields.Count
+                            || s.WavelengthNumber < 0 || s.WavelengthNumber > snapshot.Wavelengths.Count)
+                        || dependency.ChiefRaySolves.Select(s => s.Parameter).Distinct().Count() != dependency.ChiefRaySolves.Count
+                        || dependency.ChiefRaySolves.Any(s => dependency.Pickups.Any(p => p.Parameter == s.Parameter)))
+                        Invalid($"$.surfaces[{index}].placement.break", "invalid coordinate parameter dependency");
+                }
             }
             if (snapshot.SchemaVersion < 10 && surface.ShapeVariables?.Any(Services.SurfaceShapeParameters.IsAdditionalVariableName) == true)
                 Invalid($"$.surfaces[{index}]", "extended surface variables require schema 10");

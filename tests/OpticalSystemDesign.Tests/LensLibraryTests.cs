@@ -250,6 +250,34 @@ public sealed class LensLibraryTests
     }
 
     [Fact]
+    public async Task RebuildingAnIndexedStockCatalogUsesOnlyActiveManufacturers()
+    {
+        var root = Directory.CreateTempSubdirectory("stock-catalog-rebuild-").FullName;
+        try
+        {
+            var source = Directory.CreateDirectory(Path.Combine(root, "source")).FullName;
+            foreach (var name in new[] { "THORLABS", "EDMUND OPTICS", "DAHENG OPTICS", "NEWPORT CORP", "SIGMA KOKI" })
+            {
+                using var writer = new BinaryWriter(File.Create(Path.Combine(source, name + ".zmf")));
+                writer.Write(1001u);
+                WriteZmfRecord(writer, "A", 1, 2, 0, 0, 0, 50, 10);
+            }
+            var directory = Path.Combine(root, "catalog");
+            var retired = CommercialEntry("retired", "Newport", "retired-part");
+            await CommercialLensCatalogStore.SaveDirectoryAsync(new(1, DateTimeOffset.UnixEpoch, [retired]), directory);
+            await CommercialLensCatalogStore.SaveDirectoryAsync(new(1, DateTimeOffset.UnixEpoch, []), directory);
+            var notes = Path.Combine(directory, "notes.json");
+            await File.WriteAllTextAsync(notes, "{}");
+
+            var rebuilt = await StockLensCatalogConverter.ConvertAsync(source, directory);
+            Assert.NotEmpty(rebuilt.Entries);
+            Assert.DoesNotContain(rebuilt.Entries, entry => entry.Id == retired.Id);
+            Assert.Equal("{}", await File.ReadAllTextAsync(notes));
+        }
+        finally { Directory.Delete(root, true); }
+    }
+
+    [Fact]
     public async Task CommercialLensServiceCachesFilteredSortedStockCatalog()
     {
         var root = Path.Combine(Path.GetTempPath(), $"staropt-stock-cache-{Guid.NewGuid():N}");
@@ -307,7 +335,8 @@ public sealed class LensLibraryTests
                     {
                         CommercialEntry("installed", "JCOPTIX", "A") with { LocalModelPath = "JCOPTIX/example.staropt" },
                         CommercialEntry("missing", "JCOPTIX", "B") with { LocalModelPath = "JCOPTIX/missing.staropt" },
-                        CommercialEntry("outside", "JCOPTIX", "C") with { LocalModelPath = "../outside.staropt" }
+                        CommercialEntry("outside", "JCOPTIX", "C") with { LocalModelPath = "../outside.staropt" },
+                        CommercialEntry("missing-bundled", "JCOPTIX", "D") with { NativePath = "missing.staropt" }
                     }),
                 Path.Combine(root, CommercialLensCatalogStore.DirectoryName));
             var service = new LensLibraryService(root, local);

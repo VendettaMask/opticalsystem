@@ -11,6 +11,8 @@ using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.Phase;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -18,6 +20,67 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SequentialSurfaceIdentityTests
 {
     public static Avalonia.AppBuilder BuildAvaloniaApp() => DiagramViewportFitTests.BuildAvaloniaApp();
+
+    private static string AchromaticSinglet => SequentialExampleCatalog.Examples.Single(e =>
+        e.RelativePath == "Diffractive components/Achromatic singlet.zmx").FilePath;
+
+    [Fact]
+    public async Task AchromaticSingletShowsBinary2InGridAndProperties()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SequentialSurfaceIdentityTests));
+        await session.Dispatch(async () =>
+        {
+            using var app = WorkbenchApplication.Create();
+            await app.Documents.OpenAsync(AchromaticSinglet);
+            using var panel = new LensEditorPanel(app.Prescription, app.Events, new SurfaceSelectionService());
+            var window = new Window { Width = 1450, Height = 850, Content = panel };
+            try
+            {
+                window.Show();
+                Dispatcher.UIThread.RunJobs();
+                var grid = panel.GetVisualDescendants().OfType<DataGrid>().Single(g => g.Name == "LensSurfaceGrid");
+                grid.SelectedIndex = 2;
+                Assert.Contains(grid.GetVisualDescendants().OfType<TextBlock>(),
+                    t => t.DataContext is SurfaceEditorRow { Number: 2 } && t.Text == UiLocalization.Text("二元面 2"));
+                var toggle = panel.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "SurfacePropertiesToggle");
+                toggle.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+                Dispatcher.UIThread.RunJobs();
+                var picker = panel.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "SurfaceGeometry");
+                Assert.Equal("二元面 2", picker.SelectedItem);
+                Assert.False(picker.IsEnabled);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task Binary2RetainsPhaseAfterPropertyEditsAndNativeReopen()
+    {
+        using var app = WorkbenchApplication.Create();
+        await app.Documents.OpenAsync(AchromaticSinglet);
+        var row = new SurfaceEditorRow(app.Prescription.GetSurfaces()[2]);
+        Assert.Equal("偶次非球面", row.GeometryKind);
+        Assert.Equal("衍射", row.InteractionKind);
+        Assert.Equal("二元面 2", row.SurfaceType);
+        app.Prescription.UpdateSurfaceComponents(2, new(row.SurfaceType, "圆形", 1, 1, 0, 50));
+        app.Prescription.UpdateSurface(row.ToDto() with { Label = "renamed", Material = "N-BK7" });
+        Assert.True(app.Documents.Undo());
+        Assert.True(app.Documents.Redo());
+        var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".staropt");
+        try
+        {
+            await app.Documents.SaveAsync(path);
+            await app.Documents.OpenAsync(path);
+            Assert.Equal("二元面 2", new SurfaceEditorRow(app.Prescription.GetSurfaces()[2]).SurfaceType);
+            var saved = (await StarOptProjectStore.LoadAsync(path)).Configurations[0].SurfaceGroup.Items[2];
+            var phase = Assert.IsType<DiffractivePhaseInteractionModel>(saved.InteractionModel);
+            var radial = Assert.IsType<NormalizedRadialPhaseProfile>(phase.Profile);
+            Assert.Equal(1, radial.Order);
+            Assert.Equal(30, radial.NormalizationRadius);
+            Assert.Equal(new[] { -2993.832387049, 1135.544608547, -59.321054543 }, radial.Coefficients);
+        }
+        finally { File.Delete(path); }
+    }
 
     [Fact]
     public async Task EveryMenuSourceRetainsAllCoordinateRowsInEveryConfiguration()

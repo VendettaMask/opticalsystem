@@ -533,6 +533,10 @@ internal static partial class UiLocalization
         Add("GPU 追迹光线", "GPU traced rays", "GPU 追跡光線");
         Add("CPU 恢复光线", "CPU recovery rays", "CPU 復旧光線");
         Add("计算设备", "Compute Device", "計算デバイス");
+        Add("硬件加速", "Hardware Acceleration", "ハードウェア アクセラレーション");
+        Add("计算与绘图", "Compute and rendering", "計算と描画");
+        Add("自动使用 GPU", "Use GPU automatically", "GPU を自動使用");
+        Add("分析计算从下次运行起生效，窗口绘图在重启后生效。", "Applies to the next analysis run. Restart to apply the rendering change.", "次回の解析から適用します。描画への反映には再起動が必要です。");
         Add("设备检测", "Detected Device", "検出デバイス");
         Add("计算设备状态", "Compute Device Status", "計算デバイスの状態");
         Add("自动（优先 GPU）", "Automatic (Prefer GPU)", "自動（GPU 優先）");
@@ -1133,6 +1137,38 @@ internal static partial class UiLocalization
         Add("RMS vs. 离焦", "RMS vs. Defocus", "RMS vs. デフォーカス");
         Add("二维视场RMS图", "2D Field RMS Map", "2D 視野 RMS マップ");
         Add("入射角 vs. 像高", "Incidence Angle vs. Image Height", "入射角 vs. 像高");
+        Add("远心度", "Telecentricity", "テレセントリシティ");
+        Add("远心角 (°)", "Telecentric Angle (°)", "テレセントリック角 (°)");
+        Add("物方", "Object Space", "物体側");
+        Add("像方", "Image Space", "像側");
+        Add("视场编号", "Field Number", "視野番号");
+        Add("视场 X", "Field X", "視野 X");
+        Add("视场 Y", "Field Y", "視野 Y");
+        Add("视场 X (°)", "Field X (°)", "視野 X (°)");
+        Add("视场 Y (°)", "Field Y (°)", "視野 Y (°)");
+        Add("视场 X (mm)", "Field X (mm)", "視野 X (mm)");
+        Add("视场 Y (mm)", "Field Y (mm)", "視野 Y (mm)");
+        Add("波长编号", "Wavelength Number", "波長番号");
+        Add("波长 (µm)", "Wavelength (µm)", "波長 (µm)");
+        Add("物方 X 角 (°)", "Object X Angle (°)", "物体側 X 角 (°)");
+        Add("物方 Y 角 (°)", "Object Y Angle (°)", "物体側 Y 角 (°)");
+        Add("物方远心角 (°)", "Object Telecentric Angle (°)", "物体側テレセントリック角 (°)");
+        Add("像方 X 角 (°)", "Image X Angle (°)", "像側 X 角 (°)");
+        Add("像方 Y 角 (°)", "Image Y Angle (°)", "像側 Y 角 (°)");
+        Add("像方远心角 (°)", "Image Telecentric Angle (°)", "像側テレセントリック角 (°)");
+        Add("物方最大远心角 (°)", "Maximum Object Telecentric Angle (°)", "物体側最大テレセントリック角 (°)");
+        Add("像方最大远心角 (°)", "Maximum Image Telecentric Angle (°)", "像側最大テレセントリック角 (°)");
+        Add("有效主光线", "Valid Chief Rays", "有効な主光線");
+        Add("无效主光线", "Invalid Chief Rays", "無効な主光線");
+        Add("有效", "Valid", "有効");
+        Add("主光线未到达像面", "Chief ray did not reach the image surface", "主光線が像面に到達していません");
+        Add("主光线瞄准失败", "Chief ray aiming failed", "主光線のエイミングに失敗しました");
+        Add("按当前定义的视场编号和所选波长逐点测量，不作波长加权平均。最大值仅覆盖这些采样点。",
+            "Measured at the defined fields and selected wavelengths without wavelength averaging. Maxima cover only these samples.",
+            "定義済みの視野と選択波長を個別に測定し、波長平均は行いません。最大値はこれらの点のみを対象とします。");
+        Add("远心角为主光线与对应空间局部 Z 轴的锐夹角，0° 为理想远心；X/Y 为带符号的投影角。",
+            "Telecentricity is the acute chief-ray angle to the local Z axis; 0° is ideal. X/Y are signed projected angles.",
+            "対応する空間の局所 Z 軸と主光線の鋭角が遠心角です。0° が理想で、X/Y は符号付き投影角です。");
         Add("FFT PSF截面图", "FFT PSF Cross Section", "FFT PSF 断面図");
         Add("FFT 线/边缘扩散", "FFT Line/Edge Spread", "FFT 線／エッジ広がり");
         Add("惠更斯PSF", "Huygens PSF", "ホイヘンス PSF");
@@ -1527,8 +1563,21 @@ internal static partial class UiLocalization
         AddManufacturabilityTexts(Add);
         AddMaterialLibraryTexts(Add);
         AddSurfaceDrawingTexts(Add);
+        Add("当前版本尚不支持此示例窗口。", "This sample window is not supported in this version.", "このサンプルウィンドウは現在のバージョンでは未対応です。");
+        Add("PSF 网格", "PSF Grid", "PSF グリッド");
+        Add("预览降采样倍数", "Preview downsampling factor", "プレビューのダウンサンプリング倍率");
+        Add("选择 BMP、PNG、JPEG 或 IMA 图像", "Select a BMP, PNG, JPEG or IMA image", "BMP、PNG、JPEG または IMA 画像を選択");
         AddLensScalingTexts(Add);
         Add("采样收敛", "Sampling convergence", "サンプリング収束");
+        Add("分析波长 (nm，0=系统)", "Analysis wavelength (nm, 0 = system)", "解析波長 (nm、0 = システム)");
+        Add("表面镀膜", "Surface Coatings", "面コーティング");
+        Add("透射光谱", "Transmission Spectrum", "透過スペクトル");
+        Add("透射率随入射角", "Transmittance vs. Angle", "入射角と透過率");
+        Add("反射率随入射角", "Reflectance vs. Angle", "入射角と反射率");
+        Add("相位随入射角", "Phase vs. Angle", "入射角と位相");
+        Add("镀膜实验室设计文件", "Coating Lab Design", "薄膜ラボの設計ファイル");
+        Add("起始入射角 (°)", "Start incidence angle (°)", "開始入射角 (°)");
+        Add("终止入射角 (°)", "End incidence angle (°)", "終了入射角 (°)");
         Add("最大距离", "Maximum distance", "最大距離");
         AddOptimizationWizardTexts(Add);
         return values;

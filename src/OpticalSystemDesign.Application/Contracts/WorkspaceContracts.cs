@@ -883,7 +883,9 @@ public sealed record SurfaceRowDto(
     IReadOnlyList<string>? ShapeVariables = null,
     LensLengthUnit LensLengthUnit = LensLengthUnit.Millimeter,
     ParaxialLensSurfaceDto? ParaxialLens = null,
-    BirefringentSurfaceDto? Birefringent = null);
+    BirefringentSurfaceDto? Birefringent = null,
+    string? DiffractiveSurfaceType = null,
+    string? GradientIndexSurfaceType = null);
 
 public sealed record BirefringentSurfaceDto(bool IsExit, double AxisDisplayLength,
     double? AxisX = null, double? AxisY = null, double? AxisZ = null,
@@ -1120,7 +1122,8 @@ public enum AnalysisAxisQuantity
     Probability,
     IrradianceGradient,
     FieldAmplitude,
-    MeritValue
+    MeritValue,
+    FieldNumber
 }
 
 public enum AnalysisAxisUnit
@@ -1324,6 +1327,8 @@ public sealed record ColorFocusShiftSummaryDto(
 
 public sealed record FoucaultSummaryDto(double KnifePosition, AnalysisAxisUnit KnifeUnit);
 
+public sealed record TelecentricitySummaryDto(double MaximumObjectAngleDegrees, double MaximumImageAngleDegrees);
+
 public sealed record PsfImageSummaryDto(
     string WavelengthRange,
     double NormalizedFieldY,
@@ -1366,6 +1371,7 @@ public sealed record AnalysisViewDto(
     public FoucaultSummaryDto? FoucaultSummary { get; init; }
     public PsfImageSummaryDto? PsfImageSummary { get; init; }
     public DiffractionEnergySummaryDto? DiffractionEnergySummary { get; init; }
+    public TelecentricitySummaryDto? TelecentricitySummary { get; init; }
 }
 
 public enum AnalysisConfigurationDisplay
@@ -1385,7 +1391,10 @@ public sealed record AnalysisRequestDto(
     Guid InstanceId,
     int Generation,
     string AnalysisKey,
-    IReadOnlyDictionary<string, string> Settings);
+    IReadOnlyDictionary<string, string> Settings)
+{
+    public bool UseGpuAcceleration { get; init; }
+}
 
 public sealed record AnalysisResultDto(
     Guid InstanceId,
@@ -1406,7 +1415,10 @@ public sealed record AnalysisResultDto(
 public sealed record AnalysisExecutionProvenanceDto(
     string CanonicalAnalysisKey,
     string RequestFingerprint,
-    string ExecutorId);
+    string ExecutorId)
+{
+    public string? GpuDeviceUsed { get; init; }
+}
 
 public enum SceneDimension
 {
@@ -1593,6 +1605,8 @@ public sealed record SceneRay3Dto(
     IReadOnlyList<SceneRaySegment3Dto> Segments,
     int ConfigurationNumber = 1);
 
+public sealed record SceneBounds3Dto(ScenePoint3Dto Minimum, ScenePoint3Dto Maximum);
+
 public sealed record Scene3Dto(
     IReadOnlyList<SceneSurface3Dto> Surfaces,
     IReadOnlyList<SceneLensElement3Dto> LensElements,
@@ -1600,7 +1614,10 @@ public sealed record Scene3Dto(
     double XExtent,
     double YExtent,
     double ZMin,
-    double ZMax);
+    double ZMax)
+{
+    public SceneBounds3Dto? FitBounds { get; init; }
+}
 
 public sealed record NonSequentialLayoutResultDto(
     bool HasResult,
@@ -1789,7 +1806,8 @@ public enum OptimizationVariableKind
     PhaseCoefficient,
     SurfaceParameter,
     ObjectDistance,
-    ModelGlassCoefficient
+    ModelGlassCoefficient,
+    FieldX, FieldY, FieldWeight, Wavelength, WavelengthWeight
 }
 
 public sealed record OptimizationVariableResultDto(
@@ -2082,7 +2100,12 @@ public sealed record MultiConfigurationRowDto(
     public int Number => Index + 1;
 }
 
-public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient }
-public sealed record MultiConfigurationOperandRowDto(int Number, MultiConfigurationParameterKind Kind, int SurfaceNumber, IReadOnlyList<double> Values, IReadOnlyList<bool> Variables, IReadOnlyList<MultiConfigurationPickupDto?> Pickups, string? Parameter = null);
+public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter, ShapeCoefficient, GradientIndexCoefficient, ModelGlassCoefficient, Material, FieldX, FieldY, FieldWeight, Wavelength, WavelengthWeight }
+public sealed record MultiConfigurationOperandRowDto(int Number, MultiConfigurationParameterKind Kind, int SurfaceNumber, IReadOnlyList<double> Values, IReadOnlyList<bool> Variables, IReadOnlyList<MultiConfigurationPickupDto?> Pickups, string? Parameter = null)
+{
+    public IReadOnlyList<string>? TextValues { get; init; }
+    public int? ParameterNumber { get; init; }
+    public IReadOnlyList<string>? Units { get; init; }
+}
 public sealed record MultiConfigurationPickupDto(int SourceRow, int SourceConfigurationIndex, double Scale = 1, double Offset = 0);
 public sealed record MultiConfigurationOperandBindingDto(MultiConfigurationParameterKind Kind, int SurfaceNumber, string? Parameter = null);

@@ -28,8 +28,11 @@ public sealed partial class MultiConfiguration
                 ? Materials.GradientIndexProfileData.Keys(Materials.GradientIndexProfileData.Kind(material.Profile))
                     .Select(parameter => new Cell(p.Key.configuration, p.Key.Number, MultiConfigurationOperandKind.GradientIndexCoefficient, parameter)) : [])
             .Concat(p.Value.MaterialAfter is Materials.ModelGlassMaterial ? Materials.ModelGlassMaterial.ParameterNames
-                .Select(parameter => new Cell(p.Key.configuration, p.Key.Number, MultiConfigurationOperandKind.ModelGlassCoefficient, parameter)) : [])).ToArray();
-        var values = cells.ToDictionary(cell => cell, cell => ReadStored(surfaces[(cell.Configuration, cell.Surface)], cell.Kind, cell.Parameter));
+                .Select(parameter => new Cell(p.Key.configuration, p.Key.Number, MultiConfigurationOperandKind.ModelGlassCoefficient, parameter)) : []))
+            .Concat(Configurations.SelectMany((_, configuration) => _operandRows.Where(row => row.IsSystemParameter)
+                .Select(row => new Cell(configuration, row.SurfaceNumber, row.Kind)))).ToArray();
+        var values = cells.ToDictionary(cell => cell, cell => cell.Row.IsSystemParameter
+            ? cell.Row.Read(Configurations[cell.Configuration]) : ReadStored(surfaces[(cell.Configuration, cell.Surface)], cell.Kind, cell.Parameter));
         var rules = new Dictionary<Cell, CellRule>();
         var pickups = _operandPickups.ToDictionary(p => new Cell(p.ConfigurationIndex, p.Operand.SurfaceNumber, p.Operand.Kind, p.Operand.Parameter));
         foreach (var cell in cells)
@@ -41,11 +44,19 @@ public sealed partial class MultiConfiguration
                 rules.Add(cell, new(cell, [source], state =>
                 {
                     // Use the formal surface coordinate conversion, including a plane at zero curvature.
-                    var sourceSurface = surfaces[(source.Configuration, source.Surface)].Clone();
-                    WriteStored(sourceSurface, source.Kind, state[source], source.Parameter);
-                    var coordinate = source.Kind == MultiConfigurationOperandKind.Curvature
-                        ? SurfaceCurvatureParameter.Read(sourceSurface) : state[source];
+                    var coordinate = state[source];
+                    if (source.Kind == MultiConfigurationOperandKind.Curvature)
+                    {
+                        var sourceSurface = surfaces[(source.Configuration, source.Surface)].Clone();
+                        WriteStored(sourceSurface, source.Kind, state[source], source.Parameter);
+                        coordinate = SurfaceCurvatureParameter.Read(sourceSurface);
+                    }
                     var result = PickupManager.EvaluateValue(coordinate, pickup.Scale, pickup.Offset, "多配置", double.IsFinite);
+                    if (cell.Row.IsSystemParameter)
+                    {
+                        cell.Row.ValidateSystemValue(optic, result);
+                        return result;
+                    }
                     var targetSurface = surfaces[(cell.Configuration, cell.Surface)].Clone();
                     if (cell.Kind == MultiConfigurationOperandKind.Curvature) SurfaceCurvatureParameter.Write(targetSurface, result);
                     else WriteStored(targetSurface, cell.Kind, result, cell.Parameter);
@@ -53,6 +64,9 @@ public sealed partial class MultiConfiguration
                 }));
                 continue;
             }
+            // System rows are independent per configuration. Only an explicit
+            // MCE pickup links them; surface-number base links never apply.
+            if (cell.Row.IsSystemParameter) continue;
             if (cell.Kind == MultiConfigurationOperandKind.Thickness && cell.Surface == optic.SurfaceGroup.Items[^1].Number && optic.Solves.KeepImageAtBackFocus)
             {
                 var all = optic.SurfaceGroup.Items.Select(s => new Cell(cell.Configuration, s.Number, cell.Kind)).ToArray();
@@ -75,7 +89,7 @@ public sealed partial class MultiConfiguration
             {
                 var source = cell with { Surface = valuePickup.SourceSurface };
                 rules.Add(cell, new(cell, [source], state => PickupManager.EvaluateValue(state[source], valuePickup.Scale, valuePickup.Offset,
-                    cell.Row.Property, value => double.IsFinite(value) && (cell.Kind != MultiConfigurationOperandKind.SemiDiameter || value >= .1))));
+                    cell.Row.Property, value => double.IsFinite(value) && (cell.Kind != MultiConfigurationOperandKind.SemiDiameter || value >= 0))));
                 continue;
             }
             if (cell.Configuration > 0 && !_brokenLinks.Contains((cell.Configuration, cell.Surface, cell.Row.Property)))
@@ -111,15 +125,25 @@ public sealed partial class MultiConfiguration
             var rule = rules[cell];
             values[cell] = rule.Calculate(values);
             // Validate every value before mutating any real surface.
-            var staged = surfaces[(cell.Configuration, cell.Surface)].Clone();
-            WriteStored(staged, cell.Kind, values[cell], cell.Parameter);
+            if (cell.Row.IsSystemParameter) cell.Row.ValidateSystemValue(Configurations[cell.Configuration], values[cell]);
+            else
+            {
+                var staged = surfaces[(cell.Configuration, cell.Surface)].Clone();
+                WriteStored(staged, cell.Kind, values[cell], cell.Parameter);
+            }
             ordered.Add(rule);
             foreach (var target in dependents[cell]) if (--pending[target] == 0) ready.Enqueue(target);
         }
         if (ordered.Count != rules.Count) throw new InvalidOperationException("多配置、表面拾取或后焦距求解之间存在循环引用。");
         foreach (var rule in ordered)
         {
-            var cell = rule.Target; var surface = surfaces[(cell.Configuration, cell.Surface)];
+            var cell = rule.Target;
+            if (cell.Row.IsSystemParameter)
+            {
+                cell.Row.WriteSystemValue(Configurations[cell.Configuration], values[cell]);
+                continue;
+            }
+            var surface = surfaces[(cell.Configuration, cell.Surface)];
             WriteStored(surface, cell.Kind, values[cell], cell.Parameter);
             if (cell.Kind is MultiConfigurationOperandKind.GradientIndexCoefficient or MultiConfigurationOperandKind.ModelGlassCoefficient)
                 SynchronizeFollowingMedia(Configurations[cell.Configuration], cell.Surface);
@@ -156,7 +180,7 @@ public sealed partial class MultiConfiguration
             case MultiConfigurationOperandKind.GradientIndexCoefficient: GradientIndexParameters.WriteStoredValue(surface, parameter!, value); break;
             case MultiConfigurationOperandKind.ModelGlassCoefficient: ModelGlassParameters.WriteStored(surface, parameter!, value); break;
             case MultiConfigurationOperandKind.SemiDiameter:
-                if (!double.IsFinite(value) || value < .1) throw new InvalidOperationException("半口径拾取结果必须不小于 0.1 mm。");
+                if (!double.IsFinite(value) || value < 0) throw new InvalidOperationException("半口径拾取结果必须是非负的有限数值。");
                 surface.SemiDiameter = value; break;
             default: throw new ArgumentOutOfRangeException(nameof(kind));
         }

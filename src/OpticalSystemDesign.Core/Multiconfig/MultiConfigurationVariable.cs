@@ -24,6 +24,7 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
     public static void EnsureEditable(MultiConfigurationOperand row, Optic optic)
     {
         var initial = row.Read(optic);
+        if (row.IsSystemParameter) return;
         var pickup = row.Kind switch
         {
             MultiConfigurationOperandKind.Thickness => optic.Pickups.ThicknessPickups.Any(p => p.TargetSurface == row.SurfaceNumber),
@@ -39,6 +40,7 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
     public static void Write(MultiConfigurationOperand row, Optic optic, double value)
     {
         if (!double.IsFinite(value)) throw new ArgumentOutOfRangeException(nameof(value));
+        if (row.IsSystemParameter) { row.WriteSystemValue(optic, value); return; }
         var surface = optic.SurfaceGroup.Items.Single(s => s.Number == row.SurfaceNumber);
         switch (row.Kind)
         {
@@ -58,6 +60,18 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
     public IOptimizationVariable Create(Optic optic, Action changed)
     {
         EnsureEditable(Operand, optic);
+        if (Operand.IsSystemParameter)
+        {
+            var initialValue = Operand.Read(optic);
+            var range = Math.Max(Operand.Kind is MultiConfigurationOperandKind.FieldX or MultiConfigurationOperandKind.FieldY ? 10 : 1,
+                2 * Math.Abs(initialValue));
+            var minimum = Operand.Kind == MultiConfigurationOperandKind.Wavelength ? .001
+                : Operand.Kind is MultiConfigurationOperandKind.FieldWeight or MultiConfigurationOperandKind.WavelengthWeight ? 0 : initialValue - range;
+            var maximum = initialValue + range;
+            return new DelegateVariable($"配置 {ConfigurationIndex + 1} {MultiConfigurationOperand.Code(Operand.Kind)} {Operand.SurfaceNumber}",
+                () => Operand.Read(optic), value => { Operand.WriteSystemValue(optic, value); changed(); },
+                minimum, maximum, range * .05, new UnitRangeScaler(minimum, maximum));
+        }
         var surface = optic.SurfaceGroup.Items.Single(surface => surface.Number == Operand.SurfaceNumber);
         if (Operand.Kind == MultiConfigurationOperandKind.ShapeCoefficient)
             return SurfaceShapeParameters.CreateVariable(surface, Operand.Parameter!, changed);
@@ -81,8 +95,7 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
         var lower = Operand.Kind switch
         {
             MultiConfigurationOperandKind.Curvature => -extent,
-            // OpticalSurface currently enforces this minimum; never propose coordinates it would clamp.
-            MultiConfigurationOperandKind.SemiDiameter => .1,
+            MultiConfigurationOperandKind.SemiDiameter => 0,
             _ => initial - extent
         };
         var upper = Operand.Kind == MultiConfigurationOperandKind.Curvature ? extent : initial + extent;

@@ -344,6 +344,11 @@
           "Newtonsoft.Json": "13.0.3"
         }
       },
+      "netDxf": {
+        "type": "Transitive",
+        "resolved": "2023.11.10",
+        "contentHash": "7BFtw6P5Zfli59HJJ3INq6InaWzgNnC7qQopP+5H8CUg/7FjUX0qG63kLLPplOy1sZSjnwGzAPEjk67g1O7LuQ=="
+      },
       "Newtonsoft.Json": {
         "type": "Transitive",
         "resolved": "13.0.3",
@@ -438,13 +443,15 @@
           "OpticalSystemDesign.InitialStructure.Engine": "[1.0.4, )",
           "OpticalSystemDesign.InitialStructure.Persistence": "[1.0.4, )",
           "OpticalSystemDesign.Modules": "[1.0.4, )",
-          "SkiaSharp": "[3.119.4, )"
+          "SkiaSharp": "[3.119.4, )",
+          "netDxf": "[2023.11.10, )"
         }
       },
       "opticalsystemdesign.application": {
         "type": "Project",
         "dependencies": {
           "OpticalSystemDesign.CameraImaging.Engine": "[1.0.4, )",
+          "OpticalSystemDesign.CoatingDesign.Engine": "[1.0.4, )",
           "OpticalSystemDesign.Core": "[1.0.4, )",
           "OpticalSystemDesign.OpticalAssembly.Engine": "[1.0.4, )",
           "SkiaSharp": "[3.119.4, )"
@@ -459,7 +466,6 @@
       "opticalsystemdesign.coatingdesign.engine": {
         "type": "Project",
         "dependencies": {
-          "OpticalSystemDesign.Application": "[1.0.4, )",
           "OpticalSystemDesign.Core": "[1.0.4, )"
         }
       },

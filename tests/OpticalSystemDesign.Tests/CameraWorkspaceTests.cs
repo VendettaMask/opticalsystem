@@ -52,7 +52,7 @@ public sealed class CameraWorkspaceTests
                 }
                 for (var i = 0; i < 8; i++) { view.SelectedIndex = i; Tick(window); Assert.Equal(i, tabs.SelectedIndex); }
                 view.SelectedIndex = 0; Tick(window);
-                foreach (var control in new Control[] { Find<ComboBox>(window, "camera-stage-selector"), Find<ToggleButton>(window, "camera-stage-overview"), Find<ComboBox>(window, "camera-stage-zoom") })
+                foreach (var control in new Control[] { Find<ComboBox>(window, "camera-stage-selector"), Find<ToggleButton>(window, "camera-stage-overview") })
                 { var bounds = InWindow(control, window); Assert.InRange(bounds.Right, 0, window.ClientSize.Width + .5); }
                 var splitter = Find<GridSplitter>(window, "camera-parameter-splitter"); var grid = Find<Grid>(window, "CameraWorkspace"); var old = grid.ColumnDefinitions[0].ActualWidth;
                 var point = InWindow(splitter, window).Center; window.MouseMove(point); window.MouseDown(point, MouseButton.Left); window.MouseMove(point + new Vector(18, 0)); window.MouseUp(point + new Vector(18, 0), MouseButton.Left); Tick(window);
@@ -86,9 +86,9 @@ public sealed class CameraWorkspaceTests
                 selector.SelectedIndex = 5; Tick(window); Capture(window, $"result-{theme}");
                 Click(Find<ToggleButton>(window, "camera-stage-overview"), window); Tick(window);
                 Assert.Equal(6, All(window).Count(c => c is Border && c.Name?.StartsWith("camera-stage-", StringComparison.Ordinal) == true && c.IsVisible)); Capture(window, $"overview-{theme}");
-                Click(Find<ToggleButton>(window, "camera-stage-overview"), window); var zoom = Find<ComboBox>(window, "camera-stage-zoom"); zoom.SelectedIndex = 1; Tick(window);
+                Click(Find<ToggleButton>(window, "camera-stage-overview"), window); DiagramSheetLayout.SetViewportScale(false); Tick(window);
                 var actual = Find<Control>(window, "camera-stage-5").GetVisualDescendants().OfType<Image>().Single(); Assert.Equal(a.Developed.Width, actual.Bounds.Width); Assert.Equal(a.Developed.Height, actual.Bounds.Height);
-                zoom.SelectedIndex = 0; Click(Find<Button>(window, "camera-pin"), window); Assert.Same(a, window.Comparison);
+                DiagramSheetLayout.SetViewportScale(true); Click(Find<Button>(window, "camera-pin"), window); Assert.Same(a, window.Comparison);
                 Find<NumericUpDown>(window, "camera-exposure").Value = 20; Assert.Null(window.Result); Assert.Same(a, window.Comparison);
                 await window.RunAsync(); Tick(window); var b = Assert.IsType<CameraImagingResult>(window.Result); Assert.Equal(a.MeanPhotoElectrons * 2, b.MeanPhotoElectrons, 8);
                 var tabs = Find<TabControl>(window, "CameraResults"); tabs.SelectedIndex = 1; Tick(window); Capture(window, $"ab-{theme}");
@@ -99,7 +99,7 @@ public sealed class CameraWorkspaceTests
                 Assert.Same(a, window.Comparison); Assert.Same(b, window.Result); AssertFrame(b.Developed, Assert.IsType<WriteableBitmap>(Find<Control>(window, "camera-stage-5").GetVisualDescendants().OfType<Image>().Single().Source));
                 app.Documents.NewBlank(); Assert.Null(window.Result); Assert.Null(window.Comparison);
             }
-            finally { window.Close(); DisplayTypography.Configure(new AppSettings()); }
+            finally { window.Close(); DiagramSheetLayout.SetViewportScale(true); DisplayTypography.Configure(new AppSettings()); }
         }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(2));
     }
     private static void AssertFrame(CameraImage expected, WriteableBitmap actual)

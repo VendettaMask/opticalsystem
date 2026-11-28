@@ -86,6 +86,35 @@ public sealed class LensScalingTests
     }
 
     [Fact]
+    public void DimensionalScalingPreservesZeroAndSmallSurfaceSemiDiameters()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[0].SemiDiameter = 0;
+        optic.SurfaceGroup.Items[1].SemiDiameter = .08;
+        var scaled = LensScaler.Scale(optic, .5, 0, optic.SurfaceGroup.Items[^1].Number);
+        Assert.Equal(0, scaled.SurfaceGroup.Items[0].SemiDiameter);
+        Near(.04, scaled.SurfaceGroup.Items[1].SemiDiameter);
+    }
+
+    [Fact]
+    public void InvalidIrregularNormalizationKeepsThePreviousGeometryAndAperture()
+    {
+        var surface = new OpticalSurface
+        {
+            SemiDiameter = 6,
+            Geometry = new IrregularGeometry(60, 0, 6, 0, 0, 0, 0, .02, 0, 0, 0),
+            PhysicalAperture = new CircularAperture(6),
+            SemiDiameterDefinesPhysicalAperture = true
+        };
+        var geometry = surface.Geometry;
+        var aperture = surface.PhysicalAperture;
+        Assert.Throws<ArgumentOutOfRangeException>(() => surface.SemiDiameter = 0);
+        Assert.Equal(6, surface.SemiDiameter);
+        Assert.Same(geometry, surface.Geometry);
+        Assert.Same(aperture, surface.PhysicalAperture);
+    }
+
+    [Fact]
     public void PartialScaleMovesDownstreamSurfacesAndPreservesUnselectedShape()
     {
         var optic = Optic.CreateCookeTriplet();

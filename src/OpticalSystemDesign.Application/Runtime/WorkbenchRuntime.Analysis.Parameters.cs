@@ -748,6 +748,12 @@ public partial class WorkbenchRuntime
                 BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true"),
                 BoolParameter("FixedColorScale", "色标固定为 0–1", "false")
             },
+            "Telecentricity" => new[]
+            {
+                ChoiceParameter("WavelengthNumber", "波长（0 为全部）", "0",
+                    Enumerable.Range(0, CurrentOptic.Wavelengths.Count + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray())
+            },
             "Angle vs Image Height" => new[]
             {
                 IntParameter("FieldDensity", "视场密度", "20", 2, 200),
@@ -1311,6 +1317,7 @@ public partial class WorkbenchRuntime
             },
             "Geometric Image Analysis" => new[]
             {
+                FileParameter("SourceFile", "导入文件"),
                 ChoiceParameter("SourceImage", "输入图像", "分辨率靶标",
                     new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
                 ChoiceParameter("ImageSize", "图像尺寸", "64",
@@ -1325,6 +1332,7 @@ public partial class WorkbenchRuntime
             },
             "Geometric Bitmap Image Analysis" => new[]
             {
+                FileParameter("SourceFile", "导入文件"),
                 ChoiceParameter("ImageSize", "图像尺寸", "64",
                     new[] { "32", "64", "128", "256" }),
                 IntParameter("RaysPerPixel", "每像素光线数", "8", 2, 128),
@@ -1393,8 +1401,9 @@ public partial class WorkbenchRuntime
                     new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
                 ChoiceParameter("SourceMode", "源类型", "内置图像", new[] { "内置图像", "外部位图" }),
                 FileParameter("SourceFile", "导入文件"),
-                IntParameter("ImageWidth", "图像宽度", "64", 16, 2048),
-                IntParameter("ImageHeight", "图像高度", "48", 16, 2048),
+                ChoiceParameter("PreviewReduction", "预览降采样倍数", "1", new[] { "1", "2", "4", "8" }),
+                IntParameter("ImageWidth", "图像宽度", "64", 2, 2048),
+                IntParameter("ImageHeight", "图像高度", "48", 2, 2048),
                 DoubleParameter("FieldHeight", "视场高度", defaultFieldWidth, 0, 1_000_000, 0.1),
                 ChoiceParameter("Oversampling", "过采样", "无", new[] { "无", "2 x", "4 x", "8 x", "16 x" }),
                 ChoiceParameter("SourceFlip", "翻转位图", "无", new[] { "无", "水平", "垂直", "水平和垂直" }),
@@ -1412,7 +1421,7 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("AberrationMode", "像差", "几何的", new[] { "衍射", "几何的", "无" }),
                 BoolParameter("ApplyFixedApertures", "应用固定孔径", "true"),
                 BoolParameter("RelativeIllumination", "使用相对照度", "true"),
-                ChoiceParameter("DisplayAs", "显示为", "仿真图", new[] { "仿真图", "源位图" }),
+                ChoiceParameter("DisplayAs", "显示为", "仿真图", new[] { "仿真图", "源位图", "PSF 网格" }),
                 ChoiceParameter("Reference", "参考", "主光线", new[] { "主光线", "质心" }),
                 ChoiceParameter("ImageFlip", "翻转图像", "无", new[] { "无", "水平", "垂直", "水平和垂直" }),
                 DoubleParameter("PixelSize", "像素大小", "0", 0, 1_000_000, 0.001),
@@ -1424,8 +1433,67 @@ public partial class WorkbenchRuntime
                 IntParameter("DistortionGridSize", "畸变采样网格", "9", 3, 33),
                 IntParameter("DistortionPolynomialDegree", "畸变拟合阶数", "5", 1, 9)
             },
+            "Polarization Ray Trace" or "Polarization Pupil Map" or "Polarization Transmission"
+                or "Polarization Phase Aberration" or "Transmission Fan" => PolarizationParameters(descriptor.CanonicalKey),
             "Jones Pupil" => new[] { IntParameter("GridSize", "网格尺寸", "65", 3, 257) },
+            SurfaceCoatingAnalysis.Spectrum or SurfaceCoatingAnalysis.Transmission or SurfaceCoatingAnalysis.Reflection
+                or SurfaceCoatingAnalysis.Phase => SurfaceCoatingParameters(descriptor.CanonicalKey),
             _ => Array.Empty<AnalysisParameterDescriptor>()
         };
+    }
+
+    private IReadOnlyList<AnalysisParameterDescriptor> SurfaceCoatingParameters(string key)
+    {
+        var result = new List<AnalysisParameterDescriptor>
+        {
+            IntParameter("SurfaceIndex", "表面", "1", 1, Math.Max(1, CurrentOptic.SurfaceGroup.Items.Count - 2)),
+            FileParameter("CoatingFile", "镀膜实验室设计文件"),
+            IntParameter("Samples", "采样点数", "361", 2, 10001)
+        };
+        if (key == SurfaceCoatingAnalysis.Spectrum)
+        {
+            result.Add(DoubleParameter("MinimumWavelengthNm", "起始波长 (nm)", "400", .001, 1e8, 1));
+            result.Add(DoubleParameter("MaximumWavelengthNm", "终止波长 (nm)", "700", .001, 1e8, 1));
+            result.Add(DoubleParameter("IncidenceAngle", "入射角 (°)", "0", 0, 89.999999, 1));
+        }
+        else
+        {
+            var primary = Math.Max(1, CurrentOptic.Wavelengths.ToList().FindIndex(w => w.IsPrimary) + 1);
+            result.Add(IntParameter("WavelengthNumber", "波长序号", primary.ToString(CultureInfo.InvariantCulture), 1, Math.Max(1, CurrentOptic.Wavelengths.Count)));
+            result.Add(DoubleParameter("FixedWavelengthNm", "分析波长 (nm，0=系统)", "0", 0, 1e8, 1));
+            result.Add(DoubleParameter("MinimumAngle", "起始入射角 (°)", "0", 0, 90, 1));
+            result.Add(DoubleParameter("MaximumAngle", "终止入射角 (°)", "90", 0, 90, 1));
+        }
+        return result;
+    }
+
+    private IReadOnlyList<AnalysisParameterDescriptor> PolarizationParameters(string key)
+    {
+        var all = key == "Polarization Transmission";
+        var primary = Math.Max(1, CurrentOptic.Wavelengths.ToList().FindIndex(w => w.IsPrimary) + 1);
+        string[] Choices(int count) => (all ? new[] { "0" } : Array.Empty<string>())
+            .Concat(Enumerable.Range(1, count).Select(n => n.ToString(CultureInfo.InvariantCulture))).ToArray();
+        string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
+        var p = CurrentOptic.Polarization;
+        var result = new List<AnalysisParameterDescriptor>
+        {
+            ChoiceParameter("FieldNumber", all ? "视场（0=全部）" : "视场", all ? "0" : "1", Choices(Math.Max(1, CurrentOptic.Fields.Count))),
+            ChoiceParameter("WavelengthNumber", all ? "波长（0=全部）" : "波长", all ? "0" : primary.ToString(CultureInfo.InvariantCulture), Choices(CurrentOptic.Wavelengths.Count)),
+            ChoiceParameter("SurfaceIndex", "表面", (CurrentOptic.SurfaceGroup.Items.Count - 1).ToString(CultureInfo.InvariantCulture),
+                Enumerable.Range(1, Math.Max(1, CurrentOptic.SurfaceGroup.Items.Count - 1)).Select(n => n.ToString(CultureInfo.InvariantCulture)).ToArray()),
+            BoolParameter("UseRayAiming", "使用系统光线瞄准", "true"),
+            BoolParameter("UseSystemPolarization", "使用系统偏振", "true"),
+            DoubleParameter("Jx", "Jx", N(p.Jx), 0, 1e6, .1), DoubleParameter("Jy", "Jy", N(p.Jy), 0, 1e6, .1),
+            DoubleParameter("XPhase", "X 相位 (°)", N(p.XPhaseDegrees), -36000, 36000, 1),
+            DoubleParameter("YPhase", "Y 相位 (°)", N(p.YPhaseDegrees), -36000, 36000, 1)
+        };
+        if (key is "Polarization Transmission" or "Transmission Fan")
+            result.Add(BoolParameter("Unpolarized", "非偏振", p.Unpolarized ? "true" : "false"));
+        if (key == "Polarization Ray Trace")
+        { result.Add(DoubleParameter("Px", "Px", "0", -1, 1, .01)); result.Add(DoubleParameter("Py", "Py", "0", -1, 1, .01)); }
+        else if (key is "Transmission Fan" or "Polarization Phase Aberration")
+            result.Add(IntParameter("FanPoints", "光瞳截面采样点数", "65", 3, 513));
+        else result.Add(IntParameter("GridSize", "网格尺寸", "17", 3, 129));
+        return result;
     }
 }

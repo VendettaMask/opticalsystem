@@ -12,14 +12,14 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core.NonSequential;
-using SourceParameters = OpticalSystemDesign.Application.Contracts.SourceParameters;
-using StandardLensParameters = OpticalSystemDesign.Application.Contracts.StandardLensParameters;
-using SphereParameters = OpticalSystemDesign.Application.Contracts.SphereParameters;
-using CylinderParameters = OpticalSystemDesign.Application.Contracts.CylinderParameters;
 using BoxParameters = OpticalSystemDesign.Application.Contracts.BoxParameters;
+using CylinderParameters = OpticalSystemDesign.Application.Contracts.CylinderParameters;
 using MeshObjectParameters = OpticalSystemDesign.Application.Contracts.MeshObjectParameters;
-using PlaneRectangleParameters = OpticalSystemDesign.Application.Contracts.PlaneRectangleParameters;
 using NonSequentialObjectKind = OpticalSystemDesign.Application.Contracts.NonSequentialObjectKind;
+using PlaneRectangleParameters = OpticalSystemDesign.Application.Contracts.PlaneRectangleParameters;
+using SourceParameters = OpticalSystemDesign.Application.Contracts.SourceParameters;
+using SphereParameters = OpticalSystemDesign.Application.Contracts.SphereParameters;
+using StandardLensParameters = OpticalSystemDesign.Application.Contracts.StandardLensParameters;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -715,9 +715,17 @@ public sealed partial class NonSequentialObjectEditorPanel
     private void OpenSceneSettings()
     {
         if (TopLevel.GetTopLevel(this) is not Window owner) return;
-        var panel = new NonSequentialModePanel(_service, _events);
-        var window = new Window { Title = "场景设置", Width = 390, Height = 900, MinWidth = 320, MinHeight = 500,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner, Content = panel };
+        var panel = new NonSequentialModePanel(_service, _events, _appSettings);
+        var window = new Window
+        {
+            Title = "场景设置",
+            Width = 390,
+            Height = 900,
+            MinWidth = 320,
+            MinHeight = 500,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            Content = panel
+        };
         window.Closed += (_, _) => panel.Dispose(); ThemeChrome.ApplyDialogDecoration(window);
         _ = window.ShowDialog(owner);
     }
@@ -739,7 +747,7 @@ public sealed partial class NonSequentialObjectEditorPanel
         if (_analysis is null || TopLevel.GetTopLevel(this) is not Window owner) return;
         var path = _analysis.GetCurrentSession()?.RayDatabasePath;
         if (string.IsNullOrWhiteSpace(path)) { _summary.Text = UiLocalization.Text("分析尚未运行"); return; }
-        _ = new NonSequentialRayDatabaseWindow(_analysis, path, true).ShowDialog(owner);
+        new NonSequentialRayDatabaseWindow(_analysis, path, true).Show(owner);
     }
 
     private void BuildBatchProperties()

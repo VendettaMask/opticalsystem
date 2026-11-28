@@ -1,0 +1,113 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.CameraImaging.Engine -> D:\optical system design\opticalsystem\labs\CameraImaging\src\OpticalSystemDesign.CameraImaging.Engine\bin\Release\net10.0\OpticalSystemDesign.CameraImaging.Engine.dll
+  OpticalSystemDesign.OpticalAssembly.Engine -> D:\optical system design\opticalsystem\labs\OpticalAssembly\src\OpticalSystemDesign.OpticalAssembly.Engine\bin\Release\net10.0\OpticalSystemDesign.OpticalAssembly.Engine.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+  {
+    "materializedFiles": 524,
+    "fixtureLayout": true,
+    "destination": "D:\\optical system design\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0",
+    "manifestSha256": "0b3052cc954a2716cc8997176e0d9ef495859cf64704e82f14b0e934f24a59b5",
+    "valid": true
+  }
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:11.79]     OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 600) [FAIL]
+  失败 OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 600) [3 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 300
+Actual:   315
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.<>c__DisplayClass6_0.<CategoriesUseBoundedPanelAndOnlyApplicableParameters>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 376
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(Int32 width) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 332
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:15.02]     OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 1000) [FAIL]
+  失败 OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 1000) [3 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 300
+Actual:   315
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.<>c__DisplayClass6_0.<CategoriesUseBoundedPanelAndOnlyApplicableParameters>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 376
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(Int32 width) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 332
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:13.10]     OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Light", language: "zh-CN", scale: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Light", language: "zh-CN", scale: 1) [3 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.<>c__DisplayClass1_0.<<ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 89
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(String theme, String language, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:20.09]     OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Pixel", language: "zh-CN", scale: 1.5) [FAIL]
+  失败 OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Pixel", language: "zh-CN", scale: 1.5) [2 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.<>c__DisplayClass1_0.<<ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 89
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(String theme, String language, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:23.55]     OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Dark", language: "en-US", scale: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Dark", language: "en-US", scale: 1) [3 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.<>c__DisplayClass1_0.<<ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 89
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(String theme, String language, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:27.05]     OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Isekai", language: "en-US", scale: 2) [FAIL]
+  失败 OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(theme: "Isekai", language: "en-US", scale: 2) [3 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.<>c__DisplayClass1_0.<<ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 89
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CoordinateBreakPanelTests.ActualEditorInsertsEditsAndReturnsCoordinatesInEveryTheme(String theme, String language, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateBreakPanelTests.cs:line 31
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-26\coordinate-break-editor\final.trx
+
+失败!  - 失败:     6，通过:   322，已跳过:     0，总计:   328，持续时间: 1 m 25 s - OpticalSystemDesign.Tests.dll (net10.0)

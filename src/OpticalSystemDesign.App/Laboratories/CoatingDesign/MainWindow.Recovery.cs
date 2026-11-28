@@ -62,7 +62,7 @@ public sealed partial class MainWindow
         s.Base.Validate();
         var ids = s.Base.Materials.Select(m => m.Id).ToHashSet();
         if (s.Rows.Concat(s.BackRows).Any(r => r is null || r.Original is null || !ids.Contains(r.Original.MaterialId)
-            || !double.IsFinite(r.Original.ThicknessNm) || r.Original.ThicknessNm <= 0 || r.Original.ThicknessNm > 100000
+            || !double.IsFinite(r.Original.ThicknessNm) || r.Original.ThicknessNm <= 0 || r.Original.ThicknessNm > FilmLayer.MaximumNm(r.Original.Variable)
             || r.PhysicalText is null || r.OriginalText is null || r.PhysicalText.Length > 65536 || r.InvalidText?.Length > 65536
             || r.InvalidUnit is not (null or "OT" or "QW" or "FW")))
             throw new InvalidDataException("恢复草稿包含无效膜层；文件已保留。");

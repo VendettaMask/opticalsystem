@@ -3,7 +3,9 @@ using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -26,7 +28,8 @@ public sealed class ParaxialSurfacePresentationTests
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false }).UseHarfBuzz();
 
     [Theory]
-    [InlineData(0)] [InlineData(1)]
+    [InlineData(0)]
+    [InlineData(1)]
     public async Task ActualCrystalExampleKeepsParaxialIdentityThroughEditsUndoAndNativeReopen(int configuration)
     {
         using var app = WorkbenchApplication.Create();
@@ -109,6 +112,9 @@ public sealed class ParaxialSurfacePresentationTests
     [InlineData("Light", "zh-CN", "近轴面", "焦距")]
     [InlineData("Dark", "en-US", "Paraxial", "Focal length")]
     [InlineData("Light", "ja-JP", "近軸面", "焦点距離")]
+    [InlineData("Lumen", "zh-CN", "近轴面", "焦距")]
+    [InlineData("Isekai", "en-US", "Paraxial", "Focal length")]
+    [InlineData("Pixel", "zh-CN", "近轴面", "焦距")]
     public async Task ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(string theme, string language,
         string typeCaption, string focalCaption)
     {
@@ -118,12 +124,46 @@ public sealed class ParaxialSurfacePresentationTests
             var previous = UiLocalization.CurrentLanguage;
             UiLocalization.Apply(language); ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create(); await app.Documents.OpenAsync(OriginalFile);
+            UiLocalization.Apply(language);
             using var editor = new LensEditorPanel(app.Prescription, app.Events, new SurfaceSelectionService(), app.MultiConfiguration);
             var window = new Window { Width = 1400, Height = 900, Content = editor };
             try
             {
                 window.Show(); Tick(window);
                 var grid = Find<DataGrid>(editor, "LensSurfaceGrid");
+                SurfaceEditorRow Item(int number) => grid.ItemsSource.Cast<SurfaceEditorRow>().Single(r => r.Number == number);
+                DataGridRow Row(int number) => grid.GetVisualDescendants().OfType<DataGridRow>().Single(r =>
+                    r.DataContext is SurfaceEditorRow item && item.Number == number);
+                void Away() { window.MouseMove(new Point(window.Width - 8, window.Height - 8)); Tick(window); }
+                void CheckColor(Color expected)
+                {
+                    var row = Row(4);
+                    Assert.Contains(ParaxialRowStyles.RowClass, row.Classes);
+                    Assert.DoesNotContain("glass-material-row", row.Classes);
+                    Assert.Equal(expected, Assert.IsAssignableFrom<ISolidColorBrush>(row.GetVisualDescendants()
+                        .OfType<Avalonia.Controls.Shapes.Rectangle>().Single(r => r.Name == "BackgroundRectangle").Fill).Color);
+                    Assert.All(row.GetVisualDescendants().OfType<DataGridCell>(), cell =>
+                        Assert.Equal(Colors.Transparent, Assert.IsAssignableFrom<ISolidColorBrush>(cell.Background).Color));
+                    Assert.All(row.GetVisualDescendants().OfType<TextBlock>().Where(t => !string.IsNullOrEmpty(t.Text)), text =>
+                    {
+                        var a = CustomSurfaceRowStyles.Luminance(expected);
+                        var b = CustomSurfaceRowStyles.Luminance(Assert.IsAssignableFrom<ISolidColorBrush>(text.Foreground).Color);
+                        Assert.True((Math.Max(a, b) + .05) / (Math.Min(a, b) + .05) >= 4.5);
+                    });
+                }
+                var colors = ParaxialRowStyles.ColorsFor(ThemeRegistry.FromSettings(theme));
+                grid.SelectedItem = Item(0); Away(); CheckColor(colors.Normal);
+                var point = Row(4).TranslatePoint(new Point(18, 18), window)!.Value;
+                window.MouseMove(point); Tick(window); CheckColor(colors.Hover);
+                grid.SelectedItem = Item(4); Away(); CheckColor(colors.Selected);
+                window.MouseMove(point); Tick(window); CheckColor(colors.SelectedHover);
+                app.Prescription.UpdateSurfaceDrawingSettings(4, new(RowColor: "#204080")); Tick(window); Away();
+                Assert.DoesNotContain(ParaxialRowStyles.RowClass, Row(4).Classes);
+                Assert.Contains(CustomSurfaceRowStyles.RowClass, Row(4).Classes);
+                app.Prescription.UpdateSurfaceDrawingSettings(4, new()); Tick(window);
+                grid.SelectedItem = Item(4); Away(); CheckColor(colors.Selected);
+                ThemeApplicationService.Apply(Avalonia.Application.Current!, theme == "Light" ? "Dark" : "Light"); Tick(window);
+                ThemeApplicationService.Apply(Avalonia.Application.Current!, theme); UiLocalization.Apply(language); Tick(window); Away(); CheckColor(colors.Selected);
                 grid.SelectedItem = grid.ItemsSource.Cast<SurfaceEditorRow>().Single(r => r.Number == 4);
                 Find<Button>(editor, "SurfacePropertiesToggle").RaiseEvent(new RoutedEventArgs(Button.ClickEvent)); Tick(window);
                 var geometry = Find<ComboBox>(editor, "SurfaceGeometry");

@@ -62,7 +62,7 @@ public sealed partial class MainWindow
         if ((replaceAll ? 0 : _rows.Count) + incoming.Length > 200) throw new ArgumentException("应用后每面不能超过200层，未修改任何膜层。");
         var basis = _session.Current with { Materials = materials }; basis.Validate();
         var ids = materials.Select(m => m.Id).ToHashSet();
-        if (incoming.Any(l => !ids.Contains(l.MaterialId) || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000))
+        if (incoming.Any(l => !ids.Contains(l.MaterialId) || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > FilmLayer.MaximumNm(l.Variable)))
             throw new ArgumentException("导入膜层的材料或厚度无效。");
         var index = _table.SelectedItems.OfType<LayerRow>().Select(r => _rows.IndexOf(r)).DefaultIfEmpty(0).Min();
         var rows = incoming.Select(CreateRow).ToArray();

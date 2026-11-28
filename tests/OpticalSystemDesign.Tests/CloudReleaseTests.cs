@@ -32,15 +32,25 @@ public sealed class CloudReleaseTests
         var mainEnd = ci.IndexOf("  test-lab:", mainStart, StringComparison.Ordinal);
         Assert.True(mainStart >= 0 && mainEnd > mainStart);
         var main = ci[mainStart..mainEnd];
-        var testStart = main.IndexOf("      - name: Test main solution", StringComparison.Ordinal);
-        Assert.True(testStart >= 0);
-        var testEnd = main.IndexOf("      - name:", testStart + 1, StringComparison.Ordinal);
-        Assert.True(testEnd > testStart);
-        var mainTests = main[testStart..testEnd];
-        // The complete assembly retains every UI contract; don't silently filter
-        // it down to the smaller set of release checks.
-        Assert.Contains("${{ env.MAIN_TEST_PROJECT }}", mainTests);
-        Assert.DoesNotContain("--filter", mainTests);
+        using var policy = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "validation", "acceptance-policy.json")));
+        var scope = policy.RootElement.GetProperty("testFilter").GetString();
+        Assert.Equal("AcceptanceScope!=RetiredReference", scope);
+        Assert.Contains($"  CURRENT_TEST_FILTER: '{scope}'", ci.Split('\n').Select(line => line.TrimEnd()));
+        AssertTestRun("Test main solution", "${{ env.MAIN_TEST_PROJECT }}");
+        AssertTestRun("Test portable Zemax comparison (no licensed application)", "${{ env.COMPARISON_TEST_PROJECT }}");
+
+        void AssertTestRun(string name, string project)
+        {
+            var step = Assert.Single(main.Split("      - name: ", StringSplitOptions.None),
+                block => block.Split('\n', 2)[0].TrimEnd() == name);
+            var lines = step.Split('\n').Select(line => line.Trim()).ToArray();
+            Assert.Contains("dotnet test", lines);
+            Assert.Contains(project, lines);
+            // Keep all current tests, including UI contracts. A second or narrower filter changes coverage.
+            var filter = Assert.Single(lines, line => line.Contains("--filter", StringComparison.Ordinal));
+            Assert.Equal("--filter \"${{ env.CURRENT_TEST_FILTER }}\"", filter);
+        }
+
         Assert.Contains("test-lens-navigation-release.ps1", main);
         Assert.Contains("steps.build.outcome == 'success'", main);
         foreach (var name in new[] { "ANALYSIS_FIT_CAPTURE_DIR", "ANALYSIS_EXPORT_CAPTURE_DIR", "UPDATE_CAPTURE_DIR" })

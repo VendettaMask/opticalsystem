@@ -7,7 +7,7 @@ namespace OpticalSystemDesign.Application.Services;
 
 internal static class ImageFileLoader
 {
-    internal static RgbImage LoadRgb(string path)
+    internal static RgbImage LoadRgb(string path, int reduction = 1)
     {
         if (string.IsNullOrWhiteSpace(path))
         {
@@ -21,7 +21,7 @@ internal static class ImageFileLoader
         }
 
         using var stream = BoundedFile.OpenRead(fullPath, BoundedFile.MaximumImageDataBytes, "Image-simulation bitmap");
-        return LoadRgb(stream);
+        return LoadRgb(stream, reduction);
     }
 
     internal static RgbImage LoadRgb(byte[] bytes)
@@ -31,14 +31,20 @@ internal static class ImageFileLoader
         return LoadRgb(stream);
     }
 
-    private static RgbImage LoadRgb(Stream stream)
+    private static RgbImage LoadRgb(Stream stream, int reduction = 1)
     {
+        if (reduction is not (1 or 2 or 4 or 8)) throw new ArgumentOutOfRangeException(nameof(reduction));
         // The metadata codec owns its Skia stream, not the file needed by the decoder below.
         using (var codecStream = new SKManagedStream(stream, disposeManagedStream: false))
         using (var codec = SKCodec.Create(codecStream)
             ?? throw new InvalidDataException("The image simulation input file is not a supported bitmap."))
         {
-            AnalysisResourceLimits.ValidateImageDimensions(codec.Info.Width, codec.Info.Height, "Input bitmap");
+            if (codec.Info.Width > AnalysisResourceLimits.MaximumImageDimension
+                || codec.Info.Height > AnalysisResourceLimits.MaximumImageDimension
+                || (long)codec.Info.Width * codec.Info.Height > 4_194_304)
+                throw new InvalidDataException("Input bitmap exceeds the decoding limit.");
+            AnalysisResourceLimits.ValidateImageDimensions((codec.Info.Width + reduction - 1) / reduction,
+                (codec.Info.Height + reduction - 1) / reduction, "Input bitmap");
         }
 
         stream.Position = 0;
@@ -49,16 +55,19 @@ internal static class ImageFileLoader
             throw new InvalidDataException("Image dimensions must be at least 2 by 2 pixels.");
         }
 
-        var values = new double[3, bitmap.Height, bitmap.Width];
+        var values = new double[3, (bitmap.Height + reduction - 1) / reduction, (bitmap.Width + reduction - 1) / reduction];
         for (var row = 0; row < bitmap.Height; row++)
         {
             for (var column = 0; column < bitmap.Width; column++)
             {
                 var color = bitmap.GetPixel(column, row);
-                var alpha = color.Alpha / 255.0;
-                values[0, row, column] = color.Red / 255.0 * alpha;
-                values[1, row, column] = color.Green / 255.0 * alpha;
-                values[2, row, column] = color.Blue / 255.0 * alpha;
+                var y = row / reduction;
+                var x = column / reduction;
+                var count = Math.Min(reduction, bitmap.Height - y * reduction) * Math.Min(reduction, bitmap.Width - x * reduction);
+                var alpha = color.Alpha / (255.0 * count);
+                values[0, y, x] += color.Red / 255.0 * alpha;
+                values[1, y, x] += color.Green / 255.0 * alpha;
+                values[2, y, x] += color.Blue / 255.0 * alpha;
             }
         }
 

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 using Avalonia;
 using Avalonia.Automation;
@@ -22,6 +23,9 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
     private double _pitchDegrees;
     private double _zoom = 1;
     private Vector _pan;
+    private AnalysisPointDto[]? _gridSamples;
+    private SurfaceGrid? _cachedGrid;
+    private bool _firstFrameLogged;
 
     public WavefrontSurfaceControl()
     {
@@ -324,6 +328,27 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public override void Render(DrawingContext context)
     {
+        var firstFrame = !_firstFrameLogged;
+        _firstFrameLogged = true;
+        var started = Stopwatch.GetTimestamp();
+        if (firstFrame)
+            Trace.TraceInformation($"Wavefront plot first frame started. Mode={DisplayAs} Points={Series?.Points.Count ?? 0} Bounds={Bounds.Width:0.#}x{Bounds.Height:0.#}");
+        try
+        {
+            RenderPlot(context);
+            var elapsed = Stopwatch.GetElapsedTime(started).TotalMilliseconds;
+            if (firstFrame || elapsed >= 1000)
+                Trace.TraceInformation($"Wavefront plot frame completed in {elapsed:F0} ms. Mode={DisplayAs} Points={Series?.Points.Count ?? 0}");
+        }
+        catch (Exception error)
+        {
+            Trace.TraceError($"Wavefront plot frame failed. Mode={DisplayAs} Points={Series?.Points.Count ?? 0} {error}");
+            throw;
+        }
+    }
+
+    private void RenderPlot(DrawingContext context)
+    {
         base.Render(context);
         context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, Brushes.White), null, Bounds);
         if (!TryBuildGrid(out var grid) || Bounds.Width < 260 || Bounds.Height < 220)
@@ -381,13 +406,6 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         var xMaximum = grid.Xs[^1] + (xStep / 2);
         var yMinimum = grid.Ys[0] - (yStep / 2);
         var yMaximum = grid.Ys[^1] + (yStep / 2);
-        var range = Math.Max(1e-12, maximum - minimum);
-
-        double MapX(double value) => plot.Left
-            + ((value - xMinimum) / Math.Max(1e-12, xMaximum - xMinimum) * plot.Width);
-        double MapY(double value) => plot.Bottom
-            - ((value - yMinimum) / Math.Max(1e-12, yMaximum - yMinimum) * plot.Height);
-
         if (contourMode)
         {
             DrawPlanarGrid(context, plot);
@@ -397,31 +415,9 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         {
             using (context.PushClip(plot))
             {
-                for (var row = 0; row < grid.Ys.Length; row++)
-                {
-                    for (var column = 0; column < grid.Xs.Length; column++)
-                    {
-                        var value = grid.Values[row, column];
-                        if (!double.IsFinite(value))
-                        {
-                            continue;
-                        }
-
-                        var normalized = (value - minimum) / range;
-                        var left = MapX(grid.Xs[column] - (xStep / 2));
-                        var right = MapX(grid.Xs[column] + (xStep / 2));
-                        var top = MapY(grid.Ys[row] + (yStep / 2));
-                        var bottom = MapY(grid.Ys[row] - (yStep / 2));
-                        context.DrawRectangle(
-                            new SolidColorBrush(PlotColor(normalized)),
-                            null,
-                            new Rect(
-                                Math.Min(left, right),
-                                Math.Min(top, bottom),
-                                Math.Max(1, Math.Abs(right - left) + 0.35),
-                                Math.Max(1, Math.Abs(bottom - top) + 0.35)));
-                    }
-                }
+                context.Custom(new ScalarMapRasterOperation(grid.Xs, grid.Ys, grid.Values, plot,
+                    xStep, yStep, minimum, maximum, ColorMapOverride ?? Series?.ColorMap ?? AnalysisColorMap.Viridis,
+                    RenderOptions.GetEdgeMode(this)));
             }
         }
 
@@ -680,6 +676,13 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                     continue;
                 }
 
+                // No edge crosses this level when all four corners are on the
+                // same side. Avoid a list and backing array for every such cell.
+                var below = bottomLeft < level;
+                if ((bottomRight < level) == below && (topRight < level) == below
+                    && (topLeft < level) == below)
+                    continue;
+
                 var intersections = new List<Point>(4);
                 AddIntersection(bottomLeft, bottomRight, new Point(column, row), new Point(column + 1, row));
                 AddIntersection(bottomRight, topRight, new Point(column + 1, row), new Point(column + 1, row + 1));
@@ -934,13 +937,43 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     private bool TryBuildGrid(out SurfaceGrid grid)
     {
-        var samples = Series?.Points
+        var points = Series?.Points ?? Array.Empty<AnalysisPointDto>();
+        if (_gridSamples is not null && GridSamplesEqual(points, _gridSamples))
+        {
+            grid = _cachedGrid!;
+            return grid is not null;
+        }
+
+        // IReadOnlyList does not promise immutability. Retain one snapshot and
+        // compare every grid-affecting value, including edits to the same list.
+        var samples = points.ToArray();
+        var valid = BuildGrid(samples, out grid);
+        _gridSamples = samples;
+        _cachedGrid = valid ? grid : null;
+        return valid;
+    }
+
+    private static bool GridSamplesEqual(IReadOnlyList<AnalysisPointDto> points, AnalysisPointDto[] samples)
+    {
+        if (points.Count != samples.Length) return false;
+        for (var index = 0; index < samples.Length; index++)
+        {
+            var point = points[index];
+            var sample = samples[index];
+            if (!point.X.Equals(sample.X) || !point.Y.Equals(sample.Y)
+                || !Nullable.Equals(point.Value, sample.Value)) return false;
+        }
+        return true;
+    }
+
+    private static bool BuildGrid(IReadOnlyList<AnalysisPointDto> points, out SurfaceGrid grid)
+    {
+        var samples = points
             .Where(point => point.Value.HasValue
                 && double.IsFinite(point.X)
                 && double.IsFinite(point.Y)
                 && double.IsFinite(point.Value.Value))
-            .ToArray()
-            ?? Array.Empty<AnalysisPointDto>();
+            .ToArray();
         if (samples.Length < 4)
         {
             grid = null!;

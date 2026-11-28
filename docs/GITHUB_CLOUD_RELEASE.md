@@ -2,18 +2,24 @@
 
 源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。该流程生成完整安装包及两端 OTA 元数据；软件中的下载与安装均由用户发起。
 
-2026-10-27 较早批次已从 `a31fb444` 完成三平台构建与公开替换，原测试标签不动。该阶段的下载、Windows 签名与 Mac 布局崩溃修复见[原批次账目](validation/CLOUD_RELEASE_2026-10-27.json)；后续 Mac OTA 接入、当前实际安装包及最新验证范围以[当前状态](CURRENT_STATUS.md)为准。
+2026-11-27 已从 `92e0183d` 完成三平台公开测试发布，今天的标签固定到本次源码；Windows OTA 和 Mac 公开签名更新源均已复核。[发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261127) · [本轮交付回执](../validation/rechecks/2026-11-27/public-release/README.md)。较早批次的验证范围保留在[原批次账目](validation/CLOUD_RELEASE_2026-10-27.json)，当前交付范围以[状态页](CURRENT_STATUS.md)为准。
 
-## 一键更新当前测试包
+## 仅打包与公开发布
+
+普通发布入口仍是 `.github/workflows/release.yml`。临时仅打包流程只将安装包存入 Actions artifacts，不会更新公开 Release、Windows OTA 签名元数据或 Mac Appcast；软件的更新检查不读取这些 artifacts。`validation_only` 也只执行检查，不生成或发布安装包。判断已交付必须同时核对最终 `publish` 作业、公开安装附件及对应 OTA 元数据，不能只看 `package` 作业成功。
+
+## 刷新已有测试发布
 
 1. 将要交付的代码同步到 GitHub `main`，在 Actions 打开上述工作流，点击 **Run workflow**。
-2. 选择 `main`，`release_tag` 保持 `v1.0.4-test.20261019`，平台选择 `all` 构建全部；仅更新 Windows x64 时选 `win-x64`，仅补充 Mac 时选择 `osx-arm64`。
+2. 选择 `main`，`release_tag` 填入要刷新的**已有测试标签**，不要直接沿用表单中的旧日期默认值。平台选择 `all` 构建全部；仅更新 Windows x64 时选 `win-x64`，仅补充 Mac 时选择 `osx-arm64`。
 3. 替换所选平台的已有包时勾选 `replace_existing`；新增尚不存在的 Mac 包无需覆盖开关。需要仓库写权限。
 4. 等所有步骤成功，再从原测试发布页下载对应的 EXE 或 DMG。失败记录在 Actions 查看，不把失败的流程当成新版交付。
 
 手动刷新旧发布不会移动标签。包内与发布说明中的源码提交才是本包实际来源；该标签的自动 Source code 压缩包仍是标签原始代码。操作入口和权限说明见 [GitHub 手动运行文档](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)。
 
 项目增加或调整 `ProjectReference` 时也必须同步受影响的 `packages.lock.json`：在维护端执行 `dotnet restore OpticalSystemDesign.slnx --force-evaluate`，检查差异，再以 `dotnet restore OpticalSystemDesign.slnx --locked-mode` 和完整 Release 构建复验后提交。不要在云发布流程中关闭锁定还原。2026-10-27 首次发布因 Persistence → Engine 引用未同步而被此门禁阻断，修复范围见[阶段记录](../validation/rechecks/2026-10-27/cloud-release/README.md)；当前实际交付结果以[状态页](CURRENT_STATUS.md)为准。
+
+2026-11-27 的仅打包任务发现 Comparison 工具、Comparison 测试和 InitialStructure 测试遗漏 Application → CoatingDesign.Engine 的依赖图更新，均在 `NU1004` 处停止。完整解决方案重新求值后同步五份锁文件；固定源码的仅打包分支需要指向修复后的提交再触发。[失败原因、范围和验证回执](../validation/rechecks/2026-11-27/cloud-package/README.md)。
 
 Windows EXE 文件名末尾显示本次实际构建源码的八位小写提交短码，例如 `OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-6edad153.exe`，发布标题也显示同一短码。打包记录、签名中的完整源码和文件名短码必须一致；每次源码变更会产生不同的 EXE 下载地址，测试标签与发布页地址保持不动。分平台源码仍以正文逐项记录为准，更新 Windows 不代表同时重建 Mac。
 
@@ -24,6 +30,8 @@ Windows EXE 文件名末尾显示本次实际构建源码的八位小写提交�
 ## 发布新版本
 
 先修改 `ProductVersion.props`，更新 `packaging/windows/RELEASE_NOTES.md` 并完成检查，再推送代码和匹配的版本标签。`v1.0.5` 会构建 Windows x64、Windows ARM64 和 Mac Apple Silicon 并自动公开为正式版；`v1.0.5-test.20261022` 会公开为测试预发布、不标 Latest。标签和产品版本不一致直接失败。推送普通分支只运行通常的 CI，不发布安装包。
+
+同一产品版本也可使用新的日期测试标签，例如产品仍为 `1.0.4` 时创建 `v1.0.4-test.20261127`。新标签应固定到本次交付的源码；推送该标签会自动启动三平台完整发布，通常无需再手动 Run workflow。手动发布同样要求目标标签已经存在，脚本不创建或移动标签。避免先手动启动、再创建同名标签而产生重复运行；同标签的并发保护会排队，不能代替选择唯一发布任务。保留旧发布与旧标签，不把新安装包错误归入已过时的源码身份。
 
 首次公开前创建草稿暂存已验证的安装包，所有所选平台通过后才公开。刷新已有发布时按所选架构查找旧附件，兼容旧文件名与此前短码，先保存旧附件副本，再以临时名称上传完整新包并核对服务端 SHA-256，随后切换到新的带短码下载名并移除同架构旧附件。其他平台的附件、正文来源及有效签名保留，每个 Windows 架构只留一个 EXE。GitHub 没有多附件原子事务；短暂的临时名和切换失败仍可能出现，错误时会尝试恢复旧名称，旧文件和备份不提前删除。发现未知附件或不可变发布时停止，需要维护者检查。
 

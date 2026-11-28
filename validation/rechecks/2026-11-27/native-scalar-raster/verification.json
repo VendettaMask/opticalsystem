@@ -1,0 +1,290 @@
+{
+  "date": "2026-11-27",
+  "timezone": "Asia/Shanghai",
+  "baselineGitCommit": "f84f6b9cf46d811b123a23920d9928b6f1fd3f87",
+  "sourceDirty": true,
+  "liveIncident": {
+    "time": "2026-11-27T14:51:13+08:00",
+    "validPoints": 204269,
+    "computeMs": 982,
+    "presentationMs": 110,
+    "managedFrameMs": 91,
+    "privateBytes": 9152688128,
+    "managedAllocatedBytes": 566784432,
+    "managedCommittedBytes": 568381440,
+    "gpuContextPresent": true,
+    "opacity": 0.85,
+    "rectangleDips": [
+      1.58679060665,
+      1.58679060665
+    ],
+    "blockedPathConfirmed": "native GPU rectangle replay and synchronous compositor wait",
+    "specificDriverInternalCauseConfirmed": false,
+    "rawDumpOrPrivateRuntimeLogIncluded": false
+  },
+  "gpuOffscreen": {
+    "graphics": "D3D11AngleWin32PlatformGraphics",
+    "lens": "Afocal/Beam Expander.ZMX",
+    "analysis": "Interferogram",
+    "settings": {
+      "Sampling": "512 x 512",
+      "XTilt": "3",
+      "YTilt": "-1",
+      "UseGpuAcceleration": false
+    },
+    "outputPixels": [
+      1200,
+      900
+    ],
+    "frames": [
+      {
+        "frame": 0,
+        "valid": 204269,
+        "milliseconds": 164.0509,
+        "privateBytes": 519458816,
+        "workingSet": 559509504,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 1,
+        "valid": 204269,
+        "milliseconds": 6.6305,
+        "privateBytes": 523710464,
+        "workingSet": 563515392,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 2,
+        "valid": 204269,
+        "milliseconds": 5.8819,
+        "privateBytes": 528044032,
+        "workingSet": 567848960,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 3,
+        "valid": 204269,
+        "milliseconds": 5.8807,
+        "privateBytes": 528044032,
+        "workingSet": 567853056,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 4,
+        "valid": 204269,
+        "milliseconds": 6.011,
+        "privateBytes": 528044032,
+        "workingSet": 567853056,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 5,
+        "valid": 204269,
+        "milliseconds": 5.9539,
+        "privateBytes": 528044032,
+        "workingSet": 567857152,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 6,
+        "valid": 204269,
+        "milliseconds": 5.9477,
+        "privateBytes": 528044032,
+        "workingSet": 567857152,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 7,
+        "valid": 204269,
+        "milliseconds": 6.212,
+        "privateBytes": 528044032,
+        "workingSet": 567861248,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 8,
+        "valid": 204269,
+        "milliseconds": 6.3038,
+        "privateBytes": 528044032,
+        "workingSet": 567861248,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 9,
+        "valid": 204269,
+        "milliseconds": 5.9483,
+        "privateBytes": 528044032,
+        "workingSet": 567865344,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 10,
+        "valid": 204269,
+        "milliseconds": 114.0314,
+        "privateBytes": 531496960,
+        "workingSet": 571830272,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 11,
+        "valid": 204269,
+        "milliseconds": 111.8459,
+        "privateBytes": 536727552,
+        "workingSet": 577503232,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 12,
+        "valid": 204269,
+        "milliseconds": 110.7812,
+        "privateBytes": 540168192,
+        "workingSet": 580964352,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 13,
+        "valid": 204269,
+        "milliseconds": 111.8973,
+        "privateBytes": 541065216,
+        "workingSet": 582066176,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 14,
+        "valid": 204269,
+        "milliseconds": 115.4585,
+        "privateBytes": 541126656,
+        "workingSet": 582955008,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 15,
+        "valid": 204269,
+        "milliseconds": 85.5658,
+        "privateBytes": 542019584,
+        "workingSet": 583852032,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 16,
+        "valid": 204269,
+        "milliseconds": 83.1318,
+        "privateBytes": 541126656,
+        "workingSet": 582963200,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 17,
+        "valid": 204269,
+        "milliseconds": 68.3239,
+        "privateBytes": 542019584,
+        "workingSet": 583999488,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 18,
+        "valid": 204269,
+        "milliseconds": 63.4217,
+        "privateBytes": 541126656,
+        "workingSet": 583110656,
+        "gcBytes": 360295880
+      },
+      {
+        "frame": 19,
+        "valid": 204269,
+        "milliseconds": 175.9709,
+        "privateBytes": 542978048,
+        "workingSet": 585158656,
+        "gcBytes": 360295880
+      }
+    ],
+    "firstFrameMs": 164.0509,
+    "unchangedStateMedianMs": 5.9539,
+    "timingIncludesFlushAndReadback": true,
+    "lastFrameAlsoIncludesPngEncoding": true,
+    "visibleWindowCreated": false,
+    "oldHangIntentionallyReplayed": false
+  },
+  "tests": {
+    "expanded": {
+      "counters": {
+        "total": 65,
+        "passed": 58,
+        "failed": 7,
+        "notExecuted": 0
+      },
+      "failures": {
+        "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: Rainbow)": "Assert.Equal() Failure: Values differ\nExpected: 1440, 1080\nActual:   1919, 1080",
+        "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: RedBlue)": "Assert.Equal() Failure: Values differ\nExpected: 1440, 1080\nActual:   1919, 1080",
+        "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: Viridis)": "Assert.Equal() Failure: Values differ\nExpected: 1440, 1080\nActual:   1919, 1080",
+        "OpticalSystemDesign.Tests.InterferogramFooterTests.FooterUsesTypedSummaryWithoutGenericRowsOrFabricatedFringeSettings(width: 600)": "Assert.IsType() Failure: Value is not the exact type\nExpected: typeof(Avalonia.Controls.StackPanel)\nActual:   typeof(Avalonia.Controls.Grid)",
+        "OpticalSystemDesign.Tests.InterferogramFooterTests.FooterUsesTypedSummaryWithoutGenericRowsOrFabricatedFringeSettings(width: 1200)": "Assert.IsType() Failure: Value is not the exact type\nExpected: typeof(Avalonia.Controls.StackPanel)\nActual:   typeof(Avalonia.Controls.Grid)",
+        "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"表面\", map: Viridis)": "Assert.Equal() Failure: Values differ\nExpected: 1440, 1080\nActual:   1919, 1080",
+        "OpticalSystemDesign.Tests.InterferogramFooterTests.MissingMetadataIsNotReportedAsZeroAndOtherKindsKeepTheirSummary": "Assert.IsType() Failure: Value is not the exact type\nExpected: typeof(Avalonia.Controls.StackPanel)\nActual:   typeof(Avalonia.Controls.Grid)"
+      }
+    },
+    "defaultOutputNewGuards": {
+      "counters": {
+        "total": 25,
+        "passed": 25,
+        "failed": 0,
+        "notExecuted": 0
+      },
+      "failures": {}
+    },
+    "newRasterCases": 16,
+    "firstStageGuardCases": 9,
+    "knownFailureMessagesMatchFirstStage": true
+  },
+  "formatCheck": {
+    "passed": true,
+    "solution": "OpticalSystemDesign.slnx",
+    "receipt": "receipts/format-verify-final.txt"
+  },
+  "softwarePng": {
+    "dimensions": [
+      1200,
+      900
+    ],
+    "identical": true,
+    "rgbaSha256": "a1f66537910f5f91715153177e0618700ffe9dbbe5811b50896024ace4a336d8",
+    "priorEvidence": "../interferogram-ui-diagnosis/evidence.zip"
+  },
+  "defaultAppBuild": {
+    "warnings": 0,
+    "errors": 0,
+    "appSha256": "81bc67c6afc1817cd785697c0a9bcff50019ad90bb82db0776ff9e4ae33bb05a",
+    "testCopySha256": "81bc67c6afc1817cd785697c0a9bcff50019ad90bb82db0776ff9e4ae33bb05a",
+    "testCopyMatches": true
+  },
+  "sources": {
+    "src/OpticalSystemDesign.App/Controls/ScalarMapRasterOperation.cs": "e465fb2f54b942c7cacefc3b4284fd61a48f23b28134aeec20a11d4376b553fd",
+    "src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs": "14e0bc94e83d98da4f25c700555aa15c3ebafd50252f519fca6d0e68ffcc9a7e",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "b14d0ccc0cf4717f7145254f2f3e6b8d6fad312e688bf65acd7618de816e9840",
+    "tests/OpticalSystemDesign.Tests/ScalarMapRasterTests.cs": "8de780b764a9f3a08fa9176bb738ef9ac9106f13f01e07dedb13e4594e29b475",
+    "tests/OpticalSystemDesign.Tests/WavefrontRenderingAllocationTests.cs": "086c9efb0a315c250432706ac2b8fafb5a11a7c435ec104b98e778410ffefd41"
+  },
+  "evidence": {
+    "archive": "evidence.zip",
+    "bytes": 766580,
+    "sha256": "3fb7ff5dde8cba0d0b7e5a713522d650873a2e79a378bc3dda0fc37aea3cc3bb",
+    "manifestEntries": 29,
+    "allEntryHashesVerified": true
+  },
+  "scope": {
+    "normalReleaseUpdated": true,
+    "installedOtaUpdated": false,
+    "full95LensMatrixRun": false,
+    "nativeDesktopInteractionTested": false,
+    "allGpuDriversCertified": false,
+    "softwarePixelsExact": true,
+    "oldVectorVsGpuImageEdgesClaimedExact": false
+  },
+  "documentationCheck": {
+    "documents": 2167,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "strictPassed": true
+  }
+}

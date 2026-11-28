@@ -36,6 +36,14 @@ public static partial class ImageSimulationEngine
             throw new ArgumentException("Intensity PSF components and coefficient maps must have matching dimensions.");
         // Component reconstruction plus the mean and normalized scatter passes.
         AnalysisResourceLimits.ValidateConvolutionWork(width, height, kernelWidth, kernelHeight, 2 + eigenPsfs.Count);
+        if (AnalysisGpuSession.Current is { } gpu && meanPsf.Length <= 4096
+            && HasDenseConvolutionWork(source, meanPsf.Length * (1 + eigenPsfs.Count)))
+        {
+            var bytes = sizeof(double) * (4L * source.Length + coefficientMaps.LongLength + (1L + eigenPsfs.Count) * meanPsf.Length);
+            PsfIntensityConvolutionResult? accelerated = null;
+            if (gpu.TryExecute(bytes, device => accelerated = device.Convolve(source, eigenPsfs, coefficientMaps, meanPsf)))
+                return accelerated!;
+        }
         var output = new double[height, width];
         var kernel = new double[kernelHeight, kernelWidth];
         var coefficients = new double[eigenPsfs.Count];
@@ -94,6 +102,20 @@ public static partial class ImageSimulationEngine
         return new PsfIntensityConvolutionResult(output, corrected, maximumNegativeMass);
     }
 
-    private static AnalysisDataUnavailableException InvalidIntensityPsf() => new(
+    // The scalar scatter skips dark pixels, whereas the device gathers across all outputs.
+    private static bool HasDenseConvolutionWork(double[,] source, int termsPerPixel)
+    {
+        var required = Math.Max((source.Length + 15) / 16, (1_000_000L + termsPerPixel - 1) / termsPerPixel);
+        if (source.Length < required) return false;
+        for (var y = 0; y < source.GetLength(0); y++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var x = 0; x < source.GetLength(1); x++)
+                if (source[y, x] != 0 && --required == 0) return true;
+        }
+        return false;
+    }
+
+    internal static AnalysisDataUnavailableException InvalidIntensityPsf() => new(
         "Image Simulation PSF", "a finite reconstructed PSF with positive power is required");
 }

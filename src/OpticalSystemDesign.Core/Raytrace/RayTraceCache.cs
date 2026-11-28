@@ -9,7 +9,7 @@ public sealed record RayTraceCacheStatistics(
     int EntryCount,
     long SampleCount);
 
-public sealed class RayTraceCache
+public sealed partial class RayTraceCache
 {
     public const int MaximumCacheEntries = 4_096;
 
@@ -67,6 +67,7 @@ public sealed class RayTraceCache
             _entries.Clear();
             _insertionOrder.Clear();
             _sampleCount = 0;
+            ClearPupilLaunches();
         }
     }
 
@@ -77,6 +78,7 @@ public sealed class RayTraceCache
             _entries.Clear();
             _insertionOrder.Clear();
             _sampleCount = 0;
+            ClearPupilLaunches();
         }
     }
 

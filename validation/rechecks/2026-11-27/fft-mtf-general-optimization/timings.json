@@ -1,0 +1,116 @@
+[
+  {
+    "case": "cooke256",
+    "lens": "Cooke 40 degree",
+    "sampling": "256",
+    "before": {
+      "firstSeconds": 2.0374321,
+      "repeatMedianSeconds": 0.746608,
+      "firstAllocatedBytes": 800447152,
+      "repeatMedianAllocatedBytes": 658351272,
+      "repeatRayCount": 135
+    },
+    "after": {
+      "firstSeconds": 2.1906002,
+      "repeatMedianSeconds": 0.8114343,
+      "firstAllocatedBytes": 775565232,
+      "repeatMedianAllocatedBytes": 655368600,
+      "repeatRayCount": 135
+    }
+  },
+  {
+    "case": "gauss256",
+    "lens": "Double Gauss 28",
+    "sampling": "256",
+    "before": {
+      "firstSeconds": 2.2868389,
+      "repeatMedianSeconds": 0.7392512,
+      "firstAllocatedBytes": 810853584,
+      "repeatMedianAllocatedBytes": 665209856,
+      "repeatRayCount": 135
+    },
+    "after": {
+      "firstSeconds": 2.1173311,
+      "repeatMedianSeconds": 0.8065129,
+      "firstAllocatedBytes": 783273648,
+      "repeatMedianAllocatedBytes": 646906536,
+      "repeatRayCount": 135
+    }
+  },
+  {
+    "case": "wide64",
+    "lens": "Wide angle lens 100",
+    "sampling": "64",
+    "before": {
+      "firstSeconds": 7.6436283,
+      "repeatMedianSeconds": 6.6890735,
+      "firstAllocatedBytes": 58486633056,
+      "repeatMedianAllocatedBytes": 58468691200,
+      "repeatRayCount": 2230948
+    },
+    "after": {
+      "firstSeconds": 2.6172814,
+      "repeatMedianSeconds": 0.2618094,
+      "firstAllocatedBytes": 4278952632,
+      "repeatMedianAllocatedBytes": 110759776,
+      "repeatRayCount": 28274
+    }
+  },
+  {
+    "case": "blue64",
+    "lens": "blue notch",
+    "sampling": "64",
+    "before": {
+      "firstSeconds": 3.2466887,
+      "repeatMedianSeconds": 0.0912164,
+      "firstAllocatedBytes": 17105558504,
+      "repeatMedianAllocatedBytes": 51179544,
+      "repeatRayCount": 150
+    },
+    "after": {
+      "firstSeconds": 0.3907957,
+      "repeatMedianSeconds": 0.1166488,
+      "firstAllocatedBytes": 171296584,
+      "repeatMedianAllocatedBytes": 48975648,
+      "repeatRayCount": 150
+    }
+  },
+  {
+    "case": "hubble64",
+    "lens": "Hubble",
+    "sampling": "64",
+    "before": {
+      "firstSeconds": 0.690636,
+      "repeatMedianSeconds": 0.0745606,
+      "firstAllocatedBytes": 50947232,
+      "repeatMedianAllocatedBytes": 15692832,
+      "repeatRayCount": 51
+    },
+    "after": {
+      "firstSeconds": 0.207531,
+      "repeatMedianSeconds": 0.0321281,
+      "firstAllocatedBytes": 22366640,
+      "repeatMedianAllocatedBytes": 15305992,
+      "repeatRayCount": 51
+    }
+  },
+  {
+    "case": "pivot64",
+    "lens": "Lens pivoted about a point",
+    "sampling": "64",
+    "before": {
+      "firstSeconds": 1.234871,
+      "repeatMedianSeconds": 0.756778,
+      "firstAllocatedBytes": 1292170744,
+      "repeatMedianAllocatedBytes": 1239930000,
+      "repeatRayCount": 270531
+    },
+    "after": {
+      "firstSeconds": 1.2670801,
+      "repeatMedianSeconds": 0.533234,
+      "firstAllocatedBytes": 800499360,
+      "repeatMedianAllocatedBytes": 457685736,
+      "repeatRayCount": 76
+    }
+  }
+]

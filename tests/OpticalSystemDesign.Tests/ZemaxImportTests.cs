@@ -2311,6 +2311,20 @@ public sealed class ZemaxImportTests
         Assert.Equal(0, marginal.Heights[3][0], precision: 10);
     }
 
+    [Theory]
+    [InlineData("MNUM 3", 0)]
+    [InlineData("MNUM 3 1", 0)]
+    [InlineData("MNUM 3 3", 2)]
+    [InlineData("MNUM 3 4", 0)]
+    public void SequentialImportSelectsTheSavedConfigurationOrTheFirstWhenUnavailable(string record, int expected)
+    {
+        var source = $"MODE SEQ\nENPD 2\nSURF 0\nDISZ INFINITY\nSURF 1\nSTOP\nDISZ 10\nSURF 2\n{record}";
+        var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
+        Assert.Equal(3, imported.Configurations.Count);
+        Assert.Equal(expected, imported.ActiveConfigurationIndex);
+        Assert.Same(imported.Configurations[expected], imported.ActiveOptic);
+    }
+
     [Fact]
     public void ZemaxMirrMetadataTracesForwardAndMultiConfigurationsArePreserved()
     {
@@ -2363,8 +2377,8 @@ public sealed class ZemaxImportTests
         var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
 
         Assert.Equal(3, imported.Configurations.Count);
-        Assert.Equal(0, imported.ActiveConfigurationIndex);
-        Assert.Same(imported.Configurations[0], imported.ActiveOptic);
+        Assert.Equal(1, imported.ActiveConfigurationIndex);
+        Assert.Same(imported.Configurations[1], imported.ActiveOptic);
         Assert.Equal(new[] { 100.0, 150.0, 200.0 }, imported.Configurations
             .Select(configuration => configuration.SurfaceGroup.Items[0].Thickness));
         Assert.Equal(new[] { 5.0, 10.0, 15.0 }, imported.Configurations
@@ -2388,7 +2402,7 @@ public sealed class ZemaxImportTests
             imported.ActiveConfigurationIndex), "multi.zmx");
         var rows = connector.GetMultiConfigurationRows();
         Assert.Equal(3, rows.Count);
-        Assert.Equal(0, Assert.Single(rows, row => row.Active).Index);
+        Assert.Equal(1, Assert.Single(rows, row => row.Active).Index);
         Assert.Equal(new[] { "配置 1", "配置 2", "配置 3" }, rows.Select(row => row.Name));
     }
 
@@ -2468,7 +2482,7 @@ public sealed class ZemaxImportTests
             var imported = await WorkbenchRuntime.ReadDocumentAsync(zmxPath);
 
             Assert.Equal(2, imported.Configurations.Count);
-            Assert.Equal(0, imported.ActiveConfigurationIndex);
+            Assert.Equal(1, imported.ActiveConfigurationIndex);
             Assert.Equal(new[] { 500.0, 2500.0 }, imported.Configurations
                 .Select(configuration => configuration.SurfaceGroup.Items[0].Thickness));
             Assert.Equal(new[] { 50.0, 40.0 }, imported.Configurations

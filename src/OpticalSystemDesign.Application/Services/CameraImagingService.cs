@@ -119,8 +119,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             revision = Workspace.Revision; name = savedName ?? Runtime.CurrentOptic.Name;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
-        // Preserve the prescription BEFORE the image-plane field configuration below.
-        var lensJson = optic is null ? inputs?.LensSnapshotJson : JsonSerializer.Serialize(optic.ToSnapshot(), LensJsonOptions);
+        // Keep the source prescription used for replay, including its original schema.
+        var lensJson = inputs?.LensSnapshotJson ?? (optic is null ? null : JsonSerializer.Serialize(optic.ToSnapshot(), LensJsonOptions));
         using (linked)
             return await Task.Run(() =>
             {

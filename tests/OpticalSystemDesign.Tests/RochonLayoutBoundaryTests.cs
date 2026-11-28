@@ -79,8 +79,12 @@ public sealed class RochonLayoutBoundaryTests
     }
 
     [Theory]
-    [InlineData(0, 0)] [InlineData(0, 1)] [InlineData(0, 2)]
-    [InlineData(1, 0)] [InlineData(1, 1)] [InlineData(1, 2)]
+    [InlineData(0, 0)]
+    [InlineData(0, 1)]
+    [InlineData(0, 2)]
+    [InlineData(1, 0)]
+    [InlineData(1, 1)]
+    [InlineData(1, 2)]
     public async Task EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(int configuration, int waveIndex)
     {
         var optic = (await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(Source)).Configurations[configuration];
@@ -126,9 +130,15 @@ public sealed class RochonLayoutBoundaryTests
                 ? dto.TwoDimensional!.Rays.Select(r => r.Points[0].Y)
                 : dto.ThreeDimensional!.Rays.Select(r => r.Points[0].Y);
             Assert.Equal(new[] { -5d, -5d, 0d, 0d, 5d, 5d }, launchHeights.Order());
-            var control = new OpticSceneControl { Scene = dto, ShowRays = true, RayColorMode = OpticSceneRayColorMode.Configuration,
-                RenderMode = mode, CutawayEnabled = cutaway,
-                ViewMode = dimension == SceneDimension.TwoDimensional ? OpticSceneViewMode.TwoDimensional : OpticSceneViewMode.ThreeDimensional };
+            var control = new OpticSceneControl
+            {
+                Scene = dto,
+                ShowRays = true,
+                RayColorMode = OpticSceneRayColorMode.Configuration,
+                RenderMode = mode,
+                CutawayEnabled = cutaway,
+                ViewMode = dimension == SceneDimension.TwoDimensional ? OpticSceneViewMode.TwoDimensional : OpticSceneViewMode.ThreeDimensional
+            };
             control.SetViewPreset(OpticSceneViewPreset.Front);
             var window = new Window { Content = control, Width = 1200, Height = 750 };
             try

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.ViewModels;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -12,15 +13,19 @@ public sealed partial class LensEditorPanel
     private readonly MenuItem _insertSurfaceBelow = new() { Header = "下插入" };
     private readonly MenuItem _insertSurfaceAbove = new() { Header = "上插入" };
     private readonly MenuItem _deleteSurface = new() { Header = "删除" };
+    private readonly MenuItem _insertCoordinateAboveMenu = new() { Header = "上插入坐标间断" };
+    private readonly MenuItem _insertCoordinateBelowMenu = new() { Header = "下插入坐标间断" };
     private int? _surfaceContextNumber;
     private long _surfaceContextRevision;
 
     private void ConfigureSurfaceContextMenu()
     {
-        _surfaceContextMenu.ItemsSource = new[] { _insertSurfaceBelow, _insertSurfaceAbove, _deleteSurface };
+        _surfaceContextMenu.ItemsSource = new[] { _insertSurfaceBelow, _insertSurfaceAbove, _insertCoordinateBelowMenu, _insertCoordinateAboveMenu, _deleteSurface };
         _insertSurfaceBelow.Click += (_, _) => EditContextSurface(after: true);
         _insertSurfaceAbove.Click += (_, _) => EditContextSurface(after: false);
         _deleteSurface.Click += (_, _) => EditContextSurface(after: null);
+        _insertCoordinateAboveMenu.Click += (_, _) => EditContextCoordinate(false);
+        _insertCoordinateBelowMenu.Click += (_, _) => EditContextCoordinate(true);
         // Tunnel before a cell's TextBox can open its own editing menu.
         _grid.AddHandler(InputElement.ContextRequestedEvent, OnSurfaceContextRequested, RoutingStrategies.Tunnel);
     }
@@ -72,6 +77,8 @@ public sealed partial class LensEditorPanel
         _insertSurfaceBelow.IsEnabled = row.Number >= 0 && row.Number < imageNumber;
         _insertSurfaceAbove.IsEnabled = row.Number > 0 && row.Number <= imageNumber;
         _deleteSurface.IsEnabled = row.Number > 0 && row.Number < imageNumber;
+        _insertCoordinateAboveMenu.IsEnabled = _insertSurfaceAbove.IsEnabled;
+        _insertCoordinateBelowMenu.IsEnabled = _insertSurfaceBelow.IsEnabled;
         _surfaceContextMenu.Open(_grid);
     }
 
@@ -84,23 +91,50 @@ public sealed partial class LensEditorPanel
 
         var imageNumber = _prescription.GetSurfaces().Count - 1;
         int selectedNumber;
-        if (after.HasValue)
+        try
         {
-            var insertion = number.Value + (after.Value ? 1 : 0);
-            if (insertion <= 0 || insertion > imageNumber) return;
-            selectedNumber = _prescription.InsertSurface(number.Value, after.Value);
+            if (after.HasValue)
+            {
+                var insertion = number.Value + (after.Value ? 1 : 0);
+                if (insertion <= 0 || insertion > imageNumber) return;
+                selectedNumber = _prescription.InsertSurface(number.Value, after.Value);
+            }
+            else
+            {
+                if (number.Value <= 0 || number.Value >= imageNumber) return;
+                _prescription.RemoveSurface(number.Value);
+                selectedNumber = Math.Min(number.Value, Math.Max(1, imageNumber - 2));
+            }
         }
-        else
+        catch (Exception error) when (error is ArgumentException or InvalidOperationException or NotSupportedException)
         {
-            if (number.Value <= 0 || number.Value >= imageNumber) return;
-            _prescription.RemoveSurface(number.Value);
-            selectedNumber = Math.Min(number.Value, Math.Max(1, imageNumber - 2));
+            _componentSummary.Text = UiLocalization.Format("未应用：{0}", UiLocalization.Text(error.Message));
+            return;
         }
 
         Refresh();
         _grid.SelectedItem = _grid.ItemsSource!.Cast<SurfaceEditorRow>()
             .FirstOrDefault(row => row.Number == selectedNumber);
         _grid.ScrollIntoView(_grid.SelectedItem, null);
+    }
+
+    private void EditContextCoordinate(bool after)
+    {
+        var number = _surfaceContextNumber;
+        var revision = _surfaceContextRevision;
+        ClearSurfaceContext();
+        if (_disposed || number is null || revision != _events.Revision) return;
+        try
+        {
+            var inserted = _prescription.InsertCoordinateBreak(number.Value, after, revision);
+            Refresh();
+            _grid.SelectedItem = _grid.ItemsSource!.Cast<SurfaceEditorRow>().Single(r => r.Number == inserted);
+            _grid.ScrollIntoView(_grid.SelectedItem, null);
+        }
+        catch (Exception error) when (error is ArgumentException or InvalidOperationException or NotSupportedException)
+        {
+            _componentSummary.Text = UiLocalization.Format("未应用：{0}", UiLocalization.Text(error.Message));
+        }
     }
 
     private void ClearSurfaceContext()

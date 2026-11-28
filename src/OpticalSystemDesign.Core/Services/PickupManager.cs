@@ -138,7 +138,7 @@ public sealed class PickupManager
             surface => surface.SemiDiameter,
             (surface, value) => surface.SemiDiameter = value,
             "净口径",
-            value => double.IsFinite(value) && value >= 0.1);
+            value => double.IsFinite(value) && value >= 0);
     }
 
     private void ApplyRadiusPickups(IReadOnlyDictionary<int, OpticalSurface> surfaces)

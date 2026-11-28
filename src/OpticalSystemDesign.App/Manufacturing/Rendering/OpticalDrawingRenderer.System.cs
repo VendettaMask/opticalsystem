@@ -163,7 +163,7 @@ internal static partial class OpticalDrawingRendererCore
         return gaps;
     }
 
-    private static IReadOnlyList<SystemLensGeometry> BuildSystemLensGeometry(Scene2Dto scene)
+    internal static IReadOnlyList<SystemLensGeometry> BuildSystemLensGeometry(Scene2Dto scene)
     {
         var lenses = new List<SystemLensGeometry>();
         foreach (var element in scene.LensElements)
@@ -195,7 +195,7 @@ internal static partial class OpticalDrawingRendererCore
             .ToArray();
     }
 
-    private sealed record SystemLensGeometry(
+    internal sealed record SystemLensGeometry(
         SceneLensElement2Dto Element,
         IReadOnlyList<ScenePoint2Dto> Boundary,
         double FrontVertexZ,

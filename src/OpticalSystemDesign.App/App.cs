@@ -21,6 +21,7 @@ namespace OpticalSystemDesign.App;
 
 public sealed class App : Avalonia.Application
 {
+    internal AppSettings? StartupSettings { get; init; }
     internal const int StartupTimeoutMilliseconds = 30_000;
     internal static Color DocumentTabCloseColor => MainWindowTitleBar.CloseButtonColor;
     internal static Color DocumentTabCloseHoverColor => Color.Parse("#E5484D");
@@ -381,6 +382,19 @@ public sealed class App : Avalonia.Application
                 })
             }
         });
+        // Popup text can inherit an owner's descendant styles (for example a
+        // clipped column header). A tooltip must retain its complete wording.
+        Styles.Add(new Style(selector => selector.OfType<ToolTip>().Descendant().OfType<TextBlock>())
+        {
+            Setters =
+            {
+                new Setter(TextBlock.TextTrimmingProperty, TextTrimming.None),
+                new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap),
+                new Setter(TextBlock.MaxLinesProperty, 0),
+                // Leave room for the last glyph after fractional-DPI rounding.
+                new Setter(Control.MarginProperty, new Thickness(0, 0, 2, 0))
+            }
+        });
         Styles.Add(new Style(selector => selector.OfType<ListBox>())
         {
             Setters =
@@ -730,7 +744,7 @@ public sealed class App : Avalonia.Application
         try
         {
             splash.ReportProgress(28, "正在创建主工作区...");
-            mainWindow = new MainWindow
+            mainWindow = new MainWindow((Current as App)?.StartupSettings, null, null)
             {
                 Opacity = 0,
                 ShowInTaskbar = false
@@ -766,11 +780,15 @@ public sealed class App : Avalonia.Application
             desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
             splash.Close();
             mainWindow.Activate();
+            System.Diagnostics.Trace.TraceInformation("Main window ready.");
+            if ((Current as App)?.StartupSettings?.UseGpuAcceleration == true)
+                _ = Task.Run(() => OpticalSystemDesign.Core.Analysis.AnalysisGpuSession.AvailableDevice);
             await mainWindow.StartDocumentRecoveryAsync();
         }
         catch (Exception exception)
         {
             var diagnosticsPath = WriteStartupFailureLog(exception);
+            System.Diagnostics.Trace.TraceError($"Main window startup failed: {exception}");
             if (splashClosed)
             {
                 desktop.Shutdown(-1);

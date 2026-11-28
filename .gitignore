@@ -37,3 +37,10 @@ local-data/lens-library/**
 /validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-related.trx
 /validation/rechecks/2026-10-28/afocal-psf-contract/polygon-paths-final.trx
 /validation/rechecks/2026-10-28/afocal-psf-contract/polygon-paths.trx
+
+# Historical verification records retain inputs and results, not new execution snapshots.
+# Existing reviewed authorities remain tracked; new binary fixtures require explicit review.
+/validation/rechecks/**/*.dll
+/validation/rechecks/**/*.pdb
+/validation/rechecks/**/*.exe
+/validation/rechecks/**/*runtime*.zip

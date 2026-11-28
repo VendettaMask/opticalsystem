@@ -18,7 +18,42 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (_config.SourceImage is { } bitmap && _config.DisplayAs is ("Source" or "源位图"))
+        {
+            var dimensions = AnalysisResourceLimits.ResolveImageSimulationDimensions(bitmap.Width, bitmap.Height, _config);
+            var oriented = ImageSimulationEngine.TransformImage(bitmap.Values, _config.SourceFlip, _config.SourceRotationDegrees);
+            var padded = ImageSimulationEngine.ZeroPad(ImageSimulationEngine.NearestNeighborOversample(oriented, _config.Oversampling), _config.Padding);
+            var image = new RgbImage(ImageSimulationEngine.ResizeRgb(padded, dimensions.OutputHeight, dimensions.OutputWidth));
+            var sourceSeries = RasterSeries(image);
+            var title = _config.PreviewReduction > 1 ? $"Source Bitmap (1/{_config.PreviewReduction})" : "Source Bitmap";
+            return new AnalysisData(Name, new Dictionary<string, object>
+            {
+                ["SourceMode"] = _config.SourceMode,
+                ["SourceFile"] = _config.SourceFile,
+                ["DisplayAs"] = _config.DisplayAs,
+                ["PreviewReduction"] = _config.PreviewReduction,
+                ["SourceFlip"] = _config.SourceFlip,
+                ["SourceRotationDegrees"] = _config.SourceRotationDegrees,
+                ["Oversampling"] = _config.Oversampling,
+                ["GuardBand"] = _config.Padding,
+                ["OutputShape"] = $"(1, {image.Channels}, {image.Height}, {image.Width})"
+            }, sourceSeries, [sourceSeries], PlotPanes: [RasterPane(title, sourceSeries, image)], PlotPaneColumns: 1);
+        }
         if (Optic.ImageSpaceAfocal) return ImageSimulationEngine.AfocalNotApplicable(Name);
+        if (_config.DisplayAs is "PSF Grid" or "PSF 网格")
+        {
+            try
+            {
+                var grid = ImageSimulationEngine.RenderPsfGrid(Optic, _config);
+                var series = RasterSeries(grid);
+                return new AnalysisData(Name, new Dictionary<string, object>
+                {
+                    ["PsfGridShape"] = $"({_config.PsfGridRows}, {_config.PsfGridColumns})",
+                    ["PsfSize"] = _config.PsfSize
+                }, series, [series], PlotPanes: [RasterPane("PSF Grid", series, grid)], PlotPaneColumns: 1);
+            }
+            catch (AnalysisDataUnavailableException exception) { return UnavailableSimulation(Name, exception); }
+        }
         var oversampling = Math.Clamp(_config.Oversampling, 1, 16);
         var source = _config.SourceImage ?? ImageSimulationEngine.CreateSourceImage(
             _config.SourcePattern,
@@ -32,15 +67,16 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
         }
         var original = RasterSeries(result.Source);
         var simulated = RasterSeries(result.Simulated);
+        var preview = _config.PreviewReduction > 1 ? $" (1/{_config.PreviewReduction})" : string.Empty;
         var panes = _config.DisplayAs switch
         {
             "Source" or "源位图" => new[]
             {
-                RasterPane("Source Bitmap", original, result.Source)
+                RasterPane("Source Bitmap" + preview, original, result.Source)
             },
             "Simulated" or "仿真图" or "模拟图" => new[]
             {
-                RasterPane("Simulated Image", simulated, result.Simulated)
+                RasterPane("Simulated Image" + preview, simulated, result.Simulated)
             },
             _ => new[]
             {
@@ -52,11 +88,14 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
         var values = new Dictionary<string, object>
         {
             ["Pipeline"] = result.CoherentImaging is null
-                ? $"EigenPSF spatially variable convolution ({result.EffectiveAberrationMode}) + geometric distortion + lateral color"
+                ? result.EffectiveAberrationMode == "None"
+                    ? "Geometric distortion + lateral color (no aberration blur)"
+                    : $"EigenPSF spatially variable convolution ({result.EffectiveAberrationMode}) + geometric distortion + lateral color"
                 : CoherentImagingDiagnostics.Pipeline,
             ["ZemaxImageSimulationSettings"] =
                 "Source bitmap, orientation, field, wavelength, grid convolution, detector, display, and output settings",
             ["SourceMode"] = _config.SourceMode,
+            ["PreviewReduction"] = _config.PreviewReduction,
             ["SourcePattern"] = _config.SourcePattern.ToString(),
             ["SourceFile"] = _config.SourceFile,
             ["FieldHeight"] = _config.FieldHeight,
@@ -83,7 +122,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["GeometricFallbackCount"] = result.GeometricFallbackCount,
             ["PsfIntensityCorrectionCount"] = result.PsfIntensityCorrectionCount,
             ["MaximumPsfNegativeMass"] = result.MaximumPsfNegativeMass,
-            ["WavelengthsMicrometers"] = string.Join(", ", _config.WavelengthsMicrometers.Select(value => value.ToString("0.00"))),
+            ["WavelengthsMicrometers"] = string.Join(", ", _config.WavelengthsMicrometers.Select(value => value.ToString("0.######", System.Globalization.CultureInfo.InvariantCulture))),
             ["PsfGridShape"] = $"({_config.PsfGridRows}, {_config.PsfGridColumns})",
             ["PsfSize"] = _config.PsfSize,
             ["NumRays"] = _config.NumRays,
@@ -100,7 +139,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
     internal static AnalysisData UnavailableSimulation(string name, AnalysisDataUnavailableException exception)
     {
         var remedy = exception.AnalysisName == "Relative Illumination"
-            ? "; disable relative illumination to omit irradiance weighting"
+            ? "; reduce the image field height or disable relative illumination to omit irradiance weighting"
             : string.Empty;
         return AnalysisData.Unavailable(name, $"{exception.AnalysisName}: {exception.Reason}{remedy}");
     }

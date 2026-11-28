@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using OpticalSystemDesign.Core.Backend;
 
 namespace OpticalSystemDesign.Core.Coordinates;
@@ -8,11 +9,26 @@ public sealed record CoordinateSystem(
     double RotationYDegrees = 0,
     double RotationZDegrees = 0)
 {
+    // Poses are immutable. A weak, reference-identity cache avoids rebuilding
+    // the same trigonometry/matrix products for every ray without changing
+    // record equality, serialized data or the behavior of a modified with-copy.
+    private static readonly ConditionalWeakTable<CoordinateSystem, Orientation> Orientations = new();
+    private sealed class Orientation
+    {
+        internal readonly Matrix3x3 Forward;
+        internal readonly Matrix3x3 Reverse;
+        internal Orientation(CoordinateSystem coordinates)
+        {
+            Forward = coordinates.ComputeRotationMatrix();
+            Reverse = Forward.Transpose();
+        }
+    }
+
     public static CoordinateSystem Global { get; } = new(Vector3D.Zero);
 
     public Vector3D ToLocalPoint(Vector3D global)
     {
-        return RotationMatrix().Transpose().Transform(global - Origin);
+        return InverseRotationMatrix().Transform(global - Origin);
     }
 
     public Vector3D ToGlobalPoint(Vector3D local)
@@ -22,7 +38,7 @@ public sealed record CoordinateSystem(
 
     public Vector3D ToLocalDirection(Vector3D globalDirection)
     {
-        return RotationMatrix().Transpose().Transform(globalDirection);
+        return InverseRotationMatrix().Transform(globalDirection);
     }
 
     public Vector3D ToGlobalDirection(Vector3D localDirection)
@@ -46,7 +62,15 @@ public sealed record CoordinateSystem(
         return new CoordinateSystem(origin, roll * 180 / Math.PI, pitch * 180 / Math.PI, yaw * 180 / Math.PI);
     }
 
-    internal Matrix3x3 RotationMatrix()
+    private bool IsUnrotated => RotationXDegrees == 0 && RotationYDegrees == 0 && RotationZDegrees == 0;
+
+    internal Matrix3x3 RotationMatrix() => IsUnrotated ? Matrix3x3.Identity
+        : Orientations.GetValue(this, static coordinates => new Orientation(coordinates)).Forward;
+
+    private Matrix3x3 InverseRotationMatrix() => IsUnrotated ? Matrix3x3.Identity
+        : Orientations.GetValue(this, static coordinates => new Orientation(coordinates)).Reverse;
+
+    private Matrix3x3 ComputeRotationMatrix()
     {
         var rx = DegreesToRadians(RotationXDegrees);
         var ry = DegreesToRadians(RotationYDegrees);

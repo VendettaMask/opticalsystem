@@ -162,7 +162,7 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
 dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-build
 ```
 
-也可使用 Windows 的 [Run-OpticalSystemDesign.cmd](Run-OpticalSystemDesign.cmd) 或 macOS 的 [Run-OpticalSystemDesign.command](Run-OpticalSystemDesign.command) 构建并启动应用。
+也可使用 Windows 的 [Run-OpticalSystemDesign.cmd](Run-OpticalSystemDesign.cmd)（Release 配置）或 macOS 的 [Run-OpticalSystemDesign.command](Run-OpticalSystemDesign.command) 构建并启动应用。
 
 ## 开发者快速开始
 

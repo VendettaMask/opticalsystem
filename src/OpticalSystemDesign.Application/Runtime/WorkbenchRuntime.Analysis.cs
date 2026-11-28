@@ -72,6 +72,9 @@ public partial class WorkbenchRuntime
             OutcomeReason: data.OutcomeReason,
             ReportSections: data.ReportSections)
         {
+            TelecentricitySummary = canonicalName == "Telecentricity" && data.Outcome == AnalysisOutcome.Success
+                ? new Contracts.TelecentricitySummaryDto((double)data.Values["MaximumObjectTelecentricityDegrees"],
+                    (double)data.Values["MaximumImageTelecentricityDegrees"]) : null,
             FullFieldSpotSummary = canonicalName == "Full Field Spot Diagram" && data.Outcome == AnalysisOutcome.Success
                 ? BuildFullFieldSpotSummary(data) : null,
             ColorFocusShiftSummary = canonicalName == "Color Focus Shift" && data.Outcome == AnalysisOutcome.Success
@@ -135,6 +138,14 @@ public partial class WorkbenchRuntime
                 return AnalysisData.Unavailable(canonicalName, "This optical source cannot be identified losslessly for Fourier validation.");
             analysis = CreateFourierValidation(pupilSamplingKey, requested, mode, SettingInt("FourierMaximumSampling", 1024));
         }
+        if (automatic && canonicalName == "MTF" && FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
+        {
+            var requested = SettingInt(pupilSamplingKey, SettingInt("NumRays", 64));
+            var limit = DefaultFourierRecoveryLimit(canonicalName);
+            var maximum = Math.Min(limit, SettingInt("FourierMaximumSampling", limit));
+            if (requested < maximum)
+                analysis = CreateFourierValidation(pupilSamplingKey, requested, FourierSamplingMode.Adaptive, maximum, recoveryOnly: true);
+        }
         using var fftSamplingScope = FftPupilSampling.RequireResolvedResults();
         AnalysisData data;
         try { data = analysis.GenerateData(cancellationToken); }
@@ -182,17 +193,21 @@ public partial class WorkbenchRuntime
         int SettingInt(string key, int fallback) => settings.TryGetValue(key, out var text)
             && int.TryParse(text.Split(' ', 'x', '×')[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
 
-        FourierResultValidationAnalysis CreateFourierValidation(string samplingKey, int requested, FourierSamplingMode mode, int maximum)
+        FourierResultValidationAnalysis CreateFourierValidation(string samplingKey, int requested, FourierSamplingMode mode, int maximum,
+            bool recoveryOnly = false)
         {
             var accuracy = settings.TryGetValue("FourierRelativeAccuracy", out var text)
                 && double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : .001;
-            var validationOptic = CurrentOptic.Clone();
+            // Automatic MTF starts with the same frozen computation optic,
+            // preserving its ray-cache binding and completed requested trial.
+            var validationOptic = recoveryOnly ? CurrentOptic : CurrentOptic.Clone();
             var validationRuntime = new WorkbenchRuntime(validationOptic);
             return new FourierResultValidationAnalysis(validationOptic, canonicalName, requested, n =>
             {
                 var refined = new Dictionary<string, string>(settings) { [samplingKey] = n.ToString(CultureInfo.InvariantCulture) };
                 return validationRuntime.CreateAnalysis(canonicalName, refined);
-            }, new(mode, maximum, accuracy));
+            }, new(mode, maximum, accuracy))
+            { RecoverOnlyIfRequired = recoveryOnly };
         }
     }
 
@@ -366,6 +381,9 @@ public partial class WorkbenchRuntime
             Text(key, fallback.ToString(CultureInfo.InvariantCulture)).Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(),
             NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
 
+        RgbImage? OptionalImageSource() => string.IsNullOrWhiteSpace(Text("SourceFile", ""))
+            ? null : LoadImageSimulationSource(Text("SourceFile", ""));
+
         IReadOnlyList<double> ImageSimulationWavelengths(bool primaryDefault = false)
         {
             var selection = Text("WavelengthNumber", primaryDefault
@@ -379,11 +397,9 @@ public partial class WorkbenchRuntime
                     : new[] { CurrentOptic.Wavelengths[index].Micrometers };
             }
 
-            var values = CurrentOptic.Wavelengths
-                .OrderByDescending(wavelength => wavelength.Micrometers)
-                .Take(3)
-                .Select(wavelength => wavelength.Micrometers)
-                .ToArray();
+            if (!primaryDefault) return ImageSimulationConfig.RgbWavelengthsMicrometers;
+            var values = CurrentOptic.Wavelengths.OrderByDescending(wavelength => wavelength.Micrometers)
+                .Take(3).Select(wavelength => wavelength.Micrometers).ToArray();
             return values.Length == 0 ? new[] { 0.65, 0.55, 0.45 } : values;
         }
 
@@ -475,6 +491,9 @@ public partial class WorkbenchRuntime
         var imageSimulationSourceFile = Text("SourceMode", "内置图像") == "外部位图"
             ? Text("SourceFile", string.Empty)
             : null;
+        var previewReduction = imageSimulationSourceFile is not null && Text("DisplayAs", "仿真图") != "PSF 网格"
+            ? Int("PreviewReduction", 1) : 1;
+        if (previewReduction is not (1 or 2 or 4 or 8)) throw new ArgumentOutOfRangeException(nameof(previewReduction));
         var axis = Text("Axis", "Y").Equals("X", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
         return name switch
         {
@@ -847,6 +866,7 @@ public partial class WorkbenchRuntime
                     Int("XFieldSamples", 9), Int("YFieldSamples", 9), Double("XFieldWidth", 0), Double("YFieldWidth", 0),
                     Int("ReferenceFieldNumber", 0), Int("WavelengthNumber", 0), Text("Data", "Average"), Text("ShowAs", "伪彩色"),
                     Bool("RemoveVignettingFactors", true), Bool("FixedColorScale", false))),
+            "Telecentricity" => new TelecentricityAnalysis(CurrentOptic, Int("WavelengthNumber", 0)),
             "Angle vs Image Height" => new IncidentAngleVsImageHeightAnalysis(
                 CurrentOptic,
                 Int("FieldDensity", 20),
@@ -1142,7 +1162,7 @@ public partial class WorkbenchRuntime
                 Int("Oversampling", 1),
                 Int("GuardBand", 4),
                 Bool("RelativeIllumination", true),
-                Text("AberrationMode", "Geometric")),
+                Text("AberrationMode", "Geometric"), OptionalImageSource()),
             "Geometric Bitmap Image Analysis" => new GeometricBitmapImageAnalysis(
                 CurrentOptic,
                 Int("ImageSize", 64),
@@ -1151,7 +1171,7 @@ public partial class WorkbenchRuntime
                 Int("Oversampling", 1),
                 Int("GuardBand", 4),
                 Bool("RelativeIllumination", true),
-                Text("AberrationMode", "Geometric")),
+                Text("AberrationMode", "Geometric"), OptionalImageSource()),
             "Light Source Analysis" => new LightSourceAnalysis(
                 CurrentOptic,
                 Int("Resolution", 65),
@@ -1209,9 +1229,10 @@ public partial class WorkbenchRuntime
                     _ => ImageSimulationSourcePattern.ColorChart
                 },
                 SourceFile = imageSimulationSourceFile ?? string.Empty,
-                SourceImage = imageSimulationSourceFile is null
+                SourceImage = imageSimulationSourceFile is null || Text("DisplayAs", "仿真图") == "PSF 网格"
                     ? null
-                    : ImageFileLoader.LoadRgb(imageSimulationSourceFile),
+                    : LoadImageSimulationSource(imageSimulationSourceFile, previewReduction),
+                PreviewReduction = previewReduction,
                 PsfSize = LeadingInt("PsfSize", 32),
                 NumRays = LeadingInt("NumRays", 32),
                 Components = Int("EigenPsfComponents", 3),
@@ -1241,21 +1262,58 @@ public partial class WorkbenchRuntime
                 FieldCenterY = ImageSimulationFieldCenter().Y,
                 ImageWidth = Int("ImageWidth", 64),
                 ImageHeight = Int("ImageHeight", 48),
-                OutputWidth = Int("DetectorXPixels", 0),
-                OutputHeight = Int("DetectorYPixels", 0),
-                PixelSizeMillimeters = Double("PixelSize", 0),
+                OutputWidth = (Int("DetectorXPixels", 0) + previewReduction - 1) / previewReduction,
+                OutputHeight = (Int("DetectorYPixels", 0) + previewReduction - 1) / previewReduction,
+                PixelSizeMillimeters = Double("PixelSize", 0) * previewReduction,
                 WavelengthsMicrometers = ImageSimulationWavelengths(),
+                ResolveCoating = reference => ReadImageCoating(reference, ImageSimulationWavelengths()),
                 UsePolarization = Bool("UsePolarization", false),
                 ApplyFixedApertures = Bool("ApplyFixedApertures", true),
                 CompressFrame = Bool("CompressFrame", false),
                 OutputFile = Text("OutputFile", string.Empty)
             }),
+            "Polarization Ray Trace" or "Polarization Pupil Map" or "Polarization Transmission"
+                or "Polarization Phase Aberration" or "Transmission Fan" => new PolarizationAnalysis(CurrentOptic,
+                    Enum.GetValues<PolarizationAnalysisKind>().Single(k => PolarizationAnalysis.Key(k) == name),
+                    new(FieldNumber: Int("FieldNumber", name == "Polarization Transmission" ? 0 : 1),
+                        WavelengthNumber: Int("WavelengthNumber", name == "Polarization Transmission" ? 0
+                            : Math.Max(1, CurrentOptic.Wavelengths.ToList().FindIndex(w => w.IsPrimary) + 1)),
+                        SurfaceIndex: Int("SurfaceIndex", CurrentOptic.SurfaceGroup.Items.Count - 1),
+                        GridSize: Int("GridSize", 17), FanPoints: Int("FanPoints", 65), Px: Double("Px", 0), Py: Double("Py", 0),
+                        UseRayAiming: Bool("UseRayAiming", true),
+                        Input: Bool("UseSystemPolarization", true) ? CurrentOptic.Polarization
+                            : new OpticalSystemDesign.Core.Rays.SystemPolarization(Bool("Unpolarized", CurrentOptic.Polarization.Unpolarized),
+                                Double("Jx", CurrentOptic.Polarization.Jx), Double("Jy", CurrentOptic.Polarization.Jy),
+                                Double("XPhase", CurrentOptic.Polarization.XPhaseDegrees), Double("YPhase", CurrentOptic.Polarization.YPhaseDegrees),
+                                CurrentOptic.Polarization.ReferenceAxis))),
             "Jones Pupil" => new JonesPupilAnalysis(CurrentOptic, Int("GridSize", 65)),
+            SurfaceCoatingAnalysis.Spectrum or SurfaceCoatingAnalysis.Transmission or SurfaceCoatingAnalysis.Reflection
+                or SurfaceCoatingAnalysis.Phase => new SurfaceCoatingAnalysis(CurrentOptic, name, new(
+                    Int("SurfaceIndex", 1), Int("WavelengthNumber", 0), Double("MinimumAngle", 0), Double("MaximumAngle", 90),
+                    Double("IncidenceAngle", 0), Double("MinimumWavelengthNm", 400), Double("MaximumWavelengthNm", 700),
+                    Int("Samples", 361), Double("FixedWavelengthNm", 0)), string.IsNullOrWhiteSpace(Text("CoatingFile", "")) ? null :
+                    (lo, hi) => CoatingDesign.Engine.DesignService.ReadSurfaceResponse(Text("CoatingFile", ""), lo, hi)),
             "Prescription Report" => new PrescriptionReportAnalysis(CurrentOptic),
             "System Data Report" => new SystemDataReportAnalysis(CurrentOptic),
             "Classified Data Report" => new ClassifiedDataReportAnalysis(CurrentOptic),
             _ => CurrentOptic.Analyses.Create(name)
         };
+    }
+
+    internal string? AnalysisDocumentPath { get; set; }
+
+    private SurfaceCoatingResponse ReadImageCoating(string reference, IReadOnlyList<double> wavelengths)
+    {
+        if (reference != Path.GetFileName(reference) || reference.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            throw new AnalysisDataUnavailableException("Image Simulation", $"无效的膜系名称 {reference}。");
+        var name = reference + ".coating.json";
+        var directory = Path.GetDirectoryName(AnalysisDocumentPath);
+        var local = directory is null ? null : Path.Combine(directory, "Coatings", name);
+        var file = File.Exists(local) ? local! : Path.Combine(AppContext.BaseDirectory, "Examples", "Sequential", "Coatings", name);
+        if (!File.Exists(file))
+            throw new AnalysisDataUnavailableException("Image Simulation", $"找不到膜系 {reference}。请将 {name} 放入工程旁的 Coatings 文件夹。");
+        return CoatingDesign.Engine.DesignService.ReadImageSurfaceResponse(file,
+            1000 * wavelengths.Min(), 1000 * wavelengths.Max());
     }
 
     private static ImageSimulationSourcePattern ParseImageSourcePattern(string value)
@@ -1267,6 +1325,24 @@ public partial class WorkbenchRuntime
             "西门子星" => ImageSimulationSourcePattern.SiemensStar,
             _ => ImageSimulationSourcePattern.ResolutionTarget
         };
+    }
+
+    private static RgbImage LoadImageSimulationSource(string path, int reduction = 1)
+    {
+        if (!Path.GetExtension(path).Equals(".ima", StringComparison.OrdinalIgnoreCase))
+            return ImageFileLoader.LoadRgb(path, reduction);
+        var image = LoadExtendedSourceImage(path)!;
+        AnalysisResourceLimits.ValidateImageDimensions(image.Width, image.Height, "IMA source image");
+        var intensity = new double[1, (image.Height + reduction - 1) / reduction, (image.Width + reduction - 1) / reduction];
+        var peak = Math.Max(1, image.Values.Max());
+        for (var y = 0; y < image.Height; y++)
+            for (var x = 0; x < image.Width; x++)
+            {
+                var count = Math.Min(reduction, image.Height - y / reduction * reduction)
+                    * Math.Min(reduction, image.Width - x / reduction * reduction);
+                intensity[0, y / reduction, x / reduction] += image.Value(y, x) / (peak * count);
+            }
+        return new RgbImage(intensity);
     }
 
     private static ExtendedSourceImage? LoadExtendedSourceImage(string path)

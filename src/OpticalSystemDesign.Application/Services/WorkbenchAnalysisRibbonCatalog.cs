@@ -63,6 +63,7 @@ public static partial class WorkbenchAnalysisCatalog
         new("analysis-rms-focus", "RMS vs. 离焦", "RMS vs. 离焦", "rms-focus", "RMS"),
         new("analysis-rms-field-map", "二维视场RMS图", "二维视场RMS图", "rms-field-map", "RMS"),
         new("analysis-angle-height", "入射角 vs. 像高", "入射角 vs. 像高", "incidence-vs-height", "光线迹点"),
+        new("analysis-telecentricity", "Telecentricity", "远心度", "incidence-vs-height", "光线迹点"),
         new("analysis-psf", "FFT PSF", "FFT PSF", "psf-fourier", "点扩散函数"),
         new("analysis-psf-cross-section", "FFT PSF Cross Section", "FFT PSF截面图", "psf-fourier-section", "点扩散函数"),
         new("analysis-line-edge-spread", "FFT Line Edge Spread", "FFT 线/边缘扩散", "spread-fourier", "点扩散函数"),
@@ -92,7 +93,16 @@ public static partial class WorkbenchAnalysisCatalog
         new("analysis-zernike-standard", "Zernike Standard系数", "Zernike Standard系数", "zernike-standard", "波前"),
         new("analysis-zernike-annular", "Zernike Annular系数", "Zernike Annular系数", "zernike-annular", "波前"),
         new("analysis-zernike-field", "Zernike系数 vs. 视场", "Zernike系数 vs. 视场", "zernike-vs-field", "波前"),
-        new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "scan", "波前"),
+        new("analysis-polarization-ray-trace", "Polarization Ray Trace", "偏振光线追迹", "ray-single-trace", "偏振"),
+        new("analysis-polarization-pupil-map", "Polarization Pupil Map", "偏振光瞳图", "polarization-settings", "偏振"),
+        new("analysis-polarization-transmission", "Polarization Transmission", "透过率计算", "material-transmission", "偏振"),
+        new("analysis-polarization-phase-aberration", "Polarization Phase Aberration", "偏振相位像差", "wavefront-opd", "偏振"),
+        new("analysis-transmission-fan", "Transmission Fan", "透射光瞳像差图", "aberration-pupil", "偏振"),
+        new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "scan", "偏振"),
+        new("analysis-coating-spectrum", "Transmission vs. Wavelength", "透射光谱", "coating-spectrum", "表面镀膜"),
+        new("analysis-coating-transmission-angle", "Transmission vs. Angle", "透射率随入射角", "material-transmission", "表面镀膜"),
+        new("analysis-coating-reflection-angle", "Reflection vs. Angle", "反射率随入射角", "coating-design", "表面镀膜"),
+        new("analysis-coating-phase-angle", "Phase vs. Angle", "相位随入射角", "wavefront-opd", "表面镀膜"),
         new("analysis-image-simulation", "Image Simulation", "图像模拟", "image-simulation", "扩展图像分析"),
         new("analysis-geometric-image", "Geometric Image Analysis", "几何图像分析", "image-geometric", "扩展图像分析"),
         new("analysis-geometric-bitmap-image", "Geometric Bitmap Image Analysis", "几何位图图像分析", "image-geometric-bitmap", "扩展图像分析"),
@@ -172,6 +182,8 @@ public static partial class WorkbenchAnalysisCatalog
         "MTF 曲线",
         "RMS",
         "圈入能量",
+        "偏振",
+        "表面镀膜",
         "扩展图像分析"
     };
 
@@ -199,7 +211,8 @@ public static partial class WorkbenchAnalysisCatalog
             "analysis-y-ybar",
             "-",
             "analysis-vignetting",
-            "analysis-angle-height"
+            "analysis-angle-height",
+            "analysis-telecentricity"
         }),
         new("报告", "报告", "file-text", new[]
         {
@@ -278,6 +291,16 @@ public static partial class WorkbenchAnalysisCatalog
             "analysis-encircled-energy",
             "analysis-geometric-line-edge-spread",
             "analysis-extended-source-encircled-energy"
+        }),
+        new("偏振", "偏振", "polarization-settings", new[]
+        {
+            "analysis-polarization-ray-trace", "analysis-polarization-pupil-map", "analysis-polarization-transmission",
+            "analysis-polarization-phase-aberration", "analysis-transmission-fan", "-", "analysis-jones-pupil"
+        }),
+        new("表面镀膜", "表面镀膜", "coating-stack", new[]
+        {
+            "analysis-coating-spectrum", "analysis-coating-transmission-angle",
+            "analysis-coating-reflection-angle", "analysis-coating-phase-angle"
         }),
         new("扩展图像分析", "扩展图像分析", "image", new[]
         {

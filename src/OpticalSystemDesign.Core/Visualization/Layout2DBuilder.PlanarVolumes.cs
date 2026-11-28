@@ -66,7 +66,7 @@ public sealed partial class Layout2DBuilder
         }
         volumes = result;
         return true;
-        static bool Flat(OpticalSurface s) => s.Geometry is PlaneGeometry
+        static bool Flat(OpticalSurface s) => s.Geometry is PlaneGeometry or TiltedPlaneGeometry
             || s.Geometry is StandardGeometry g && (g.Radius == 0 || double.IsInfinity(g.Radius));
     }
 

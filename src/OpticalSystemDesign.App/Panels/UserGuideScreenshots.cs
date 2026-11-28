@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -105,16 +104,12 @@ internal sealed class UserGuideScreenshot : Border
         using var stream = AssetLoader.Open(UserGuideScreenshots.Resource(_key, _language));
         using var bitmap = new Bitmap(stream);
         var image = new Image { Source = bitmap, Stretch = Stretch.Uniform };
-        var scroll = new ScrollViewer { Content = image, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
-        var fit = new Button { Name = "UserGuideScreenshotFit", Content = L("适应窗口", "Fit to window", "ウィンドウに合わせる") };
-        var actual = new Button { Name = "UserGuideScreenshotActualSize", Content = "100%" };
+        var scroll = DiagramSheetLayout.CreateBitmapViewport(image);
         var close = new Button { Content = L("关闭", "Close", "閉じる") };
-        var toolbar = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Margin = new Thickness(12), Children = { fit, actual, close } };
+        var toolbar = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Margin = new Thickness(12), Children = { close } };
         var content = new DockPanel { Children = { toolbar, scroll } }; DockPanel.SetDock(toolbar, Avalonia.Controls.Dock.Top);
         var dialog = new Window { Name = "UserGuideScreenshotWindow", Title = title, Width = 1200, Height = 820, MinWidth = 400, MinHeight = 300, Content = content, WindowStartupLocation = WindowStartupLocation.CenterOwner };
         dialog.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
-        fit.Click += (_, _) => { image.Width = double.NaN; image.Height = double.NaN; image.Stretch = Stretch.Uniform; scroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled; };
-        actual.Click += (_, _) => { image.Width = bitmap.PixelSize.Width; image.Height = bitmap.PixelSize.Height; image.Stretch = Stretch.None; scroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto; };
         close.Click += (_, _) => dialog.Close();
         UiLocalization.Attach(dialog);
         await dialog.ShowDialog(owner);

@@ -1,7 +1,7 @@
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Automation;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;

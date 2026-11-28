@@ -38,6 +38,13 @@ public sealed partial class SequentialRayTracer
         _cacheOpticIdentity = opticIdentity;
     }
 
+    internal (RayTraceCache Cache, PupilLaunchCacheKey Key)? PupilLaunchCache(double hx, double hy, double wavelength,
+        bool vignetting, (double X, double Y)? imageLaunch, IReadOnlyList<PupilSample> pupils) =>
+        _traceCache is { } cache && _cacheOpticIdentity is { } identity && cache.CanCache(pupils.Count)
+            ? (cache, new(_cacheOpticRevision, identity,
+                _optic.Backend.Current.Name + (SequentialGpuSession.Current is { Enabled: true } ? "/cuda-propagation-v1" : ""),
+                hx, hy, wavelength, vignetting, imageLaunch, pupils)) : null;
+
     public SequentialTrace Trace()
     {
         var bundle = RayGenerator.Generate();
@@ -158,7 +165,7 @@ public sealed partial class SequentialRayTracer
         }
 
         SequentialTraceMeasurement.Record(1);
-        var ray = sourceRay.Normalize();
+        var ray = RayState.FromRealRay(sourceRay.Normalize());
         var currentMaterial = ResolveMaterial("Air");
         var cumulativePathLength = 0.0;
         var cumulativeOpticalPathLength = 0.0;
@@ -170,7 +177,7 @@ public sealed partial class SequentialRayTracer
             var result = TraceSequentialSurface(
                 surface,
                 index,
-                RayState.FromRealRay(ray),
+                ray,
                 currentMaterial,
                 cumulativePathLength,
                 cumulativeOpticalPathLength,
@@ -187,7 +194,7 @@ public sealed partial class SequentialRayTracer
                 return null;
             }
 
-            ray = result.Ray.ToRealRay();
+            ray = result.Ray;
             currentMaterial = result.OutgoingMaterial;
             cumulativePathLength = result.CumulativePathLength;
             cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
@@ -262,12 +269,21 @@ public sealed partial class SequentialRayTracer
             allowVirtualIntersection: allowVirtualIntersection, ignoreMaterialAbsorption: ignoreMaterialAbsorption,
             useObjectConeIntersection: objectCone, recordCompoundInteractions: recordCompoundInteractions,
             floatingConicEdge: ignorePhysicalAperture ? null : floatingConicEdge ?? ResolveFloatingConicEdge(surface, surfaceIndex),
-            surfacePhaseOpticalPath: surface.InteractionModel is not ParaxialLensInteractionModel ? null
-                : geometryOnly ? static (_, _) => 0
-                : sourceRay is null ? null
-                : (localRay, context) => (phaseTrace ?? new ParaxialPhaseTrace(this)).Evaluate(
-                    sourceRay, surfaceIndex, localRay, context));
+            surfacePhaseOpticalPath: PhaseEvaluator(surface, geometryOnly, sourceRay, surfaceIndex, phaseTrace));
     }
+
+    private Func<RealRay, SurfaceInteractionContext, double>? PhaseEvaluator(OpticalSurface surface,
+        bool geometryOnly, RealRay? sourceRay, int surfaceIndex, ParaxialPhaseTrace? phaseTrace)
+    {
+        if (surface.InteractionModel is not ParaxialLensInteractionModel || sourceRay is null && !geometryOnly) return null;
+        return geometryOnly ? static (_, _) => 0 : CreatePhaseEvaluator(sourceRay!, surfaceIndex, phaseTrace);
+    }
+
+    // Keep the closure in a separate method so ordinary geometry probes do not
+    // allocate a captured owner/source context at every surface encounter.
+    private Func<RealRay, SurfaceInteractionContext, double> CreatePhaseEvaluator(RealRay sourceRay,
+        int surfaceIndex, ParaxialPhaseTrace? phaseTrace) =>
+        (localRay, context) => (phaseTrace ?? new ParaxialPhaseTrace(this)).Evaluate(sourceRay, surfaceIndex, localRay, context);
 
     public SequentialTrace Trace(RealRayBundle bundle)
     {

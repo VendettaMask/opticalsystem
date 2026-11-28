@@ -44,13 +44,51 @@ public sealed partial class MultiConfiguration
         else SetOperandValueCore(oneBasedRow, configurationIndex, value);
     }
 
+    public void SetOperandTextValue(int oneBasedRow, int configurationIndex, string value)
+    {
+        if (oneBasedRow < 1 || oneBasedRow > _operandRows.Count) throw new ArgumentOutOfRangeException(nameof(oneBasedRow));
+        if (configurationIndex < 0 || configurationIndex >= Configurations.Count) throw new ArgumentOutOfRangeException(nameof(configurationIndex));
+        var row = _operandRows[oneBasedRow - 1];
+        if (row.Kind != MultiConfigurationOperandKind.Material) throw new ArgumentException("请选择材料行。");
+        var optic = Configurations[configurationIndex];
+        var surface = FindSurface(optic, row.SurfaceNumber);
+        if (surface.InteractionModel is Interactions.CoordinateReferenceInteractionModel)
+            throw new InvalidOperationException("坐标间断沿用入射介质，请编辑前一个光学表面的材料。");
+        var name = string.IsNullOrWhiteSpace(value) ? "Air" : value.Trim();
+        var mirror = name.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        if (mirror && surface.InteractionModel is Interactions.ParaxialLensInteractionModel)
+            throw new NotSupportedException("近轴面不支持镜面材料。");
+        // Resolve before changing either the interaction or the material snapshot.
+        var material = mirror ? surface.MaterialBefore.Clone()
+            : name.Equals(surface.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase) ? surface.MaterialAfter.Clone()
+            : optic.Materials.TryResolve(name, optic.GlassCatalogs, out var resolved) ? resolved
+            : throw new ArgumentException($"找不到材料：{name}");
+        surface.IsReflective = mirror;
+        surface.MaterialAfter = material;
+        surface.Material = mirror ? "MIRROR" : material.Name;
+        SynchronizeFollowingMedia(optic, row.SurfaceNumber);
+        DetachPropertyLink(configurationIndex, row.SurfaceNumber, "material");
+        if (configurationIndex == 0) PropagateBaseProperty(row.SurfaceNumber, "material");
+        foreach (var configuration in Configurations) configuration.SurfaceGroup.Renumber();
+        MultiConfigurationOperand.ValidateRows(_operandRows, Configurations);
+        ApplyOperandPickups();
+    }
+
     private void SetOperandValueCore(int oneBasedRow, int configurationIndex, double value)
     {
         if (oneBasedRow < 1 || oneBasedRow > _operandRows.Count) throw new ArgumentOutOfRangeException(nameof(oneBasedRow));
         if (configurationIndex < 0 || configurationIndex >= Configurations.Count) throw new ArgumentOutOfRangeException(nameof(configurationIndex));
         if (!double.IsFinite(value)) throw new ArgumentOutOfRangeException(nameof(value), "多配置值必须是有限数值。");
         var row = _operandRows[oneBasedRow - 1];
-        var optic = Configurations[configurationIndex]; var surface = FindSurface(optic, row.SurfaceNumber);
+        var optic = Configurations[configurationIndex];
+        if (IsOperandPickupTarget(configurationIndex, row.SurfaceNumber, row.Property))
+            throw new InvalidOperationException("该单元格由多配置拾取控制，请先移除拾取。");
+        if (row.IsSystemParameter)
+        {
+            row.WriteSystemValue(optic, value);
+            return;
+        }
+        var surface = FindSurface(optic, row.SurfaceNumber);
         if (row.Kind == MultiConfigurationOperandKind.SemiDiameter && value < 0)
             throw new ArgumentOutOfRangeException(nameof(value), "半口径不能为负数。");
         var hasPickup = row.Kind switch
@@ -89,16 +127,17 @@ public sealed partial class MultiConfiguration
             var pickup = _operandPickups[index];
             _operandPickups[index] = pickup with
             {
-                Operand = pickup.Operand with { SurfaceNumber = remap(pickup.Operand.SurfaceNumber) },
-                SourceOperand = pickup.SourceOperand with { SurfaceNumber = remap(pickup.SourceOperand.SurfaceNumber) }
+                Operand = Remap(pickup.Operand),
+                SourceOperand = Remap(pickup.SourceOperand)
             };
         }
         for (var index = 0; index < _operandVariables.Count; index++)
         {
             var variable = _operandVariables[index];
-            _operandVariables[index] = variable with { Operand = variable.Operand with { SurfaceNumber = remap(variable.Operand.SurfaceNumber) } };
+            _operandVariables[index] = variable with { Operand = Remap(variable.Operand) };
         }
         for (var index = 0; index < _operandRows.Count; index++)
-            _operandRows[index] = _operandRows[index] with { SurfaceNumber = remap(_operandRows[index].SurfaceNumber) };
+            _operandRows[index] = Remap(_operandRows[index]);
+        MultiConfigurationOperand Remap(MultiConfigurationOperand row) => row.IsSystemParameter ? row : row with { SurfaceNumber = remap(row.SurfaceNumber) };
     }
 }

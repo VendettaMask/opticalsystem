@@ -11,6 +11,18 @@ public sealed partial class MultiConfiguration
         if (configurationIndex < 0 || configurationIndex >= Configurations.Count) throw new ArgumentOutOfRangeException(nameof(configurationIndex));
         var row = _operandRows[oneBasedRow - 1];
         var variable = new MultiConfigurationVariable(configurationIndex, row);
+        if (row.IsSystemParameter)
+        {
+            if (enabled)
+            {
+                if (IsOperandPickupTarget(configurationIndex, row.SurfaceNumber, row.Property))
+                    throw new InvalidOperationException("该单元格由多配置拾取控制，请先移除拾取。");
+                MultiConfigurationVariable.EnsureEditable(row, Configurations[configurationIndex]);
+                if (!_operandVariables.Contains(variable)) _operandVariables.Add(variable);
+            }
+            else _operandVariables.Remove(variable);
+            return;
+        }
         if (enabled)
         {
             if (IsOperandPickupTarget(configurationIndex, row.SurfaceNumber, row.Property))

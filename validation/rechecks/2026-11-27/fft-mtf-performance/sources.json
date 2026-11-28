@@ -1,0 +1,101 @@
+{
+  "sourceCommit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+  "scope": "Performance diagnostics only; no numerical acceptance update",
+  "runtime": ".NET 10.0.8",
+  "logicalProcessors": 24,
+  "releaseCoreSha256": "2A135F4FA2C9D7D260DC1EC7D36C58145B9E8BA865A10C08B3E7D861DF4C4096",
+  "debugCoreSha256": "896C69850FA40BC9FCD1334AA4300D20BAD463C41A8D1ECAFD939BCE1DF923BB",
+  "notes": [
+    "Early exploratory records precede diagnostic binary-metadata fields; later key reruns embed binary hashes.",
+    "Other chats modified runtime logging sources during this task. Measurements used isolated copied diagnostic outputs; no claim of accepting those unrelated changes.",
+    "Cooke/Tessar built-ins are performance probes, not independent numerical certification inputs."
+  ],
+  "sourceFiles": [
+    {
+      "path": "Run-OpticalSystemDesign.cmd",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "e59f8295ed55fc5a4159b285610f60098bec582e3bcc44173854a13efb17f674"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "1fdeea4117f433df86b781e7b44d89547f1e5c3ec589265d01fe514be95974a4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "fcd83869561451195e6d9fdd334df281c0d6ec8d9cc7eef3f8e1e79b565eddea"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.MtfAxes.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "9a9e1d1f69d208987f7ced731d326a97a7ae117eeb132522796a14541ff60a3f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/FourierResultValidation.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "d2c531dec7176e69765f33a2c554f4e720b83c7d6d74f8e2e9f02e53e4e3df2d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "88d2d637604dce8d65ba56efd65792c86feac07397eb77074d085f9c8cd1c72a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.ParaxialPhase.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "92a2d10b3e397c5d4dfbe084d959a8448ba3b8e039fb9ff429f8796f4a768c35"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "15b7617b617cdbd55f01d8ffb6baf80a40b7e3321107871ac24e48517d2586ea"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Capabilities/OpticCapabilityPreflight.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "08cf6bd1e2ca8fa08a41882aff375ada19170717abf542483f793737e0d36454"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "9b806448059e516acf1d111d03411bbcda31d6220d6d0a1e20d886560d7fd82d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "877074d98265fd2afde876d4e61f941f6f2ff85d97be48316e2c06aa536a61ae"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/AnalysisService.cs",
+      "commit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+      "sha256": "685dd672c50b7d9a085f2ff2774f83ce1503cfcaead7a2c0274546e502a6c68a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Image Simulation/Example 3, A blue notch filter.ZMX",
+      "sha256": "f949455a49dae9e927eda56550fbff8fe797cf0908823ec8806d51f980ff986f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Cooke 40 degree field.zmx",
+      "sha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Double Gauss 28 degree field.zmx",
+      "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Wide angle lens 100 degree field.zmx",
+      "sha256": "cc6c044226a35a3ff448bfcfd52994c70738730acddd6d941faf276107fbfa3f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Telescopes/Hubble.zmx",
+      "sha256": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Optical testing/Twyman Green Interferometer.zmx",
+      "sha256": "975be62693a8c3d8870c2ee3fd01e2f51de37d558afe7265cd939fe262f49051"
+    }
+  ]
+}

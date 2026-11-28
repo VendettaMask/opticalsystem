@@ -1,5 +1,8 @@
 # 自主胶合结构自动调度与精确正常续跑
 
+> 存储状态更新（2026-11-26）：部分过期执行副本已退役，保留原内容身份、对应源码及结果；当前文件集合不再提供这些历史运行环境的完整重放。详见[精简账本](../../2026-11-26/repository-trim/README.md)。原验收结论保持不变。
+
+
 2026-11-01。原口径、像质与制造验收保持，F/4规格冲突继续拒绝。完整说明见[交付报告](../../../../../docs/INITIAL_STRUCTURE_CEMENTED_AUTOMATIC_2026-11-01.md)。最终权威范围为 **`final-authority/`**。
 
 - `final-authority/default-app-build.log`、`test-build.log`、`tests/cemented-final.trx`：正常默认 Release 完整构建与147项定向回归，零警告/错误、失败或跳过。

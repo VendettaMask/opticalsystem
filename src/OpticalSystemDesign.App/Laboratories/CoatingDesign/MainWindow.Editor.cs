@@ -120,7 +120,8 @@ public sealed partial class MainWindow
             RefreshLayerOpticalThickness();
             thickness = selected.Select(r => action == "multiply" ? r.ToLayer().ThicknessNm * value
                 : r.PhysicalFor(value, _batchUnit.SelectedIndex switch { 1 => "OT", 2 => "QW", 3 => "FW", _ => "nm" })).ToArray();
-            if (thickness.Any(v => !double.IsFinite(v) || v <= 0 || v > 100000)) throw new ArgumentException("批量操作会使膜厚超出0–100000 nm，未修改任何膜层。");
+            if (thickness.Where((v, i) => !double.IsFinite(v) || v <= 0 || v > FilmLayer.MaximumNm(selected[i].Variable)).Any())
+                throw new ArgumentException("批量操作会使膜厚超出允许范围。");
         }
         _editorTransaction++;
         try

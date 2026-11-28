@@ -18,32 +18,39 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
 
     public RealRayInteractionResult Interact(RealRay ray, SurfaceInteractionContext context)
     {
-        var normal = context.SurfaceNormal;
-        var incoming = ray.Direction;
+        var result = InteractDirection(ray.Direction, context.SurfaceNormal, context.RefractiveIndexBefore,
+            context.RefractiveIndexAfter, context.Geometry, context.IsReflective, context.IncidenceCosineSquared);
+        return new(context.Geometry is PolygonFaceGeometry && !IsReflective && !context.IsReflective
+            && context.RefractiveIndexBefore == context.RefractiveIndexAfter ? ray : ray with { Direction = result.Direction }, result.Kind);
+    }
+
+    // One direction kernel for both the public ray API and allocation-free
+    // sequential state transport. Retain the original arithmetic/normalization.
+    internal (Vector3D Direction, RayInteractionKind Kind) InteractDirection(Vector3D incoming,
+        Vector3D normal, double before, double after, IGeometry? geometry, bool reflective, double? incidenceSquared)
+    {
         if (VectorDot(incoming, normal) > 0)
         {
             normal = -normal;
         }
 
-        if (IsReflective || context.IsReflective)
+        if (IsReflective || reflective)
         {
-            if (context.Geometry is StandardGeometry or PlaneGeometry)
+            if (geometry is StandardGeometry or PlaneGeometry)
             {
-                var reflected = context.IncidenceCosineSquared is { } squared
+                var reflected = incidenceSquared is { } squared
                     ? incoming + (2 * Math.Sqrt(squared)) * normal
                     : Reflect(incoming, normal);
-                return new RealRayInteractionResult(ray with { Direction = reflected }, RayInteractionKind.Reflected);
+                return (reflected, RayInteractionKind.Reflected);
             }
-            return new RealRayInteractionResult(
-                ray with { Direction = Normalize(Reflect(incoming, normal)) },
-                RayInteractionKind.Reflected);
+            return (Normalize(Reflect(incoming, normal)), RayInteractionKind.Reflected);
         }
 
-        if (context.Geometry is PolygonFaceGeometry)
+        if (geometry is PolygonFaceGeometry)
         {
-            if (context.RefractiveIndexBefore == context.RefractiveIndexAfter)
-                return new RealRayInteractionResult(ray, RayInteractionKind.Transmitted);
-            var planar = Refract(incoming, normal, context.RefractiveIndexBefore, context.RefractiveIndexAfter);
+            if (before == after)
+                return (incoming, RayInteractionKind.Transmitted);
+            var planar = Refract(incoming, normal, before, after);
             if (planar.Kind == RayInteractionKind.Transmitted)
             {
                 // Preserve the small components at a planar interface. Whole-
@@ -56,11 +63,9 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
                 else v = v with { Y = Math.CopySign(Math.Sqrt(1 - v.X * v.X - v.Z * v.Z), v.Y) };
                 planar = (v, planar.Kind);
             }
-            return new RealRayInteractionResult(ray with { Direction = planar.Direction }, planar.Kind);
+            return planar;
         }
-        var refraction = RefractShared(incoming, normal, context.RefractiveIndexBefore,
-            context.RefractiveIndexAfter, context.IncidenceCosineSquared);
-        return new RealRayInteractionResult(ray with { Direction = refraction.Direction }, refraction.Kind);
+        return RefractShared(incoming, normal, before, after, incidenceSquared);
     }
 
     internal static (Vector3D Direction, RayInteractionKind Kind) RefractShared(Vector3D incoming,

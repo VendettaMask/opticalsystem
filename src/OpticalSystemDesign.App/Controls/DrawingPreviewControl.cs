@@ -20,6 +20,7 @@ public sealed class DrawingPreviewControl : Control, IInteractiveCanvasAutomatio
     {
         ClipToBounds = true;
         Focusable = true;
+        DiagramSheetLayout.BindViewportScale(this, _ => InvalidateVisual());
         InteractiveCanvasFocus.Attach(this);
         AutomationProperties.SetName(this, "光学图纸预览");
         AutomationProperties.SetHelpText(this, "使用方向键平移，使用加号或减号缩放，按 Home 重置视图。");
@@ -180,9 +181,9 @@ public sealed class DrawingPreviewControl : Control, IInteractiveCanvasAutomatio
         const double padding = 12;
         var availableWidth = Math.Max(1, Bounds.Width - (padding * 2));
         var availableHeight = Math.Max(1, Bounds.Height - (padding * 2));
-        var scale = Math.Min(
+        var scale = DiagramSheetLayout.FitToWindow ? Math.Min(
             availableWidth / Math.Max(1, _source.Size.Width),
-            availableHeight / Math.Max(1, _source.Size.Height));
+            availableHeight / Math.Max(1, _source.Size.Height)) : 1;
         var width = _source.Size.Width * scale;
         var height = _source.Size.Height * scale;
         var baseRect = new Rect(

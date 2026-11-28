@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0e128ead-9c24-4e96-8453-b405c2829413" name="optics@LAPTOP-G4BBBCS0 2026-11-26 10:27:56" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-26T10:27:56.6544071+08:00" queuing="2026-11-26T10:27:56.6544073+08:00" start="2026-11-26T10:27:52.6637212+08:00" finish="2026-11-26T10:28:48.7604589+08:00" />
+  <TestSettings name="default" id="ae56b6b7-c048-438b-9855-1f9e0fb06654">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-26_10_27_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b5bd02fe-713b-421c-a320-b39b9104ddff" testId="66d36428-6a58-d6ae-f0af-996e0648920a" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8442820" startTime="2026-11-26T10:28:31.7437059+08:00" endTime="2026-11-26T10:28:33.5938887+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5bd02fe-713b-421c-a320-b39b9104ddff">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [207, 242, 83, 105, 53, ···]&#xD;
+Actual:   [232, 78, 98, 230, 216, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 199&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 125&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="48f8be9f-51b4-42be-9301-d36c2e59d988" testId="deee35ec-a059-2e84-9cd9-18d7d869e543" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.5174892" startTime="2026-11-26T10:28:33.5960656+08:00" endTime="2026-11-26T10:28:37.1118835+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48f8be9f-51b4-42be-9301-d36c2e59d988" />
+    <UnitTestResult executionId="306390d0-bc5e-4bf7-ac95-85c5f76e5b15" testId="7533b0fd-4cb3-0e4a-0295-eca8b902ad8f" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.NativeSolidModeSelectorDefaultsToOpaqueAndRoundTripsWithoutRetracing" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.6969926" startTime="2026-11-26T10:28:04.5187731+08:00" endTime="2026-11-26T10:28:07.2150467+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="306390d0-bc5e-4bf7-ac95-85c5f76e5b15" />
+    <UnitTestResult executionId="75ba3a47-0941-44a5-9543-8a73a79d6729" testId="fad46bc0-0997-8858-d098-6cd6821d919e" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3194841+08:00" endTime="2026-11-26T10:28:03.3195023+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75ba3a47-0941-44a5-9543-8a73a79d6729">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8141a963-f818-429e-ac43-79bff60174ef" testId="39939975-3be4-dee1-7849-ccd190069400" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.MiniVoltLayoutClosesTheImmersionSectionAroundItsDecenteredAxis" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7589839" startTime="2026-11-26T10:28:02.5450649+08:00" endTime="2026-11-26T10:28:03.2959167+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8141a963-f818-429e-ac43-79bff60174ef" />
+    <UnitTestResult executionId="8f8553e2-fc73-4e9c-b30c-d03ccf31ae5a" testId="1df276b5-d292-7087-50fa-d4c1b05a4d4f" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.1256658" startTime="2026-11-26T10:28:37.1131737+08:00" endTime="2026-11-26T10:28:40.2378993+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f8553e2-fc73-4e9c-b30c-d03ccf31ae5a" />
+    <UnitTestResult executionId="9fe3be99-e831-4f6e-a873-5f5e0ea97219" testId="48007dee-903c-895e-126d-322b64f2439b" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.2979304+08:00" endTime="2026-11-26T10:28:03.2982141+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9fe3be99-e831-4f6e-a873-5f5e0ea97219">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c913b930-79fe-4435-8d1d-416db539021b" testId="9a97afca-dd19-e540-4435-98fa45a83516" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4707851" startTime="2026-11-26T10:28:43.3521834+08:00" endTime="2026-11-26T10:28:44.8216223+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c913b930-79fe-4435-8d1d-416db539021b" />
+    <UnitTestResult executionId="2b90547c-b09a-4733-9cbc-79713fe6dda6" testId="fd4132ca-97ca-9936-219b-dbd1555c48d0" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3514216" startTime="2026-11-26T10:28:03.3214651+08:00" endTime="2026-11-26T10:28:03.6492250+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b90547c-b09a-4733-9cbc-79713fe6dda6" />
+    <UnitTestResult executionId="0095ee6e-c01e-41f4-bfa5-e532f51a031d" testId="b29c1c05-7696-26ba-093b-7d5dbbb7901b" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: &quot;布局结果已过期并隐藏&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7012105" startTime="2026-11-26T10:27:56.6459175+08:00" endTime="2026-11-26T10:27:57.3291287+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0095ee6e-c01e-41f4-bfa5-e532f51a031d" />
+    <UnitTestResult executionId="d7f33fd4-f278-4ceb-bf45-cffa48b53e95" testId="22997e14-22b8-7aba-919a-ba63aa9f6c94" testName="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Solid, cutaway: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2641863" startTime="2026-11-26T10:28:47.8274266+08:00" endTime="2026-11-26T10:28:48.0910644+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d7f33fd4-f278-4ceb-bf45-cffa48b53e95" />
+    <UnitTestResult executionId="3923a971-6a42-42e5-b965-435dc08da3c6" testId="f5c39dc0-7fba-2397-e117-09f1031a9425" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: &quot;警告：正在查看过期结果&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7620789" startTime="2026-11-26T10:27:58.0528191+08:00" endTime="2026-11-26T10:27:58.8135222+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3923a971-6a42-42e5-b965-435dc08da3c6" />
+    <UnitTestResult executionId="05c26c17-c00e-40a1-8763-4a93e7735fc6" testId="0d07e378-cba8-16ab-611c-38c1ec3aedef" testName="OpticalSystemDesign.Tests.BinocularViewerTests.PhysicalFacesAndInternalReflectionsReachBothLayoutsWithoutChangingTrace(configuration: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0461610" startTime="2026-11-26T10:28:48.3696131+08:00" endTime="2026-11-26T10:28:48.4150287+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="05c26c17-c00e-40a1-8763-4a93e7735fc6" />
+    <UnitTestResult executionId="c992276b-6f69-4ea3-bf0d-bb05bb9083f4" testId="232a52bc-40d9-afa5-86e2-3afb7e2ad266" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Transparent, cutaway: True, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.8714520" startTime="2026-11-26T10:28:17.5579753+08:00" endTime="2026-11-26T10:28:29.4274766+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c992276b-6f69-4ea3-bf0d-bb05bb9083f4" />
+    <UnitTestResult executionId="4b38741b-83ed-43eb-8468-d62355d97a14" testId="9c7fe1ad-4195-876b-c49a-975faa63e1a9" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2876217" startTime="2026-11-26T10:28:04.2307410+08:00" endTime="2026-11-26T10:28:04.5176135+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b38741b-83ed-43eb-8468-d62355d97a14" />
+    <UnitTestResult executionId="0c52e9fa-b981-4cc4-9125-0fe94d79f27b" testId="9bd349ac-9738-7fb3-2825-a12cf9f79c58" testName="OpticalSystemDesign.Tests.BinocularViewerTests.Real2DViewerPaintsDisconnectedFaceContoursWithoutInventedConnectingEdges" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1811679" startTime="2026-11-26T10:28:48.4161397+08:00" endTime="2026-11-26T10:28:48.5966199+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c52e9fa-b981-4cc4-9125-0fe94d79f27b" />
+    <UnitTestResult executionId="9faf6dbe-437a-42e4-8f4d-25f552208ce2" testId="e8c92901-ae7b-d8c1-16d8-02e29cb6df73" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3158399+08:00" endTime="2026-11-26T10:28:03.3158575+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9faf6dbe-437a-42e4-8f4d-25f552208ce2">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e89e75d4-117d-45fc-b904-da7461622dfe" testId="47259d83-7edc-120e-903b-bb8fd8a72639" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: &quot;尚未准备布局光线&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7218049" startTime="2026-11-26T10:27:57.3317859+08:00" endTime="2026-11-26T10:27:58.0511813+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e89e75d4-117d-45fc-b904-da7461622dfe" />
+    <UnitTestResult executionId="776ad1a5-2517-4bd5-8987-12769d9185f9" testId="ce01b89e-1c83-656c-96c7-eca237321471" testName="OpticalSystemDesign.Tests.BinocularViewerTests.PhysicalFacesAndInternalReflectionsReachBothLayoutsWithoutChangingTrace(configuration: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0821596" startTime="2026-11-26T10:28:48.2873221+08:00" endTime="2026-11-26T10:28:48.3685408+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="776ad1a5-2517-4bd5-8987-12769d9185f9" />
+    <UnitTestResult executionId="927c27b2-aa94-4805-bf4d-6a7646d91a74" testId="e351a811-a648-a5ed-24aa-ff4020ffd014" testName="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Solid, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4368780" startTime="2026-11-26T10:28:46.6654324+08:00" endTime="2026-11-26T10:28:47.1016223+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="927c27b2-aa94-4805-bf4d-6a7646d91a74" />
+    <UnitTestResult executionId="f0627c05-91c1-477c-a183-162b4e81dbe0" testId="4d0b0073-b736-e3c2-4ec6-c16e76b15fe7" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.8415301" startTime="2026-11-26T10:28:08.7232240+08:00" endTime="2026-11-26T10:28:13.5631255+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0627c05-91c1-477c-a183-162b4e81dbe0" />
+    <UnitTestResult executionId="08df434c-e024-427e-a1dd-7c776e6dd74a" testId="1ab650c6-d289-d689-a175-9abcdae9ad5b" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.NativeControlsStayReadableAndExportsExcludeSettingsAndFocus" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8420231" startTime="2026-11-26T10:28:44.8224676+08:00" endTime="2026-11-26T10:28:46.6641395+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08df434c-e024-427e-a1dd-7c776e6dd74a" />
+    <UnitTestResult executionId="04d54da1-9918-4886-a765-ff9f88662518" testId="e8a58b24-4a8a-a24e-6948-b7239d743cd0" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3173472+08:00" endTime="2026-11-26T10:28:03.3173908+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04d54da1-9918-4886-a765-ff9f88662518">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eded2b56-2320-4506-9762-6965a5e298fc" testId="02157981-25ac-6559-132e-a23104636b16" testName="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Wireframe, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4358858" startTime="2026-11-26T10:28:47.1024848+08:00" endTime="2026-11-26T10:28:47.5396591+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eded2b56-2320-4506-9762-6965a5e298fc" />
+    <UnitTestResult executionId="c4fa3876-1748-4f76-af75-51c3613b7ee8" testId="bbe97540-5334-6d29-9535-3d091391b98e" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.9191804" startTime="2026-11-26T10:28:41.4324942+08:00" endTime="2026-11-26T10:28:43.3505427+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4fa3876-1748-4f76-af75-51c3613b7ee8" />
+    <UnitTestResult executionId="6b7aeea6-9c96-460f-8bb2-9e8435383ebf" testId="419ccdb2-4de5-9815-ec2a-eadd5d5c4b04" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: &quot;布局结果与当前场景一致&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.1932558" startTime="2026-11-26T10:27:54.4505875+08:00" endTime="2026-11-26T10:27:56.6272517+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b7aeea6-9c96-460f-8bb2-9e8435383ebf" />
+    <UnitTestResult executionId="72fa4acf-4b15-43e7-8ad3-76602416a452" testId="9284f2c2-fa49-cf42-721b-553264acff97" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Transparent, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.9130308" startTime="2026-11-26T10:28:13.5646005+08:00" endTime="2026-11-26T10:28:15.4767583+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72fa4acf-4b15-43e7-8ad3-76602416a452">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [158, 217, 236, 92, 95, ···]&#xD;
+Actual:   [35, 115, 58, 103, 22, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 199&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 125&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0eb37395-277a-414a-ad45-8486e6dde680" testId="8c611051-fdc6-5b48-e0e6-b0e1a458e89f" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: False, cutaway: False, highlighted: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2962118" startTime="2026-11-26T10:28:03.9377582+08:00" endTime="2026-11-26T10:28:04.2296152+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0eb37395-277a-414a-ad45-8486e6dde680" />
+    <UnitTestResult executionId="732271de-b08f-440a-99f0-befdc0d1eab4" testId="bf1d53e3-b527-0516-6626-34e657988f01" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3027004+08:00" endTime="2026-11-26T10:28:03.3027150+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="732271de-b08f-440a-99f0-befdc0d1eab4">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0fc61bea-67a8-47e4-be02-b41a55bd5a6a" testId="a0e9a144-d2a8-877f-42e7-d9a7c4482c10" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0782737" startTime="2026-11-26T10:28:15.4787105+08:00" endTime="2026-11-26T10:28:17.5556618+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0fc61bea-67a8-47e4-be02-b41a55bd5a6a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [14, 39, 234, 14, 172, ···]&#xD;
+Actual:   [68, 31, 20, 154, 45, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 199&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 125&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="43b1637b-ca73-4b45-b7a1-1e358d06a6ac" testId="486aa668-7230-14d2-206a-8359c189073e" testName="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Transparent, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2865024" startTime="2026-11-26T10:28:47.5407324+08:00" endTime="2026-11-26T10:28:47.8264866+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="43b1637b-ca73-4b45-b7a1-1e358d06a6ac" />
+    <UnitTestResult executionId="834cb2f7-dd29-4e87-a5af-60ca619f82a2" testId="74063fc8-48cf-ca78-e293-f46fc24030ad" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Wireframe, cutaway: False, raysVisible: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5055143" startTime="2026-11-26T10:28:07.2166213+08:00" endTime="2026-11-26T10:28:08.7214112+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="834cb2f7-dd29-4e87-a5af-60ca619f82a2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [167, 177, 129, 24, 170, ···]&#xD;
+Actual:   [202, 97, 50, 138, 22, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 199&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 125&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="651ae0da-54e0-4293-aab2-4dd318bdf6f3" testId="4730553f-ed5b-25bc-2dce-30f92920270e" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8841958" startTime="2026-11-26T10:27:59.8519587+08:00" endTime="2026-11-26T10:28:01.7350055+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="651ae0da-54e0-4293-aab2-4dd318bdf6f3" />
+    <UnitTestResult executionId="a45513c2-8639-4462-87b7-5ab5b21062df" testId="5d943f19-66d4-e7e5-e4f9-8c02a5d8d94e" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.1926817" startTime="2026-11-26T10:28:40.2394451+08:00" endTime="2026-11-26T10:28:41.4309897+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a45513c2-8639-4462-87b7-5ab5b21062df" />
+    <UnitTestResult executionId="28459047-6e2c-4557-b2a4-e1023bda2747" testId="fc5e6131-1614-5c12-f88f-02d50c8421d9" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3014629+08:00" endTime="2026-11-26T10:28:03.3015116+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28459047-6e2c-4557-b2a4-e1023bda2747">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="46ad7941-7051-4e27-92e1-b9f56a84c2d4" testId="cb5b8209-a205-834a-39e3-25ef555f851f" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3038962+08:00" endTime="2026-11-26T10:28:03.3039099+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46ad7941-7051-4e27-92e1-b9f56a84c2d4">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="061af7d1-cdae-4eed-a57d-0f86ae0d8843" testId="9f12736e-d93d-1262-e8d5-236d6695e2a7" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: True, raysVisible: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3115637" startTime="2026-11-26T10:28:29.4483457+08:00" endTime="2026-11-26T10:28:31.7409281+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="061af7d1-cdae-4eed-a57d-0f86ae0d8843">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [49, 251, 22, 42, 122, ···]&#xD;
+Actual:   [87, 11, 1, 94, 50, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 199&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 125&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="25fd5194-b186-49a4-a9f7-ca8d8d425a5a" testId="3b6b2aa7-5f4f-aa1e-ff08-dd640f2de8f6" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8012680" startTime="2026-11-26T10:28:01.7363924+08:00" endTime="2026-11-26T10:28:02.5366333+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25fd5194-b186-49a4-a9f7-ca8d8d425a5a" />
+    <UnitTestResult executionId="686533c8-400f-4434-945d-e966c5e4fc45" testId="f952e83d-7454-104c-8e02-a51993d69939" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3051140+08:00" endTime="2026-11-26T10:28:03.3051293+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="686533c8-400f-4434-945d-e966c5e4fc45">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cdb1fd7e-7982-4f8c-a4f6-345a896ef00a" testId="3169874f-ca72-aa6c-c529-2a33edf4be85" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0358844" startTime="2026-11-26T10:27:58.8157558+08:00" endTime="2026-11-26T10:27:59.8505226+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cdb1fd7e-7982-4f8c-a4f6-345a896ef00a" />
+    <UnitTestResult executionId="1dd62c7d-dcee-436c-bda9-b60a3be994f8" testId="397dc4b1-e342-8a30-5708-250054ccf919" testName="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: True, highlighted: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2781576" startTime="2026-11-26T10:28:03.6508599+08:00" endTime="2026-11-26T10:28:03.9336008+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1dd62c7d-dcee-436c-bda9-b60a3be994f8">
+      <Output>
+        <ErrorInfo>
+          <Message>Transparent mode must reveal rear geometry through the front surface.</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 62&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a7176914-8f86-4988-8911-c75dab2462ef" testId="cd444895-6870-fe50-5495-746d998539af" testName="OpticalSystemDesign.Tests.BinocularViewerTests.BothConfigurationsComposeInTheSharedSceneWithoutChangingTheWorkspace" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1944384" startTime="2026-11-26T10:28:48.0921332+08:00" endTime="2026-11-26T10:28:48.2860822+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7176914-8f86-4988-8911-c75dab2462ef" />
+    <UnitTestResult executionId="cc1b0c7a-c2e5-4e2a-adbb-7b93f05769b4" testId="688c7f19-f4d8-5bef-10f5-ef75bb8667d3" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-26T10:28:03.3064594+08:00" endTime="2026-11-26T10:28:03.3064761+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc1b0c7a-c2e5-4e2a-adbb-7b93f05769b4">
+      <Output>
+        <ErrorInfo>
+          <Message>Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: &quot;布局结果已过期并隐藏&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b29c1c05-7696-26ba-093b-7d5dbbb7901b">
+      <Execution id="0095ee6e-c01e-41f4-bfa5-e532f51a031d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.Real2DViewerPaintsDisconnectedFaceContoursWithoutInventedConnectingEdges" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9bd349ac-9738-7fb3-2825-a12cf9f79c58">
+      <Execution id="0c52e9fa-b981-4cc4-9125-0fe94d79f27b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="Real2DViewerPaintsDisconnectedFaceContoursWithoutInventedConnectingEdges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.PhysicalFacesAndInternalReflectionsReachBothLayoutsWithoutChangingTrace(configuration: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ce01b89e-1c83-656c-96c7-eca237321471">
+      <Execution id="776ad1a5-2517-4bd5-8987-12769d9185f9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="PhysicalFacesAndInternalReflectionsReachBothLayoutsWithoutChangingTrace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Wireframe, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="74063fc8-48cf-ca78-e293-f46fc24030ad">
+      <Execution id="834cb2f7-dd29-4e87-a5af-60ca619f82a2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Transparent, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="486aa668-7230-14d2-206a-8359c189073e">
+      <Execution id="43b1637b-ca73-4b45-b7a1-1e358d06a6ac" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="RealViewerPaintsPrismWithRaysHidden" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f952e83d-7454-104c-8e02-a51993d69939">
+      <Execution id="686533c8-400f-4434-945d-e966c5e4fc45" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9c7fe1ad-4195-876b-c49a-975faa63e1a9">
+      <Execution id="4b38741b-83ed-43eb-8468-d62355d97a14" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: &quot;尚未准备布局光线&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="47259d83-7edc-120e-903b-bb8fd8a72639">
+      <Execution id="e89e75d4-117d-45fc-b904-da7461622dfe" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: &quot;警告：正在查看过期结果&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f5c39dc0-7fba-2397-e117-09f1031a9425">
+      <Execution id="3923a971-6a42-42e5-b965-435dc08da3c6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bf1d53e3-b527-0516-6626-34e657988f01">
+      <Execution id="732271de-b08f-440a-99f0-befdc0d1eab4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ImageButtonSavesPngAndCancellationPreservesTheExistingFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e8a58b24-4a8a-a24e-6948-b7239d743cd0">
+      <Execution id="04d54da1-9918-4886-a765-ff9f88662518" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Transparent, cutaway: True, raysVisible: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="232a52bc-40d9-afa5-86e2-3afb7e2ad266">
+      <Execution id="c992276b-6f69-4ea3-bf0d-bb05bb9083f4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Isekai&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4d0b0073-b736-e3c2-4ec6-c16e76b15fe7">
+      <Execution id="f0627c05-91c1-477c-a183-162b4e81dbe0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc5e6131-1614-5c12-f88f-02d50c8421d9">
+      <Execution id="28459047-6e2c-4557-b2a4-e1023bda2747" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1df276b5-d292-7087-50fa-d4c1b05a4d4f">
+      <Execution id="8f8553e2-fc73-4e9c-b30c-d03ccf31ae5a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3169874f-ca72-aa6c-c529-2a33edf4be85">
+      <Execution id="cdb1fd7e-7982-4f8c-a4f6-345a896ef00a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="EmptyRefreshingAndOutdatedLockedViewsCannotExport" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a0e9a144-d2a8-877f-42e7-d9a7c4482c10">
+      <Execution id="0fc61bea-67a8-47e4-be02-b41a55bd5a6a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4730553f-ed5b-25bc-2dce-30f92920270e">
+      <Execution id="651ae0da-54e0-4293-aab2-4dd318bdf6f3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="EmptyRefreshingAndOutdatedLockedViewsCannotExport" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.MiniVoltLayoutClosesTheImmersionSectionAroundItsDecenteredAxis" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="39939975-3be4-dee1-7849-ccd190069400">
+      <Execution id="8141a963-f818-429e-ac43-79bff60174ef" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="MiniVoltLayoutClosesTheImmersionSectionAroundItsDecenteredAxis" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Lumen&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="66d36428-6a58-d6ae-f0af-996e0648920a">
+      <Execution id="b5bd02fe-713b-421c-a320-b39b9104ddff" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.NativeControlsStayReadableAndExportsExcludeSettingsAndFocus" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1ab650c6-d289-d689-a175-9abcdae9ad5b">
+      <Execution id="08df434c-e024-427e-a1dd-7c776e6dd74a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="NativeControlsStayReadableAndExportsExcludeSettingsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e8c92901-ae7b-d8c1-16d8-02e29cb6df73">
+      <Execution id="9faf6dbe-437a-42e4-8f4d-25f552208ce2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: False, highlighted: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fd4132ca-97ca-9936-219b-dbd1555c48d0">
+      <Execution id="2b90547c-b09a-4733-9cbc-79713fe6dda6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Transparent, cutaway: False, raysVisible: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9284f2c2-fa49-cf42-721b-553264acff97">
+      <Execution id="72fa4acf-4b15-43e7-8ad3-76602416a452" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3b6b2aa7-5f4f-aa1e-ff08-dd640f2de8f6">
+      <Execution id="25fd5194-b186-49a4-a9f7-ca8d8d425a5a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="EmptyRefreshingAndOutdatedLockedViewsCannotExport" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Wireframe, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="02157981-25ac-6559-132e-a23104636b16">
+      <Execution id="eded2b56-2320-4506-9762-6965a5e298fc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="RealViewerPaintsPrismWithRaysHidden" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: &quot;布局结果与当前场景一致&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="419ccdb2-4de5-9815-ec2a-eadd5d5c4b04">
+      <Execution id="6b7aeea6-9c96-460f-8bb2-9e8435383ebf" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: True, raysVisible: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9f12736e-d93d-1262-e8d5-236d6695e2a7">
+      <Execution id="061af7d1-cdae-4eed-a57d-0f86ae0d8843" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.BothConfigurationsComposeInTheSharedSceneWithoutChangingTheWorkspace" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cd444895-6870-fe50-5495-746d998539af">
+      <Execution id="a7176914-8f86-4988-8911-c75dab2462ef" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="BothConfigurationsComposeInTheSharedSceneWithoutChangingTheWorkspace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="688c7f19-f4d8-5bef-10f5-ef75bb8667d3">
+      <Execution id="cc1b0c7a-c2e5-4e2a-adbb-7b93f05769b4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="48007dee-903c-895e-126d-322b64f2439b">
+      <Execution id="9fe3be99-e831-4f6e-a873-5f5e0ea97219" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: False, cutaway: False, highlighted: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8c611051-fdc6-5b48-e0e6-b0e1a458e89f">
+      <Execution id="0eb37395-277a-414a-ad45-8486e6dde680" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9a97afca-dd19-e540-4435-98fa45a83516">
+      <Execution id="c913b930-79fe-4435-8d1d-416db539021b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="deee35ec-a059-2e84-9cd9-18d7d869e543">
+      <Execution id="48f8be9f-51b4-42be-9301-d36c2e59d988" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Solid, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e351a811-a648-a5ed-24aa-ff4020ffd014">
+      <Execution id="927c27b2-aa94-4805-bf4d-6a7646d91a74" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="RealViewerPaintsPrismWithRaysHidden" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fad46bc0-0997-8858-d098-6cd6821d919e">
+      <Execution id="75ba3a47-0941-44a5-9543-8a73a79d6729" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="SaveFailureShowsFeedbackAndKeepsSceneMetadata" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.NativeSolidModeSelectorDefaultsToOpaqueAndRoundTripsWithoutRetracing" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7533b0fd-4cb3-0e4a-0295-eca8b902ad8f">
+      <Execution id="306390d0-bc5e-4bf7-ac95-85c5f76e5b15" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="NativeSolidModeSelectorDefaultsToOpaqueAndRoundTripsWithoutRetracing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.RealViewerPaintsPrismWithRaysHidden(mode: Solid, cutaway: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="22997e14-22b8-7aba-919a-ba63aa9f6c94">
+      <Execution id="d7f33fd4-f278-4ceb-bf45-cffa48b53e95" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="RealViewerPaintsPrismWithRaysHidden" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cb5b8209-a205-834a-39e3-25ef555f851f">
+      <Execution id="46ad7941-7051-4e27-92e1-b9f56a84c2d4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5d943f19-66d4-e7e5-e4f9-8c02a5d8d94e">
+      <Execution id="a45513c2-8639-4462-87b7-5ab5b21062df" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(theme: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bbe97540-5334-6d29-9535-3d091391b98e">
+      <Execution id="c4fa3876-1748-4f76-af75-51c3613b7ee8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: True, highlighted: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="397dc4b1-e342-8a30-5708-250054ccf919">
+      <Execution id="1dd62c7d-dcee-436c-bda9-b60a3be994f8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelOpacityTests" name="SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BinocularViewerTests.PhysicalFacesAndInternalReflectionsReachBothLayoutsWithoutChangingTrace(configuration: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0d07e378-cba8-16ab-611c-38c1ec3aedef">
+      <Execution id="05c26c17-c00e-40a1-8763-4a93e7735fc6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BinocularViewerTests" name="PhysicalFacesAndInternalReflectionsReachBothLayoutsWithoutChangingTrace" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="66d36428-6a58-d6ae-f0af-996e0648920a" executionId="b5bd02fe-713b-421c-a320-b39b9104ddff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="deee35ec-a059-2e84-9cd9-18d7d869e543" executionId="48f8be9f-51b4-42be-9301-d36c2e59d988" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7533b0fd-4cb3-0e4a-0295-eca8b902ad8f" executionId="306390d0-bc5e-4bf7-ac95-85c5f76e5b15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fad46bc0-0997-8858-d098-6cd6821d919e" executionId="75ba3a47-0941-44a5-9543-8a73a79d6729" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39939975-3be4-dee1-7849-ccd190069400" executionId="8141a963-f818-429e-ac43-79bff60174ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1df276b5-d292-7087-50fa-d4c1b05a4d4f" executionId="8f8553e2-fc73-4e9c-b30c-d03ccf31ae5a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48007dee-903c-895e-126d-322b64f2439b" executionId="9fe3be99-e831-4f6e-a873-5f5e0ea97219" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9a97afca-dd19-e540-4435-98fa45a83516" executionId="c913b930-79fe-4435-8d1d-416db539021b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd4132ca-97ca-9936-219b-dbd1555c48d0" executionId="2b90547c-b09a-4733-9cbc-79713fe6dda6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b29c1c05-7696-26ba-093b-7d5dbbb7901b" executionId="0095ee6e-c01e-41f4-bfa5-e532f51a031d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22997e14-22b8-7aba-919a-ba63aa9f6c94" executionId="d7f33fd4-f278-4ceb-bf45-cffa48b53e95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f5c39dc0-7fba-2397-e117-09f1031a9425" executionId="3923a971-6a42-42e5-b965-435dc08da3c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d07e378-cba8-16ab-611c-38c1ec3aedef" executionId="05c26c17-c00e-40a1-8763-4a93e7735fc6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="232a52bc-40d9-afa5-86e2-3afb7e2ad266" executionId="c992276b-6f69-4ea3-bf0d-bb05bb9083f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c7fe1ad-4195-876b-c49a-975faa63e1a9" executionId="4b38741b-83ed-43eb-8468-d62355d97a14" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9bd349ac-9738-7fb3-2825-a12cf9f79c58" executionId="0c52e9fa-b981-4cc4-9125-0fe94d79f27b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e8c92901-ae7b-d8c1-16d8-02e29cb6df73" executionId="9faf6dbe-437a-42e4-8f4d-25f552208ce2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="47259d83-7edc-120e-903b-bb8fd8a72639" executionId="e89e75d4-117d-45fc-b904-da7461622dfe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce01b89e-1c83-656c-96c7-eca237321471" executionId="776ad1a5-2517-4bd5-8987-12769d9185f9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e351a811-a648-a5ed-24aa-ff4020ffd014" executionId="927c27b2-aa94-4805-bf4d-6a7646d91a74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d0b0073-b736-e3c2-4ec6-c16e76b15fe7" executionId="f0627c05-91c1-477c-a183-162b4e81dbe0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ab650c6-d289-d689-a175-9abcdae9ad5b" executionId="08df434c-e024-427e-a1dd-7c776e6dd74a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e8a58b24-4a8a-a24e-6948-b7239d743cd0" executionId="04d54da1-9918-4886-a765-ff9f88662518" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="02157981-25ac-6559-132e-a23104636b16" executionId="eded2b56-2320-4506-9762-6965a5e298fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bbe97540-5334-6d29-9535-3d091391b98e" executionId="c4fa3876-1748-4f76-af75-51c3613b7ee8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="419ccdb2-4de5-9815-ec2a-eadd5d5c4b04" executionId="6b7aeea6-9c96-460f-8bb2-9e8435383ebf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9284f2c2-fa49-cf42-721b-553264acff97" executionId="72fa4acf-4b15-43e7-8ad3-76602416a452" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c611051-fdc6-5b48-e0e6-b0e1a458e89f" executionId="0eb37395-277a-414a-ad45-8486e6dde680" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf1d53e3-b527-0516-6626-34e657988f01" executionId="732271de-b08f-440a-99f0-befdc0d1eab4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0e9a144-d2a8-877f-42e7-d9a7c4482c10" executionId="0fc61bea-67a8-47e4-be02-b41a55bd5a6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="486aa668-7230-14d2-206a-8359c189073e" executionId="43b1637b-ca73-4b45-b7a1-1e358d06a6ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74063fc8-48cf-ca78-e293-f46fc24030ad" executionId="834cb2f7-dd29-4e87-a5af-60ca619f82a2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4730553f-ed5b-25bc-2dce-30f92920270e" executionId="651ae0da-54e0-4293-aab2-4dd318bdf6f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d943f19-66d4-e7e5-e4f9-8c02a5d8d94e" executionId="a45513c2-8639-4462-87b7-5ab5b21062df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc5e6131-1614-5c12-f88f-02d50c8421d9" executionId="28459047-6e2c-4557-b2a4-e1023bda2747" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb5b8209-a205-834a-39e3-25ef555f851f" executionId="46ad7941-7051-4e27-92e1-b9f56a84c2d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9f12736e-d93d-1262-e8d5-236d6695e2a7" executionId="061af7d1-cdae-4eed-a57d-0f86ae0d8843" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b6b2aa7-5f4f-aa1e-ff08-dd640f2de8f6" executionId="25fd5194-b186-49a4-a9f7-ca8d8d425a5a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f952e83d-7454-104c-8e02-a51993d69939" executionId="686533c8-400f-4434-945d-e966c5e4fc45" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3169874f-ca72-aa6c-c529-2a33edf4be85" executionId="cdb1fd7e-7982-4f8c-a4f6-345a896ef00a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="397dc4b1-e342-8a30-5708-250054ccf919" executionId="1dd62c7d-dcee-436c-bda9-b60a3be994f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd444895-6870-fe50-5495-746d998539af" executionId="a7176914-8f86-4988-8911-c75dab2462ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="688c7f19-f4d8-5bef-10f5-ef75bb8667d3" executionId="cc1b0c7a-c2e5-4e2a-adbb-7b93f05769b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="43" executed="34" passed="28" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.15]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.20]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.24]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:10.13]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.13]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.13]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.14]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.14]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.14]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.15]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.15]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions”。&#xD;
+[xUnit.net 00:00:10.15]       Run ViewerImageExportTests in isolation with OPTICAL_SYSTEM_DESIGN_VIEWER_EXPORT_CAPTURE_DIR for real Skia PNG checks.&#xD;
+[xUnit.net 00:00:10.77]       Transparent mode must reveal rear geometry through the front surface.&#xD;
+[xUnit.net 00:00:10.77]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.77]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(62,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.77]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.77]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.77]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.77]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.77]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.77]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelOpacityTests.cs(36,0): at OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(Boolean polygon, Boolean cutaway, Boolean highlighted)&#xD;
+[xUnit.net 00:00:10.77]         --- End of stack trace from previous location ---&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata”。&#xD;
+Lumen/Wireframe: scene 0, 0, 1615, 836.192, source 1615, 837, image 1617, 904, model 1, 1, 1615, 836&#xD;
+[xUnit.net 00:00:15.55]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:15.55]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:15.55]       Expected: [167, 177, 129, 24, 170, ···]&#xD;
+[xUnit.net 00:00:15.55]       Actual:   [202, 97, 50, 138, 22, ···]&#xD;
+[xUnit.net 00:00:15.55]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:15.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:15.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(199,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.55]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.55]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:15.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(125,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:15.55]         --- End of stack trace from previous location ---&#xD;
+Light/Transparent: scene 0, 0, 1615, 836.192, source 1615, 837, image 1617, 904, model 1, 1, 1615, 836&#xD;
+[xUnit.net 00:00:22.31]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:22.31]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:22.31]       Expected: [158, 217, 236, 92, 95, ···]&#xD;
+[xUnit.net 00:00:22.31]       Actual:   [35, 115, 58, 103, 22, ···]&#xD;
+[xUnit.net 00:00:22.31]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:22.31]       Stack Trace:&#xD;
+[xUnit.net 00:00:22.31]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(199,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.31]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.31]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:22.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.31]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(125,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:22.31]         --- End of stack trace from previous location ---&#xD;
+Light/Solid: scene 0, 0, 1615, 836.192, source 1615, 837, image 1617, 904, model 1, 1, 1615, 836&#xD;
+[xUnit.net 00:00:24.39]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:24.39]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:24.39]       Expected: [14, 39, 234, 14, 172, ···]&#xD;
+[xUnit.net 00:00:24.39]       Actual:   [68, 31, 20, 154, 45, ···]&#xD;
+[xUnit.net 00:00:24.39]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:24.39]       Stack Trace:&#xD;
+[xUnit.net 00:00:24.39]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(199,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:24.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:24.39]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:24.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:24.39]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:24.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:24.39]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(125,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:24.39]         --- End of stack trace from previous location ---&#xD;
+Light/Solid: scene 0, 0, 1615, 836.192, source 1615, 837, image 1617, 904, model 1, 1, 1615, 836&#xD;
+[xUnit.net 00:00:38.57]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:38.57]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:38.57]       Expected: [49, 251, 22, 42, 122, ···]&#xD;
+[xUnit.net 00:00:38.57]       Actual:   [87, 11, 1, 94, 50, ···]&#xD;
+[xUnit.net 00:00:38.57]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:38.57]       Stack Trace:&#xD;
+[xUnit.net 00:00:38.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(199,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:38.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:38.57]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:38.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:38.57]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:38.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:38.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(125,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:38.57]         --- End of stack trace from previous location ---&#xD;
+Lumen/Solid: scene 0, 0, 1615, 836.192, source 1615, 837, image 1617, 904, model 1, 1, 1615, 836&#xD;
+[xUnit.net 00:00:40.43]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:40.43]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:40.43]       Expected: [207, 242, 83, 105, 53, ···]&#xD;
+[xUnit.net 00:00:40.43]       Actual:   [232, 78, 98, 230, 216, ···]&#xD;
+[xUnit.net 00:00:40.43]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:40.43]       Stack Trace:&#xD;
+[xUnit.net 00:00:40.43]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(199,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:40.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:40.43]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:40.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:40.43]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:40.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:40.43]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(125,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:40.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:55.43]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.2990269+08:00">
+        <Text>[xUnit.net 00:00:10.13]     OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3017527+08:00">
+        <Text>[xUnit.net 00:00:10.13]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3028209+08:00">
+        <Text>[xUnit.net 00:00:10.13]     OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3040270+08:00">
+        <Text>[xUnit.net 00:00:10.14]     OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3052754+08:00">
+        <Text>[xUnit.net 00:00:10.14]     OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3066484+08:00">
+        <Text>[xUnit.net 00:00:10.14]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3160772+08:00">
+        <Text>[xUnit.net 00:00:10.15]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3175825+08:00">
+        <Text>[xUnit.net 00:00:10.15]     OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:03.3218276+08:00">
+        <Text>[xUnit.net 00:00:10.15]     OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:28:03.9353035+08:00">
+        <Text>[xUnit.net 00:00:10.77]     OpticalSystemDesign.Tests.SolidModelOpacityTests.SolidOccludesRearGeometryWhileTransparentModeAndExplicitOpacityRevealIt(polygon: True, cutaway: True, highlighted: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:28:08.7217544+08:00">
+        <Text>[xUnit.net 00:00:15.55]     OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: "Lumen", renderMode: Wireframe, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:28:15.4770271+08:00">
+        <Text>[xUnit.net 00:00:22.31]     OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: "Light", renderMode: Transparent, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:28:17.5559578+08:00">
+        <Text>[xUnit.net 00:00:24.39]     OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: "Light", renderMode: Solid, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:28:31.7413128+08:00">
+        <Text>[xUnit.net 00:00:38.57]     OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: "Light", renderMode: Solid, cutaway: True, raysVisible: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-26T10:28:33.5941971+08:00">
+        <Text>[xUnit.net 00:00:40.43]     OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: "Lumen", renderMode: Solid, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-26T10:28:48.7296868+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

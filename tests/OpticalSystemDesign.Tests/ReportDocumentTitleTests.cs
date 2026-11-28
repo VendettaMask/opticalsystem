@@ -13,14 +13,18 @@ public sealed class ReportDocumentTitleTests
     [InlineData("Classified Data Report", "分类数据报告")]
     [InlineData("First Order", "系统数据摘要")]
     [InlineData("Cardinal Points Data", "基面数据")]
-    public void ReportTitlesUseTheChineseDisplayName(string key, string title)
+    public async Task ReportTitlesUseTheChineseDisplayName(string key, string title)
     {
-        using var application = WorkbenchApplication.Create();
-        using var panels = CreateManager(application);
-        panels.ShowAnalysis(key);
-        var document = panels.Factory.OpenDocuments().Single(item => item.Id == $"analysis:{key}");
-        Assert.Equal(title, document.Title);
-        Assert.Equal(key, Assert.IsType<AnalysisPanel>(document.Context).AnalysisKey);
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create();
+            using var panels = CreateManager(application);
+            panels.ShowAnalysis(key);
+            var document = panels.Factory.OpenDocuments().Single(item => item.Id == $"analysis:{key}");
+            Assert.Equal(title, document.Title);
+            Assert.Equal(key, Assert.IsType<AnalysisPanel>(document.Context).AnalysisKey);
+        }, CancellationToken.None);
     }
 
     [Fact]
@@ -32,7 +36,17 @@ public sealed class ReportDocumentTitleTests
             using var application = WorkbenchApplication.Create();
             using var panels = CreateManager(application);
             panels.ShowAnalysis("System Data Report");
+            var original = panels.Factory.DocumentContent<AnalysisPanel>("analysis:System Data Report")!;
+            original.IsLocked = true;
             panels.CloneActiveAnalysis();
+            var copy = Assert.Single(panels.Factory.OpenDocuments(), item => item.Title == "系统数据报告（副本）");
+            var cloned = Assert.IsType<AnalysisPanel>(copy.Context);
+            Assert.True(cloned.IsLocked);
+            Assert.NotEqual(original.InstanceId, cloned.InstanceId);
+            Assert.Equal(original.Settings.OrderBy(pair => pair.Key), cloned.Settings.OrderBy(pair => pair.Key));
+            Assert.NotSame(original.Settings, cloned.Settings);
+            original.IsLocked = false;
+            Assert.True(cloned.IsLocked);
             foreach (var document in panels.Factory.OpenDocuments().Where(document => document.Id.StartsWith("analysis:", StringComparison.Ordinal)))
             {
                 document.Title = document.Title.Replace("系统数据报告", "System Data Report", StringComparison.Ordinal);
@@ -51,14 +65,18 @@ public sealed class ReportDocumentTitleTests
     [Theory]
     [InlineData("My report")]
     [InlineData("System Data Report（副本） notes")]
-    public void CustomAnalysisTitlesKeepTheirOriginalText(string title)
+    public async Task CustomAnalysisTitlesKeepTheirOriginalText(string title)
     {
-        using var application = WorkbenchApplication.Create();
-        using var panels = CreateManager(application);
-        var document = panels.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
-            "analysis:custom", WorkspaceDocumentTypes.Analysis, title, "System Data Report"));
-        Assert.Equal(title, document.Title);
-        Assert.Equal("System Data Report", Assert.IsType<AnalysisPanel>(document.Context).AnalysisKey);
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create();
+            using var panels = CreateManager(application);
+            var document = panels.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+                "analysis:custom", WorkspaceDocumentTypes.Analysis, title, "System Data Report"));
+            Assert.Equal(title, document.Title);
+            Assert.Equal("System Data Report", Assert.IsType<AnalysisPanel>(document.Context).AnalysisKey);
+        }, CancellationToken.None);
     }
 
     private static PanelManager CreateManager(WorkbenchApplication application) => new(application, new AppSettings(),

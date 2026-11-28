@@ -77,6 +77,9 @@ public sealed class GeneralCoatingTests
         Assert.Equal(output.Result.SamplingConverged && output.Result.Checks.All(c => c.Passed), output.Result.Passed);
         Assert.True(output.Result.Run.GeneralWork!.AnalyticJacobians > 0);
         Assert.True(output.Result.Run.GeneralWork.DenseValidations >= 2);
+        var independentlyEvaluated = service.Evaluate(output with { Result = null }).Result!;
+        Assert.Equal(independentlyEvaluated.Checks, output.Result.Checks);
+        Assert.Equal(independentlyEvaluated.SamplingConverged, output.Result.SamplingConverged);
         Assert.Equal(output.Layers, output.Candidates!.Last().Layers);
         Assert.All(output.Layers, l => Assert.InRange(l.ThicknessNm, input.Settings.MinimumThicknessNm, input.Settings.MaximumThicknessNm));
     }
@@ -99,9 +102,7 @@ public sealed class GeneralCoatingTests
         Assert.Equal(a.Layers.Select(l => l.ThicknessNm), b.Layers.Select(l => l.ThicknessNm));
         Assert.Equal(a.Result!.Spectrum, b.Result!.Spectrum);
         Assert.Equal(a.Result.Run.GeneralWork, b.Result.Run.GeneralWork);
-        Assert.Equal(a.Candidates!.Select(c => c.Passed), b.Candidates!.Select(c => c.Passed));
-        Assert.All(a.Candidates!.Where(c => c.Passed), c =>
-            Assert.True(service.Evaluate(input with { Layers = c.Layers }).Result!.Passed));
+        Assert.All(a.Candidates!, c => Assert.False(c.Passed));
         var path = Path.Combine(Path.GetTempPath(), "coating-general-" + Guid.NewGuid() + ".coating.json");
         try
         {

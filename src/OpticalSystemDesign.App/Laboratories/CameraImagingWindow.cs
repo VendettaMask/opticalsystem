@@ -241,8 +241,6 @@ public sealed partial class CameraImagingWindow : Window
             FontSize = DisplayTypography.BodySmall
         };
         private readonly Image _image = new() { Stretch = Stretch.Uniform };
-        private readonly ScrollViewer _viewportHost;
-        private bool _fit = true;
         private readonly TextBlock _empty = LaboratoryPresentation.Hint("运行仿真后显示图像");
         private WriteableBitmap? _bitmap;
         public string Title { get => _title.Text ?? ""; set => _title.Text = value; }
@@ -257,9 +255,9 @@ public sealed partial class CameraImagingWindow : Window
             _empty.HorizontalAlignment = HorizontalAlignment.Center; _empty.VerticalAlignment = VerticalAlignment.Center;
             _empty.TextAlignment = TextAlignment.Center;
             var viewport = new Grid { Children = { _image, _empty } };
-            _viewportHost = new ScrollViewer { Content = viewport, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Disabled, HorizontalContentAlignment = HorizontalAlignment.Stretch, VerticalContentAlignment = VerticalAlignment.Stretch };
+            var scroll = DiagramSheetLayout.CreateBitmapViewport(_image, viewport);
             var body = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 8 };
-            body.Children.Add(_title); Grid.SetRow(_viewportHost, 1); body.Children.Add(_viewportHost); Child = body;
+            body.Children.Add(_title); Grid.SetRow(scroll, 1); body.Children.Add(scroll); Child = body;
         }
         public void Set(CameraImage? frame)
         {
@@ -281,16 +279,7 @@ public sealed partial class CameraImagingWindow : Window
                     Marshal.Copy(row, 0, buffer.Address + y * buffer.RowBytes, row.Length);
                 }
             }
-            _image.Source = _bitmap; SetFit(_fit); AutomationProperties.SetName(_image, $"{_title.Text} · {frame.Width} × {frame.Height}");
-        }
-        public void SetFit(bool fit)
-        {
-            _fit = fit; _image.Width = fit || _bitmap is null ? double.NaN : _bitmap.PixelSize.Width;
-            _image.Height = fit || _bitmap is null ? double.NaN : _bitmap.PixelSize.Height;
-            _image.Stretch = fit ? Stretch.Uniform : Stretch.None;
-            _image.HorizontalAlignment = fit ? HorizontalAlignment.Stretch : HorizontalAlignment.Center;
-            _image.VerticalAlignment = fit ? VerticalAlignment.Stretch : VerticalAlignment.Center;
-            _viewportHost.HorizontalScrollBarVisibility = _viewportHost.VerticalScrollBarVisibility = fit ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
+            _image.Source = _bitmap; AutomationProperties.SetName(_image, $"{_title.Text} · {frame.Width} × {frame.Height}");
         }
         public void Dispose() => Set(null);
     }

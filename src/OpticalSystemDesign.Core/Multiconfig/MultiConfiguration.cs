@@ -142,7 +142,7 @@ public sealed partial class MultiConfiguration
     public void RemoveSurface(int surfaceNumber)
     {
         ValidateCompatibleSurfaceStructures();
-        if (_operandRows.Any(row => row.SurfaceNumber == surfaceNumber))
+        if (_operandRows.Any(row => !row.IsSystemParameter && row.SurfaceNumber == surfaceNumber))
             throw new InvalidOperationException("该表面正被多配置操作数行引用，请先移除行引用。");
         var surfaceCount = Configurations[0].SurfaceGroup.Items.Count;
         if (surfaceCount <= 2 || surfaceNumber <= 0 || surfaceNumber >= surfaceCount - 1)
@@ -166,6 +166,20 @@ public sealed partial class MultiConfiguration
             var value => value
         });
         RemapOperandSurfaces(number => number > surfaceNumber ? number - 1 : number);
+    }
+
+    public void InsertCoordinateBreak(int surfaceNumber)
+    {
+        ValidateCompatibleSurfaceStructures();
+        if (surfaceNumber <= 0 || surfaceNumber >= Configurations[0].SurfaceGroup.Items.Count)
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
+        foreach (var configuration in Configurations)
+        {
+            configuration.Pickups.InsertSurface(surfaceNumber);
+            configuration.SurfaceGroup.InsertCoordinateBreak(surfaceNumber);
+        }
+        RemapBrokenLinks(n => n >= surfaceNumber ? n + 1 : n);
+        RemapOperandSurfaces(n => n >= surfaceNumber ? n + 1 : n);
     }
 
     public void SetRadius(int configIndex, int surfaceNumber, double value)
@@ -387,21 +401,18 @@ public sealed partial class MultiConfiguration
 
     private static void CopyMaterial(OpticalSurface source, OpticalSurface target)
     {
-        target.MaterialAfter = source.MaterialAfter.Clone();
+        if (target.InteractionModel is Interactions.CoordinateReferenceInteractionModel)
+        {
+            target.MaterialAfter = target.MaterialBefore.Clone();
+            return;
+        }
         target.IsReflective = source.IsReflective;
-        target.Material = source.Material;
+        target.MaterialAfter = (source.IsReflective ? target.MaterialBefore : source.MaterialAfter).Clone();
+        target.Material = target.IsReflective ? "MIRROR" : target.MaterialAfter.Name;
     }
 
-    private static void SynchronizeFollowingMedia(Optic optic, int surfaceNumber)
-    {
-        for (var index = surfaceNumber + 1; index < optic.SurfaceGroup.Items.Count; index++)
-        {
-            var next = optic.SurfaceGroup.Items[index];
-            next.MaterialBefore = optic.SurfaceGroup.Items[index - 1].MaterialAfter.Clone();
-            if (!next.IsReflective) break;
-            next.MaterialAfter = next.MaterialBefore.Clone();
-        }
-    }
+    private static void SynchronizeFollowingMedia(Optic optic, int surfaceNumber) =>
+        optic.SurfaceGroup.SynchronizeFollowingMedia(surfaceNumber);
 
     private static bool PropertyEquals(OpticalSurface source, OpticalSurface target, string property) => property switch
     {
@@ -412,11 +423,8 @@ public sealed partial class MultiConfiguration
             && source.SemiDiameterFixed == target.SemiDiameterFixed
             && source.SemiDiameterMaximum == target.SemiDiameterMaximum,
         "material" => source.Material.Equals(target.Material, StringComparison.OrdinalIgnoreCase)
-            && source.MaterialAfter.Name.Equals(target.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase)
             && source.IsReflective == target.IsReflective
-            && (source.MaterialAfter is not (Materials.GradientIndexMaterial or Materials.ModelGlassMaterial) && target.MaterialAfter is not (Materials.GradientIndexMaterial or Materials.ModelGlassMaterial)
-                || System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(source.MaterialAfter))
-                    == System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(target.MaterialAfter))),
+            && SameMaterialDefinition(source.MaterialAfter, target.MaterialAfter),
         var shape when SurfaceShapeParameters.IsShapeProperty(shape) =>
             SurfaceShapeParameters.CoefficientNames(target).Contains(shape[6..])
             && SurfaceShapeParameters.Read(source, shape[6..]).Equals(SurfaceShapeParameters.Read(target, shape[6..])),
@@ -429,9 +437,28 @@ public sealed partial class MultiConfiguration
         _ => throw new ArgumentOutOfRangeException(nameof(property))
     };
 
+    private static bool SameMaterialDefinition(Materials.IMaterial first, Materials.IMaterial second)
+    {
+        if (ReferenceEquals(first, second)) return true;
+        if (first.GetType() != second.GetType() || !first.Name.Equals(second.Name, StringComparison.OrdinalIgnoreCase)) return false;
+        if (first is Materials.AirMaterial air && second is Materials.AirMaterial otherAir)
+            return air.PressureAtmospheres == otherAir.PressureAtmospheres;
+        return SameSnapshot(ComponentSnapshotFactory.FromMaterial(first), ComponentSnapshotFactory.FromMaterial(second));
+    }
+
+    private static bool SameSnapshot(ComponentSnapshot first, ComponentSnapshot second) =>
+        first.Kind == second.Kind
+        && first.Numbers.Count == second.Numbers.Count
+        && first.Numbers.All(p => second.Numbers.TryGetValue(p.Key, out var value) && value.Equals(p.Value))
+        && first.Text.Count == second.Text.Count
+        && first.Text.All(p => second.Text.TryGetValue(p.Key, out var value) && p.Value == value)
+        && (first.Children?.Count ?? 0) == (second.Children?.Count ?? 0)
+        && (first.Children is null || first.Children.All(p => second.Children!.TryGetValue(p.Key, out var child) && SameSnapshot(p.Value, child)));
+
     private static string NormalizeProperty(string property)
     {
         var normalized = property?.Trim().ToLowerInvariant();
+        if (normalized is "system:xfie" or "system:yfie" or "system:flwt" or "system:wave" or "system:wlwt") return normalized;
         if (SurfaceShapeParameters.IsShapeProperty(normalized) || GradientIndexParameters.IsGradientProperty(normalized) || ModelGlassParameters.IsProperty(normalized)) return normalized!;
         return normalized is "radius" or "thickness" or "semidiameter" or "conic" or "material"
             ? normalized == "semidiameter" ? "semiDiameter" : normalized

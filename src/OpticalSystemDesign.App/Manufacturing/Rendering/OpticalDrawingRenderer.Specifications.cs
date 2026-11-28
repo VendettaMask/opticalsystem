@@ -244,7 +244,7 @@ internal static partial class OpticalDrawingRendererCore
         return $"L{componentIndex + 1}";
     }
 
-    private static IReadOnlyList<string> ComponentMaterialSpecificationLines(
+    internal static IReadOnlyList<string> ComponentMaterialSpecificationLines(
         OpticalDrawingSheet sheet,
         OpticalElementDefinition component,
         GlassMaterialDto? material)
@@ -356,7 +356,7 @@ internal static partial class OpticalDrawingRendererCore
         }
     }
 
-    private static IReadOnlyList<string> MaterialSpecificationLines(OpticalDrawingSheet sheet)
+    internal static IReadOnlyList<string> MaterialSpecificationLines(OpticalDrawingSheet sheet)
     {
         var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
         return ResolveFields(

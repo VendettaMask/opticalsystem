@@ -1,0 +1,45 @@
+{
+  "Date": "2026-11-27",
+  "FailedRun": 45925161856,
+  "FailedSource": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+  "Failure": "NU1004 project-reference graph inconsistent with committed package locks",
+  "Platforms": [
+    "win-x64",
+    "win-arm64",
+    "osx-arm64"
+  ],
+  "LockFiles": [
+    {
+      "Path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/packages.lock.json",
+      "Sha256": "8a5b25f0540e6307c043ee0ab394471f7d4779afdc12858f2a24640dfb7bdc2e"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/packages.lock.json",
+      "Sha256": "73fd8e830e7129262413077e496c2dbea3c91a06410c4becc8893cb421c61063"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/packages.lock.json",
+      "Sha256": "6f14bc33c844cbfe987d02fe02200dab5a8ba4b7edeb0ddee0cfb00d5ebc9d30"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/packages.lock.json",
+      "Sha256": "6786cbb09d96b2a268c898684715fae8bc05fcae1019096fb90b5d29cad0946a"
+    },
+    {
+      "Path": "tools/diagnostics/CoatingRecovery20261102/packages.lock.json",
+      "Sha256": "e93d02cbe1600e815de238b2454101c7b13b1dc2a2e87dfce0056af1916b848b"
+    }
+  ],
+  "LockedSolutionRestore": {
+    "Command": "dotnet restore OpticalSystemDesign.slnx --locked-mode",
+    "ExitCode": 0
+  },
+  "FullReleaseBuild": {
+    "Command": "dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true",
+    "ExitCode": 0,
+    "IncludesOtherUncommittedWorkspaceEdits": true
+  },
+  "PrecisionMatrixRun": false,
+  "RetryStatus": "Awaiting a new run pinned to the lockfile-fix commit",
+  "EvidenceSha256": "69cb77a6160c7c5a6b78cd29ae2660dd2a4834824d492e8bbd46de4b298ba4d8"
+}

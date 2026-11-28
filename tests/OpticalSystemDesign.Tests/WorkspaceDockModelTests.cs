@@ -24,6 +24,18 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class WorkspaceDockModelTests
 {
+    private static async Task WithUi(Action action)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(action, CancellationToken.None);
+    }
+
+    private static async Task WithUi(Func<Task> action)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(action, CancellationToken.None);
+    }
+
     [Theory]
     [InlineData(false, "main")]
     [InlineData(false, "floating")]
@@ -154,7 +166,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public async Task LensLibraryOpenUsesHostUnsavedChangesWorkflowAndHonorsCancellation()
+    public Task LensLibraryOpenUsesHostUnsavedChangesWorkflowAndHonorsCancellation() => WithUi(async () =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         var requestedPath = string.Empty;
@@ -175,7 +187,7 @@ public sealed class WorkspaceDockModelTests
         Assert.Equal("blocked.staropt", requestedPath);
         Assert.Equal(documentsBefore, factory.OpenDocuments().Count);
         factory.DisposeContent();
-    }
+    });
 
     [Theory]
     [InlineData("Light")]
@@ -312,7 +324,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void TileAndCascadeReturnAllDocumentsToPrimaryMdiArea()
+    public Task TileAndCascadeReturnAllDocumentsToPrimaryMdiArea() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         using var manager = new PanelManager(application, new AppSettings());
@@ -344,7 +356,7 @@ public sealed class WorkspaceDockModelTests
         Assert.Empty(manager.Layout.Windows!);
         Assert.Equal(DocumentLayoutMode.Mdi, target.LayoutMode);
         Assert.All(manager.Factory.OpenDocuments(), document => Assert.Same(target, document.Owner));
-    }
+    });
 
     [Fact]
     public async Task MergeSinglePaneReturnsAllDocumentsAndUsesTabbedLayout()
@@ -393,7 +405,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void BulkWindowCommandsRemoveEmptyFloatingHosts()
+    public Task BulkWindowCommandsRemoveEmptyFloatingHosts() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         using var manager = new PanelManager(application, new AppSettings());
@@ -435,7 +447,7 @@ public sealed class WorkspaceDockModelTests
 
         Assert.Empty(manager.Layout.Windows);
         Assert.Same(mainDocumentDock, floatingDocument.Owner);
-    }
+    });
 
     [Fact]
     public async Task DefaultLayoutContainsToolDockAndOnlyLensAndTwoDimensionalDocuments()
@@ -536,7 +548,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void ReopeningStableAnalysisFocusesExistingDocumentAndCloneIsIndependent()
+    public Task ReopeningStableAnalysisFocusesExistingDocumentAndCloneIsIndependent() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         var factory = new WorkspaceDockFactory(application, new AppSettings());
@@ -563,10 +575,10 @@ public sealed class WorkspaceDockModelTests
         Assert.NotSame(first, clone);
         Assert.Equal(4, factory.OpenDocuments().Count);
         factory.DisposeContent();
-    }
+    });
 
     [Fact]
-    public async Task NonSequentialDetectorViewerIsAStableWorkspaceDocument()
+    public async Task NonSequentialAnalysisViewersOpenIndependentWorkspaceDocuments()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
         await session.Dispatch(() =>
@@ -584,7 +596,15 @@ public sealed class WorkspaceDockModelTests
             Assert.Equal("探测器查看器", document.Title);
             Assert.IsType<NonSequentialDetectorViewerPanel>(document.Context);
             Assert.IsAssignableFrom<IDocumentDock>(document.Owner);
-            Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.NonSequentialDetectorViewer));
+            var second = Assert.Single(manager.Factory.OpenDocuments(), item => item.Title == "探测器查看器 2");
+            Assert.IsType<NonSequentialDetectorViewerPanel>(second.Context);
+            Assert.NotSame(document.Context, second.Context);
+            manager.OpenNonSequentialLayoutAnalysis();
+            manager.OpenNonSequentialLayoutAnalysis();
+            var layouts = manager.Factory.OpenDocuments().Where(item =>
+                manager.Factory.Descriptor(item.Id)?.TypeId == WorkspaceDocumentTypes.Viewer3D).ToArray();
+            Assert.Equal(2, layouts.Length);
+            Assert.NotSame(layouts[0].Context, layouts[1].Context);
         }, CancellationToken.None);
     }
 
@@ -785,7 +805,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void DockLayoutSerializesAndRestoresStableDocumentIds()
+    public Task DockLayoutSerializesAndRestoresStableDocumentIds() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         var settings = new AppSettings();
@@ -822,10 +842,10 @@ public sealed class WorkspaceDockModelTests
         Assert.Contains(factory.OpenDocuments(), document => document.Id == "document:viewer-2d");
         Assert.NotNull(factory.OpenDocuments().Single(document => document.Id == "document:viewer-2d").Context);
         factory.DisposeContent();
-    }
+    });
 
     [Fact]
-    public void DockLayoutRoundTripsFloatingWindowWithoutDuplicateDocuments()
+    public Task DockLayoutRoundTripsFloatingWindowWithoutDuplicateDocuments() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         var factory = new WorkspaceDockFactory(application, new AppSettings());
@@ -876,10 +896,10 @@ public sealed class WorkspaceDockModelTests
             WorkspaceDockFactory.EnumerateDockables(restored),
             document => document.Id == "document:viewer-3d");
         factory.DisposeContent();
-    }
+    });
 
     [Fact]
-    public void DockLayoutSerializationFiltersEmptyFloatingHosts()
+    public Task DockLayoutSerializationFiltersEmptyFloatingHosts() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         var factory = new WorkspaceDockFactory(application, new AppSettings());
@@ -901,7 +921,7 @@ public sealed class WorkspaceDockModelTests
         Assert.NotNull(restored);
         Assert.Empty(restored!.Windows!);
         factory.DisposeContent();
-    }
+    });
 
     [Fact]
     public void DockLayoutDeserializationFiltersLegacyEmptyFloatingHosts()
@@ -929,7 +949,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void DockLayoutSerializationPrunesRepeatedAndCyclicStructuralReferences()
+    public Task DockLayoutSerializationPrunesRepeatedAndCyclicStructuralReferences() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         var factory = new WorkspaceDockFactory(application, new AppSettings());
@@ -958,10 +978,10 @@ public sealed class WorkspaceDockModelTests
                 .Single(dockable => dockable.Id == WorkspaceDockFactory.ToolDockId));
         Assert.DoesNotContain(restoredToolDock, restoredToolDock.VisibleDockables!);
         factory.DisposeContent();
-    }
+    });
 
     [Fact]
-    public void ActiveDocumentLockCommandTogglesOneState()
+    public Task ActiveDocumentLockCommandTogglesOneState() => WithUi(() =>
     {
         using var application = WorkbenchApplication.Create("cooke");
         using var manager = new PanelManager(application, new AppSettings());
@@ -976,7 +996,7 @@ public sealed class WorkspaceDockModelTests
 
         manager.ToggleActiveDocumentLocked();
         Assert.False(manager.Factory.Descriptor(viewer.Id)!.IsLocked);
-    }
+    });
 
     private static void UseTestHostWindows(WorkspaceDockFactory factory)
     {

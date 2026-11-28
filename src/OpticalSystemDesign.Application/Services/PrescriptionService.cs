@@ -10,6 +10,7 @@ using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Multiconfig;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Phase;
 using OpticalSystemDesign.Core.Services;
@@ -375,6 +376,9 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             }
 
             Runtime.CaptureCurrentState();
+            Runtime.EnsureSystemOperandEditAllowed(MultiConfigurationOperandKind.FieldX, field.Index + 1, field.X);
+            Runtime.EnsureSystemOperandEditAllowed(MultiConfigurationOperandKind.FieldY, field.Index + 1, field.Y);
+            Runtime.EnsureSystemOperandEditAllowed(MultiConfigurationOperandKind.FieldWeight, field.Index + 1, field.Weight);
             target.Label = field.Label;
             target.X = field.X;
             target.Y = field.Y;
@@ -405,6 +409,8 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             }
 
             Runtime.CaptureCurrentState();
+            Runtime.EnsureSystemOperandEditAllowed(MultiConfigurationOperandKind.Wavelength, wavelength.Index + 1, wavelength.Nanometers / 1000);
+            Runtime.EnsureSystemOperandEditAllowed(MultiConfigurationOperandKind.WavelengthWeight, wavelength.Index + 1, wavelength.Weight);
             target.Label = wavelength.Label;
             target.Nanometers = wavelength.Nanometers;
             target.Weight = wavelength.Weight;

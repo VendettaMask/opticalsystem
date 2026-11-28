@@ -83,7 +83,17 @@ public sealed partial class SequentialRayTracer
         bool allowHomogeneousAbsorbingPower = false,
         bool ignoreScalarTransmission = false)
         => DiagnoseAperturesCore(sourceRay, cancellationToken, stopAtIncidentImage, usePolarization,
-            allowHomogeneousAbsorbingPower, ignoreScalarTransmission, null);
+            allowHomogeneousAbsorbingPower, ignoreScalarTransmission, null, includeParaxialPhase: true);
+
+    // Independent-ray power and pupil geometry do not use the common scalar
+    // phase of an ideal lens. Retain the full physical trace and Jones power,
+    // but omit that expensive phase integral. These samples must not supply OPD.
+    internal ApertureRayDiagnostic DiagnoseAperturesForPower(RealRay sourceRay,
+        CancellationToken cancellationToken = default, bool stopAtIncidentImage = false,
+        bool usePolarization = false, bool allowHomogeneousAbsorbingPower = false,
+        bool ignoreScalarTransmission = false)
+        => DiagnoseAperturesCore(sourceRay, cancellationToken, stopAtIncidentImage, usePolarization,
+            allowHomogeneousAbsorbingPower, ignoreScalarTransmission, null, includeParaxialPhase: false);
 
     // Full geometric report only. Original apertures are checked at every
     // intercept; samples after the first clip remain marked as vignetted.
@@ -91,13 +101,14 @@ public sealed partial class SequentialRayTracer
     internal (ApertureRayDiagnostic Diagnostic, IReadOnlyList<RayTraceSample> History) TraceApertureDiagnosticHistory(RealRay sourceRay)
     {
         var history = new List<RayTraceSample>(_optic.SurfaceGroup.Items.Count);
-        var diagnostic = DiagnoseAperturesCore(sourceRay, default, false, false, false, false, history.Add);
+        var diagnostic = DiagnoseAperturesCore(sourceRay, default, false, false, false, false, history.Add,
+            includeParaxialPhase: true);
         return (diagnostic, history);
     }
 
     private ApertureRayDiagnostic DiagnoseAperturesCore(RealRay sourceRay, CancellationToken cancellationToken,
         bool stopAtIncidentImage, bool usePolarization, bool allowHomogeneousAbsorbingPower,
-        bool ignoreScalarTransmission, Action<RayTraceSample>? observe)
+        bool ignoreScalarTransmission, Action<RayTraceSample>? observe, bool includeParaxialPhase)
     {
         ArgumentNullException.ThrowIfNull(sourceRay);
         if (ignoreScalarTransmission && usePolarization)
@@ -137,7 +148,8 @@ public sealed partial class SequentialRayTracer
                 ignorePhysicalAperture: true, stopBeforeInteraction: incidentImage,
                 allowVirtualIntersection: AllowsReferenceBacktrack(surfaces, index),
                 bypassCoating: ignoreScalarTransmission || usePolarization && surface.CoatingModel is CoherentMultilayerCoating,
-                ignoreMaterialAbsorption: ignoreScalarTransmission, sourceRay: sourceRay);
+                ignoreMaterialAbsorption: ignoreScalarTransmission, sourceRay: sourceRay,
+                geometryOnly: !includeParaxialPhase);
             if (result.Sample.Vignetted || result.StopTracing)
                 return new(null, false, firstBlocked);
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface))
@@ -162,7 +174,7 @@ public sealed partial class SequentialRayTracer
         };
     }
 
-    private static void ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface,
+    private void ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface,
         RayTraceSampleValue sample, IMaterial incidentMaterial, double wavelength, RayInteractionKind kind, bool positiveTime = false,
         bool allowHomogeneousAbsorbingPower = false)
     {

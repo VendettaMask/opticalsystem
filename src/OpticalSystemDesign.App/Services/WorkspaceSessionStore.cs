@@ -22,6 +22,7 @@ public static class WorkspaceDocumentTypes
     public const string Tolerancing = "tolerancing";
     public const string MultiConfiguration = "multi-configuration";
     public const string Analysis = "analysis";
+    public const string UnavailableSampleWindow = "unavailable-sample-window";
     public const string SolidModel = "solid-model";
     public const string MaterialLibrary = "material-library";
     // Read compatibility for saved layouts; restored documents use MaterialLibrary.
@@ -50,6 +51,7 @@ public static class WorkspaceDocumentTypes
         Tolerancing,
         MultiConfiguration,
         Analysis,
+        UnavailableSampleWindow,
         SolidModel,
         MaterialLibrary,
         GlassCatalog,
@@ -77,7 +79,8 @@ public sealed record WorkspaceDocumentDescriptor(
     string? AnalysisName = null,
     Guid? InstanceId = null,
     Dictionary<string, string>? Settings = null,
-    bool IsLocked = false);
+    bool IsLocked = false,
+    bool IsExampleWindow = false);
 
 public sealed record WorkspaceSession(
     int Version,

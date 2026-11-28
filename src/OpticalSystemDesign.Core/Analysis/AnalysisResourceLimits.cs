@@ -11,6 +11,7 @@ public static class AnalysisResourceLimits
     public const long MaximumPsfBasisOperations = 200_000_000;
     public const long MaximumImageSimulationPsfOperations = 300_000_000;
     public const long MaximumImageSimulationConvolutionOperations = 300_000_000;
+    internal const int MaximumPsfEigenSweeps = 40;
     public const long MaximumPsfDecompositionOperations = 200_000_000;
     public const int MaximumPsfGridPoints = 225;
     public const int MaximumAnalysisGridDimension = 1_024;
@@ -265,9 +266,10 @@ public static class AnalysisResourceLimits
         ValidatePsfConfiguration(config);
         ValidateImageDistortion(preparedWidth, preparedHeight, config.DistortionGridSize,
             config.DistortionPolynomialDegree, config.WavelengthsMicrometers.Count);
-        ValidateConvolutionWork(preparedWidth, preparedHeight, config.PsfSize, config.PsfSize,
-            2 + Math.Min(config.Components, config.PsfGridRows * config.PsfGridColumns),
-            config.WavelengthsMicrometers.Count);
+        if (!string.Equals(config.AberrationMode, "None", StringComparison.OrdinalIgnoreCase))
+            ValidateConvolutionWork(preparedWidth, preparedHeight, config.PsfSize, config.PsfSize,
+                2 + Math.Min(config.Components, config.PsfGridRows * config.PsfGridColumns),
+                config.WavelengthsMicrometers.Count);
         if (checked(PsfDecompositionOperations(config) * config.WavelengthsMicrometers.Count)
             > MaximumPsfDecompositionOperations)
             throw new ArgumentOutOfRangeException(nameof(config), "Image simulation PSF decomposition exceeds the supported work budget.");
@@ -328,6 +330,16 @@ public static class AnalysisResourceLimits
 
     public static void ValidatePsfConfiguration(ImageSimulationConfig config)
     {
+        ValidatePsfSampling(config, 1);
+        if (config.Components < 1
+            || config.Components > Math.Min(MaximumPsfGridPoints, checked(config.PsfSize * config.PsfSize)))
+            throw new ArgumentOutOfRangeException(nameof(config), "EigenPSF component count is outside the supported range.");
+        if (PsfDecompositionOperations(config) > MaximumPsfDecompositionOperations)
+            throw new ArgumentOutOfRangeException(nameof(config), "PSF decomposition exceeds the supported work budget.");
+    }
+
+    internal static void ValidatePsfSampling(ImageSimulationConfig config, int wavelengthCount)
+    {
         ArgumentNullException.ThrowIfNull(config);
         if (config.PsfGridRows < 1 || config.PsfGridColumns < 1
             || checked((long)config.PsfGridRows * config.PsfGridColumns) > MaximumPsfGridPoints)
@@ -341,19 +353,13 @@ public static class AnalysisResourceLimits
         }
 
         ValidateDirectPsfWork(config.NumRays, PsfSamplingSize(config));
-        if (PsfBasisOperations(config) > MaximumPsfBasisOperations)
+        var work = PsfBasisOperations(config);
+        if (work > MaximumPsfBasisOperations || checked(work * wavelengthCount) > MaximumImageSimulationPsfOperations)
         {
             throw new ArgumentOutOfRangeException(
                 nameof(config),
                 $"PSF basis work exceeds the {MaximumPsfBasisOperations:N0}-operation safety budget.");
         }
-        if (config.Components < 1
-            || config.Components > Math.Min(MaximumPsfGridPoints, checked(config.PsfSize * config.PsfSize)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(config), "EigenPSF component count is outside the supported range.");
-        }
-        if (PsfDecompositionOperations(config) > MaximumPsfDecompositionOperations)
-            throw new ArgumentOutOfRangeException(nameof(config), "PSF decomposition exceeds the supported work budget.");
     }
 
     private static long PsfDecompositionOperations(ImageSimulationConfig config)
@@ -361,9 +367,9 @@ public static class AnalysisResourceLimits
         var fields = checked((long)config.PsfGridRows * config.PsfGridColumns);
         var features = checked((long)config.PsfSize * config.PsfSize);
         var components = Math.Min(config.Components, fields);
-        // Gram products, Jacobi pivot scans and reconstruction each have an independent cost.
+        // Gram products, cyclic Jacobi rotations and reconstruction each have an independent cost.
         return checked(fields * (fields + 1) / 2 * features
-            + 100 * fields * fields * (fields * (fields - 1) / 2 + 2 * fields)
+            + MaximumPsfEigenSweeps * (fields * (fields - 1) / 2) * (2 * fields + 1)
             + components * fields * features);
     }
 

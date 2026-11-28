@@ -15,9 +15,7 @@ public sealed partial class CameraImagingWindow
 {
     private readonly ComboBox _stageSelector = new() { Name = "camera-stage-selector", MinWidth = 100, HorizontalAlignment = HorizontalAlignment.Stretch, SelectedIndex = 5 };
     private readonly ToggleButton _stageOverview = new() { Name = "camera-stage-overview", Content = "阶段总览" };
-    private readonly ComboBox _stageZoom = Choice("camera-stage-zoom", "适合窗口", "100%");
     private readonly ComboBox _comparisonSelector = Choice("camera-comparison-selector", "并排对照", "固定结果 A", "当前结果 B", "显示 RGB 绝对差 ×4");
-    private readonly ComboBox _comparisonZoom = Choice("camera-comparison-zoom", "适合窗口", "100%");
     private readonly ComboBox _viewSelector = new() { Name = "camera-view-selector", HorizontalAlignment = HorizontalAlignment.Stretch };
     private readonly ProgressBar _activity = new() { Width = 70, Height = 3, IsIndeterminate = true };
     private Control? _fileActionsContent;
@@ -117,21 +115,18 @@ public sealed partial class CameraImagingWindow
     private Control BuildStageWorkspace()
     {
         _stageSelector.ItemsSource = _stageViews.Select(v => v.Title).ToArray(); _stageSelector.SelectedIndex = 5;
-        var toolbar = new Grid { ColumnDefinitions = new("*,Auto,Auto"), ColumnSpacing = 6, Margin = new(4, 5) };
+        var toolbar = new Grid { ColumnDefinitions = new("*,Auto"), ColumnSpacing = 6, Margin = new(4, 5) };
         toolbar.Children.Add(_stageSelector); Grid.SetColumn(_stageOverview, 1); toolbar.Children.Add(_stageOverview);
-        _stageZoom.Width = 112; Grid.SetColumn(_stageZoom, 2); toolbar.Children.Add(_stageZoom);
         toolbar.SizeChanged += (_, _) =>
         {
             var narrow = toolbar.Bounds.Width < 400;
-            toolbar.ColumnDefinitions = new(narrow ? "*,Auto" : "*,Auto,Auto"); toolbar.RowDefinitions = new(narrow ? "Auto,Auto" : "Auto");
+            toolbar.RowDefinitions = new(narrow ? "Auto,Auto" : "Auto");
             Grid.SetColumnSpan(_stageSelector, narrow ? 2 : 1); Grid.SetRow(_stageOverview, narrow ? 1 : 0); Grid.SetColumn(_stageOverview, narrow ? 0 : 1);
             _stageOverview.HorizontalAlignment = narrow ? HorizontalAlignment.Left : HorizontalAlignment.Stretch;
-            Grid.SetRow(_stageZoom, narrow ? 1 : 0); Grid.SetColumn(_stageZoom, narrow ? 1 : 2);
         };
         _stageScroll = new ScrollViewer { Name = "camera-stage-viewport", Content = _stages, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
         _stageScroll.SizeChanged += (_, _) => UpdateStageLayout();
         _stageSelector.SelectionChanged += (_, _) => UpdateStageLayout(); _stageOverview.IsCheckedChanged += (_, _) => UpdateStageLayout();
-        _stageZoom.SelectionChanged += (_, _) => { foreach (var view in _stageViews) view.SetFit(_stageZoom.SelectedIndex == 0); };
         for (var i = 0; i < _stageViews.Length; i++) _stageViews[i].Name = "camera-stage-" + i;
         var details = new Expander { Header = "结果指标", Content = Scroll(_metrics), HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch, MaxHeight = 190 };
         _metrics.FontSize = DisplayTypography.BodySmall; details.IsVisible = false;
@@ -160,11 +155,9 @@ public sealed partial class CameraImagingWindow
     }
     private Control BuildComparisonWorkspace()
     {
-        var toolbar = new Grid { ColumnDefinitions = new("*,Auto"), ColumnSpacing = 6, Margin = new(4, 5), Children = { _comparisonSelector, _comparisonZoom } };
-        _comparisonZoom.Width = 112; Grid.SetColumn(_comparisonZoom, 1);
+        var toolbar = new Border { Margin = new(4, 5), Child = _comparisonSelector };
         _comparisonScroll = new ScrollViewer { Name = "camera-comparison-viewport", Content = _comparisons, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
         _comparisonScroll.SizeChanged += (_, _) => UpdateComparisonLayout(); _comparisonSelector.SelectionChanged += (_, _) => UpdateComparisonLayout();
-        _comparisonZoom.SelectionChanged += (_, _) => { foreach (var view in _comparisonViews) view.SetFit(_comparisonZoom.SelectedIndex == 0); };
         for (var i = 0; i < _comparisonViews.Length; i++) _comparisonViews[i].Name = "camera-comparison-" + i;
         var notes = new Expander { Header = "对照信息", Content = Scroll(_comparisonInfo), HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch, MaxHeight = 190 };
         var page = new Grid { RowDefinitions = new("Auto,*,Auto"), Children = { toolbar, _comparisonScroll, notes } }; Grid.SetRow(_comparisonScroll, 1); Grid.SetRow(notes, 2); return page;

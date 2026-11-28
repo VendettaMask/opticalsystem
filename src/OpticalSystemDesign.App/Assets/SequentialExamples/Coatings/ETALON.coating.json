@@ -1,0 +1,272 @@
+{
+  "SchemaVersion": 1,
+  "Id": "ff189032-cba3-51c9-b432-15e87268c1df",
+  "Name": "ETALON",
+  "ReferenceWavelengthNm": 999.9,
+  "Target": {
+    "Kind": "Antireflection",
+    "CenterNm": 999.9,
+    "MinimumNm": 999.9,
+    "MaximumNm": 1000.1,
+    "MaximumLayers": 17
+  },
+  "Settings": {
+    "MinimumThicknessNm": 1,
+    "MaximumThicknessNm": 5000000.0
+  },
+  "IncidentId": "AIR",
+  "SubstrateId": "AIR",
+  "LowId": "ZNS",
+  "HighId": "ZNS",
+  "Materials": [
+    {
+      "Id": "AIR",
+      "Name": "AIR",
+      "Source": "COATING.DAT / MATE AIR",
+      "MinimumNm": 1,
+      "MaximumNm": 1000000.0,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.0,
+          "extinction": -0.0
+        },
+        "Text": {
+          "name": "AIR"
+        }
+      }
+    },
+    {
+      "Id": "ZNS",
+      "Name": "ZNS",
+      "Source": "COATING.DAT / MATE ZNS",
+      "MinimumNm": 400.0,
+      "MaximumNm": 2000.0,
+      "Model": {
+        "Kind": "catalog_glass",
+        "Numbers": {
+          "minimumWavelengthNanometers": 400.0,
+          "maximumWavelengthNanometers": 2000.0,
+          "nw0": 400.0,
+          "n0": 2.5571707,
+          "kw0": 400.0,
+          "k0": -0.0,
+          "nw1": 460.0,
+          "n1": 2.457906,
+          "kw1": 460.0,
+          "k1": -0.0,
+          "nw2": 500.0,
+          "n2": 2.4190751,
+          "kw2": 500.0,
+          "k2": -0.0,
+          "nw3": 700.0,
+          "n3": 2.3317272,
+          "kw3": 700.0,
+          "k3": -0.0,
+          "nw4": 800.0,
+          "n4": 2.3131206,
+          "kw4": 800.0,
+          "k4": -0.0,
+          "nw5": 1000.0,
+          "n5": 2.2922206,
+          "kw5": 1000.0,
+          "k5": -0.0,
+          "nw6": 2000.0,
+          "n6": 2.2859449,
+          "kw6": 2000.0,
+          "k6": -0.0
+        },
+        "Text": {
+          "name": "ZNS",
+          "manufacturer": "COATING.DAT",
+          "formula": "tabulated nk"
+        }
+      }
+    },
+    {
+      "Id": "MGF2",
+      "Name": "MGF2",
+      "Source": "COATING.DAT / MATE MGF2",
+      "MinimumNm": 400.0,
+      "MaximumNm": 2500.0,
+      "Model": {
+        "Kind": "catalog_glass",
+        "Numbers": {
+          "minimumWavelengthNanometers": 400.0,
+          "maximumWavelengthNanometers": 2500.0,
+          "nw0": 400.0,
+          "n0": 1.38387,
+          "kw0": 400.0,
+          "k0": -0.0,
+          "nw1": 460.0,
+          "n1": 1.3811,
+          "kw1": 460.0,
+          "k1": -0.0,
+          "nw2": 500.0,
+          "n2": 1.37978,
+          "kw2": 500.0,
+          "k2": -0.0,
+          "nw3": 700.0,
+          "n3": 1.37608,
+          "kw3": 700.0,
+          "k3": -0.0,
+          "nw4": 800.0,
+          "n4": 1.37506,
+          "kw4": 800.0,
+          "k4": -0.0,
+          "nw5": 1000.0,
+          "n5": 1.37358,
+          "kw5": 1000.0,
+          "k5": -0.0,
+          "nw6": 2000.0,
+          "n6": 1.36784,
+          "kw6": 2000.0,
+          "k6": -0.0,
+          "nw7": 2500.0,
+          "n7": 1.36426,
+          "kw7": 2500.0,
+          "k7": -0.0
+        },
+        "Text": {
+          "name": "MGF2",
+          "manufacturer": "COATING.DAT",
+          "formula": "tabulated nk"
+        }
+      }
+    },
+    {
+      "Id": "BK7",
+      "Name": "BK7",
+      "Source": "COATING.DAT / MATE BK7",
+      "MinimumNm": 400.0,
+      "MaximumNm": 2000.0,
+      "Model": {
+        "Kind": "catalog_glass",
+        "Numbers": {
+          "minimumWavelengthNanometers": 400.0,
+          "maximumWavelengthNanometers": 2000.0,
+          "nw0": 400.0,
+          "n0": 1.5308485,
+          "kw0": 400.0,
+          "k0": -0.0,
+          "nw1": 460.0,
+          "n1": 1.5244335,
+          "kw1": 460.0,
+          "k1": -0.0,
+          "nw2": 500.0,
+          "n2": 1.5214145,
+          "kw2": 500.0,
+          "k2": -0.0,
+          "nw3": 700.0,
+          "n3": 1.513064,
+          "kw3": 700.0,
+          "k3": -0.0,
+          "nw4": 800.0,
+          "n4": 1.5107762,
+          "kw4": 800.0,
+          "k4": -0.0,
+          "nw5": 1000.0,
+          "n5": 1.5075022,
+          "kw5": 1000.0,
+          "k5": -0.0,
+          "nw6": 2000.0,
+          "n6": 1.4945016,
+          "kw6": 2000.0,
+          "k6": -0.0
+        },
+        "Text": {
+          "name": "BK7",
+          "manufacturer": "COATING.DAT",
+          "formula": "tabulated nk"
+        }
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "BK7",
+      "ThicknessNm": 5000000.0,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    },
+    {
+      "MaterialId": "MGF2",
+      "ThicknessNm": 181.9878458691842,
+      "Variable": false
+    },
+    {
+      "MaterialId": "ZNS",
+      "ThicknessNm": 109.05314278855093,
+      "Variable": false
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "baselineSourceCommit": "bdc0f8bf44b08f9f60b378f3328e99880400b523",
+  "worktreeBaseCommit": "155456f84694ef2c26e9ecce41a95e60a3596a7b",
+  "baselineCoreSha256": "2a135f4fa2c9d7d260dc1ec7d36c58145b9e8ba865a10c08b3e7d861df4c4096",
+  "capturedNormalReleaseAndTestedCoreSha256": "e8f72ee6e6b566d6e0355edd9e91fa93143ffe21c453dd4334deaad7fa0f697a",
+  "baselineApplicationSha256": "3fe96042669e289b34f057305c33019d0a8389d8e6dda3433365e298a3a6151a",
+  "capturedNormalReleaseAndTestedApplicationSha256": "c484541a8737f8c10c96eb897996d9d07e35c4b938d9dfe0b448004974160cdc",
+  "laterLiveOutputCoreSha256": "44ad66f375565b61e445a08c8cfd378bfe924432a669046f52e4f1c47baa0308",
+  "sourceFiles": [
+    {
+      "path": "Run-OpticalSystemDesign.cmd",
+      "sha256": "b2bce5c511c58d137c4987af0ff1c1da6619d64c950951e6f6d23b7ce72e6c0c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Capabilities/OpticCapabilityPreflight.cs",
+      "sha256": "15ae6374ba327f13232c8170055e7041e7e955569681c35d4a980daca4e6c841"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coordinates/CoordinateSystem.cs",
+      "sha256": "e3d66010d66e66212c43532ff92c0bf13eaaa09fed8394f9369a9c449a307056"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Domain/OpticalSurface.StateTracing.cs",
+      "sha256": "61188682b59f7688dc8cca568a6117d626f1713448b36d4b99e39dfa6a89cad4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "3f80d60829e0e23940c7164c99201c4dcfc4232a111c628f9cd4bf165cdd159e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Propagation/IPropagationModel.cs",
+      "sha256": "9783c11b3ef530d78ac5b8174ebc6f71b631a3a0840e2d4eebb941f6b235a8bd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.cs",
+      "sha256": "7cee0c83be4fc8913bd1e9c55096325e0eaf24380ca51e73fb5945c70dd5ee59"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.ParaxialPhase.cs",
+      "sha256": "d481b151e48b60a36c640be8244257bb6c71c1e59a35d13d4c2ecb6bbd635893"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.cs",
+      "sha256": "4d6350916dc0ae37133d0780c4814d6c0336a38e25f9ba8794b3b08dfa2da164"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayTraceCache.cs",
+      "sha256": "490eea51186b49b0f69efd865ce4c37c41070d91fd11f2331c53e46eb9df461d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayTraceCache.PupilLaunch.cs",
+      "sha256": "e95782391277206fd22cccf0948fa0b815b300c2928504bbdab3994a23d93ad2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Rays/RayModels.cs",
+      "sha256": "59045e8b2dfed1a042d315cbd6e906571d8c3f25489b16e9ebd54c64ea1c4c14"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/FourierResultValidation.cs",
+      "sha256": "c6059e7d40124706c6d6c355931a438d17a5d3566f48d95309bba2f6ecebf6b3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "12a18155f959b4bc00bb236b8eb7c4ad695f1611b9dadd04844da513892845a4"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/CorePerformanceInvariantTests.cs",
+      "sha256": "0cc529a8826e1b9e9255d727dd8a6a06a07cee56d2d5f1641f1ca53edabc6a95"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/PupilLaunchCacheTests.cs",
+      "sha256": "461d7d9a5eff29c58005f5b4f44b3d597398e7b106d87d0025e34f21a4418324"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/FourierResultValidationTests.cs",
+      "sha256": "f7994761286ab56bf351b6a67f213f05d29009bc470aa2b60ee671895587ce9f"
+    },
+    {
+      "path": "tools/diagnostics/FftMtfTiming20261127/Program.cs",
+      "sha256": "fd3590bbdb3310303c00d16da3be48fdba26f4d49652f040ceb1c71c921139cf"
+    },
+    {
+      "path": "tools/diagnostics/FftMtfTiming20261127/FftMtfTiming20261127.csproj",
+      "sha256": "0152270ef9e080e77848829ca3c9d8c1c92e34937b002da24e595fea074da17e"
+    },
+    {
+      "path": "docs/RAY_TRACING_PERFORMANCE.md",
+      "sha256": "577c7b24640acacb7c528f6549f34062ef558a502e3f3706ab045a4020768a95"
+    }
+  ],
+  "tests": {
+    "total": "195",
+    "executed": "195",
+    "passed": "195",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "notes": [
+    "The normal Release output was captured as E8F72EE6... and used by both final timing and 195 tests. A concurrent chat subsequently rebuilt the shared live output; that later binary is not certified by this receipt.",
+    "Fixed isolated before/after binaries; other chats were updating this shared checkout. Numerical comparison does not certify unrelated changes.",
+    "Original prescriptions and references remain at their repository locations; no duplicate runtime or third-party payloads.",
+    "Early supplementary Blue256/Twyman runs retain their own binary identities and are not final shipping timings."
+  ]
+}

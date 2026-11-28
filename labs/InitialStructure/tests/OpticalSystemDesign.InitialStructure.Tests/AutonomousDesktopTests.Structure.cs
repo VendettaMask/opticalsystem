@@ -108,6 +108,50 @@ public sealed partial class AutonomousDesktopTests
     }
 
     [Fact]
+    public async Task GlobalDisplayScaleResizesTheStructureWithoutRetracingOrResettingNavigation()
+    {
+        using var files = new OwnedFiles();
+        using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));
+        await host.Dispatch(async () =>
+        {
+            var window = new AutonomousTopologyWindow(new() { RunDirectory = files.Root, InitialPlan = Plan() })
+            { Width = 720, Height = 600 };
+            var previous = DiagramSheetLayout.FitToWindow;
+            try
+            {
+                DiagramSheetLayout.SetViewportScale(true);
+                window.Show();
+                Find<TabControl>(window, "AutonomousTabs").SelectedItem = Find<TabItem>(window, "AutonomousStructureTab");
+                await window.StructurePendingLoad;
+                window.UpdateLayout();
+                var plot = Find<TopologyStructurePlot>(window, "AutonomousStructurePlot");
+                var data = plot.Data;
+                Assert.NotNull(data);
+                plot.ZoomBy(1.25);
+                using var rays = SequentialTraceMeasurement.Begin();
+                DiagramSheetLayout.SetViewportScale(false);
+                window.UpdateLayout();
+                Assert.Equal(1200, plot.Bounds.Width);
+                var viewport = plot.GetVisualAncestors().OfType<ScrollViewer>().First();
+                Assert.True(viewport.Extent.Width > viewport.Viewport.Width);
+                DiagramSheetLayout.SetViewportScale(true);
+                window.UpdateLayout();
+                Assert.InRange(plot.Bounds.Width, 100, window.Width);
+                Assert.Equal(1.25, plot.Zoom);
+                Assert.Same(data, plot.Data);
+                Assert.Equal(0, rays.RayCount);
+            }
+            finally
+            {
+                window.RequestSafeClose();
+                await window.PendingOperation;
+                DiagramSheetLayout.SetViewportScale(previous);
+            }
+            return true;
+        }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(1));
+    }
+
+    [Fact]
     public async Task InvalidDraftClearsTheStructureWithoutTracingAndNewDraftDoesNotRestoreStaleScene()
     {
         using var files = new OwnedFiles(); using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));

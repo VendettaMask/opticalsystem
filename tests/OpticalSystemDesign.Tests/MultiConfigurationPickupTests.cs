@@ -21,6 +21,8 @@ public sealed class MultiConfigurationPickupTests
     [InlineData(MultiConfigurationOperandKind.Curvature, .04, 0, 0, 0)]
     [InlineData(MultiConfigurationOperandKind.Conic, -.5, 2, .3, -.7)]
     [InlineData(MultiConfigurationOperandKind.SemiDiameter, 3, 2, 1, 7)]
+    [InlineData(MultiConfigurationOperandKind.SemiDiameter, .04, .5, 0, .02)]
+    [InlineData(MultiConfigurationOperandKind.SemiDiameter, 0, 1, 0, 0)]
     public void FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(MultiConfigurationOperandKind kind, double source, double scale, double offset, double expected)
     {
         var system = System(kind); system.SetOperandValue(1, 0, source);

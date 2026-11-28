@@ -28,7 +28,7 @@ internal static class SurfaceSnapshotCompatibility
             Radius = radius,
             Conic = conic,
             Material = LegacyMaterial(normalizedComponents, surface.Material, surface.IsReflective),
-            Coating = LegacyCoating(normalizedComponents, surface.Coating),
+            Coating = surface.ReferencedCoating ?? LegacyCoating(normalizedComponents, surface.Coating),
             IsReflective = IsReflective(surface.IsReflective, normalizedComponents),
             Components = normalizedComponents
         };

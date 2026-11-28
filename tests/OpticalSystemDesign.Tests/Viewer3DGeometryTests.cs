@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -587,6 +588,9 @@ public sealed class Viewer3DGeometryTests
     [InlineData(ViewerPresentationMode.OpticalLayout, "Dark", "en-US", 400, 13)]
     [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 400, 13)]
     [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 400, 18)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Pixel", "zh-CN", 778, 13)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Lumen", "en-US", 778, 13)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Isekai", "en-US", 778, 13)]
     public async Task ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, string theme, string language, int width, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
@@ -604,7 +608,10 @@ public sealed class Viewer3DGeometryTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
             using var app = WorkbenchApplication.Create();
-            await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+            var lensPath = mode == ViewerPresentationMode.SolidModel
+                ? Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src/OpticalSystemDesign.App/Assets/SequentialExamples/Afocal/Binocular_System.ZMX")
+                : ConfigurationMatrixAnalysisTests.ZoomPath();
+            await app.Documents.OpenAsync(lensPath);
             using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
                 SceneDimension.ThreeDimensional, mode);
             var namePrefix = mode == ViewerPresentationMode.SolidModel ? "SolidModel" : "Viewer3D";
@@ -619,6 +626,50 @@ public sealed class Viewer3DGeometryTests
                 var originalScene = scene.Scene;
                 var revision = app.Events.Revision;
                 var toolbar = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == $"{namePrefix}ViewPresets");
+                if (mode == ViewerPresentationMode.SolidModel)
+                {
+                    var viewMenu = viewer.GetVisualDescendants().OfType<DropDownButton>().Single(b => b.Name == "SolidModelViewMenu");
+                    var host = viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>().Single();
+                    var headerCommands = viewer.GetVisualDescendants().OfType<Control>().Where(c =>
+                        c.Name is "ViewerSynchronizeButton" or "ExportViewerImage" or "Viewer3DCutaway" or "Viewer3DShowRays" or "Viewer3DRenderMode").ToArray();
+                    Assert.Equal(5, headerCommands.Length);
+                    foreach (var size in new[] { new Size(width, 700), new Size(370, 285), new Size(920, 320) })
+                    {
+                        window.Width = size.Width; window.Height = size.Height; Tick(window); Tick(window);
+                        var plot = VisualBounds(host);
+                        foreach (var cmd in headerCommands)
+                        {
+                            var bounds = VisualBounds(cmd);
+                            Assert.InRange(bounds.Left, 0, window.Width);
+                            Assert.InRange(bounds.Right, bounds.Left, window.Width);
+                            Assert.True(bounds.Bottom <= plot.Top + 1);
+                        }
+                        if (!viewMenu.IsEffectivelyVisible) continue;
+                        Assert.False(toolbar.IsEffectivelyVisible);
+                        Assert.Same(scene, window.InputHitTest(VisualBounds(scene).Center));
+                        if (size.Width == 370)
+                        {
+                            scene.SetViewPreset(OpticSceneViewPreset.Isometric); Tick(window);
+                            Capture(window, $"{capturePrefix}-compact.png");
+                        }
+                        var menu = Assert.IsType<MenuFlyout>(viewMenu.Flyout);
+                        menu.ShowAt(viewMenu); Tick(window);
+                        Assert.True(menu.IsOpen);
+                        var entries = menu.Items.Cast<MenuItem>().ToArray();
+                        Assert.Equal(8, entries.Length);
+                        var frontItem = entries.Single(item => item.Header?.ToString() == UiLocalization.Text("前视图"));
+                        frontItem.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                        Assert.Equal(OpticSceneViewPreset.Front, scene.ActiveViewPreset);
+                        entries[0].RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                        Assert.Equal(OpticSceneViewPreset.Front, scene.ActiveViewPreset);
+                        menu.Hide(); Tick(window);
+                    }
+                    window.Width = Math.Max(width, 900); window.Height = 700; Tick(window); Tick(window);
+                    Assert.False(viewMenu.IsEffectivelyVisible);
+                    Assert.True(toolbar.IsEffectivelyVisible);
+                    Assert.Equal(OpticSceneViewPreset.Front, scene.ActiveViewPreset);
+                    scene.SetViewPreset(OpticSceneViewPreset.Isometric);
+                }
                 var buttons = toolbar.GetVisualDescendants().OfType<ToggleButton>().ToArray();
                 Assert.Equal(7, buttons.Length);
                 AssertSelected(OpticSceneViewPreset.Isometric);
@@ -648,6 +699,41 @@ public sealed class Viewer3DGeometryTests
                     rowImage.Render(row);
                     rowImage.Save(Path.Combine(captureDirectory, $"{capturePrefix}-toolbar.png"), PngBitmapEncoderOptions.Default);
                 }
+                if (mode == ViewerPresentationMode.OpticalLayout)
+                {
+                    var host = viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>().Single();
+                    var fit = toolbar.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "Viewer3DFitView");
+                    var settings = viewer.GetVisualDescendants().OfType<Button>().Single(item => item.Content is LocalIconLabel);
+                    var settingsSize = VisualBounds(settings).Size;
+                    var camera = Assert.IsType<SceneViewport>(typeof(OpticSceneControl)
+                        .GetField("_viewport", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(scene));
+                    var zoom = camera.Zoom;
+                    var pan = camera.Pan;
+                    foreach (var size in new[] { new Size(778, 560), new Size(420, 420), new Size(1500, 1000) })
+                    {
+                        window.Width = size.Width; window.Height = size.Height; Tick(window); Tick(window);
+                        Assert.Equal(host.ContentScale, toolbar.TransformToVisual(viewer)!.Value.M11, 6);
+                        Assert.Equal(fit.Bounds.Width * host.ContentScale, VisualBounds(fit).Width, 6);
+                        Assert.Equal(fit.Bounds.Height * host.ContentScale, VisualBounds(fit).Height, 6);
+                        Assert.Equal(settingsSize, VisualBounds(settings).Size);
+                        Assert.Equal(zoom, camera.Zoom);
+                        Assert.Equal(pan, camera.Pan);
+                        AssertSelected(OpticSceneViewPreset.Isometric);
+                        Capture(window, $"{capturePrefix}-fit-{size.Width}x{size.Height}.png");
+                    }
+                    window.Width = width; window.Height = 700; Tick(window); Tick(window);
+                    DiagramSheetLayout.SetViewportScale(false); Tick(window); Tick(window);
+                    Assert.False(host.FitToViewport);
+                    Assert.Equal(1, toolbar.TransformToVisual(viewer)!.Value.M11, 6);
+                    var frontButton = buttons.Single(item => item.Name == "Viewer3DViewFront");
+                    await Click(frontButton); AssertSelected(OpticSceneViewPreset.Front);
+                    Capture(window, $"{capturePrefix}-actual-size.png");
+                    DiagramSheetLayout.SetViewportScale(true); Tick(window); Tick(window);
+                    Assert.True(host.FitToViewport);
+                    Assert.Equal(host.ContentScale, toolbar.TransformToVisual(viewer)!.Value.M11, 6);
+                    await Click(buttons.Single(item => item.Name == "Viewer3DViewIsometric"));
+
+                }
                 foreach (var preset in Enum.GetValues<OpticSceneViewPreset>())
                 {
                     var button = buttons.Single(item => item.Name == $"{namePrefix}View{preset}");
@@ -674,8 +760,7 @@ public sealed class Viewer3DGeometryTests
                     Assert.Equal(UniformDiagramPage.SheetHeight, sheet.Bounds.Height);
                 }
                 var sceneBounds = VisualBounds(scene);
-                // Native overlays retain their size while the model viewport
-                // resizes. Start inside the canvas's visible left margin.
+                // Start inside the canvas's visible left margin, outside navigation.
                 var pointer = new Point(sceneBounds.Left + 4, sceneBounds.Top + sceneBounds.Height * 0.4);
                 Tick(window);
                 Assert.Same(scene, window.InputHitTest(pointer));
@@ -701,15 +786,16 @@ public sealed class Viewer3DGeometryTests
                 Assert.DoesNotContain(buttons, item => item.IsChecked == true);
                 window.KeyPress(Key.Home, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
                 AssertSelected(OpticSceneViewPreset.Isometric);
-                // Drawing and native UI may have separate parents: fitting the
-                // sheet must not reduce button hit targets or configured fonts.
-                Assert.InRange(toolbar.TransformToVisual(viewer)!.Value.M11, .999, 1.001);
+                // Layout navigation follows the sheet; Solid Model keeps native UI.
+                var navigationScale = mode == ViewerPresentationMode.OpticalLayout
+                    ? scene.TransformToVisual(viewer)!.Value.M11 : 1;
+                Assert.Equal(navigationScale, toolbar.TransformToVisual(viewer)!.Value.M11, 6);
                 Assert.True(VisualBounds(scene).Top < VisualBounds(toolbar).Top);
                 // The native toolbar rounds to screen pixels; the fitted model
                 // rectangle can end at a fractional pixel in Auto mode.
-                Assert.InRange(VisualBounds(toolbar).Left, VisualBounds(scene).Left + 71, VisualBounds(scene).Right + 1);
-                Assert.InRange(VisualBounds(toolbar).Right, VisualBounds(scene).Left - 1, VisualBounds(scene).Right - 71);
-                Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(scene).Bottom - 40);
+                Assert.InRange(VisualBounds(toolbar).Left, VisualBounds(scene).Left + 71 * navigationScale, VisualBounds(scene).Right + 1);
+                Assert.InRange(VisualBounds(toolbar).Right, VisualBounds(scene).Left - 1, VisualBounds(scene).Right - 71 * navigationScale);
+                Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(scene).Bottom - 40 * navigationScale);
                 if (mode == ViewerPresentationMode.SolidModel)
                 {
                     var legend = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "Viewer3DGlassLegend");

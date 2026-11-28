@@ -38,6 +38,7 @@ public sealed class ActionManager
         }
         catch (Exception exception)
         {
+            System.Diagnostics.Trace.TraceError($"Command failed: {action.Id}. {exception}");
             ExecutionFailed?.Invoke(this, new ActionExecutionFailedEventArgs(action, exception));
             return false;
         }

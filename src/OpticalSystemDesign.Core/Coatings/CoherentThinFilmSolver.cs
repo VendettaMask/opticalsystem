@@ -4,6 +4,8 @@ using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Coatings;
 
+internal sealed class CriticalCoatingAngleException() : NotSupportedException("当前采样点恰在临界角奇点，请调整角度后重算。");
+
 public enum ThinFilmPolarization { S, P, Unpolarized }
 
 public sealed record CoherentFilm(IMaterial Material, double ThicknessNanometers, CoatingLayerParameters? Parameters = null)
@@ -129,7 +131,7 @@ public sealed partial class CoherentThinFilmSolver
         var transverse = n[0].Real * Math.Sin(angleDegrees * Math.PI / 180);
         var q = n.Select(z => ForwardRoot(z * z - transverse * transverse)).ToArray();
         if (q.Any(z => z.Magnitude < 1e-14))
-            throw new NotSupportedException("当前采样点恰在临界角奇点，请调整角度后重算。");
+            throw new CriticalCoatingAngleException();
         lock (_prepared.Gate)
         {
             if (_prepared.Values.Count >= _prepared.Limit) _prepared.Values.Clear();

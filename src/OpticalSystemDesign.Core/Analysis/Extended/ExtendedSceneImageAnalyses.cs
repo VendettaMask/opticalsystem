@@ -2,6 +2,7 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed class GeometricImageAnalysis : BaseAnalysis
 {
+    private readonly RgbImage? _source;
     private readonly ImageSimulationSourcePattern _sourcePattern;
     private readonly int _imageSize;
     private readonly int _numRays;
@@ -20,8 +21,9 @@ public sealed class GeometricImageAnalysis : BaseAnalysis
         int oversampling = 1,
         int guardBand = 4,
         bool relativeIllumination = true,
-        string aberrationMode = "Geometric") : base(optic)
+        string aberrationMode = "Geometric", RgbImage? source = null) : base(optic)
     {
+        _source = source;
         _sourcePattern = sourcePattern;
         _imageSize = Math.Clamp(imageSize, 16, 256);
         _numRays = Math.Clamp(numRays, 2, 128);
@@ -49,12 +51,13 @@ public sealed class GeometricImageAnalysis : BaseAnalysis
             oversampling: _oversampling,
             guardBand: _guardBand,
             relativeIllumination: _relativeIllumination,
-            aberrationMode: _aberrationMode);
+            aberrationMode: _aberrationMode, sourceImage: _source);
     }
 }
 
 public sealed class GeometricBitmapImageAnalysis : BaseAnalysis
 {
+    private readonly RgbImage? _source;
     private readonly int _imageSize;
     private readonly int _raysPerPixel;
     private readonly double _fieldHeight;
@@ -71,8 +74,9 @@ public sealed class GeometricBitmapImageAnalysis : BaseAnalysis
         int oversampling = 1,
         int guardBand = 4,
         bool relativeIllumination = true,
-        string aberrationMode = "Geometric") : base(optic)
+        string aberrationMode = "Geometric", RgbImage? source = null) : base(optic)
     {
+        _source = source;
         _imageSize = Math.Clamp(imageSize, 16, 256);
         _raysPerPixel = Math.Clamp(raysPerPixel, 2, 128);
         _fieldHeight = Math.Max(0, fieldHeight);
@@ -100,7 +104,7 @@ public sealed class GeometricBitmapImageAnalysis : BaseAnalysis
             guardBand: _guardBand,
             relativeIllumination: _relativeIllumination,
             aberrationMode: _aberrationMode,
-            sourceMode: "Built-in bitmap surrogate");
+            sourceMode: "Built-in bitmap surrogate", sourceImage: _source);
     }
 }
 
@@ -315,11 +319,11 @@ internal static class ExtendedSceneImageSupport
         SpatialCoherenceMethod coherenceMethod = SpatialCoherenceMethod.ExactSourcePairs,
         double coherenceFraction = .98, int coherenceSampling = 64,
         double psfEnergyFraction = 0,
-        IReadOnlyDictionary<string, object>? additionalValues = null)
+        IReadOnlyDictionary<string, object>? additionalValues = null, RgbImage? sourceImage = null)
     {
         if (optic.ImageSpaceAfocal) return ImageSimulationEngine.AfocalNotApplicable(name);
         oversampling = Math.Clamp(oversampling, 1, 16);
-        var source = ImageSimulationEngine.CreateSourceImage(
+        var source = sourceImage ?? ImageSimulationEngine.CreateSourceImage(
             sourcePattern,
             imageSize,
             imageSize);
@@ -366,7 +370,7 @@ internal static class ExtendedSceneImageSupport
         var values = new Dictionary<string, object>
         {
             ["Pipeline"] = $"{pipeline}; actual PSF: {result.EffectiveAberrationMode}",
-            ["SourceMode"] = sourceMode,
+            ["SourceMode"] = sourceImage is null ? sourceMode : "External file",
             ["SourcePattern"] = sourcePattern.ToString(),
             ["ImageSize"] = imageSize,
             ["FieldHeight"] = Math.Max(0, fieldHeight),

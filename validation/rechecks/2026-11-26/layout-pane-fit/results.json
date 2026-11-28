@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-11-26T15:27:16.747764+08:00",
+  "scope": "2D viewport fitting and independent print export; 3D and analysis fit regression only",
+  "accepted_source_run": "verified.trx",
+  "accepted_raw_sha256": "b7294a892be1273a056755bcea7ca2ef997fb3e7c6038664194680a1d8ca5b76",
+  "counters": {
+    "total": "29",
+    "executed": "29",
+    "passed": "29",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "tests": [
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "duration": "00:00:00.3822395"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0749155"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9528581"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4627680"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.6420706"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:03.0427084"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9738525"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Pixel\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.6682749"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.8207613"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Isekai\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.3931865"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.8038204"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7570799"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Lumen\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9930604"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.BlueNotchUsesTheWholePaneWithoutChangingPrintAspectSceneOrUserView(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9408821"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7063582"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramAspectRatioTests.LayoutExportUsesSelectedWidthAndKeepsSceneAndCamera(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.6449351"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9955760"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5878186"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1836944"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4373465"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramAspectRatioTests.LayoutExportUsesSelectedWidthAndKeepsSceneAndCamera(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5228190"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.LayoutCameraAndSceneSurviveAutomaticAspectChanges(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5365236"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "duration": "00:00:00.4320547"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.LayoutCameraAndSceneSurviveAutomaticAspectChanges(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.6994233"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:04.1179828"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0177905"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)",
+      "outcome": "Passed",
+      "duration": "00:00:04.0980220"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7990653"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.AnalysisFitsBothWindowSizesAndModeSurvivesRefreshWithoutChangingExport",
+      "outcome": "Passed",
+      "duration": "00:00:01.9496749"
+    }
+  ],
+  "build": {
+    "configuration": "Release",
+    "normal_project_references": true,
+    "errors": 0,
+    "nuget_audit_network_warnings": 3,
+    "test_output_isolated": true
+  },
+  "limitations": [
+    "No full optical precision matrix",
+    "No foreground app interaction",
+    "Report formats not individually revalidated"
+  ],
+  "sources_sha256": {
+    "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs": "f5856f48bb2dad59654676d300d1c499e73ec8b730876ae227b2aebb48b0a51c",
+    "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs": "24550021deeff95c75185dc0d810440206abecd5f7a4b1eab59f75c152250358",
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "ef28c912f424884b647f0d73fab302857a557620b313e304f0042e3d790d786a",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "2a2db0157ffc9137087685c83885c63a3a3144eedc50b71218298a32a584de39",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs": "d6a1a8f3b5939f266f8f9942e95825734dea29a0de9be854c9eb5bd2f483e924",
+    "tests/OpticalSystemDesign.Tests/DiagramViewportFitTests.cs": "a508f94ea437c48de03e56ce7c62970c80ff1989590d1a136b5fbcd0e33dd5ed",
+    "tests/OpticalSystemDesign.Tests/DiagramAutomaticAspectTests.cs": "58acdfa2c597fb503fbfc806d5652369d509ab381e376bda83c42a3bde051773",
+    "tests/OpticalSystemDesign.Tests/ViewerImageExportTests.cs": "b5a96f58494e4199499a7e41d330c14a4550944ebbf25392d8a07b59c4b3ef6c"
+  },
+  "tested_assembly_sha256": "57a4fe5afc9efc2c4d1b331e8c5fff65cfabfaf00aa1c690e0c42d342dddf8a8"
+}

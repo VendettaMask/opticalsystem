@@ -230,12 +230,16 @@ public sealed class ScientificColorMapTests
             var time = new DateTimeOffset(2026, 11, 3, 12, 0, 0, TimeSpan.FromHours(8));
             ScientificColorMaps.Configure(new() { AnalysisColorMap = map.ToString() });
             panel.PresentResult(view, before, time);
-            var window = new Window { Width = 1200, Height = 940, Content = panel };
+            // Auto selects the live sheet from the viewport and the report sheet
+            // from the export canvas. Give both a wide viewport for pixel parity.
+            var window = new Window { Width = 1800, Height = 940, Content = panel };
             using var directory = new ReportTestDirectory();
             try
             {
                 window.Show(); Tick(window);
                 var plot = Assert.Single(panel.GetVisualDescendants().OfType<WavefrontSurfaceControl>());
+                var sheet = Assert.Single(plot.GetVisualAncestors().OfType<UniformDiagramPage>());
+                Assert.Equal(new Size(1600, 900), sheet.Bounds.Size);
                 Assert.Equal(display, plot.DisplayAs);
                 Assert.Same(view.Series[0], plot.Series);
                 using var png = panel.CapturePlotImage();
@@ -254,7 +258,7 @@ public sealed class ScientificColorMapTests
     }
 
     [Fact]
-    public async Task MainWindowAppliesOnlyPaletteWithoutRerunningOpenAnalysis()
+    public async Task MainWindowAppliesDisplaySettingsWithoutRerunningOpenAnalysis()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ScientificColorMapTests));
         await session.Dispatch(async () =>
@@ -287,12 +291,18 @@ public sealed class ScientificColorMapTests
                 var dialog = Assert.Single(window.OwnedWindows.OfType<DisplaySettingsWindow>());
                 var choice = dialog.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "AnalysisColorMap");
                 choice.SelectedItem = ScientificColorMap.RedBlue;
+                var host = original.GetVisualAncestors().OfType<ResponsiveAnalysisPlotHost>().Single();
+                Assert.True(host.FitToViewport);
+                dialog.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "DiagramDisplayScale").SelectedIndex = 1;
+                Assert.True(host.FitToViewport);
                 dialog.GetVisualDescendants().OfType<NumericUpDown>().Single(c => c.Name == "ImageExportHeight").Value = 2160;
                 dialog.GetVisualDescendants().OfType<NumericUpDown>().Single(c => c.Name == "ImageExportDpi").Value = 300;
                 ((Button)typeof(DisplaySettingsWindow).GetField("_save", Private)!.GetValue(dialog)!)
                     .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 await apply; Tick(window); await Task.Delay(50); Tick(window);
                 Assert.Same(original, Assert.Single(window.GetVisualDescendants().OfType<WavefrontSurfaceControl>()));
+                Assert.False(host.FitToViewport);
+                Assert.Equal(1, host.ContentScale);
                 Assert.Same(series, original.Series);
                 Assert.Equal(camera, (original.ViewYawDegrees, original.ViewPitchDegrees, original.ViewZoom));
                 Assert.Equal(ScientificColorMap.RedBlue, ScientificColorMaps.Current);

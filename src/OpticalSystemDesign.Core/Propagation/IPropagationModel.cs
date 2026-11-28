@@ -16,6 +16,9 @@ public sealed class HomogeneousPropagationModel : IPropagationModel
     public string Kind => "homogeneous";
 
     public RealRay Propagate(RealRay ray, double distance)
+        => Propagate(RayState.FromRealRay(ray), distance).ToRealRay();
+
+    internal RayState Propagate(RayState ray, double distance)
     {
         var propagated = ray with
         {

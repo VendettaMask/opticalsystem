@@ -104,6 +104,12 @@ internal static partial class ZemaxZmxReader
             var binding = VariableParameterBinding(source.Type, number, extra);
             if (!extra && source.ParameterPickups.ContainsKey(number - 1))
             { ImportVariableWarning(optic, source, field, number, "variable marker conflicts with a parameter pickup; pickup retained"); continue; }
+            if (!extra && source.Type == "COORDBRK" && number is >= 1 and <= 5 && !source.SupportsCoordinateVariables)
+            {
+                ImportVariableWarning(optic, source, field, number,
+                    $"coordinate variable requires updating a downstream chief-ray solve; source value {source.Parameter(number - 1):R} retained as fixed");
+                continue;
+            }
             if (binding is not { } mapped)
             { ImportVariableWarning(optic, source, field, number, $"no supported optimization variable mapping; source value {(extra ? source.ExtraData.GetValueOrDefault(number) : source.Parameter(number - 1)):R} retained as fixed"); continue; }
             if (mapped.Kind == MultiConfigurationOperandKind.ShapeCoefficient && SurfaceShapeParameters.CoefficientNames(surface).Contains(mapped.Parameter))

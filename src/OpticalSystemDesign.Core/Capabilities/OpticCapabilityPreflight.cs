@@ -78,10 +78,12 @@ public static class OpticCapabilityPreflight
         OpticCapabilityOperation operation,
         string? context = null)
     {
-        var issues = optic.SurfaceGroup.Items
-            .SelectMany(surface => InspectSurface(surface, operation != OpticCapabilityOperation.Visualization))
-            .ToArray();
-        if (issues.Length > 0)
+        List<OpticCapabilityIssue>? issues = null;
+        var includeMaterials = operation != OpticCapabilityOperation.Visualization;
+        foreach (var surface in optic.SurfaceGroup.Items)
+            if (HasIssue(surface, includeMaterials))
+                (issues ??= []).AddRange(InspectSurface(surface, includeMaterials));
+        if (issues is not null)
         {
             throw new OpticCapabilityException(operation, issues, context);
         }
@@ -93,12 +95,23 @@ public static class OpticCapabilityPreflight
         string? context = null)
     {
         ArgumentNullException.ThrowIfNull(surface);
-        var issues = InspectSurface(surface, operation != OpticCapabilityOperation.Visualization).ToArray();
-        if (issues.Length > 0)
+        var includeMaterials = operation != OpticCapabilityOperation.Visualization;
+        if (HasIssue(surface, includeMaterials))
         {
+            var issues = InspectSurface(surface, includeMaterials).ToArray();
             throw new OpticCapabilityException(operation, issues, context);
         }
     }
+
+    // The overwhelmingly common supported path must not allocate iterators,
+    // arrays and material-name sets at every aiming ray and surface encounter.
+    // Recheck current objects each time; mutable prescriptions are not cached.
+    private static bool HasIssue(Domain.OpticalSurface surface, bool includeMaterials) =>
+        surface.Geometry is INonComputableGeometry
+        || (includeMaterials
+            ? surface.MaterialBefore is UnresolvedMaterial || surface.MaterialAfter is UnresolvedMaterial
+                || surface.Geometry is PolygonGroupGeometry { VolumeMaterial: UnresolvedMaterial }
+            : surface.MaterialBefore is GradientIndexMaterial || surface.MaterialAfter is GradientIndexMaterial);
 
     private static IEnumerable<OpticCapabilityIssue> InspectSurface(Domain.OpticalSurface surface, bool includeMaterials)
     {

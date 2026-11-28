@@ -70,13 +70,27 @@ public sealed class IsekaiCraftedWorkbenchTests
                 foreach (var icon in commands.GetVisualDescendants().OfType<LocalIcon>().Where(i => i.IsEffectivelyVisible && i.IsEffectivelyEnabled))
                     Assert.True(ScientificIconPalette.Contrast(Assert.IsAssignableFrom<ISolidColorBrush>(icon.Stroke).Color,
                         Color.Parse("#E4C295")) >= 4.5);
-                var copy = Assert.IsType<Button>(commands.Children[2]);
-                var copyText = copy.GetVisualDescendants().OfType<TextBlock>().Single(t => t.Text == UiLocalization.Text("复制文本"));
-                var enabledInk = Assert.IsAssignableFrom<ISolidColorBrush>(copyText.Foreground).Color;
-                copy.IsEnabled = false; Tick(window);
-                Assert.NotEqual(enabledInk, Assert.IsAssignableFrom<ISolidColorBrush>(copyText.Foreground).Color);
-                copy.IsEnabled = true; Tick(window);
+                foreach (var (iconName, label) in new[] { ("clipboard-copy-text", "复制文本"), ("file-export-text", "导出文本") })
+                {
+                    var button = commands.Children.OfType<Button>().Single(b => b.Content is LocalIcon icon && icon.IconName == iconName);
+                    Assert.Equal(UiLocalization.Text(label), AutomationProperties.GetName(button));
+                    Assert.Equal(UiLocalization.Text(label), ToolTip.GetTip(button));
+                    Assert.True(ToolTip.GetShowDelay(button) > 0);
+                }
+                var settingsButton = Assert.IsType<Button>(commands.Children[0]);
+                var settingsText = settingsButton.GetVisualDescendants().OfType<TextBlock>().Single(t => t.Text == UiLocalization.Text("设置"));
+                var enabledInk = Assert.IsAssignableFrom<ISolidColorBrush>(settingsText.Foreground).Color;
+                settingsButton.IsEnabled = false; Tick(window);
+                Assert.NotEqual(enabledInk, Assert.IsAssignableFrom<ISolidColorBrush>(settingsText.Foreground).Color);
+                settingsButton.IsEnabled = true; Tick(window);
                 Capture(window, $"workbench-{width}-{fontSize}.png");
+                var copyButton = commands.Children.OfType<Button>().Single(b => b.Content is LocalIcon { IconName: "clipboard-copy-text" });
+                window.MouseMove(copyButton.TranslatePoint(new Point(copyButton.Bounds.Width / 2, copyButton.Bounds.Height / 2), window)!.Value);
+                Assert.False(ToolTip.GetIsOpen(copyButton));
+                await Task.Delay(ToolTip.GetShowDelay(copyButton) + 100); Tick(window);
+                Assert.True(ToolTip.GetIsOpen(copyButton));
+                window.MouseMove(new Point(1, 1)); Tick(window);
+                Assert.False(ToolTip.GetIsOpen(copyButton));
                 var book = analysis.GetVisualDescendants().OfType<AnalysisImageFrame>().Single(f => f.Name == "AnalysisWorkspaceBookFrame");
                 // The light toolbar ink must not leak into its dark native flyout.
                 var curveWidth = commands.Children.OfType<DropDownButton>().Single(b => b.Name == "AnalysisCurveWidth");
@@ -93,7 +107,6 @@ public sealed class IsekaiCraftedWorkbenchTests
                 }
                 Capture(window, $"menu-{width}-{fontSize}.png");
                 menu.Hide(); Tick(window);
-                var settingsButton = Assert.IsType<Button>(commands.Children[0]);
                 Click(window, settingsButton); Tick(window);
                 var settingsCard = (Border)typeof(AnalysisPanel).GetField("_settingsHost", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(analysis)!;
                 Assert.True(settingsCard.IsVisible);

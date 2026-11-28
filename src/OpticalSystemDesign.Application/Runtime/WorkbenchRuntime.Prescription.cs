@@ -102,6 +102,7 @@ public partial class WorkbenchRuntime
     public void CommitSystemEdit(object? editedItem = null)
     {
         SetPrimaryWavelengthGuard(editedItem as Wavelength);
+        SynchronizeConfigurationPickups();
         SetStatus("系统属性已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -203,9 +204,9 @@ public partial class WorkbenchRuntime
         {
             throw new ArgumentException("请选择另一个表面作为光阑，不能直接移除当前光阑。", nameof(isStop));
         }
-        if (semiDiameter.HasValue && (!double.IsFinite(semiDiameter.Value) || semiDiameter.Value < 0.1))
+        if (semiDiameter.HasValue && (!double.IsFinite(semiDiameter.Value) || semiDiameter.Value < 0))
         {
-            throw new ArgumentOutOfRangeException(nameof(semiDiameter), "净半径必须是至少 0.1 mm 的有限数值。");
+            throw new ArgumentOutOfRangeException(nameof(semiDiameter), "净半径必须是非负的有限数值。");
         }
 
         var normalizedColor = SurfaceDisplayColor.Normalize(surfaceColor);
@@ -338,6 +339,7 @@ public partial class WorkbenchRuntime
             return;
         }
 
+        EnsureSystemTargetRemovalAllowed(Fields.IndexOf(field) + 1, false);
         CaptureCurrentState();
         Fields.Remove(field);
         SetStatus("已删除视场。");
@@ -372,6 +374,7 @@ public partial class WorkbenchRuntime
             return;
         }
 
+        EnsureSystemTargetRemovalAllowed(Wavelengths.IndexOf(wavelength) + 1, true);
         CaptureCurrentState();
         Wavelengths.Remove(wavelength);
         SetPrimaryWavelengthGuard();

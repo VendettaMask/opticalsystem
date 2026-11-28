@@ -1,0 +1,89 @@
+{
+  "SchemaVersion": 1,
+  "Id": "215a9c6a-af77-5c42-b622-a65078eb06dc",
+  "Name": "METAL",
+  "ReferenceWavelengthNm": 550.0,
+  "Target": {
+    "Kind": "Antireflection",
+    "CenterNm": 550.0,
+    "MinimumNm": 522.5,
+    "MaximumNm": 577.5,
+    "MaximumLayers": 8
+  },
+  "Settings": {
+    "MinimumThicknessNm": 1,
+    "MaximumThicknessNm": 2000
+  },
+  "IncidentId": "BK7",
+  "SubstrateId": "SF1",
+  "LowId": "ALUM2",
+  "HighId": "ALUM2",
+  "Materials": [
+    {
+      "Id": "BK7",
+      "Name": "BK7",
+      "Source": "SCHOTT / sequential glass catalog; real bulk index at the interface",
+      "MinimumNm": 310.0,
+      "MaximumNm": 2325.0,
+      "Model": {
+        "Kind": "sellmeier",
+        "Numbers": {
+          "b0": 1.03961212,
+          "c0": 0.00600069867,
+          "b1": 0.231792344,
+          "c1": 0.0200179144,
+          "b2": 1.01046945,
+          "c2": 103.560653
+        },
+        "Text": {
+          "name": "BK7"
+        }
+      }
+    },
+    {
+      "Id": "SF1",
+      "Name": "SF1",
+      "Source": "SCHOTT / sequential glass catalog; real bulk index at the interface",
+      "MinimumNm": 350.0,
+      "MaximumNm": 2500.0,
+      "Model": {
+        "Kind": "sellmeier",
+        "Numbers": {
+          "b0": 1.55912923,
+          "c0": 0.0121481001,
+          "b1": 0.284246288,
+          "c1": 0.0534549042,
+          "b2": 0.968842926,
+          "c2": 112.174809
+        },
+        "Text": {
+          "name": "SF1"
+        }
+      }
+    },
+    {
+      "Id": "ALUM2",
+      "Name": "ALUM2",
+      "Source": "COATING.DAT / MATE ALUM2",
+      "MinimumNm": 1,
+      "MaximumNm": 1000000.0,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 0.82,
+          "extinction": 5.99
+        },
+        "Text": {
+          "name": "ALUM2"
+        }
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "ALUM2",
+      "ThicknessNm": 5.0366585365853656,
+      "Variable": false
+    }
+  ]
+}

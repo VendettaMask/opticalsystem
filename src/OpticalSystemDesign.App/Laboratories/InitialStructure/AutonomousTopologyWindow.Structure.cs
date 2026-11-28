@@ -1,7 +1,9 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
@@ -15,7 +17,6 @@ public sealed partial class AutonomousTopologyWindow
     private readonly TopologyStructurePlot _structurePlot = Named(new TopologyStructurePlot(), "AutonomousStructurePlot");
     private readonly TextBlock _structureTitle = Named(Text("镜头结构"), "AutonomousStructureTitle");
     private readonly TextBlock _structureHint = Named(Text("打开结构页或点击刷新结构，显示当前处方。"), "AutonomousStructureHint");
-    private Button? _structureReset;
     private readonly WrapPanel _structureLegend = new() { Orientation = Orientation.Horizontal };
     private readonly List<Button> _structureNavigation = [];
     private Button? _structureRefresh;
@@ -35,16 +36,27 @@ public sealed partial class AutonomousTopologyWindow
         var root = new Grid { RowDefinitions = new("Auto,Auto,Auto,*,Auto"), RowSpacing = 6, Margin = new Thickness(8), MinHeight = 380 };
         var bar = new WrapPanel { Orientation = Orientation.Horizontal };
         _structureRefresh = Command("AutonomousStructureRefresh", "刷新结构", () => StructurePendingLoad = RequestStructureDisplayAsync(true));
-        Command("AutonomousStructureFit", "适合窗口", _structurePlot.Fit, navigation: true);
-        _structureReset = Command("AutonomousStructureReset", "100%", _structurePlot.Fit, navigation: true);
+        Command("AutonomousStructureFit", "重置视图", _structurePlot.Fit, navigation: true);
         Command("AutonomousStructureMinus", "−", () => _structurePlot.ZoomBy(.8), navigation: true);
         Command("AutonomousStructurePlus", "+", () => _structurePlot.ZoomBy(1.25), navigation: true);
         root.Children.Add(bar); Grid.SetRow(_structureTitle, 1); root.Children.Add(_structureTitle);
         var legend = new ScrollViewer { Content = _structureLegend, MaxHeight = 64, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled };
         Grid.SetRow(legend, 2); root.Children.Add(legend);
-        Grid.SetRow(_structurePlot, 3); root.Children.Add(_structurePlot);
+        var viewport = new ScrollViewer
+        {
+            Content = _structurePlot,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            VerticalContentAlignment = VerticalAlignment.Stretch
+        };
+        DiagramSheetLayout.BindViewportScale(viewport, fit =>
+        {
+            _structurePlot.Width = fit ? double.NaN : UniformDiagramPage.SheetWidth;
+            _structurePlot.Height = fit ? double.NaN : UniformDiagramPage.PlotHeight;
+            viewport.HorizontalScrollBarVisibility = viewport.VerticalScrollBarVisibility =
+                fit ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
+        });
+        Grid.SetRow(viewport, 3); root.Children.Add(viewport);
         Grid.SetRow(_structureHint, 4); root.Children.Add(_structureHint);
-        _structurePlot.NavigationChanged += () => { if (_structureReset is { } reset) reset.Content = $"{_structurePlot.Zoom:P0}"; };
         return root;
 
         Button Command(string id, string label, Action action, bool navigation = false)

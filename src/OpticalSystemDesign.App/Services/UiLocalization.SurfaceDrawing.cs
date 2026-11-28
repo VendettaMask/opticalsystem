@@ -4,7 +4,29 @@ internal static partial class UiLocalization
 {
     private static void AddSurfaceDrawingTexts(Action<string, string, string> add)
     {
+        AddCoordinateEditingTexts(add);
+        AddMultiConfigurationSystemTexts(add);
         add("近轴面", "Paraxial", "近軸面");
+        add("忽略面", "Ignored Surface", "無視面");
+        add("二元面 2", "Binary 2", "バイナリ面 2");
+        add("二元面 3", "Binary 3", "バイナリ面 3");
+        add("全息面 2", "Hologram 2", "ホログラム面 2");
+        add("衍射光栅", "Diffraction Grating", "回折格子");
+        add("倾斜面", "Tilted", "傾斜面");
+        add("不规则面", "Irregular", "不規則面");
+        add("网格矢高面", "Grid Sag", "グリッドサグ面");
+        add("Zernike Fringe 矢高面", "Zernike Fringe Sag", "ゼルニケフリンジサグ面");
+        add("Chebyshev 矢高面", "Chebyshev Sag", "チェビシェフサグ面");
+        add("微镜阵列", "Micromirror Array", "マイクロミラーアレイ");
+        add("非顺序多边形组", "Non-sequential Polygon Group", "ノンシーケンシャルポリゴングループ");
+        add("Forbes 法向斜率面", "Forbes Normal Slope", "Forbes 法線勾配面");
+        add("梯度折射率面 1", "Gradient 1", "屈折率分布面 1");
+        add("梯度折射率面 2", "Gradient 2", "屈折率分布面 2");
+        add("梯度折射率面 3", "Gradient 3", "屈折率分布面 3");
+        add("梯度折射率面 4", "Gradient 4", "屈折率分布面 4");
+        add("梯度折射率面 5", "Gradient 5", "屈折率分布面 5");
+        add("梯度折射率面 9", "Gradient 9", "屈折率分布面 9");
+        add("网格梯度折射率面", "Grid Gradient Index", "グリッド屈折率分布面");
         add("近轴 XY 面", "Paraxial XY", "近軸XY面");
         add("近轴透镜", "Paraxial Lens", "近軸レンズ");
         add("近轴参数按导入值保留；此处只读。", "Imported paraxial parameters are preserved; read-only here.", "読み込んだ近軸パラメータを保持します。ここでは読み取り専用です。");

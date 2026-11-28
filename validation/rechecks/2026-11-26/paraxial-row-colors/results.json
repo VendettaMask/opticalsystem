@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-26",
+  "palette": "soft yellow-green; gold rejected",
+  "finalPassed": 10,
+  "finalFailed": 0,
+  "offscreenThemes": [
+    "Light",
+    "Dark",
+    "Lumen",
+    "Isekai",
+    "Pixel"
+  ],
+  "opticalMatrixRun": false,
+  "controlledForegroundApplication": false,
+  "fullStandardBuildPassed": true,
+  "independentUiBuildCompleted": true,
+  "projectReferencesRebuiltForFinalChecks": true,
+  "nugetAuditWarning": "NU1900 retained",
+  "testOutputIsolated": true,
+  "reports": {
+    "initial.trx.gz": {
+      "originalSha256": "e91fa9e2a3f17bd274fe92f90eb18c99194a101c873f55cde83b55ea86f3a2e2",
+      "bytes": 69166,
+      "counters": {
+        "total": "43",
+        "executed": "43",
+        "passed": "42",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "green-first.trx.gz": {
+      "originalSha256": "bc212c52c4107543775e15e1a4e08134bcc6dd2f3112b7ebad2b339bb75cf0bd",
+      "bytes": 21437,
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "9",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "green-final.trx.gz": {
+      "originalSha256": "55ddb10ff60caf2c6aabe419e6a7567dd76037975a9c95390a1eb1ec26cc1c25",
+      "bytes": 17830,
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "10",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "green-cached.trx.gz": {
+      "originalSha256": "15f386a5bb81d8fbe8131e97b474eae244853c3903595f9ca8a670f6ae82d32e",
+      "bytes": 17830,
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "10",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  },
+  "palettes": {
+    "Dark": {
+      "paraxial": [
+        "#343C23",
+        "#3F482A",
+        "#4C5532",
+        "#565F39"
+      ],
+      "mirror": [
+        "#243A36",
+        "#2D4742",
+        "#36564F",
+        "#3D6058"
+      ],
+      "hueSeparationDegrees": [
+        89.9,
+        90.5,
+        91.4,
+        92.1
+      ]
+    },
+    "Isekai": {
+      "paraxial": [
+        "#303923",
+        "#3B452A",
+        "#475333",
+        "#505C3A"
+      ],
+      "mirror": [
+        "#293B33",
+        "#33483E",
+        "#3C5549",
+        "#435E51"
+      ],
+      "hueSeparationDegrees": [
+        68.8,
+        69.2,
+        68.7,
+        69.9
+      ]
+    },
+    "Lumen": {
+      "paraxial": [
+        "#2A3523",
+        "#34412B",
+        "#404E34",
+        "#48583B"
+      ],
+      "mirror": [
+        "#203B3B",
+        "#294949",
+        "#315756",
+        "#38615F"
+      ],
+      "hueSeparationDegrees": [
+        83.3,
+        84.5,
+        86.1,
+        84.0
+      ]
+    },
+    "Pixel": {
+      "paraxial": [
+        "#E4F0C7",
+        "#D6E6B2",
+        "#C5DB9A",
+        "#B6CF87"
+      ],
+      "mirror": [
+        "#E1F2ED",
+        "#D1EAE3",
+        "#BFDFD5",
+        "#B2D8CC"
+      ],
+      "hueSeparationDegrees": [
+        84.8,
+        84.7,
+        80.9,
+        80.2
+      ]
+    },
+    "Light": {
+      "paraxial": [
+        "#E6F1D5",
+        "#D8EABE",
+        "#C9DFA9",
+        "#BDD594"
+      ],
+      "mirror": [
+        "#E6F5F0",
+        "#D6EEE5",
+        "#C5E5D9",
+        "#B9DDD0"
+      ],
+      "hueSeparationDegrees": [
+        76.4,
+        73.0,
+        73.1,
+        76.2
+      ]
+    }
+  },
+  "sourceFilesAtReceipt": {
+    "src/OpticalSystemDesign.App/Theming/ParaxialRowStyles.cs": "007aa561e7d815a437445dd9c255951215a3a668b82db98c67e2b40e42ea26ae",
+    "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs": "e2e20d8fac5929b71e1188797de2547f0c1ff33414b00aa04d6903b1d2142ba4",
+    "tests/OpticalSystemDesign.Tests/ParaxialSurfacePresentationTests.cs": "308a82efb40a45bc761825e11503daa4f38e09228bfef46c89baeeac776dc2bb"
+  },
+  "testedAssemblies": {
+    "OpticalSystemDesign.App.dll": "cd9a5f2b2cc8feab1a3241a92272de4080d2f71b8a4705261257289ae36c98f7",
+    "OpticalSystemDesign.Application.dll": "30b4d72afd527dfdf22ad954048a1f5c19713b5bfe5d8ad20c9ca1813f289d8e",
+    "OpticalSystemDesign.Core.dll": "063177315ad60fb1eb0605ddff25feba7324b232e069e6e6927cd410d6f6c7bd",
+    "OpticalSystemDesign.Tests.dll": "3c33f10c4719e011fc0d4c1fd25e3a7d0fde213af4f38ea4086d13b1322e3d4e"
+  },
+  "earlierCachedDependencyValidation": {
+    "testedAssemblies": {
+      "OpticalSystemDesign.App.dll": "cc33b951cb345ca4a07aa9b723db42e1d74317a804cbe276d9115a55b2917547",
+      "OpticalSystemDesign.Application.dll": "33c051531742eda0d7c109526bfe5d22a6dbaf1e9d0db0dc3fac63541ec431e6",
+      "OpticalSystemDesign.Core.dll": "1b92e6bdabed0521f1f779f56498763f4ae9d501dcf571c25ed86c82cf1e178e",
+      "OpticalSystemDesign.Tests.dll": "429a7ea43e244aa1529f6b355f0430de67ce25956eaa2a2a80f893a675fba73a"
+    },
+    "projectReferencesRebuiltForFinalChecks": false,
+    "fullStandardBuildPassed": false
+  },
+  "initialBlocker": "Application/CoatingDesign.Engine project-reference cycle (MSB4006)",
+  "initialBlockerResolved": true,
+  "standardReleaseBuild": {
+    "passed": true,
+    "errors": 0,
+    "warnings": 3,
+    "warningCodes": [
+      "NU1900"
+    ],
+    "projectReferencesBuilt": true
+  }
+}

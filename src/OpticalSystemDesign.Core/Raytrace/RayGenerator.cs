@@ -274,6 +274,14 @@ public sealed partial class RayGenerator
             }
         }
 
+        ComputationCancellation.ThrowIfCancellationRequested();
+        // Only the existing exact stop solver's ordinary target convention is
+        // cached here. Explicit target maps retain their separate semantics.
+        var launchCache = aimAtStop && stopTargets is null
+            ? _optic.SequentialRayTracer.PupilLaunchCache(normalizedFieldX, normalizedFieldY,
+                wavelengthMicrometers, applyVignettingFactors, realImageLaunch, samples) : null;
+        if (launchCache is { } cached && cached.Cache.TryGetPupilLaunch(cached.Key, out var existing)) return existing!;
+
         var vignetting = applyVignettingFactors
             ? ResolveVignetting(normalizedFieldX, normalizedFieldY)
             : PupilVignetting.Identity;
@@ -302,7 +310,7 @@ public sealed partial class RayGenerator
             wavelengthNanometers, apertureRadius, vignetting, rays,
             index => CreateRay(field.X, field.Y, samples[index].X, samples[index].Y, apertureRadius,
                 wavelengthNanometers, samples[index].Weight, realImageLaunch, aimAtStop: false, fieldRayContext: fieldRayContext), GenerateRay))
-            return new RealRayBundle(rays);
+            return Complete();
         void GenerateRay(int index)
         {
             var sample = samples[index];
@@ -356,7 +364,15 @@ public sealed partial class RayGenerator
             }
         }
 
-        return new RealRayBundle(rays);
+        return Complete();
+
+        RealRayBundle Complete()
+        {
+            var bundle = new RealRayBundle(rays);
+            ComputationCancellation.ThrowIfCancellationRequested();
+            if (launchCache is { } cache) cache.Cache.StorePupilLaunch(cache.Key, bundle.Rays);
+            return bundle;
+        }
     }
 
     public static PupilSampling ParseSampling(string distribution)

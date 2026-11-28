@@ -8,6 +8,53 @@ namespace OpticalSystemDesign.Tests;
 public sealed class FourierResultValidationTests
 {
     [Fact]
+    public void AutomaticRecoveryReturnsResolvedRequestedDataWithoutExtraGridsOrCertification()
+    {
+        var optic = Optic.CreateBlank(); var calls = new List<int>(); var original = Data(1);
+        var result = new FourierResultValidationAnalysis(optic, "test", 8, n => new Probe(optic, () =>
+        { calls.Add(n); Risk(true).RequireResolved("test"); return original; }),
+            new(FourierSamplingMode.Adaptive, 32, MaximumNominalPupilCells: 1))
+        { RecoverOnlyIfRequired = true }.GenerateData();
+        Assert.Same(original, result);
+        Assert.Equal(new[] { 8 }, calls);
+        Assert.False(result.Values.ContainsKey("FourierSamplingValidation"));
+    }
+
+    [Fact]
+    public void AutomaticRecoveryReusesItsRequestedTrialAndRetainsTwoResolvedReferences()
+    {
+        var optic = Optic.CreateBlank(); var calls = new List<int>();
+        var result = new FourierResultValidationAnalysis(optic, "test", 8, n => new Probe(optic, () =>
+        { calls.Add(n); Risk(n > 8).RequireResolved("test"); return Data(n == 8 ? 1 : 2); }),
+            new(FourierSamplingMode.Adaptive, 32))
+        { RecoverOnlyIfRequired = true }.GenerateData();
+        Assert.Equal(new[] { 8, 16, 32 }, calls);
+        Assert.Equal(AnalysisOutcome.Success, result.Outcome);
+        Assert.True(Report(result).Validated);
+        Assert.Equal(32, Report(result).ReturnedPupilSampling);
+        Assert.Equal(FftPhaseSamplingStatus.UndersampledPhase,
+            Assert.IsType<FftPupilSampling>(result.Values["RequestedPupilPhaseSampling"]).Status);
+    }
+
+    [Fact]
+    public void AutomaticRecoveryKeepsPhaseGeometryAndAggregateWorkGuards()
+    {
+        var optic = Optic.CreateBlank(); var calls = 0;
+        var result = new FourierResultValidationAnalysis(optic, "test", 8, _ => new Probe(optic, () =>
+        { calls++; Risk(false).RequireResolved("test"); return Data(1); }),
+            new(FourierSamplingMode.Adaptive, 32, MaximumNominalPupilCells: 1))
+        { RecoverOnlyIfRequired = true }.GenerateData();
+        Assert.Equal(1, calls);
+        Assert.Equal(AnalysisOutcome.Unavailable, result.Outcome);
+        Assert.False(Report(result).Validated);
+        var geometry = new FourierResultValidationAnalysis(optic, "test", 8, _ => new Probe(optic, () =>
+        { new FftPupilSampling(FftPhaseSamplingStatus.NoConnectedSamples, 0, 0).RequireResolved("test"); return Data(1); }),
+            new(FourierSamplingMode.Adaptive, 32))
+        { RecoverOnlyIfRequired = true };
+        Assert.Throws<FftPupilSamplingException>(() => geometry.GenerateData());
+    }
+
+    [Fact]
     public void FixedModeKeepsTheExistingRejectionAndDoesNotRefine()
     {
         var calls = new List<int>(); var optic = Optic.CreateBlank();

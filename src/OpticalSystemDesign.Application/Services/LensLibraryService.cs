@@ -197,6 +197,8 @@ internal sealed class LensLibraryService : ILensLibraryService
 
     private CommercialLensEntryDto WithLocalModelAvailability(CommercialLensEntryDto entry)
     {
+        if (entry.NativePath is not null && ResolveNativeProjectPath(LibraryDirectory, entry.NativePath) is null)
+            entry = entry with { NativePath = null };
         if (string.IsNullOrWhiteSpace(entry.LocalModelPath))
         {
             return entry;

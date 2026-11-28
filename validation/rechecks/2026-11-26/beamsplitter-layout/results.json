@@ -1,0 +1,1225 @@
+{
+  "Date": "2026-11-26",
+  "Scope": "Targeted functional acceptance for the beam-splitter configuration editor and layouts",
+  "UniqueTests": 242,
+  "Passed": 242,
+  "Failed": 0,
+  "ImportedOperandRows": 14,
+  "ImportedMaterialRows": 2,
+  "DefaultSamplingRaysPerConfiguration": 21,
+  "RenderedRaysBothConfigurations": 126,
+  "RenderedThemes": 5,
+  "FullPrecisionMatrixRun": false,
+  "Cases": [
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.ActualViewerRendersBothConfigurationsWithTheSamePhysicalBoxAndDeclaredRays(dimension: TwoDimensional, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.CyclesThroughSurfaceOrBackFocusSolvesAreRejectedAtomically(backFocus: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenElementFacesAndEdgesCannotBeRedrawnByCachedSolidMeshes(solid: True, mode: Solid, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ProductionDlsJointlyOptimizesIndependentCellsAndRetainsLinkedThirdConfiguration(kind: Curvature, target1: 0, target2: -0.02)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: SemiDiameter, source: 0.040000000000000001, scale: 0.5, offset: 0, expected: 0.02)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesAnIndependentSurfaceOutlineAndImageReference(threeD: False, solid: False, mode: Wireframe, imageSurface: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.BothBranchesPassAllFieldsAndPupilRays(threeDimensional: True, configuration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.InvalidCellDoesNotChangeVariables(row: 1, configuration: -1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidConfigurationDoesNotSwitchOrHideOptimizationFailure(number: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidZoomRangesOrTargetsFail(first: 1, last: 1, target: -1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.EditingBaseThicknessKeepsLinkedActivePrescriptionAndSavedConfigurationsIdentical(active: 2, operandRow: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: \"Light\", language: \"zh-CN\", width: 1000)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ProductionDlsHandlesCoupledRowsAcrossConfBoundaries",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(dimension: ThreeDimensional, presentationMode: OpticalLayout)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterLayoutWindowTests.MaterialMatrixAndBothRenderedBranchesUseRealImportedConfigurations(theme: \"Light\", language: \"zh-CN\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.CurvedDummyDoesNotAcquireAnImplicitFloatingAperture(apertureRecords: \"DIAM 0 1 0 0 1\", explicitAperture: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.TwoPlanarCrystalVolumesFormThePrescribedSquareWithoutCoordinateWalls(configuration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.LegacyProjectHasNoInventedPickup(version: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.PickupTargetsCannotBecomeIndependentVariables(kind: Thickness)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(configuration: 0, waveIndex: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ClosedIntervalIncludesLastThicknessAndPreservesItsSign",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.MalformedOrWrongVersionVariableMetadataIsRejected(version: 6, configuration: 2, surface: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 1, configuration: 1, sourceRow: 1, sourceConfiguration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationMatrixTests.ZoomMatrixIsDefaultAndUsesRealReadOnlyAperturesAndEditableOperandReferences(theme: \"Pixel\", language: \"ja-JP\", width: 480)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesAffectsTheActualConnectionsAndSideWalls(threeD: True, solid: True, mode: Solid, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesBothElementRimsWhenThereAreNoConnectingFaces(solid: False, mode: Solid)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.InvalidConfigurationIsRejectedWithoutChangingTheDocument(selected: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ProductionDlsOptimizesSourceThroughDependentConfiguration(kind: Curvature, desiredSource: 0.02)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: Conic, source: -0.5, scale: 2, offset: 0.29999999999999999, expected: -0.69999999999999996)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.MaterialAndZeroDiameterEditsAreAtomicUndoableAndSurviveReopen",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.CyclesThroughSurfaceOrBackFocusSolvesAreRejectedAtomically(backFocus: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.ThicknessSourceEditResolvesSurfacePickupsInEveryLinkedConfiguration(active: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidZoomRangesOrTargetsFail(first: 1, last: 1, target: NaN)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.ExplicitSurfaceApertureStillClipsWhenDisplayDiameterIsZero",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesAnIndependentSurfaceOutlineAndImageReference(threeD: True, solid: False, mode: Solid, imageSurface: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.PlanarVolumeMeshFollowsTheAssemblyPoseInsteadOfTheFilenameOrGlobalAxes",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: True, solid: False, mode: Solid, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ReplacingSolveClearsCellVariableAndUndoRestoresIt(kind: Curvature)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.ThicknessPickupTargetCannotBeOverwrittenByTheMatrix(configuration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.ActualViewerRendersBothConfigurationsWithTheSamePhysicalBoxAndDeclaredRays(dimension: ThreeDimensional, mode: Transparent, cutaway: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ZoomThicknessReturnsRangeOrTargetAndUsesEveryConfiguration(target: 0, expected: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.ExplicitFloatingApertureRemainsDistinctFromAFixedDummyStop(record: \"\", clips: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.WrongVersionOrInvalidMetadataCannotLoad(version: 7, target: 1, source: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ActiveLdeVariableIsDeduplicatedAndUnusedClonedFlagsAreNotActivated",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ProductionDlsOptimizesSourceThroughDependentConfiguration(kind: SemiDiameter, desiredSource: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenSelectedSurfaceStaysHiddenWhileItsExplicitAxesAndOriginRemainVisible(threeD: True, solid: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.PickupTargetsPermitUnrelatedLensEditsAndRejectDirectValueChanges(kind: Thickness, source: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidConfigurationContextsFailBeforeEvaluation",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ReplacingSolveClearsCellVariableAndUndoRestoresIt(kind: Thickness)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ProductionDlsOptimizesSourceThroughDependentConfiguration(kind: Conic, desiredSource: -0.29999999999999999)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.UserDefinedStopDiamClipsEvenWhenTheStopSurfaceIsPlane",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ZthiDlsVariesOnlyTheActiveNonBaseConfiguration",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.NonfiniteSolveParametersAreRejected(scale: 1, offset: -∞)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 1, configuration: 2, sourceRow: 1, sourceConfiguration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.NativeRowsRetainRawParametersAndNeverAutoUpgrade(code: \"CONF\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.LegacyProjectsDoNotAcquireVariables(version: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.SavingOnlyActiveOpticCannotLoseCrossConfigurationReferences(extension: \".OPTIC.JSON\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesAffectsTheActualConnectionsAndSideWalls(threeD: True, solid: True, mode: Solid, cutaway: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.InvalidCellDoesNotChangeVariables(row: 1, configuration: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationMatrixTests.ZoomMatrixIsDefaultAndUsesRealReadOnlyAperturesAndEditableOperandReferences(theme: \"Light\", language: \"zh-CN\", width: 1000)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: False, solid: False, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 1, configuration: 1, sourceRow: 2, sourceConfiguration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.ActualViewerRendersBothConfigurationsWithTheSamePhysicalBoxAndDeclaredRays(dimension: ThreeDimensional, mode: Solid, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationMatrixTests.DifferenceMetadataIsNonMutatingAndThicknessUsesRevisionGuardAndProjectRoundTrip",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: True, solid: True, mode: Transparent, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidAndCancelledOptimizationLeaveAllConfigurationsUnchanged",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterLayoutWindowTests.MaterialMatrixAndBothRenderedBranchesUseRealImportedConfigurations(theme: \"Dark\", language: \"en-US\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.InvalidCellDoesNotChangeVariables(row: 0, configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.AllConfigurationSelectorsOfferOnlySharedIndices",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.SavingOnlyActiveOpticCannotLoseCrossConfigurationReferences(extension: \".zmx\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.ActualViewerRendersBothConfigurationsWithTheSamePhysicalBoxAndDeclaredRays(dimension: ThreeDimensional, mode: Solid, cutaway: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.BothBranchesPassAllFieldsAndPupilRays(threeDimensional: False, configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.LegacyProjectHasNoInventedPickup(version: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.PickupTargetsCannotBecomeIndependentVariables(kind: Curvature)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ApplicationReadsAllConfigurationsAndRoundTripsEditableSlotsWithUndo",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.UserDefinedDiamOnPoweredSurfaceBecomesZemaxFloatingAperture",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: \"Light\", language: \"ja-JP\", width: 600)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(configuration: 0, waveIndex: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.NonfiniteSolveParametersAreRejected(scale: ∞, offset: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.SourceEditThatWouldInvalidateDependentCellRollsBackTheWholeChange",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: SemiDiameter, source: 3, scale: 2, offset: 1, expected: 7)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.EditingBaseThicknessKeepsLinkedActivePrescriptionAndSavedConfigurationsIdentical(active: 0, operandRow: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.DuplicateVariableMetadataIsRejectedAndSemiDiameterIsPinned",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.AutomaticStopDiamDoesNotClipTheEstimatedRayFootprint",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesAnIndependentSurfaceOutlineAndImageReference(threeD: True, solid: True, mode: Wireframe, imageSurface: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: \"Light\", language: \"ja-JP\", width: 600)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ReorderingInsertionAndCloningPreserveVariableIdentity",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidConfigurationDoesNotSwitchOrHideOptimizationFailure(number: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ChangingAnExistingSemiDiameterSourceToAutomaticIsRejectedAndRolledBack",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.LegacyProjectsDoNotAcquireVariables(version: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenElementFacesAndEdgesCannotBeRedrawnByCachedSolidMeshes(solid: True, mode: Transparent, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationMatrixTests.ZoomMatrixIsDefaultAndUsesRealReadOnlyAperturesAndEditableOperandReferences(theme: \"Isekai\", language: \"en-US\", width: 1000)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationMatrixTests.ZoomMatrixIsDefaultAndUsesRealReadOnlyAperturesAndEditableOperandReferences(theme: \"Lumen\", language: \"zh-CN\", width: 680)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.InvalidConfigurationIsRejectedWithoutChangingTheDocument(selected: -1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.VariablesRemainIndependentEvenWhenEqualToBase(kind: Conic)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ZoomThicknessReturnsRangeOrTargetAndUsesEveryConfiguration(target: 2, expected: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.WrongVersionOrInvalidMetadataCannotLoad(version: 6, target: 1, source: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.OrderedConfigurationSwitchUsesOneBasedNumbersWithoutChangingInputs",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"ZTHI\", extension: \".len\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.MalformedOrWrongVersionVariableMetadataIsRejected(version: 6, configuration: 0, surface: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ConfigurationRowsCannotBeReferencedAsNumericOperands",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FullLensRowEditKeepsEverySourceValueAndUpdatesDependentConfiguration(sourceConfiguration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesAnIndependentSurfaceOutlineAndImageReference(threeD: True, solid: True, mode: Transparent, imageSurface: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"ZTHI\", extension: \".zmx\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenSelectedSurfaceStaysHiddenWhileItsExplicitAxesAndOriginRemainVisible(threeD: False, solid: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.LegacyProjectHasNoInventedPickup(version: 6)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidZoomRangesOrTargetsFail(first: 1, last: 99, target: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.CopyingAConfigurationRemapsItsInternalPickupToTheNewConfiguration",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.SkippedConfigurationCannotChangeLaterRows(mode: \"end\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.AllConfigurationsPreserveEachOriginalPathSurfaceIdentityAndMetrics(dimension: ThreeDimensional)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 0, configuration: 1, sourceRow: 1, sourceConfiguration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidZoomRangesOrTargetsFail(first: 2, last: 1, target: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ImageThicknessCannotBeOwnedByBothBackFocusAndMcePickup",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"CONF\", extension: \".len\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.LegacyProjectsDoNotAcquireVariables(version: 5)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ProductionDlsJointlyOptimizesIndependentCellsAndRetainsLinkedThirdConfiguration(kind: SemiDiameter, target1: 3, target2: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidThicknessInAnotherConfigurationCannotBeSilentlyDropped(thickness: ∞)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.LayoutSamplesTheEntrancePupilAndClipsAtDiamInsteadOfMema",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.CurvedDummyDoesNotAcquireAnImplicitFloatingAperture(apertureRecords: \"DIAM 4 1 0 0 1\\n  APMN .5\\n  APMX 2\", explicitAperture: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.UnverifiedStateCombinationsFailWithoutSwitching(code: \"CVIG\", argument: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.OptimizationFailureRollsBackAllConfigurationsAndVariableMetadata",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenSelectedSurfaceStaysHiddenWhileItsExplicitAxesAndOriginRemainVisible(threeD: True, solid: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ProductionDlsJointlyOptimizesIndependentCellsAndRetainsLinkedThirdConfiguration(kind: Conic, target1: -0.5, target2: 0.5)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.AutomaticDiamDoesNotBecomeAClippingAperture",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesAnIndependentSurfaceOutlineAndImageReference(threeD: True, solid: False, mode: Wireframe, imageSurface: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.LegacyProjectHasNoInventedPickup(version: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: Curvature, source: 0.040000000000000001, scale: -2, offset: 0.01, expected: -0.070000000000000007)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.ImportedRowsKeepBothMaterialSwitchesInPrescriptionOrder",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.BothBranchesPassAllFieldsAndPupilRays(threeDimensional: True, configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ZoomThicknessReturnsRangeOrTargetAndUsesEveryConfiguration(target: 7, expected: 7)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: TwoDimensional, active: 0, selected: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ZoomThicknessReturnsRangeOrTargetAndUsesEveryConfiguration(target: 4, expected: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: \"Dark\", language: \"en-US\", width: 360)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.EditingBaseThicknessKeepsLinkedActivePrescriptionAndSavedConfigurationsIdentical(active: 1, operandRow: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesAffectsTheActualConnectionsAndSideWalls(threeD: True, solid: False, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.WrongVersionOrInvalidMetadataCannotLoad(version: 7, target: 2, source: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationMatrixTests.ZoomMatrixIsDefaultAndUsesRealReadOnlyAperturesAndEditableOperandReferences(theme: \"Dark\", language: \"en-US\", width: 680)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: True, solid: True, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.SingleSurfaceOptimizationResolvesPickupForLiveAndCandidateMerit(configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.LegacyProjectHasNoInventedPickup(version: 5)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidThicknessInAnotherConfigurationCannotBeSilentlyDropped(thickness: NaN)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.ActualViewerRendersBothConfigurationsWithTheSamePhysicalBoxAndDeclaredRays(dimension: ThreeDimensional, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.BothBranchesPassAllFieldsAndPupilRays(threeDimensional: False, configuration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidZoomRangesOrTargetsFail(first: 0, last: 1, target: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesAffectsTheActualConnectionsAndSideWalls(threeD: False, solid: False, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(dimension: ThreeDimensional, presentationMode: SolidModel)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.CurvedDummyDoesNotAcquireAnImplicitFloatingAperture(apertureRecords: \"DIAM 4 1 0 0 1\\n  CLAP .5 2 0\", explicitAperture: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(dimension: TwoDimensional, presentationMode: OpticalLayout)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidComputedValuePreservesPreviousVariablesAndLinks(kind: SemiDiameter, scale: 1, offset: -100)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.AutomaticSemiDiameterSourcesAreExplicitlyRejectedIncludingIndirectSurfacePickups(indirect: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.ConcurrentSwitchingKeepsEachBatchAndTraceCacheIndependent",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.PickupTargetsPermitUnrelatedLensEditsAndRejectDirectValueChanges(kind: Conic, source: -0.20000000000000001)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"ZTHI\", extension: \".seq\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.EditingBaseThicknessKeepsLinkedActivePrescriptionAndSavedConfigurationsIdentical(active: 0, operandRow: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: True, solid: True, mode: Solid, cutaway: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: \"Dark\", language: \"en-US\", width: 360)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ChainCombinesMceSurfaceAndBaseLinksInDependencyOrder",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.EditingBaseThicknessKeepsLinkedActivePrescriptionAndSavedConfigurationsIdentical(active: 1, operandRow: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.FieldScaleFollowsSelectedConfigurationAndSameConfigurationRestoresFields",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.ExplicitFloatingApertureRemainsDistinctFromAFixedDummyStop(record: \"FLAP 0 0 0 0 0 0\", clips: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.CrossKindRowsAndBackFocusSourceUseUpdatedValues",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenElementFacesAndEdgesCannotBeRedrawnByCachedSolidMeshes(solid: False, mode: Solid, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 1, configuration: 1, sourceRow: 1, sourceConfiguration: -1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.VariablesRemainIndependentEvenWhenEqualToBase(kind: Thickness)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: ThreeDimensional, active: 1, selected: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesAnIndependentSurfaceOutlineAndImageReference(threeD: True, solid: True, mode: Solid, imageSurface: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: Thickness, source: 4, scale: 2, offset: 1, expected: 9)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: TwoDimensional, active: 1, selected: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.ThicknessPickupTargetCannotBeOverwrittenByTheMatrix(configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ProductionDlsJointlyOptimizesIndependentCellsAndRetainsLinkedThirdConfiguration(kind: SemiDiameter, target1: 0.10000000000000001, target2: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.DlsRecomputesPickupTargetsInsideOtherConfigurations",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ReplacingSolveClearsCellVariableAndUndoRestoresIt(kind: SemiDiameter)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesBothElementRimsWhenThereAreNoConnectingFaces(solid: True, mode: Transparent)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.SkippedConfigurationCannotChangeLaterRows(mode: \"goto\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.CurvedDummyDoesNotAcquireAnImplicitFloatingAperture(apertureRecords: \"DIAM 4 1 0 0 1\", explicitAperture: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.DlsCandidatesPropagateOnlyUnbrokenBaseLinks(broken: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.UnverifiedStateCombinationsFailWithoutSwitching(code: \"PRIM\", argument: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(configuration: 1, waveIndex: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.InvalidCellDoesNotChangeVariables(row: 2, configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ReorderingDeletionInsertionAndCloningKeepReferencesOrRejectInvalidOrder",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"CONF\", extension: \".seq\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ApplicationJointRunSaveClearUndoAndStaleProtectionAgree",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"CONF\", extension: \".txt\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.PickupTargetsCannotBecomeIndependentVariables(kind: SemiDiameter)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.SkippedConfigurationCannotChangeLaterRows(mode: \"disabled\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.FieldAndWavelengthOptionsComeFromTheSelectedConfiguration",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.AutomaticSemiDiameterSourcesAreExplicitlyRejectedIncludingIndirectSurfacePickups(indirect: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.LegacyProjectsDoNotAcquireVariables(version: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.LegacyProjectsDoNotAcquireVariables(version: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: True, solid: True, mode: Solid, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ProductionDlsOptimizesSourceThroughDependentConfiguration(kind: Thickness, desiredSource: 4)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterLayoutWindowTests.MaterialMatrixAndBothRenderedBranchesUseRealImportedConfigurations(theme: \"Isekai\", language: \"en-US\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.ThicknessSourceEditResolvesSurfacePickupsInEveryLinkedConfiguration(active: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.NonfiniteSolveParametersAreRejected(scale: NaN, offset: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.PickupTargetsPermitUnrelatedLensEditsAndRejectDirectValueChanges(kind: SemiDiameter, source: 5)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"CONF\", extension: \".zmx\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.NativeRowsRetainRawParametersAndNeverAutoUpgrade(code: \"ZTHI\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(configuration: 1, waveIndex: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.MalformedOrWrongVersionVariableMetadataIsRejected(version: 5, configuration: 0, surface: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.AllConfigurationsPreserveEachOriginalPathSurfaceIdentityAndMetrics(dimension: TwoDimensional)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.DlsCandidatesPropagateOnlyUnbrokenBaseLinks(broken: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.ApplicationSaveUndoStaleAndSolveReplacementPreservePickupMeaning",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.OptimizingThenEditingSurfacesDoesNotApplyStructuralChangesTwice(marked: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.SingleSurfaceOptimizationResolvesPickupForLiveAndCandidateMerit(configuration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.VariablesRemainIndependentEvenWhenEqualToBase(kind: SemiDiameter)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterLayoutWindowTests.MaterialMatrixAndBothRenderedBranchesUseRealImportedConfigurations(theme: \"Pixel\", language: \"zh-CN\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.TwoPlanarCrystalVolumesFormThePrescribedSquareWithoutCoordinateWalls(configuration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(configuration: 0, waveIndex: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.CoatingOnlyVariablesAreVisibleAndRunThroughTheApplicationService",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterLayoutWindowTests.MaterialMatrixAndBothRenderedBranchesUseRealImportedConfigurations(theme: \"Lumen\", language: \"ja-JP\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.UnverifiedStateCombinationsFailWithoutSwitching(code: \"IMSF\", argument: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidConfigurationDoesNotSwitchOrHideOptimizationFailure(number: -1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.PickupTargetsPermitUnrelatedLensEditsAndRejectDirectValueChanges(kind: Curvature, source: -0.040000000000000001)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HideEdgesPreservesBothElementRimsWhenThereAreNoConnectingFaces(solid: True, mode: Solid)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: \"Light\", language: \"zh-CN\", width: 1000)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.EditingBaseThicknessKeepsLinkedActivePrescriptionAndSavedConfigurationsIdentical(active: 2, operandRow: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.OptimizingThenEditingSurfacesDoesNotApplyStructuralChangesTwice(marked: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: TwoDimensional, active: 2, selected: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.LegacyProjectHasNoInventedPickup(version: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.ProductionDlsJointlyOptimizesIndependentCellsAndRetainsLinkedThirdConfiguration(kind: Thickness, target1: -2, target2: 6)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.InvalidThicknessInAnotherConfigurationCannotBeSilentlyDropped(thickness: -∞)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FullLensRowEditKeepsEverySourceValueAndUpdatesDependentConfiguration(sourceConfiguration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: \"Light\", language: \"zh-CN\", width: 1000)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationOperandTests.LocalRowsCannotExportUnverifiedNativeColumns(code: \"ZTHI\", extension: \".txt\")",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 1, configuration: 0, sourceRow: 1, sourceConfiguration: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: Curvature, source: 0.040000000000000001, scale: 0, offset: 0, expected: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.VariablesRemainIndependentEvenWhenEqualToBase(kind: Curvature)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.BeamSplitterConfigurationRepairTests.TiltedPlanarCubeUsesFlatRectangularCapsInBothConfigurations",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidCellReferencesAndForwardReferencesDoNotCreateSolves(row: 1, configuration: -1, sourceRow: 1, sourceConfiguration: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationThicknessPrecisionTests.BaseEditPreservesIndependentValuesAndPickupDependenciesThroughUndoRedoAndSave",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.ZeroOpacityRemovesAllSurfaceAndElementPixelsAndResetRestoresThem(threeD: True, solid: False, mode: Wireframe, cutaway: False)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationVariableTests.MalformedOrWrongVersionVariableMetadataIsRejected(version: 6, configuration: -1, surface: 3)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.SurfaceDrawingRenderTests.HiddenElementFacesAndEdgesCannotBeRedrawnByCachedSolidMeshes(solid: True, mode: Solid, cutaway: True)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-render-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: ThreeDimensional, active: 0, selected: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: \"Dark\", language: \"en-US\", width: 360)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ZemaxLayoutApertureTests.SpotDiagramAiryDiskUsesWorkingFNumberWithoutApplyingSurfaceApertures",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: ThreeDimensional, active: 2, selected: 1)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: \"Light\", language: \"ja-JP\", width: 600)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.FourKindsUseEditorCoordinatesAndClearRetainsCurrentValue(kind: SemiDiameter, source: 0, scale: 1, offset: 0, expected: 0)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.MultiConfigurationPickupTests.InvalidComputedValuePreservesPreviousVariablesAndLinks(kind: Thickness, scale: 1E+308, offset: 1E+308)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.RochonLayoutBoundaryTests.EnergyRaysMatchIndependentSnellAnglesAtBothCrystalInterfaces(configuration: 1, waveIndex: 2)",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.ViewerConfigurationTests.AllConfigurationLegendIsVisibleWithoutGlassMaterials",
+      "Outcome": "Passed",
+      "Receipt": "beamsplitter-accepted.trx"
+    }
+  ]
+}

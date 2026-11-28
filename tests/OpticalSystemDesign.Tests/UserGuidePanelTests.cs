@@ -193,10 +193,10 @@ public sealed class UserGuidePanelTests
                 Click(enlarge); Tick(window);
                 var dialog = Assert.Single(window.OwnedWindows);
                 Assert.Equal("UserGuideScreenshotWindow", dialog.Name);
-                Click(Named<Button>(dialog, "UserGuideScreenshotActualSize")); Tick(dialog);
+                DiagramSheetLayout.SetViewportScale(false); Tick(dialog);
                 var fullImage = dialog.GetVisualDescendants().OfType<Image>().Single();
                 Assert.Equal(1440, fullImage.Width);
-                Click(Named<Button>(dialog, "UserGuideScreenshotFit")); Tick(dialog);
+                DiagramSheetLayout.SetViewportScale(true); Tick(dialog);
                 Assert.True(double.IsNaN(fullImage.Width));
                 dialog.Close(); Tick(window);
                 if (!string.IsNullOrWhiteSpace(captureDirectory) && width == 1440 && language == UiLocalization.Chinese)

@@ -218,10 +218,12 @@ public sealed class DiagramAutomaticAspectTests
                 foreach (var width in new[] { 1900, 800, 1900 })
                 {
                     window.Width = width; Tick(window);
-                    Assert.Equal(width == 1900 ? 1600 : 1200, page.Width);
+                    if (dimension == SceneDimension.ThreeDimensional)
+                        Assert.Equal(width == 1900 ? 1600 : 1200, page.Width);
                     Assert.Same(source, scene.Scene); Assert.Equal(camera, scene.OrientationAxesForRendering());
                     using var image = viewer.CaptureViewerImage(1);
-                    Assert.Equal((int)page.Width + 2, image.PixelSize.Width);
+                    Assert.Equal((int)(dimension == SceneDimension.TwoDimensional ? DiagramSheetLayout.Width : page.Width) + 2,
+                        image.PixelSize.Width);
                 }
             }
             finally { window.Close(); ImageExportResolution.Configure(new()); }

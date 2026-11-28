@@ -25,9 +25,9 @@ public sealed partial class UserGuidePanel
                 "表示から 2D レイアウトを開き、設定で視野、波長、光線サンプリングを選びます。処方変更後は更新を待ち、開口による遮光を確認します。表示光線数は PSF やエネルギー解析のサンプリング条件とは別です。") with
             { Screenshot = "layout-2d" },
             S("2 · 旋转、切换方向与导出", "2 · Rotate, choose a view, and export", "2 · 回転・方向切替・出力",
-                "打开三维视图或实体模型，使用图内底部的带文字方向按钮切换前、后、左、右、俯、仰和等轴测方向。“适配”调整取景；自由旋转会取消预设高亮。左下角 XYZ 随相机方向同步。实体模型可选择透明、线框、切面等显示，材料图例位于视口下方。需要图片时使用设置旁的相机按钮导出当前视图。",
-                "Open 3D Layout or Solid Model and use the labeled in-view buttons for front, back, left, right, top, bottom, or isometric views. Fit adjusts framing; free rotation clears the preset highlight. The lower-left XYZ triad follows camera orientation. Solid Model offers transparent, wireframe, and cutaway displays, with its material legend below the viewport. Export the current view with the camera button beside Settings.",
-                "3D レイアウトまたはソリッドモデルを開き、画面内下部の文字付きボタンで方向を選びます。フィットは表示範囲を調整し、自由回転でプリセット選択を解除します。左下 XYZ はカメラ方向に連動します。ソリッドモデルでは透明・ワイヤー・断面表示を選択でき、材料凡例は下部にあります。設定横のカメラボタンで現在の画像を出力します。") with
+                "打开三维视图或实体模型，使用视角按钮切换前、后、左、右、俯、仰和等轴测方向。“重新取景”可将整个场景移回视野。自由旋转会取消预设高亮。左下角 XYZ 随相机方向同步。实体模型可选择透明、线框、切面等显示，材料图例位于视口下方。需要图片时使用设置旁的相机按钮导出当前视图。",
+                "Open 3D Layout or Solid Model and use the view buttons for front, back, left, right, top, bottom, or isometric views. Frame scene brings the whole scene back into view. Free rotation clears the preset highlight. The lower-left XYZ triad follows camera orientation. Solid Model offers transparent, wireframe, and cutaway displays, with its material legend below the viewport. Export the current view with the camera button beside Settings.",
+                "3D レイアウトまたはソリッドモデルを開き、視点ボタンで方向を選びます。「シーン全体を表示」で全体が収まり、自由回転でプリセット選択を解除します。左下 XYZ はカメラ方向に連動します。ソリッドモデルでは透明・ワイヤー・断面表示を選択でき、材料凡例は下部にあります。設定横のカメラボタンで現在の画像を出力します。") with
             { Screenshot = "solid-model" });
 
         yield return Tutorial("analysis", "运行并阅读成像分析", "Run and interpret imaging analyses", "結像解析の実行と読み方",

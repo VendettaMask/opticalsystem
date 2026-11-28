@@ -1,0 +1,116 @@
+{
+  "RecordedUtc": "2026-11-26T01:46:17.7984779Z",
+  "BaseCommit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+  "Scope": "Telecentricity feature in shared workspace; unrelated concurrent edits preserved",
+  "FinalPassed": 31,
+  "FinalFailed": 0,
+  "FinalSkipped": 0,
+  "FinalRun": "telecentricity-final.trx",
+  "SourceFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/TelecentricityAnalysis.cs",
+      "SHA256": "954247C564D9278646DEFB988707B824B8D4A9D8A44AC8AA3225658F5C6305E9"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/AnalysisModels.cs",
+      "SHA256": "2A6A4B1FBF61528FDF7552A2DDC0FF271815BADCFE8EFFA0CEB6FD2F44E531AD"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "SHA256": "9DC97964902FBBD696C432A276456D0AE7FFA356D62570DEB36968CD3F592885"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Runtime/RuntimeModels.cs",
+      "SHA256": "86B0CCCB15924B8134036EDF1DF294F695F0ADC855660AAF03278E50BB930079"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "SHA256": "B6387ED82E165F3457965E9A958AF70C21C952E3694E1DBE5D13B23B172FF3CD"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Helpers.cs",
+      "SHA256": "6B87125C40E14B08EEF3DA015B20AA14B04B4CDB542E8D64D0C3DF50B5AF56EF"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "SHA256": "759180315D822BF4EAF7284CAAD7D51F117DD2948DAFD5A1049D957BD7410DEB"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs",
+      "SHA256": "1207E3B0D7BA2463BB0B5EEC4F4EC3E7A93D4A27DF59E251270BABE5E7098794"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisCatalog.cs",
+      "SHA256": "39D704211B8FC96927BD4ECA265DFB831180DBBDF6DADDD61A45F48F16B678E1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs",
+      "SHA256": "F419A40E0C75C56D9A41890DE9AC4A03350B2117343C22F1E406631688185AB3"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/AnalysisConfigurationSelection.cs",
+      "SHA256": "D8644C5A2BD96A166EC0C6A4B02A310E7ED9DC701D2C1873196F5151000ECB7D"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Formatting/AnalysisAxisFormatting.cs",
+      "SHA256": "C447E8B4E117C557F37BA872C13BE5F31BA9293BDC9B27DCE89C2CBE8B9A4B83"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/AnalysisPlotControl.cs",
+      "SHA256": "17D457AEA458AE67CD828AEBAD9115D2FF18CE4BCE87BA9A64F67ABE7BA5AEB0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs",
+      "SHA256": "B9C9910D05B326AE6818421A6919E16879D46C73DABD2BCD097B15E82F8BF18B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.CalculationCoverage.cs",
+      "SHA256": "A4502D1BE13E39268A5C9AD86A224F69A0CA44DBEC3A286C1660B26885BAFD3F"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Computation.Details.cs",
+      "SHA256": "925A4CC4F4959AED31CA92C0980B139BC54929B4C2310B901648FFECDF26EFDC"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "SHA256": "0D1D2B3AAEA2310238A73B87F4067FB803B6B3EC80737583CC3FF7B5974105A8"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/TelecentricityTests.cs",
+      "SHA256": "AAB3A9A74240D4D34F71449E690553F8893A3FF69337010C35F1AE60E6BE9CDE"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/TelecentricityUiTests.cs",
+      "SHA256": "40C40AB7B73A994F5FF363CCFBB64DFF11D100366086BA6F62975201972421C8"
+    }
+  ],
+  "Assemblies": [
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "SHA256": "C45E1FE1B76BBA1B7E3C4B17DFBBD995F560BB15873220DF4B5614DD43DD0CF8"
+    },
+    {
+      "Path": "local-data/telecentricity-validation/OpticalSystemDesign.App.dll",
+      "SHA256": "8491A9D811A43E335DBF52A9B97108ACBB0EF8DFE687D4EB216E410621E201B6"
+    },
+    {
+      "Path": "local-data/telecentricity-validation/OpticalSystemDesign.Application.dll",
+      "SHA256": "109FBCEDF8D92B5B9744E26649975F312A617C572BB12A206ADCD14FACB1F4D2"
+    },
+    {
+      "Path": "local-data/telecentricity-validation/OpticalSystemDesign.Core.dll",
+      "SHA256": "DF8DC419600E11D3247565B732161E69A74EA0EC048B125EBD4FEA2B57A493FA"
+    },
+    {
+      "Path": "local-data/telecentricity-validation/OpticalSystemDesign.Tests.dll",
+      "SHA256": "7932336B52129299A7D775D97E8B45A5A05BD6372CA0CF63BFA9118E174CE0AA"
+    }
+  ],
+  "MenuExample": {
+    "Path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Double Gauss 28 degree field.zmx",
+    "SHA256": "F994005D633D4AF742402469C9E4E2E0C289A57AED3AE876FB3231D1D3F95460",
+    "Fields": 3,
+    "Wavelengths": 3
+  },
+  "Note": "Default build and isolated test build identities are recorded separately; no full-repository or 95-lens certification claim."
+}

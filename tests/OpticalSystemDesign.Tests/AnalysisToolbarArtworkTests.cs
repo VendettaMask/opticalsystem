@@ -51,7 +51,7 @@ public sealed class AnalysisToolbarArtworkTests
             {
                 window.Show(); Tick(window);
                 var buttons = page.GetVisualDescendants().OfType<DropDownButton>().ToArray();
-                Assert.Equal(9, buttons.Length);
+                Assert.Equal(11, buttons.Length);
                 Assert.Equal(3, page.GetVisualDescendants().OfType<Border>().Count(b => b.Name == "RibbonGroupDivider"));
                 Assert.Equal(Avalonia.Controls.Primitives.ScrollBarVisibility.Hidden, page.HorizontalScrollBarVisibility);
                 for (var index = 0; index < buttons.Length; index++)

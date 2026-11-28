@@ -214,6 +214,10 @@ public interface IPrescriptionService
 
     void RemoveSurface(int surfaceNumber);
 
+    CoordinateBreakEditDto GetCoordinateBreak(int surfaceNumber);
+    int InsertCoordinateBreak(int surfaceNumber, bool after, long expectedRevision);
+    void UpdateCoordinateBreak(int surfaceNumber, CoordinateBreakSettingsDto settings, long expectedRevision);
+
     void UpdateSurface(SurfaceRowDto surface);
 
     void UpdateSurfaceComponents(int surfaceNumber, SurfaceComponentUpdateDto update);
@@ -337,6 +341,7 @@ public interface IMultiConfigurationService
     IReadOnlyList<MultiConfigurationOperandRowDto> GetOperandRows();
     void ReplaceOperandRows(IReadOnlyList<MultiConfigurationOperandBindingDto> rows, long expectedRevision);
     void SetOperandValue(int oneBasedRow, int configurationIndex, double value, long expectedRevision);
+    void SetOperandTextValue(int oneBasedRow, int configurationIndex, string value, long expectedRevision);
     void SetOperandVariable(int oneBasedRow, int configurationIndex, bool enabled, long expectedRevision);
     void SetOperandPickup(int oneBasedRow, int configurationIndex, MultiConfigurationPickupDto? pickup, long expectedRevision);
 

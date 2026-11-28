@@ -1,0 +1,151 @@
+{
+  "date": "2026-11-27",
+  "implemented": [
+    "XFIE",
+    "YFIE",
+    "FLWT",
+    "WAVE",
+    "WLWT"
+  ],
+  "nativeProjectMaximumVersion": 32,
+  "meritExecutableCount": 341,
+  "meritCompatibilityOnlyCount": 42,
+  "uniquePassed": 210,
+  "finalOverlappingPassed": 28,
+  "tests": [
+    {
+      "file": "system-operands-verified.trx",
+      "total": 210,
+      "passed": 210,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "system-operands-last.trx",
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "defaultReleaseBuild": {
+    "succeeded": true,
+    "warnings": 0,
+    "errors": 0,
+    "log": "default-app-build-final.log"
+  },
+  "localization": {
+    "missing": 0,
+    "errors": 0,
+    "log": "localization-check.log"
+  },
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfigurationOperand.cs",
+      "sha256": "D9972D6C6E26662EA55C1681F38228F8B7F2ADFA0DAE2B837DBBE3813F5BB06A"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.Operands.cs",
+      "sha256": "D466752110422EFAF93AD5469A80970484B2C0AAE20E7CAE53500B0EFB154428"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.cs",
+      "sha256": "ACDDBBB33D254EA022B0C22A8A37D6AB41195469CDE801AAA98F87E495F105B6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.Variables.cs",
+      "sha256": "20C08F1DBB918AF0670807AD942A81B7E885B1483E4CF53F408600F18BDFDD89"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfigurationVariable.cs",
+      "sha256": "A88FBA47333B952586FC0979D12A04A63A56EA1AF324C5A1F883EFCCE0C5C470"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.Pickups.cs",
+      "sha256": "B38757BEBD7E5E5D8B6633349F629B1DB2ED9804BEDE1CD5FEC2979CEBB150B8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.PickupGraph.cs",
+      "sha256": "E9834A25D8E7F175AE39E84560580B1CCBC013218CC88A723B97495F393046C2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "24C3328B2396B86098898299B482FD259D6DC1FF80FE35AC5CEC63237D96C197"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "sha256": "804A0A47FF8F367CD202E866171254BB12B6E59B6FC2615B8602EE72663B8762"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/LensScaler.cs",
+      "sha256": "B73866F58224CA2A7F0AC222F2435FB40CED16E916A29CAAF7A7DC5B93D4E5EF"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "F1AFFD5C1D2D3AE743AE85716C56EF4CEB65C57A4941C3A10E8FCC6DBA1A5732"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/MultiConfigurationService.cs",
+      "sha256": "3616C50D4E0E3265D38081A249BE83005A8A8D61F85AF3ED7E048BFC9941980F"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/PrescriptionService.cs",
+      "sha256": "3C62C19CE708443AB7D2FED169F54C4E25BE4D1ABF1FA7A1917433D17AE2BF38"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Configuration.cs",
+      "sha256": "6EC35AE02890C7AC69ACEE9F2F8261C1DD8D6FF282E22D0A3DABADBD4FC6E1C4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Prescription.cs",
+      "sha256": "076CC5DD33988FAAF02629CB23A86AB6E0770F873E37D8871C23272662335E13"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs",
+      "sha256": "42B3A2D430D59318F4E9C03539359D2F68653BEDDEA8006B23A39750B36FAD53"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Operands.cs",
+      "sha256": "37DB7FD32065212F7485270ECEC5E7886B80F1928AF77D8BC69229E4E3C76659"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/OperandRowColors.cs",
+      "sha256": "6E32E656FF6BEA6BC8B8BF244A83B969FEF940D7E1C0BB307B27E7EC735683F6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.MultiConfigurationSystem.cs",
+      "sha256": "6B77575FD1CA93AE41FA48B68BC49D18E5F5BD597E84590734DD2C797442F6A1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.SurfaceDrawing.cs",
+      "sha256": "1671B7D2B791E9575E4129D37571A79E20E7472D4707828EC8614FF8DAAADE8D"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "DBE82B8EFBF247633DE63351C0B20065B8CF37C98547DC7FF474EBE8CBD57D84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.invariants.json",
+      "sha256": "6F55B316C126BC23E94F0473856184F8476FC57216F4B61B8497668277838931"
+    },
+    {
+      "path": "localization/invariant-text.tsv",
+      "sha256": "5ADEBBCFB71F6CA05CC1FCB01508C1634988EBE48BC7C64A2E0BBECC9405B127"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/MultiConfigurationSystemOperandTests.cs",
+      "sha256": "32BA02364EF64BD935BDF0FF5ACC38C916D18487BAFA27FB73000D1EDEA6E92F"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/MultiConfigurationSystemPanelTests.cs",
+      "sha256": "5FF180B46EC775683754C45950CA5EB83BF0E12D95446163B1D59DAF453B7B03"
+    }
+  ],
+  "testAppSha256": "54698DC23D5F96291D0DCFEE6965311258919D2C99980673331C142A2EDFD1B0",
+  "defaultAppSha256": "54698DC23D5F96291D0DCFEE6965311258919D2C99980673331C142A2EDFD1B0",
+  "testAndDefaultAppIdentical": true,
+  "temporaryRuntimeRemoved": true,
+  "fullPrecisionMatrixRun": false,
+  "freshNativeValidation": false,
+  "nativeDesktopControlled": false
+}

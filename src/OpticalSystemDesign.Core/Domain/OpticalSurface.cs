@@ -108,6 +108,15 @@ public sealed partial class OpticalSurface : NotifyObject
         }
     }
 
+    public string? ReferencedCoating { get; private set; }
+
+    internal void RestoreCoatingReference(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return;
+        ReferencedCoating = name;
+        SetProperty(ref _coating, name, nameof(Coating));
+    }
+
     /// <summary>Optional #RRGGBB display color; does not affect optical properties.</summary>
     public string? SurfaceColor
     {
@@ -126,12 +135,14 @@ public sealed partial class OpticalSurface : NotifyObject
         get => _semiDiameter;
         set
         {
-            var normalized = NumericParameterGuard.ClampMinimumFinite(value, 0.1, nameof(SemiDiameter));
+            var normalized = NumericParameterGuard.ClampNonNegativeFinite(value, nameof(SemiDiameter));
             if (!double.IsFinite(normalized + ChipZone)) throw new ArgumentOutOfRangeException(nameof(SemiDiameter));
+            if (normalized == 0 && Geometry is IrregularGeometry)
+                throw new ArgumentOutOfRangeException(nameof(SemiDiameter), "An irregular surface requires a positive normalization radius.");
             if (SetProperty(ref _semiDiameter, normalized))
             {
                 if (SemiDiameterDefinesPhysicalAperture)
-                    PhysicalAperture = PhysicalAperture is OffsetRadialAperture offset
+                    PhysicalAperture = normalized == 0 ? null : PhysicalAperture is OffsetRadialAperture offset
                         ? new OffsetRadialAperture(normalized, offset.InnerRadius, offset.OffsetX, offset.OffsetY)
                         : new CircularAperture(normalized);
                 if (Geometry is IrregularGeometry irregular) Geometry = irregular.WithNormalizationRadius(normalized);
@@ -333,6 +344,7 @@ public sealed partial class OpticalSurface : NotifyObject
             ArgumentNullException.ThrowIfNull(value);
             if (SetProperty(ref _coatingModel, value))
             {
+                ReferencedCoating = null;
                 SetProperty(ref _coating, LegacyCoatingName(value), nameof(Coating));
             }
         }
@@ -664,6 +676,7 @@ public sealed partial class OpticalSurface : NotifyObject
         };
         if (_mechanicalSemiDiameter is { } mechanicalSemiDiameter)
             clone.MechanicalSemiDiameter = mechanicalSemiDiameter;
+        clone.RestoreCoatingReference(ReferencedCoating);
         return clone;
     }
 

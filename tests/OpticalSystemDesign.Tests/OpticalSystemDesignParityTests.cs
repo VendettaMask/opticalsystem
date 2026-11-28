@@ -1144,7 +1144,9 @@ public sealed class OpticalSystemDesignParityTests
         Assert.Contains("System Data Report", optic.Analyses.Names);
         Assert.Contains("Classified Data Report", optic.Analyses.Names);
         Assert.DoesNotContain("Through Focus MTF", optic.Analyses.Names);
-        Assert.Equal(76, optic.Analyses.Names.Count);
+        Assert.Contains("Transmission vs. Wavelength", optic.Analyses.Names);
+        Assert.Contains("Phase vs. Angle", optic.Analyses.Names);
+        Assert.Equal(86, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

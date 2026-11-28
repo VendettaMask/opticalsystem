@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-26T17:25:03.904813+08:00",
+  "scope": "tooltip full text and wrapping; no optical or toolbar command changes",
+  "layout_samples": 60,
+  "themes": [
+    "Dark",
+    "Isekai",
+    "Light",
+    "Lumen",
+    "Pixel"
+  ],
+  "requested_languages": [
+    "en-US",
+    "ja-JP",
+    "zh-CN"
+  ],
+  "dpi_scales": [
+    1,
+    1.75
+  ],
+  "width_modes": [
+    "automatic",
+    "66 DIP constrained popup"
+  ],
+  "checks": [
+    "full translated tooltip text",
+    "no collapsed text lines",
+    "all source characters accounted for including the synthetic paragraph terminator",
+    "line widths and heights inside text bounds"
+  ],
+  "ancestor_style_observation": "Header-hosted tooltip text inherited CharacterEllipsis before the fix; it now has None.",
+  "normal_release_build": {
+    "errors": 0,
+    "warnings": 0,
+    "seconds": 23.13
+  },
+  "foreground_interaction": false,
+  "native_popup_pixel_reproduction": false,
+  "limitations": [
+    "The original Windows popup clipping was not reproduced by an ordinary standalone headless button. The ancestor ellipsis inheritance was reproduced independently.",
+    "The never-shown native-window render was transparent and does not count as pixel verification.",
+    "The temporary diagnostic contains a Windows-specific helper that triggers CA1416; the product build has zero warnings."
+  ],
+  "sources": {
+    "src/OpticalSystemDesign.App/App.cs": "41be90159a92a030f7fc9441adf089503c02abebf32432c4a4f4b7fc09ced115"
+  },
+  "app_assembly_sha256": "50a69c449a8a569608f9b27515512451d07aebd88dba3d4ca047a27486fec5b5"
+}

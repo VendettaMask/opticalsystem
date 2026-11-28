@@ -1,0 +1,264 @@
+{
+  "schema": 1,
+  "date": "2026-11-26",
+  "scope": "Sequential polarization analyses; functional offscreen validation",
+  "uniqueTests": 147,
+  "uniquePassed": 147,
+  "failed": 0,
+  "batches": [
+    {
+      "result": "polarization-final.trx.gz",
+      "total": 108,
+      "passed": 108,
+      "failed": 0
+    },
+    {
+      "result": "polarization-interface.trx.gz",
+      "total": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "result": "polarization-controls-final.trx.gz",
+      "total": 13,
+      "passed": 13,
+      "failed": 0
+    },
+    {
+      "result": "polarization-coating-final.trx.gz",
+      "total": 42,
+      "passed": 42,
+      "failed": 0
+    }
+  ],
+  "releaseBuild": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "localization": {
+    "globalMissingReason": "New LensEditorPanel.Coordinates.cs UI from concurrent work; see retained full check log.",
+    "sync": "sync: 4522 local translations, 4083 UI occurrences, 0 missing, 0 errors.",
+    "finalGlobalCheck": "check: 4522 local translations, 4109 UI occurrences, 25 missing, 25 errors.",
+    "polarizationMissing": 0
+  },
+  "whitespaceCheck": "passed",
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/PolarizationAnalyses.cs",
+      "sha256": "61e07e63645adc5ac9e57ec2be9d753e3a81001a87e7e64cffc3002868d5f34f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/AnalysisCatalog.cs",
+      "sha256": "6e5e2143ef95e5e3ea059e7ebf16cbf4fd8dc036f5b69f4599b07896e1e7825e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.Polarization.cs",
+      "sha256": "b9becc792ee61251d885e17004dd951ba5c89481fc79697e69ed954dfd4e1a6f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "b6387ed82e165f3457965e9a958af70c21c952e3694e1dbe5d13b23b172ff3cd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "sha256": "759180315d822bf4eaf7284caad7d51f117dd2948dafd5a1049d957bd7410deb"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs",
+      "sha256": "a0793ba32c7051f2cea661682b7f531fec36f08b628cafc75d5c373016d78153"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisCatalog.cs",
+      "sha256": "39d704211b8fc96927bd4eca265dfb831180dbbdf6daddd61a45f48f16b678e1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs",
+      "sha256": "f419a40e0c75c56d9a41890de9ac4a03350b2117343c22f1e406631688185ab3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs",
+      "sha256": "f2a0bb96ceae27f46e2c698f26c3bf74981cdbb76a185ae68e9e9eb4714b59ff"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisCategoryIcon.cs",
+      "sha256": "4982e67daabf535818653a4adc5a540465ce10645ded404ce7167e732e4476bb"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.CalculationCoverage.cs",
+      "sha256": "a4502d1be13e39268a5c9ad86a224f69a0ca44dbec3a286c1660b26885bafd3f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Computation.cs",
+      "sha256": "daae410b0cf22158c64198d7675de998d91ba9303eb4f4ae3935eff120f81d5f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "07aea06d5b494f4adbe9ef0ab857b90be79bd86e059f76d4ed41bbd9bb35384f"
+    },
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "2c933a7e5a7cb36f1361cfce10b1611c9bc4ea878c381d50c5b7f08f5c778cab"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/PolarizationAnalysisIntegrationTests.cs",
+      "sha256": "feb055e0921621e62c855d38017a5a397a4a108750158423532d2ee60fce9666"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/AnalysisToolbarArtworkTests.cs",
+      "sha256": "d47e1bb42319cbb86989512636ac90135d3cb64f1c55a1944149cec808ea0118"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/AnalysisGuiContractTests.cs",
+      "sha256": "508830347baeeb4d414c58d8e0e3b7f474a6cd067dbb720fcc734c151fe3a41f"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "Dark-circular-pupil.png",
+      "bytes": 85798,
+      "sha256": "16cdc9258a91ea48bc1d14185bad064c52d1466b75ed4dfa8c1d8d5101e518c2"
+    },
+    {
+      "name": "Isekai-circular-pupil.png",
+      "bytes": 1567075,
+      "sha256": "e4ba1bfe5695acd177470433fc37cced503d5ab230f66357fce243e510fc50cb"
+    },
+    {
+      "name": "Light-circular-pupil.png",
+      "bytes": 77811,
+      "sha256": "4ca08f913a629b6d6e6a94e56ac0abf50fa4363497e05988578e78a9540e5288"
+    },
+    {
+      "name": "Light-menu.png",
+      "bytes": 17185,
+      "sha256": "b98c22e0ed6bb305c476a62f683ed9d2f7bf19db72be9874ec6f6af3ba29ae6a"
+    },
+    {
+      "name": "Light-PhaseAberration.png",
+      "bytes": 79997,
+      "sha256": "02440c562bcc1b56c06b8b7d3e3fe9d1ef7aa1c2b32dfb38bb6a6c7990545455"
+    },
+    {
+      "name": "Light-RayTrace.png",
+      "bytes": 44627,
+      "sha256": "b5dd240816da0ac88c9cf8af741d20c080b647c4caa12da2a335f55d496387db"
+    },
+    {
+      "name": "Light-settings.png",
+      "bytes": 95870,
+      "sha256": "5ba965cb43430890222065d716d324403dc25b4e339a4f4dc8b90b3687474ada"
+    },
+    {
+      "name": "Light-Transmission.png",
+      "bytes": 42710,
+      "sha256": "96a5b29fcfdf7913e4dd03466605099d3d547bd357f5478edd28efe0ba4fe3ca"
+    },
+    {
+      "name": "Light-TransmissionFan.png",
+      "bytes": 62147,
+      "sha256": "98f5c6434c852992d7512909e9bf290a43f85b9f9729823a19162b5fb945a490"
+    },
+    {
+      "name": "Lumen-circular-pupil.png",
+      "bytes": 82418,
+      "sha256": "31b38a8dd38fd8cf95ce43d1473cc7271104ab8ae2cce8a174803cda8f5c1606"
+    },
+    {
+      "name": "Pixel-circular-pupil.png",
+      "bytes": 70002,
+      "sha256": "0c86833dd0561de99c43510bdb9bceee6d8d391e0d5185a06a8da9bc82c86b81"
+    },
+    {
+      "name": "polarization-build-final.log.gz",
+      "bytes": 618,
+      "sha256": "f00bfd20ac2cc7d19e72522c5932e1040271ff3332c32bb6e79cb74f0325c793"
+    },
+    {
+      "name": "polarization-build-output-lock.log.gz",
+      "bytes": 1396,
+      "sha256": "8b3c9493a4fe3911779ad56c4cdb712b8a5fbd7a142fd1baa9132dcce387ce33"
+    },
+    {
+      "name": "polarization-build-shared-source-failure.log.gz",
+      "bytes": 723,
+      "sha256": "cf002efaa20d935b594c302d21766bb64819f2074c52442710ce3cdfec1d7a9e"
+    },
+    {
+      "name": "polarization-coating-final.log.gz",
+      "bytes": 1552,
+      "sha256": "8106146905ffc381a49595779e6183a7f41528593f7bac6eeab1c066befcb8a2"
+    },
+    {
+      "name": "polarization-coating-final.trx.gz",
+      "bytes": 7851,
+      "sha256": "d9ebdda309388adc4cd49ac02996e3ef7e2b660fdc38cee2d779b1d17e76fbbb"
+    },
+    {
+      "name": "polarization-controls-final.log.gz",
+      "bytes": 869,
+      "sha256": "c56c24ca4bcef47b0fda9013d122750c560de4d17d96f4c516a88e02ba8303c4"
+    },
+    {
+      "name": "polarization-controls-final.trx.gz",
+      "bytes": 3051,
+      "sha256": "3f53a73241c88e619aa49ca7787bce54ecd1ca282e0be92ff5d4c4b0dcc6dc5c"
+    },
+    {
+      "name": "polarization-final.log.gz",
+      "bytes": 2912,
+      "sha256": "c925b5297d825f134636116f8dbdf976e069e19ebfce0c08ddf825def2248ab0"
+    },
+    {
+      "name": "polarization-final.trx.gz",
+      "bytes": 23482,
+      "sha256": "bee3cdd844ac5a86357938934e905f8c03b001a51016e9b4eb4b097870fc3f38"
+    },
+    {
+      "name": "polarization-format-final.log.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "polarization-initial.trx.gz",
+      "bytes": 4373,
+      "sha256": "7fd9ce79faa429c31567b9966ece52eeb2270b41d1e807bc764aafad2f9af14e"
+    },
+    {
+      "name": "polarization-interface.log.gz",
+      "bytes": 802,
+      "sha256": "fb2910589a29489b3d5d04d267a566343ce9db7bd30bf68192308c656b9a17a6"
+    },
+    {
+      "name": "polarization-interface.trx.gz",
+      "bytes": 2655,
+      "sha256": "be38c8e47232d6eaec99cc30614174cf2ccd796c9672926c94db489e1cb42e73"
+    },
+    {
+      "name": "polarization-localization-final.log.gz",
+      "bytes": 777,
+      "sha256": "999d96a37bd53e63ece1c763badf7bc2b8ab074efbcaf93b382d8204ff5b3405"
+    },
+    {
+      "name": "polarization-localization.log.gz",
+      "bytes": 91,
+      "sha256": "b78de9878c79c6dc3b1094d1d66921a7da4f7e232741884b02b84e50a689aac4"
+    },
+    {
+      "name": "polarization-second.trx.gz",
+      "bytes": 3903,
+      "sha256": "2edc2202ed2787e375e0f68b2e98164b390b438af310c1a2b8794dc135a5a1ed"
+    },
+    {
+      "name": "polarization-third.trx.gz",
+      "bytes": 3596,
+      "sha256": "9e6952a985eaa1ce08e806fbd7628951d1524597a903a60a783a00fdcf18e570"
+    }
+  ],
+  "notes": [
+    "The final 42-case coating group includes 13 existing analysis tests; unique results total 147, not the sum of batch sizes.",
+    "Phase is chief-referenced per component and excludes common propagation phase.",
+    "Homogeneous bulk absorption uses the explicit shared real-index interface option; existing strict callers retain their defaults.",
+    "Final native UI tests use independent temporary settings directories.",
+    "No full 95-lens numerical matrix, foreground app control, installer or remote push."
+  ]
+}

@@ -37,17 +37,21 @@ public sealed class MultiConfigurationMatrixTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create();
             await app.Documents.OpenAsync(ZoomPath());
+            Assert.Equal(new[] { 8, 15 }, app.MultiConfiguration.GetOperandRows().Select(row => row.SurfaceNumber));
+            // Exercise editing inferred differences after the explicit ZMX operands have been removed.
+            app.MultiConfiguration.ReplaceOperandRows([], app.Events.Revision);
             var revision = app.Events.Revision;
             Assert.Equal(new double[] { 5, 6.2, 7.8 }, app.MultiConfiguration.GetApertureValues());
             Assert.Equal(revision, app.Events.Revision);
-            using var panel = new MultiConfigurationPanel(app.Prescription, app.MultiConfiguration, app.Events);
+            using var panel = new MultiConfigurationPanel(app.MultiConfiguration, app.Events);
             var window = new Window { Content = panel, Width = width, Height = 760 };
             try
             {
                 window.Show(); Tick(window);
-                var pages = Find<TabControl>(panel, "MultiConfigurationPages");
-                Assert.Equal(1, pages.SelectedIndex);
+                Assert.Empty(panel.GetVisualDescendants().OfType<TabControl>());
                 var grid = Find<DataGrid>(panel, "MultiConfigurationOperands");
+                var gridBottom = grid.TranslatePoint(new Point(0, grid.Bounds.Height), panel)!.Value.Y;
+                Assert.InRange(panel.Bounds.Height - gridBottom, 0, panel.Padding.Bottom + 1);
                 Assert.Equal(3, grid.FrozenColumnCount);
                 Assert.Equal(6, grid.Columns.Count);
                 Assert.Equal(3, grid.ItemsSource!.Cast<object>().Count());
@@ -68,7 +72,7 @@ public sealed class MultiConfigurationMatrixTests
                 {
                     MouseClick(window, Find<Border>(panel, "MultiConfigurationCell-THIC-8-3"));
                     Assert.Equal(0, app.MultiConfiguration.GetNavigationState().ActiveIndex);
-                    grid.CurrentColumn = grid.Columns[4]; Tick(window);
+                    grid.ScrollIntoView(grid.SelectedItem, grid.Columns[5]); Tick(window);
                     var header = (TextBlock)grid.Columns[5].Header!;
                     MouseClick(window, header); MouseClick(window, header);
                     Assert.Equal(2, app.MultiConfiguration.GetNavigationState().ActiveIndex);
@@ -112,7 +116,9 @@ public sealed class MultiConfigurationMatrixTests
                 Find<Button>(panel, "ReloadMultiConfigurationValue").RaiseEvent(new RoutedEventArgs(Button.ClickEvent)); Tick(window);
                 Assert.Equal("4.75", value.Text);
                 UiLocalization.Apply(UiLocalization.Chinese); Tick(window);
-                Assert.Equal("结构 2/3", Find<TextBlock>(panel, "MultiConfigurationPosition").Text);
+                var expectedLanguage = ThemeRegistry.FromActualVariant(window.ActualThemeVariant).FixedLanguage ?? UiLocalization.Chinese;
+                Assert.Equal(expectedLanguage, UiLocalization.CurrentLanguage);
+                Assert.Equal(UiLocalization.Text("结构 2/3"), Find<TextBlock>(panel, "MultiConfigurationPosition").Text);
                 UiLocalization.Apply(language); Tick(window);
                 Assert.Equal(UiLocalization.Text("结构 2/3"), Find<TextBlock>(panel, "MultiConfigurationPosition").Text);
                 Assert.Equal(revision, app.Events.Revision);
@@ -148,7 +154,7 @@ public sealed class MultiConfigurationMatrixTests
         Assert.Equal(new[] { 8, 15 }, differences.Select(row => row.SurfaceNumber));
         Assert.Equal(new[] { 9.48, 4.48, 2.0 }, differences[0].Values);
         Assert.Equal(revision, app.Events.Revision);
-        Assert.Empty(app.MultiConfiguration.GetOperandRows());
+        Assert.Equal(new[] { 8, 15 }, app.MultiConfiguration.GetOperandRows().Select(row => row.SurfaceNumber));
         ((double[])aperture)[0] = 999;
         ((double[])differences[0].Values)[0] = 999;
         Assert.Equal(5, app.MultiConfiguration.GetApertureValues()[0]);
@@ -167,7 +173,7 @@ public sealed class MultiConfigurationMatrixTests
             await app.Documents.OpenAsync(path);
             Assert.Equal(4.75, app.MultiConfiguration.GetThicknessDifferences()[0].Values[1]);
             Assert.Equal(new[] { 5, 6.2, 7.8 }, app.MultiConfiguration.GetApertureValues());
-            Assert.Empty(app.MultiConfiguration.GetOperandRows());
+            Assert.Equal(new[] { 8, 15 }, app.MultiConfiguration.GetOperandRows().Select(row => row.SurfaceNumber));
         }
         finally { if (File.Exists(path)) File.Delete(path); }
     }

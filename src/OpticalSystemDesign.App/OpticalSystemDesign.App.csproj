@@ -16,6 +16,7 @@
     <PackageReference Include="Dock.Avalonia.Themes.Fluent" Version="12.0.0.2" />
     <PackageReference Include="Dock.Model.Mvvm" Version="12.0.0.2" />
     <PackageReference Include="Dock.Serializer.SystemTextJson" Version="12.0.0.2" />
+    <PackageReference Include="netDxf" Version="2023.11.10" />
     <PackageReference Include="SkiaSharp" Version="3.119.4" />
   </ItemGroup>
 
@@ -99,6 +100,7 @@
     <Content Include="../../third_party/coating-reference/*LICENSE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/coating-reference/*NOTICE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/autolens/*.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../third_party/netdxf/LICENSE.txt" Link="Licenses/netDxf-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../third_party/ilgpu/*.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/colorimetry/*" Link="Licenses/Colorimetry/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>

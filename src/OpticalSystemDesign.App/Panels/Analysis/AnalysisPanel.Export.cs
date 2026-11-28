@@ -40,7 +40,6 @@ public sealed partial class AnalysisPanel
 
     private void UpdateImageExportButton()
     {
-        _diagramModeButton.BindHost(ImageExportPage());
         _exportImageButton.IsVisible = ImageExportPage() is not null;
         _exportImageButton.IsEnabled = !_isRunning && !_disposed;
         var explanation = _isRunning ? "正在计算，完成后可导出图片" : "导出图片（PNG）";
@@ -183,18 +182,6 @@ public sealed partial class AnalysisPanel
         VerticalAlignment = VerticalAlignment.Center,
         Margin = new Thickness(10, 0, 4, 0)
     };
-
-    private static Button CommandButton(string iconName, string text, double minWidth)
-    {
-        var button = new Button
-        {
-            Content = new LocalIconLabel(iconName, text),
-            MinWidth = minWidth
-        };
-        AutomationProperties.SetName(button, text);
-        StyleToolbarButton(button, iconOnly: false);
-        return button;
-    }
 
     private static Button IconButton(string iconName, string tooltip)
     {

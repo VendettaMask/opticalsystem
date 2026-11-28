@@ -98,7 +98,9 @@ public sealed class InfeasibleCoatingTests
     {
         var materials = d.Materials.ToDictionary(m => m.Id, m => m.Resolve(new MaterialRegistry()));
         var solver = new CoherentThinFilmSolver(materials[d.IncidentId], materials[d.SubstrateId], d.Layers.Select(l => new CoherentFilm(materials[l.MaterialId], l.ThicknessNm)));
-        var response = Private("GeneralConstraintSystem").Invoke(null, [d, solver, grid, true, null])!;
+        var method = typeof(DesignService).GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+            .Single(m => m.Name == "GeneralConstraintSystem" && m.GetParameters()[1].ParameterType == typeof(CoherentThinFilmSolver));
+        var response = method.Invoke(null, [d, solver, grid, true, null])!;
         T Property<T>(string name) => (T)response.GetType().GetProperty(name)!.GetValue(response)!;
         return (Property<double[]>("Values"), Property<double[,]>("Derivatives"), Property<ThinFilmSample[]>("Samples"));
     }

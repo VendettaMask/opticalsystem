@@ -77,7 +77,7 @@ public static class CoatingLayerClipboard
                 throw new InvalidDataException("剪贴板材料的有效域无效。");
             m.Resolve(registry);
         }
-        if (p.Layers.Any(l => l is null || !ids.Contains(l.MaterialId) || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000))
+        if (p.Layers.Any(l => l is null || !ids.Contains(l.MaterialId) || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > FilmLayer.MaximumNm(l.Variable)))
             throw new InvalidDataException("剪贴板包含缺失材料或无效膜厚。");
     }
     private static CoatingLayerPaste Plain(Experiment receiver, string text)
@@ -88,7 +88,7 @@ public static class CoatingLayerClipboard
             if (row.All(string.IsNullOrWhiteSpace)) continue;
             if (layers.Count == 0 && row.Length >= 2 && row[0] == "MaterialId" && row[1] == "Thickness_nm") continue;
             if (row.Length is < 2 or > 3 || !double.TryParse(row[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var thickness)
-                || !double.IsFinite(thickness) || thickness <= 0 || thickness > 100000) throw new ArgumentException("制表符膜层表需要材料ID、正物理膜厚nm及可选变量列。");
+                || !double.IsFinite(thickness) || thickness <= 0) throw new ArgumentException("制表符膜层表需要材料ID、正物理膜厚nm及可选变量列。");
             var materialText = row[0];
             if (materialText.StartsWith('\'') && !receiver.Materials.Any(m => m.Id == materialText || m.Name == materialText)) materialText = materialText[1..];
             var material = CoatingStackFormula.Resolve(receiver, materialText);
@@ -98,6 +98,7 @@ public static class CoatingLayerClipboard
                 if (row[2] is "0" or "1") variable = row[2] == "1";
                 else if (!bool.TryParse(row[2], out variable)) throw new ArgumentException("变量列须为true/false或1/0。");
             }
+            if (thickness > FilmLayer.MaximumNm(variable)) throw new ArgumentException("膜层厚度超出允许范围。");
             layers.Add(new(material.Id, thickness, variable));
             if (layers.Count > 200) throw new ArgumentException("每面最多粘贴200层。");
         }

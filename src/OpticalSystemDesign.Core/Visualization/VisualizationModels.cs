@@ -259,7 +259,7 @@ public sealed partial class Layout2DBuilder
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
-            if (surface.InteractionModel is CoordinateReferenceInteractionModel && !surface.IsStop)
+            if (surface.SemiDiameter == 0 || surface.InteractionModel is CoordinateReferenceInteractionModel && !surface.IsStop)
             {
                 if (BuildLocalFrame(surface) is { } referenceFrame)
                     curves.Add(new(surface.Number, surface.Label, false, false, true, [],
@@ -395,7 +395,7 @@ public sealed partial class Layout2DBuilder
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
-            if (surface.InteractionModel is CoordinateReferenceInteractionModel && !surface.IsStop)
+            if (surface.SemiDiameter == 0 || surface.InteractionModel is CoordinateReferenceInteractionModel && !surface.IsStop)
             {
                 if (BuildLocalFrame(surface) is { } referenceFrame)
                     primitives.Add(new(surface.Number, surface.Label, false, false, true,

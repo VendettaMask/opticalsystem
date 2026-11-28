@@ -1,4 +1,9 @@
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -12,6 +17,54 @@ public static class DiagramSheetLayout
     private static double _exportWidth = 1600;
     public static double Width => AspectRatio switch { Standard => 1200, Wide => 1600, _ => _exportWidth };
     internal static event Action? Changed;
+    internal static bool FitToWindow { get; private set; } = true;
+    private static event Action<bool>? ViewportScaleChanged;
+
+    internal static void BindViewportScale(Control control, Action<bool> apply)
+    {
+        apply(FitToWindow);
+        control.AttachedToVisualTree += (_, _) =>
+        {
+            ViewportScaleChanged += apply;
+            apply(FitToWindow);
+        };
+        control.DetachedFromVisualTree += (_, _) => ViewportScaleChanged -= apply;
+    }
+
+    internal static ScrollViewer CreateBitmapViewport(Image image, Control? content = null)
+    {
+        var scroll = new ScrollViewer
+        {
+            Content = content ?? image,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            VerticalContentAlignment = VerticalAlignment.Stretch
+        };
+        BindViewportScale(scroll, Apply);
+        image.PropertyChanged += (_, change) =>
+        {
+            if (change.Property == Image.SourceProperty) Apply(FitToWindow);
+        };
+        return scroll;
+
+        void Apply(bool fit)
+        {
+            var bitmap = image.Source as Bitmap;
+            image.Width = fit || bitmap is null ? double.NaN : bitmap.PixelSize.Width;
+            image.Height = fit || bitmap is null ? double.NaN : bitmap.PixelSize.Height;
+            image.Stretch = fit ? Stretch.Uniform : Stretch.Fill;
+            image.HorizontalAlignment = fit ? HorizontalAlignment.Stretch : HorizontalAlignment.Center;
+            image.VerticalAlignment = fit ? VerticalAlignment.Stretch : VerticalAlignment.Center;
+            scroll.HorizontalScrollBarVisibility = scroll.VerticalScrollBarVisibility =
+                fit ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
+        }
+    }
+
+    internal static void SetViewportScale(bool fitToWindow)
+    {
+        if (FitToWindow == fitToWindow) return;
+        FitToWindow = fitToWindow;
+        ViewportScaleChanged?.Invoke(fitToWindow);
+    }
 
     public static string Normalize(string? value) => value is Standard or Wide ? value : Automatic;
 
@@ -31,6 +84,7 @@ public static class DiagramSheetLayout
 
     internal static void Configure(AppSettings settings)
     {
+        SetViewportScale(settings.FitDiagramsToWindow);
         var next = Normalize(settings.DiagramAspectRatio);
         var exportWidth = AutomaticWidth(new Size(ImageExportResolution.NormalizeWidth(settings.ImageExportPixelWidth),
             ImageExportResolution.NormalizeHeight(settings.ImageExportPixelHeight)));

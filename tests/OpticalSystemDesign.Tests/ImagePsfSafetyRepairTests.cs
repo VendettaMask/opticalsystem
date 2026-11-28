@@ -27,7 +27,8 @@ public sealed class ImagePsfSafetyRepairTests
             PsfSize = 33,
             NumRays = 12,
             Components = 3,
-            PixelSizeMillimeters = .01,
+            // Resolve the off-axis PSF structure so the truncated basis has a negative lobe.
+            PixelSizeMillimeters = .001,
             AberrationMode = "Geometric",
             UseRelativeIllumination = false,
             DistortionGridSize = 5,

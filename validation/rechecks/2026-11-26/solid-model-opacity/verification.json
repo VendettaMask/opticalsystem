@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-26",
+  "sourceCommit": "018c16a0bf8c9d039d631945b8b17643cffa5737",
+  "sourceDirty": true,
+  "scope": "Solid Model opacity and selectable Transparent/Wireframe; display only.",
+  "finalSpecializedTests": {
+    "total": "5",
+    "executed": "5",
+    "passed": "5",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "images": [
+    {
+      "path": "solid-cutaway.png",
+      "sha256": "122a2d0c7195c17deacdeded8f7166622b692112ded5db29a3f7a93e2970ec19"
+    },
+    {
+      "path": "solid-default.png",
+      "sha256": "4ad6488189f728280f8a6917ad337e8b4ac8e5c73c70d5fa011dc577ee25c54e"
+    },
+    {
+      "path": "transparent-selected.png",
+      "sha256": "1a92cfdf0b9cd8efb28af0fef010e1dc815b57c1613077749938e6a5556e698a"
+    }
+  ],
+  "defaultAppReleaseBuild": {
+    "passed": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "isolatedTestBuild": {
+    "passed": true,
+    "warnings": 0,
+    "errors": 0,
+    "temporarilyExcludedParallelTestFiles": [
+      "BeamSplitterConfigurationRepairTests.cs",
+      "BeamSplitterLayoutWindowTests.cs"
+    ]
+  },
+  "unchangedContracts": [
+    "Material identification RGB colours and physical transmission",
+    "Ordinary 2D/3D Layout rendering",
+    "Explicit per-surface drawing opacity",
+    "Translucent actual-image reference",
+    "Source geometry, ray paths and workspace revision on mode changes"
+  ],
+  "validation": [
+    "Independent front/rear geometry occlusion pixels, including ordinary faces, polygon groups, selected faces and cutaway",
+    "Transparent and explicit 40-percent drawing opacity reveal rear geometry",
+    "Native mode selector defaults to Solid and round-trips Transparent/Wireframe/Solid without retracing",
+    "Off-screen callbacks assert actual completion"
+  ],
+  "limits": [
+    "No full 95-lens numerical matrix",
+    "No foreground app interaction, restart, commit, push or package",
+    "Expanded export-pixel differences are retained separately; no assertion relaxed or failed test relabeled passed.",
+    "Full workspace documentation inventory was interrupted by concurrent cleanup of generated local-data files; the changed documents were link-checked separately."
+  ],
+  "matchedWorkspaceBaseline": {
+    "exportPixelFailuresMatchCurrent": true,
+    "exportPixelFailures": [
+      "OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: \"Light\", renderMode: Solid, cutaway: False, raysVisible: True)",
+      "OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: \"Light\", renderMode: Solid, cutaway: True, raysVisible: False)",
+      "OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: \"Light\", renderMode: Transparent, cutaway: False, raysVisible: True)",
+      "OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: \"Lumen\", renderMode: Solid, cutaway: False, raysVisible: True)",
+      "OpticalSystemDesign.Tests.SolidModelAspectTests.ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(theme: \"Lumen\", renderMode: Wireframe, cutaway: False, raysVisible: True)"
+    ],
+    "oldOpacityDefectDetectedInControls": 4,
+    "sourceSha256": "fcca09f1887a90d6cafbcbb048a536a4cb5ad57698458cc16745b2eeb23fe7cd",
+    "construction": "HEAD renderer plus both pre-existing view reset invalidations and the current pre-existing SequentialFit branch; no opacity change."
+  },
+  "changedRendererSourceSha256": "dc6c95e56178c5485ea84c8da6455a7fa3714dbf4cb06046df781b34e0dc6555",
+  "testAssemblySha256": "e2096b14f9e219cb27bd5ce396bf14b3216a9511fb39a4abe75c439cd309e89a",
+  "documentation": {
+    "scope": [
+      "AGENTS.md",
+      "docs/UI_DESIGN_SPEC.md",
+      "docs/UI_DESIGN_REVIEW.md",
+      "docs/USER_GUIDE.md",
+      "docs/CURRENT_STATUS.md",
+      "validation/rechecks/2026-11-26/solid-model-opacity/README.md"
+    ],
+    "checkedLocalLinks": 1296,
+    "broken": [
+      {
+        "file": "docs/UI_DESIGN_REVIEW.md",
+        "link": "../validation/rechecks/2026-11-26/beamsplitter-layout/README.md"
+      }
+    ],
+    "valid": false,
+    "fullInventoryScan": "Interrupted by concurrent removal of a generated local-data validation font license; see documentation-scan.log.",
+    "ownedChanges": {
+      "checkedLocalLinks": 14,
+      "broken": [],
+      "valid": true
+    },
+    "sharedDocumentLimit": "The shared review also contains a pending link from the parallel beamsplitter task; it was preserved."
+  }
+}

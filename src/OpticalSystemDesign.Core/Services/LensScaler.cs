@@ -1,4 +1,5 @@
 using System.Globalization;
+using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Multiconfig;
@@ -51,7 +52,6 @@ public static class LensScaler
             }
             if (f == 1) { surfaces.Add(surface with { CoordinateSystem = frame }); continue; }
             var semiDiameter = Multiply(surface.SemiDiameter, f);
-            if (semiDiameter < .1) throw new ArgumentException($"表面 {surface.Number} 缩放后的净半径小于当前支持的最小值 0.1 mm。");
             try
             {
                 var components = surface.Components;
@@ -119,11 +119,17 @@ public static class LensScaler
         OpticSnapshotValidator.Validate(result);
         var scaled = source.Clone();
         scaled.ApplySnapshot(result);
+        if (whole && source.Aperture.Kind == ApertureKind.EntrancePupilDiameter
+            && scaled.Aperture.Diameter(0) != Multiply(source.Aperture.Diameter(0), factor))
+            throw new ArgumentException("缩放后的入瞳直径超出系统孔径支持的范围。", nameof(factor));
         return scaled;
     }
 
     public static double OperandMultiplier(Optic optic, MultiConfigurationOperand operand, double factor, int first, int last)
     {
+        if (operand.IsSystemParameter)
+            return operand.Kind is MultiConfigurationOperandKind.FieldX or MultiConfigurationOperandKind.FieldY
+                && optic.FieldDefinition != FieldDefinitionKind.Angle && first == 0 && last == optic.SurfaceGroup.Items[^1].Number ? factor : 1;
         if (operand.SurfaceNumber < first || operand.SurfaceNumber > last) return 1;
         var power = operand.Kind switch
         {

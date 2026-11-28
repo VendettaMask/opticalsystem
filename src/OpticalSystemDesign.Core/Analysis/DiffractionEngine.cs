@@ -1211,16 +1211,7 @@ public static partial class DiffractionEngine
         ComputationCancellation.ThrowIfCancellationRequested();
         ValidatePsfGrid(psf);
         AnalysisResourceLimits.ValidateFftGrid(psf.GridSize, psf.GridSize);
-        var shifted = ComputeCenteredPsfTransform(psf);
-        var center = psf.GridSize / 2;
-        var dc = shifted[center, center];
-        var normalization = dc.Magnitude <= 1e-30 ? Complex.One : dc;
-        var tangentialOtf = Enumerable.Range(center, psf.GridSize - center)
-            .Select(row => shifted[row, center] / normalization)
-            .ToArray();
-        var sagittalOtf = Enumerable.Range(center, psf.GridSize - center)
-            .Select(column => shifted[center, column] / normalization)
-            .ToArray();
+        var (tangentialOtf, sagittalOtf) = ComputePsfOtfAxes(psf);
         return CreateFftMtfResult(psf, optic, wavelength, tangentialOtf, sagittalOtf);
     }
 
@@ -1835,7 +1826,19 @@ public static partial class DiffractionEngine
                     k * wavefront.ImageRefractiveIndex * pitch * Dot(frame.TangentY, e.Direction))).ToArray(), imageSize)
             : null;
         var values = new double[imageSize, imageSize];
-        for (var row = 0; row < imageSize; row++)
+        // Each image pixel owns its complete emitter sum. Parallel rows leave
+        // the summation order, scalar/vector phase and normalization unchanged.
+        var workers = Math.Min(4, Environment.ProcessorCount);
+        if (accelerated is null && workers > 1 && (long)imageSize * imageSize * emitters.Length >= 1_000_000)
+            Parallel.For(0, imageSize, new ParallelOptions
+            {
+                MaxDegreeOfParallelism = workers,
+                CancellationToken = ComputationCancellation.Current
+            }, EvaluateRow);
+        else
+            for (var row = 0; row < imageSize; row++) EvaluateRow(row);
+
+        void EvaluateRow(int row)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var y = (row - imageSize / 2) * pitch;
@@ -2235,6 +2238,9 @@ public static partial class DiffractionEngine
     {
         ComputationCancellation.ThrowIfCancellationRequested();
         var size = data.GetLength(0);
+        if (size >= 128 && IsPowerOfTwo(size) && AnalysisGpuSession.Current is { } gpu
+            && gpu.TryExecute(32L * data.Length + 16L * size, device => device.Fourier(data, ComputationCancellation.Current)))
+            return;
         var buffer = new Complex[size];
         for (var row = 0; row < size; row++)
         {

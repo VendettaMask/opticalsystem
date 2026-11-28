@@ -170,7 +170,7 @@ public sealed partial class LensEditorPanel
     private void UpdateSurfacePropertiesHeader()
     {
         var row = _grid.SelectedItem as SurfaceEditorRow;
-        _surfacePropertiesTitle.Text = row is null ? "表面属性" : $"表面 {row.Number} 属性";
+        _surfacePropertiesTitle.Text = row is null ? UiLocalization.Text("表面属性") : UiLocalization.Format("表面 {0} 属性", row.Number);
         if (row is not null && row.LengthUnitSymbol != "mm") _surfacePropertiesTitle.Text += $" · {row.LengthUnitSymbol}";
         _previousPropertySurface.IsEnabled = row is { Number: > 0 };
         _nextPropertySurface.IsEnabled = row is { IsLastSurface: false };
@@ -255,9 +255,7 @@ public sealed partial class LensEditorPanel
             [SurfacePropertyPage.Scattering] = PropertyStack(
                 _scatterSummary,
                 PropertyNote("本页只读。当前散射模型仅支持主光线损耗近似，不等同于完整 BSDF / 杂散光追迹；尚未接入散射参数编辑。")),
-            [SurfacePropertyPage.Coordinates] = PropertyStack(
-                _coordinatesSummary,
-                PropertyNote("以上显示当前表面的实际全局坐标。倾斜、偏心顺序及坐标返回属于独立的处方设置。")),
+            [SurfacePropertyPage.Coordinates] = BuildCoordinatesPage(),
             [SurfacePropertyPage.PhysicalOptics] = PropertyStack(
                 _interactionSummary,
                 PropertyNote("衍射光栅和薄透镜参数在“类型”页按面型显示。逐表面物理光学传播设置尚未实现；系统级 PSF / 波前分析不是逐面 POP 传播。")),
@@ -302,8 +300,10 @@ public sealed partial class LensEditorPanel
         {
             if (navigation.SelectedItem is ListBoxItem { Tag: SurfacePropertyPage page })
             {
+                _activePropertyPage = page;
                 _propertyPageHost.Content = pages[page];
                 pageScroll.Offset = default;
+                UpdateCoordinateControls();
             }
         };
 
@@ -401,6 +401,7 @@ public sealed partial class LensEditorPanel
             ? $"X：{position.OriginX:0.######} mm    Y：{position.OriginY:0.######} mm    Z：{position.OriginZ:0.######} mm\n"
                 + $"X 倾斜：{position.TiltXDegrees:0.######}°    Y 倾斜：{position.TiltYDegrees:0.######}°    Z 倾斜：{position.TiltZDegrees:0.######}°"
             : "表面坐标：—";
+        LoadCoordinateProperties(row);
         UpdateGeometryPropertyVisibility();
         _loadedPhysicalInputs = PhysicalPropertyInputs();
     }

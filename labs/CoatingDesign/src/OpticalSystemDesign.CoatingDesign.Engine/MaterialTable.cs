@@ -1,6 +1,4 @@
 using System.Globalization;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
 
@@ -18,10 +16,10 @@ public static class MaterialTable
         var lines = csv.Split('\n').Select(x => x.Trim()).Where(x => x.Length > 0 && !x.StartsWith('#')).ToArray();
         if (lines.Length is < 3 or > 10001) throw new ArgumentException("材料表需要 2–10000 行数据及单位表头。");
         var header = lines[0].TrimStart('\uFEFF').Replace('\t', ',');
-        var unit = header switch
+        var nanometersPerUnit = header switch
         {
-            "wavelength_nm,n,k" => AnalysisAxisUnit.Nanometer,
-            "wavelength_um,n,k" => AnalysisAxisUnit.Micrometer,
+            "wavelength_nm,n,k" => 1d,
+            "wavelength_um,n,k" => 1000d,
             _ => throw new ArgumentException("第一行须为 wavelength_nm,n,k 或 wavelength_um,n,k；数值使用小数点，n、k 均必填。")
         };
         var x = new double[lines.Length - 1]; var n = new double[x.Length]; var k = new double[x.Length];
@@ -35,7 +33,7 @@ public static class MaterialTable
                     throw new ArgumentException($"第 {i + 2} 行包含无效数值。");
                 return v;
             }
-            x[i] = AnalysisAxisFormatting.Convert(Number(0), unit, AnalysisAxisUnit.Nanometer); n[i] = Number(1); k[i] = Number(2);
+            x[i] = Number(0) * nanometersPerUnit; n[i] = Number(1); k[i] = Number(2);
             if (!double.IsFinite(x[i]) || x[i] <= 0 || (i > 0 && x[i] <= x[i - 1]) || n[i] <= 0 || k[i] < 0)
                 throw new ArgumentException($"第 {i + 2} 行：波长须为正且严格递增，n > 0，k ≥ 0；不自动排序或截断数据。");
         }
