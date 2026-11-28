@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "date": "2026-11-24",
+  "feature": "Integrated non-sequential scene workspace",
+  "implementation": "Production App controls and services, not the historical standalone prototype",
+  "functional": {
+    "passed": 173,
+    "failed": 0,
+    "skipped": 2,
+    "total": 175,
+    "scope": "NSC imports, document edits, archives, scene workspace, shared viewer geometry and default dock layouts"
+  },
+  "finalUiRecheck": {
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "After final navigation localization; includes 432-object production main-window interactions across five themes, 2000-object lazy navigation, transactional inspector edits, organization and default layouts",
+    "countsAreSubset": true
+  },
+  "skippedCases": [
+    "Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway",
+    "Viewer3DGeometryTests.BothViewersKeepOnlyTheLowerLeftLabelledTriad"
+  ],
+  "build": {
+    "configuration": "Default Release app/test graph",
+    "warnings": 0,
+    "errors": 0
+  },
+  "localization": {
+    "translations": 4413,
+    "occurrences": 4038,
+    "missing": 0,
+    "errors": 0
+  },
+  "themes": [
+    "Light zh-CN 1760x1040 100%",
+    "Dark ja-JP 1200x950 150%",
+    "Isekai en-US 950x1100 200%",
+    "Lumen en-US 1540x1000 100%",
+    "Pixel zh-CN 1540x1000 100%"
+  ],
+  "nativeInteraction": "Offscreen real controls; no foreground desktop automation",
+  "projectPayloadVersion": 29,
+  "organizationAffectsOpticalHash": false,
+  "fullPrecisionMatrixRun": false,
+  "installerPublished": false,
+  "remotePushed": false,
+  "fixture": {
+    "path": "docs/assets/ui-proposals/2026-11-23/non-sequential-scene-tree/v3-complex-demo.staropt",
+    "sha256": "3112336d0d333b8ef7431619702c9f739068449319f9a7cc0092feac8fb94178",
+    "objects": 432,
+    "channels": 32
+  },
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "sha256": "2bcb8ab647769d65cf3fdce62a76bd52116b118783514910fd481c2a73d92bb5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.Workspace.cs",
+      "sha256": "04ce5b6123addb54ccf7a1d1418992076aa2f5ed6a23dd13c5a3df1ecffd1edb"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "sha256": "07aaa8476a415153601e67cd821b151f40bb22789eb44153722a4fc29e611ca4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.ObjectSelection.cs",
+      "sha256": "9560a7a33c9dcfd26a3ca9a2c5a42330b30aaa77f6c199a0735a482375a25366"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "sha256": "b2ff7d4d701c0f2bb849880294afa035014730104f64cc8104f1f0044f461979"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "sha256": "d8108c943885269750867d6746884f6a38d7fcefaf9a17f41083e72c7936287e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "260e1f7ce78d6b8ea5281f8ce0c76cb67685c2f8daa3b2272f8ccd885881fa13"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "sha256": "3e562b897fa8fefc68d4e17fac7a84a8301d181bcb348a2bd03655c5cd95e0e3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "sha256": "4bb1170124271027fb4c3500cd6bedd19c0768bb2fdb3f32ada7eb3bd1a5709e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialOrganization.cs",
+      "sha256": "578d25c132fdd9bb90b6218b3dfadfed597f8e95419adceb81429aee491ed89f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "sha256": "3005efc6ec6744bed74bfaeae5c77178e7a03ce1262eb68dfc5c157eefa55c75"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialSceneWorkspaceTests.cs",
+      "sha256": "1807249615993774b4d6906fae738b91c4b2f0ab82155650482af9c43278860d"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/WorkspaceDockModelTests.cs",
+      "sha256": "699009c4f9f72be9a0d546fe54cfc064fe3a5ad28dba17286e8e72231536cb43"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build.log.gz",
+      "bytes": 618,
+      "sha256": "45e8a687842ddc6b0e30e122f00286e0695eda0d071cd286f01459e9322ff3a9"
+    },
+    {
+      "path": "Dark-workspace.png",
+      "bytes": 508391,
+      "sha256": "a2048b268ecf5071565d39da8c663d5fcd606b0d971e2693eaec02bfad1923dd"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 43062,
+      "sha256": "7c29b7c2b9e59e9329b00b3d15afe6af21e7b3ae0baf7bcf17a485b0de611cb6"
+    },
+    {
+      "path": "initial-layout-test-harness.log.gz",
+      "bytes": 1192,
+      "sha256": "705e394dd079198f9694457aa6d513311d6081b611abe6796a894ffa1d08b412"
+    },
+    {
+      "path": "Isekai-workspace.png",
+      "bytes": 2523608,
+      "sha256": "f22190a21acb4f65f5ad1b2503715dd0d16e35ef63b4c548f96b34c047005e74"
+    },
+    {
+      "path": "Light-batch.png",
+      "bytes": 208288,
+      "sha256": "70d1a6b2d464b2b8951e4870f0bbc1195cae9ca4c4cd4d7977110aaf1919bf43"
+    },
+    {
+      "path": "Light-isolated.png",
+      "bytes": 265787,
+      "sha256": "cf30b06eb5fcdc2bea0029d82269e9e1d46e33eb72867e7c86a12b4adf204b6e"
+    },
+    {
+      "path": "Light-search.png",
+      "bytes": 302760,
+      "sha256": "4330a7d258d2cfbf760f23ea83c43000c91e56c3ec7f809e910bfd5f702ec327"
+    },
+    {
+      "path": "Light-workspace.png",
+      "bytes": 351265,
+      "sha256": "58e2a3f69893a3d09be55e88d088e231f19c82f3a95efe726876733e674f367e"
+    },
+    {
+      "path": "localization.log.gz",
+      "bytes": 91,
+      "sha256": "11f2fcfd84dcab46f310a38c74c03c3636577fb50253042acc215497fa6cdd2e"
+    },
+    {
+      "path": "Lumen-workspace.png",
+      "bytes": 309644,
+      "sha256": "b55660024e68790cdd630c9d5192ef18e2704c1466d1e34b3c95849fc40cc996"
+    },
+    {
+      "path": "Pixel-workspace.png",
+      "bytes": 215393,
+      "sha256": "34d0fb5bec094f59eea2c8129864159e1f28723e32d7166b3fda9eb87ee64dc1"
+    },
+    {
+      "path": "ui-final.trx.gz",
+      "bytes": 3235,
+      "sha256": "f4f56ba0ec55a1533aee9842b9e0f1702e7a06b2f2dc302ae2ef3accb14f4495"
+    }
+  ]
+}

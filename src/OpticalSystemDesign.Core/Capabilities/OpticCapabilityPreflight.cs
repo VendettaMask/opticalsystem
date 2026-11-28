@@ -106,9 +106,6 @@ public static class OpticCapabilityPreflight
             yield return CreateIssue(surface);
         if (!includeMaterials)
         {
-            if (surface.Geometry is PolygonGroupGeometry)
-                yield return new OpticCapabilityIssue(surface.Number, "polygon_group",
-                    "多边形组内交互路径尚未发布到场景，不能以端口间直线代替真实折返路径。");
             if (surface.MaterialBefore is GradientIndexMaterial || surface.MaterialAfter is GradientIndexMaterial)
                 yield return new OpticCapabilityIssue(surface.Number, "GRIN",
                     "GRIN 曲线节点尚未接入场景，不能以表面间直线代替真实路径。");

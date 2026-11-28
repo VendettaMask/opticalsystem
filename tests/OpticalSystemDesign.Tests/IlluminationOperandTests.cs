@@ -19,6 +19,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelper output)
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedFileReportsOperandDifferencesWithoutInventingAnAcceptanceGate()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

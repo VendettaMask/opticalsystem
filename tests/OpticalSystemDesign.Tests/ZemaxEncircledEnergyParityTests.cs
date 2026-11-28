@@ -23,6 +23,7 @@ public sealed class ZemaxEncircledEnergyParityTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void DiffractionEncircledEnergyUsesTheCapturedFftCumulativeGrid()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
@@ -76,6 +77,7 @@ public sealed class ZemaxEncircledEnergyParityTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ExtendedSourceUsesTheCapturedLetterFImageAndFieldScale()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
@@ -134,6 +136,7 @@ public sealed class ZemaxEncircledEnergyParityTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void GeometricEncircledEnergyUsesNormalizedPolychromaticCentroidCurves()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

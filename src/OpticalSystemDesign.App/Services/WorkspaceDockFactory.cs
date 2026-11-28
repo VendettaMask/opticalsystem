@@ -68,7 +68,7 @@ public sealed partial class WorkspaceDockFactory : Factory
             var source = _descriptors.TryGetValue(dockable.Id, out var descriptor) ? descriptor.Title
                 : dockable.Id switch
                 {
-                    SystemToolId => _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? "非序列设置" : "系统选项",
+                    SystemToolId => _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? "场景设置" : "系统选项",
                     ToolDockId => "系统选项",
                     DocumentDockId => "文档",
                     MainLayoutId => "工作区",
@@ -203,7 +203,7 @@ public sealed partial class WorkspaceDockFactory : Factory
             Id = SystemToolId,
             DockGroup = ToolDockGroup,
             Title = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
-                ? "非序列设置"
+                ? "场景设置"
                 : "系统选项",
             CanClose = false,
             CanFloat = true,
@@ -231,7 +231,8 @@ public sealed partial class WorkspaceDockFactory : Factory
             Id = MainLayoutId,
             Title = "工作区",
             Orientation = Orientation.Horizontal,
-            VisibleDockables = CreateList<IDockable>(
+            VisibleDockables = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+                ? CreateList<IDockable>(documentDock) : CreateList<IDockable>(
                 toolDock,
                 new ProportionalDockSplitter(),
                 documentDock),
@@ -723,7 +724,7 @@ public sealed partial class WorkspaceDockFactory : Factory
                 _application.MultiConfiguration),
             WorkspaceDocumentTypes.NonSequentialObjectEditor => new NonSequentialObjectEditorPanel(
                 _application.NonSequential,
-                _application.Events),
+                _application.Events, _application.Visualization, _application.NonSequentialAnalysis, _application.Documents),
             WorkspaceDocumentTypes.Viewer2D => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,

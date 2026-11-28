@@ -60,7 +60,7 @@ public sealed class NonSequentialIntegrationTests
             (SimpleZmx + "\nNSOD 99 7", "UnknownParameter"),
             (SimpleZmx + "\nNSOA 1 \"missing shape.pob\"", "MissingAsset"),
             (SimpleZmx.Replace("UNIT MM", "UNIT IN"), "Units"),
-            (SimpleZmx.Replace("NSOH NSC_DETE 0 0", "NSOH NSC_DETE 1 0"), "ObjectReferences")
+            (SimpleZmx.Replace("NSOH NSC_DETE 0 0", "NSOH NSC_DETE 99 0"), "ObjectDefinition")
         })
         { var result = ZemaxNonSequentialReader.Parse(input); Assert.False(result.CanApply); Assert.Null(result.Document); Assert.Contains(result.Diagnostics, d => d.Code == code); }
     }

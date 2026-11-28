@@ -1,5 +1,7 @@
 # STAROPT 工程格式
 
+2026-11-24：按需载荷 v29 保存非序列 `Organization.Folders` 与 `Organization.SelectionSets`。文件夹记录稳定 ID、名称、上级文件夹 ID 和对象 ID；选择集记录稳定 ID、名称和对象 ID。名称、成员、上级和无循环关系在发布前验证；数据随工程、恢复副本及撤销快照往返。组织不参与光学场景哈希，不改变对象参考坐标或介质包含。没有组织记录的工程继续按既有语义选择较早版本，容器 v2、顺序快照 v10 和 STARRDB 均保持原版本。见[工作区](NONSEQUENTIAL_WORKSPACE.md)。
+
 非序列设计自有实验包 v1 将完整源场景作为单份 `source.staropt` 内嵌，另存实际引用材料模型/别名、冻结方案、数值结果与条目哈希；它不改变 STAROPT v22 或 STARRDB v2。重放不借用当前项目的材料目录/网格/设置，不自动发布场景，规范与预算见[独立实验说明](NONSEQUENTIAL_PHYSICS_DESIGN_IMPORT_2026-11-04.md#已交付的本机链路)。
 
 2026-11-04：新增按需载荷 v22（容器 v2 不变），保存 NSC `UsePolarization`/`CoherentDetection`、源 `Physics`（Jones、相干组、初相位）、探测器 `NormalizeCoherentPower`，以及源 `WavelengthNumber=0` 按系统权重抽样。新字段省略时保持旧默认并继续选择既有 v7–21；旧版本负载若带这些新语义则拒绝。光线复场使用独立 STARRDB v2，旧标量仍写 v1，详见[新契约与边界](NONSEQUENTIAL_PHYSICS_DESIGN_IMPORT_2026-11-04.md)。
@@ -8,7 +10,7 @@
 
 2026-11-01 遮挡补充：顺序快照支持孔径组件 `circular_obscuration`，以有限、有序的 `innerRadius/outerRadius` 和有限 `offsetX/offsetY` 保存圆形/环带的补集。沿用现有组件表、容器和工程版本选择，不覆盖旧快照；未知孔径类型按既有校验拒绝。对应 ZMX 为 OBSC/OBDC，保存往返和物理接受验证见[专题](OBSCURED_REFERENCE_REPAIR_2026-11-01.md)。
 
-更新：2026-11-21。本页是容器、工程负载和快照版本的唯一文档来源：当前分别为 **2 / 最大 28 / 10**，与 `StarOptProjectStore`、`OpticSnapshotValidator` 一致。带SurfaceGeometry/Frame的旋转非球面或逐面偏心/倾斜组件（包括禁用对象）写v21，旧共轴模型不升级。复合光学组件或像面口径端口（包括禁用对象）写v20；原有无BSDF场景仍写v7。绝对正值XYZ径向基模型（MeasuredBsdfGrid/11，含禁用对象）写v19；显式对数角插值（Grid/10）写v18；显式实测极角支持域（Grid/9）写v17；正值XYZ颜色模型（Grid/8）写v16；有域XYZ校准（Grid/7）写v15；Speos White运行时（Grid/6）写v14；θ线性v11（Grid/5）写v13；原镜面增强/可分光谱/XYZ（Grid/4）写v12；投影数量或Zemax镜面中心表格写v11；商业文本/固定轴写v10，各向同性CSV实测写v9；仅Lambertian写v8，无BSDF仍v7。读取支持v1–28，低版本夹带新模型拒绝；旧Grid/1–11及冻结摘要不升级。当前范围见[全入射角重建与绝对XYZ校准](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)，此前[有限角表](XYZ_MEASURED_ANGULAR_2026-11-01.md)、[已知条件XYZ](XYZ_KNOWN_CONDITIONS_2026-11-01.md)、[White实际功率](WHITE_SPECULAR_RUNTIME_2026-10-31.md)保留原阶段范围。文件入口与交换限制见[文件格式指南](FILE_FORMATS_AND_PLUGINS.md)。
+更新：2026-11-24。本页是容器、工程负载和快照版本的唯一文档来源：当前分别为 **2 / 最大 29 / 10**，与 `StarOptProjectStore`、`OpticSnapshotValidator` 一致。带SurfaceGeometry/Frame的旋转非球面或逐面偏心/倾斜组件（包括禁用对象）写v21，旧共轴模型不升级。复合光学组件或像面口径端口（包括禁用对象）写v20；原有无BSDF场景仍写v7。绝对正值XYZ径向基模型（MeasuredBsdfGrid/11，含禁用对象）写v19；显式对数角插值（Grid/10）写v18；显式实测极角支持域（Grid/9）写v17；正值XYZ颜色模型（Grid/8）写v16；有域XYZ校准（Grid/7）写v15；Speos White运行时（Grid/6）写v14；θ线性v11（Grid/5）写v13；原镜面增强/可分光谱/XYZ（Grid/4）写v12；投影数量或Zemax镜面中心表格写v11；商业文本/固定轴写v10，各向同性CSV实测写v9；仅Lambertian写v8，无BSDF仍v7。读取支持v1–29，低版本夹带新模型拒绝；旧Grid/1–11及冻结摘要不升级。当前范围见[全入射角重建与绝对XYZ校准](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)，此前[有限角表](XYZ_MEASURED_ANGULAR_2026-11-01.md)、[已知条件XYZ](XYZ_KNOWN_CONDITIONS_2026-11-01.md)、[White实际功率](WHITE_SPECULAR_RUNTIME_2026-10-31.md)保留原阶段范围。文件入口与交换限制见[文件格式指南](FILE_FORMATS_AND_PLUGINS.md)。
 
 1.0.2 恢复副本使用正式 STAROPT 完整工程序列化，不是镜头表局部导出；原子写入副本后才发布独立 SHA-256 元数据。恢复打开不使用副本位置作为用户保存路径，而是保持未保存并要求另存。新增容器 1 / 载荷版本 1–7 与旧 JSON 版本 1–6 的读取、当前格式另存及原字节保留回归；不承诺未知或任意损坏格式迁移，见[恢复与迁移验收](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 

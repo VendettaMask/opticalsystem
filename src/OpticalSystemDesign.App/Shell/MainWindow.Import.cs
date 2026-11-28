@@ -21,6 +21,11 @@ public sealed partial class MainWindow
 {
     private async Task ImportZemaxAsync()
     {
+        if (_application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential)
+        {
+            await NonSequentialFileImport.PickAndImportAsync(this, _application.NonSequential);
+            return;
+        }
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = "导入 Zemax 光学系统",

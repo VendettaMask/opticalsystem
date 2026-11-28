@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-23",
+  "sourceCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "sourceDirty": true,
+  "scope": "Current 95-lens acceptance governance, formatting and byte-identical evidence consolidation; not a new 95-lens numerical replay.",
+  "acceptance": {
+    "schemaVersion": 1,
+    "valid": true,
+    "currentLensCount": 95,
+    "indexLfSha256": "87880dbba4869af29a3ab22eac0202b3d1dd61cffb2c0b0981887481da20fdef",
+    "retiredTestMethods": 92,
+    "retiredCaptureSourceHashes": 4,
+    "testFilter": "AcceptanceScope!=RetiredReference",
+    "numericalTolerancesChanged": false
+  },
+  "formatting": {
+    "solutionVerificationExitCode": 0,
+    "lastAddedMetadataTestVerificationExitCode": 0,
+    "semanticProofDistinctSourceFiles": 641,
+    "numericTestBodiesUnchanged": 87,
+    "retiredWrapperMethodsCallingOriginalTests": 5
+  },
+  "builds": {
+    "solutionRelease": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "logSha256": "d48caa728f800ece6a68185ea35541365c30e86144df2754fd82dcb27de1c770"
+    },
+    "finalTestProjectRelease": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "logSha256": "e33b6e930d2fb3ee25dd5ca4c92ebbd31f4c74247133a6fbd330fc2a3bd59077"
+    }
+  },
+  "checks": {
+    "currentScopeAndStorageTests": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "receipt": "current-scope-final.trx"
+    },
+    "acceptancePolicyAdversarialControls": {
+      "passed": 10,
+      "failed": 0
+    },
+    "evidenceAliasControls": {
+      "passed": 13,
+      "failed": 0
+    },
+    "evidenceStorageControls": {
+      "passed": 8,
+      "failed": 0
+    },
+    "strictDocumentation": {
+      "passed": true,
+      "documents": 2119,
+      "brokenLinks": 0,
+      "lifecycleIssues": 0
+    },
+    "cataloguePathCasing": {
+      "matched": 95,
+      "mismatches": 0
+    }
+  },
+  "evidence": {
+    "copiesRemoved": 1286,
+    "bytesRemoved": 30497965,
+    "groupsConsolidated": 376,
+    "linkConsumersRepaired": 11,
+    "aliases": 10027,
+    "manifestSha256": "0b3052cc954a2716cc8997176e0d9ef495859cf64704e82f14b0e934f24a59b5",
+    "nonEmptyDuplicateGroups": 0,
+    "frozenOriginalEntries": 2668,
+    "frozenWorkingMatches": 2668,
+    "frozenAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "candidateGitIndexMatches": 2668,
+    "candidateGitIndexUnchanged": true,
+    "userIndexModified": false,
+    "finalScannedFiles": 23957
+  },
+  "limitations": [
+    "The full 95-lens numerical matrix was not rerun; no numerical acceptance pass rate is updated.",
+    "Historical numerical failures are retained with their original settings and thresholds; retirement is not a pass.",
+    "The latest remote CI failures in other module suites have not been recertified by these scoped checks.",
+    "Changes remain local; no commit or push was made."
+  ]
+}

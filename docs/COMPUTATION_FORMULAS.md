@@ -76,6 +76,14 @@ $$
 
 ## 非序列功率账目
 
+源黑体模型采用波长形式的普朗克辐亮度，离散均匀波长节点按相对功率归一。流明输入以同一实际离散光谱和 CIE 1931 的 ȳ 响应换算；约定 Kₘ=683 lm/W。源颜色模型选定后覆盖系统波长编号。定义与使用见[非序列导入](NONSEQUENTIAL_IMPORT.md)。
+
+$$
+B_\lambda(T)\propto\frac{\lambda^{-5}}{\exp[hc/(\lambda k_B T)]-1},\qquad
+w_i=\frac{B_{\lambda_i}(T)}{\sum_j B_{\lambda_j}(T)},\qquad
+\Phi_e=\frac{\Phi_v}{683\sum_i w_i\bar y(\lambda_i)}.
+$$
+
 $$
 P_{\mathrm{source}}=P_{\mathrm{detector}}+P_{\mathrm{absorbed}}+P_{\mathrm{escaped}}+P_{\mathrm{truncated}}
 $$

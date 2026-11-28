@@ -1,0 +1,212 @@
+{
+  "sourceCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "ciCommit": "fad8288ebe49a871d04921a6cedcc376420b8c27",
+  "run": 44899424337,
+  "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/44899424337",
+  "jobs": [
+    {
+      "name": "Repository quality",
+      "id": 136832008100,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Verify formatting"
+      ]
+    },
+    {
+      "name": "Local UI catalog (macos-latest)",
+      "id": 136832008127,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Main tests (windows)",
+      "id": 136832008146,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Test main solution",
+        "Test portable Zemax comparison (no licensed application)",
+        "Verify lens navigation in isolated native processes",
+        "Verify complete PNG export in an isolated Skia process"
+      ]
+    },
+    {
+      "name": "Local UI catalog (ubuntu-22.04)",
+      "id": 136832008148,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Documentation (windows-latest)",
+      "id": 136832008155,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Performance smoke",
+      "id": 136832008184,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Frozen evidence (windows-latest)",
+      "id": 136832008188,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Verify consolidated evidence and test alias guards"
+      ]
+    },
+    {
+      "name": "Build main",
+      "id": 136832008190,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Documentation (ubuntu-22.04)",
+      "id": 136832008209,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Generate STEP fixtures",
+      "id": 136832008237,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Local UI catalog (windows-latest)",
+      "id": 136832008239,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Documentation (macos-latest)",
+      "id": 136832008258,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Frozen evidence (macos-latest)",
+      "id": 136832008264,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Verify consolidated evidence and test alias guards"
+      ]
+    },
+    {
+      "name": "Frozen evidence (ubuntu-22.04)",
+      "id": 136832008302,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Verify consolidated evidence and test alias guards"
+      ]
+    },
+    {
+      "name": "Main tests (linux)",
+      "id": 136832008317,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Test main solution",
+        "Test portable Zemax comparison (no licensed application)",
+        "Verify lens navigation in isolated native processes",
+        "Verify complete PNG export in an isolated Skia process"
+      ]
+    },
+    {
+      "name": "Dependency vulnerability audit",
+      "id": 136832008318,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Built-in module tests (ubuntu-22.04, survey-second)",
+      "id": 136832008338,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Built-in module tests (ubuntu-22.04, survey-first)",
+      "id": 136832008348,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Built-in module tests (ubuntu-22.04, contracts)",
+      "id": 136832008373,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Test built-in initial structure",
+        "Test built-in coating design"
+      ]
+    },
+    {
+      "name": "Main tests (macos)",
+      "id": 136832008375,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Test main solution",
+        "Test portable Zemax comparison (no licensed application)",
+        "Verify lens navigation in isolated native processes",
+        "Verify complete PNG export in an isolated Skia process"
+      ]
+    },
+    {
+      "name": "Built-in module tests (macos-latest, contracts)",
+      "id": 136832008377,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Test built-in initial structure",
+        "Test built-in coating design"
+      ]
+    },
+    {
+      "name": "Built-in module tests (macos-latest, survey-second)",
+      "id": 136832008385,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Built-in module tests (macos-latest, survey-first)",
+      "id": 136832008394,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Built-in module tests (windows-latest, contracts)",
+      "id": 136832008429,
+      "conclusion": "failure",
+      "failedSteps": [
+        "Test built-in initial structure",
+        "Test built-in coating design"
+      ]
+    },
+    {
+      "name": "Built-in module tests (windows-latest, survey-second)",
+      "id": 136832008483,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "Built-in module tests (windows-latest, survey-first)",
+      "id": 136832008484,
+      "conclusion": "success",
+      "failedSteps": []
+    },
+    {
+      "name": "STEP OpenCascade validation",
+      "id": 136833387309,
+      "conclusion": "success",
+      "failedSteps": []
+    }
+  ],
+  "windowsSummaries": [
+    "Failed!  - Failed:   488, Passed:  7384, Skipped:     8, Total:  7880, Duration: 1 h 7 m - OpticalSystemDesign.Tests.dll (net10.0)",
+    "Failed!  - Failed:   192, Passed:   545, Skipped:     0, Total:   737, Duration: 22 m 39 s - OpticalSystemDesign.ZemaxComparison.Tests.dll (net10.0)",
+    "Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 11 s - OpticalSystemDesign.Tests.dll (net10.0)",
+    "Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 5 s - OpticalSystemDesign.Tests.dll (net10.0)",
+    "Failed!  - Failed:     3, Passed:     1, Skipped:     0, Total:     4, Duration: 11 s - OpticalSystemDesign.Tests.dll (net10.0)",
+    "Passed!  - Failed:     0, Passed:     3, Skipped:     0, Total:     3, Duration: 5 s - OpticalSystemDesign.Tests.dll (net10.0)",
+    "Passed!  - Failed:     0, Passed:    50, Skipped:     0, Total:    50, Duration: 1 m 49 s - OpticalSystemDesign.Tests.dll (net10.0)",
+    "Failed!  - Failed:     5, Passed:    18, Skipped:     0, Total:    23, Duration: 23 s - OpticalSystemDesign.Tests.dll (net10.0)"
+  ]
+}

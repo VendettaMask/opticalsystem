@@ -136,7 +136,7 @@ public sealed class AfocalEvaluationContractTests
         var restored = Assert.IsType<PolygonGroupGeometry>(ComponentSnapshotFactory.ToGeometry(ComponentSnapshotFactory.FromGeometry(group), 0, 0));
         Assert.Equal(group.Faces.Count, restored.Faces.Count);
         Assert.Equal(1.5, restored.VolumeMaterial.RefractiveIndex(550), 12);
-        Assert.Throws<OpticCapabilityException>(() => OpticCapabilityPreflight.EnsureSurfaceSupported(port, OpticCapabilityOperation.Visualization));
+        OpticCapabilityPreflight.EnsureSurfaceSupported(port, OpticCapabilityOperation.Visualization);
         port.Geometry = new PolygonGroupGeometry(group.Faces, new UnresolvedMaterial("missing"));
         Assert.Throws<OpticCapabilityException>(() => OpticCapabilityPreflight.EnsureSurfaceSupported(port, OpticCapabilityOperation.RayTrace));
     }

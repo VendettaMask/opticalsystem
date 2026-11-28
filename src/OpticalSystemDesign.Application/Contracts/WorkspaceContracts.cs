@@ -331,12 +331,17 @@ public sealed record NonSequentialWavelengthDto(
     double Weight,
     bool IsPrimary);
 
+public sealed record NonSequentialSceneSettingsDto(
+    string Name, string AmbientMaterial, IReadOnlyList<NonSequentialWavelengthDto> Wavelengths,
+    NonSequentialTraceSettings TraceSettings);
+
 public sealed record NonSequentialDocumentDto(
     string Name,
     string AmbientMaterial,
     IReadOnlyList<NonSequentialWavelengthDto> Wavelengths,
     IReadOnlyList<NonSequentialObjectRowDto> Objects,
-    NonSequentialTraceSettings TraceSettings);
+    NonSequentialTraceSettings TraceSettings,
+    Core.NonSequential.NonSequentialOrganization? Organization = null);
 
 public sealed record NonSequentialObjectUpdateDto(
     Guid Id,
@@ -876,7 +881,16 @@ public sealed record SurfaceRowDto(
     string? SurfaceColor = null,
     SurfaceDrawingOptionsDto? Drawing = null,
     IReadOnlyList<string>? ShapeVariables = null,
-    LensLengthUnit LensLengthUnit = LensLengthUnit.Millimeter);
+    LensLengthUnit LensLengthUnit = LensLengthUnit.Millimeter,
+    ParaxialLensSurfaceDto? ParaxialLens = null,
+    BirefringentSurfaceDto? Birefringent = null);
+
+public sealed record BirefringentSurfaceDto(bool IsExit, double AxisDisplayLength,
+    double? AxisX = null, double? AxisY = null, double? AxisZ = null,
+    bool? TraceExtraordinary = null, bool? ParaxialIgnore = null);
+
+/// <summary>Physical ideal-lens identity; a plane geometry alone does not describe this surface.</summary>
+public sealed record ParaxialLensSurfaceDto(double PowerXPerMillimeter, double PowerYPerMillimeter, int OpdMode);
 
 public sealed record LensScaleSurfaceDto(int Number, string Label);
 public sealed record LensScaleSettingsDto(long Revision, LensLengthUnit Unit, IReadOnlyList<LensScaleSurfaceDto> Surfaces, int ConfigurationCount);
@@ -1463,7 +1477,7 @@ public sealed record SceneRaySegment2Dto(
     SceneRaySegmentType SegmentType,
     SceneRayInteractionType InteractionType,
     int? SourceSurfaceNumber,
-    int? TargetSurfaceNumber);
+    int? TargetSurfaceNumber, int? SourceFaceIndex = null, int? TargetFaceIndex = null);
 
 public sealed record SceneRaySegment3Dto(
     ScenePoint3Dto Start,
@@ -1472,7 +1486,7 @@ public sealed record SceneRaySegment3Dto(
     SceneRaySegmentType SegmentType,
     SceneRayInteractionType InteractionType,
     int? SourceSurfaceNumber,
-    int? TargetSurfaceNumber);
+    int? TargetSurfaceNumber, int? SourceFaceIndex = null, int? TargetFaceIndex = null);
 
 public sealed record SceneSurfaceFace3Dto(IReadOnlyList<ScenePoint3Dto> Points);
 
@@ -1499,7 +1513,7 @@ public sealed record SceneSurface2Dto(
     int ConfigurationNumber = 1,
     string? SurfaceColor = null,
     double Opacity = 1, bool HideEdges = false, bool HideSurface = false,
-    SceneLocalFrame2Dto? LocalFrame = null);
+    SceneLocalFrame2Dto? LocalFrame = null, IReadOnlyList<IReadOnlyList<ScenePoint2Dto>>? Contours = null);
 
 public sealed record SceneLensEdge2Dto(
     int FrontSurfaceNumber,
@@ -1553,7 +1567,7 @@ public sealed record SceneSurface3Dto(
     int ConfigurationNumber = 1,
     string? SurfaceColor = null,
     double Opacity = 1, bool HideEdges = false, bool HideSurface = false,
-    SceneLocalFrame3Dto? LocalFrame = null);
+    SceneLocalFrame3Dto? LocalFrame = null, bool IsPolygonGroup = false);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,

@@ -84,6 +84,7 @@ public sealed partial class SequentialRayTracer
     private bool TryTraceGpu(RealRayBundle bundle, TraceRequest request, int[] slots, int maximum,
         RayTraceSampleValue[] samples, bool[] hasSamples, double[]? finalOpticalPaths, bool[]? hasFinalOpticalPath)
     {
+        if (request.RecordCompoundInteractions) return false;
         var session = SequentialGpuSession.Current;
         if (session is not { Enabled: true } || bundle.Rays.Count == 0) return false;
         try

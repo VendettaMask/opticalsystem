@@ -1701,12 +1701,15 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void Historical058ToroidSlotIsRejectedAndNativeSlotImportsTheIntendedPrescription()
+    public void Historical058ToroidSlotRetainsItsLiteralMeaningAndNativeSlotImportsTheIntendedPrescription()
     {
         var source = EvidenceFiles.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
         // Preserve the historical bytes. That auxiliary export put the rotation
         // radius in the native aspheric-coefficient slot, not native PARM 1.
-        Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(source, ".zmx"));
+        var literal = OpticalFormatCatalog.Import(source, ".zmx");
+        var literalToroid = Assert.IsType<ToroidalGeometry>(literal.SurfaceGroup.Items[3].Geometry);
+        Assert.True(double.IsPositiveInfinity(literalToroid.SagittalRadius));
+        Assert.Equal(80, literalToroid.Coefficients[0]);
         var nativeSource = Native058ReferenceSource();
         Assert.NotEqual(source, nativeSource);
         var optic = OpticalFormatCatalog.Import(nativeSource, ".zmx");

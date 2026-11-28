@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-24",
+  "timezone": "Asia/Shanghai",
+  "symptom": "NU1900 persisted in Core obj/project.assets.json and repeated during build --no-restore.",
+  "diagnosis": "Earlier vulnerability-service connection failure was retained in restore output. The restricted background network context denied the local proxy socket; normal-network requests to both official service indices succeeded.",
+  "officialConnectivity": [
+    {
+      "url": "https://api.nuget.org/v3/index.json",
+      "status": 200,
+      "vulnerabilityResource": "https://api.nuget.org/v3/vulnerabilities/index.json"
+    },
+    {
+      "url": "https://data.nuget.org/v3/index.json",
+      "status": 200,
+      "vulnerabilityResource": "https://data.nuget.org/v3/vulnerabilities/index.json"
+    }
+  ],
+  "recoveryCommand": "dotnet restore src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj --locked-mode --force --no-http-cache --nologo --verbosity minimal",
+  "restoreExitCode": 0,
+  "auditAfter": {
+    "enableAudit": "true",
+    "auditLevel": "low",
+    "auditMode": "all"
+  },
+  "restoreLogsAfter": [],
+  "checkedLockfiles": 33,
+  "changedLockfiles": 0,
+  "coreBuild": {
+    "configuration": "Release",
+    "output": "standard project output",
+    "noRestore": true,
+    "noDependencies": true,
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "scope": "Restore/audit recovery and a focused Core build only. No package upgrades, source-code changes, warning suppression, global cache deletion, foreground application control or optical tests.",
+  "files": [
+    {
+      "path": "audit-before.json",
+      "sha256": "d2869a0187f0f8827c1b8e89f87a67cb9dbd1c1fe01c4097bcf57f6c619d121a"
+    },
+    {
+      "path": "core-build.log",
+      "sha256": "bc47dfc917ea021ab5acc62692900a1b366dc26ee0bd159b954978bf532dd29f"
+    },
+    {
+      "path": "lockfiles-before.json",
+      "sha256": "46f08c36ead68b68296c61912e25f72c4e8e4f427aa7c8f8aa258a9b9c87fa77"
+    },
+    {
+      "path": "restore.log",
+      "sha256": "bc5cb494e5e07d3b6ce1c2ed65fb1067fe03ad78bf8094403dd3129ec833185d"
+    }
+  ]
+}

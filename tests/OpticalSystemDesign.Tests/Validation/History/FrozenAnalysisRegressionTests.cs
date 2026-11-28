@@ -306,6 +306,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void SpotDiagramPreservesFrozenRelativeRayCoordinatesAcrossWavelengths(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -347,6 +348,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void RmsVsFieldSpotUsesRequestedDirectionalDensity(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -376,6 +378,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void RmsWavefrontVsFieldUsesDefinedFields(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -405,6 +408,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void IncidentAngleVsHeightMatchesFrozenReferencePointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -463,6 +467,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void IncoherentIrradianceMatchesFrozenReferencePixelForPixel(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -527,6 +532,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void RadiantIntensityRawPowerPreservesFrozenHistoricalBins(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -596,6 +602,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void GeometricMtfRemainsCloseToFrozenReferenceWithIntensityWeighting(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -705,6 +712,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void RayFanMatchesFrozenReferencePointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -743,6 +751,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void BestFitSphereMatchesFrozenReferencePointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -770,6 +779,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void SampledMtfUsesZemaxAutocorrelationContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -808,6 +818,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ThroughFocusSpotPreservesFrozenRelativeRayCoordinatesAcrossWavelengths(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -856,6 +867,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ThroughFocusMtfUsesSampledZemaxAutocorrelationContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -916,6 +928,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void PupilAberrationCurvesMatchFrozenWithSharedZemaxDisplayScale(
         string sampleName,
         Func<Optic> createOptic)
@@ -963,6 +976,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void YYbarMatchesFrozenReferencePointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -988,6 +1002,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ChiefRayWavefrontMatchesFrozenReferencePointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1015,6 +1030,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(ReferenceSphereWavefrontCases))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ReferenceSphereWavefrontMatchesFrozenReferenceRayForRay(
         string sampleName,
         Func<Optic> createOptic,
@@ -1056,6 +1072,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FringeZernikeLowerTermsRemainCompatibleWithFrozenReference(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1076,6 +1093,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FftPsfRetainsFrozenReferenceGridWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1097,6 +1115,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FftMtfRetainsFrozenReferenceModulationSamplesWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1118,6 +1137,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void MmdftPsfRetainsFrozenReferenceGridWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1139,6 +1159,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void HuygensPsfUsesZemaxImageSurfaceTangentPlaneGrid(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1217,6 +1238,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void HuygensMtfUsesZemaxImageSurfaceTangentPlaneGrid(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1241,6 +1263,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void WavefrontAnalysisUsesFrozenOpdMapContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1256,6 +1279,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(ReferenceSphereWavefrontCases))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ReferenceSphereWavefrontAnalysisUsesFrozenOpdMapContract(
         string sampleName,
         Func<Optic> createOptic,
@@ -1296,6 +1320,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ZernikeAnalysisPreservesFrozenHeatmapShapeContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1310,6 +1335,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void PsfAnalysisUsesFftHeatmapContractWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1324,6 +1350,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void MtfAnalysisRetainsFrozenReferenceModulationWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1349,6 +1376,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void MmdftPsfAnalysisUsesHeatmapContractWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1370,6 +1398,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void HuygensPsfAnalysisUsesZemaxHeatmapContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1398,6 +1427,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void HuygensMtfAnalysisUsesZemaxSeriesContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1427,6 +1457,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void JonesPupilMatchesFrozenReferencePointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();

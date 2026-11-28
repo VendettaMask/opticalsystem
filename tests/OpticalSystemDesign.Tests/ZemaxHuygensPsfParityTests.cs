@@ -8,6 +8,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ZemaxHuygensPsfParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedAnalysisSettingsMatchZemaxHuygensPsf()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

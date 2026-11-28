@@ -290,6 +290,7 @@ public sealed class DirectionalSagOperandTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedSagTableValidatesOnlyItsZeroTiltSphericalCase()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

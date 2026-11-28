@@ -523,12 +523,14 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
 
     public void FitView()
     {
+        _objectFitScene = null;
         _viewport.Reset();
         InvalidateVisual();
     }
 
     public void SetViewPreset(OpticSceneViewPreset preset)
     {
+        _objectFitScene = null;
         (_yaw, _pitch) = PresetAngles(preset);
         _viewport.Reset();
         ViewOrientationChanged?.Invoke(this, EventArgs.Empty);
@@ -560,6 +562,8 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         _rotating = ViewMode == OpticSceneViewMode.ThreeDimensional
             && !e.KeyModifiers.HasFlag(KeyModifiers.Shift);
         _lastPointer = point.Position;
+        _objectPress = point.Position;
+        _objectDrag = false;
         e.Pointer.Capture(this);
         e.Handled = true;
     }
@@ -573,6 +577,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         }
 
         var position = e.GetPosition(this);
+        if (Math.Pow(position.X - _objectPress.X, 2) + Math.Pow(position.Y - _objectPress.Y, 2) > 16) _objectDrag = true;
         var delta = position - _lastPointer;
         _lastPointer = position;
         if (_rotating)
@@ -599,6 +604,8 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         }
 
         _dragging = false;
+        if (!_objectDrag && ViewMode == OpticSceneViewMode.ThreeDimensional)
+            PickObjectAt(e.GetPosition(this), e.KeyModifiers.HasFlag(KeyModifiers.Control));
         e.Pointer.Capture(null);
         e.Handled = true;
     }
@@ -886,15 +893,37 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         var height = Math.Max(1, Bounds.Height - (padding * 2));
         var centerX = padding + (width / 2.0);
         var centerY = padding + (height / 2.0);
-        var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
-        var projectedWidth = zSpan + (scene.XExtent * 1.4);
-        var projectedHeight = (scene.YExtent * 2.0 * VerticalStretch) + (scene.XExtent * 1.4);
+        var boundsPoints = FitObjectBounds ? scene.Surfaces.SelectMany(s => s.Faces.SelectMany(f => f.Points)).ToArray() : [];
+        var xCenter = boundsPoints.Length == 0 ? 0 : (boundsPoints.Min(p => p.X) + boundsPoints.Max(p => p.X)) / 2;
+        var yCenter = boundsPoints.Length == 0 ? 0 : (boundsPoints.Min(p => p.Y) + boundsPoints.Max(p => p.Y)) / 2;
+        var zMin = boundsPoints.Length == 0 ? scene.ZMin : boundsPoints.Min(p => p.Z);
+        var zMax = boundsPoints.Length == 0 ? scene.ZMax : boundsPoints.Max(p => p.Z);
+        var xExtent = boundsPoints.Length == 0 ? scene.XExtent : Math.Max(1, (boundsPoints.Max(p => p.X) - boundsPoints.Min(p => p.X)) / 2);
+        var yExtent = boundsPoints.Length == 0 ? scene.YExtent : Math.Max(1, (boundsPoints.Max(p => p.Y) - boundsPoints.Min(p => p.Y)) / 2);
+        var zSpan = Math.Max(1, zMax - zMin);
+        var projectedWidth = zSpan + (xExtent * 1.4);
+        var projectedHeight = (yExtent * 2.0 * VerticalStretch) + (xExtent * 1.4);
         var scale = 0.88 * Math.Min(width / Math.Max(1, projectedWidth), height / Math.Max(1, projectedHeight));
-        var zCenter = scene.ZMin + (zSpan / 2.0);
+        var zCenter = zMin + (zSpan / 2.0);
+
+        if (FitObjectBounds && boundsPoints.Length > 0)
+        {
+            if (!ReferenceEquals(_objectFitScene, scene) || _objectFitSize != Bounds.Size || _objectFitStretch != VerticalStretch)
+            {
+                var projected = boundsPoints.Select(p => ProjectDirectionToView(new Layout3DPoint(p.X - xCenter,
+                    (p.Y - yCenter) * VerticalStretch, p.Z - zCenter))).ToArray();
+                var fitWidth = Math.Max(1, projected.Max(p => Math.Abs(p.X)) * 2);
+                var fitHeight = Math.Max(1, projected.Max(p => Math.Abs(p.Y)) * 2);
+                _objectFitScale = 0.9 * Math.Min(width / fitWidth, height / fitHeight);
+                _objectFitScene = scene; _objectFitSize = Bounds.Size; _objectFitStretch = VerticalStretch;
+            }
+            // Keep the fitted camera scale stable while orbiting; refit is explicit.
+            scale = _objectFitScale;
+        }
 
         Point Project(Layout3DPoint point)
         {
-            var projected = ProjectDirectionToView(new Layout3DPoint(point.X, point.Y * VerticalStretch, point.Z - zCenter));
+            var projected = ProjectDirectionToView(new Layout3DPoint(point.X - xCenter, (point.Y - yCenter) * VerticalStretch, point.Z - zCenter));
             return _viewport.Apply(
                 new Point(centerX + (projected.X * scale), centerY + (projected.Y * scale)),
                 Bounds.Size);
@@ -983,7 +1012,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         Draw3DSurfaces(
             context,
             scene.Surfaces.Where(surface => surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface
-                && (surface.SurfaceColor is not null || !elementSurfaceNumbers.Contains((surface.ConfigurationNumber, surface.SurfaceNumber))
+                && (surface.IsPolygonGroup || surface.SurfaceColor is not null || !elementSurfaceNumbers.Contains((surface.ConfigurationNumber, surface.SurfaceNumber))
                     || RenderMode == OpticSceneRenderMode.Wireframe)).ToArray(),
             Project,
             showMeridians: !solidModelStyle,
@@ -1007,7 +1036,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
         }
     }
 
-    private static void Draw3DNonSequentialObjects(
+    private void Draw3DNonSequentialObjects(
         DrawingContext context,
         IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
         Func<Layout3DPoint, Point> project,
@@ -1023,9 +1052,12 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             .Where(face => face.Points.Count >= 3)
             .OrderBy(face => face.Depth)
             .ToArray();
+        _objectPickFaces.Clear();
         foreach (var face in faces)
         {
-            var highlighted = face.Surface.SurfaceNumber == highlightedSurfaceNumber;
+            var highlighted = face.Surface.SurfaceNumber == highlightedSurfaceNumber || HighlightedObjectNumbers.Contains(face.Surface.SurfaceNumber);
+            if (ObjectPicked is not null)
+                _objectPickFaces.Add((face.Surface.SurfaceNumber, face.Points.Select(project).ToArray()));
             DrawProjectedPolygon(
                 context,
                 renderMode == OpticSceneRenderMode.Wireframe
@@ -1087,7 +1119,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
             }
 
             var pen = SurfacePenFor(surface);
-            DrawPolyline(context, pen, surface.Points, mapZ, mapY);
+            foreach (var contour in surface.Contours ?? [surface.Points]) DrawPolyline(context, pen, contour, mapZ, mapY);
         }
 
         foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber
@@ -1100,8 +1132,8 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                 DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfacePen);
                 continue;
             }
-            DrawPolyline(context, SelectedSurfaceHaloPen, highlighted.Points, mapZ, mapY);
-            DrawPolyline(context, SelectedSurfacePen, highlighted.Points, mapZ, mapY);
+            foreach (var contour in highlighted.Contours ?? [highlighted.Points]) DrawPolyline(context, SelectedSurfaceHaloPen, contour, mapZ, mapY);
+            foreach (var contour in highlighted.Contours ?? [highlighted.Points]) DrawPolyline(context, SelectedSurfacePen, contour, mapZ, mapY);
         }
     }
 
@@ -1677,7 +1709,7 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
     {
         foreach (var surface in surfaces.Where(surface => surface.SurfaceNumber != highlightedSurfaceNumber
                      && !surface.HideSurface && surface.Opacity > 0
-                     && (!solidModelStyle || surface.SurfaceColor is not null)))
+                     && (!solidModelStyle || surface.IsPolygonGroup || surface.SurfaceColor is not null)))
         {
             _ = GlassMaterials;
             var materialPen = !surface.IsReferencePlane && !surface.IsStandaloneStop
@@ -1715,6 +1747,13 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                     ? SolidLensEdgePen
                     : ThreeDWirePen);
         var clipSurface = cutawayEnabled && !surface.IsReferencePlane;
+        if (surface.IsPolygonGroup)
+        {
+            if (!surface.HideEdges)
+                foreach (var face in SurfaceFacesForRendering(surface, clipSurface))
+                    DrawPolyline3D(context, pen, face.Append(face[0]).ToArray(), project);
+            return;
+        }
         DrawPolyline3D(context, pen, surface.Rim, project, clipSurface);
         if (showMeridians && !surface.IsReferencePlane)
         {

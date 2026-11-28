@@ -57,15 +57,15 @@ public sealed class ZemaxVariableImportTests
     }
 
     [Fact]
-    public void VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding()
+    public void VariableIdentityRetainsSourceNumberAlongsideCoordinateBreak()
     {
         var source = Source.Replace("SURF 3", "SURF 4").Replace("SURF 2", "SURF 3")
             .Replace("SURF 1", "SURF 1\n  TYPE COORDBRK\n  DISZ 0\nSURF 2")
             .Replace("UNIT MM", "UNIT MM\nGLRS 2");
         var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
-        Assert.Equal(new[] { 0, 2, 3, 4 }, imported.SourceSurfaceNumbers[0]);
+        Assert.Equal(new[] { 0, 1, 2, 3, 4 }, imported.SourceSurfaceNumbers[0]);
         var runtime = new WorkbenchRuntime(imported.ActiveOptic);
-        Assert.All(runtime.GetMarkedOptimizationVariables(), variable => Assert.Equal(1, variable.SurfaceNumber));
+        Assert.All(runtime.GetMarkedOptimizationVariables(), variable => Assert.Equal(2, variable.SurfaceNumber));
     }
 
     [Fact]

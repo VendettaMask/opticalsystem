@@ -16,6 +16,7 @@ public sealed class FieldDefinitionParityTests
     private const double Tolerance = 2e-9;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays()
     {
         using var reference = LoadReference();
@@ -104,6 +105,7 @@ public sealed class FieldDefinitionParityTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ParaxialImageHeightUnitChiefRaysMatchFrozenReference()
     {
         using var reference = LoadReference();
@@ -141,6 +143,7 @@ public sealed class FieldDefinitionParityTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void NonImageFieldsMatchFrozenReferenceAndImageFieldsSatisfyTheLinearConjugates()
     {
         using var reference = LoadReference();

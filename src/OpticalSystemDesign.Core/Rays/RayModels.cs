@@ -42,6 +42,9 @@ public sealed record PolarizedRay(
     RealRay Ray,
     Matrix3x3 JonesMatrix);
 
+public readonly record struct CompoundRayInteraction(int FaceIndex, Vector3D Position,
+    Vector3D Direction, RayInteractionKind? InteractionKind);
+
 public sealed record RayTraceSample(
     int SurfaceNumber,
     string SurfaceLabel,
@@ -61,7 +64,11 @@ public sealed record RayTraceSample(
     // Both are absent on a miss; After is absent when stopping before interaction.
     // After is not the reflected path's medium.
     double? RefractiveIndexBefore = null,
-    double? RefractiveIndexAfter = null);
+    double? RefractiveIndexAfter = null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyList<CompoundRayInteraction>? CompoundInteractions { get; init; }
+}
 
 public sealed class RealRayBundle
 {

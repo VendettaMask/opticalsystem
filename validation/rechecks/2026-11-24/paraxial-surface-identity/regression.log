@@ -1,0 +1,74 @@
+D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\OpticalSystemDesign.Core.csproj : warning NU1900: 获取包漏洞数据时出错: 无法加载源 https://api.nuget.org/v3/index.json 的服务索引。
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.CameraImaging.Engine -> D:\optical system design\opticalsystem\labs\CameraImaging\src\OpticalSystemDesign.CameraImaging.Engine\bin\Release\net10.0\OpticalSystemDesign.CameraImaging.Engine.dll
+  OpticalSystemDesign.OpticalAssembly.Engine -> D:\optical system design\opticalsystem\labs\OpticalAssembly\src\OpticalSystemDesign.OpticalAssembly.Engine\bin\Release\net10.0\OpticalSystemDesign.OpticalAssembly.Engine.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+  {
+    "materializedFiles": 524,
+    "fixtureLayout": true,
+    "destination": "D:\\optical system design\\opticalsystem\\tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0",
+    "manifestSha256": "0b3052cc954a2716cc8997176e0d9ef495859cf64704e82f14b0e934f24a59b5",
+    "valid": true
+  }
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:01:30.15]     OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(theme: "Light", language: "zh-CN", typeCaption: "近轴面", focalCaption: "焦距") [FAIL]
+  失败 OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(theme: "Light", language: "zh-CN", typeCaption: "近轴面", focalCaption: "焦距") [5 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.Find[T](Control owner, String name) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 158
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.<>c__DisplayClass6_0.<<ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 137
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(String theme, String language, String typeCaption, String focalCaption) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 116
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:34.25]     OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(theme: "Dark", language: "en-US", typeCaption: "Paraxial", focalCaption: "Focal length") [FAIL]
+  失败 OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(theme: "Dark", language: "en-US", typeCaption: "Paraxial", focalCaption: "Focal length") [4 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.Find[T](Control owner, String name) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 158
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.<>c__DisplayClass6_0.<<ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 137
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(String theme, String language, String typeCaption, String focalCaption) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 116
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:40.22]     OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(theme: "Light", language: "ja-JP", typeCaption: "近軸面", focalCaption: "焦点距離") [FAIL]
+  失败 OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(theme: "Light", language: "ja-JP", typeCaption: "近軸面", focalCaption: "焦点距離") [5 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.Find[T](Control owner, String name) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 158
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.<>c__DisplayClass6_0.<<ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 137
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ParaxialSurfacePresentationTests.ActualGridAndPropertiesShowFocalLengthAndOpdWithoutReplacingTheLens(String theme, String language, String typeCaption, String focalCaption) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ParaxialSurfacePresentationTests.cs:line 116
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-24\paraxial-surface-identity\regression.trx
+
+失败!  - 失败:     3，通过:   112，已跳过:     0，总计:   115，持续时间: 1 m 38 s - OpticalSystemDesign.Tests.dll (net10.0)

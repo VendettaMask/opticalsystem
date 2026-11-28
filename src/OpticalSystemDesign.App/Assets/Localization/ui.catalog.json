@@ -630,6 +630,12 @@
     "Japanese": "Forbes Q の完全な定義または管理図面の参照を入力してください。偶数次、奇数次、円錐非球面は式と処方係数を自動表示します。"
   },
   {
+    "Source": "Fresnel 分裂",
+    "Chinese": "Fresnel 分裂",
+    "English": "Fresnel splitting",
+    "Japanese": "Fresnel分岐"
+  },
+  {
     "Source": "Fringe Zernike 面形不规则度",
     "Chinese": "Fringe Zernike 面形不规则度",
     "English": "Fringe Zernike surface irregularity",
@@ -1740,6 +1746,12 @@
     "Japanese": "X ビネッティング"
   },
   {
+    "Source": "X 焦距：{0} {1}\nY 焦距：{2} {3}\nOPD 模式：{4}",
+    "Chinese": "X 焦距：{0} {1}\nY 焦距：{2} {3}\nOPD 模式：{4}",
+    "English": "X focal length: {0} {1}\nY focal length: {2} {3}\nOPD mode: {4}",
+    "Japanese": "X焦点距離：{0} {1}\nY焦点距離：{2} {3}\nOPDモード：{4}"
+  },
+  {
     "Source": "X 相位 (°)",
     "Chinese": "X 相位 (°)",
     "English": "X Phase (°)",
@@ -1822,6 +1834,12 @@
     "Chinese": "XYZ 须用实测辐射度校准；镜面峰采用守恒的斜率配准，背景固定。校准与散射数据随工程和相机实验冻结。",
     "English": "XYZ requires measured radiometric calibration. Peaks use conservative slope registration; background stays fixed. Calibration and scattering data are frozen with projects and camera experiments.",
     "Japanese": "XYZには放射量校正が必要です。鏡面ピークには保存的な傾き配准を使用し、背景は固定します。校正と散乱データはプロジェクトとカメラ実験に保存されます。"
+  },
+  {
+    "Source": "XYZ 颜色已按非负光谱拟合导入，光谱权重随工程保存。",
+    "Chinese": "XYZ 颜色已按非负光谱拟合导入，光谱权重随工程保存。",
+    "English": "XYZ color imported using a nonnegative spectrum fit. Spectral weights are saved with the project.",
+    "Japanese": "XYZ色を非負のスペクトル適合で取り込みました。スペクトルの重みはプロジェクトに保存されます。"
   },
   {
     "Source": "X倾斜 = {0}，Y倾斜 = {1}",
@@ -2442,10 +2460,28 @@
     "Japanese": "{0} 視野 · 物体高 {1} mm"
   },
   {
+    "Source": "{0} 个匹配",
+    "Chinese": "{0} 个匹配",
+    "English": "{0} matches",
+    "Japanese": "{0} 件が一致"
+  },
+  {
     "Source": "{0} 个实体表面；{1} 个有限共轭。平面经前置镜片后也可能存在有限的平行光共轭。",
     "Chinese": "{0} 个实体表面；{1} 个有限共轭。平面经前置镜片后也可能存在有限的平行光共轭。",
     "English": "{0} physical surfaces; {1} finite conjugates. A plane behind preceding lenses may also have a finite collimated-light conjugate.",
     "Japanese": "{0}実体面、{1}有限共役。前段レンズを通した平面にも有限の平行光共役が存在する場合があります。"
+  },
+  {
+    "Source": "{0} 个对象",
+    "Chinese": "{0} 个对象",
+    "English": "{0} objects",
+    "Japanese": "{0} 個のオブジェクト"
+  },
+  {
+    "Source": "{0} 个对象 · {1} 个光源 · {2} 个探测器",
+    "Chinese": "{0} 个对象 · {1} 个光源 · {2} 个探测器",
+    "English": "Objects {0} · Sources {1} · Detectors {2}",
+    "Japanese": "{0} オブジェクト · {1} 光源 · {2} 検出器"
   },
   {
     "Source": "{0} 个折射率样本",
@@ -2464,6 +2500,12 @@
     "Chinese": "{0} 个波段任务 · {1} 项测量 · {2} 项取得曲线，{3} 项失败。失败项保留原因。\n测量通过表示 ROI 质量合格；独立工具对照、正式 MTF 与采样收敛尚待验证。",
     "English": "{0} band tasks · {1} measurements · {2} curves obtained, {3} failed. Failure reasons are retained.\nPassing means acceptable ROI quality; independent tools, formal MTF and sampling convergence remain unverified.",
     "Japanese": "{0}帯域タスク · {1}測定 · {2}曲線取得、{3}失敗。失敗理由を保持します。\n合格はROI品質の適合を意味し、独立ツール比較・正式MTF・サンプリング収束は未検証です。"
+  },
+  {
+    "Source": "{0} 个波长 · 主波长 {1} nm",
+    "Chinese": "{0} 个波长 · 主波长 {1} nm",
+    "English": "{0} wavelengths · primary {1} nm",
+    "Japanese": "{0} 波長 · 主波長 {1} nm"
   },
   {
     "Source": "{0} 个消光样本",
@@ -2520,6 +2562,12 @@
     "Japanese": "{0} 材料"
   },
   {
+    "Source": "{0} 条分支 · {1} 段 · {2}",
+    "Chinese": "{0} 条分支 · {1} 段 · {2}",
+    "English": "{0} branches · {1} segments · {2}",
+    "Japanese": "{0} 分岐 · {1} セグメント · {2}"
+  },
+  {
     "Source": "{0} 片",
     "Chinese": "{0} 片",
     "English": "{0} elements",
@@ -2560,6 +2608,12 @@
     "Chinese": "{0} 项完成；{1} 项失败或不适用",
     "English": "{0} completed; {1} failed or not applicable",
     "Japanese": "{0} 項目完了、{1} 項目失敗または対象外"
+  },
+  {
+    "Source": "{0} 项需要处理",
+    "Chinese": "{0} 项需要处理",
+    "English": "{0} items to resolve",
+    "Japanese": "要対応 {0} 件"
   },
   {
     "Source": "{0}{1} · 修订 {2} · Field {3} · {4} · {5}\n{6}MTF50：{7}；MTF10：{8}\n拟合边缘 {9}°，残差 {10} px；PSF 截取能量 {11}；SFR 与窗口含像元 MTF 最大差 {12}\n{13}采样检查：{14}（门限 {15}）\n{16}",
@@ -2964,6 +3018,12 @@
     "Japanese": "3D レイアウト"
   },
   {
+    "Source": "三维模型",
+    "Chinese": "三维模型",
+    "English": "3D model",
+    "Japanese": "3Dモデル"
+  },
+  {
     "Source": "三维模式直接在实际方形感光区内作 Gauss 积分；改变填充因子会移动采样点。整像元总 QE 需与感光面积相容；无微透镜模型时总 QE 不可超过填充比例。二维模式当前仅开放满填充，旧实验保留原网格算法供复算。有限采样需检查收敛。",
     "Chinese": "三维模式直接在实际方形感光区内作 Gauss 积分；改变填充因子会移动采样点。整像元总 QE 需与感光面积相容；无微透镜模型时总 QE 不可超过填充比例。二维模式当前仅开放满填充，旧实验保留原网格算法供复算。有限采样需检查收敛。",
     "English": "3D mode performs Gauss integration over the actual square photosensitive area; changing fill factor moves the sample points. Total QE per pixel must be compatible with the active area; without a microlens model it cannot exceed the fill factor. 2D mode currently supports full fill only; old experiments retain the original grid algorithm for replay. Check convergence with finite sampling.",
@@ -3124,6 +3184,12 @@
     "Chinese": "不保存",
     "English": "Don't save",
     "Japanese": "保存しない"
+  },
+  {
+    "Source": "不参与追迹",
+    "Chinese": "不参与追迹",
+    "English": "Exclude from tracing",
+    "Japanese": "追跡から除外"
   },
   {
     "Source": "不可加工",
@@ -3510,6 +3576,12 @@
     "Japanese": "この 2D ビューのみ切り替え、アクティブ構成は変更しません。"
   },
   {
+    "Source": "仅应用已修改的字段。位置使用各对象的局部坐标。",
+    "Chinese": "仅应用已修改的字段。位置使用各对象的局部坐标。",
+    "English": "Apply only edited fields. Positions use each object's local coordinates.",
+    "Japanese": "変更した項目のみ適用します。位置は各オブジェクトのローカル座標です。"
+  },
+  {
     "Source": "仅接收正面",
     "Chinese": "仅接收正面",
     "English": "Front-Face Reception Only",
@@ -3690,6 +3762,12 @@
     "Japanese": "下面"
   },
   {
+    "Source": "任务",
+    "Chinese": "任务",
+    "English": "Tasks",
+    "Japanese": "タスク"
+  },
+  {
     "Source": "任务 {0} · 已测量 {1}/{2} 个 ROI",
     "Chinese": "任务 {0} · 已测量 {1}/{2} 个 ROI",
     "English": "Task {0} · {1}/{2} ROI measured",
@@ -3700,6 +3778,12 @@
     "Chinese": "任意",
     "English": "Any",
     "Japanese": "任意"
+  },
+  {
+    "Source": "仿真",
+    "Chinese": "仿真",
+    "English": "Simulation",
+    "Japanese": "シミュレーション"
   },
   {
     "Source": "仿真图",
@@ -3778,6 +3862,12 @@
     "Chinese": "优化函数",
     "English": "Merit Function",
     "Japanese": "評価関数"
+  },
+  {
+    "Source": "优化变量按文件当前值导入；原变量标记保存在导入记录中。",
+    "Chinese": "优化变量按文件当前值导入；原变量标记保存在导入记录中。",
+    "English": "Optimization variables imported at their saved values. Original variable flags are retained in the import record.",
+    "Japanese": "最適化変数を保存時の値で取り込みました。元の変数フラグはインポート記録に保持されます。"
   },
   {
     "Source": "优化变量滑块",
@@ -3874,6 +3964,12 @@
     "Chinese": "位置 (mm)",
     "English": "Position (mm)",
     "Japanese": "位置 (mm)"
+  },
+  {
+    "Source": "位置 (mm) / 倾斜 (°)",
+    "Chinese": "位置 (mm) / 倾斜 (°)",
+    "English": "Position (mm) / Tilt (°)",
+    "Japanese": "位置 (mm) / 傾斜 (°)"
   },
   {
     "Source": "位置与光斑尺寸使用实际光线落点。优化后用独立种子验证；公差保留全部制造抽样和失败原因。所有追迹与补偿共用总预算。",
@@ -4368,6 +4464,12 @@
     "Japanese": "設計計画を保存"
   },
   {
+    "Source": "保存选择集",
+    "Chinese": "保存选择集",
+    "English": "Save selection set",
+    "Japanese": "選択セットを保存"
+  },
+  {
     "Source": "保存镀膜实验",
     "Chinese": "保存镀膜实验",
     "English": "Save Coating Experiment",
@@ -4626,6 +4728,12 @@
     "Japanese": "傾き Z"
   },
   {
+    "Source": "倾斜 {0}",
+    "Chinese": "倾斜 {0}",
+    "English": "Tilt {0}",
+    "Japanese": "傾斜 {0}"
+  },
+  {
     "Source": "倾斜/偏心",
     "Chinese": "倾斜/偏心",
     "English": "Tilt / Decenter",
@@ -4660,6 +4768,12 @@
     "Chinese": "偏振",
     "English": "Polarization",
     "Japanese": "偏光"
+  },
+  {
+    "Source": "偏振与相干",
+    "Chinese": "偏振与相干",
+    "English": "Polarization and coherence",
+    "Japanese": "偏光とコヒーレンス"
   },
   {
     "Source": "偏振加权（标量近似，Experimental）",
@@ -5244,6 +5358,12 @@
     "Japanese": "ルーメン"
   },
   {
+    "Source": "光学",
+    "Chinese": "光学",
+    "English": "Optics",
+    "Japanese": "光学"
+  },
+  {
     "Source": "光学不变量",
     "Chinese": "光学不变量",
     "English": "Optical invariant",
@@ -5382,6 +5502,12 @@
     "Japanese": "光学系の設計・解析・最適化"
   },
   {
+    "Source": "光学组件",
+    "Chinese": "光学组件",
+    "English": "Optical assembly",
+    "Japanese": "光学アセンブリ"
+  },
+  {
     "Source": "光学装调",
     "Chinese": "光学装调",
     "English": "Optical Alignment",
@@ -5506,6 +5632,12 @@
     "Chinese": "光源分析",
     "English": "Light Source Analysis",
     "Japanese": "光源解析"
+  },
+  {
+    "Source": "光源参数",
+    "Chinese": "光源参数",
+    "English": "Source parameters",
+    "Japanese": "光源パラメーター"
   },
   {
     "Source": "光源或界面设置已改变。",
@@ -5680,6 +5812,12 @@
     "Chinese": "光线箭头",
     "English": "Ray Arrows",
     "Japanese": "光線の矢印"
+  },
+  {
+    "Source": "光线路径",
+    "Chinese": "光线路径",
+    "English": "Ray paths",
+    "Japanese": "光線経路"
   },
   {
     "Source": "光线迹点",
@@ -6078,6 +6216,12 @@
     "Japanese": "すべてのレンズ"
   },
   {
+    "Source": "公共属性 · {0} 个对象",
+    "Chinese": "公共属性 · {0} 个对象",
+    "English": "Shared properties · {0} objects",
+    "Japanese": "共通プロパティ · {0} オブジェクト"
+  },
+  {
     "Source": "公司 Logo",
     "Chinese": "公司 Logo",
     "English": "Company Logo",
@@ -6304,6 +6448,12 @@
     "Chinese": "六阶补偿",
     "English": "Sixth-order compensation",
     "Japanese": "6次補償"
+  },
+  {
+    "Source": "共 {0} 条，行 {1}–{2}；详情见完整导入记录。",
+    "Chinese": "共 {0} 条，行 {1}–{2}；详情见完整导入记录。",
+    "English": "{0} records, lines {1}–{2}; see the complete import record for details.",
+    "Japanese": "{0} 件、行 {1}–{2}。詳細は完全なインポート記録をご覧ください。"
   },
   {
     "Source": "共享 Core 实际面型在共同净半口径处的切线角",
@@ -6642,6 +6792,12 @@
     "Japanese": "形状とバックフォーカス"
   },
   {
+    "Source": "几何与材料",
+    "Chinese": "几何与材料",
+    "English": "Geometry and material",
+    "Japanese": "形状と材料"
+  },
+  {
     "Source": "几何位图图像分析",
     "Chinese": "几何位图图像分析",
     "English": "Geometric Bitmap Image Analysis",
@@ -6670,6 +6826,12 @@
     "Chinese": "几何场景像 · 线性预览",
     "English": "Geometric Scene Image · Linear Preview",
     "Japanese": "幾何シーン像 · 線形プレビュー"
+  },
+  {
+    "Source": "几何对象",
+    "Chinese": "几何对象",
+    "English": "Geometry object",
+    "Japanese": "幾何オブジェクト"
   },
   {
     "Source": "几何建模",
@@ -6900,6 +7062,12 @@
     "Japanese": "解析光線数"
   },
   {
+    "Source": "分析尚未运行",
+    "Chinese": "分析尚未运行",
+    "English": "Analysis not run",
+    "Japanese": "解析未実行"
+  },
+  {
     "Source": "分析已更新",
     "Chinese": "分析已更新",
     "English": "Analysis Updated",
@@ -7056,6 +7224,18 @@
     "Japanese": "削除"
   },
   {
+    "Source": "删除分组",
+    "Chinese": "删除分组",
+    "English": "Delete folder",
+    "Japanese": "グループを削除"
+  },
+  {
+    "Source": "删除末行",
+    "Chinese": "删除末行",
+    "English": "Remove last row",
+    "Japanese": "最終行を削除"
+  },
+  {
     "Source": "删除此层",
     "Chinese": "删除此层",
     "English": "Delete This Layer",
@@ -7096,6 +7276,12 @@
     "Chinese": "删除选中",
     "English": "Delete Selected",
     "Japanese": "選択項目を削除"
+  },
+  {
+    "Source": "删除选择集",
+    "Chinese": "删除选择集",
+    "English": "Delete selection set",
+    "Japanese": "選択セットを削除"
   },
   {
     "Source": "制图标准",
@@ -7168,6 +7354,12 @@
     "Chinese": "前圆锥系数",
     "English": "Front Conic Constant",
     "Japanese": "前側円錐定数"
+  },
+  {
+    "Source": "前表面",
+    "Chinese": "前表面",
+    "English": "Front surface",
+    "Japanese": "前面"
   },
   {
     "Source": "前表面制造轮廓不可计算。",
@@ -7432,6 +7624,12 @@
     "Chinese": "单位：DIP",
     "English": "Unit: DIP",
     "Japanese": "単位：DIP"
+  },
+  {
+    "Source": "单光线光源",
+    "Chinese": "单光线光源",
+    "English": "Single ray source",
+    "Japanese": "単一光線源"
   },
   {
     "Source": "单光线追迹",
@@ -7824,6 +8022,12 @@
     "Japanese": "カタログガラス"
   },
   {
+    "Source": "参与追迹",
+    "Chinese": "参与追迹",
+    "English": "Include in tracing",
+    "Japanese": "追跡に含める"
+  },
+  {
     "Source": "参数",
     "Chinese": "参数",
     "English": "Parameters",
@@ -8082,10 +8286,28 @@
     "Japanese": "複屈折プリズム"
   },
   {
+    "Source": "双折射输入",
+    "Chinese": "双折射输入",
+    "English": "Birefringent In",
+    "Japanese": "複屈折入射"
+  },
+  {
+    "Source": "双折射输出",
+    "Chinese": "双折射输出",
+    "English": "Birefringent Out",
+    "Japanese": "複屈折出射"
+  },
+  {
     "Source": "双程条纹",
     "Chinese": "双程条纹",
     "English": "Double-pass fringes",
     "Japanese": "ダブルパス干渉縞"
+  },
+  {
+    "Source": "双角度光源",
+    "Chinese": "双角度光源",
+    "English": "Two-angle source",
+    "Japanese": "二角度光源"
   },
   {
     "Source": "双面优化流程",
@@ -8388,6 +8610,12 @@
     "Japanese": "製造性評価"
   },
   {
+    "Source": "可导入",
+    "Chinese": "可导入",
+    "English": "Ready to import",
+    "Japanese": "インポート可能"
+  },
+  {
     "Source": "可用",
     "Chinese": "可用",
     "English": "Available",
@@ -8608,6 +8836,12 @@
     "Chinese": "后圆锥系数",
     "English": "Rear Conic Constant",
     "Japanese": "後側円錐定数"
+  },
+  {
+    "Source": "后表面",
+    "Chinese": "后表面",
+    "English": "Back surface",
+    "Japanese": "後面"
   },
   {
     "Source": "后表面制造轮廓不可计算。",
@@ -9060,6 +9294,18 @@
     "Japanese": "グラフ設定"
   },
   {
+    "Source": "圆柱体",
+    "Chinese": "圆柱体",
+    "English": "Cylinder",
+    "Japanese": "円柱"
+  },
+  {
+    "Source": "圆柱体光源",
+    "Chinese": "圆柱体光源",
+    "English": "Volume cylinder source",
+    "Japanese": "円柱体積光源"
+  },
+  {
     "Source": "圆锥半角 (°)",
     "Chinese": "圆锥半角 (°)",
     "English": "Cone Half-Angle (°)",
@@ -9132,6 +9378,12 @@
     "Japanese": "面{0}の曲率ソルブ"
   },
   {
+    "Source": "场景",
+    "Chinese": "场景",
+    "English": "Scene",
+    "Japanese": "シーン"
+  },
+  {
     "Source": "场景具有独立对象、光源、探测器和波长；切换模式不会修改顺序处方。",
     "Chinese": "场景具有独立对象、光源、探测器和波长；切换模式不会修改顺序处方。",
     "English": "The scene has independent objects, sources, detectors and wavelengths; switching modes does not change the sequential prescription.",
@@ -9162,6 +9414,12 @@
     "Japanese": "シーンオブジェクト：{0}\n独立波長：{1}"
   },
   {
+    "Source": "场景已更新，请重载设置。",
+    "Chinese": "场景已更新，请重载设置。",
+    "English": "The scene has changed. Reload the settings.",
+    "Japanese": "シーンが更新されました。設定を再読み込みしてください。"
+  },
+  {
     "Source": "场景斜边",
     "Chinese": "场景斜边",
     "English": "Scene Slanted Edge",
@@ -9180,6 +9438,12 @@
     "Japanese": "シーンに有効な矩形検出器がありません。"
   },
   {
+    "Source": "场景结构",
+    "Chinese": "结构",
+    "English": "Structure",
+    "Japanese": "構造"
+  },
+  {
     "Source": "场景绝对波段",
     "Chinese": "场景绝对波段",
     "English": "Scene Band Powers",
@@ -9196,6 +9460,12 @@
     "Chinese": "场景计算已取消。",
     "English": "Scene calculation cancelled.",
     "Japanese": "シーン計算を中止しました。"
+  },
+  {
+    "Source": "场景设置",
+    "Chinese": "场景设置",
+    "English": "Scene settings",
+    "Japanese": "シーン設定"
   },
   {
     "Source": "场曲",
@@ -9262,6 +9532,12 @@
     "Chinese": "坐标轴",
     "English": "Axes",
     "Japanese": "座標軸"
+  },
+  {
+    "Source": "坐标间断",
+    "Chinese": "坐标间断",
+    "English": "Coordinate Break",
+    "Japanese": "座標ブレーク"
   },
   {
     "Source": "垂直",
@@ -9610,6 +9886,12 @@
     "Chinese": "多 ROI SFR",
     "English": "Multi-ROI SFR",
     "Japanese": "複数ROI SFR"
+  },
+  {
+    "Source": "多个值",
+    "Chinese": "多个值",
+    "English": "Multiple values",
+    "Japanese": "複数の値"
   },
   {
     "Source": "多候选竞争",
@@ -10008,6 +10290,12 @@
     "Japanese": "目標を設定 → 形態探索 → 候補を比較 → 改良"
   },
   {
+    "Source": "定位",
+    "Chinese": "定位",
+    "English": "Locate",
+    "Japanese": "位置を表示"
+  },
+  {
     "Source": "定位分支",
     "Chinese": "定位分支",
     "English": "Locate branch",
@@ -10338,6 +10626,12 @@
     "Japanese": "オブジェクト"
   },
   {
+    "Source": "对象 {0}",
+    "Chinese": "对象 {0}",
+    "English": "Object {0}",
+    "Japanese": "オブジェクト {0}"
+  },
+  {
     "Source": "对象 {0} · {1} · {2}",
     "Chinese": "对象 {0} · {1} · {2}",
     "English": "Object {0} · {1} · {2}",
@@ -10348,6 +10642,12 @@
     "Chinese": "对象 {0} 的属性已更新。",
     "English": "Properties updated for object {0}.",
     "Japanese": "オブジェクト{0}のプロパティを更新しました。"
+  },
+  {
+    "Source": "对象 {0}：{1} · {2}",
+    "Chinese": "对象 {0}：{1} · {2}",
+    "English": "Object {0}: {1} · {2}",
+    "Japanese": "オブジェクト {0}：{1} · {2}"
   },
   {
     "Source": "对象属性",
@@ -10368,10 +10668,22 @@
     "Japanese": "オブジェクトデータ"
   },
   {
+    "Source": "对象表",
+    "Chinese": "对象表",
+    "English": "Object table",
+    "Japanese": "オブジェクト表"
+  },
+  {
     "Source": "对零件的要求",
     "Chinese": "对零件的要求",
     "English": "Part Requirements",
     "Japanese": "部品要件"
+  },
+  {
+    "Source": "寻常光",
+    "Chinese": "寻常光",
+    "English": "Ordinary Ray",
+    "Japanese": "常光線"
   },
   {
     "Source": "导入",
@@ -10552,6 +10864,12 @@
     "Chinese": "导入绝对 QE 曲线",
     "English": "Import Absolute QE Curve",
     "Japanese": "絶対QE曲線を読み込む"
+  },
+  {
+    "Source": "导入说明",
+    "Chinese": "导入说明",
+    "English": "Import notes",
+    "Japanese": "インポート情報"
   },
   {
     "Source": "导入起点",
@@ -11280,6 +11598,12 @@
     "Japanese": "プロジェクト復元用コピーは未保存：{0}"
   },
   {
+    "Source": "工程根目录",
+    "Chinese": "工程根目录",
+    "English": "Project root",
+    "Japanese": "プロジェクトルート"
+  },
+  {
     "Source": "工艺说明",
     "Chinese": "工艺说明",
     "English": "Manufacturing Notes",
@@ -11430,6 +11754,12 @@
     "Japanese": "実装済み：sRGB入力デコード、650/550/450 nmの3狭帯域、現在レンズの共有Core結像または理想対照、光電子変換、Poissonショットノイズ、読み出しノイズ、暗電流、PRNU/DSNU、飽和容量、ADC、Bayer、双線形デモザイク、RGBゲイン、ボックスノイズ除去、アンシャープマスク、Gamma。\n\nJSONセンサーパラメータとCSV絶対QE曲線に対応します。各CFA画素タイプは650/550/450 nmの3入力帯域に応答し、光電子を累積します。読み込み曲線は固定QEを置き換え、重複乗算しません。曲線がない場合は従来の独立3帯域応答を使用します。\n\n連続スペクトル：光源W/m²/nm、材質反射率、QEを読み込みます。単一材質または最大16種類の光源平面ラベル領域に対応します。波長ごとに材質反射率を適用してから共有光学を呼び出し、材質境界を越えてぼけが広がります。全折点を統合して区分3点Gauss-Legendre積分を行います。画像は線形グレースケールの空間パターンとなり、RGBからスペクトルを逆算しません。\n\n完全な実験の保存・読み込みと、固定レンズ・入力・光源・材質・センサー・ISPによるA/B再計算に対応します。既知ゲインのRAW暗・フラット画像からスカラーパラメータを推定し、測定条件と元フレームを保持します。画素別補正と内蔵実測センサーライブラリはありません。\n\n3Dシーン：不透明な矩形・球・直方体、点光源、Lambertian直接反射、遮蔽、異なる物体深度に対応し、幾何結像または有限セルのスカラーHuygens回折を使用します。実物点とレンズ光路長を用い、同じ点・波長内で複素電場を加算し、異なる点・波長間では強度を加算して感光面積とRAW/ISPへ接続します。感光領域は2×2/4×4 Gauss積分に対応し、光源・瞳・画素・有限窓の収束は個別確認が必要です。V5/V6/V7は元の再計算規則を保持します。一般BSDF・多重反射、ベクトル偏光回折、角度QE、マイクロレンズ、動的シャッター、迷光結合、メーカーISPはここには含まれません。出典の読み込みは実測の検証を意味しません。\n\n対照：無雑音結果は同一の光学像・露光・ADC・ISPを使用し、ランダムノイズと固定不均一性のみ無効化します。A/Bは各パラメータとレンズ改訂を保持します。同じシードで再現可能です。電子画像とRAWは画像別ピーク正規化をしません。\n\n公開機能参考（数値認証ではありません）：\nDeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/\nKeysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html\nSpeos sensor examples — https://optics.ansys.com/hc/en-us/articles/20419350770067\nEMVA 1288 — https://www.emva.org/standards-technology/emva-1288/\n\n検証根拠：独立した光子・電子数の式、露光・ゲイン制御、暗・フラット統計、既知のBayer色パッチ、無雑音・A/B対照。EMVA適合や商用ソフトウェアとの結果一致を主張しません。"
   },
   {
+    "Source": "已导入 Zemax NSC 场景。",
+    "Chinese": "已导入 Zemax NSC 场景。",
+    "English": "Zemax NSC scene imported.",
+    "Japanese": "Zemax NSCシーンを読み込みました。"
+  },
+  {
     "Source": "已导入 {0} 个装调阶段。请按系统评价值设置验收上限。",
     "Chinese": "已导入 {0} 个装调阶段。请按系统评价值设置验收上限。",
     "English": "Imported {0} alignment stages. Set the upper acceptance limit for system merit.",
@@ -11458,6 +11788,12 @@
     "Chinese": "已应用公差脚本",
     "English": "Tolerance script applied",
     "Japanese": "公差スクリプトを適用済み"
+  },
+  {
+    "Source": "已应用非序列场景设置。",
+    "Chinese": "已应用非序列场景设置。",
+    "English": "Non-sequential scene settings applied.",
+    "Japanese": "非順次シーン設定を適用しました。"
   },
   {
     "Source": "已恢复单材质输入，A 对照保留。",
@@ -11530,6 +11866,12 @@
     "Chinese": "已收紧",
     "English": "Tightened",
     "Japanese": "縮小済み"
+  },
+  {
+    "Source": "已映射",
+    "Chinese": "已映射",
+    "English": "Mapped",
+    "Japanese": "変換済み"
   },
   {
     "Source": "已是最后一个结构",
@@ -11680,6 +12022,12 @@
     "Chinese": "已重新读取当前单元格。",
     "English": "Current cell reloaded.",
     "Japanese": "現在のセルを再読み込みしました。"
+  },
+  {
+    "Source": "已隔离 {0} 个对象",
+    "Chinese": "已隔离 {0} 个对象",
+    "English": "Isolated {0} objects",
+    "Japanese": "{0} オブジェクトを分離表示"
   },
   {
     "Source": "布局",
@@ -12600,6 +12948,12 @@
     "Japanese": "カラーチャート"
   },
   {
+    "Source": "径向光源",
+    "Chinese": "径向光源",
+    "English": "Radial source",
+    "Japanese": "放射分布光源"
+  },
+  {
     "Source": "必要输入随工程收集，计算结果可按需选择。",
     "Chinese": "必要输入随工程收集，计算结果可按需选择。",
     "English": "Required inputs are collected with the project. Select the results to include.",
@@ -13012,6 +13366,12 @@
     "Chinese": "所选厚度乘倍数",
     "English": "Scale Selected Thickness",
     "Japanese": "選択層の膜厚を倍率変更"
+  },
+  {
+    "Source": "所选对象当前不可见。",
+    "Chinese": "所选对象当前不可见。",
+    "English": "The selected objects are not currently visible.",
+    "Japanese": "選択したオブジェクトは現在非表示です。"
   },
   {
     "Source": "所选玻璃缺少此分析所需的数据",
@@ -13812,6 +14172,12 @@
     "Japanese": "検出器パワー入力"
   },
   {
+    "Source": "探测器参数",
+    "Chinese": "探测器参数",
+    "English": "Detector parameters",
+    "Japanese": "検出器パラメーター"
+  },
+  {
     "Source": "探测器和当前追迹结果已清空。",
     "Chinese": "探测器和当前追迹结果已清空。",
     "English": "Detectors and current trace results cleared.",
@@ -13954,6 +14320,12 @@
     "Chinese": "搜索厚度扰动 (%)",
     "English": "Search Thickness Perturbation (%)",
     "Japanese": "探索膜厚摂動 (%)"
+  },
+  {
+    "Source": "搜索名称、材料或编号…",
+    "Chinese": "搜索名称、材料或编号…",
+    "English": "Search name, material or number…",
+    "Japanese": "名前、材料、番号を検索…"
   },
   {
     "Source": "搜索命令、面板或动作",
@@ -14352,6 +14724,12 @@
     "Japanese": "システム"
   },
   {
+    "Source": "整机 · {0} 个对象",
+    "Chinese": "整机 · {0} 个对象",
+    "English": "Full scene · {0} objects",
+    "Japanese": "全体 · {0} オブジェクト"
+  },
+  {
     "Source": "整机合格余量",
     "Chinese": "整机合格余量",
     "English": "System acceptance margin",
@@ -14368,6 +14746,12 @@
     "Chinese": "整片",
     "English": "Whole Plate",
     "Japanese": "全体"
+  },
+  {
+    "Source": "整理",
+    "Chinese": "整理",
+    "English": "Organize",
+    "Japanese": "整理"
   },
   {
     "Source": "文件",
@@ -14506,6 +14890,18 @@
     "Chinese": "新建 / 示例格式",
     "English": "New / Example Format",
     "Japanese": "新規 / 書式例"
+  },
+  {
+    "Source": "新建分组",
+    "Chinese": "新建分组",
+    "English": "New folder",
+    "Japanese": "新規グループ"
+  },
+  {
+    "Source": "新建子分组",
+    "Chinese": "新建子分组",
+    "English": "New subfolder",
+    "Japanese": "新規サブグループ"
   },
   {
     "Source": "新建示例任务",
@@ -14716,6 +15112,12 @@
     "Chinese": "无法完成更新，请稍后重试或从发布页手动安装。",
     "English": "The update could not be completed. Retry later or install from the releases page.",
     "Japanese": "更新できませんでした。後で再試行するか、リリースページからインストールしてください。"
+  },
+  {
+    "Source": "无法导入此文件。",
+    "Chinese": "无法导入此文件。",
+    "English": "Unable to import this file.",
+    "Japanese": "このファイルを読み込めません。"
   },
   {
     "Source": "无法打开 IMA/BIM 图像：{0}",
@@ -15090,6 +15492,12 @@
     "Japanese": "選択した構成を表示"
   },
   {
+    "Source": "显示整机",
+    "Chinese": "显示整机",
+    "English": "Show full scene",
+    "Japanese": "全体を表示"
+  },
+  {
     "Source": "显示方式",
     "Chinese": "显示方式",
     "English": "Display Mode",
@@ -15228,6 +15636,18 @@
     "Japanese": "ライト"
   },
   {
+    "Source": "晶轴方向",
+    "Chinese": "晶轴方向",
+    "English": "Crystal Axis",
+    "Japanese": "結晶軸方向"
+  },
+  {
+    "Source": "晶轴显示长度",
+    "Chinese": "晶轴显示长度",
+    "English": "Axis Display Length",
+    "Japanese": "結晶軸の表示長"
+  },
+  {
     "Source": "智能初始结构实验室",
     "Chinese": "智能初始结构实验室",
     "English": "Initial Structure Laboratory",
@@ -15358,6 +15778,12 @@
     "Chinese": "曲面较陡，建议确认磨削工具、抛光头可达性和检测补偿能力。",
     "English": "The surface is steep. Confirm tool access, polishing access, and inspection compensation.",
     "Japanese": "急な曲面です。研削工具、研磨工具の到達性、検査補正能力を確認してください。"
+  },
+  {
+    "Source": "更多",
+    "Chinese": "更多",
+    "English": "More",
+    "Japanese": "その他"
   },
   {
     "Source": "更新叉丝图像",
@@ -15640,6 +16066,12 @@
     "Chinese": "最大活动分支",
     "English": "Maximum Active Branches",
     "Japanese": "有効分岐数の上限"
+  },
+  {
+    "Source": "最大源光线总数",
+    "Chinese": "最大源光线总数",
+    "English": "Total source ray limit",
+    "Japanese": "総光源光線数の上限"
   },
   {
     "Source": "最大漂移",
@@ -16062,6 +16494,12 @@
     "Japanese": "有効項数"
   },
   {
+    "Source": "有未应用的更改",
+    "Chinese": "有未应用的更改",
+    "English": "Unapplied changes",
+    "Japanese": "未適用の変更あり"
+  },
+  {
     "Source": "望远镜",
     "Chinese": "望远镜",
     "English": "Telescopes",
@@ -16464,6 +16902,12 @@
     "Japanese": "条件が変更されました。全画面実験を再生成してください。"
   },
   {
+    "Source": "条目 {0}–{1}",
+    "Chinese": "条目 {0}–{1}",
+    "English": "Items {0}–{1}",
+    "Japanese": "項目 {0}–{1}"
+  },
+  {
     "Source": "条纹度",
     "Chinese": "条纹度",
     "English": "Striae Grade",
@@ -16608,6 +17052,12 @@
     "Japanese": "原図を表示"
   },
   {
+    "Source": "查看对象与资源，确认后将场景导入工程。完整原始记录可另存。",
+    "Chinese": "查看对象与资源，确认后将场景导入工程。完整原始记录可另存。",
+    "English": "Review the objects and assets, then import the scene. Save the full original record separately.",
+    "Japanese": "オブジェクトとアセットを確認してシーンを取り込みます。元の完全な記録は別途保存できます。"
+  },
+  {
     "Source": "查看过期光线",
     "Chinese": "查看过期光线",
     "English": "View Stale Rays",
@@ -16636,6 +17086,12 @@
     "Chinese": "标准点列图",
     "English": "Standard Spot Diagram",
     "Japanese": "標準スポットダイアグラム"
+  },
+  {
+    "Source": "标准透镜",
+    "Chinese": "标准透镜",
+    "English": "Standard lens",
+    "Japanese": "標準レンズ"
   },
   {
     "Source": "标准面",
@@ -16858,6 +17314,18 @@
     "Chinese": "椭圆",
     "English": "Elliptical",
     "Japanese": "楕円"
+  },
+  {
+    "Source": "椭圆面光源",
+    "Chinese": "椭圆面光源",
+    "English": "Elliptical source",
+    "Japanese": "楕円面光源"
+  },
+  {
+    "Source": "椭球体光源",
+    "Chinese": "椭球体光源",
+    "English": "Volume ellipsoid source",
+    "Japanese": "楕円体積光源"
   },
   {
     "Source": "構成数: {0}    現在の面数: {1}",
@@ -18252,6 +18720,12 @@
     "Japanese": "変数を追加"
   },
   {
+    "Source": "添加对象",
+    "Chinese": "添加对象",
+    "English": "Add object",
+    "Japanese": "オブジェクトを追加"
+  },
+  {
     "Source": "添加层",
     "Chinese": "添加层",
     "English": "Add layer",
@@ -18516,6 +18990,12 @@
     "Japanese": "点"
   },
   {
+    "Source": "点光源",
+    "Chinese": "点光源",
+    "English": "Point source",
+    "Japanese": "点光源"
+  },
+  {
     "Source": "点光源功率倍率",
     "Chinese": "点光源功率倍率",
     "English": "Light Power Scale",
@@ -18610,6 +19090,12 @@
     "Chinese": "焦距容差 %",
     "English": "Focal Tolerance / %",
     "Japanese": "焦点距離許容差 / %"
+  },
+  {
+    "Source": "焦距：{0} {1}\nOPD 模式：{2}",
+    "Chinese": "焦距：{0} {1}\nOPD 模式：{2}",
+    "English": "Focal length: {0} {1}\nOPD mode: {2}",
+    "Japanese": "焦点距離：{0} {1}\nOPDモード：{2}"
   },
   {
     "Source": "焦面 FFT 再成像",
@@ -18816,6 +19302,18 @@
     "Japanese": "特殊"
   },
   {
+    "Source": "特殊面型使用独立交互模型，不能通过几何类型切换替换。",
+    "Chinese": "特殊面型使用独立交互模型，不能通过几何类型切换替换。",
+    "English": "This surface uses a dedicated interaction model and cannot be replaced through the geometry selector.",
+    "Japanese": "この面は専用の相互作用モデルを使用するため、形状の切り替えでは置換できません。"
+  },
+  {
+    "Source": "特殊面型参数按导入值保留；此处只读。",
+    "Chinese": "特殊面型参数按导入值保留；此处只读。",
+    "English": "Special surface parameters retain their imported values and are read-only here.",
+    "Japanese": "特殊面のパラメータはインポート値を保持し、ここでは読み取り専用です。"
+  },
+  {
     "Source": "状态",
     "Chinese": "状态",
     "English": "Status",
@@ -18874,6 +19372,12 @@
     "Chinese": "环境",
     "English": "Environment",
     "Japanese": "環境"
+  },
+  {
+    "Source": "环境介质",
+    "Chinese": "环境介质",
+    "English": "Ambient medium",
+    "Japanese": "周囲媒質"
   },
   {
     "Source": "环形",
@@ -18940,6 +19444,12 @@
     "Chinese": "玻璃：",
     "English": "Glass:",
     "Japanese": "ガラス："
+  },
+  {
+    "Source": "球体",
+    "Chinese": "球体",
+    "English": "Sphere",
+    "Japanese": "球"
   },
   {
     "Source": "球差",
@@ -19200,6 +19710,12 @@
     "Japanese": "百分率"
   },
   {
+    "Source": "盒体",
+    "Chinese": "盒体",
+    "English": "Box",
+    "Japanese": "直方体"
+  },
+  {
     "Source": "目录",
     "Chinese": "目录",
     "English": "Contents",
@@ -19356,6 +19872,12 @@
     "Japanese": "コヒーレントパワーを総パワーで正規化"
   },
   {
+    "Source": "相干探测",
+    "Chinese": "相干探测",
+    "English": "Coherent detection",
+    "Japanese": "コヒーレント検出"
+  },
+  {
     "Source": "相干探测（同波长、同相干组）",
     "Chinese": "相干探测（同波长、同相干组）",
     "English": "Coherent Detection (Same Wavelength and Coherence Group)",
@@ -19506,6 +20028,18 @@
     "Japanese": "矩形"
   },
   {
+    "Source": "矩形体光源",
+    "Chinese": "矩形体光源",
+    "English": "Volume rectangular source",
+    "Japanese": "直方体積光源"
+  },
+  {
+    "Source": "矩形平面",
+    "Chinese": "矩形平面",
+    "English": "Rectangular plane",
+    "Japanese": "矩形平面"
+  },
+  {
     "Source": "矩形探测器",
     "Chinese": "矩形探测器",
     "English": "Rectangular detector",
@@ -19516,6 +20050,12 @@
     "Chinese": "矩形阵列",
     "English": "Rectangular Array",
     "Japanese": "矩形配列"
+  },
+  {
+    "Source": "矩形面光源",
+    "Chinese": "矩形面光源",
+    "English": "Rectangular source",
+    "Japanese": "矩形面光源"
   },
   {
     "Source": "矩阵",
@@ -19630,6 +20170,12 @@
     "Chinese": "移出当前",
     "English": "Remove from Current",
     "Japanese": "現在の一覧から削除"
+  },
+  {
+    "Source": "移到分组",
+    "Chinese": "移到分组",
+    "English": "Move to folder",
+    "Japanese": "グループへ移動"
   },
   {
     "Source": "移除",
@@ -19996,6 +20542,12 @@
     "Chinese": "类型参数",
     "English": "Type Parameters",
     "Japanese": "タイプ別パラメータ"
+  },
+  {
+    "Source": "类型待支持",
+    "Chinese": "类型待支持",
+    "English": "Unsupported type",
+    "Japanese": "未対応の種類"
   },
   {
     "Source": "粗",
@@ -20460,6 +21012,12 @@
     "Japanese": "結果値"
   },
   {
+    "Source": "结果可用",
+    "Chinese": "结果可用",
+    "English": "Results available",
+    "Japanese": "結果あり"
+  },
+  {
     "Source": "结果总览",
     "Chinese": "结果总览",
     "English": "Results overview",
@@ -20470,6 +21028,12 @@
     "Chinese": "结果指标",
     "English": "Result metrics",
     "Japanese": "結果指標"
+  },
+  {
+    "Source": "结果需更新",
+    "Chinese": "结果需更新",
+    "English": "Results need updating",
+    "Japanese": "結果の更新が必要"
   },
   {
     "Source": "绘制局部原点",
@@ -21966,6 +22530,12 @@
     "Japanese": "ビュー更新完了後に画像を書き出せます"
   },
   {
+    "Source": "视图设置",
+    "Chinese": "视图设置",
+    "English": "View settings",
+    "Japanese": "表示設定"
+  },
+  {
     "Source": "视场",
     "Chinese": "视场",
     "English": "Field",
@@ -22126,6 +22696,12 @@
     "Chinese": "视场：",
     "English": "Field:",
     "Japanese": "視野："
+  },
+  {
+    "Source": "视角",
+    "Chinese": "视角",
+    "English": "Orientation",
+    "Japanese": "視点"
   },
   {
     "Source": "角向",
@@ -22480,6 +23056,12 @@
     "Chinese": "设置已保存",
     "English": "Settings saved",
     "Japanese": "設定を保存しました"
+  },
+  {
+    "Source": "设置已应用，可撤销。",
+    "Chinese": "设置已应用，可撤销。",
+    "English": "Settings applied. Undo is available.",
+    "Japanese": "設定を適用しました。元に戻せます。"
   },
   {
     "Source": "设置已改变，请重新运行。",
@@ -22998,6 +23580,12 @@
     "Japanese": "検索語または対応状態フィルターを調整してください。"
   },
   {
+    "Source": "请输入场景名称和环境介质。",
+    "Chinese": "请输入场景名称和环境介质。",
+    "English": "Enter a scene name and ambient medium.",
+    "Japanese": "シーン名と周囲媒質を入力してください。"
+  },
+  {
     "Source": "请输入有效分支 ID。",
     "Chinese": "请输入有效分支 ID。",
     "English": "Enter a valid branch ID.",
@@ -23016,6 +23604,12 @@
     "Japanese": "有効な数値を入力してください。"
   },
   {
+    "Source": "请输入有效整数。",
+    "Chinese": "请输入有效整数。",
+    "English": "Enter a valid integer.",
+    "Japanese": "有効な整数を入力してください。"
+  },
+  {
     "Source": "请输入有限数值；曲率单位为 mm⁻¹，厚度和半口径为 mm。",
     "Chinese": "请输入有限数值；曲率单位为 mm⁻¹，厚度和半口径为 mm。",
     "English": "Enter a finite number; curvature is in mm⁻¹, thickness and semi-diameter in mm.",
@@ -23026,6 +23620,12 @@
     "Chinese": "请输入绑定评价表名称。",
     "English": "Enter a name for the bound merit table.",
     "Japanese": "割り当てる評価表の名前を入力してください。"
+  },
+  {
+    "Source": "请选择一个对象执行此操作。",
+    "Chinese": "请选择一个对象执行此操作。",
+    "English": "Select one object for this action.",
+    "Japanese": "この操作にはオブジェクトを1つ選択してください。"
   },
   {
     "Source": "请选择可编辑操作数；APER 请在系统选项中修改。",
@@ -23772,6 +24372,12 @@
     "Japanese": "ほぼ垂直なエッジ"
   },
   {
+    "Source": "近轴 XY 面",
+    "Chinese": "近轴 XY 面",
+    "English": "Paraxial XY",
+    "Japanese": "近軸XY面"
+  },
+  {
     "Source": "近轴倍率",
     "Chinese": "近轴倍率",
     "English": "Paraxial magnification",
@@ -23784,6 +24390,12 @@
     "Japanese": "近軸光線間隔"
   },
   {
+    "Source": "近轴参数按导入值保留；此处只读。",
+    "Chinese": "近轴参数按导入值保留；此处只读。",
+    "English": "Imported paraxial parameters are preserved; read-only here.",
+    "Japanese": "読み込んだ近軸パラメータを保持します。ここでは読み取り専用です。"
+  },
+  {
     "Source": "近轴找像位置；有限孔径像见右侧预览",
     "Chinese": "近轴找像位置；有限孔径像见右侧预览",
     "English": "Paraxial focus position; see the preview for the finite-aperture image",
@@ -23794,6 +24406,18 @@
     "Chinese": "近轴探测光线未到达目标面",
     "English": "Paraxial probe rays did not reach the target surface",
     "Japanese": "近軸探査光線が対象面に到達しませんでした"
+  },
+  {
+    "Source": "近轴透镜",
+    "Chinese": "近轴透镜",
+    "English": "Paraxial Lens",
+    "Japanese": "近軸レンズ"
+  },
+  {
+    "Source": "近轴面",
+    "Chinese": "近轴面",
+    "English": "Paraxial",
+    "Japanese": "近軸面"
   },
   {
     "Source": "返回叉丝像",
@@ -23916,6 +24540,12 @@
     "Japanese": "追跡制御"
   },
   {
+    "Source": "追迹模式",
+    "Chinese": "追迹模式",
+    "English": "Trace Mode",
+    "Japanese": "追跡モード"
+  },
+  {
     "Source": "追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。",
     "Chinese": "追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。",
     "English": "Trace results are saved automatically to a managed temporary database. Detectors, the database viewer and path analysis use the full analysis session; the 3D layout prepares its own layout rays. Leave the database path blank to use this storage.",
@@ -23926,6 +24556,18 @@
     "Chinese": "追迹结果自动保存到受管理的临时数据库，探测器、路径分析和3D布局将读取同一批光线。数据库路径留空即可。",
     "English": "Trace results are saved to a managed temporary database. Detectors, path analysis and 3D layout read the same rays. Leave the database path blank.",
     "Japanese": "追跡結果は管理された一時データベースに保存し、検出器・経路解析・3Dレイアウトは同じ光線を読み込みます。データベースパスは空欄で構いません。"
+  },
+  {
+    "Source": "追迹设置",
+    "Chinese": "追迹设置",
+    "English": "Trace settings",
+    "Japanese": "追跡設定"
+  },
+  {
+    "Source": "追迹限值",
+    "Chinese": "追迹限值",
+    "English": "Trace limits",
+    "Japanese": "追跡制限"
   },
   {
     "Source": "退出",
@@ -24148,6 +24790,12 @@
     "Chinese": "选择镀膜示例",
     "English": "Choose a coating example",
     "Japanese": "コーティング例を選択"
+  },
+  {
+    "Source": "选择集",
+    "Chinese": "选择集",
+    "English": "Selection sets",
+    "Japanese": "選択セット"
   },
   {
     "Source": "选择顶点像或球心像；坐标刻度为探测面毫米，不随叉丝自动缩放。",
@@ -24474,6 +25122,12 @@
     "Japanese": "やり直す"
   },
   {
+    "Source": "重命名",
+    "Chinese": "重命名",
+    "English": "Rename",
+    "Japanese": "名前を変更"
+  },
+  {
     "Source": "重放完成：归档没有旧结果可对照。当前场景未改变。",
     "Chinese": "重放完成：归档没有旧结果可对照。当前场景未改变。",
     "English": "Replay completed: the archive has no previous results to compare. Current scene unchanged.",
@@ -24580,6 +25234,12 @@
     "Chinese": "重置镀膜布局",
     "English": "Reset Coating Layout",
     "Japanese": "コーティング配置をリセット"
+  },
+  {
+    "Source": "重载",
+    "Chinese": "重载",
+    "English": "Reload",
+    "Japanese": "再読み込み"
   },
   {
     "Source": "重载玻璃库",
@@ -25242,6 +25902,12 @@
     "Japanese": "ソフトウェアに付属するローカルレンズ{0}件"
   },
   {
+    "Source": "隐藏",
+    "Chinese": "隐藏",
+    "English": "Hide",
+    "Japanese": "非表示"
+  },
+  {
     "Source": "隐藏到达此表面的绘图光线段，后续光线段继续显示。",
     "Chinese": "隐藏到达此表面的绘图光线段，后续光线段继续显示。",
     "English": "Hide incoming drawing segments at this surface; later segments remain visible.",
@@ -25260,6 +25926,12 @@
     "Japanese": "この面への光線を非表示"
   },
   {
+    "Source": "隔离所选",
+    "Chinese": "隔离所选",
+    "English": "Isolate selection",
+    "Japanese": "選択を分離表示"
+  },
+  {
     "Source": "零件名称",
     "Chinese": "零件名称",
     "English": "Part Name",
@@ -25270,6 +25942,12 @@
     "Chinese": "需要 1–256 个实体表面（不含物面和像面）。",
     "English": "Requires 1–256 physical surfaces, excluding object and image surfaces.",
     "Japanese": "物体面と像面を除く 1–256 個の実体面が必要です。"
+  },
+  {
+    "Source": "需要处理",
+    "Chinese": "需要处理",
+    "English": "Needs attention",
+    "Japanese": "要対応"
   },
   {
     "Source": "需评审",
@@ -25306,6 +25984,12 @@
     "Chinese": "非偏振（S/P 等权）",
     "English": "Unpolarized (Equal S/P Weights)",
     "Japanese": "無偏光（S/P等重み）"
+  },
+  {
+    "Source": "非寻常光",
+    "Chinese": "非寻常光",
+    "English": "Extraordinary Ray",
+    "Japanese": "異常光線"
   },
   {
     "Source": "非序列",
@@ -25348,6 +26032,12 @@
     "Chinese": "非序列对象 {0}    显示光线 {1}    Z 范围 {2} 至 {3} mm{4}",
     "English": "NSC objects {0}    Displayed rays {1}    Z range {2} to {3} mm{4}",
     "Japanese": "非順序オブジェクト {0}    表示光線 {1}    Z範囲 {2}～{3} mm{4}"
+  },
+  {
+    "Source": "非序列对象数据",
+    "Chinese": "非序列对象数据",
+    "English": "Non-sequential workspace",
+    "Japanese": "非順序ワークスペース"
   },
   {
     "Source": "非序列布局",
@@ -25936,6 +26626,12 @@
     "Chinese": "高斯",
     "English": "Gaussian",
     "Japanese": "ガウス"
+  },
+  {
+    "Source": "高斯光源",
+    "Chinese": "高斯光源",
+    "English": "Gaussian source",
+    "Japanese": "ガウス光源"
   },
   {
     "Source": "高斯同心环 · 旧实验",

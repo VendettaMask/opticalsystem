@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "date": "2026-11-23",
+  "scope": "NSC resources, tapered shared geometry and discrete source spectra; functional acceptance",
+  "baseCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "platform": "Windows x64",
+  "beforeReceipt": "../nsc-import-repair/results.json",
+  "files": 106,
+  "applicable": 4,
+  "beforeMappedObjects": 307,
+  "mappedObjects": 311,
+  "originalBytesPreserved": true,
+  "missingResourceFiles": 33,
+  "missingResourceNames": 29,
+  "userResourceState": "User confirmed original data folder temporarily absent on this computer.",
+  "tests": {
+    "passed": 51,
+    "failed": 0,
+    "skipped": 0,
+    "includesFirstStage37": true,
+    "filter": "NonSequentialImportAssetSpectrumTests | NonSequentialImportRepairTests | NonSequentialImportWindowRepairTests | NonSequentialIntegrationTests | NonSequentialColorFringesTests | NonSequentialExampleTests"
+  },
+  "build": {
+    "command": "dotnet build tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false",
+    "warnings": 0,
+    "errors": 0
+  },
+  "auditBuildWarnings": [
+    "NU1900: NuGet vulnerability source unavailable; build and audit completed normally."
+  ],
+  "localization": {
+    "translations": 4354,
+    "occurrences": 3963,
+    "missing": 0,
+    "errors": 0
+  },
+  "fullPrecisionMatrixRun": false,
+  "newExternalNumericalCapture": false,
+  "nativeUiEvidence": "../nsc-import-repair/README.md",
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+      "sha256": "feadb21b8c2f113c01289a63e0da0e50dddf11fd3cb12b768e4e00fe730e10ca"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs",
+      "sha256": "45dde250cc82182ffafd490141688b791b3834382eda96a731f76aa6ff88bb19"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Assets.cs",
+      "sha256": "1c8ce0b0e2970aff0a17c5269825ea3ab8cb98a6b9f41a517ac09bd91a236789"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Spectra.cs",
+      "sha256": "8b74260d37ee80598acad0db9f6d02ee032fb7f02820a2bdcdd84c0c369c36a8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialColorimetry.cs",
+      "sha256": "812c10df13f6aeb36a574484caeb6fc0c56f239a4e188f12c0a0cab0d65161ec"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportAssetSpectrumTests.cs",
+      "sha256": "d690e1965e268c6dddbc24807b67bd78310131f35972215123310731ce20559c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportRepairTests.cs",
+      "sha256": "07fe2c6a4ce41cacdf58312bf8efeb90451eee77ba0cde1d03cbfa3ebd11f787"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialImportWindowRepairTests.cs",
+      "sha256": "1c17fa55f74155f7cf1b579e949439b35191ffd8807864e13f20dc3599cbf9d8"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialIntegrationTests.cs",
+      "sha256": "5efc5bfaeb498167a432d02bae164bdfabf48d5145e285569a02ac6a7ac20530"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialColorFringesTests.cs",
+      "sha256": "41c143383b09e562c93dfbebf443a545e5bd71d219663eae8ba7a4c4a6b0df61"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialExampleTests.cs",
+      "sha256": "9d99a793164a01f1d8aeead713cd657d88d82083e1b0f44f7fa91822287b3f94"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.NscValidation/Program.cs",
+      "sha256": "f6e3b5d8eafd58a76a8c5d20b4c83d8901fe4dab5f03de15d5dff7d62e5e6f76"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "audit-build.log.gz",
+      "bytes": 349,
+      "sha256": "353b1564016cd808b68be7ef970b31edcdabbf82c3313e1c233d3958efc5e628"
+    },
+    {
+      "path": "audit.json.gz",
+      "bytes": 37492,
+      "sha256": "0d1d7fcedc7ca28fd4fe0d569b8f0780a2edd2b8612059e59137835a0103d9b1"
+    },
+    {
+      "path": "build.log.gz",
+      "bytes": 613,
+      "sha256": "64cf91c35ba298dedbecdbba1a7afe9df02c0f6a3eb8faa409440195d766b559"
+    },
+    {
+      "path": "functional.trx.gz",
+      "bytes": 11595,
+      "sha256": "bf40f4722248e8550a19519586ae0cd2fe5b09ce71e3d4619d85c6cf6fb2807d"
+    }
+  ]
+}

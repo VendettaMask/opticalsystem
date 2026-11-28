@@ -259,4 +259,7 @@
   <ItemGroup>
     <Compile Include="../../tools/validation/EvidenceFiles.cs" Link="Shared/EvidenceFiles.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="../../validation/acceptance-policy.json" Link="Fixtures/acceptance-policy.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

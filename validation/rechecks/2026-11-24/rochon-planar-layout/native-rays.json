@@ -1,0 +1,1964 @@
+{
+  "Scope": "Existing 2026 R1 captures; local positions, energy directions and geometric segment lengths only. No recapture or complete analysis certification.",
+  "Authority": "artifacts/zemax-sequential-corpus/20261021/full-v1",
+  "SourceSha256": "4ed8318a47f9f8fee3934d0bdc55f4c37b1ccc2b5445b8f2f1bb33268f239401",
+  "PolicySha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+  "PositionAbsoluteLimit": 1E-06,
+  "DirectionAbsoluteLimit": 1E-08,
+  "CoreAssemblySha256": "61ca751df683433cbae2b1cd5ae28b9dbf0205d1dd1a1a0b837afe03cfeea33b",
+  "Cases": [
+    {
+      "Id": "0156-005-rochon-prism-c1-primary-f1-w2-single-ray-trace",
+      "Configuration": 1,
+      "WaveIndex": 2,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "2",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "100e956baec2eefb9b27157116052dd840ceba580d7e63dc15721a970e89808d",
+      "NativeReportSha256": "9b0ccea60314aa425465f241574ac2e506da1ab603b007d0db8aacb8c76a9158",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 4.724176605463981E-11,
+      "MaximumDirectionDelta": 4.98533991866168E-11,
+      "MaximumSegmentLengthDelta": 2.224737727374304E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7267827441008106,
+            0.6868674128806054
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7267827441,
+            0.6868674129
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.9394597039479322E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            3.8870573995324653,
+            0,
+            0,
+            -0.02822440137911425,
+            0.9996016122269866
+          ],
+          "Native": [
+            2.4502697558E-16,
+            3.8870573995,
+            0,
+            0,
+            -0.0282244014,
+            0.9996016122
+          ],
+          "PositionDelta": 3.246514168608883E-11,
+          "DirectionDelta": 2.698663514877353E-11,
+          "ActualSegmentLength": 4.001594186196342,
+          "NativeSegmentLength": 4.0015941862,
+          "LengthDelta": 3.658406910744816E-12
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            3.1811661466103676,
+            0,
+            0,
+            -0.0414425695501466,
+            0.9991408876775494
+          ],
+          "Native": [
+            1.776445573E-15,
+            3.1811661466,
+            0,
+            0,
+            -0.0414425696,
+            0.9991408877
+          ],
+          "PositionDelta": 1.0367706693159562E-11,
+          "DirectionDelta": 4.98533991866168E-11,
+          "ActualSegmentLength": 25.009963663727138,
+          "NativeSegmentLength": 25.009963664,
+          "LengthDelta": 2.7286262138659367E-10
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            2.1442110469527584,
+            0,
+            0,
+            -0.0627961333640487,
+            0.9980263752198759
+          ],
+          "Native": [
+            1.776445573E-15,
+            2.144211047,
+            0,
+            -0,
+            -0.0627961334,
+            0.9980263752
+          ],
+          "PositionDelta": 4.724176605463981E-11,
+          "DirectionDelta": 3.595129749456305E-11,
+          "ActualSegmentLength": 25.021496275776673,
+          "NativeSegmentLength": 25.021496276,
+          "LengthDelta": 2.233271345630783E-10
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -4.1478203986304365,
+            0,
+            0,
+            -0.0627961333640487,
+            0.9980263752198759
+          ],
+          "Native": [
+            0,
+            -4.1478203986,
+            0,
+            -0,
+            -0.0627961334,
+            0.9980263752
+          ],
+          "PositionDelta": 3.043609808628389E-11,
+          "DirectionDelta": 3.595129749456305E-11,
+          "ActualSegmentLength": 100.19775276777526,
+          "NativeSegmentLength": 100.19775277,
+          "LengthDelta": 2.224737727374304E-09
+        }
+      ]
+    },
+    {
+      "Id": "0173-005-rochon-prism-c1-edge-f1-w1-single-ray-trace",
+      "Configuration": 1,
+      "WaveIndex": 1,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "1",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "93f183026a46a834c9b30a823e68e89f849b7fbc275174d65d52de52aec3ce1b",
+      "NativeReportSha256": "40b1f83fd87d9985617abbf44cc7113e942e3c6f8637d73487a62f8655444d0b",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 4.969935574195006E-11,
+      "MaximumDirectionDelta": 3.92540444593692E-11,
+      "MaximumSegmentLengthDelta": 5.748717057940667E-10,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865475
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452572389383022E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            1.3322676295501878E-15,
+            0,
+            -0.7273820021930327,
+            0.6862327760211216
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7273820022,
+            0.686232776
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 2.1121659976586216E-11,
+          "ActualSegmentLength": -6.280369834735101E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735101E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            3.8835631126496994,
+            0,
+            0,
+            -0.02909689686673722,
+            0.999576595660746
+          ],
+          "Native": [
+            2.4503310791E-16,
+            3.8835631126,
+            0,
+            0,
+            -0.0290968969,
+            0.9995765957
+          ],
+          "PositionDelta": 4.969935574195006E-11,
+          "DirectionDelta": 3.92540444593692E-11,
+          "ActualSegmentLength": 4.001694334745699,
+          "NativeSegmentLength": 4.0016943347,
+          "LengthDelta": 4.5699444228830544E-11
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            3.1558325667103104,
+            0,
+            0,
+            -0.04286037550409038,
+            0.9990810718913898
+          ],
+          "Native": [
+            1.7764900324E-15,
+            3.1558325667,
+            0,
+            0,
+            -0.0428603755,
+            0.9990810719
+          ],
+          "PositionDelta": 1.0310419185088904E-11,
+          "DirectionDelta": 8.610112622875477E-12,
+          "ActualSegmentLength": 25.010589592160624,
+          "NativeSegmentLength": 25.010589592,
+          "LengthDelta": 1.6062529084592825E-10
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            2.08333763336746,
+            0,
+            0,
+            -0.06360412722223102,
+            0.9979752076080339
+          ],
+          "Native": [
+            1.7764900324E-15,
+            2.0833376334,
+            0,
+            -0,
+            -0.0636041272,
+            0.9979752076
+          ],
+          "PositionDelta": 3.254019276255349E-11,
+          "DirectionDelta": 2.2231022578367288E-11,
+          "ActualSegmentLength": 25.02299433285405,
+          "NativeSegmentLength": 25.022994333,
+          "LengthDelta": 1.4594903063880338E-10
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -4.2899797333714025,
+            0,
+            0,
+            -0.06360412722223102,
+            0.9979752076080339
+          ],
+          "Native": [
+            0,
+            -4.2899797334,
+            0,
+            -0,
+            -0.0636041272,
+            0.9979752076
+          ],
+          "PositionDelta": 2.8597568757504632E-11,
+          "DirectionDelta": 2.2231022578367288E-11,
+          "ActualSegmentLength": 100.20289004942512,
+          "NativeSegmentLength": 100.20289005,
+          "LengthDelta": 5.748717057940667E-10
+        }
+      ]
+    },
+    {
+      "Id": "0177-005-rochon-prism-c1-edge-f1-w2-single-ray-trace",
+      "Configuration": 1,
+      "WaveIndex": 2,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "2",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "100e956baec2eefb9b27157116052dd840ceba580d7e63dc15721a970e89808d",
+      "NativeReportSha256": "9b0ccea60314aa425465f241574ac2e506da1ab603b007d0db8aacb8c76a9158",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 4.724176605463981E-11,
+      "MaximumDirectionDelta": 4.98533991866168E-11,
+      "MaximumSegmentLengthDelta": 2.224737727374304E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7267827441008106,
+            0.6868674128806054
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7267827441,
+            0.6868674129
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.9394597039479322E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            3.8870573995324653,
+            0,
+            0,
+            -0.02822440137911425,
+            0.9996016122269866
+          ],
+          "Native": [
+            2.4502697558E-16,
+            3.8870573995,
+            0,
+            0,
+            -0.0282244014,
+            0.9996016122
+          ],
+          "PositionDelta": 3.246514168608883E-11,
+          "DirectionDelta": 2.698663514877353E-11,
+          "ActualSegmentLength": 4.001594186196342,
+          "NativeSegmentLength": 4.0015941862,
+          "LengthDelta": 3.658406910744816E-12
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            3.1811661466103676,
+            0,
+            0,
+            -0.0414425695501466,
+            0.9991408876775494
+          ],
+          "Native": [
+            1.776445573E-15,
+            3.1811661466,
+            0,
+            0,
+            -0.0414425696,
+            0.9991408877
+          ],
+          "PositionDelta": 1.0367706693159562E-11,
+          "DirectionDelta": 4.98533991866168E-11,
+          "ActualSegmentLength": 25.009963663727138,
+          "NativeSegmentLength": 25.009963664,
+          "LengthDelta": 2.7286262138659367E-10
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            2.1442110469527584,
+            0,
+            0,
+            -0.0627961333640487,
+            0.9980263752198759
+          ],
+          "Native": [
+            1.776445573E-15,
+            2.144211047,
+            0,
+            -0,
+            -0.0627961334,
+            0.9980263752
+          ],
+          "PositionDelta": 4.724176605463981E-11,
+          "DirectionDelta": 3.595129749456305E-11,
+          "ActualSegmentLength": 25.021496275776673,
+          "NativeSegmentLength": 25.021496276,
+          "LengthDelta": 2.233271345630783E-10
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -4.1478203986304365,
+            0,
+            0,
+            -0.0627961333640487,
+            0.9980263752198759
+          ],
+          "Native": [
+            0,
+            -4.1478203986,
+            0,
+            -0,
+            -0.0627961334,
+            0.9980263752
+          ],
+          "PositionDelta": 3.043609808628389E-11,
+          "DirectionDelta": 3.595129749456305E-11,
+          "ActualSegmentLength": 100.19775276777526,
+          "NativeSegmentLength": 100.19775277,
+          "LengthDelta": 2.224737727374304E-09
+        }
+      ]
+    },
+    {
+      "Id": "0181-005-rochon-prism-c1-edge-f1-w3-single-ray-trace",
+      "Configuration": 1,
+      "WaveIndex": 3,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "3",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "9845856c7ca6614b74ac0d113a6269d24e7d780bbec764bf64d969a9f511da8b",
+      "NativeReportSha256": "4d27cb43f3dc04f30f8b8b82ae494d9b3dac17385f4828cb5bbd19f6e33339b8",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 4.640376971565274E-11,
+      "MaximumDirectionDelta": 4.974698430970648E-11,
+      "MaximumSegmentLengthDelta": 1.6369483546441188E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865475
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452572389383022E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            1.3322676295501878E-15,
+            0,
+            -0.7263824204730671,
+            0.687290753049747
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7263824205,
+            0.687290753
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 4.974698430970648E-11,
+          "ActualSegmentLength": -6.280369834735101E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735101E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            3.8893898019556956,
+            0,
+            0,
+            -0.02764198312291899,
+            0.9996178873794886
+          ],
+          "Native": [
+            2.450229862E-16,
+            3.889389802,
+            0,
+            0,
+            -0.0276419831,
+            0.9996178874
+          ],
+          "PositionDelta": 4.43045600206915E-11,
+          "DirectionDelta": 2.2918989622811026E-11,
+          "ActualSegmentLength": 4.001529034745519,
+          "NativeSegmentLength": 4.0015290347,
+          "LengthDelta": 4.551914400963142E-11
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            3.1980760641787835,
+            0,
+            0,
+            -0.04052959970068438,
+            0.9991783382100026
+          ],
+          "Native": [
+            1.77641665E-15,
+            3.1980760642,
+            0,
+            0,
+            -0.0405295997,
+            0.9991783382
+          ],
+          "PositionDelta": 2.121636200058674E-11,
+          "DirectionDelta": 1.0002554340360348E-11,
+          "ActualSegmentLength": 25.00955646715949,
+          "NativeSegmentLength": 25.009556467,
+          "LengthDelta": 1.594919751823909E-10
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            2.1840028464464036,
+            0,
+            0,
+            -0.062281808301563935,
+            0.9980586036674838
+          ],
+          "Native": [
+            1.77641665E-15,
+            2.1840028464,
+            0,
+            -0,
+            -0.0622818083,
+            0.9980586037
+          ],
+          "PositionDelta": 4.640376971565274E-11,
+          "DirectionDelta": 3.2516211945221585E-11,
+          "ActualSegmentLength": 25.020558436831944,
+          "NativeSegmentLength": 25.020558437,
+          "LengthDelta": 1.680540151483001E-10
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -4.056292870929521,
+            0,
+            0,
+            -0.062281808301563935,
+            0.9980586036674838
+          ],
+          "Native": [
+            0,
+            -4.0562928709,
+            0,
+            -0,
+            -0.0622818083,
+            0.9980586037
+          ],
+          "PositionDelta": 2.952127431399276E-11,
+          "DirectionDelta": 3.2516211945221585E-11,
+          "ActualSegmentLength": 100.19451726836306,
+          "NativeSegmentLength": 100.19451727,
+          "LengthDelta": 1.6369483546441188E-09
+        }
+      ]
+    },
+    {
+      "Id": "0186-005-rochon-prism-c2-primary-f1-w2-single-ray-trace",
+      "Configuration": 2,
+      "WaveIndex": 2,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "2",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "e3a8db74775fedf757c814c74a794f653567297f1cef1fa7e4ce86705f11ec63",
+      "NativeReportSha256": "fb78aacc6fc646213dca68110b286ce1fdc9987766160f44e536bfb5eecabcd2",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 7.618794484187674E-12,
+      "MaximumDirectionDelta": 4.887158733257735E-11,
+      "MaximumSegmentLengthDelta": 4.425530164553493E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            4.000000000000001,
+            0,
+            0,
+            0,
+            1.0000000000000002
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 2.220446049250313E-16,
+          "ActualSegmentLength": 3.999999999999999,
+          "NativeSegmentLength": 4,
+          "LengthDelta": 8.881784197001252E-16
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            4.000000000000001,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 24.999999999999993,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 7.105427357601002E-15
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            4.000000000000001,
+            0,
+            0,
+            -0.03996803834887158,
+            0.9992009587217893
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 4.8871580393683445E-11,
+          "ActualSegmentLength": 25,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -1.7763568394002505E-15,
+            0,
+            0,
+            -0.03996803834887159,
+            0.9992009587217895
+          ],
+          "Native": [
+            0,
+            0,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 1.7763568394002505E-15,
+          "DirectionDelta": 4.887158733257735E-11,
+          "ActualSegmentLength": 100.07996802557447,
+          "NativeSegmentLength": 100.07996803,
+          "LengthDelta": 4.425530164553493E-09
+        }
+      ]
+    },
+    {
+      "Id": "0203-005-rochon-prism-c2-edge-f1-w1-single-ray-trace",
+      "Configuration": 2,
+      "WaveIndex": 1,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "1",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "18154dff8fc830d43d443ee45496774bd308d7d3b2292c62a5b1857e62cdfc98",
+      "NativeReportSha256": "f478a6fd09eca7fcfa5eb88435fa3d37fc603c851c003082368cd8bc59176dca",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 7.618794484187674E-12,
+      "MaximumDirectionDelta": 4.887169835487981E-11,
+      "MaximumSegmentLengthDelta": 4.425530164553493E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865475
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452572389383022E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            1.3322676295501878E-15,
+            0,
+            -0.7071067811865477,
+            0.7071067811865475
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452572389383022E-11,
+          "ActualSegmentLength": -6.280369834735101E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735101E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            4.000000000000002,
+            0,
+            0,
+            -1.1102230246251565E-16,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 1.7763568394002505E-15,
+          "DirectionDelta": 1.1102230246251565E-16,
+          "ActualSegmentLength": 4,
+          "NativeSegmentLength": 4,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            3.999999999999999,
+            0,
+            0,
+            -1.6822753274854983E-16,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 1.6822753274854983E-16,
+          "ActualSegmentLength": 25,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            3.999999999999995,
+            0,
+            0,
+            -0.03996803834887169,
+            0.9992009587217893
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 4.884981308350689E-15,
+          "DirectionDelta": 4.887169141598591E-11,
+          "ActualSegmentLength": 25,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -1.8207657603852567E-14,
+            0,
+            0,
+            -0.0399680383488717,
+            0.9992009587217895
+          ],
+          "Native": [
+            0,
+            0,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 1.8207657603852567E-14,
+          "DirectionDelta": 4.887169835487981E-11,
+          "ActualSegmentLength": 100.07996802557447,
+          "NativeSegmentLength": 100.07996803,
+          "LengthDelta": 4.425530164553493E-09
+        }
+      ]
+    },
+    {
+      "Id": "0207-005-rochon-prism-c2-edge-f1-w2-single-ray-trace",
+      "Configuration": 2,
+      "WaveIndex": 2,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "2",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "e3a8db74775fedf757c814c74a794f653567297f1cef1fa7e4ce86705f11ec63",
+      "NativeReportSha256": "fb78aacc6fc646213dca68110b286ce1fdc9987766160f44e536bfb5eecabcd2",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 7.618794484187674E-12,
+      "MaximumDirectionDelta": 4.887158733257735E-11,
+      "MaximumSegmentLengthDelta": 4.425530164553493E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            4.000000000000001,
+            0,
+            0,
+            0,
+            1.0000000000000002
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 2.220446049250313E-16,
+          "ActualSegmentLength": 3.999999999999999,
+          "NativeSegmentLength": 4,
+          "LengthDelta": 8.881784197001252E-16
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            4.000000000000001,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 24.999999999999993,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 7.105427357601002E-15
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            4.000000000000001,
+            0,
+            0,
+            -0.03996803834887158,
+            0.9992009587217893
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 4.8871580393683445E-11,
+          "ActualSegmentLength": 25,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -1.7763568394002505E-15,
+            0,
+            0,
+            -0.03996803834887159,
+            0.9992009587217895
+          ],
+          "Native": [
+            0,
+            0,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 1.7763568394002505E-15,
+          "DirectionDelta": 4.887158733257735E-11,
+          "ActualSegmentLength": 100.07996802557447,
+          "NativeSegmentLength": 100.07996803,
+          "LengthDelta": 4.425530164553493E-09
+        }
+      ]
+    },
+    {
+      "Id": "0211-005-rochon-prism-c2-edge-f1-w3-single-ray-trace",
+      "Configuration": 2,
+      "WaveIndex": 3,
+      "WorkbenchSettings": {
+        "FieldNumber": "1",
+        "Hx": "0",
+        "Hy": "0",
+        "WavelengthNumber": "3",
+        "Px": "0",
+        "Py": "0.8",
+        "GlobalCoordinates": "False",
+        "Type": "\u65B9\u5411\u4F59\u5F26",
+        "UseRayAiming": "False",
+        "ShowRaySegments": "false",
+        "SurfaceNumber": "-1",
+        "UsePolarization": "False"
+      },
+      "NativeRequestSha256": "aa11a18e775a795efe3e6a6bfa399dd2ba787f854e2294eca29309f2a243af99",
+      "NativeReportSha256": "3b89b1cad3a405b98578187f9dda30ea164cde4b55910f18a0919d8f9ebd653f",
+      "NativeEnvironmentSha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "MaximumPositionDelta": 7.618794484187674E-12,
+      "MaximumDirectionDelta": 4.887169835487981E-11,
+      "MaximumSegmentLengthDelta": 4.425530164553493E-09,
+      "Passed": true,
+      "Rows": [
+        {
+          "Surface": 1,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 10,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 2,
+          "Actual": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 0,
+          "DirectionDelta": 0,
+          "ActualSegmentLength": 20,
+          "NativeSegmentLength": 20,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 3,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865477
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452350344778097E-11,
+          "ActualSegmentLength": 21,
+          "NativeSegmentLength": 21,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 4,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            4.440892098500626E-16,
+            0,
+            -0.7071067811865477,
+            0.7071067811865475
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452572389383022E-11,
+          "ActualSegmentLength": -6.280369834735099E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735099E-16
+        },
+        {
+          "Surface": 5,
+          "Actual": [
+            0,
+            5.6568542494923815,
+            1.3322676295501878E-15,
+            0,
+            -0.7071067811865477,
+            0.7071067811865475
+          ],
+          "Native": [
+            0,
+            5.6568542495,
+            0,
+            0,
+            -0.7071067812,
+            0.7071067812
+          ],
+          "PositionDelta": 7.618794484187674E-12,
+          "DirectionDelta": 1.3452572389383022E-11,
+          "ActualSegmentLength": -6.280369834735101E-16,
+          "NativeSegmentLength": 0,
+          "LengthDelta": 6.280369834735101E-16
+        },
+        {
+          "Surface": 6,
+          "Actual": [
+            0,
+            4.000000000000002,
+            0,
+            0,
+            -1.1102230246251565E-16,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 1.7763568394002505E-15,
+          "DirectionDelta": 1.1102230246251565E-16,
+          "ActualSegmentLength": 4,
+          "NativeSegmentLength": 4,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 7,
+          "Actual": [
+            0,
+            3.999999999999999,
+            0,
+            0,
+            -1.6722209866542243E-16,
+            1
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            0,
+            1
+          ],
+          "PositionDelta": 8.881784197001252E-16,
+          "DirectionDelta": 1.6722209866542243E-16,
+          "ActualSegmentLength": 25,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 8,
+          "Actual": [
+            0,
+            3.999999999999995,
+            0,
+            0,
+            -0.03996803834887169,
+            0.9992009587217893
+          ],
+          "Native": [
+            0,
+            4,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 4.884981308350689E-15,
+          "DirectionDelta": 4.887169141598591E-11,
+          "ActualSegmentLength": 25,
+          "NativeSegmentLength": 25,
+          "LengthDelta": 0
+        },
+        {
+          "Surface": 9,
+          "Actual": [
+            0,
+            -1.8207657603852567E-14,
+            0,
+            0,
+            -0.0399680383488717,
+            0.9992009587217895
+          ],
+          "Native": [
+            0,
+            0,
+            0,
+            0,
+            -0.0399680383,
+            0.9992009587
+          ],
+          "PositionDelta": 1.8207657603852567E-14,
+          "DirectionDelta": 4.887169835487981E-11,
+          "ActualSegmentLength": 100.07996802557447,
+          "NativeSegmentLength": 100.07996803,
+          "LengthDelta": 4.425530164553493E-09
+        }
+      ]
+    }
+  ],
+  "Passed": true
+}

@@ -16,6 +16,6 @@ internal sealed partial class NonSequentialDocumentService
             if (expectedSceneIdentity != NonSequentialSceneHasher.Compute(Runtime.CurrentNonSequentialDocument, Runtime.CurrentOptic.Materials))
                 throw new InvalidOperationException("检查期间场景或材料已改变，请重新检查导入。");
             var document = result.Document!.Clone(); ValidateMaterials(document);
-            Runtime.ReplaceNonSequentialDocument(document, "已导入全部通过检查的 Zemax NSC 对象；可以撤销。");
+            Runtime.ReplaceNonSequentialDocument(document, "已导入 Zemax NSC 场景。");
         });
 }

@@ -278,6 +278,7 @@ public sealed class HuygensMtfOperandTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456SettingsCompareAtSelectedFieldsAndFrequencies()
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");

@@ -61,6 +61,7 @@ public sealed class ExplicitDistortionOperandTests(Xunit.Abstractions.ITestOutpu
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456SurfaceW311AndTotalTransverseDistortionMatchAt440Nm()
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");

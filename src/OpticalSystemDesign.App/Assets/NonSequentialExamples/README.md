@@ -9,15 +9,20 @@ Git 属性禁止处方换行规范化。构建和发布复制至 `Examples/NonSe
 非序列模式使用 **文件 → 示例 → 分类 → 示例名称**。分类显示遵循中英日界面语言，
 示例名、路径提示和动作身份保持原样。顺序模式仍使用原有 14 类、95 个顺序示例。
 
-选择示例直接进入现有 ZMX 非序列导入检查，显示对象、原记录和逐项阻断诊断，
-可以保存包含原文件完整字节的导入记录。检查和取消不改当前工程；
-全部语义及资产通过检查后才能应用原生场景，应用沿用既有可撤销事务。
+选择示例后，支持的文件直接完整载入场景，并可撤销。
+无法导入时只显示简短提示和原文件名，当前工程保持原样。
 
-这里只收录 ZMX，不重复提供 ZOS、ZDA、CFG，不提取二进制归档，也不复制整个外部
-CAD、光源、散射或荧光数据库。未知对象、物理设置与缺失外部资产继续明确阻断。
-示例收录表示可浏览和检查，不能视为全部文件可执行或已经通过数值认证。
-实际逐文件结果见[本轮记录](../../../../validation/rechecks/2026-11-21/non-sequential-examples/README.md)。
+`Objects` 保留用户提供的资源子目录、文件名大小写和原始字节，收录当前示例引用的
+26 份资源，共 3,304,662 字节。`asset-index.json` 记录每份资源的路径、哈希和引用示例。
+构建及发布将资源复制到 `Examples/NonSequential/Objects`。
 
-后续已完成 `Birefringence/Color Fringes.ZMX` 的完整记录解析、波片模式追迹和真彩色探测器
-显示，可以检查并应用。光源XYZ通过明确记录的非负光谱拟合恢复；不宣称私有光谱或逐像素
-原软件数值认证。使用方法及具体支持域见[彩色波片说明](../../../../docs/NSC_COLOR_FRINGES.md)。
+后续文件沿用同一布局：设计文件与 `Objects` 位于共同的数据根目录下，读取器从设计目录
+向上查找配套资源。新增名字直接使用相同查找规则。完整目录示例见[导入指南](../../../../docs/NONSEQUENTIAL_IMPORT.md)。
+
+2026-11-23 接入资源后，已映射 325 个对象；Color Fringes、Two-color mixing gives white、
+Even asphere 和 sobol sampling 四个文件可完整导入并追迹。仍缺三张 BMP 图片，其他
+对象和属性的具体状态见[最新逐文件清单](../../../../validation/rechecks/2026-11-23/nsc-objects-layout/files.md)
+和[资源清单](../../../../validation/rechecks/2026-11-23/nsc-objects-layout/resources.md)。
+
+`Birefringence/Color Fringes.ZMX` 支持完整记录解析、波片模式追迹和真彩色探测器显示。
+XYZ 光源按记录的非负光谱拟合导入；使用方法见[彩色波片说明](../../../../docs/NSC_COLOR_FRINGES.md)。

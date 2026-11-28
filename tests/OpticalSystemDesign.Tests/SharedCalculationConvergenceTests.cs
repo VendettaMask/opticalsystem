@@ -96,6 +96,7 @@ public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public async Task Captured123456SagTableMatchesTheActualApplicationManufacturingPath()
     {
         using var application = WorkbenchApplication.Create();
@@ -141,6 +142,7 @@ public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456FftThroughFocusIsComparedWithoutChangingItsReference()
     {
         var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");

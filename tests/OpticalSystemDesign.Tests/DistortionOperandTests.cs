@@ -352,6 +352,7 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     [InlineData("DIMX")]
     [InlineData("FCGS")]
     [InlineData("FCGT")]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456ComparisonKeepsExplicitAccuracyAndResidualBudgets(string code)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

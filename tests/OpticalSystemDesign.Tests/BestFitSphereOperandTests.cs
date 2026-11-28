@@ -104,6 +104,7 @@ public sealed class BestFitSphereOperandTests(Xunit.Abstractions.ITestOutputHelp
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CommittedSphericalSagTableProvidesAFileSpecificReference()
     {
         var directory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

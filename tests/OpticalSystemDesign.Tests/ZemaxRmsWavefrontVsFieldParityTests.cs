@@ -57,6 +57,7 @@ public sealed class ZemaxRmsWavefrontVsFieldParityTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ChiefRayGaussianQuadratureFieldScanMatchesZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

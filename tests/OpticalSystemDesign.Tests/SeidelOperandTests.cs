@@ -120,6 +120,7 @@ public sealed class SeidelOperandTests
     [InlineData("COMA", 2)]
     [InlineData("ASTI", 3)]
     [InlineData("FCUR", 4)]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void Captured123456WaveTableMatchesEverySurfaceAndTotalAt440Nm(string code, int column)
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");

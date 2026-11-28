@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="37f7d0c5-5955-417d-aeed-14fb37c277ed" name="optics@LAPTOP-G4BBBCS0 2026-11-23 09:52:16" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-23T09:52:16.3336708+08:00" queuing="2026-11-23T09:52:16.3336710+08:00" start="2026-11-23T09:52:13.0400640+08:00" finish="2026-11-23T09:52:43.2811560+08:00" />
+  <TestSettings name="default" id="b00a208d-58fa-4c0d-a284-6b2d25e50363">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-23_09_52_16" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="15e3f1b9-e0f7-4787-b9c3-411935e201ba" testId="75e1464a-67a1-3a31-578d-cbab1179b5af" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Light&quot;, scale: 1.25)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0890833" startTime="2026-11-23T09:52:15.1156576+08:00" endTime="2026-11-23T09:52:15.1992942+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15e3f1b9-e0f7-4787-b9c3-411935e201ba" />
+    <UnitTestResult executionId="af0cf227-aaa8-4b9b-97ca-4b38d261e3d8" testId="21374b40-59a1-40b7-2daa-9bc054a363fb" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;ja-JP&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5631922" startTime="2026-11-23T09:52:19.6838755+08:00" endTime="2026-11-23T09:52:21.2474260+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af0cf227-aaa8-4b9b-97ca-4b38d261e3d8" />
+    <UnitTestResult executionId="8483e7a3-a857-4013-adc4-b035264bfe59" testId="fc6ae0d8-f601-3ad3-fa18-c474c8460666" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;en-US&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8796193" startTime="2026-11-23T09:52:18.8046459+08:00" endTime="2026-11-23T09:52:19.6835750+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8483e7a3-a857-4013-adc4-b035264bfe59" />
+    <UnitTestResult executionId="c7f3cfa1-d763-42c5-8c90-c1cff158d23d" testId="3de5f605-6c91-1852-0098-f1b3856b1f8f" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Light&quot;, scale: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0768694" startTime="2026-11-23T09:52:15.1998216+08:00" endTime="2026-11-23T09:52:15.2763290+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7f3cfa1-d763-42c5-8c90-c1cff158d23d" />
+    <UnitTestResult executionId="d26292e8-77a3-4949-bceb-56bb2db35a37" testId="00c6babe-210e-cd8a-9f59-c52abe8f0cf5" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4428349" startTime="2026-11-23T09:52:36.3329847+08:00" endTime="2026-11-23T09:52:37.7766723+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d26292e8-77a3-4949-bceb-56bb2db35a37">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 255&#xD;
+Actual:   200</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 19&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass4_0.&lt;ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 133&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="de548c24-c7be-48f8-972e-ee8900f52ed6" testId="700e81c4-0798-d146-b812-16bac6e7b0b2" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Dark&quot;, scale: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0779056" startTime="2026-11-23T09:52:15.4353507+08:00" endTime="2026-11-23T09:52:15.5133585+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de548c24-c7be-48f8-972e-ee8900f52ed6" />
+    <UnitTestResult executionId="2c9bc769-6800-492d-8aa5-4455c66fa3fe" testId="bb719e85-5987-41a1-b974-39f1d349586e" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0821812" startTime="2026-11-23T09:52:34.2505509+08:00" endTime="2026-11-23T09:52:36.3324899+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c9bc769-6800-492d-8aa5-4455c66fa3fe" />
+    <UnitTestResult executionId="820e89b6-34af-49e3-825e-1387fd2435db" testId="869ab3f4-4418-11d9-a338-fdaf944285c0" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2635603" startTime="2026-11-23T09:52:25.7135695+08:00" endTime="2026-11-23T09:52:26.9773809+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="820e89b6-34af-49e3-825e-1387fd2435db" />
+    <UnitTestResult executionId="2d37c688-fe92-4372-8f0d-3ab5ccbb9013" testId="93cea7a1-a4d9-75a0-e60c-6d2f41c33698" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Light&quot;, scale: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0799445" startTime="2026-11-23T09:52:15.2764212+08:00" endTime="2026-11-23T09:52:15.3565248+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d37c688-fe92-4372-8f0d-3ab5ccbb9013" />
+    <UnitTestResult executionId="59c04d1a-6c22-4890-af1d-f80d44a47fdc" testId="021bf89c-493d-8afe-a3d4-2f475b0ce89e" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9040979" startTime="2026-11-23T09:52:17.9005494+08:00" endTime="2026-11-23T09:52:18.8038658+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="59c04d1a-6c22-4890-af1d-f80d44a47fdc" />
+    <UnitTestResult executionId="4a216f98-c8fd-409e-b608-e10faccde239" testId="a231a08c-17bb-bda2-892c-7d5ab9bba713" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4251147" startTime="2026-11-23T09:52:31.8252966+08:00" endTime="2026-11-23T09:52:34.2498345+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a216f98-c8fd-409e-b608-e10faccde239" />
+    <UnitTestResult executionId="daa761c2-816a-4441-a9eb-7c8d5c2d0321" testId="16892f06-34ff-1bf9-033a-372c34880728" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Dark&quot;, scale: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6082337" startTime="2026-11-23T09:52:14.4954280+08:00" endTime="2026-11-23T09:52:15.1096250+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="daa761c2-816a-4441-a9eb-7c8d5c2d0321" />
+    <UnitTestResult executionId="776006f6-ec99-4ee0-9574-9e3a0be63d89" testId="f8c58590-6bec-08f2-17e4-7af7b4a430fa" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3475708" startTime="2026-11-23T09:52:24.3724082+08:00" endTime="2026-11-23T09:52:25.7133983+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="776006f6-ec99-4ee0-9574-9e3a0be63d89" />
+    <UnitTestResult executionId="930f796d-4d2c-4a15-9f84-320ea110c991" testId="ab4f13c8-39dc-44db-cae2-1450c55f0880" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Dark&quot;, scale: 1.25)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0784371" startTime="2026-11-23T09:52:15.3566310+08:00" endTime="2026-11-23T09:52:15.4352163+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="930f796d-4d2c-4a15-9f84-320ea110c991" />
+    <UnitTestResult executionId="28d8c14e-4f2d-4c96-bf96-a4db1b36556c" testId="f3f99251-14d0-5204-7134-16a9ce38a5e6" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2925605" startTime="2026-11-23T09:52:39.7715956+08:00" endTime="2026-11-23T09:52:41.0647872+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28d8c14e-4f2d-4c96-bf96-a4db1b36556c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass10_0.&lt;OversizedContentIsRejectedBeforeAllocatingTheExportBitmap&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 332&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 321&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a6d604eb-221b-46c0-8a96-232ad026db3a" testId="5883c63d-cf98-8752-6750-b4eef577f999" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5961541" startTime="2026-11-23T09:52:21.2476935+08:00" endTime="2026-11-23T09:52:22.8441046+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6d604eb-221b-46c0-8a96-232ad026db3a" />
+    <UnitTestResult executionId="0135a710-b3ab-4c02-b7e5-903345b12d4c" testId="c32d92ce-9857-88d8-a53d-5a7fcb699091" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.1773383" startTime="2026-11-23T09:52:37.7780029+08:00" endTime="2026-11-23T09:52:38.9545795+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0135a710-b3ab-4c02-b7e5-903345b12d4c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 255&#xD;
+Actual:   200</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 19&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass4_0.&lt;ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 133&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e4f6d60c-5907-463e-af96-cb6d0b20b85b" testId="b97bb6db-21d4-ece2-0729-ee71987a9598" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.2970844" startTime="2026-11-23T09:52:26.9775823+08:00" endTime="2026-11-23T09:52:29.2749475+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4f6d60c-5907-463e-af96-cb6d0b20b85b" />
+    <UnitTestResult executionId="db6d0e63-6170-4fd1-a256-81d8875e7a7a" testId="634392e2-2dbd-3612-7eb5-a130d0cf3fba" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3844816" startTime="2026-11-23T09:52:15.5146740+08:00" endTime="2026-11-23T09:52:17.8990735+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="db6d0e63-6170-4fd1-a256-81d8875e7a7a" />
+    <UnitTestResult executionId="cd3c7b72-05e8-4571-b8c4-fd912c092b68" testId="b9ee1674-e3a6-fd62-a319-5afe308f6aaa" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.5490577" startTime="2026-11-23T09:52:29.2751091+08:00" endTime="2026-11-23T09:52:31.8244049+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd3c7b72-05e8-4571-b8c4-fd912c092b68" />
+    <UnitTestResult executionId="d9b42d6a-a8fc-4642-91a1-d5dd5475da0e" testId="07278922-4233-96a3-4445-a3e8afefbe2a" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0682190" startTime="2026-11-23T09:52:41.0657565+08:00" endTime="2026-11-23T09:52:43.1343109+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9b42d6a-a8fc-4642-91a1-d5dd5475da0e" />
+    <UnitTestResult executionId="315b5df3-bd69-41c4-8f61-df25a0457397" testId="c255ebb9-0af7-85f1-3355-69f2af7eb6ac" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5120811" startTime="2026-11-23T09:52:22.8443180+08:00" endTime="2026-11-23T09:52:24.3660525+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="315b5df3-bd69-41c4-8f61-df25a0457397">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 1200, 900&#xD;
+Actual:   1600, 900</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;CardinalSceneExportsItsGraphicAndDataTableWithoutSeries&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 198&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 175&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a47f8284-4d66-4986-9079-f928ff16fff2" testId="9cb97e74-41ae-f626-148c-3a13e33f3d77" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8149625" startTime="2026-11-23T09:52:38.9557350+08:00" endTime="2026-11-23T09:52:39.7703127+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a47f8284-4d66-4986-9079-f928ff16fff2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass10_0.&lt;OversizedContentIsRejectedBeforeAllocatingTheExportBitmap&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 332&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 321&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="869ab3f4-4418-11d9-a338-fdaf944285c0">
+      <Execution id="820e89b6-34af-49e3-825e-1387fd2435db" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="AllHiddenWavelengthsExportAxesAndCanBeRestored" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Dark&quot;, scale: 1.25)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ab4f13c8-39dc-44db-cae2-1450c55f0880">
+      <Execution id="930f796d-4d2c-4a15-9f84-320ea110c991" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b97bb6db-21d4-ece2-0729-ee71987a9598">
+      <Execution id="e4f6d60c-5907-463e-af96-cb6d0b20b85b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="07278922-4233-96a3-4445-a3e8afefbe2a">
+      <Execution id="d9b42d6a-a8fc-4642-91a1-d5dd5475da0e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ClickingTheImageIconSavesPngAndCancelPreservesTheFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5883c63d-cf98-8752-6750-b4eef577f999">
+      <Execution id="a6d604eb-221b-46c0-8a96-232ad026db3a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="CardinalSceneExportsItsGraphicAndDataTableWithoutSeries" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Dark&quot;, scale: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="700e81c4-0798-d146-b812-16bac6e7b0b2">
+      <Execution id="de548c24-c7be-48f8-972e-ee8900f52ed6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;en-US&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc6ae0d8-f601-3ad3-fa18-c474c8460666">
+      <Execution id="8483e7a3-a857-4013-adc4-b035264bfe59" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionHasOnlyAnIconAndLocalizedTooltip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;ja-JP&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="21374b40-59a1-40b7-2daa-9bc054a363fb">
+      <Execution id="af0cf227-aaa8-4b9b-97ca-4b38d261e3d8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionHasOnlyAnIconAndLocalizedTooltip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Light&quot;, scale: 1.25)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="75e1464a-67a1-3a31-578d-cbab1179b5af">
+      <Execution id="15e3f1b9-e0f7-4787-b9c3-411935e201ba" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c255ebb9-0af7-85f1-3355-69f2af7eb6ac">
+      <Execution id="315b5df3-bd69-41c4-8f61-df25a0457397" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="CardinalSceneExportsItsGraphicAndDataTableWithoutSeries" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Dark&quot;, scale: 2)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="16892f06-34ff-1bf9-033a-372c34880728">
+      <Execution id="daa761c2-816a-4441-a9eb-7c8d5c2d0321" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a231a08c-17bb-bda2-892c-7d5ab9bba713">
+      <Execution id="4a216f98-c8fd-409e-b608-e10faccde239" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9cb97e74-41ae-f626-148c-3a13e33f3d77">
+      <Execution id="a47f8284-4d66-4986-9079-f928ff16fff2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="OversizedContentIsRejectedBeforeAllocatingTheExportBitmap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b9ee1674-e3a6-fd62-a319-5afe308f6aaa">
+      <Execution id="cd3c7b72-05e8-4571-b8c4-fd912c092b68" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Light&quot;, scale: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3de5f605-6c91-1852-0098-f1b3856b1f8f">
+      <Execution id="c7f3cfa1-d763-42c5-8c90-c1cff158d23d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="00c6babe-210e-cd8a-9f59-c52abe8f0cf5">
+      <Execution id="d26292e8-77a3-4949-bceb-56bb2db35a37" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c32d92ce-9857-88d8-a53d-5a7fcb699091">
+      <Execution id="0135a710-b3ab-4c02-b7e5-903345b12d4c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f3f99251-14d0-5204-7134-16a9ce38a5e6">
+      <Execution id="28d8c14e-4f2d-4c96-bf96-a4db1b36556c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="OversizedContentIsRejectedBeforeAllocatingTheExportBitmap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="634392e2-2dbd-3612-7eb5-a130d0cf3fba">
+      <Execution id="db6d0e63-6170-4fd1-a256-81d8875e7a7a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bb719e85-5987-41a1-b974-39f1d349586e">
+      <Execution id="2c9bc769-6800-492d-8aa5-4455c66fa3fe" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f8c58590-6bec-08f2-17e4-7af7b4a430fa">
+      <Execution id="776006f6-ec99-4ee0-9574-9e3a0be63d89" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="AllHiddenWavelengthsExportAxesAndCanBeRestored" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="021bf89c-493d-8afe-a3d4-2f475b0ce89e">
+      <Execution id="59c04d1a-6c22-4890-af1d-f80d44a47fdc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionHasOnlyAnIconAndLocalizedTooltip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: &quot;Light&quot;, scale: 2)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="93cea7a1-a4d9-75a0-e60c-6d2f41c33698">
+      <Execution id="2d37c688-fe92-4372-8f0d-3ab5ccbb9013" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="75e1464a-67a1-3a31-578d-cbab1179b5af" executionId="15e3f1b9-e0f7-4787-b9c3-411935e201ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21374b40-59a1-40b7-2daa-9bc054a363fb" executionId="af0cf227-aaa8-4b9b-97ca-4b38d261e3d8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc6ae0d8-f601-3ad3-fa18-c474c8460666" executionId="8483e7a3-a857-4013-adc4-b035264bfe59" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3de5f605-6c91-1852-0098-f1b3856b1f8f" executionId="c7f3cfa1-d763-42c5-8c90-c1cff158d23d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00c6babe-210e-cd8a-9f59-c52abe8f0cf5" executionId="d26292e8-77a3-4949-bceb-56bb2db35a37" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="700e81c4-0798-d146-b812-16bac6e7b0b2" executionId="de548c24-c7be-48f8-972e-ee8900f52ed6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb719e85-5987-41a1-b974-39f1d349586e" executionId="2c9bc769-6800-492d-8aa5-4455c66fa3fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="869ab3f4-4418-11d9-a338-fdaf944285c0" executionId="820e89b6-34af-49e3-825e-1387fd2435db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93cea7a1-a4d9-75a0-e60c-6d2f41c33698" executionId="2d37c688-fe92-4372-8f0d-3ab5ccbb9013" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="021bf89c-493d-8afe-a3d4-2f475b0ce89e" executionId="59c04d1a-6c22-4890-af1d-f80d44a47fdc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a231a08c-17bb-bda2-892c-7d5ab9bba713" executionId="4a216f98-c8fd-409e-b608-e10faccde239" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="16892f06-34ff-1bf9-033a-372c34880728" executionId="daa761c2-816a-4441-a9eb-7c8d5c2d0321" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8c58590-6bec-08f2-17e4-7af7b4a430fa" executionId="776006f6-ec99-4ee0-9574-9e3a0be63d89" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab4f13c8-39dc-44db-cae2-1450c55f0880" executionId="930f796d-4d2c-4a15-9f84-320ea110c991" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f3f99251-14d0-5204-7134-16a9ce38a5e6" executionId="28d8c14e-4f2d-4c96-bf96-a4db1b36556c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5883c63d-cf98-8752-6750-b4eef577f999" executionId="a6d604eb-221b-46c0-8a96-232ad026db3a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c32d92ce-9857-88d8-a53d-5a7fcb699091" executionId="0135a710-b3ab-4c02-b7e5-903345b12d4c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b97bb6db-21d4-ece2-0729-ee71987a9598" executionId="e4f6d60c-5907-463e-af96-cb6d0b20b85b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="634392e2-2dbd-3612-7eb5-a130d0cf3fba" executionId="db6d0e63-6170-4fd1-a256-81d8875e7a7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b9ee1674-e3a6-fd62-a319-5afe308f6aaa" executionId="cd3c7b72-05e8-4571-b8c4-fd912c092b68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07278922-4233-96a3-4445-a3e8afefbe2a" executionId="d9b42d6a-a8fc-4642-91a1-d5dd5475da0e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c255ebb9-0af7-85f1-3355-69f2af7eb6ac" executionId="315b5df3-bd69-41c4-8f61-df25a0457397" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cb97e74-41ae-f626-148c-3a13e33f3d77" executionId="a47f8284-4d66-4986-9079-f928ff16fff2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="23" executed="23" passed="18" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.12]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.15]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:11.03]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:11.04]       Expected: 1200, 900&#xD;
+[xUnit.net 00:00:11.04]       Actual:   1600, 900&#xD;
+[xUnit.net 00:00:11.04]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(198,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;CardinalSceneExportsItsGraphicAndDataTableWithoutSeries&gt;b__0()&#xD;
+[xUnit.net 00:00:11.04]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:11.04]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:11.04]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(175,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(Int32 width, Int32 height, Double fontSize)&#xD;
+[xUnit.net 00:00:11.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:24.44]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:24.44]       Expected: 255&#xD;
+[xUnit.net 00:00:24.44]       Actual:   200&#xD;
+[xUnit.net 00:00:24.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:24.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(19,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:24.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(133,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass4_0.&lt;ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings&gt;b__0()&#xD;
+[xUnit.net 00:00:24.44]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:24.44]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:24.44]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:24.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:24.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(90,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height)&#xD;
+[xUnit.net 00:00:24.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:25.62]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:25.62]       Expected: 255&#xD;
+[xUnit.net 00:00:25.62]       Actual:   200&#xD;
+[xUnit.net 00:00:25.62]       Stack Trace:&#xD;
+[xUnit.net 00:00:25.62]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(19,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:25.62]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(133,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass4_0.&lt;ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings&gt;b__0()&#xD;
+[xUnit.net 00:00:25.62]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:25.62]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:25.62]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:25.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:25.62]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(90,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height)&#xD;
+[xUnit.net 00:00:25.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:26.44]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:26.44]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:26.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:26.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(332,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass10_0.&lt;OversizedContentIsRejectedBeforeAllocatingTheExportBitmap&gt;b__0()&#xD;
+[xUnit.net 00:00:26.44]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:26.44]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:26.44]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:26.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:26.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(321,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(Int32 width, Int32 height)&#xD;
+[xUnit.net 00:00:26.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:27.73]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:27.73]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:27.73]       Stack Trace:&#xD;
+[xUnit.net 00:00:27.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(332,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.&lt;&gt;c__DisplayClass10_0.&lt;OversizedContentIsRejectedBeforeAllocatingTheExportBitmap&gt;b__0()&#xD;
+[xUnit.net 00:00:27.73]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:27.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:27.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:27.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:27.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(321,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(Int32 width, Int32 height)&#xD;
+[xUnit.net 00:00:27.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:29.81]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-23T09:52:24.3687249+08:00">
+        <Text>[xUnit.net 00:00:11.03]     OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-23T09:52:37.7771242+08:00">
+        <Text>[xUnit.net 00:00:24.44]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-23T09:52:38.9549145+08:00">
+        <Text>[xUnit.net 00:00:25.62]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-23T09:52:39.7706099+08:00">
+        <Text>[xUnit.net 00:00:26.44]     OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-23T09:52:41.0650857+08:00">
+        <Text>[xUnit.net 00:00:27.73]     OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

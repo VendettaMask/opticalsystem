@@ -8,6 +8,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ZemaxHuygensMtfParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedPolychromaticSettingsMatchZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

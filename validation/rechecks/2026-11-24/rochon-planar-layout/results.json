@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-24",
+  "timezone": "Asia/Shanghai",
+  "scope": "Rectangular planar volume display, controlled meridional ray rendering, and scoped comparison to existing native single-ray reports.",
+  "implementation": {
+    "referenceRows": "Retained in prescription/tracing but excluded from glass grouping; explicit local-frame markers remain available.",
+    "mechanicalShape": "Shared first-face rectangle intersected with planar boundary faces, with clipping and zero-volume suppression.",
+    "rays": "Optical prescription and trace geometry unchanged.",
+    "geometricScope": "Rectangular, planar assemblies using the existing SquareToNext edge mode; not arbitrary freeform CAD reconstruction."
+  },
+  "build": {
+    "configuration": "Release",
+    "output": "standard project output",
+    "completed": true,
+    "warnings": [
+      "NU1900: package vulnerability service was unreachable."
+    ]
+  },
+  "reports": [
+    {
+      "path": "final.trx",
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "sha256": "073df18f7d1724f73423b86a50266cf9b48f0a98f2e802a1b2e521deb52c0556"
+    },
+    {
+      "path": "focused.trx",
+      "total": 67,
+      "passed": 65,
+      "failed": 2,
+      "sha256": "6469067bd696f05c9984bf5cd9f85b6b7f87cee12d23a34aad0b8a161b768ec5"
+    },
+    {
+      "path": "matched-fan.trx",
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "sha256": "4228b9d6579319ce171eb4b147b1a72686902f45dca5fd638c6cd7d84da4d18d"
+    }
+  ],
+  "uniqueFocusedTests": 70,
+  "repeatedSubsetTests": 14,
+  "repeatedSubsetNote": "matched-fan.trx repeats the 14 Rochon cases with explicitly identical meridional launch points in both dimensions; do not add it to the 70 unique cases.",
+  "analyticChecks": {
+    "configurations": 2,
+    "wavelengths": 3,
+    "pupilPositions": [
+      -1,
+      0,
+      1
+    ],
+    "scope": "Independent scalar Snell angles for the crystal axes in this example and ideal-lens image height."
+  },
+  "nativeComparison": {
+    "report": "native-rays.json",
+    "captures": 8,
+    "rows": 72,
+    "authority": "artifacts/zemax-sequential-corpus/20261021/full-v1",
+    "sourceSha256": "4ed8318a47f9f8fee3934d0bdc55f4c37b1ccc2b5445b8f2f1bb33268f239401",
+    "policySha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+    "coreAssemblySha256": "61ca751df683433cbae2b1cd5ae28b9dbf0205d1dd1a1a0b837afe03cfeea33b",
+    "positionAbsoluteLimit": 1E-06,
+    "directionAbsoluteLimit": 1E-08,
+    "maximumPositionDelta": 4.969935574195006E-11,
+    "maximumDirectionDelta": 4.98533991866168E-11,
+    "maximumSegmentLengthDelta": 4.425530164553493E-09,
+    "passed": true,
+    "recaptured": false,
+    "scope": "Local positions and energy directions at all nine reported surfaces; geometric segment length after the first report-surface launch baseline. Other columns/analyses excluded."
+  },
+  "rendering": {
+    "actualControl": "OpticSceneControl",
+    "renderer": "Off-screen Skia",
+    "theme": "Light",
+    "width": 1200,
+    "height": 750,
+    "configurations": "All 2",
+    "field": 1,
+    "wavelength": 2,
+    "rayCountPerConfiguration": 3,
+    "marginalAndChiefOnly": true,
+    "lowerPupil": -1,
+    "upperPupil": 1,
+    "launchHeightsMillimeters": [
+      -5,
+      0,
+      5
+    ],
+    "colorMode": "Configuration",
+    "view": "YZ / Front (along X)",
+    "imagesVisuallyReviewed": [
+      "rendered/rochon-TwoDimensional-Wireframe-False.png",
+      "rendered/rochon-ThreeDimensional-Wireframe-False.png",
+      "rendered/rochon-ThreeDimensional-Solid-True.png"
+    ],
+    "cases": [
+      "2D wireframe/fill",
+      "3D wireframe",
+      "3D solid",
+      "3D solid cutaway",
+      "3D transparent cutaway"
+    ],
+    "foregroundUserApplicationControlled": false
+  },
+  "retiredIntermediateCaptures": [
+    {
+      "path": "rendered/rochon-TwoDimensional.png",
+      "sha256": "6d581077b31fb6faa519103687de822232584974c5179f171db34e6162054a53",
+      "reason": "Intermediate harness capture before matching configuration colors and meridional launch sampling; superseded by the final five rendered cases, not a native reference."
+    },
+    {
+      "path": "rendered/rochon-ThreeDimensional.png",
+      "sha256": "c361f73522fda47cf4449ed0d1e63e69f0c849e40375e5ac8dd639082c3685bb",
+      "reason": "Intermediate harness capture before matching configuration colors and meridional launch sampling; superseded by the final five rendered cases, not a native reference."
+    }
+  ],
+  "limitations": [
+    "The supplied 2025 R2 screenshot is a visual reference. Numeric comparison uses existing same-source 2026 R1 records.",
+    "No new external capture or full 95-example numerical matrix rerun.",
+    "No new coherent polarization, phase, waveplate, normal-column or incident-angle validation.",
+    "Existing ray colors, visual styles and sampling defaults remain product settings; matched screenshots select the existing marginal/chief option explicitly.",
+    "Other simultaneous checkout changes are preserved and are not claimed as this task scope."
+  ],
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Visualization/VisualizationModels.cs",
+      "sha256": "fc9f4bc5951caa7d6683840de04172f62d885e4f51002ba52db92c65dfc15ca7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Visualization/Layout2DBuilder.PlanarVolumes.cs",
+      "sha256": "ebdc810e6c4279bd7ae1e0db7feac0c2540b6cc9ff52bc7700dea27542692513"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/RochonLayoutBoundaryTests.cs",
+      "sha256": "1fa2b8bbf59357779d0dfafbc2da8b50dada9545ca824692379c3573477251fa"
+    },
+    {
+      "path": "tools/diagnostics/SequentialImport20261124/Program.cs",
+      "sha256": "e452e8c5ec4c337c6455f7a10416f4b704a1ebb4feb47719e803e148a9887b79"
+    },
+    {
+      "path": "tools/diagnostics/SequentialImport20261124/RochonNative.cs",
+      "sha256": "7f735c688ed2b6e31fe315470ae045e2eb0f7c5aa25eab49df4ee7b9935d717a"
+    }
+  ],
+  "artifactHashes": [
+    {
+      "path": "final.trx",
+      "sha256": "073df18f7d1724f73423b86a50266cf9b48f0a98f2e802a1b2e521deb52c0556"
+    },
+    {
+      "path": "focused.trx",
+      "sha256": "6469067bd696f05c9984bf5cd9f85b6b7f87cee12d23a34aad0b8a161b768ec5"
+    },
+    {
+      "path": "matched-fan.trx",
+      "sha256": "4228b9d6579319ce171eb4b147b1a72686902f45dca5fd638c6cd7d84da4d18d"
+    },
+    {
+      "path": "native-rays.json",
+      "sha256": "623aab6b2d06ff7a74ccde02dc406d4d091f3cb2c46bd9f3e2f54801dc258592"
+    },
+    {
+      "path": "README.md",
+      "sha256": "7b9ced77e6e319a2bf4f31ee6cbc02b26595f9b2077c475be1ad6fde5ead25ba"
+    },
+    {
+      "path": "rendered/rochon-ThreeDimensional-Solid-False.png",
+      "sha256": "46459005302ed10a52b826df634c147312600a9646402b78d4f1c380d859e470"
+    },
+    {
+      "path": "rendered/rochon-ThreeDimensional-Solid-True.png",
+      "sha256": "57c24b366bfd1c0b6a6cc3bbd99385d1cdae52a92cd8ed3853daabb298ddf0d6"
+    },
+    {
+      "path": "rendered/rochon-ThreeDimensional-Transparent-True.png",
+      "sha256": "c12668146eabb1e379b402ada15da029f33ba81072696a0831fc4a0e35034527"
+    },
+    {
+      "path": "rendered/rochon-ThreeDimensional-Wireframe-False.png",
+      "sha256": "a01244dd9710e14e7e605d88501adcd6b790fdd8e27206d06bce5fecd22f6f2b"
+    },
+    {
+      "path": "rendered/rochon-ThreeDimensional.json",
+      "sha256": "7c317b59a465280ecc8770304a8d3c3da683fb1285d1259989964ca58eed154e"
+    },
+    {
+      "path": "rendered/rochon-TwoDimensional-Wireframe-False.png",
+      "sha256": "f9b8c06e8645e0e505fc913ca226ba61e81603ad40767ad7ed2a55fcb0a7bc73"
+    },
+    {
+      "path": "rendered/rochon-TwoDimensional.json",
+      "sha256": "df2381765ab494249b10bf74cd75d8ab8c9706078b370ee827b6cef33ab73513"
+    }
+  ],
+  "rootCauseClarification": "Added prescription-row/interface/volume semantics, the local-versus-common-section coordinate error, verification gaps and residual reconstruction limits; no numerical result or source changed."
+}

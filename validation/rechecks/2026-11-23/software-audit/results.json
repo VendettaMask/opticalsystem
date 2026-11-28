@@ -1,0 +1,260 @@
+{
+  "date": "2026-11-23",
+  "scope": "Current software audit and bounded repairs; not full product or numerical certification",
+  "sourceCommit": "45b2c7c2753f7a36b3b1e058601a35519750f0f6",
+  "sourceDirty": true,
+  "build": {
+    "defaultReleaseApplicationAndTestDependencyGraph": "build-second-fixes.log",
+    "finalTestOnlyIncrementalBuild": "build-delivery.log",
+    "warnings": 0,
+    "errors": 0
+  },
+  "finalTests": {
+    "functional": 106,
+    "exportAndDpi": 34,
+    "uniqueCases": 140,
+    "failed": 0,
+    "skipped": 0,
+    "overlap": [],
+    "files": [
+      "workflow-recheck.trx",
+      "export-delivery.trx"
+    ]
+  },
+  "localization": {
+    "translations": 4341,
+    "occurrences": 3951,
+    "missing": 0,
+    "errors": 0
+  },
+  "remoteCi": "remote-ci.json",
+  "runs": [
+    {
+      "file": "baseline-focused.trx",
+      "counters": {
+        "total": "63",
+        "executed": "63",
+        "passed": "59",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "b27269c6b4c94fe41873296909c07104119ea2aaec619babe5c02f6367825b74"
+    },
+    {
+      "file": "baseline-export.trx",
+      "counters": {
+        "total": "23",
+        "executed": "23",
+        "passed": "18",
+        "failed": "5",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "f811b7efb28af36756372a17c51004c8bcd74ec71a255655cfee2df661860b42"
+    },
+    {
+      "file": "first-fixes.trx",
+      "counters": {
+        "total": "19",
+        "executed": "19",
+        "passed": "10",
+        "failed": "9",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "e308492b9a7dd6c15095f005a4df53a0f94ce8c94cd3a762afc91af625f5eaae"
+    },
+    {
+      "file": "workflow-recheck.trx",
+      "counters": {
+        "total": "106",
+        "executed": "106",
+        "passed": "106",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "7bb6fd00b79b7f9fbbb02d1bc2610e12334ce16b9321fec156de78fda874d379"
+    },
+    {
+      "file": "export-recheck.trx",
+      "counters": {
+        "total": "23",
+        "executed": "23",
+        "passed": "23",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "f354a804f7f538be3f8d05bf4312ec032db35a8a2a2e3f6109e772463606d0b2"
+    },
+    {
+      "file": "auto-export-isolated.trx",
+      "counters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "4",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "b522b641a757c3d4c534154a1ad7341d3f7e9b33a4f27a272918432b42adca76"
+    },
+    {
+      "file": "export-delivery.trx",
+      "counters": {
+        "total": "34",
+        "executed": "34",
+        "passed": "34",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "ba506a756373381e3b80f8d6ae38e3bc876cd04cfa7cc0e45c9adb826b025832"
+    }
+  ],
+  "repairs": [
+    "Preserve arbitrary Chinese/English/Japanese configuration-like names while translating numeric system captions.",
+    "Use the current snapshot schema in the complete vignetting persistence regression.",
+    "Respect Isekai fixed English in native navigation tests.",
+    "Detect a real complete border with a one-pixel right/bottom canvas gutter; no alpha or border threshold relaxation.",
+    "Make Auto and fixed-source test settings explicit, and exercise allocation limits with an actual oversized source."
+  ],
+  "limitations": [
+    "Remote CI still has unresolved numerical/reference, module, formatting and duplicate-evidence failures.",
+    "No full 95-lens matrix rerun; no tolerance/reference updates or excluded lens investigation.",
+    "No GUI control/restart, publish or push.",
+    "export-recheck.trx ran before the final explicit Auto reset; it is not used as Auto certification.",
+    "Final exports use the original product rendering path; only its regression detector and test settings changed."
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Services/LocalUiCatalog.cs",
+      "sha256": "2e6b31813222e1504eb4eac732637b870bfcb4223fa4293a4a49e8ad818f7d4f"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LocalUiCatalogTests.cs",
+      "sha256": "97c23e79696dbf8334bd6ea52c53ecf9c6ffa3f014ab298507113fb8eddc67ae"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LensConfigurationNavigationTests.cs",
+      "sha256": "4926fed58f74832bb627dde778f6e63c9331476cf5aa4912c89c98df3274753a"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/PupilVignettingTests.cs",
+      "sha256": "2ec00a52ad426806c3a86cff589a292fc699186eca2bbaa2169eef55fb4ed157"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/AnalysisImageExportTests.cs",
+      "sha256": "3e1869a05a6ac5510f9fe1cf0d3d0a4aec848467bbdf6a2e9086b6fbb5cb7fa6"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/Shared/ExportImageAssertions.cs",
+      "sha256": "4c73d388c959592fe4e340e59a19ef736303365aa698a3f8c7329e1758dac1f8"
+    }
+  ],
+  "appAssemblySha256": "25def1f9697d9c6b9d63a1702b282ae842b9b386bf48ed6f65fd87f8b783dceb",
+  "png": {
+    "path": "auto-wide-export.png",
+    "sha256": "75edc681da20b030a10c1256eed30b3253e51709db1c3c502258cebe895b55df",
+    "canvas": [
+      1920,
+      1080
+    ],
+    "frame": [
+      0,
+      0,
+      1919,
+      1080
+    ],
+    "rightGutterPixels": 1
+  },
+  "documentation": {
+    "documents": 2140,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "repeatedParagraphGroups": 14,
+    "guideRepeatedParagraphGroups": 0,
+    "note": "Existing 14 repeated groups are outside current-guide duplicates; strict check passed."
+  },
+  "concurrentChangesOutsideAudit": [
+    "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.Native.cs",
+    "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+    "tests/OpticalSystemDesign.Tests/NonSequentialIntegrationTests.cs",
+    "tests/OpticalSystemDesign.Tests/NonSequentialImportRepairTests.cs"
+  ],
+  "concurrentScopeNote": "These non-sequential import changes appeared after this audit's final test run and were neither edited nor validated here. Build/test claims refer to the recorded commit plus the listed audit sources and app assembly hash."
+}

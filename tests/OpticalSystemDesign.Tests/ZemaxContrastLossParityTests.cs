@@ -12,6 +12,7 @@ public sealed class ZemaxContrastLossParityTests
     public ZemaxContrastLossParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void MooreElliottLossMapsMatchCapturedZemax123456Settings()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

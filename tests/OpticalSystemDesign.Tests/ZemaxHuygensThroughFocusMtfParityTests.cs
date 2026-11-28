@@ -8,6 +8,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ZemaxHuygensThroughFocusMtfParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void AxisFieldMatchesZemax123456AtTheFiveConfiguredFocusPlanes()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

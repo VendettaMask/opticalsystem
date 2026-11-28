@@ -61,7 +61,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
                     item.Weight,
                     item.IsPrimary)).ToArray(),
                 document.Objects.Select((item, index) => ToRow(document, item, index)).ToArray(),
-                ToDto(document.TraceSettings));
+                ToDto(document.TraceSettings), document.Organization);
         }
     }
 
@@ -157,35 +157,57 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
             Runtime.ReplaceNonSequentialDocument(document, "已调整非序列对象顺序。");
         });
 
-    public void UpdateObject(NonSequentialObjectUpdateDto update) => MutateTransactional(
+    public void DeleteObjects(IReadOnlyList<Guid> ids) => MutateTransactional(
+        WorkspaceChangeCategory.NonSequential, () =>
+        {
+            if (ids.Count == 0) throw new ArgumentException("No objects selected.", nameof(ids));
+            var document = Runtime.CurrentNonSequentialDocument.Clone();
+            document.RemoveObjects(ids.ToHashSet());
+            Runtime.ReplaceNonSequentialDocument(document, "已删除所选非序列对象。");
+        });
+
+    public void UpdateObject(NonSequentialObjectUpdateDto update) => UpdateObjects([update]);
+
+    public void UpdateOrganization(Core.NonSequential.NonSequentialOrganization organization) => MutateTransactional(
+        WorkspaceChangeCategory.NonSequential, () =>
+        {
+            var document = Runtime.CurrentNonSequentialDocument.Clone();
+            document.ReplaceOrganization(organization);
+            Runtime.ReplaceNonSequentialDocument(document, "已更新场景分组与选择集。");
+        });
+
+    public void UpdateObjects(IReadOnlyList<NonSequentialObjectUpdateDto> updates) => MutateTransactional(
         WorkspaceChangeCategory.NonSequential,
         () =>
         {
             var document = Runtime.CurrentNonSequentialDocument.Clone();
-            var existing = document.Objects.FirstOrDefault(item => item.Id == update.Id)
-                ?? throw new KeyNotFoundException($"Non-sequential object '{update.Id}' was not found.");
-            var coreKind = ToCore(update.Kind);
-            var parameters = existing.Kind == coreKind
-                ? ToCore(update.Parameters)
-                : CoreObjectDefinition.DefaultParameters(coreKind);
-            var replacement = new CoreObjectDefinition(
-                existing.Id,
-                update.Name,
-                coreKind,
-                update.Enabled,
-                update.Visible,
-                new CoordinateSystem(
-                    new(update.X, update.Y, update.Z),
-                    update.TiltXDegrees,
-                    update.TiltYDegrees,
-                    update.TiltZDegrees),
-                update.ReferenceObjectId,
-                update.ContainingObjectId,
-                parameters,
-                ToCore(update.SurfaceBsdf));
-            document.Replace(existing.Id, replacement);
+            if (updates.Count == 0) throw new ArgumentException("No objects selected.", nameof(updates));
+            var replacements = updates.Select(update =>
+            {
+                var existing = document.FindObject(update.Id);
+                var coreKind = ToCore(update.Kind);
+                var parameters = existing.Kind == coreKind
+                    ? ToCore(update.Parameters)
+                    : CoreObjectDefinition.DefaultParameters(coreKind);
+                return new CoreObjectDefinition(
+                    existing.Id,
+                    update.Name,
+                    coreKind,
+                    update.Enabled,
+                    update.Visible,
+                    new CoordinateSystem(
+                        new(update.X, update.Y, update.Z),
+                        update.TiltXDegrees,
+                        update.TiltYDegrees,
+                        update.TiltZDegrees),
+                    update.ReferenceObjectId,
+                    update.ContainingObjectId,
+                    parameters,
+                    ToCore(update.SurfaceBsdf));
+            }).ToArray();
+            document.ReplaceObjects(replacements);
             ValidateMaterials(document);
-            Runtime.ReplaceNonSequentialDocument(document, $"已更新非序列对象“{replacement.Name}”。");
+            Runtime.ReplaceNonSequentialDocument(document, "已更新非序列对象属性。");
         });
 
     public void UpdateWavelengths(IReadOnlyList<NonSequentialWavelengthDto> wavelengths) =>

@@ -24,6 +24,9 @@ public sealed record TraceRequest
 
     public bool RecordSurfaceData { get; init; }
 
+    /// <summary>Retain bounded physical polygon-face hits for scene generation. Ordinary analyses do not allocate these paths.</summary>
+    public bool RecordCompoundInteractions { get; init; }
+
     public bool NormalizeOpticalPathDifference { get; init; }
 
     public int ParallelThreshold { get; init; } = 64;

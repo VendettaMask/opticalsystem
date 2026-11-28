@@ -87,10 +87,10 @@ internal sealed class NonSequentialTraceControlWindow : Window
         SelectedItem = NonSequentialSplittingMode.FullFresnel
     };
     private readonly TextBox _rayCount = new() { PlaceholderText = "留空则使用光源对象设置", Name = "nsc-trace-count" };
-    private readonly TextBox _seed = new() { Text = "1" };
-    private readonly TextBox _segments = new() { Text = "1000" };
-    private readonly TextBox _branches = new() { Text = "1000000" };
-    private readonly TextBox _minimumPower = new() { Text = "1e-9" };
+    private readonly TextBox _seed = new() { Text = "1", Name = "nsc-trace-seed" };
+    private readonly TextBox _segments = new() { Text = "1000", Name = "nsc-trace-segments" };
+    private readonly TextBox _branches = new() { Text = "1000000", Name = "nsc-trace-branches" };
+    private readonly TextBox _minimumPower = new() { Text = "1e-9", Name = "nsc-trace-minimum" };
     private readonly TextBox _retained = new() { Text = "2000" };
     private readonly TextBox _filter = new() { PlaceholderText = "例如 SEQ(Q1,H3,R3,D8)" };
     private readonly TextBox _path = new() { PlaceholderText = "选择 .starrdb 保存位置" };
@@ -104,6 +104,11 @@ internal sealed class NonSequentialTraceControlWindow : Window
         _service = service;
         _documentService = documentService;
         var physics = documentService.GetDocument().TraceSettings;
+        _seed.Text = physics.RandomSeed.ToString(CultureInfo.InvariantCulture);
+        _segments.Text = physics.MaximumSegmentsPerRay.ToString(CultureInfo.InvariantCulture);
+        _branches.Text = physics.MaximumActiveBranches.ToString(CultureInfo.InvariantCulture);
+        _minimumPower.Text = physics.MinimumRelativeIntensity.ToString("R", CultureInfo.InvariantCulture);
+        _splitting.SelectedItem = physics.SplitFresnelRays ? NonSequentialSplittingMode.FullFresnel : NonSequentialSplittingMode.None;
         _polarization.IsChecked = physics.UsePolarization; _coherent.IsChecked = physics.CoherentDetection;
         Title = "非序列追迹控制";
         Width = 600;

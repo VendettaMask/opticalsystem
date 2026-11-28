@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-23",
+  "groupsVerified": 376,
+  "copiesRemoved": 1286,
+  "bytesRemoved": 30497965,
+  "manifestBeforeSha256": "bb5ad46409c5fc4fe5d7a7b11ee4fc89ab3f20fe791cada1c63845e40ff798ea",
+  "manifestAfterSha256": "0b3052cc954a2716cc8997176e0d9ef495859cf64704e82f14b0e934f24a59b5",
+  "repairedConsumers": [
+    {
+      "path": "validation/rechecks/2026-11-05/all-example-accuracy-followup/README.md",
+      "beforeSha256": "0e8aeaeb88ef46a7c501e306a66f9dcc468b880eec2e56c691b053a6a7edd1fc",
+      "afterSha256": "058004d2044ec44c04b34ac16b9471255359efeb8364ee03a74c293536d4b5ed"
+    },
+    {
+      "path": "validation/rechecks/2026-11-05/all-example-accuracy-grid-zoom/README.md",
+      "beforeSha256": "6eab13827b83960e1bc8f6ec2e8ca25bd637ae2c045fea612e1f7fdbaeb1809c",
+      "afterSha256": "505cd93cdcdbf545389d2634c0c839371d9d0465d048448c2c492762505d5ddb"
+    },
+    {
+      "path": "validation/rechecks/2026-11-07/curvature-image-space-reference/README.md",
+      "beforeSha256": "a217617322f93ec37544972e3c7b44112e256ad968d66000ef3bf03e061bca11",
+      "afterSha256": "c5c4daf8329f389023e0e4087b467307460c384ef5e5a5afd01c72d04cda26b4"
+    },
+    {
+      "path": "validation/rechecks/2026-11-07/menu-remaining-eight/README.md",
+      "beforeSha256": "b29ba5de88431553336cdcf66ac27c30e0b25b1ad88a50992f83391cfbda518f",
+      "afterSha256": "c29f4f271b069cb147270efe5879b5565f45d986328ee5e72513523e8caf2a0b"
+    },
+    {
+      "path": "validation/rechecks/2026-11-08/analysis-pages-workbench/README.md",
+      "beforeSha256": "0a5f86a3bd59c1882dd66650088845dae981f2a7cf2238841126d23b05315652",
+      "afterSha256": "9a72683e8a3a8d96931def93b80607b862fa5630d2814dee9d886027e31a9a53"
+    },
+    {
+      "path": "validation/rechecks/2026-11-21/afocal-axial-aberration/README.md",
+      "beforeSha256": "0b849f4ba60b4aafbdb2f82dcf717f4d1ab27a75788b39841eb4b2b9b8618e6e",
+      "afterSha256": "f18b99669d1a2e0472ed2cf7011129bd388f4c7d4a3e0871ddbe1e37cee89484"
+    },
+    {
+      "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/index.html",
+      "beforeSha256": "63ee9c2288226c8886da5bffa41a930c82e8757bb8fea76a7511dce3245a6e64",
+      "afterSha256": "820fa7e672633bd04cee96fafc4741e8d173baead359915df95f51a533c048de"
+    },
+    {
+      "path": "validation/rechecks/2026-11-21/all-output-visual-comparison/representative-six/index.html",
+      "beforeSha256": "ebca6b75512b08cf12999678e77b8e9d5b8f4797b31416a4ed159488ee920395",
+      "afterSha256": "0240f83cd7c191b0a13f267932cbcea3e669a9374ce18b4a021d1c5ce5d982c7"
+    },
+    {
+      "path": "validation/rechecks/2026-11-21/extended-source-area/README.md",
+      "beforeSha256": "00983d14622d77c47030e569fa5fe055b56190812af97378a59f8da50b8f9b32",
+      "afterSha256": "e48881701079e6348967f2f670e6ebcd4cb14d3962b9e795688c35b4ec14b917"
+    },
+    {
+      "path": "validation/rechecks/2026-11-21/surface-drawing/README.md",
+      "beforeSha256": "f04c975364262587efa7f6feea136ccbb5c8433b94bbd9e9f9d0fad516c6f570",
+      "afterSha256": "8bf37f0dde84d57e712e81ec00b2bad12d04f65ca8c049f5a098aabe4493ffe0"
+    },
+    {
+      "path": "validation/rechecks/2026-11-21/zemax-variable-import/remaining-variables.md",
+      "beforeSha256": "73d9bde6c66420147fee371b9f2622ccfa2fe9ce9424861045cd934c5a6e606a",
+      "afterSha256": "3a3f4cefe3af7b5dc8db4a0fff37e43bef74d0dfcf490cd75b256f0ce301ef9c"
+    }
+  ],
+  "rule": "Only byte-identical copies removed; every original path retains its exact SHA256, size and canonical role in the manifest.",
+  "consumerRepairVerification": {
+    "originalsVerifiedAgainstBeforeSha256": 43,
+    "unrelatedFilesRestoredExactly": [
+      "docs/assets/icons/index.html",
+      "output/report-style-gauss28-20261102/Reports/Double Gauss 28 degree field_full_report.html",
+      "third_party/colorimetry/CIE-LICENSE.html",
+      "validation/rechecks/2026-10-31/commercial-bsdf-calibration/rgl-materials.html",
+      "validation/rechecks/2026-10-31/commercial-bsdf-calibration/trace-valid-direct-no-white/simulation.html",
+      "validation/rechecks/2026-10-31/commercial-bsdf-calibration/trace-valid-direct-white/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/base400-400-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/coarse55-700-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/coarse55-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/coarse65-700-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/coarse65-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/cone30-400-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/dense55-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/dense60-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/exact-height0-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/exact-height02-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/flag1-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/gaussian14-550-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/gaussian14-700-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/gaussian14-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/half-degree-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/height0-400-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/height02-400-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/heldout-input-19/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/heldout-input-45/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/heldout-input-6/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/native-550-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/native-700-direct/simulation.html",
+      "validation/rechecks/2026-10-31/white-specular-runtime/quarter-degree-direct/simulation.html",
+      "validation/rechecks/2026-11-01/xyz-conditions/cornell-reflectance.html",
+      "validation/rechecks/2026-11-21/all-output-visual-comparison/capture/gallery-template.html",
+      "validation/rechecks/2026-11-21/remaining-consistency/exports/Html/Double Gauss 28 degree field_report_20261121_185759_340.html"
+    ],
+    "onlyMappedLinkTargetsRewritten": true
+  }
+}

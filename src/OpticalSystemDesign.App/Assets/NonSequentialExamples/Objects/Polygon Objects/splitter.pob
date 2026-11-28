@@ -1,0 +1,33 @@
+! A simple rectangular splitter
+! The front face is CSG 1, back CSG 2, all other CSG 0
+! FSI Oct 5, 2000
+!Modified for CSG comments 30 Jan 2001
+
+C 0 "Edge Faces"
+C 1 "Front Face"
+C 2 "Back Face"
+
+
+! front face vertices
+V 1 -1 -1 0
+V 2  1 -1 0
+V 3  1  1 0
+V 4 -1  1 0
+! back face vertices
+V 5 -1 -1 .1
+V 6  1 -1 .1
+V 7  1  1 .1
+V 8 -1  1 .1
+! Front
+R 1 2 3 4 0 1
+! Back
+R 5 6 7 8 0 2
+! Top
+R 4 3 7 8 0 0
+! Bottom
+R 1 2 6 5 0 0
+! Left side
+R 1 4 8 5 0 0
+! Right side
+R 2 3 7 6 0 0
+

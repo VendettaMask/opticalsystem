@@ -18,6 +18,7 @@ public sealed class FiniteSpatialCoherenceNativeTests
 
     [Theory]
     [MemberData(nameof(NativeCases))]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void OriginalLensMatchesCompleteNativeFiniteImage(string name)
     {
         using var fixture = Fixture();

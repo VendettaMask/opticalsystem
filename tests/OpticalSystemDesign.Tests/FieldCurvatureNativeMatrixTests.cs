@@ -21,6 +21,7 @@ public sealed class FieldCurvatureNativeMatrixTests(ITestOutputHelper output)
     [InlineData("relay-lens", "FCGT", 303)]
     [InlineData("even-asphere", "FCGS", 101)]
     [InlineData("even-asphere", "FCGT", 101)]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void NativeMfeControlsPassOriginalCurvatureTarget(string name, string code, int count)
     {
         var root = Root();
@@ -68,6 +69,7 @@ public sealed class FieldCurvatureNativeMatrixTests(ITestOutputHelper output)
     [Theory]
     [InlineData("Field Curvature")]
     [InlineData("Field Curvature and Distortion")]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(string name)
     {
         var root = Root();

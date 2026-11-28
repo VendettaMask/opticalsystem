@@ -7,6 +7,8 @@ namespace OpticalSystemDesign.Core.NonSequential;
 public static class NonSequentialColorimetry
 {
     public const string SpectrumFitProtocol = "CIE1931-2deg/1nm; XYZ projected nonnegative least squares; zero initial weights; uniform wavelength bands; unit radiometric power/2";
+    public const string UniformSpectrumProtocol = "Uniform wavelength nodes; equal discrete radiometric powers/1";
+    public const string BlackBodySpectrumProtocol = "Planck wavelength radiance; SI constants; uniform wavelength nodes; unit discrete radiometric power/1";
     private static readonly (double X, double Y, double Z)[] Observer = Load();
     private static (double, double, double)[] Load()
     {
@@ -64,6 +66,36 @@ public static class NonSequentialColorimetry
     public static (double R, double G, double B) ToLinearSrgb(double x, double y, double z) =>
         (3.2406255 * x - 1.537208 * y - .4986286 * z,
             -.9689307 * x + 1.8757561 * y + .0415175 * z, .0557101 * x - .2040211 * y + 1.0569959 * z);
+
+    public static IReadOnlyList<NonSequentialSpectralSample> SampleSpectrum(double fromNm, double toNm, int count, double? blackBodyKelvin = null)
+    {
+        if (!double.IsFinite(fromNm) || !double.IsFinite(toNm) || fromNm < 200 || toNm > 20_000 || fromNm >= toNm || count is < 2 or > 4096
+            || blackBodyKelvin is { } t && (!double.IsFinite(t) || t <= 0)) throw new InvalidDataException("Invalid discrete source spectrum.");
+        var bands = Enumerable.Range(0, count).Select(i => fromNm + (toNm - fromNm) * i / (count - 1)).ToArray();
+        var logs = bands.Select(wave =>
+        {
+            if (blackBodyKelvin is null) return 0d;
+            // hc/k in nm K, using the exact SI definitions of h, c and k.
+            var x = (6.62607015e-34 * 299792458 / 1.380649e-23 * 1e9) / wave / blackBodyKelvin.Value;
+            if (!double.IsFinite(x) || x <= 0) throw new InvalidDataException("Invalid blackbody temperature or wavelength.");
+            var logDenominator = x > 50 ? x : Math.Log(double.ExpM1(x));
+            return -5 * Math.Log(wave) - logDenominator;
+        }).ToArray();
+        var peak = logs.Max(); var weights = logs.Select(v => Math.Exp(v - peak)).ToArray(); var total = weights.Sum();
+        return bands.Select((wave, i) => new NonSequentialSpectralSample(wave, weights[i] / total)).ToArray();
+    }
+
+    public static double PhotopicLumensPerWatt(IReadOnlyList<NonSequentialSpectralSample> spectrum)
+    {
+        if (spectrum.Count is < 1 or > 4096 || spectrum.Any(s => !double.IsFinite(s.Nanometers) || s.Nanometers <= 0
+            || !double.IsFinite(s.RelativePower) || s.RelativePower < 0)) throw new InvalidDataException("Invalid photometric source spectrum.");
+        var maximum = spectrum.Max(s => s.RelativePower);
+        if (maximum <= 0) throw new InvalidDataException("Source spectrum has no power.");
+        var total = spectrum.Sum(s => s.RelativePower / maximum);
+        var y = spectrum.Sum(s => s.RelativePower / maximum * Response(s.Nanometers).Y) / total;
+        if (y <= 0) throw new InvalidDataException("A lumen source needs nonzero photopic spectral response.");
+        return 683 * y;
+    }
 
     public static (double R, double G, double B) ToSrgb(double x, double y, double z, double exposure = 1)
     {

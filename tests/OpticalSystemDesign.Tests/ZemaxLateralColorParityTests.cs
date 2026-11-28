@@ -8,6 +8,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ZemaxLateralColorParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedAnalysisSettingsMatchZemaxChiefRayAndAiryCurves()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

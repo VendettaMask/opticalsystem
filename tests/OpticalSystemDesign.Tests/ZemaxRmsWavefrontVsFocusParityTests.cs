@@ -13,6 +13,7 @@ public sealed class ZemaxRmsWavefrontVsFocusParityTests
     public ZemaxRmsWavefrontVsFocusParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedChiefRayFocusScanSettingsMatchZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

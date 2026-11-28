@@ -51,7 +51,7 @@ public sealed class PolygonGroupGeometry : IGeometry
     public IGeometry Clone() => new PolygonGroupGeometry(Faces, VolumeMaterial);
 
     internal SurfaceRayTraceStateResult Trace(OpticalSurface port, RayState input,
-        IMaterial ambient, double cumulativePath, double cumulativeOpd, bool ignoreAbsorption)
+        IMaterial ambient, double cumulativePath, double cumulativeOpd, bool ignoreAbsorption, bool recordInteractions = false)
     {
         if (input.PolarizationMatrix is not null)
             throw new NotSupportedException("Polygon-group coherent polarization transport is not implemented.");
@@ -62,6 +62,7 @@ public sealed class PolygonGroupGeometry : IGeometry
         var opd = cumulativeOpd;
         var inside = false;
         var observer = DiagnosticObserver;
+        var interactions = recordInteractions ? new List<CompoundRayInteraction>() : null;
         static double[] Coordinates(Vector3D v) => [v.X, v.Y, v.Z];
         for (var interaction = 0; interaction < 128; interaction++)
         {
@@ -124,7 +125,7 @@ public sealed class PolygonGroupGeometry : IGeometry
                     SegmentLength = end.CumulativePathLength - cumulativePath,
                     SegmentOpticalPathLength = end.CumulativeOpticalPathLength - cumulativeOpd
                 };
-                return end with { Ray = globalRay, Sample = sample };
+                return end with { Ray = globalRay, Sample = sample with { CompoundInteractions = interactions?.AsReadOnly() } };
             }
             if (selected is null)
             {
@@ -145,10 +146,18 @@ public sealed class PolygonGroupGeometry : IGeometry
                 CoordinateSystem = CoordinateSystem.Global,
                 IsReflective = selected.Reflective
             };
-            if (selected.Absorbing) break;
+            if (selected.Absorbing)
+            {
+                interactions?.Add(new(Faces.ToList().IndexOf(selected), frame.ToGlobalPoint(ray.Origin + ray.Direction * nearest),
+                    frame.ToGlobalDirection(ray.Direction), null));
+                break;
+            }
             var next = inside ? ambient : VolumeMaterial;
             var result = surface.TraceRayState(ray, currentMaterial, next, path, opd,
                 ignorePhysicalAperture: true, ignoreMaterialAbsorption: ignoreAbsorption);
+            if (interactions is not null)
+                interactions.Add(new(Enumerable.Range(0, Faces.Count).First(i => ReferenceEquals(Faces[i], selected)),
+                    frame.ToGlobalPoint(result.Ray.Origin), frame.ToGlobalDirection(result.Ray.Direction), result.Sample.InteractionKind));
             observer?.Invoke(new
             {
                 kind = "face",
@@ -179,7 +188,8 @@ public sealed class PolygonGroupGeometry : IGeometry
         var missed = input with { Intensity = 0 };
         return new SurfaceRayTraceStateResult(missed,
             new RayTraceSampleValue(port.Number, port.Label, input.Origin, input.Direction, 0, true,
-                CumulativePathLength: path, CumulativeOpticalPathLength: opd),
+                CumulativePathLength: path, CumulativeOpticalPathLength: opd)
+            { CompoundInteractions = interactions?.AsReadOnly() },
             ambient.RefractiveIndex(input.WavelengthNanometers), ambient, null, path, opd, true);
     }
 }

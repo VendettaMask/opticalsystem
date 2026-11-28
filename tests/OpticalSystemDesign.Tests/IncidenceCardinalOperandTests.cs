@@ -255,6 +255,7 @@ public sealed class IncidenceCardinalOperandTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CardinalDataMatchesExistingZemax123456CapturedSettings()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

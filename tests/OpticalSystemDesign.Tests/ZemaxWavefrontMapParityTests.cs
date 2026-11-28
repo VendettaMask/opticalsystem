@@ -8,6 +8,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ZemaxWavefrontMapParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public async Task WavefrontMapUsesZemaxEvenGridAndMatchesCapturedOpd()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

@@ -261,6 +261,7 @@ public sealed class ChromaticFocusOperandTests
     [InlineData(420, 0)]
     [InlineData(440, 1)]
     [InlineData(460, 2)]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void LongitudinalOperandMatchesCaptured123456PupilCurve(double nanometers, int column)
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");

@@ -20,18 +20,12 @@ public sealed partial class MainWindow
     private void RegisterNonSequentialExamples()
     {
         foreach (var example in NonSequentialExampleCatalog.Examples)
-            _actions.Register(example.ActionId, $"检查非序列示例：{example.Name}", "示例",
+            _actions.Register(example.ActionId, $"打开示例：{example.Name}", "示例",
                 () => OpenNonSequentialExampleAsync(example));
     }
 
-    private async Task OpenNonSequentialExampleAsync(NonSequentialExample example)
-    {
-        if (!File.Exists(example.FilePath))
-            throw new FileNotFoundException($"找不到示例文件：{example.Name}", example.FilePath);
-        var window = new NonSequentialZemaxImportWindow(_application.NonSequential);
-        await window.InspectFileAsync(example.FilePath);
-        await window.ShowDialog(this);
-    }
+    private Task OpenNonSequentialExampleAsync(NonSequentialExample example) =>
+        NonSequentialFileImport.ImportAsync(this, _application.NonSequential, example.FilePath);
 
     private async Task OpenSequentialExampleAsync(SequentialExample example)
     {
@@ -65,19 +59,9 @@ public sealed partial class MainWindow
         {
             var category = CreateExampleCategory(group.DisplayName, group.Examples.Select(example =>
                 (example.Name, example.RelativePath, example.ActionId, (Func<Task>)(() => openExample(example)))));
-            ToolTip.SetTip(category, "先检查对象语义和外部资产；菜单收录不代表全部支持。");
-            foreach (var item in category.Items.Cast<MenuItem>())
-            {
-                var path = ToolTip.GetTip(item)?.ToString();
-                ToolTip.SetTip(item, "打开导入检查；全部语义和资产通过后才能应用场景。" + Environment.NewLine + path);
-                AutomationProperties.SetHelpText(item, "打开导入检查；全部语义和资产通过后才能应用场景。");
-            }
             flyout.Items.Add(category);
         }
-        var button = CreateExamplesButton(flyout);
-        ToolTip.SetTip(button, "非序列示例先进行导入检查；不支持的对象或缺失资产会阻止应用。");
-        AutomationProperties.SetHelpText(button, "非序列示例先进行导入检查；不支持的对象或缺失资产会阻止应用。");
-        return button;
+        return CreateExamplesButton(flyout);
     }
 
     private static MenuItem CreateExampleCategory(string displayName,

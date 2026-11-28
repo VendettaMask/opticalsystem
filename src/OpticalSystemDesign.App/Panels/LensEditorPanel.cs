@@ -335,7 +335,10 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
         _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}";
         var canEditComponents = row.GeometryComputable;
-        _geometryPicker.IsEnabled = canEditComponents;
+        var specialized = row.IsCoordinateReference || row.Birefringent is not null;
+        _geometryPicker.IsEnabled = canEditComponents && row.ParaxialLens is null && !specialized;
+        ToolTip.SetTip(_geometryPicker, specialized ? "特殊面型参数按导入值保留；此处只读。"
+            : row.ParaxialLens is null ? null : "近轴参数按导入值保留；此处只读。");
         _aperturePicker.IsEnabled = canEditComponents;
         _gratingOrder.IsEnabled = canEditComponents;
         _gratingPeriod.IsEnabled = canEditComponents && _infiniteGratingPeriod.IsChecked != true;

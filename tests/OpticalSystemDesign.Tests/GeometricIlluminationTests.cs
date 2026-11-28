@@ -121,6 +121,7 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ProductPolZeroCurveRetainsOriginalCapturedRelativeIlluminationGate()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
@@ -162,6 +163,7 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     [InlineData("double-gauss-28-degree-field")]
     [InlineData("relay-lens")]
     [InlineData("even-asphere")]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void GeometricRayPowerMatchesExistingNativeUnpolarizedRayControls(string name)
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();

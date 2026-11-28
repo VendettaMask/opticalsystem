@@ -210,6 +210,8 @@ public sealed partial class LensEditorPanel
         _gratingProperties.Children.Add(PropertyRow("周期 (μm)：", WithInfinity(_gratingPeriod, _infiniteGratingPeriod)));
         _gratingProperties.Children.Add(PropertyRow("槽角 (°)：", _gratingAngle));
         _thinLensProperties.Children.Add(PropertyRow("焦距 (mm)：", WithInfinity(_thinLensFocalLength, _infiniteThinLensFocalLength)));
+        BuildParaxialLensProperties();
+        BuildCrystalProperties();
         BuildPolynomialProperties();
 
         var typePage = new WrapPanel { Name = "SurfaceTypePage", Orientation = Orientation.Horizontal };
@@ -221,6 +223,8 @@ public sealed partial class LensEditorPanel
             PropertyRow("行颜色：", BuildRowColorPicker()),
             _gratingProperties,
             _thinLensProperties,
+            _paraxialLensProperties,
+            _crystalProperties,
             _biconicProperties,
             _polynomialProperties);
         typeFields.Width = 350;
@@ -369,6 +373,8 @@ public sealed partial class LensEditorPanel
             .FirstOrDefault(item => Equals(item.Tag, row.SurfaceColor ?? "")) ?? _surfaceColor.Items[^1];
         _surfaceColorHex.Text = row.SurfaceColor ?? "#3366CC";
         LoadPolynomialProperties(row);
+        LoadParaxialLensProperties(row);
+        LoadCrystalProperties(row);
         _gradientIndexEditor.IsEnabled = row.GeometryComputable && row.Number > 0 && !row.IsLastSurface
             && double.IsFinite(row.Thickness) && row.Thickness > 0 && !row.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
         var gradientReason = _gradientIndexEditor.IsEnabled ? null : "GRIN 材料需要具有有限正厚度及下一边界的可计算透射面。";
@@ -401,6 +407,7 @@ public sealed partial class LensEditorPanel
 
     private void UpdateGeometryPropertyVisibility()
     {
+        _paraxialLensProperties.IsVisible = _grid.SelectedItem is SurfaceEditorRow { ParaxialLens: not null };
         _polynomialProperties.IsVisible = _geometryPicker.SelectedItem is "扩展偶次非球面" or "扩展奇次非球面" or "扩展 XY 多项式";
         _polynomialCount.Maximum = _geometryPicker.SelectedItem is "扩展 XY 多项式" ? 230 : 240;
         _biconicProperties.IsVisible = _geometryPicker.SelectedItem is "双圆锥";

@@ -8,6 +8,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ZemaxHuygensMtfVsFieldParityTests
 {
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void SixFrequencyRelativeFieldScanMatchesZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

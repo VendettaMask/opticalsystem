@@ -133,23 +133,24 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void NonSequentialModeCreatesIndependentObjectWorkspace()
+    public async Task NonSequentialModeCreatesIndependentObjectWorkspace()
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
-        var factory = new WorkspaceDockFactory(application, new AppSettings());
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+            var factory = new WorkspaceDockFactory(application, new AppSettings());
 
-        var layout = factory.CreateLayout();
-        factory.InitLayout(layout);
+            var layout = factory.CreateLayout();
+            factory.InitLayout(layout);
 
-        var primary = Assert.Single(factory.OpenDocuments());
-        Assert.Equal(WorkspaceDockFactory.NonSequentialObjectDocumentId, primary.Id);
-        Assert.IsType<NonSequentialObjectEditorPanel>(primary.Context);
-        var systemTool = WorkspaceDockFactory.EnumerateDockables(layout)
-            .Single(dockable => dockable.Id == WorkspaceDockFactory.SystemToolId);
-        Assert.Equal("非序列设置", systemTool.Title);
-        Assert.IsType<NonSequentialModePanel>(systemTool.Context);
-        factory.DisposeContent();
+            var primary = Assert.Single(factory.OpenDocuments());
+            Assert.Equal(WorkspaceDockFactory.NonSequentialObjectDocumentId, primary.Id);
+            Assert.IsType<NonSequentialObjectEditorPanel>(primary.Context);
+            Assert.DoesNotContain(WorkspaceDockFactory.EnumerateDockables(layout), dockable => dockable.Id == WorkspaceDockFactory.SystemToolId);
+            factory.DisposeContent();
+        }, CancellationToken.None);
     }
 
     [Fact]
@@ -437,30 +438,34 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void DefaultLayoutContainsToolDockAndOnlyLensAndTwoDimensionalDocuments()
+    public async Task DefaultLayoutContainsToolDockAndOnlyLensAndTwoDimensionalDocuments()
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        var factory = new WorkspaceDockFactory(application, new AppSettings());
-        var layout = factory.CreateLayout();
-        factory.InitLayout(layout);
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            var factory = new WorkspaceDockFactory(application, new AppSettings());
+            var layout = factory.CreateLayout();
+            factory.InitLayout(layout);
 
-        var documents = factory.OpenDocuments();
+            var documents = factory.OpenDocuments();
 
-        Assert.Equal(new[] { WorkspaceDockFactory.LensDocumentId, WorkspaceDockFactory.Viewer2DDocumentId },
-            documents.Select(document => document.Id));
-        var document = documents[0];
-        Assert.Equal(WorkspaceDockFactory.LensDocumentId, document.Id);
-        Assert.Same(document, factory.PrimaryDocumentDock!.ActiveDockable);
-        Assert.IsType<ViewerPanel>(documents[1].Context);
-        var viewLocator = new WorkspaceViewLocator();
-        var firstTemplateRoot = viewLocator.Build(document);
-        var secondTemplateRoot = viewLocator.Build(document);
-        Assert.NotSame(document.Context, firstTemplateRoot);
-        Assert.NotSame(firstTemplateRoot, secondTemplateRoot);
-        Assert.Contains(
-            WorkspaceDockFactory.EnumerateDockables(layout),
-            dockable => dockable.Id == WorkspaceDockFactory.ToolDockId && dockable is IToolDock);
-        factory.DisposeContent();
+            Assert.Equal(new[] { WorkspaceDockFactory.LensDocumentId, WorkspaceDockFactory.Viewer2DDocumentId },
+                documents.Select(document => document.Id));
+            var document = documents[0];
+            Assert.Equal(WorkspaceDockFactory.LensDocumentId, document.Id);
+            Assert.Same(document, factory.PrimaryDocumentDock!.ActiveDockable);
+            Assert.IsType<ViewerPanel>(documents[1].Context);
+            var viewLocator = new WorkspaceViewLocator();
+            var firstTemplateRoot = viewLocator.Build(document);
+            var secondTemplateRoot = viewLocator.Build(document);
+            Assert.NotSame(document.Context, firstTemplateRoot);
+            Assert.NotSame(firstTemplateRoot, secondTemplateRoot);
+            Assert.Contains(
+                WorkspaceDockFactory.EnumerateDockables(layout),
+                dockable => dockable.Id == WorkspaceDockFactory.ToolDockId && dockable is IToolDock);
+            factory.DisposeContent();
+        }, CancellationToken.None);
     }
 
     [Fact]
@@ -561,22 +566,26 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void NonSequentialDetectorViewerIsAStableWorkspaceDocument()
+    public async Task NonSequentialDetectorViewerIsAStableWorkspaceDocument()
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
-        using var manager = new PanelManager(application, new AppSettings());
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+            using var manager = new PanelManager(application, new AppSettings());
 
-        manager.ShowNonSequentialDetectorViewer();
-        manager.ShowNonSequentialDetectorViewer();
+            manager.ShowNonSequentialDetectorViewer();
+            manager.ShowNonSequentialDetectorViewer();
 
-        var document = Assert.Single(
-            manager.Factory.OpenDocuments(),
-            item => item.Id == WorkspaceDockFactory.NonSequentialDetectorViewerDocumentId);
-        Assert.Equal("探测器查看器", document.Title);
-        Assert.IsType<NonSequentialDetectorViewerPanel>(document.Context);
-        Assert.IsAssignableFrom<IDocumentDock>(document.Owner);
-        Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.NonSequentialDetectorViewer));
+            var document = Assert.Single(
+                manager.Factory.OpenDocuments(),
+                item => item.Id == WorkspaceDockFactory.NonSequentialDetectorViewerDocumentId);
+            Assert.Equal("探测器查看器", document.Title);
+            Assert.IsType<NonSequentialDetectorViewerPanel>(document.Context);
+            Assert.IsAssignableFrom<IDocumentDock>(document.Owner);
+            Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.NonSequentialDetectorViewer));
+        }, CancellationToken.None);
     }
 
     [Fact]

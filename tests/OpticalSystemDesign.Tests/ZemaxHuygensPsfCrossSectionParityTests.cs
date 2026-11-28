@@ -13,6 +13,7 @@ public sealed class ZemaxHuygensPsfCrossSectionParityTests
     public ZemaxHuygensPsfCrossSectionParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedCrossSectionSettingsUseZemaxPsfCenterRowAndScale()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

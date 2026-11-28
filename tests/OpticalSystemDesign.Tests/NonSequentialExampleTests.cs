@@ -86,8 +86,8 @@ public sealed class NonSequentialExampleTests
                 Assert.False(string.IsNullOrWhiteSpace(UiLocalization.Text(group.DisplayName, UiLocalization.Japanese)));
                 foreach (var (item, example) in category.Items.Cast<MenuItem>().Zip(group.Examples))
                 {
-                    Assert.Equal("打开导入检查；全部语义和资产通过后才能应用场景。" + Environment.NewLine + example.RelativePath, ToolTip.GetTip(item));
-                    Assert.Equal("打开导入检查；全部语义和资产通过后才能应用场景。", AutomationProperties.GetHelpText(item));
+                    Assert.Equal(example.RelativePath, ToolTip.GetTip(item));
+                    Assert.Null(AutomationProperties.GetHelpText(item));
                     Assert.Equal("ribbon-" + example.ActionId, AutomationProperties.GetAutomationId(item));
                     item.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
                     Assert.Same(example, selected[^1]);
@@ -98,11 +98,14 @@ public sealed class NonSequentialExampleTests
     }
 
     [Theory]
-    [InlineData("Light", "zh-CN", 1)]
-    [InlineData("Dark", "ja-JP", 1.5)]
-    [InlineData("Isekai", "en-US", 2)]
-    public async Task NonSequentialFileRibbonOpensSelectedSampleInspectionWithoutReplacingTheCurrentProject(
-        string theme, string language, double scaling)
+    [InlineData("Light", "zh-CN", 1, false)]
+    [InlineData("Dark", "ja-JP", 1.5, false)]
+    [InlineData("Isekai", "en-US", 2, false)]
+    [InlineData("Light", "zh-CN", 1, true)]
+    [InlineData("Dark", "ja-JP", 1.5, true)]
+    [InlineData("Isekai", "en-US", 2, true)]
+    public async Task NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(
+        string theme, string language, double scaling, bool unavailable)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OpticalSystemDesign.App.App));
         await session.Dispatch(async () =>
@@ -120,7 +123,7 @@ public sealed class NonSequentialExampleTests
             };
             var window = new MainWindow(settings, application, new WorkspaceSessionStore(files.Path("workspace")));
             var original = application.Documents.GetRecoveryState();
-            NonSequentialZemaxImportWindow? inspector = null;
+            var originalScene = application.NonSequential.GetDesignSceneIdentity();
             try
             {
                 var ready = false; window.StartupCompleted += (_, _) => ready = true;
@@ -137,41 +140,41 @@ public sealed class NonSequentialExampleTests
                 flyout.ShowAt(button); Tick(window);
                 var category = flyout.Items.Cast<MenuItem>().First();
                 category.IsSubMenuOpen = true; Tick(window);
-                var item = category.Items.Cast<MenuItem>().First();
-                var example = NonSequentialExampleCatalog.Examples.First();
+                var index = unavailable ? 1 : 0;
+                var item = category.Items.Cast<MenuItem>().ElementAt(index);
+                var example = NonSequentialExampleCatalog.Examples[index];
                 var categoryRoot = TopLevel.GetTopLevel(category)!;
                 var exampleRoot = TopLevel.GetTopLevel(item)!;
                 categoryRoot.SetRenderScaling(scaling); exampleRoot.SetRenderScaling(scaling); Tick(window);
-                Capture(window, $"{theme}-ribbon.png");
-                if (!ReferenceEquals(window, categoryRoot)) Capture(categoryRoot, $"{theme}-categories.png");
-                if (!ReferenceEquals(window, exampleRoot) && !ReferenceEquals(categoryRoot, exampleRoot))
-                    Capture(exampleRoot, $"{theme}-examples.png");
                 Assert.Equal(UiLocalization.Text(NonSequentialExampleCatalog.Groups.First().DisplayName), category.Header);
                 item.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
                 flyout.Hide();
-                for (var n = 0; n < 250 && inspector is null; n++)
-                {
-                    await Task.Delay(10); Tick(window);
-                    inspector = window.OwnedWindows.OfType<NonSequentialZemaxImportWindow>().SingleOrDefault();
-                }
-                Assert.NotNull(inspector);
-                inspector.SetRenderScaling(scaling); Tick(inspector);
-                Assert.Contains(Path.GetFileName(example.FilePath), inspector.GetVisualDescendants().OfType<TextBlock>()
-                    .Single(c => AutomationProperties.GetAutomationId(c) == "nsc-import-status").Text);
-                var result = await application.NonSequential.InspectZemaxNscAsync(example.FilePath);
-                Assert.Equal(result.CanApply, inspector.GetVisualDescendants().OfType<Button>()
-                    .Single(c => AutomationProperties.GetAutomationId(c) == "nsc-import-apply").IsEnabled);
-                Assert.Equal(original, application.Documents.GetRecoveryState());
                 Assert.Equal(OpticalWorkbenchMode.NonSequential, application.Modes.CurrentMode);
-                Capture(inspector, $"{theme}-inspection.png");
-                await inspector.InspectFileAsync(files.Path("missing.zmx")); Tick(inspector);
-                Assert.False(inspector.GetVisualDescendants().OfType<Button>()
-                    .Single(c => AutomationProperties.GetAutomationId(c) == "nsc-import-apply").IsEnabled);
-                Assert.True(string.IsNullOrEmpty(inspector.GetVisualDescendants().OfType<TextBox>()
-                    .Single(c => AutomationProperties.GetAutomationId(c) == "nsc-import-details").Text));
-                Assert.Equal(original, application.Documents.GetRecoveryState());
+                if (unavailable)
+                {
+                    for (var n = 0; n < 250 && !window.OwnedWindows.Any(); n++) { await Task.Delay(10); Tick(window); }
+                    var failure = Assert.Single(window.OwnedWindows);
+                    Assert.Equal("nsc-import-unavailable", AutomationProperties.GetAutomationId(failure));
+                    failure.SetRenderScaling(scaling); Tick(failure);
+                    Assert.Contains(failure.GetVisualDescendants().OfType<TextBlock>(), t => t.Text == UiLocalization.Text("无法导入此文件。"));
+                    Assert.Empty(failure.GetVisualDescendants().OfType<TextBox>());
+                    Assert.Equal(original, application.Documents.GetRecoveryState());
+                    Capture(failure, $"{theme}-unavailable.png");
+                    var close = failure.GetVisualDescendants().OfType<Button>().Single();
+                    Assert.True(close.IsEffectivelyVisible); Assert.True(close.Bounds.Width > 0);
+                    close.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+                else
+                {
+                    for (var n = 0; n < 250 && application.NonSequential.GetDocument().Objects.Count != 5; n++) { await Task.Delay(10); Tick(window); }
+                    Assert.Equal(5, application.NonSequential.GetDocument().Objects.Count);
+                    Assert.Empty(window.OwnedWindows);
+                    Capture(window, $"{theme}-imported.png");
+                    Assert.True(application.Documents.Undo());
+                    Assert.Equal(originalScene, application.NonSequential.GetDesignSceneIdentity());
+                }
             }
-            finally { inspector?.Close(); window.Close(); }
+            finally { foreach (var child in window.OwnedWindows.ToArray()) child.Close(); window.Close(); }
         }, CancellationToken.None);
     }
 

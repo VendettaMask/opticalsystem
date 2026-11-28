@@ -25,6 +25,25 @@ public sealed class AnalysisImageExportTests
 {
     private static bool RenderImages => !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR"));
 
+    [PlotImageTheory]
+    [InlineData(1600, 900, 1920, 1080, 1919, 1080)]
+    [InlineData(900, 1600, 1080, 1920, 1080, 1919)]
+    public async Task SinglePixelCanvasGutterKeepsTheActualFrameFullyOpaque(
+        int width, int height, int canvasWidth, int canvasHeight, int frameWidth, int frameHeight)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            ImageExportResolution.Configure(new AppSettings { ImageExportPixelWidth = canvasWidth, ImageExportPixelHeight = canvasHeight });
+            var source = new Border { Width = width, Height = height, Background = Avalonia.Media.Brushes.Crimson };
+            source.Measure(new Size(width, height)); source.Arrange(new Rect(0, 0, width, height));
+            using var image = ExportImageFrame.CaptureConfigured(source);
+            Assert.Equal(new PixelRect(0, 0, frameWidth, frameHeight), ExportImageAssertions.FrameBounds(image));
+            ExportImageAssertions.HasCompleteBorder(image);
+        }, CancellationToken.None);
+    }
+
     public static AppBuilder BuildAvaloniaApp()
     {
         // Avalonia caches glyphs across sessions. Keep real Skia pixel/encoding
@@ -90,6 +109,8 @@ public sealed class AnalysisImageExportTests
         await session.Dispatch(() =>
         {
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            UiLocalization.Apply(UiLocalization.Chinese);
+            ImageExportResolution.Configure(new AppSettings());
             using var application = WorkbenchApplication.Create();
             using var panel = CreatePanel(application);
             panel.PresentResult(View(kind), application.Documents.GetSnapshot(), new DateTimeOffset(2026, 10, 22, 12, 0, 0, TimeSpan.FromHours(8)));
@@ -130,6 +151,12 @@ public sealed class AnalysisImageExportTests
                 Assert.Equal(camera, (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom));
                 Assert.IsType<UniformDiagramPage>(page.Child);
                 Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
+                if (RenderImages)
+                {
+                    var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR")!;
+                    Directory.CreateDirectory(directory);
+                    image.Save(Path.Combine(directory, $"export-{kind}-{width}x{height}.png"), PngBitmapEncoderOptions.Default);
+                }
                 ExportImageAssertions.HasCompleteBorder(image);
                 Assert.True(page.Bounds.Height < height); // No toolbar/tab strip; the exported content may scroll.
                 AssertHasInk(image, 0, image.PixelSize.Height / 2); // The plot.
@@ -174,6 +201,9 @@ public sealed class AnalysisImageExportTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
         await session.Dispatch(() =>
         {
+            // This test asserts the original source geometry; Auto sheet sizing
+            // is verified separately and must not depend on earlier tests.
+            ImageExportResolution.Configure(new AppSettings { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             using var panel = CreatePanel(application);
             DisplayTypography.Configure(new AppSettings { FontSize = fontSize });
@@ -320,19 +350,13 @@ public sealed class AnalysisImageExportTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
         await session.Dispatch(() =>
         {
-            using var application = WorkbenchApplication.Create();
-            using var panel = CreatePanel(application);
-            panel.PresentResult(View(AnalysisPresentationKind.Standard), application.Documents.GetSnapshot(), DateTimeOffset.Now);
-            var window = new Window { Width = 420, Height = 280, Content = panel };
-            try
-            {
-                window.Show(); Render(window);
-                var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
-                page.Child!.Width = width; page.Child.Height = height; Render(window);
-                var exception = Assert.Throws<InvalidOperationException>(() => panel.CapturePlotImage(renderScale: 1));
-                Assert.Contains("尺寸上限", exception.Message);
-            }
-            finally { window.Close(); }
+            // Uniform pages now restore their own source dimensions on layout.
+            // Exercise the allocation guard with the actual oversized source.
+            var source = new Border { Width = width, Height = height };
+            source.Measure(new Size(width, height));
+            source.Arrange(new Rect(0, 0, width, height));
+            var exception = Assert.Throws<InvalidOperationException>(() => ExportImageFrame.Capture(source, 1));
+            Assert.Contains("尺寸上限", exception.Message);
         }, CancellationToken.None);
     }
 

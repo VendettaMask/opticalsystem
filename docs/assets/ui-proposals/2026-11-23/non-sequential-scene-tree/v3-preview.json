@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "date": "2026-11-23",
+  "revision": 3,
+  "status": "Complex-system interaction preview",
+  "productionWorkspaceChanged": false,
+  "width": 1840,
+  "height": 1120,
+  "channels": 32,
+  "objects": 432,
+  "sourceObjects": 32,
+  "lenses": 64,
+  "detectors": 32,
+  "coordinateReferenceFrames": 32,
+  "mechanicalObjects": 272,
+  "navigationViews": [
+    "Structure",
+    "Optical properties",
+    "Simulation and results"
+  ],
+  "actualCoreLayoutTrace": true,
+  "layoutBranches": 864,
+  "layoutSegments": 2055,
+  "rendering": "Native application shell with candidate viewport projection from shared Core geometry; convex lens and box silhouettes, not a general CAD renderer",
+  "organizationalGrouping": "Separate presentation tree; coordinate reference and containing-medium identities remain unchanged",
+  "batchScope": "Shared/mixed property display and candidate controls; batch apply and single-step undo are not implemented in the product",
+  "otherScope": "Selection sets are local to this preview; the 432-object STAROPT fixture contains the native physical scene",
+  "build": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "fullPrecisionMatrixRun": false,
+  "interactiveDesktopUsed": false,
+  "sourceFiles": [
+    {
+      "path": "docs/assets/ui-proposals/2026-11-23/non-sequential-scene-tree/prototype/ComplexDemo.cs",
+      "sha256": "1fdb1b0d01f21327cc0d67fb9d6edba1bbbb67dd46bc4e1ff6078a8c01eebd41"
+    },
+    {
+      "path": "docs/assets/ui-proposals/2026-11-23/non-sequential-scene-tree/prototype/ComplexWorkspace.cs",
+      "sha256": "8e99514e00ba2a764994b656f1f79c3d0088e11f8476d7c2d695816c59d62763"
+    },
+    {
+      "path": "docs/assets/ui-proposals/2026-11-23/non-sequential-scene-tree/prototype/PreviewSceneView.cs",
+      "sha256": "c295d0070a7535d58fe198ad45d5ff898ebca86ec0dfe0d042b3bb9ad8b41d09"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "v3-batch.png",
+      "bytes": 234890,
+      "sha256": "d31f797d433c4f19fd66fbfd466b788b5966a56acdc9c7631ed916ff347657cc"
+    },
+    {
+      "path": "v3-checks.json",
+      "bytes": 761,
+      "sha256": "812b15ea981129576966e936f23fc4fa9cf5c158bee4e0a7912bc9caf7951ae9"
+    },
+    {
+      "path": "v3-complex-demo.staropt",
+      "bytes": 15136,
+      "sha256": "3112336d0d333b8ef7431619702c9f739068449319f9a7cc0092feac8fb94178"
+    },
+    {
+      "path": "v3-optical.png",
+      "bytes": 244623,
+      "sha256": "929160cc39dd5d4fa78bb8c02625e907e5a6502a34d7ad797d01d4907017da07"
+    },
+    {
+      "path": "v3-overview.png",
+      "bytes": 427402,
+      "sha256": "37d9babc0851713ad5521a53b4301439af1d83152ce6f3c7225bc96fb34dfcc1"
+    },
+    {
+      "path": "v3-search.png",
+      "bytes": 191780,
+      "sha256": "3ad7103c48c4040935c8072b8b5afa772e8ccdab56112ad3d4846a69707462e4"
+    },
+    {
+      "path": "v3-simulation.png",
+      "bytes": 187246,
+      "sha256": "82a05f8db00de034b427961f01036d5e908e48c9182463ecedcbe0576ebfeac1"
+    },
+    {
+      "path": "v3-table.png",
+      "bytes": 242762,
+      "sha256": "a4e1e6457f09ef57c2f9e02a0fc28c9ec70de2e4e6452bac9a78f5e76a7f1bca"
+    },
+    {
+      "path": "v3-workspace.png",
+      "bytes": 228672,
+      "sha256": "e146bcd4c2c219a7791a36569cd20c0b5d2a7b25b21b827c1316901ce2173eca"
+    }
+  ]
+}

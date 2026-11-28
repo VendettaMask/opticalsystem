@@ -11,7 +11,7 @@ using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 
-public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, IDisplaySettingsAware
+public sealed partial class NonSequentialObjectEditorPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly INonSequentialDocumentService _service;
     private readonly IWorkspaceEventStream _events;
@@ -44,34 +44,48 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     public NonSequentialObjectEditorPanel(
         INonSequentialDocumentService service,
-        IWorkspaceEventStream events)
+        IWorkspaceEventStream events,
+        IVisualizationService? visualization = null,
+        INonSequentialAnalysisService? analysis = null,
+        IOpticalDocumentService? documents = null)
     {
         _service = service;
         _events = events;
+        _visualization = visualization;
+        _analysis = analysis;
+        _documents = documents;
         _addKind.ItemsSource = service.GetObjectKinds();
         _addKind.SelectedIndex = 0;
         _kind.ItemsSource = service.GetObjectKinds();
+        foreach (var picker in new[] { _kind, _addKind })
+            picker.ItemTemplate = new Avalonia.Controls.Templates.FuncDataTemplate<NonSequentialObjectKind>((item, _) =>
+            {
+                var label = new TextBlock();
+                UiLocalization.BindLanguage(label, () => label.Text = KindLabel(item));
+                return label;
+            });
         _grid = CreateGrid();
 
-        var body = new Grid { ColumnDefinitions = new ColumnDefinitions("3*,8,2*") };
-        body.Children.Add(_grid);
-        var splitter = new GridSplitter { Width = 8, HorizontalAlignment = HorizontalAlignment.Stretch };
-        Grid.SetColumn(splitter, 1);
-        body.Children.Add(splitter);
-        var properties = BuildProperties();
-        Grid.SetColumn(properties, 2);
-        body.Children.Add(properties);
+        var body = BuildWorkspace(BuildProperties());
 
         var root = new DockPanel();
         root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         var commands = BuildCommands();
         DockPanel.SetDock(commands, Avalonia.Controls.Dock.Top);
         root.Children.Add(commands);
+        var status = new Border { Padding = new Avalonia.Thickness(12, 4), Child = _summary };
+        DockPanel.SetDock(status, Avalonia.Controls.Dock.Bottom);
+        root.Children.Add(status);
         root.Children.Add(body);
         Content = root;
 
-        _grid.SelectionChanged += (_, _) => LoadSelection();
+        _grid.SelectionChanged += (_, _) => TableSelectionChanged();
         _events.Changed += OnWorkspaceChanged;
+        if (_analysis is not null)
+        {
+            _analysis.SessionChanged += AnalysisChanged;
+            _analysis.LayoutSessionChanged += AnalysisChanged;
+        }
         Refresh(false);
         UiLocalization.BindLanguage(this, RefreshSelectionSummary);
         foreach (var picker in new[] { _reference, _container })
@@ -89,6 +103,12 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         if (_disposed) return;
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
+        _sceneCancellation?.Cancel();
+        if (_analysis is not null)
+        {
+            _analysis.SessionChanged -= AnalysisChanged;
+            _analysis.LayoutSessionChanged -= AnalysisChanged;
+        }
     }
 
     public void RefreshDisplaySettings() => Refresh();
@@ -100,7 +120,11 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         zemax.Click += async (_, _) =>
         {
             if (TopLevel.GetTopLevel(this) is Window owner)
-                await new NonSequentialZemaxImportWindow(_service).ShowDialog(owner);
+            {
+                zemax.IsEnabled = false;
+                try { await NonSequentialFileImport.PickAndImportAsync(owner, _service); }
+                finally { zemax.IsEnabled = true; }
+            }
         };
         var design = CommandButton("优化与公差");
         design.Click += async (_, _) =>
@@ -110,23 +134,28 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         };
         import.Click += async (_, _) => await ImportStlAsync();
         var add = CommandButton("添加");
+        add.Name = "nsc-add-object";
         add.Click += (_, _) =>
         {
             if (_addKind.SelectedItem is NonSequentialObjectKind kind)
             {
-                var selected = _grid.SelectedItem as ObjectRow;
+                var selected = CurrentSelectionRow();
                 SelectAfter(() => _service.AddObject(kind, selected?.Number));
             }
         };
         var remove = CommandButton("删除");
-        remove.Click += (_, _) => WithSelection(row => _service.DeleteObject(row.Id));
+        remove.Click += (_, _) =>
+        {
+            try { if (_selectedIds.Count > 0) _service.DeleteObjects(_selectedIds.ToArray()); }
+            catch (Exception error) { _summary.Text = error.Message; }
+        };
         var copy = CommandButton("复制");
         copy.Click += (_, _) => WithSelection(row => _clipboard = row.ToUpdate());
         var paste = CommandButton("粘贴");
         paste.Click += (_, _) =>
         {
             if (_clipboard is null) return;
-            var index = (_grid.SelectedItem as ObjectRow)?.Number ?? _service.GetDocument().Objects.Count;
+            var index = CurrentSelectionRow()?.Number ?? _service.GetDocument().Objects.Count;
             SelectAfter(() => _service.PasteObject(_clipboard, index));
         };
         var up = CommandButton("上移");
@@ -144,12 +173,37 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             catch (Exception error) when (error is InvalidOperationException or InvalidDataException or ArgumentException or NotSupportedException)
             { _summary.Text = error.Message; }
         };
-        var content = new WrapPanel
+        var addMenu = new Button { Content = new LocalIconLabel("action-add", "添加对象"), Name = "nsc-add-menu" };
+        addMenu.Flyout = new Flyout
+        {
+            Content = new StackPanel { Spacing = 8, Children = { _addKind, add } }
+        };
+        add.Click += (_, _) => addMenu.Flyout?.Hide();
+        var more = new Button { Content = new LocalIconLabel("action-more", "更多"), Name = "nsc-more-menu" };
+        more.Flyout = new Flyout
+        {
+            Content = new StackPanel { Spacing = 6, Children = { import, design, up, down, convert } }
+        };
+        var sceneSettings = WorkspaceCommand("settings-general", "场景设置", OpenSceneSettings);
+        sceneSettings.Name = "nsc-open-scene-settings"; QuietCommand(sceneSettings);
+        var editCommands = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Margin = new Avalonia.Thickness(10, 6),
-            Children = { _addKind, add, import, zemax, design, remove, copy, paste, up, down, convert, _summary }
+            Children =
+        { sceneSettings, addMenu, zemax, ToolbarDivider(), QuietIcon(copy, "clipboard-copy-text", "复制"), paste,
+            QuietIcon(remove, "action-delete", "删除"), WorkspaceIcon("action-undo", "撤销", () => _documents?.Undo()), more }
         };
+        QuietCommand(addMenu); QuietCommand(zemax); QuietCommand(more); QuietCommand(paste);
+        var trace = WorkspaceCommand("action-run", "光线追迹", OpenTrace); trace.Name = "nsc-primary-trace";
+        trace.Classes.Add("accent");
+        var actions = new WrapPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Children =
+        { WorkspaceCommand("detector-view", "探测器", OpenDetectors), trace }
+        };
+        var content = new DockPanel { Margin = new Avalonia.Thickness(8, 6), LastChildFill = true };
+        DockPanel.SetDock(actions, Avalonia.Controls.Dock.Right); content.Children.Add(actions); content.Children.Add(editCommands);
         var border = new Border { BorderThickness = new Avalonia.Thickness(0, 0, 0, 1), Child = content };
         border.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         border.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
@@ -167,6 +221,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
             FrozenColumnCount = 3,
+            SelectionMode = DataGridSelectionMode.Extended,
             RowHeight = UiDensity.CompactTableRowHeight,
             ColumnHeaderHeight = UiDensity.TableHeaderHeight
         };
@@ -202,37 +257,36 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     private Control BuildProperties()
     {
-        var common = new WrapPanel
+        _singleCommon = new StackPanel
         {
-            Orientation = Orientation.Horizontal,
+            Spacing = 6,
             Children =
             {
-                Label("类型"), _kind,
-                Label("参考"), _reference,
-                Label("包含于"), _container,
-                _visible
+                PropertyLine("类型", _kind), PropertyLine("参考", _reference), PropertyLine("包含于", _container)
             }
         };
         var apply = CommandButton("应用对象属性");
         apply.Name = "nsc-apply";
-        apply.HorizontalAlignment = HorizontalAlignment.Left;
+        apply.HorizontalAlignment = HorizontalAlignment.Stretch;
         apply.Click += (_, _) => ApplyProperties();
-        var panel = new StackPanel
+        var panel = new Grid
         {
-            Margin = new Avalonia.Thickness(12),
-            Spacing = 9,
+            Margin = new Avalonia.Thickness(14, 10),
+            RowDefinitions = new RowDefinitions("Auto,*,Auto"),
             Children =
             {
-                new TextBlock { Text = "对象属性", FontWeight = FontWeight.SemiBold, FontSize = DisplayTypography.CardTitle },
-                common,
-                new ScrollViewer
-                {
-                    Content = _parameters,
-                    VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
-                },
-                apply
+                _propertyTitle
             }
         };
+        var fields = new StackPanel { Spacing = 10, Margin = new Avalonia.Thickness(0, 12, 0, 10), Children = { _parameters } };
+        var scroll = new ScrollViewer
+        {
+            Content = fields,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled
+        };
+        Grid.SetRow(scroll, 1); panel.Children.Add(scroll);
+        Grid.SetRow(apply, 2); panel.Children.Add(apply);
         var border = new Border { BorderThickness = new Avalonia.Thickness(1, 0, 0, 0), Child = panel };
         border.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
         border.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
@@ -241,19 +295,29 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     private void RefreshSelectionSummary()
     {
-        if (_grid.SelectedItem is ObjectRow row)
+        if (CurrentSelectionRow() is ObjectRow row)
             _summary.Text = UiLocalization.Format("对象 {0} · {1} · {2}", row.Number,
                 UiLocalization.Text(row.Role), UiLocalization.Text(row.Summary));
     }
 
     private void LoadSelection()
     {
+        if (_synchronizingSelection) return;
         _loading = true;
         try
         {
             _fields.Clear();
             _parameters.Children.Clear();
-            if (_grid.SelectedItem is not ObjectRow row) return;
+            _singleCommon.IsVisible = _selectedIds.Count <= 1;
+            _propertyTitle.Text = UiLocalization.Text("对象属性");
+            if (_selectedIds.Count > 1) { BuildBatchProperties(); return; }
+            if (CurrentSelectionRow() is not ObjectRow row) return;
+            Field("objectName", "名称", row.Name);
+            _parameters.Children.Add(_singleCommon);
+            Field("objectEnabled", "参与追迹", row.Enabled);
+            Field("objectX", "X (mm)", row.X); Field("objectY", "Y (mm)", row.Y); Field("objectZ", "Z (mm)", row.Z);
+            Field("objectTiltX", "倾斜 X", row.TiltX); Field("objectTiltY", "倾斜 Y", row.TiltY); Field("objectTiltZ", "倾斜 Z", row.TiltZ);
+            GroupPlacementFields();
             var rows = (_grid.ItemsSource as IEnumerable<ObjectRow> ?? Array.Empty<ObjectRow>()).ToArray();
             var choices = new[] { new ObjectChoice(null, "全局") }
                 .Concat(rows.Where(item => item.Id != row.Id).Select(item => new ObjectChoice(item.Id, $"{item.Number}: {item.Name}")))
@@ -266,7 +330,10 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             _kind.SelectedItem = row.Kind;
             ControlAvailability.Set(_kind, row.Kind is not (NonSequentialObjectKind.Mesh or NonSequentialObjectKind.OpticalAssembly), "导入或转换对象保留其几何类型；可修改位置与显示设置。");
             _visible.IsChecked = row.Visible;
+            var geometryStart = _parameters.Children.Count;
             AddParameterFields(row.Parameters);
+            GroupParameterFields(geometryStart, row.Parameters is SourceParameters ? "光源参数"
+                : row.Kind == NonSequentialObjectKind.DetectorRectangle ? "探测器参数" : "几何与材料");
             if (row.Kind is NonSequentialObjectKind.PlaneRectangle or NonSequentialObjectKind.Sphere
                 or NonSequentialObjectKind.Cylinder or NonSequentialObjectKind.Box or NonSequentialObjectKind.Mesh)
             {
@@ -460,7 +527,8 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     private void ApplyProperties()
     {
-        if (_grid.SelectedItem is not ObjectRow row) return;
+        if (_selectedIds.Count > 1) { ApplyBatchProperties(); return; }
+        if (CurrentSelectionRow() is not ObjectRow row) return;
         try
         {
             var kind = _kind.SelectedItem is NonSequentialObjectKind selected ? selected : row.Kind;
@@ -482,6 +550,14 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             _service.UpdateObject(row.ToUpdate() with
             {
                 Kind = kind,
+                Name = S("objectName"),
+                Enabled = B("objectEnabled"),
+                X = D("objectX"),
+                Y = D("objectY"),
+                Z = D("objectZ"),
+                TiltXDegrees = D("objectTiltX"),
+                TiltYDegrees = D("objectTiltY"),
+                TiltZDegrees = D("objectTiltZ"),
                 Visible = _visible.IsChecked == true,
                 ReferenceObjectId = (_reference.SelectedItem as ObjectChoice)?.Id,
                 ContainingObjectId = (_container.SelectedItem as ObjectChoice)?.Id,
@@ -538,14 +614,18 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             var rows = document.Objects.Select(item => new ObjectRow(item)).ToArray();
             _grid.ItemsSource = rows;
             _grid.SelectedItem = rows.FirstOrDefault(item => item.Id == selected) ?? rows.FirstOrDefault();
+            RefreshWorkspace(document, preserveSelection, select);
             _summary.Text = $"{document.Name} · {rows.Length} 个对象 · {document.Wavelengths.Count} 个波长";
         }
         finally { _loading = false; }
         LoadSelection();
     }
 
-    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) =>
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        _sceneCancellation?.Cancel();
         Dispatcher.UIThread.Post(() => Refresh(!args.FileSwitched));
+    }
 
     private async Task ImportStlAsync()
     {
@@ -574,7 +654,12 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     }
 
     private void SelectAfter(Func<Guid> operation) { var id = operation(); Refresh(select: id); }
-    private void WithSelection(Action<ObjectRow> action) { if (_grid.SelectedItem is ObjectRow row) action(row); }
+    private void WithSelection(Action<ObjectRow> action)
+    {
+        if (_selectedIds.Count > 1) { _summary.Text = UiLocalization.Text("请选择一个对象执行此操作。"); return; }
+        try { if (CurrentSelectionRow() is ObjectRow row) action(row); }
+        catch (Exception error) { _summary.Text = error.Message; }
+    }
     private void Vector(string key, string label, NonSequentialVector3 value) { Field(key + "X", label + " X", value.X); Field(key + "Y", label + " Y", value.Y); Field(key + "Z", label + " Z", value.Z); }
 
     private void Field(string key, string label, object value)
@@ -609,12 +694,16 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         {
             editor = new TextBox { Text = Convert.ToString(value, CultureInfo.InvariantCulture), MinWidth = 120 };
         }
+        editor.Name = "nsc-field-" + key;
+        if (key == "objectName") UiLocalization.Preserve(editor);
+        if (editor is TextBox && value is double or int) editor.Classes.Add("numeric-text");
         if (key == "lambertian") editor.Name = "nsc-lambertian";
         if (key == "diffuseReflectance") editor.Name = "nsc-diffuse-reflectance";
         if (key.StartsWith("bsdf-", StringComparison.Ordinal)) editor.Name = "nsc-" + key;
         _fields[key] = editor;
-        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("145,*") };
-        row.Children.Add(new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center, TextWrapping = key.StartsWith("bsdf-", StringComparison.Ordinal) ? TextWrapping.Wrap : TextWrapping.NoWrap });
+        editor.MinWidth = 0;
+        var row = new Grid { ColumnDefinitions = new ColumnDefinitions(key == "objectName" ? "74,*" : "116,*"), ColumnSpacing = 6 };
+        row.Children.Add(new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap });
         Grid.SetColumn(editor, 1);
         row.Children.Add(editor);
         _parameters.Children.Add(row);
@@ -634,7 +723,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     internal async Task<bool> ImportMeasuredBsdfFromPathAsync(string path)
     {
-        if (_grid.SelectedItem is not ObjectRow row) return false;
+        if (CurrentSelectionRow() is not ObjectRow row) return false;
         try
         {
             var side = (_fields.GetValueOrDefault("bsdfImportSide") as ComboBox)?.SelectedItem as BsdfSideChoice;
@@ -731,41 +820,5 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         public NonSequentialSurfaceBsdf? SurfaceBsdf => _dto.SurfaceBsdf;
         public string Summary { get; }
         public NonSequentialObjectUpdateDto ToUpdate() => new(Id, Enabled, Visible, Kind, Name, ReferenceId, ContainerId, X, Y, Z, TiltX, TiltY, TiltZ, Parameters, SurfaceBsdf);
-    }
-}
-
-public sealed class NonSequentialModePanel : UserControl, IDisposable
-{
-    private readonly INonSequentialDocumentService _service;
-    private readonly IWorkspaceEventStream _events;
-    private readonly TextBlock _count = new();
-    private bool _disposed;
-
-    public NonSequentialModePanel(INonSequentialDocumentService service, IWorkspaceEventStream events)
-    {
-        _service = service;
-        _events = events;
-        Content = new StackPanel
-        {
-            Margin = new Avalonia.Thickness(14),
-            Spacing = 10,
-            Children =
-            {
-                new TextBlock { Text = "非序列模式", FontSize = DisplayTypography.SectionTitle, FontWeight = FontWeight.SemiBold },
-                _count,
-                new TextBlock { Text = "场景具有独立对象、光源、探测器和波长；切换模式不会修改顺序处方。", TextWrapping = TextWrapping.Wrap }
-            }
-        };
-        _events.Changed += Changed;
-        Refresh();
-    }
-
-    public void Dispose() { if (_disposed) return; _disposed = true; _events.Changed -= Changed; }
-    private void Changed(object? sender, WorkspaceChangedEventArgs args) => Dispatcher.UIThread.Post(Refresh);
-    private void Refresh()
-    {
-        if (_disposed) return;
-        var document = _service.GetDocument();
-        _count.Text = $"场景对象：{document.Objects.Count}\n独立波长：{document.Wavelengths.Count}";
     }
 }

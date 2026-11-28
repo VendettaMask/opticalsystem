@@ -45,7 +45,13 @@ public sealed class SurfaceEditorRow
                 : IsStop
                     ? "光阑"
                     : "普通面";
-        SurfaceType = SurfaceTypeForGeometry(GeometryKind);
+        ParaxialLens = source.ParaxialLens;
+        Birefringent = source.Birefringent;
+        SurfaceType = source.IsCoordinateReference ? "坐标间断"
+            : Birefringent is { } crystal ? crystal.IsExit ? "双折射输出" : "双折射输入"
+            : ParaxialLens is { } paraxial
+            ? paraxial.PowerXPerMillimeter == paraxial.PowerYPerMillimeter ? "近轴面" : "近轴 XY 面"
+            : SurfaceTypeForGeometry(GeometryKind);
         GeometryComputable = source.GeometryComputable;
         Inspection = source.Inspection;
         GeometryDefinition = source.GeometryDefinition;
@@ -191,6 +197,8 @@ public sealed class SurfaceEditorRow
     public string SurfaceRole { get; }
     public bool ShowSurfaceRole => Number == 0 || IsLastSurface || IsStop;
     public string SurfaceType { get; }
+    public ParaxialLensSurfaceDto? ParaxialLens { get; }
+    public BirefringentSurfaceDto? Birefringent { get; }
     public double ExtensionZone { get; private set; }
     public string ExtensionZoneDisplay
     {
@@ -246,7 +254,9 @@ public sealed class SurfaceEditorRow
         IsReflective: IsReflective,
         SurfaceColor: SurfaceColor,
         Drawing: Drawing,
-        LensLengthUnit: LensLengthUnit);
+        LensLengthUnit: LensLengthUnit,
+        ParaxialLens: ParaxialLens,
+        Birefringent: Birefringent);
 
     public override string ToString() => $"{Number}: {Label}";
 }

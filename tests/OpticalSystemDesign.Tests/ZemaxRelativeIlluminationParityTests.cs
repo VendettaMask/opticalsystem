@@ -13,6 +13,7 @@ public sealed class ZemaxRelativeIlluminationParityTests
     public ZemaxRelativeIlluminationParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ChiefRayTangentPupilProjectionMatchesZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

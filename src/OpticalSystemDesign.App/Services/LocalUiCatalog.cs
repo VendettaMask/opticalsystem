@@ -18,6 +18,9 @@ internal sealed class LocalUiCatalog
     private readonly HashSet<string> _invariants;
     private readonly (LocalUiTranslation Entry, Regex Pattern, string Prefix, int[] Indices)[] _templates;
     private static readonly Regex Slots = new(@"(?<!\{)\{(\d+)(?:,[^{}:]+)?(?::[^{}]+)?\}(?!\})", RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(50));
+    private static readonly Regex ConfigurationNumberCaption = new(
+        @"\A(?:结构 |配置 |Configuration |構成 )[0-9]+(?:/[0-9]+)?\*?\z",
+        RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(50));
 
     private LocalUiCatalog(LocalUiTranslation[] entries, IEnumerable<string>? invariants = null)
     {
@@ -98,6 +101,10 @@ internal sealed class LocalUiCatalog
         foreach (var (entry, pattern, prefix, indices) in _templates)
         {
             if (!source.StartsWith(prefix, StringComparison.Ordinal)) continue;
+            // These short system captions overlap arbitrary user-entered names.
+            // Only their numeric forms are UI; keep the original name opaque.
+            if (entry.Source is "结构 {0}" or "结构 {0}{1}" or "结构 {0}/{1}" or "配置 {0}"
+                && !ConfigurationNumberCaption.IsMatch(source)) continue;
             Match match;
             try { match = pattern.Match(source); } catch (RegexMatchTimeoutException) { continue; }
             if (!match.Success) continue;

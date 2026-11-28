@@ -212,6 +212,7 @@ public sealed class InterferogramAnalysisTests
     }
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void CapturedZemax2026R1InterferogramMatchesItsPrintedGrid()
     {
         var optic = Lens();

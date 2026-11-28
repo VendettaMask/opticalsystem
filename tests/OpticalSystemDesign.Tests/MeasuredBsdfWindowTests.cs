@@ -33,7 +33,15 @@ public sealed class MeasuredBsdfWindowTests
                     .Single(r => (Guid)r.GetType().GetProperty("Id")!.GetValue(r)! == setup.Plane);
                 SelectPlane(); editor.UpdateLayout(); Assert.True(await panel.ImportMeasuredBsdfFromPathAsync(setup.Path));
                 Dispatcher.UIThread.RunJobs(); editor.UpdateLayout();
-                T Find<T>(string name) where T : Control => editor.GetVisualDescendants().OfType<T>().Single(c => c.Name == name);
+                Assert.Equal(setup.Plane, panel.SelectedObjectIds.Single());
+                T Find<T>(string name) where T : Control
+                {
+                    var found = editor.GetVisualDescendants().OfType<T>().SingleOrDefault(c => c.Name == name);
+                    Assert.True(found is not null, $"Missing {name}; selected={string.Join(',', panel.SelectedObjectIds)}; "
+                        + $"logical={string.Join(',', editor.GetLogicalDescendants().OfType<Control>().Where(c => c.Name == name).Select(c => c.GetType().Name))}; "
+                        + $"data={string.Join(';', app.NonSequential.GetDocument().Objects.Select(o => o.Id + ":" + o.Name + ':' + o.SurfaceBsdf?.Kind))}");
+                    return found!;
+                }
                 Assert.Contains("control.bsdf.csv", Find<TextBlock>("nsc-bsdf-info").Text);
                 Assert.False(Find<TextBox>("nsc-diffuse-reflectance").IsEnabled);
                 Find<CheckBox>("nsc-lambertian").IsChecked = true;

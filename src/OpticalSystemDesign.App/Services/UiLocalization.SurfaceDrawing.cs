@@ -4,6 +4,12 @@ internal static partial class UiLocalization
 {
     private static void AddSurfaceDrawingTexts(Action<string, string, string> add)
     {
+        add("近轴面", "Paraxial", "近軸面");
+        add("近轴 XY 面", "Paraxial XY", "近軸XY面");
+        add("近轴透镜", "Paraxial Lens", "近軸レンズ");
+        add("近轴参数按导入值保留；此处只读。", "Imported paraxial parameters are preserved; read-only here.", "読み込んだ近軸パラメータを保持します。ここでは読み取り専用です。");
+        add("焦距：{0} {1}\nOPD 模式：{2}", "Focal length: {0} {1}\nOPD mode: {2}", "焦点距離：{0} {1}\nOPDモード：{2}");
+        add("X 焦距：{0} {1}\nY 焦距：{2} {3}\nOPD 模式：{4}", "X focal length: {0} {1}\nY focal length: {2} {3}\nOPD mode: {4}", "X焦点距離：{0} {1}\nY焦点距離：{2} {3}\nOPDモード：{4}");
         add("表面透明度", "Surface Opacity", "面の不透明度");
         add("100%（默认）", "100% (default)", "100%（既定）");
         add("0%（完全透明）", "0% (transparent)", "0%（透明）");

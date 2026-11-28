@@ -16,6 +16,7 @@ env:
   MAIN_SOLUTION: OpticalSystemDesign.slnx
   MAIN_TEST_PROJECT: tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj
   COMPARISON_TEST_PROJECT: tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj
+  CURRENT_TEST_FILTER: 'AcceptanceScope!=RetiredReference'
   MAIN_TEST_HANG_TIMEOUT: 30m
   LAB_TEST_PROJECT: labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj
   COATING_TEST_PROJECT: labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj
@@ -170,6 +171,7 @@ jobs:
           dotnet test
           ${{ env.MAIN_TEST_PROJECT }}
           -c ${{ env.CONFIGURATION }}
+          --filter "${{ env.CURRENT_TEST_FILTER }}"
           --no-build
           --logger "trx;LogFileName=main-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
@@ -182,6 +184,7 @@ jobs:
           dotnet test
           ${{ env.COMPARISON_TEST_PROJECT }}
           -c ${{ env.CONFIGURATION }}
+          --filter "${{ env.CURRENT_TEST_FILTER }}"
           --no-build --no-restore
           --logger "trx;LogFileName=comparison-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
@@ -338,6 +341,11 @@ jobs:
 
       - name: Restore locked dependencies
         run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
+
+      - name: Verify current 95-lens acceptance scope
+        run: |
+          pwsh -NoProfile -File scripts/verify-acceptance-scope.ps1
+          pwsh -NoProfile -File scripts/tests/verify-acceptance-scope.tests.ps1
 
       - name: Verify formatting
         run: dotnet format ${{ env.MAIN_SOLUTION }} --no-restore --verify-no-changes

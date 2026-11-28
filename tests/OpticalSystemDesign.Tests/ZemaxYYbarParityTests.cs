@@ -14,6 +14,7 @@ public sealed partial class ZemaxYYbarParityTests
     public ZemaxYYbarParityTests(ITestOutputHelper output) => _output = output;
 
     [Fact]
+    [Trait("AcceptanceScope", "RetiredReference")]
     public void ImageHeightNormalizedChiefRayMatchesZemax123456()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

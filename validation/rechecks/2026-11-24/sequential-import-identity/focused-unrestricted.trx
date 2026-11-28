@@ -1,0 +1,823 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b8c26f84-1de2-4f77-becf-57907995f814" name="optics@LAPTOP-G4BBBCS0 2026-11-24 11:52:46" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-24T11:52:46.6466869+08:00" queuing="2026-11-24T11:52:46.6466873+08:00" start="2026-11-24T11:52:44.5467017+08:00" finish="2026-11-24T11:54:11.8893236+08:00" />
+  <TestSettings name="default" id="4c3dd5b7-43bf-4f71-862c-02f648454ab2">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-24_11_52_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fb8885ba-2c9a-4679-9f35-b643286a9fe4" testId="046bda1a-e9b4-4950-1dd9-d9c923d01942" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;RANG&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0006275" startTime="2026-11-24T11:52:46.6563262+08:00" endTime="2026-11-24T11:52:46.6567604+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb8885ba-2c9a-4679-9f35-b643286a9fe4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="30c74737-2a1e-4e9b-a5bc-05b97f19fc54" testId="2cdff774-fec4-690d-211c-13d14d4da665" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.8851100" startTime="2026-11-24T11:53:44.5262879+08:00" endTime="2026-11-24T11:53:50.4113506+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30c74737-2a1e-4e9b-a5bc-05b97f19fc54" />
+    <UnitTestResult executionId="086ca330-321c-4852-9027-55fb1e379b29" testId="cad3ae5a-942d-2564-9f2c-92fb044c3d63" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAX&quot;, sourceSurface: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0007151" startTime="2026-11-24T11:52:46.6806603+08:00" endTime="2026-11-24T11:52:46.6813592+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="086ca330-321c-4852-9027-55fb1e379b29" />
+    <UnitTestResult executionId="7521fd39-751b-413f-ad4b-60ebc403e06e" testId="45117604-bddc-98ed-186b-58700d2f5b86" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.EveryCategoryEntrySelectsItsOwnOriginalFile" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5173230" startTime="2026-11-24T11:53:42.3985506+08:00" endTime="2026-11-24T11:53:42.9157817+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7521fd39-751b-413f-ad4b-60ebc403e06e" />
+    <UnitTestResult executionId="de402f24-e390-45e4-be9f-d50b7105178b" testId="72cc1324-8fe1-d716-d1d0-6dc80db5f50f" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(code: &quot;REAY&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0013707" startTime="2026-11-24T11:52:46.6983036+08:00" endTime="2026-11-24T11:52:46.6997021+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de402f24-e390-45e4-be9f-d50b7105178b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 3&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 151&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ad311ea7-4e1a-40cb-a116-a36f5708cdf3" testId="7c1029fd-1422-4dae-8318-4c61561bfef6" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0001644" startTime="2026-11-24T11:54:11.7620970+08:00" endTime="2026-11-24T11:54:11.7622136+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad311ea7-4e1a-40cb-a116-a36f5708cdf3" />
+    <UnitTestResult executionId="e80c26de-dd37-4a50-9832-7b01ce8d6545" testId="323bb3dc-16d0-f1e4-6ca1-67998d4916c2" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BIRE__IN&quot;, value: 15)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0006697" startTime="2026-11-24T11:52:46.6952053+08:00" endTime="2026-11-24T11:52:46.6958681+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e80c26de-dd37-4a50-9832-7b01ce8d6545" />
+    <UnitTestResult executionId="6beb0b88-b863-472b-acde-fa08ca3d3ffc" testId="7e0a137e-796d-a27b-e5c9-d626e6814598" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, scaling: 1, unavailable: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.1846581" startTime="2026-11-24T11:53:38.2131749+08:00" endTime="2026-11-24T11:53:42.3981117+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6beb0b88-b863-472b-acde-fa08ca3d3ffc" />
+    <UnitTestResult executionId="9a8c76e8-8f3b-43db-9b46-d4353c53352f" testId="e22430f2-d5d0-c5e8-2aa9-7b514a337cb2" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.LensLibraryConversionRetainsConfigurationVariableMetadata" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0604607" startTime="2026-11-24T11:52:46.9477264+08:00" endTime="2026-11-24T11:52:47.0074599+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a8c76e8-8f3b-43db-9b46-d4353c53352f" />
+    <UnitTestResult executionId="c63a3f5c-5827-4b38-bc65-0f5318abedf6" testId="98c25d1c-9d1a-fce0-5dba-d20f5b90840a" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0239363" startTime="2026-11-24T11:52:46.8549478+08:00" endTime="2026-11-24T11:52:46.8790176+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c63a3f5c-5827-4b38-bc65-0f5318abedf6" />
+    <UnitTestResult executionId="d0b74029-1604-47e9-b1b9-46dc2c51c855" testId="26a51576-aac9-570e-175f-3cbdc1ca301a" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.UnsupportedNonzeroParameterZeroCannotBeSilentlyIgnoredByExecutableGeometry" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0004315" startTime="2026-11-24T11:52:46.7113140+08:00" endTime="2026-11-24T11:52:46.7116372+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0b74029-1604-47e9-b1b9-46dc2c51c855" />
+    <UnitTestResult executionId="15afac30-02ca-43bc-839f-eaf4bbcd6f1e" testId="5d74033c-2c22-3236-a9bc-fd79ba438dd0" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.3103428" startTime="2026-11-24T11:54:03.4742602+08:00" endTime="2026-11-24T11:54:07.7845346+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15afac30-02ca-43bc-839f-eaf4bbcd6f1e" />
+    <UnitTestResult executionId="09f1b317-04bf-45e2-a572-82f6393f002e" testId="23690051-1105-38d5-3904-430a38ad0dfc" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;FZERNSAG&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0016944" startTime="2026-11-24T11:52:46.6965521+08:00" endTime="2026-11-24T11:52:46.6982141+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09f1b317-04bf-45e2-a572-82f6393f002e" />
+    <UnitTestResult executionId="786d5d3c-ccdd-4137-96db-5a538f20d1c1" testId="799d9428-66c9-b294-8e20-d8833df1c859" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;CENX&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0007185" startTime="2026-11-24T11:52:46.6549714+08:00" endTime="2026-11-24T11:52:46.6553596+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="786d5d3c-ccdd-4137-96db-5a538f20d1c1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="693c1c53-b148-4025-9376-9f4bc3bb2251" testId="50b0d7c2-1cbc-691c-02df-a0f53a2898e0" testName="OpticalSystemDesign.Tests.SequentialExampleTests.PackagedExampleUsesNormalDocumentImportAndPreservesConfigurations(relativePath: &quot;Objectives/Double Gauss 28 degree field.zmx&quot;, configurations: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2261072" startTime="2026-11-24T11:52:47.8352115+08:00" endTime="2026-11-24T11:52:48.0972986+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="693c1c53-b148-4025-9376-9f4bc3bb2251" />
+    <UnitTestResult executionId="a9509418-2b68-4163-8b0a-e7f62ef7996c" testId="77aa931a-f724-961e-0219-d2f7beb33dcf" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(image: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0022787" startTime="2026-11-24T11:52:46.8418809+08:00" endTime="2026-11-24T11:52:46.8441922+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a9509418-2b68-4163-8b0a-e7f62ef7996c" />
+    <UnitTestResult executionId="6624b2b0-660b-48d4-957c-fb673ae8d57a" testId="f8e5b674-45f7-1a92-1e6f-33816c80271f" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.NegativeParameterNumbersRemainInvalid(number: -1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0002245" startTime="2026-11-24T11:52:46.6829854+08:00" endTime="2026-11-24T11:52:46.6831210+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6624b2b0-660b-48d4-957c-fb673ae8d57a" />
+    <UnitTestResult executionId="9e4a58a7-4a25-4446-946b-8affa98ca66f" testId="0e46e265-3e6a-2a67-5802-a1d00e9c23a3" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BINARY_2&quot;, value: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0028577" startTime="2026-11-24T11:52:46.6912191+08:00" endTime="2026-11-24T11:52:46.6940922+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e4a58a7-4a25-4446-946b-8affa98ca66f" />
+    <UnitTestResult executionId="62c8399b-4be1-4a71-9493-ddd6804b6e46" testId="66e8f16b-272e-bf91-feaa-f538202799d6" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000074" startTime="2026-11-24T11:54:11.7623621+08:00" endTime="2026-11-24T11:54:11.7623841+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62c8399b-4be1-4a71-9493-ddd6804b6e46" />
+    <UnitTestResult executionId="203e6dc3-dbe3-4475-9dd0-1cfe3c50b744" testId="5c95b35a-d549-8da8-0dbb-a2c00cc80be6" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.9762494" startTime="2026-11-24T11:54:07.7849226+08:00" endTime="2026-11-24T11:54:11.7611392+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="203e6dc3-dbe3-4475-9dd0-1cfe3c50b744" />
+    <UnitTestResult executionId="d632f0ff-6f06-4521-a213-d07a9884f45f" testId="5039986c-d568-29cd-46e9-798301bc5661" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(radius: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0019284" startTime="2026-11-24T11:52:46.8465883+08:00" endTime="2026-11-24T11:52:46.8483664+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d632f0ff-6f06-4521-a213-d07a9884f45f" />
+    <UnitTestResult executionId="a20aa2a3-adbf-41ca-9731-b3b6908edfc9" testId="ae69cdbe-a155-3cc0-6407-2547c5f6ad26" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2141910" startTime="2026-11-24T11:52:46.6308462+08:00" endTime="2026-11-24T11:52:46.8409710+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a20aa2a3-adbf-41ca-9731-b3b6908edfc9" />
+    <UnitTestResult executionId="ad3d01af-7a51-4fba-aa6c-07709f03b9df" testId="dfdd6295-9b3c-7bbc-975c-90e44d6f4b21" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.PickupAndParaxialSolveCodesAreNotIndependentVariables" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0062090" startTime="2026-11-24T11:52:46.8644586+08:00" endTime="2026-11-24T11:52:46.8704417+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad3d01af-7a51-4fba-aa6c-07709f03b9df" />
+    <UnitTestResult executionId="8f4c0a10-5d26-483d-b4a7-0dc4006d2ddd" testId="c3bbd01e-2dbf-b856-c4e4-fc1de7aa32af" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, scaling: 2, unavailable: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.6524832" startTime="2026-11-24T11:53:31.5601039+08:00" endTime="2026-11-24T11:53:38.2126175+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f4c0a10-5d26-483d-b4a7-0dc4006d2ddd" />
+    <UnitTestResult executionId="07d57bf8-3f29-4621-96d3-5e9679fc6e6e" testId="747dd16d-1a6d-95a2-6c14-7ca71f2cb003" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0028469" startTime="2026-11-24T11:52:46.9470498+08:00" endTime="2026-11-24T11:52:46.9470781+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07d57bf8-3f29-4621-96d3-5e9679fc6e6e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                                      ↓ (pos 1)&#xD;
+Expected: int[]                   [0, 2, 3, 4]&#xD;
+Actual:   ReadOnlyCollection&lt;int&gt; [0, 1, 2, 3, 4]&#xD;
+                                      ↑ (pos 1)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxVariableImportTests.VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableImportTests.cs:line 66&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0297e6d4-794e-4d23-93b8-1a28963ee4e1" testId="a4c06626-1637-c8b8-df19-da441515310a" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAY&quot;, sourceSurface: 4)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0106762" startTime="2026-11-24T11:52:46.6741744+08:00" endTime="2026-11-24T11:52:46.6795744+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0297e6d4-794e-4d23-93b8-1a28963ee4e1" />
+    <UnitTestResult executionId="96b1721a-6fcf-476f-8f95-902877329c33" testId="4174de2f-4d4c-3d62-3a4f-c599e2ccaadc" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;REAR&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0004667" startTime="2026-11-24T11:52:46.6587428+08:00" endTime="2026-11-24T11:52:46.6589776+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96b1721a-6fcf-476f-8f95-902877329c33">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7167b3ef-0086-4df1-80a2-59675ea0ada2" testId="0bb5bbbe-280d-c406-535e-935b7be125a5" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.FileOpenSaveReopenClearAndUndoRetainImportedVariables(unicode: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0307560" startTime="2026-11-24T11:52:46.9133187+08:00" endTime="2026-11-24T11:52:46.9437703+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7167b3ef-0086-4df1-80a2-59675ea0ada2" />
+    <UnitTestResult executionId="baf5c001-607f-4359-9062-f7cb6a84d8c2" testId="9b041531-0999-5ac7-57ba-38c0ccc5ad44" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0003429" startTime="2026-11-24T11:52:46.8538168+08:00" endTime="2026-11-24T11:52:46.8540765+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="baf5c001-607f-4359-9062-f7cb6a84d8c2" />
+    <UnitTestResult executionId="34b8169e-fff7-49f9-aec3-9c9a110d6565" testId="73ada71e-faf3-9239-7817-0eac3bdc7d97" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0007289" startTime="2026-11-24T11:52:46.8541906+08:00" endTime="2026-11-24T11:52:46.8548494+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34b8169e-fff7-49f9-aec3-9c9a110d6565" />
+    <UnitTestResult executionId="750f5eac-1834-4b1b-a8be-b5618c4fb085" testId="1c4ff9da-1775-70ed-6715-15328b6345e8" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0018416" startTime="2026-11-24T11:52:46.8524730+08:00" endTime="2026-11-24T11:52:46.8536887+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="750f5eac-1834-4b1b-a8be-b5618c4fb085" />
+    <UnitTestResult executionId="1de590bf-0c49-423e-afdd-25a5d1f677da" testId="983e1071-3f5d-316c-2bf9-6760a8ba3e55" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAR&quot;, sourceSurface: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0009852" startTime="2026-11-24T11:52:46.6796735+08:00" endTime="2026-11-24T11:52:46.6806013+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1de590bf-0c49-423e-afdd-25a5d1f677da" />
+    <UnitTestResult executionId="e0f6ac07-d9e5-49cc-90a7-5cae298cf43d" testId="4e74785b-d44b-837d-7bba-bb5d1a40514f" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RemappedGlobalCoordinateUsesTheIntendedPhysicalSurface" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0099505" startTime="2026-11-24T11:52:46.7015077+08:00" endTime="2026-11-24T11:52:46.7111733+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0f6ac07-d9e5-49cc-90a7-5cae298cf43d" />
+    <UnitTestResult executionId="d4e61f62-b600-485f-90a2-db41c4db37e5" testId="f5805cb1-2076-b93e-d64b-ae6fdcda1cdb" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4148140" startTime="2026-11-24T11:52:46.1862096+08:00" endTime="2026-11-24T11:52:46.6055187+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4e61f62-b600-485f-90a2-db41c4db37e5" />
+    <UnitTestResult executionId="3448e1ba-77c7-4a7b-88f0-37dd3b0585f0" testId="d441051c-c0c6-d8e0-7fa9-c0c7f5dda63f" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;REAY&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0004988" startTime="2026-11-24T11:52:46.6581873+08:00" endTime="2026-11-24T11:52:46.6584307+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3448e1ba-77c7-4a7b-88f0-37dd3b0585f0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ce93f318-b303-4485-b34c-5de5d3d3d020" testId="424bb631-b207-331c-19ef-a9769a932f1c" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;RAGZ&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005039" startTime="2026-11-24T11:52:46.6556504+08:00" endTime="2026-11-24T11:52:46.6560070+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce93f318-b303-4485-b34c-5de5d3d3d020">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c73eef70-0e39-4a25-a110-1ee241cd144b" testId="937ceae2-94df-1aa4-d153-e5ffa2244689" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.ZeroThicknessVariableKeepsCoordinateBreakAsEditableReferencePlane" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0017605" startTime="2026-11-24T11:52:46.8623071+08:00" endTime="2026-11-24T11:52:46.8641409+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c73eef70-0e39-4a25-a110-1ee241cd144b" />
+    <UnitTestResult executionId="b9f46c3f-0793-4a98-9d6f-f64fc268915e" testId="3116b72a-c009-12a3-a48e-f96554175b6b" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues(unit: &quot;IN&quot;, scale: 25.399999999999999)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4270482" startTime="2026-11-24T11:52:46.1872725+08:00" endTime="2026-11-24T11:52:46.6193024+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b9f46c3f-0793-4a98-9d6f-f64fc268915e" />
+    <UnitTestResult executionId="a8eecbcf-5b0e-497d-bb2d-398831a7808e" testId="80dc37ac-585b-96f6-b21d-06d8b4792e4f" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;GLCX&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005096" startTime="2026-11-24T11:52:46.6575828+08:00" endTime="2026-11-24T11:52:46.6578567+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8eecbcf-5b0e-497d-bb2d-398831a7808e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2c82256f-db1a-4d82-b5ec-894ddd6eb45f" testId="49a2c5ad-b47c-67da-7e32-2b151bc04e9a" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;NONSEQCO&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0041291" startTime="2026-11-24T11:52:46.6873547+08:00" endTime="2026-11-24T11:52:46.6911249+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c82256f-db1a-4d82-b5ec-894ddd6eb45f" />
+    <UnitTestResult executionId="a8490ef9-ae5f-4459-ac9c-3cc34378a377" testId="d8f16603-3063-88bb-0feb-1509964fee36" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(code: &quot;CENX&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4093801" startTime="2026-11-24T11:52:46.1872350+08:00" endTime="2026-11-24T11:52:46.6140215+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8490ef9-ae5f-4459-ac9c-3cc34378a377">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.NotSupportedException)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 135&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3c2d9f79-59bb-4c69-9d72-e2afdd237fd9" testId="fc8f7c46-4448-9cb3-1537-5bedb70b6511" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000080" startTime="2026-11-24T11:54:11.7624324+08:00" endTime="2026-11-24T11:54:11.7624553+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c2d9f79-59bb-4c69-9d72-e2afdd237fd9" />
+    <UnitTestResult executionId="d8fde99d-bfa9-47b3-aa42-594b68299c82" testId="3e1459b7-da87-03ae-6935-73f0acde448d" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0007627" startTime="2026-11-24T11:54:11.7615734+08:00" endTime="2026-11-24T11:54:11.7620098+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8fde99d-bfa9-47b3-aa42-594b68299c82" />
+    <UnitTestResult executionId="5c42f885-5be9-40ac-b175-28b5dd6eccd9" testId="4bcaefc0-e2ab-7814-22bf-8fe07a15d479" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.CoordinateBreakReferencePlanePrecedesItsThicknessTranslation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0006765" startTime="2026-11-24T11:52:46.7013689+08:00" endTime="2026-11-24T11:52:46.7014092+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c42f885-5be9-40ac-b175-28b5dd6eccd9" />
+    <UnitTestResult executionId="7ccd16e0-19f0-45fe-82a0-46f509e21d2f" testId="e4bdacfb-0bc6-8f64-4d28-08905fee6e15" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues(unit: &quot;MM&quot;, scale: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0013544" startTime="2026-11-24T11:52:46.6194263+08:00" endTime="2026-11-24T11:52:46.6194632+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ccd16e0-19f0-45fe-82a0-46f509e21d2f" />
+    <UnitTestResult executionId="65c6efee-7022-482a-8610-ae59b85cef05" testId="fc99e0a8-a0f6-4aa1-82d0-94b1c592dd1e" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ToroidalDefaultParameterZeroDoesNotChangeTheGeometryOrLengthScaling" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0437580" startTime="2026-11-24T11:52:46.6192531+08:00" endTime="2026-11-24T11:52:46.6528061+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65c6efee-7022-482a-8610-ae59b85cef05" />
+    <UnitTestResult executionId="066d94ac-96c4-4b90-8578-f17c3db85cb2" testId="dc949db9-624a-6369-a7e4-0eb1c66e9995" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, scaling: 1, unavailable: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.8452263" startTime="2026-11-24T11:53:15.9316006+08:00" endTime="2026-11-24T11:53:19.7763204+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="066d94ac-96c4-4b90-8578-f17c3db85cb2" />
+    <UnitTestResult executionId="2a09624c-84cd-42f4-8aaa-ae2a64a9cc1a" testId="71a26d4f-0fa5-90f0-96de-01948912e3cf" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000101" startTime="2026-11-24T11:54:11.7622836+08:00" endTime="2026-11-24T11:54:11.7623076+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a09624c-84cd-42f4-8aaa-ae2a64a9cc1a" />
+    <UnitTestResult executionId="da7891d3-3a67-4af2-85f2-33100746caad" testId="34209770-9a73-5039-c297-c0ffdbae99f5" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;REAX&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005398" startTime="2026-11-24T11:52:46.6570773+08:00" endTime="2026-11-24T11:52:46.6572707+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da7891d3-3a67-4af2-85f2-33100746caad">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9d3bce01-9792-4292-bd13-8085e656c16c" testId="23c9f4bd-416d-95a1-d190-e1d3d5633bd4" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;USERSURF&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005418" startTime="2026-11-24T11:52:46.6959615+08:00" endTime="2026-11-24T11:52:46.6964810+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d3bce01-9792-4292-bd13-8085e656c16c" />
+    <UnitTestResult executionId="10b248a4-90fe-4502-9dc1-7cd38d1033a3" testId="cb6e03c4-3cbf-c0ed-c45f-a921f3a701a0" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;GRID_SAG&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010365" startTime="2026-11-24T11:52:46.6941802+08:00" endTime="2026-11-24T11:52:46.6951199+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10b248a4-90fe-4502-9dc1-7cd38d1033a3" />
+    <UnitTestResult executionId="3bcb5ac5-c101-4015-b4d8-7ffdd6217635" testId="9b35e2ec-44f1-4d32-c3bb-1a4f1da6d3bf" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.FileOpenSaveReopenClearAndUndoRetainImportedVariables(unicode: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0409312" startTime="2026-11-24T11:52:46.8716621+08:00" endTime="2026-11-24T11:52:46.9127174+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3bcb5ac5-c101-4015-b4d8-7ffdd6217635" />
+    <UnitTestResult executionId="a3ae8b14-7f29-4d73-8bba-c8121c50c50d" testId="1198880a-5290-e565-c8ab-3c36341dc155" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Dark&quot;, language: &quot;ja-JP&quot;, scaling: 1.5, unavailable: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:25.5011910" startTime="2026-11-24T11:52:50.4294284+08:00" endTime="2026-11-24T11:53:15.9306349+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a3ae8b14-7f29-4d73-8bba-c8121c50c50d" />
+    <UnitTestResult executionId="bc5b741b-54c0-4b4d-9ac5-22a6f343304a" testId="b52f3556-28e9-362e-fd1e-e441e9e5ece8" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RangeEndpointsRemapWhileSamplingAndRowReferencesStayUnchanged" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0034730" startTime="2026-11-24T11:52:46.6839730+08:00" endTime="2026-11-24T11:52:46.6869775+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc5b741b-54c0-4b4d-9ac5-22a6f343304a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+              ↓ (pos 1)&#xD;
+Expected: [1, 2]&#xD;
+Actual:   [1, 4]&#xD;
+              ↑ (pos 1)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RangeEndpointsRemapWhileSamplingAndRowReferencesStayUnchanged() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 198&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e42ec4e2-bb70-4b9f-bf95-902b645cd767" testId="34bda8c2-3e96-fdd3-a422-e58579ba5ec8" testName="OpticalSystemDesign.Tests.SequentialExampleTests.CatalogContainsEveryCategoryAndByteExactPackagedSource" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6000798" startTime="2026-11-24T11:52:47.0078098+08:00" endTime="2026-11-24T11:52:47.6083310+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e42ec4e2-bb70-4b9f-bf95-902b645cd767" />
+    <UnitTestResult executionId="2b75eb48-0d67-40c6-8fbd-1293a53bc06e" testId="caa9d5f1-eba6-c7e1-35ab-3d0a78109c74" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(code: &quot;REAX&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0006650" startTime="2026-11-24T11:52:46.7001215+08:00" endTime="2026-11-24T11:52:46.7004104+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b75eb48-0d67-40c6-8fbd-1293a53bc06e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 3&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 151&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bc128aeb-190b-4b60-b48f-b2887787e600" testId="1603bc41-9f35-7b66-f44b-b9556080f49c" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(radius: 25.5)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0015847" startTime="2026-11-24T11:52:46.8502581+08:00" endTime="2026-11-24T11:52:46.8517822+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc128aeb-190b-4b60-b48f-b2887787e600" />
+    <UnitTestResult executionId="2fce91a9-c451-4760-b445-523ec001d4db" testId="49732e10-59d5-edea-8f2d-efc8539696b5" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.2963977" startTime="2026-11-24T11:53:50.4117538+08:00" endTime="2026-11-24T11:53:55.7082904+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2fce91a9-c451-4760-b445-523ec001d4db" />
+    <UnitTestResult executionId="561e7e75-f7a0-4707-946f-cecb7d1d9718" testId="0e70a052-352a-bc34-3569-58ccd2ea0592" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAR&quot;, sourceSurface: 4)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0007054" startTime="2026-11-24T11:52:46.6822037+08:00" endTime="2026-11-24T11:52:46.6829003+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="561e7e75-f7a0-4707-946f-cecb7d1d9718" />
+    <UnitTestResult executionId="b95a5033-9d81-4f6f-958d-d59d634c3524" testId="a8684c8c-db11-72fb-c199-7c3444f562c2" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.7651779" startTime="2026-11-24T11:53:55.7087550+08:00" endTime="2026-11-24T11:54:03.4738285+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b95a5033-9d81-4f6f-958d-d59d634c3524" />
+    <UnitTestResult executionId="6289ff9f-a03a-4144-889a-b58a5e238458" testId="4b7f8b88-b8ea-cf09-efb0-fcaa0c4cbe5b" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.NegativeParameterNumbersRemainInvalid(number: -2147483648)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0001606" startTime="2026-11-24T11:52:46.6831764+08:00" endTime="2026-11-24T11:52:46.6833117+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6289ff9f-a03a-4144-889a-b58a5e238458" />
+    <UnitTestResult executionId="9d2af3e4-ba06-4f3a-960f-01c554ed54ef" testId="82299b4b-330f-1ef7-d543-b1267b1c773f" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues(unit: &quot;CM&quot;, scale: 10)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010731" startTime="2026-11-24T11:52:46.6195288+08:00" endTime="2026-11-24T11:52:46.6198235+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d2af3e4-ba06-4f3a-960f-01c554ed54ef" />
+    <UnitTestResult executionId="317b6389-34b7-4ec8-858b-e916b938b29d" testId="fa2d287c-0558-b780-7d5f-8f2430e2d8b1" testName="OpticalSystemDesign.Tests.SequentialExampleTests.PrismExampleLoadsTheNowSupportedCoordinateBreaks" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1971066" startTime="2026-11-24T11:52:48.0975764+08:00" endTime="2026-11-24T11:52:48.2949259+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="317b6389-34b7-4ec8-858b-e916b938b29d" />
+    <UnitTestResult executionId="ed04c789-e0ae-431d-8303-56990acfc793" testId="cf2e99cc-eea1-c57a-8e17-777483c4600c" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;CENY&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005440" startTime="2026-11-24T11:52:46.6604109+08:00" endTime="2026-11-24T11:52:46.6604552+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed04c789-e0ae-431d-8303-56990acfc793">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="79c418c5-e31e-4b38-b5e2-156cd2c1e90f" testId="29ffc0ac-4940-4eea-8057-1e3678259c87" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.EveryBundledFileUsesLosslessNscInspectionAndReportsItsActualImportBoundary" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5940180" startTime="2026-11-24T11:53:42.9159352+08:00" endTime="2026-11-24T11:53:44.5099540+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79c418c5-e31e-4b38-b5e2-156cd2c1e90f" />
+    <UnitTestResult executionId="cb281361-60d2-484e-8fe5-cc5697bdd82c" testId="c4ec7bae-d543-19ce-470f-ba197d729f7c" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(image: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0021354" startTime="2026-11-24T11:52:46.8443437+08:00" endTime="2026-11-24T11:52:46.8464256+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb281361-60d2-484e-8fe5-cc5697bdd82c" />
+    <UnitTestResult executionId="cde56607-33e9-495e-8615-976b5a0bebf7" testId="5e673df9-8df8-f5c6-a14d-349f4d644b31" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0186155" startTime="2026-11-24T11:52:46.6130642+08:00" endTime="2026-11-24T11:52:46.6244794+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cde56607-33e9-495e-8615-976b5a0bebf7" />
+    <UnitTestResult executionId="8304b028-6b7f-48d6-9dbe-967f1b54af5c" testId="7f170f71-3b01-8e61-dc16-f5130b253d5b" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.PackagedCatalogIncludesAllSourceCategoriesWithOriginalBytesAndUniqueActions" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0154387" startTime="2026-11-24T11:53:44.5101420+08:00" endTime="2026-11-24T11:53:44.5260681+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8304b028-6b7f-48d6-9dbe-967f1b54af5c" />
+    <UnitTestResult executionId="0191763f-6db4-4ee3-ac46-4a3cf77117ab" testId="ceb9a4f8-f124-4f93-b2fe-95017c69256e" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAY&quot;, sourceSurface: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0091329" startTime="2026-11-24T11:52:46.6608070+08:00" endTime="2026-11-24T11:52:46.6688362+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0191763f-6db4-4ee3-ac46-4a3cf77117ab" />
+    <UnitTestResult executionId="c84a7b03-73c3-46ff-9d94-dda7e595fa8d" testId="2a77a5cb-d45e-3bd5-4285-46345c22c9f4" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(code: &quot;GLCZ&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0011379" startTime="2026-11-24T11:52:46.6184832+08:00" endTime="2026-11-24T11:52:46.6185367+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c84a7b03-73c3-46ff-9d94-dda7e595fa8d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.NotSupportedException)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 135&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3fd84dff-af7b-41ec-9697-55fc6b694817" testId="8c3ec17d-01e8-326a-9906-fdeb06b444d4" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, scaling: 2, unavailable: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.7723880" startTime="2026-11-24T11:53:26.7873190+08:00" endTime="2026-11-24T11:53:31.5595919+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3fd84dff-af7b-41ec-9697-55fc6b694817" />
+    <UnitTestResult executionId="e46302ff-b52f-4ad6-be1e-b8edfce16ba8" testId="94ae4843-ae4d-2680-9b5f-ce81c1d66007" testName="OpticalSystemDesign.Tests.SequentialExampleTests.CategoryMenuOpensTheSelectedLensAndUsesTheExistingDropDownStyle" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.1329854" startTime="2026-11-24T11:52:48.2952140+08:00" endTime="2026-11-24T11:52:50.4283795+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e46302ff-b52f-4ad6-be1e-b8edfce16ba8" />
+    <UnitTestResult executionId="65009cba-89c5-4b60-964e-e3788388af15" testId="2d707d81-8deb-380c-742d-c7bb36fb6d09" testName="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Dark&quot;, language: &quot;ja-JP&quot;, scaling: 1.5, unavailable: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.0099759" startTime="2026-11-24T11:53:19.7769531+08:00" endTime="2026-11-24T11:53:26.7867680+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65009cba-89c5-4b60-964e-e3788388af15" />
+    <UnitTestResult executionId="e05a801e-8f8b-44de-b0b1-2053345fdcc9" testId="242349f3-1628-4ad4-366d-3f12e1b22f67" testName="OpticalSystemDesign.Tests.SequentialExampleTests.PackagedExampleUsesNormalDocumentImportAndPreservesConfigurations(relativePath: &quot;Zoom systems/Zoom lens.zmx&quot;, configurations: 3)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2264010" startTime="2026-11-24T11:52:47.6092880+08:00" endTime="2026-11-24T11:52:47.8349887+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e05a801e-8f8b-44de-b0b1-2053345fdcc9" />
+    <UnitTestResult executionId="40c6213d-b07b-4852-a98b-cf11697f3f07" testId="d4835ecd-0c95-51c7-ddb6-626a721aaba0" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.ConfigurationCellVariablesKeepTheirConfigurationAndOptimizeTogether" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2419019" startTime="2026-11-24T11:52:46.6199458+08:00" endTime="2026-11-24T11:52:46.8621566+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40c6213d-b07b-4852-a98b-cf11697f3f07" />
+    <UnitTestResult executionId="edf23dab-f7ec-46f7-a2f5-f938e79cab23" testId="04c7bddd-85e2-617b-26ba-5eeb7e0a03c2" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;CVVA&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0016068" startTime="2026-11-24T11:52:46.6529876+08:00" endTime="2026-11-24T11:52:46.6545765+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="edf23dab-f7ec-46f7-a2f5-f938e79cab23">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 2&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs:line 115&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2d426d33-0c74-407d-8020-f86377c4eea0" testId="00da2d35-a66a-8ead-850c-fe4c37563034" testName="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(radius: ∞)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0016547" startTime="2026-11-24T11:52:46.8484462+08:00" endTime="2026-11-24T11:52:46.8501216+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d426d33-0c74-407d-8020-f86377c4eea0" />
+    <UnitTestResult executionId="0883d94b-4779-4bb4-8e25-baf2721835c5" testId="ba03c3a4-05a2-4aa8-1535-1df7f47c8c21" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAX&quot;, sourceSurface: 4)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0007678" startTime="2026-11-24T11:52:46.6814264+08:00" endTime="2026-11-24T11:52:46.6821544+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0883d94b-4779-4bb4-8e25-baf2721835c5" />
+    <UnitTestResult executionId="2a0eb54c-3fd0-4871-8143-6ff0c1c46d12" testId="135b7263-a7ed-9bc0-67e7-5484aba5e8ce" testName="OpticalSystemDesign.Tests.ZemaxVariableImportTests.PlaneCurvatureCanBeVariableAndMissingSolveCodeRemainsFixed" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0009710" startTime="2026-11-24T11:52:46.8707309+08:00" endTime="2026-11-24T11:52:46.8714545+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a0eb54c-3fd0-4871-8143-6ff0c1c46d12" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="73ada71e-faf3-9239-7817-0eac3bdc7d97">
+      <Execution id="34b8169e-fff7-49f9-aec3-9c9a110d6565" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="UnsupportedImportedGeometryCannotBeReplacedByPropertyEditor" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.NegativeParameterNumbersRemainInvalid(number: -2147483648)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4b7f8b88-b8ea-cf09-efb0-fcaa0c4cbe5b">
+      <Execution id="6289ff9f-a03a-4144-889a-b58a5e238458" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="NegativeParameterNumbersRemainInvalid" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2cdff774-fec4-690d-211c-13d14d4da665">
+      <Execution id="30c74737-2a1e-4e9b-a5bc-05b97f19fc54" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAY&quot;, sourceSurface: 4)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a4c06626-1637-c8b8-df19-da441515310a">
+      <Execution id="0297e6d4-794e-4d23-93b8-1a28963ee4e1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAR&quot;, sourceSurface: 4)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0e70a052-352a-bc34-3569-58ccd2ea0592">
+      <Execution id="561e7e75-f7a0-4707-946f-cecb7d1d9718" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.StopMustBeMovedInsteadOfDeleted" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5e673df9-8df8-f5c6-a14d-349f4d644b31">
+      <Execution id="cde56607-33e9-495e-8615-976b5a0bebf7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="StopMustBeMovedInsteadOfDeleted" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="49732e10-59d5-edea-8f2d-efc8539696b5">
+      <Execution id="2fce91a9-c451-4760-b445-523ec001d4db" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues(unit: &quot;MM&quot;, scale: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e4bdacfb-0bc6-8f64-4d28-08905fee6e15">
+      <Execution id="7ccd16e0-19f0-45fe-82a0-46f509e21d2f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.CoordinateBreakReferencePlanePrecedesItsThicknessTranslation" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4bcaefc0-e2ab-7814-22bf-8fe07a15d479">
+      <Execution id="5c42f885-5be9-40ac-b175-28b5dd6eccd9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="CoordinateBreakReferencePlanePrecedesItsThicknessTranslation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.UnsupportedNonzeroParameterZeroCannotBeSilentlyIgnoredByExecutableGeometry" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="26a51576-aac9-570e-175f-3cbdc1ca301a">
+      <Execution id="d0b74029-1604-47e9-b1b9-46dc2c51c855" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="UnsupportedNonzeroParameterZeroCannotBeSilentlyIgnoredByExecutableGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(image: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="77aa931a-f724-961e-0219-d2f7beb33dcf">
+      <Execution id="a9509418-2b68-4163-8b0a-e7f62ef7996c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="ObjectAndImageCannotBeUsedAsStop" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;GLCX&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="80dc37ac-585b-96f6-b21d-06d8b4792e4f">
+      <Execution id="a8eecbcf-5b0e-497d-bb2d-398831a7808e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;USERSURF&quot;, value: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="23c9f4bd-416d-95a1-d190-e1d3d5633bd4">
+      <Execution id="9d3bce01-9792-4292-bd13-8085e656c16c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.EveryBundledFileUsesLosslessNscInspectionAndReportsItsActualImportBoundary" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="29ffc0ac-4940-4eea-8057-1e3678259c87">
+      <Execution id="79c418c5-e31e-4b38-b5e2-156cd2c1e90f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="EveryBundledFileUsesLosslessNscInspectionAndReportsItsActualImportBoundary" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(radius: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5039986c-d568-29cd-46e9-798301bc5661">
+      <Execution id="d632f0ff-6f06-4521-a213-d07a9884f45f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ObjectAndImageCannotBeUsedAsStop(image: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c4ec7bae-d543-19ce-470f-ba197d729f7c">
+      <Execution id="cb281361-60d2-484e-8fe5-cc5697bdd82c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="ObjectAndImageCannotBeUsedAsStop" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SequentialExampleTests.CatalogContainsEveryCategoryAndByteExactPackagedSource" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="34bda8c2-3e96-fdd3-a422-e58579ba5ec8">
+      <Execution id="e42ec4e2-bb70-4b9f-bf95-902b645cd767" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SequentialExampleTests" name="CatalogContainsEveryCategoryAndByteExactPackagedSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="71a26d4f-0fa5-90f0-96de-01948912e3cf">
+      <Execution id="2a09624c-84cd-42f4-8aaa-ae2a64a9cc1a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Dark&quot;, language: &quot;ja-JP&quot;, scaling: 1.5, unavailable: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2d707d81-8deb-380c-742d-c7bb36fb6d09">
+      <Execution id="65009cba-89c5-4b60-964e-e3788388af15" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="98c25d1c-9d1a-fce0-5dba-d20f5b90840a">
+      <Execution id="c63a3f5c-5827-4b38-bc65-0f5318abedf6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="InvalidPropertyEditDoesNotPartiallyChangeGeometryOrHistory" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f5805cb1-2076-b93e-d64b-ae6fdcda1cdb">
+      <Execution id="d4e61f62-b600-485f-90a2-db41c4db37e5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="EditingPropertiesPreservesExistingAsphereApertureAndCoatingComponents" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a8684c8c-db11-72fb-c199-7c3444f562c2">
+      <Execution id="b95a5033-9d81-4f6f-958d-d59d634c3524" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;REAR&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4174de2f-4d4c-3d62-3a4f-c599e2ccaadc">
+      <Execution id="96b1721a-6fcf-476f-8f95-902877329c33" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;RAGZ&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="424bb631-b207-331c-19ef-a9769a932f1c">
+      <Execution id="ce93f318-b303-4485-b34c-5de5d3d3d020" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RangeEndpointsRemapWhileSamplingAndRowReferencesStayUnchanged" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b52f3556-28e9-362e-fd1e-e441e9e5ece8">
+      <Execution id="bc5b741b-54c0-4b4d-9ac5-22a6f343304a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RangeEndpointsRemapWhileSamplingAndRowReferencesStayUnchanged" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="747dd16d-1a6d-95a2-6c14-7ca71f2cb003">
+      <Execution id="07d57bf8-3f29-4621-96d3-5e9679fc6e6e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SequentialExampleTests.PackagedExampleUsesNormalDocumentImportAndPreservesConfigurations(relativePath: &quot;Objectives/Double Gauss 28 degree field.zmx&quot;, configurations: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="50b0d7c2-1cbc-691c-02df-a0f53a2898e0">
+      <Execution id="693c1c53-b148-4025-9376-9f4bc3bb2251" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SequentialExampleTests" name="PackagedExampleUsesNormalDocumentImportAndPreservesConfigurations" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.FileOpenSaveReopenClearAndUndoRetainImportedVariables(unicode: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0bb5bbbe-280d-c406-535e-935b7be125a5">
+      <Execution id="7167b3ef-0086-4df1-80a2-59675ea0ada2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="FileOpenSaveReopenClearAndUndoRetainImportedVariables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(code: &quot;GLCZ&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2a77a5cb-d45e-3bd5-4285-46345c22c9f4">
+      <Execution id="c84a7b03-73c3-46ff-9d94-dda7e595fa8d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ae69cdbe-a155-3cc0-6407-2547c5f6ad26">
+      <Execution id="a20aa2a3-adbf-41ca-9731-b3b6908edfc9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, scaling: 1, unavailable: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dc949db9-624a-6369-a7e4-0eb1c66e9995">
+      <Execution id="066d94ac-96c4-4b90-8578-f17c3db85cb2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;RANG&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="046bda1a-e9b4-4950-1dd9-d9c923d01942">
+      <Execution id="fb8885ba-2c9a-4679-9f35-b643286a9fe4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9b041531-0999-5ac7-57ba-38c0ccc5ad44">
+      <Execution id="baf5c001-607f-4359-9062-f7cb6a84d8c2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="ReadOnlyInspectionUsesActualCoordinatesRatherThanPlaceholderZeros" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.PackagedCatalogIncludesAllSourceCategoriesWithOriginalBytesAndUniqueActions" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7f170f71-3b01-8e61-dc16-f5130b253d5b">
+      <Execution id="8304b028-6b7f-48d6-9dbe-967f1b54af5c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="PackagedCatalogIncludesAllSourceCategoriesWithOriginalBytesAndUniqueActions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.NegativeParameterNumbersRemainInvalid(number: -1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f8e5b674-45f7-1a92-1e6f-33816c80271f">
+      <Execution id="6624b2b0-660b-48d4-957c-fb673ae8d57a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="NegativeParameterNumbersRemainInvalid" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.PickupAndParaxialSolveCodesAreNotIndependentVariables" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dfdd6295-9b3c-7bbc-975c-90e44d6f4b21">
+      <Execution id="ad3d01af-7a51-4fba-aa6c-07709f03b9df" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="PickupAndParaxialSolveCodesAreNotIndependentVariables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1c4ff9da-1775-70ed-6715-15328b6345e8">
+      <Execution id="750f5eac-1834-4b1b-a8be-b5618c4fb085" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="NewPhysicalApertureUsesNewlyCommittedFixedSemiDiameter" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(code: &quot;REAX&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="caa9d5f1-eba6-c7e1-35ab-3d0a78109c74">
+      <Execution id="2b75eb48-0d67-40c6-8fbd-1293a53bc06e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAX&quot;, sourceSurface: 4)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ba03c3a4-05a2-4aa8-1535-1df7f47c8c21">
+      <Execution id="0883d94b-4779-4bb4-8e25-baf2721835c5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(radius: 25.5)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1603bc41-9f35-7b66-f44b-b9556080f49c">
+      <Execution id="bc128aeb-190b-4b60-b48f-b2887787e600" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;FZERNSAG&quot;, value: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="23690051-1105-38d5-3904-430a38ad0dfc">
+      <Execution id="09f1b317-04bf-45e2-a572-82f6393f002e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.ConfigurationCellVariablesKeepTheirConfigurationAndOptimizeTogether" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d4835ecd-0c95-51c7-ddb6-626a721aaba0">
+      <Execution id="40c6213d-b07b-4852-a98b-cf11697f3f07" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="ConfigurationCellVariablesKeepTheirConfigurationAndOptimizeTogether" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.ZeroThicknessVariableKeepsCoordinateBreakAsEditableReferencePlane" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="937ceae2-94df-1aa4-d153-e5ffa2244689">
+      <Execution id="c73eef70-0e39-4a25-a110-1ee241cd144b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="ZeroThicknessVariableKeepsCoordinateBreakAsEditableReferencePlane" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;CENY&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cf2e99cc-eea1-c57a-8e17-777483c4600c">
+      <Execution id="ed04c789-e0ae-431d-8303-56990acfc793" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(code: &quot;CENX&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d8f16603-3063-88bb-0feb-1509964fee36">
+      <Execution id="a8490ef9-ae5f-4459-ac9c-3cc34378a377" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SequentialExampleTests.CategoryMenuOpensTheSelectedLensAndUsesTheExistingDropDownStyle" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="94ae4843-ae4d-2680-9b5f-ce81c1d66007">
+      <Execution id="e46302ff-b52f-4ad6-be1e-b8edfce16ba8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SequentialExampleTests" name="CategoryMenuOpensTheSelectedLensAndUsesTheExistingDropDownStyle" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3e1459b7-da87-03ae-6935-73f0acde448d">
+      <Execution id="d8fde99d-bfa9-47b3-aa42-594b68299c82" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.PlaneCurvatureCanBeVariableAndMissingSolveCodeRemainsFixed" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="135b7263-a7ed-9bc0-67e7-5484aba5e8ce">
+      <Execution id="2a0eb54c-3fd0-4871-8143-6ff0c1c46d12" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="PlaneCurvatureCanBeVariableAndMissingSolveCodeRemainsFixed" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues(unit: &quot;CM&quot;, scale: 10)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="82299b4b-330f-1ef7-d543-b1267b1c773f">
+      <Execution id="9d2af3e4-ba06-4f3a-960f-01c554ed54ef" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;REAX&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="34209770-9a73-5039-c297-c0ffdbae99f5">
+      <Execution id="da7891d3-3a67-4af2-85f2-33100746caad" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.EveryCategoryEntrySelectsItsOwnOriginalFile" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="45117604-bddc-98ed-186b-58700d2f5b86">
+      <Execution id="7521fd39-751b-413f-ad4b-60ebc403e06e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="EveryCategoryEntrySelectsItsOwnOriginalFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAY&quot;, sourceSurface: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ceb9a4f8-f124-4f93-b2fe-95017c69256e">
+      <Execution id="0191763f-6db4-4ee3-ac46-4a3cf77117ab" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="66e8f16b-272e-bf91-feaa-f538202799d6">
+      <Execution id="62c8399b-4be1-4a71-9493-ddd6804b6e46" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues(unit: &quot;IN&quot;, scale: 25.399999999999999)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3116b72a-c009-12a3-a48e-f96554175b6b">
+      <Execution id="b9f46c3f-0793-4a98-9d6f-f64fc268915e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="SurfaceVariablesReachEditorAndOptimizationWithoutChangingValues" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(code: &quot;REAY&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="72cc1324-8fe1-d716-d1d0-6dc80db5f50f">
+      <Execution id="de402f24-e390-45e4-be9f-d50b7105178b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;REAY&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d441051c-c0c6-d8e0-7fa9-c0c7f5dda63f">
+      <Execution id="3448e1ba-77c7-4a7b-88f0-37dd3b0585f0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BINARY_2&quot;, value: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0e46e265-3e6a-2a67-5802-a1d00e9c23a3">
+      <Execution id="9e4a58a7-4a25-4446-946b-8affa98ca66f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.FileOpenSaveReopenClearAndUndoRetainImportedVariables(unicode: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9b35e2ec-44f1-4d32-c3bb-1a4f1da6d3bf">
+      <Execution id="3bcb5ac5-c101-4015-b4d8-7ffdd6217635" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="FileOpenSaveReopenClearAndUndoRetainImportedVariables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc8f7c46-4448-9cb3-1537-5bedb70b6511">
+      <Execution id="3c2d9f79-59bb-4c69-9d72-e2afdd237fd9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;CENX&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="799d9428-66c9-b294-8e20-d8833df1c859">
+      <Execution id="786d5d3c-ccdd-4137-96db-5a538f20d1c1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAX&quot;, sourceSurface: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cad3ae5a-942d-2564-9f2c-92fb044c3d63">
+      <Execution id="086ca330-321c-4852-9027-55fb1e379b29" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BIRE__IN&quot;, value: 15)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="323bb3dc-16d0-f1e4-6ca1-67998d4916c2">
+      <Execution id="e80c26de-dd37-4a50-9832-7b01ce8d6545" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests.SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(radius: ∞)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="00da2d35-a66a-8ead-850c-fe4c37563034">
+      <Execution id="2d426d33-0c74-407d-8020-f86377c4eea0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesServiceTests" name="SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5c95b35a-d549-8da8-0dbb-a2c00cc80be6">
+      <Execution id="203e6dc3-dbe3-4475-9dd0-1cfe3c50b744" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SequentialExampleTests.PackagedExampleUsesNormalDocumentImportAndPreservesConfigurations(relativePath: &quot;Zoom systems/Zoom lens.zmx&quot;, configurations: 3)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="242349f3-1628-4ad4-366d-3f12e1b22f67">
+      <Execution id="e05a801e-8f8b-44de-b0b1-2053345fdcc9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SequentialExampleTests" name="PackagedExampleUsesNormalDocumentImportAndPreservesConfigurations" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SequentialExampleTests.PrismExampleLoadsTheNowSupportedCoordinateBreaks" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fa2d287c-0558-b780-7d5f-8f2430e2d8b1">
+      <Execution id="317b6389-34b7-4ec8-858b-e916b938b29d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SequentialExampleTests" name="PrismExampleLoadsTheNowSupportedCoordinateBreaks" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, scaling: 1, unavailable: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7e0a137e-796d-a27b-e5c9-d626e6814598">
+      <Execution id="6beb0b88-b863-472b-acde-fa08ca3d3ffc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, scaling: 2, unavailable: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8c3ec17d-01e8-326a-9906-fdeb06b444d4">
+      <Execution id="3fd84dff-af7b-41ec-9697-55fc6b694817" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, scaling: 2, unavailable: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c3bbd01e-2dbf-b856-c4e4-fc1de7aa32af">
+      <Execution id="8f4c0a10-5d26-483d-b4a7-0dc4006d2ddd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7c1029fd-1422-4dae-8318-4c61561bfef6">
+      <Execution id="ad311ea7-4e1a-40cb-a116-a36f5708cdf3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5d74033c-2c22-3236-a9bc-fd79ba438dd0">
+      <Execution id="15afac30-02ca-43bc-839f-eaf4bbcd6f1e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RemappedGlobalCoordinateUsesTheIntendedPhysicalSurface" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4e74785b-d44b-837d-7bba-bb5d1a40514f">
+      <Execution id="e0f6ac07-d9e5-49cc-90a7-5cae298cf43d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RemappedGlobalCoordinateUsesTheIntendedPhysicalSurface" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxVariableImportTests.LensLibraryConversionRetainsConfigurationVariableMetadata" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e22430f2-d5d0-c5e8-2aa9-7b514a337cb2">
+      <Execution id="9a8c76e8-8f3b-43db-9b46-d4353c53352f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxVariableImportTests" name="LensLibraryConversionRetainsConfigurationVariableMetadata" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ToroidalDefaultParameterZeroDoesNotChangeTheGeometryOrLengthScaling" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc99e0a8-a0f6-4aa1-82d0-94b1c592dd1e">
+      <Execution id="65c6efee-7022-482a-8610-ae59b85cef05" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="ToroidalDefaultParameterZeroDoesNotChangeTheGeometryOrLengthScaling" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialExampleTests.NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles(theme: &quot;Dark&quot;, language: &quot;ja-JP&quot;, scaling: 1.5, unavailable: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1198880a-5290-e565-c8ab-3c36341dc155">
+      <Execution id="a3ae8b14-7f29-4d73-8bba-c8121c50c50d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialExampleTests" name="NonSequentialFileRibbonDirectlyImportsSupportedSamplesAndOnlyReportsUnavailableFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;NONSEQCO&quot;, value: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="49a2c5ad-b47c-67da-7e32-2b151bc04e9a">
+      <Execution id="2c82256f-db1a-4d82-b5ec-894ddd6eb45f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: &quot;CVVA&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="04c7bddd-85e2-617b-26ba-5eeb7e0a03c2">
+      <Execution id="edf23dab-f7ec-46f7-a2f5-f938e79cab23" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention(code: &quot;REAR&quot;, sourceSurface: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="983e1071-3f5d-316c-2bf9-6760a8ba3e55">
+      <Execution id="1de590bf-0c49-423e-afdd-25a5d1f677da" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="RealRayCoordinatesUseTargetLocalAxesAndKeepZeroObjectConvention" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;GRID_SAG&quot;, value: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cb6e03c4-3cbf-c0ed-c45f-a921f3a701a0">
+      <Execution id="10b248a4-90fe-4502-9dc1-7cd38d1033a3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="046bda1a-e9b4-4950-1dd9-d9c923d01942" executionId="fb8885ba-2c9a-4679-9f35-b643286a9fe4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cdff774-fec4-690d-211c-13d14d4da665" executionId="30c74737-2a1e-4e9b-a5bc-05b97f19fc54" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cad3ae5a-942d-2564-9f2c-92fb044c3d63" executionId="086ca330-321c-4852-9027-55fb1e379b29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45117604-bddc-98ed-186b-58700d2f5b86" executionId="7521fd39-751b-413f-ad4b-60ebc403e06e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72cc1324-8fe1-d716-d1d0-6dc80db5f50f" executionId="de402f24-e390-45e4-be9f-d50b7105178b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c1029fd-1422-4dae-8318-4c61561bfef6" executionId="ad311ea7-4e1a-40cb-a116-a36f5708cdf3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="323bb3dc-16d0-f1e4-6ca1-67998d4916c2" executionId="e80c26de-dd37-4a50-9832-7b01ce8d6545" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e0a137e-796d-a27b-e5c9-d626e6814598" executionId="6beb0b88-b863-472b-acde-fa08ca3d3ffc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e22430f2-d5d0-c5e8-2aa9-7b514a337cb2" executionId="9a8c76e8-8f3b-43db-9b46-d4353c53352f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98c25d1c-9d1a-fce0-5dba-d20f5b90840a" executionId="c63a3f5c-5827-4b38-bc65-0f5318abedf6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26a51576-aac9-570e-175f-3cbdc1ca301a" executionId="d0b74029-1604-47e9-b1b9-46dc2c51c855" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d74033c-2c22-3236-a9bc-fd79ba438dd0" executionId="15afac30-02ca-43bc-839f-eaf4bbcd6f1e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="23690051-1105-38d5-3904-430a38ad0dfc" executionId="09f1b317-04bf-45e2-a572-82f6393f002e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="799d9428-66c9-b294-8e20-d8833df1c859" executionId="786d5d3c-ccdd-4137-96db-5a538f20d1c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50b0d7c2-1cbc-691c-02df-a0f53a2898e0" executionId="693c1c53-b148-4025-9376-9f4bc3bb2251" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="77aa931a-f724-961e-0219-d2f7beb33dcf" executionId="a9509418-2b68-4163-8b0a-e7f62ef7996c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8e5b674-45f7-1a92-1e6f-33816c80271f" executionId="6624b2b0-660b-48d4-957c-fb673ae8d57a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e46e265-3e6a-2a67-5802-a1d00e9c23a3" executionId="9e4a58a7-4a25-4446-946b-8affa98ca66f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="66e8f16b-272e-bf91-feaa-f538202799d6" executionId="62c8399b-4be1-4a71-9493-ddd6804b6e46" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5c95b35a-d549-8da8-0dbb-a2c00cc80be6" executionId="203e6dc3-dbe3-4475-9dd0-1cfe3c50b744" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5039986c-d568-29cd-46e9-798301bc5661" executionId="d632f0ff-6f06-4521-a213-d07a9884f45f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae69cdbe-a155-3cc0-6407-2547c5f6ad26" executionId="a20aa2a3-adbf-41ca-9731-b3b6908edfc9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dfdd6295-9b3c-7bbc-975c-90e44d6f4b21" executionId="ad3d01af-7a51-4fba-aa6c-07709f03b9df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3bbd01e-2dbf-b856-c4e4-fc1de7aa32af" executionId="8f4c0a10-5d26-483d-b4a7-0dc4006d2ddd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="747dd16d-1a6d-95a2-6c14-7ca71f2cb003" executionId="07d57bf8-3f29-4621-96d3-5e9679fc6e6e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4c06626-1637-c8b8-df19-da441515310a" executionId="0297e6d4-794e-4d23-93b8-1a28963ee4e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4174de2f-4d4c-3d62-3a4f-c599e2ccaadc" executionId="96b1721a-6fcf-476f-8f95-902877329c33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bb5bbbe-280d-c406-535e-935b7be125a5" executionId="7167b3ef-0086-4df1-80a2-59675ea0ada2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b041531-0999-5ac7-57ba-38c0ccc5ad44" executionId="baf5c001-607f-4359-9062-f7cb6a84d8c2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73ada71e-faf3-9239-7817-0eac3bdc7d97" executionId="34b8169e-fff7-49f9-aec3-9c9a110d6565" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1c4ff9da-1775-70ed-6715-15328b6345e8" executionId="750f5eac-1834-4b1b-a8be-b5618c4fb085" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="983e1071-3f5d-316c-2bf9-6760a8ba3e55" executionId="1de590bf-0c49-423e-afdd-25a5d1f677da" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e74785b-d44b-837d-7bba-bb5d1a40514f" executionId="e0f6ac07-d9e5-49cc-90a7-5cae298cf43d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f5805cb1-2076-b93e-d64b-ae6fdcda1cdb" executionId="d4e61f62-b600-485f-90a2-db41c4db37e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d441051c-c0c6-d8e0-7fa9-c0c7f5dda63f" executionId="3448e1ba-77c7-4a7b-88f0-37dd3b0585f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="424bb631-b207-331c-19ef-a9769a932f1c" executionId="ce93f318-b303-4485-b34c-5de5d3d3d020" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="937ceae2-94df-1aa4-d153-e5ffa2244689" executionId="c73eef70-0e39-4a25-a110-1ee241cd144b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3116b72a-c009-12a3-a48e-f96554175b6b" executionId="b9f46c3f-0793-4a98-9d6f-f64fc268915e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80dc37ac-585b-96f6-b21d-06d8b4792e4f" executionId="a8eecbcf-5b0e-497d-bb2d-398831a7808e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49a2c5ad-b47c-67da-7e32-2b151bc04e9a" executionId="2c82256f-db1a-4d82-b5ec-894ddd6eb45f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8f16603-3063-88bb-0feb-1509964fee36" executionId="a8490ef9-ae5f-4459-ac9c-3cc34378a377" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc8f7c46-4448-9cb3-1537-5bedb70b6511" executionId="3c2d9f79-59bb-4c69-9d72-e2afdd237fd9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e1459b7-da87-03ae-6935-73f0acde448d" executionId="d8fde99d-bfa9-47b3-aa42-594b68299c82" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4bcaefc0-e2ab-7814-22bf-8fe07a15d479" executionId="5c42f885-5be9-40ac-b175-28b5dd6eccd9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4bdacfb-0bc6-8f64-4d28-08905fee6e15" executionId="7ccd16e0-19f0-45fe-82a0-46f509e21d2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc99e0a8-a0f6-4aa1-82d0-94b1c592dd1e" executionId="65c6efee-7022-482a-8610-ae59b85cef05" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dc949db9-624a-6369-a7e4-0eb1c66e9995" executionId="066d94ac-96c4-4b90-8578-f17c3db85cb2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71a26d4f-0fa5-90f0-96de-01948912e3cf" executionId="2a09624c-84cd-42f4-8aaa-ae2a64a9cc1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34209770-9a73-5039-c297-c0ffdbae99f5" executionId="da7891d3-3a67-4af2-85f2-33100746caad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="23c9f4bd-416d-95a1-d190-e1d3d5633bd4" executionId="9d3bce01-9792-4292-bd13-8085e656c16c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb6e03c4-3cbf-c0ed-c45f-a921f3a701a0" executionId="10b248a4-90fe-4502-9dc1-7cd38d1033a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b35e2ec-44f1-4d32-c3bb-1a4f1da6d3bf" executionId="3bcb5ac5-c101-4015-b4d8-7ffdd6217635" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1198880a-5290-e565-c8ab-3c36341dc155" executionId="a3ae8b14-7f29-4d73-8bba-c8121c50c50d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b52f3556-28e9-362e-fd1e-e441e9e5ece8" executionId="bc5b741b-54c0-4b4d-9ac5-22a6f343304a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34bda8c2-3e96-fdd3-a422-e58579ba5ec8" executionId="e42ec4e2-bb70-4b9f-bf95-902b645cd767" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="caa9d5f1-eba6-c7e1-35ab-3d0a78109c74" executionId="2b75eb48-0d67-40c6-8fbd-1293a53bc06e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1603bc41-9f35-7b66-f44b-b9556080f49c" executionId="bc128aeb-190b-4b60-b48f-b2887787e600" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49732e10-59d5-edea-8f2d-efc8539696b5" executionId="2fce91a9-c451-4760-b445-523ec001d4db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e70a052-352a-bc34-3569-58ccd2ea0592" executionId="561e7e75-f7a0-4707-946f-cecb7d1d9718" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8684c8c-db11-72fb-c199-7c3444f562c2" executionId="b95a5033-9d81-4f6f-958d-d59d634c3524" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b7f8b88-b8ea-cf09-efb0-fcaa0c4cbe5b" executionId="6289ff9f-a03a-4144-889a-b58a5e238458" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82299b4b-330f-1ef7-d543-b1267b1c773f" executionId="9d2af3e4-ba06-4f3a-960f-01c554ed54ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa2d287c-0558-b780-7d5f-8f2430e2d8b1" executionId="317b6389-34b7-4ec8-858b-e916b938b29d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf2e99cc-eea1-c57a-8e17-777483c4600c" executionId="ed04c789-e0ae-431d-8303-56990acfc793" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29ffc0ac-4940-4eea-8057-1e3678259c87" executionId="79c418c5-e31e-4b38-b5e2-156cd2c1e90f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c4ec7bae-d543-19ce-470f-ba197d729f7c" executionId="cb281361-60d2-484e-8fe5-cc5697bdd82c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e673df9-8df8-f5c6-a14d-349f4d644b31" executionId="cde56607-33e9-495e-8615-976b5a0bebf7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7f170f71-3b01-8e61-dc16-f5130b253d5b" executionId="8304b028-6b7f-48d6-9dbe-967f1b54af5c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ceb9a4f8-f124-4f93-b2fe-95017c69256e" executionId="0191763f-6db4-4ee3-ac46-4a3cf77117ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2a77a5cb-d45e-3bd5-4285-46345c22c9f4" executionId="c84a7b03-73c3-46ff-9d94-dda7e595fa8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c3ec17d-01e8-326a-9906-fdeb06b444d4" executionId="3fd84dff-af7b-41ec-9697-55fc6b694817" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94ae4843-ae4d-2680-9b5f-ce81c1d66007" executionId="e46302ff-b52f-4ad6-be1e-b8edfce16ba8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d707d81-8deb-380c-742d-c7bb36fb6d09" executionId="65009cba-89c5-4b60-964e-e3788388af15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="242349f3-1628-4ad4-366d-3f12e1b22f67" executionId="e05a801e-8f8b-44de-b0b1-2053345fdcc9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4835ecd-0c95-51c7-ddb6-626a721aaba0" executionId="40c6213d-b07b-4852-a98b-cf11697f3f07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="04c7bddd-85e2-617b-26ba-5eeb7e0a03c2" executionId="edf23dab-f7ec-46f7-a2f5-f938e79cab23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00da2d35-a66a-8ead-850c-fe4c37563034" executionId="2d426d33-0c74-407d-8020-f86377c4eea0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ba03c3a4-05a2-4aa8-1535-1df7f47c8c21" executionId="0883d94b-4779-4bb4-8e25-baf2721835c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="135b7263-a7ed-9bc0-67e7-5484aba5e8ce" executionId="2a0eb54c-3fd0-4871-8143-6ff0c1c46d12" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="79" executed="79" passed="64" failed="15" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.25]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.30]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.75]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.75]       Expected: typeof(System.NotSupportedException)&#xD;
+[xUnit.net 00:00:01.75]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.75]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(135,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(String code)&#xD;
+[xUnit.net 00:00:01.75]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.75]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.75]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.75]       Expected: typeof(System.NotSupportedException)&#xD;
+[xUnit.net 00:00:01.75]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.75]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(135,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(String code)&#xD;
+[xUnit.net 00:00:01.75]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.75]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.78]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.78]       Expected: 2&#xD;
+[xUnit.net 00:00:01.78]       Actual:   4&#xD;
+[xUnit.net 00:00:01.78]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.78]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.78]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.78]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.78]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.78]       Expected: 2&#xD;
+[xUnit.net 00:00:01.78]       Actual:   4&#xD;
+[xUnit.net 00:00:01.78]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.78]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.79]       Expected: 2&#xD;
+[xUnit.net 00:00:01.79]       Actual:   4&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(115,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(String code)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.82]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:01.82]                     ↓ (pos 1)&#xD;
+[xUnit.net 00:00:01.82]       Expected: [1, 2]&#xD;
+[xUnit.net 00:00:01.82]       Actual:   [1, 4]&#xD;
+[xUnit.net 00:00:01.82]                     ↑ (pos 1)&#xD;
+[xUnit.net 00:00:01.82]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.82]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(198,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RangeEndpointsRemapWhileSamplingAndRowReferencesStayUnchanged()&#xD;
+[xUnit.net 00:00:01.82]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.82]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.83]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.83]       Expected: 3&#xD;
+[xUnit.net 00:00:01.83]       Actual:   4&#xD;
+[xUnit.net 00:00:01.83]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(151,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(String code)&#xD;
+[xUnit.net 00:00:01.83]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.83]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.83]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.83]       Expected: 3&#xD;
+[xUnit.net 00:00:01.83]       Actual:   4&#xD;
+[xUnit.net 00:00:01.83]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportParameterAndSurfaceMappingTests.cs(151,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(String code)&#xD;
+[xUnit.net 00:00:01.83]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.83]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.08]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:02.08]                                             ↓ (pos 1)&#xD;
+[xUnit.net 00:00:02.08]       Expected: int[]                   [0, 2, 3, 4]&#xD;
+[xUnit.net 00:00:02.08]       Actual:   ReadOnlyCollection&lt;int&gt; [0, 1, 2, 3, 4]&#xD;
+[xUnit.net 00:00:02.08]                                             ↑ (pos 1)&#xD;
+[xUnit.net 00:00:02.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.08]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxVariableImportTests.cs(66,0): at OpticalSystemDesign.Tests.ZemaxVariableImportTests.VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding()&#xD;
+[xUnit.net 00:00:02.08]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.08]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:01:26.90]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6160004+08:00">
+        <Text>[xUnit.net 00:00:01.74]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(code: "CENX") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6188571+08:00">
+        <Text>[xUnit.net 00:00:01.75]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.ReferenceToFoldedCoordinateBreakRemainsExplicitlyRejected(code: "GLCZ") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6549302+08:00">
+        <Text>[xUnit.net 00:00:01.78]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "CVVA") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6555574+08:00">
+        <Text>[xUnit.net 00:00:01.78]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "CENX") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6561797+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "RAGZ") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6569709+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "RANG") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6574447+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "REAX") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6579876+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "GLCX") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6586080+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "REAY") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6591871+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "REAR") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6620279+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SurfaceSlotsRemapToPhysicalRowsAndSurviveSnapshot(code: "CENY") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.6871415+08:00">
+        <Text>[xUnit.net 00:00:01.82]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RangeEndpointsRemapWhileSamplingAndRowReferencesStayUnchanged [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.7000709+08:00">
+        <Text>[xUnit.net 00:00:01.83]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(code: "REAY") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.7005961+08:00">
+        <Text>[xUnit.net 00:00:01.83]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.RealRayCoordinateBreakReferenceRetainsItsOwnTransparentPlane(code: "REAX") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-24T11:52:46.9473944+08:00">
+        <Text>[xUnit.net 00:00:02.08]     OpticalSystemDesign.Tests.ZemaxVariableImportTests.VariableIdentityFollowsPhysicalSurfaceAfterCoordinateBreakFolding [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

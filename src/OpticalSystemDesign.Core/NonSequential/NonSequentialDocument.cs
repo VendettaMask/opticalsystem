@@ -405,7 +405,8 @@ public sealed class NonSequentialDocument
         IReadOnlyList<NonSequentialObjectDefinition>? objects = null,
         string ambientMaterial = "Air",
         NonSequentialTraceSettings? traceSettings = null,
-        IReadOnlyList<NonSequentialMeshAsset>? meshAssets = null)
+        IReadOnlyList<NonSequentialMeshAsset>? meshAssets = null,
+        NonSequentialOrganization? organization = null)
     {
         Name = string.IsNullOrWhiteSpace(name) ? "Non-Sequential Scene" : name.Trim();
         AmbientMaterial = string.IsNullOrWhiteSpace(ambientMaterial) ? "Air" : ambientMaterial.Trim();
@@ -416,6 +417,8 @@ public sealed class NonSequentialDocument
         _wavelengthsView = _wavelengths.AsReadOnly();
         _objectsView = _objects.AsReadOnly();
         _meshAssetsView = _meshAssets.AsReadOnly();
+        Organization = (organization ?? NonSequentialOrganization.Empty).Freeze();
+        Organization.Validate(_objects.Select(o => o.Id).ToHashSet());
         Validate();
     }
 
@@ -425,6 +428,14 @@ public sealed class NonSequentialDocument
     public IReadOnlyList<NonSequentialWavelength> Wavelengths => _wavelengthsView;
     public IReadOnlyList<NonSequentialObjectDefinition> Objects => _objectsView;
     public IReadOnlyList<NonSequentialMeshAsset> MeshAssets => _meshAssetsView;
+    public NonSequentialOrganization Organization { get; private set; }
+
+    public void ReplaceOrganization(NonSequentialOrganization organization)
+    {
+        ArgumentNullException.ThrowIfNull(organization);
+        organization.Validate(_objects.Select(o => o.Id).ToHashSet());
+        Organization = organization.Freeze();
+    }
 
     public static NonSequentialDocument CreateDefault(string name, IEnumerable<NonSequentialWavelength> wavelengths) =>
         new(name, wavelengths.ToArray());
@@ -435,7 +446,8 @@ public sealed class NonSequentialDocument
         _objects.ToArray(),
         AmbientMaterial,
         TraceSettings,
-        _meshAssets.ToArray());
+        _meshAssets.ToArray(),
+        Organization);
 
     public NonSequentialMeshAsset FindMeshAsset(Guid id) =>
         MeshAssetLookup.TryGetValue(id, out var asset)
@@ -561,8 +573,41 @@ public sealed class NonSequentialDocument
         }
 
         _objects.RemoveAt(IndexOf(id));
+        Organization = Organization.Without(id).Freeze();
         RemoveUnusedMeshAssets();
         InvalidateObjectLookup();
+    }
+
+    public void ReplaceObjects(IReadOnlyList<NonSequentialObjectDefinition> replacements)
+    {
+        if (replacements.Select(o => o.Id).Distinct().Count() != replacements.Count)
+            throw new ArgumentException("Duplicate object updates.", nameof(replacements));
+        var byId = _objects.Select((o, index) => (o.Id, index)).ToDictionary(o => o.Id, o => o.index);
+        var indices = replacements.Select(o => byId.TryGetValue(o.Id, out var index) ? index
+            : throw new KeyNotFoundException($"Non-sequential object '{o.Id}' was not found.")).ToArray();
+        var previous = indices.Select(i => _objects[i]).ToArray();
+        for (var i = 0; i < indices.Length; i++) _objects[indices[i]] = replacements[i];
+        try { Validate(); RemoveUnusedMeshAssets(); }
+        catch
+        {
+            for (var i = 0; i < indices.Length; i++) _objects[indices[i]] = previous[i];
+            InvalidateObjectLookup();
+            throw;
+        }
+    }
+
+    public void RemoveObjects(IReadOnlySet<Guid> ids)
+    {
+        foreach (var id in ids) _ = IndexOf(id);
+        var dependent = _objects.FirstOrDefault(o => !ids.Contains(o.Id)
+            && (o.ReferenceObjectId is { } reference && ids.Contains(reference)
+                || o.ContainingObjectId is { } container && ids.Contains(container)));
+        if (dependent is not null) throw new InvalidOperationException($"对象“{dependent.Name}”仍引用所选对象。");
+        _objects.RemoveAll(o => ids.Contains(o.Id));
+        Organization = new NonSequentialOrganization(
+            Organization.Folders.Select(f => f with { ObjectIds = f.ObjectIds.Where(id => !ids.Contains(id)).ToArray() }).ToArray(),
+            Organization.SelectionSets.Select(s => s with { ObjectIds = s.ObjectIds.Where(id => !ids.Contains(id)).ToArray() }).ToArray()).Freeze();
+        RemoveUnusedMeshAssets(); InvalidateObjectLookup();
     }
 
     public void Move(Guid id, int destinationIndex)
